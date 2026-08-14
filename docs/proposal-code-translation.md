@@ -154,6 +154,25 @@ content through an agent context is real cost). Import has the same split:
 a broker-side file *source* (agent names an allowlisted path; broker
 streams it to the app) is the token-cheap "should" over reconstruction.
 
+## Replicating without Pro
+
+The `/app` MCP surface requires SciREPL Pro's Remote bridge, which the Free
+app does not have. Anyone reproducing this pipeline on the Free PWA swaps
+the app surface for SciREPL-MCP's other package — the
+[Playwright driver](https://github.com/s243a/SciREPL-MCP/tree/main/packages/playwright-driver),
+itself an MCP server that launches or attaches Chromium and drives the real
+UI (local or hosted PWA). Trade-offs: UI-level rather than semantic tools,
+and no app-side permission layer — the browser session is fully driveable,
+so the sandbox becomes a throwaway browser profile rather than app-enforced
+write scopes. The cheapest tier drops interactive supervision of app
+actions entirely and verifies programmatically (load workbook, Run All,
+assert no error cells, compare outputs — the shape of SciREPL's own
+Playwright suites). That is proportionate rather than weak: executing a
+workbook in the Free PWA mutates only a browser profile, and a small blast
+radius justifies a light control. Multi-app brokering (one broker, several
+paired apps) is not currently supported and is not needed for any of these
+paths; a Pro user wanting two paired apps runs two brokers on two ports.
+
 ## Pilot
 
 One workbook (compute-pi), one locale (es), Stage A only: agy translates
