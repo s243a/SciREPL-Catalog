@@ -172,6 +172,21 @@ content size.
 | Supervisor, via tools | high | medium — agent tokens spent on what a script does better |
 | Deterministic harness, controller-invoked | ~zero | strongest — only the verdict enters a context |
 
+A script verifies correctness exactly as far as it has an **oracle**, and
+no further — "ran without error cells" is the weakest oracle, not
+correctness. Stage A has a strong one: the English original's outputs.
+Because only comments and display strings change, a correct translated run
+must produce outputs **identical to the English outputs except within the
+known translated string spans** — numbers exact, structure exact, every
+diff inside a fragment the translation step itself declared. That
+differential check is mechanical and catches computation-breaking
+translation errors (mangled format strings, shifted quotes) outright.
+The oracle's edges define the residue: plot images (labels change bytes
+wholesale — script asserts a plot rendered; label text falls to
+spot-check), translation quality itself (native review, as ever), and
+Stages B/C, where code changes weaken "identical modulo spans" toward
+"same numeric results".
+
 Worker *self-checks* remain valuable as an inner loop (the worker already
 writes and runs its own verify scripts, catching errors before they cost a
 supervision round-trip) — cheap precisely because they are also
