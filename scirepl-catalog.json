@@ -794,6 +794,269 @@
       "revision": 1,
       "sha256": "0ea8b874811c17458288bf8855b05792b963cd6c24df14dc4af3a2d50405a925",
       "size": 11992
+    },
+    {
+      "id": "compute-pi-workbook-ko",
+      "name": "원주율 계산: 아르키메데스 상하계",
+      "description": "아르키메데스 방식으로 내접·외접 다각형 사이에 π를 가두어 계산합니다. 한국어판.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "ko"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ko/compute-pi-workbook.srwb",
+      "revision": 1,
+      "sha256": "d15fccfa54fe18368f4038448cf648461859cfb963075cbc6700322b632b8022",
+      "size": 5938
+    },
+    {
+      "id": "lua-tables-coroutines-ko",
+      "name": "Lua: 테이블, 코루틴 및 클로저",
+      "description": "Lua의 핵심인 테이블, 코루틴, 클로저를 실행 가능한 예제로 배웁니다. 한국어판.",
+      "type": "workbook",
+      "kernels": [
+        "lua"
+      ],
+      "locales": [
+        "ko"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ko/lua-tables-coroutines.srwb",
+      "revision": 1,
+      "sha256": "159f32542b529361eb0b783be3f4157899cc8e4e35e62eb2ba84de6e5d6e6b9f",
+      "size": 13906
+    },
+    {
+      "id": "lua-parsing-coroutines-ko",
+      "name": "Lua: 코루틴을 이용한 구문 분석",
+      "description": "코루틴을 이용한 구문 분석: 렉서, 파서, 지연 스트림. 한국어판.",
+      "type": "workbook",
+      "kernels": [
+        "lua"
+      ],
+      "locales": [
+        "ko"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ko/lua-parsing-coroutines.srwb",
+      "revision": 1,
+      "sha256": "043927af6c52bc81deba6c8b9656e84b44a34bd7255f52aed9e810adb24a735d",
+      "size": 21528
+    },
+    {
+      "id": "typr-intro-ko",
+      "name": "TypR 입문",
+      "description": "TypR 입문: 타입과 R로의 트랜스파일. 한국어판.",
+      "type": "workbook",
+      "kernels": [
+        "typr"
+      ],
+      "locales": [
+        "ko"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ko/typr-intro.srwb",
+      "revision": 1,
+      "sha256": "bff4e639e046db1288285b225175a5b6031bd5dc17fd1b9a0ba20caa99cf57ba",
+      "size": 3054
+    },
+    {
+      "id": "prolog-generates-r-ko",
+      "name": "Prolog로 R 생성: 컴파일러 데모",
+      "description": "UnifyWeaver가 Prolog 논리를 실행 가능한 R 코드로 컴파일하는 실연. 한국어판.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "r"
+      ],
+      "locales": [
+        "ko"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ko/prolog-generates-r.srwb",
+      "revision": 1,
+      "sha256": "46e5c1755791badece12fe2ba7c6cfc605a561ef63c8350c2a6f6c38d2e5f5d1",
+      "size": 14291
+    },
+    {
+      "id": "prolog-generates-lua-ko",
+      "name": "Prolog로 Lua 생성: 컴파일러 데모",
+      "description": "UnifyWeaver가 Prolog 논리를 Lua 코드로 컴파일하는 실연. 한국어판.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "lua"
+      ],
+      "locales": [
+        "ko"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ko/prolog-generates-lua.srwb",
+      "revision": 1,
+      "sha256": "aab112a62aa1bd727ad507923f488261f71d039fae78f2c017a34a8929de36cc",
+      "size": 6554
+    },
+    {
+      "id": "prolog-generates-clojurescript-ko",
+      "name": "Prolog로 ClojureScript 생성: 컴파일러 데모",
+      "description": "UnifyWeaver가 Prolog 논리를 ClojureScript로 컴파일하는 실연. 한국어판.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "clojurescript"
+      ],
+      "locales": [
+        "ko"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ko/prolog-generates-clojurescript.srwb",
+      "revision": 1,
+      "sha256": "b934284df869f63e4164489ad53570ef2aa36495955b4edca0847bf221359011",
+      "size": 5000
+    },
+    {
+      "id": "prolog-generates-typr-ko",
+      "name": "Prolog로 TypR 생성: 컴파일러 데모",
+      "description": "UnifyWeaver가 Prolog 논리를 TypR로 컴파일하는 실연. 한국어판.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "typr"
+      ],
+      "locales": [
+        "ko"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ko/prolog-generates-typr.srwb",
+      "revision": 1,
+      "sha256": "dda71bf29bf807cf44d9ebd3086666f353d47980a948d4e9aad022c815c87a9a",
+      "size": 6755
+    },
+    {
+      "id": "r-ggplot2-showcase-ko",
+      "name": "ggplot2 쇼케이스",
+      "description": "ggplot2 쇼케이스: 산점도, 패싯, 상자그림, 히트맵. 한국어판.",
+      "type": "workbook",
+      "kernels": [
+        "r"
+      ],
+      "locales": [
+        "ko"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ko/r_ggplot2_showcase.ipynb",
+      "revision": 1,
+      "sha256": "6ffd0aa1310fb4b54cb997cbb08abfbc2b2a2ad3812040b2cc16e02061f2fe8a",
+      "size": 4428
+    },
+    {
+      "id": "r-statistics-ko",
+      "name": "R을 이용한 통계 분석",
+      "description": "R 통계: 가설 검정, 회귀, 신뢰구간. 한국어판.",
+      "type": "workbook",
+      "kernels": [
+        "r"
+      ],
+      "locales": [
+        "ko"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ko/r_statistics.ipynb",
+      "revision": 1,
+      "sha256": "4f3981d8d28155d06a5b0c0a27bea7fe93dc881638e495c6fc52d28d775008da",
+      "size": 6076
+    },
+    {
+      "id": "r-tidyverse-wrangling-ko",
+      "name": "Tidyverse 데이터 가공 및 정제",
+      "description": "dplyr와 tidyr를 이용한 데이터 가공 및 정제. 한국어판.",
+      "type": "workbook",
+      "kernels": [
+        "r"
+      ],
+      "locales": [
+        "ko"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ko/r_tidyverse_wrangling.ipynb",
+      "revision": 1,
+      "sha256": "f813fb1c114e8232d1570c37410abd9d2d94e76e9fbf9bc95426a7b7430d275a",
+      "size": 7906
+    },
+    {
+      "id": "01-family-tree-tutorial-ko",
+      "name": "UnifyWeaver를 활용한 가계도 튜토리얼",
+      "description": "가계도 튜토리얼: UnifyWeaver로 Prolog 술어를 단계별로 컴파일합니다. 한국어판.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "bash"
+      ],
+      "locales": [
+        "ko"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ko/01_family_tree_tutorial.ipynb",
+      "revision": 1,
+      "sha256": "b16d10573ba14e0a51cb2d3b3ef4ed1be7e9dcf59bfd9db0f3bb77eb7851a532",
+      "size": 10592
+    },
+    {
+      "id": "02-recursion-patterns-ko",
+      "name": "UnifyWeaver의 고급 재귀 패턴",
+      "description": "재귀 패턴(꼬리·선형·트리·상호)과 UnifyWeaver의 컴파일 방식. 한국어판.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "bash"
+      ],
+      "locales": [
+        "ko"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ko/02_recursion_patterns.ipynb",
+      "revision": 1,
+      "sha256": "bfdce741f2c9251770878be2830cb2fd06580957d66e92f61be03acb8af75002",
+      "size": 16595
+    },
+    {
+      "id": "03-call-graph-analysis-ko",
+      "name": "호출 그래프 분석 및 강결합 컴포넌트(SCC) 감지",
+      "description": "호출 그래프 분석: 강결합 컴포넌트, 위상 정렬, 패턴 매칭. 한국어판.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "bash"
+      ],
+      "locales": [
+        "ko"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ko/03_call_graph_analysis.ipynb",
+      "revision": 1,
+      "sha256": "d8707e7841f46bca6547387924250ccece81387763625662c909225e75a878d9",
+      "size": 14013
+    },
+    {
+      "id": "life-expectancy-csv-demo-ko",
+      "name": "기대 수명 데이터 분석",
+      "description": "기대수명 데이터셋을 이용한 언어 간 데이터 파이프라인. 한국어판.",
+      "type": "workbook",
+      "kernels": [
+        "python",
+        "r"
+      ],
+      "locales": [
+        "ko"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ko/life_expectancy_csv_demo.ipynb",
+      "revision": 1,
+      "sha256": "8ae47e44a427c8a928ff27eb6b35490d9522ccc5b5935d5a8c29b81dfaf3cbff",
+      "size": 11590
     }
   ]
 }

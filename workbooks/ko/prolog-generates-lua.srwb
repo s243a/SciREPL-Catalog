@@ -1,0 +1,89 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "Prolog로 Lua 생성: 컴파일러 데모",
+    "cells": [
+      {
+        "type": "markdown",
+        "code": "# Prolog로 Lua 생성\n\n이 워크북은 UnifyWeaver가 Prolog 서술어를 **Lua** 코드로 컴파일하는 과정을 보여줍니다.\n\n작업 흐름은 각 프로그래밍 언어를 구문 강조된 전용 명명 셀에 유지합니다:\n1. Prolog `family_tree` 셀에서 가계도 정의\n2. Lua `lua_queries` 소스 셀에서 공유 쿼리 프로그램 정의\n3. Notebook VFS를 통해 쿼리 셀을 읽고 생성된 각 프로그램에 추가\n4. 임베디드 사실 버전과 런타임 VFS 버전 실행\n\n두 가지 입력 모드가 제공됩니다:\n- **임베디드** — 사실이 Lua 코드 내에 직접 컴파일됨\n- **VFS** — 런타임 시 노트북의 다른 셀에서 사실을 읽어옴\n\n또한 Lua는 셀에 직접 접근할 수 있는 `nb.read()`, `nb.write()`, `nb.list()`, `nb.name()`을 제공합니다. 마지막 섹션에서 읽기/쓰기 왕복 과정을 시연합니다.\n\n이 워크북을 사용할 때 카탈로그에서 필요한 **UnifyWeaver SciREPL** 패키지가 자동으로 설치됩니다.",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "% Load UnifyWeaver compiler modules\n['../init'].\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "language": "prolog",
+        "name": "load_compiler"
+      },
+      {
+        "type": "code",
+        "code": "% Define a family tree as Prolog facts\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% Transitive closure: ancestor(X, Y) if X is an ancestor of Y\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "language": "prolog",
+        "name": "family_tree"
+      },
+      {
+        "type": "code",
+        "code": "#!source\n-- This named Lua source cell is read by both compiler cells.\n-- It is appended to each generated program and executes there.\n\n-- --- Queries ---\nlocal results = find_all(\"alice\")\nprint(\"Descendants of alice: \" .. table.concat(results, \", \"))\nprint(\"alice -> eve: \" .. tostring(check(\"alice\", \"eve\")))\nprint(\"alice -> frank: \" .. tostring(check(\"alice\", \"frank\")))",
+        "language": "lua",
+        "name": "lua_queries"
+      },
+      {
+        "type": "markdown",
+        "code": "## 패턴 1: 임베디드 입력\n\n`input(embedded)`를 사용하면 Prolog 사실이 `add_fact()` 호출 형태로 Lua 코드 내에 직접 컴파일됩니다. 컴파일러 셀이 구문 강조된 `lua_queries` 셀을 읽어서 덧붙이므로 생성된 프로그램은 자체적으로 완결됩니다.",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "% Read the highlighted Lua query program from its named source cell\n\\+ \\+ (\n    user:nb_read('lua_queries', '.code', _QuerySource),\n    split_string(_QuerySource, \"\\n\", \"\\r\", [\"#!source\"|_QueryLines]),\n    atomics_to_string(_QueryLines, \"\\n\", _Queries),\n\n    % Compile with input(embedded) — facts baked into the code\n    recursive_compiler:compile_recursive(ancestor/2, [target(lua), input(embedded)], _Code),\n    format(string(_FullCode), '~w~n~n~w~n', [_Code, _Queries]),\n    user:nb_write('lua_embedded', '.code', _FullCode),\n    writeln('Lua code (embedded) written to cell: lua_embedded')\n).",
+        "language": "prolog",
+        "name": "compile_embedded"
+      },
+      {
+        "type": "code",
+        "code": "-- This cell will be populated by the compiler.\n-- Run the 'compile_embedded' cell above first.",
+        "language": "lua",
+        "name": "lua_embedded"
+      },
+      {
+        "type": "markdown",
+        "code": "## 패턴 2: VFS 입력\n\n`input(vfs(facts_data, '.code'))`를 사용하면 생성된 Lua가 런타임에 `nb.read()`를 통해 다른 셀의 코드에서 사실을 읽어옵니다. 이를 통해 다시 컴파일하지 않고도 데이터를 변경할 수 있습니다. 동일하게 명명된 `lua_queries` 프로그램이 이 버전에도 추가됩니다.\n\n아래 데이터 셀에는 Lua 주석 블록 내에 `from:to` 행 형태로 사실이 포함되어 있습니다:",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "-- Data cell: facts in from:to format (one per line)\n-- The VFS-compiled cell reads this via nb.read(\"facts_data\", \".code\")\n--[[\nalice:bob\nbob:charlie\nbob:diana\ncharlie:eve\ndiana:frank\n]]",
+        "language": "lua",
+        "name": "facts_data"
+      },
+      {
+        "type": "code",
+        "code": "% Read the same highlighted Lua query program\n\\+ \\+ (\n    user:nb_read('lua_queries', '.code', _QuerySource),\n    split_string(_QuerySource, \"\\n\", \"\\r\", [\"#!source\"|_QueryLines]),\n    atomics_to_string(_QueryLines, \"\\n\", _Queries),\n\n    % Compile with input(vfs(facts_data)) — reads from the cell above\n    recursive_compiler:compile_recursive(ancestor/2, [target(lua), input(vfs(facts_data, '.code'))], _Code),\n    format(string(_FullCode), '~w~n~n~w~n', [_Code, _Queries]),\n    user:nb_write('lua_vfs', '.code', _FullCode),\n    writeln('Lua code (VFS) written to cell: lua_vfs')\n).",
+        "language": "prolog",
+        "name": "compile_vfs"
+      },
+      {
+        "type": "code",
+        "code": "-- This cell will be populated by the compiler.\n-- Run the 'compile_vfs' cell above first.",
+        "language": "lua",
+        "name": "lua_vfs"
+      },
+      {
+        "type": "markdown",
+        "code": "## Lua로 노트북 셀 읽기 및 쓰기\n\nLua는 Notebook VFS를 직접 사용할 수 있습니다. 이 셀은 명명된 `lua_queries` 소스를 읽고 이어지는 `lua_written` 셀에 메모를 작성합니다.",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "local query_source = nb.read(\"lua_queries\", \".code\")\nassert(query_source ~= nil)\nlocal note = \"-- Written from Lua after reading lua_queries (\" .. tostring(#query_source) .. \" characters)\"\nassert(nb.write(\"lua_written\", \".code\", note))\nprint(\"Lua read lua_queries and wrote lua_written\")",
+        "language": "lua",
+        "name": "lua_cell_io"
+      },
+      {
+        "type": "code",
+        "code": "-- This cell will be populated by lua_cell_io.",
+        "language": "lua",
+        "name": "lua_written"
+      }
+    ]
+  }
+}

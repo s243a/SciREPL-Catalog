@@ -38,6 +38,11 @@ and work deliberately deferred.
   terminal captures (bidirectional rendering garbles PTY output).
   «الانغلاق المتعدي», «المكونات شديدة الترابط» and the recursion terms are
   flagged for native review; native testers are lined up for this locale.
+
+- **Korean (ko): all 15 workbook editions** — ~8 minutes, 7 approvals,
+  third locale in the same continued worker session with no context
+  degradation. «이행 폐포», «강결합 컴포넌트», recursion terms flagged for
+  native review; native testers lined up.
 - The 15 English source workbooks under `workbooks/en/` (translation inputs,
   not index items — the app already ships them built in).
 - `tools/build-index.mjs` — sha256/size integrity for every index item, with

@@ -1,0 +1,55 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "TypR 입문",
+    "cells": [
+      {
+        "type": "markdown",
+        "code": "# TypR — 타입이 지정된 R\n\nTypR은 표준 R 코드로 컴파일되는 R의 정적 타입 확장 상위 집합(typed superset)입니다.\nR과의 완벽한 호환성을 유지하면서 타입 주석, 타입 검사, 제네릭 기능을 추가합니다.\n\n**문법 주의사항:**\n- 구문은 세미콜론으로 끝납니다: `let x <- 42;`\n- 타입이 지정된 함수는 `fn(x: int): int { x * x }`와 같이 정의합니다.\n- TypR은 가변 인자와 명명된 점(named dots)을 지원하므로 `cat(\"x =\", x);` 구문이 바로 동작합니다.",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "let x <- 42;\n# Variadic arguments are supported\ncat(\"x =\", x);",
+        "language": "typr",
+        "name": "basics"
+      },
+      {
+        "type": "code",
+        "code": "# Function bodies require braces\nlet add <- function(a, b) { a + b };\nlet result <- add(3, 4);\nprint(result);",
+        "language": "typr",
+        "name": "functions"
+      },
+      {
+        "type": "code",
+        "code": "let greeting: char <- \"Hello from TypR!\";\nprint(greeting);",
+        "language": "typr",
+        "name": "typed"
+      },
+      {
+        "type": "code",
+        "code": "# Explicit parameter and return types make calls statically checkable\nlet square <- fn(x: int): int { x * x };\nlet result <- square(7);\n# Variadic arguments work directly\ncat(\"7 squared =\", result);",
+        "language": "typr",
+        "name": "square"
+      },
+      {
+        "type": "code",
+        "code": "# Forward heterogeneous named arguments\nlet collect <- fn(...args: Any): [#N, Any] { args };\nlet forward <- fn(...args: Any): [#N, Any] { collect(...args) };\nlet values <- forward(count = 1, enabled = true);\nprint(values);\n@{ base::cat(\"Names:\", base::paste(base::names(values$data), collapse = \", \"), \"\\n\") }@;",
+        "language": "typr",
+        "name": "variadic_forwarding"
+      },
+      {
+        "type": "markdown",
+        "code": "## 지시어 (Directives)\n\nTypR 셀의 첫 줄에 지시어를 작성할 수 있습니다:\n\n- `#!source`는 내용을 컴파일하거나 실행하지 않고 명명된 구문 강조 소스 조각으로 유지합니다. 소스 전용 셀은 의도적으로 `Out [n]`을 생성하지 않으며 Notebook VFS를 통해 계속 읽을 수 있습니다.\n- `#!typecheck`는 코드를 실행하지 않고 타입 검사만 수행합니다.\n- `#!transpile`은 트랜스파일된 R 출력을 보여줍니다.\n- `#!show-r`은 이후 TypR 실행 시 생성된 R 코드의 표시 여부를 전환합니다.",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "#!transpile\nlet fib <- fn(n: int): int {\n  if (n <= 1) { n }\n  else { fib(n - 1) + fib(n - 2) }\n};\nprint(fib(10));",
+        "language": "typr",
+        "name": "transpile_demo"
+      }
+    ]
+  }
+}

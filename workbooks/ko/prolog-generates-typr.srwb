@@ -1,0 +1,72 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "Prolog로 TypR 생성: 컴파일러 데모",
+    "cells": [
+      {
+        "type": "markdown",
+        "code": "# Prolog로 TypR 생성\n\n이 워크북은 UnifyWeaver가 Prolog 서술어를 R의 정적 타입 상위 집합인 **TypR** 코드로 컴파일하는 과정을 보여줍니다.\n\n작업 흐름:\n1. 명명된 `family_tree` 셀에서 Prolog 서술어 (사실 + 규칙) 정의\n2. 명명되고 구문 강조된 `typr_queries` 소스 셀에서 쿼리 프로그램 정의\n3. Notebook VFS를 통해 두 셀 모두 읽기\n4. UnifyWeaver가 재귀 패턴(이행 폐포) 감지\n5. 컴파일러가 `let`, `fn`, 타입 주석을 포함하는 타입 지정된 TypR 코드 생성\n6. 명명된 쿼리를 덧붙이고 TypR 커널에서 전체 프로그램 실행\n\n소스 프로그램을 명명된 셀에 유지하면 구문 강조가 보존되며 Prolog 문자열 내에 코드를 포함시킬 필요가 없습니다.\n\n이 워크북을 사용할 때 카탈로그에서 필요한 **UnifyWeaver SciREPL** 패키지가 자동으로 설치됩니다.\n\n**제약 사항:** TypR 셀은 서로 격리되어 있습니다. `#!source` 지시어는 **모두 실행** (Run All) 중에 `typr_queries`를 실행되지 않는 소스 조각으로 유지하며, `compile_to_typr`는 `typr_output`을 작성하기 전에 생성된 정의에 이 쿼리를 덧붙입니다.",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "% Load UnifyWeaver compiler modules\n['../init'].\n:- use_module(unifyweaver(targets/typr_target)).\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "language": "prolog",
+        "name": "load_compiler"
+      },
+      {
+        "type": "code",
+        "code": "% Define a family tree as Prolog facts\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% Transitive closure: ancestor(X, Y) if X is an ancestor of Y\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "language": "prolog",
+        "name": "family_tree"
+      },
+      {
+        "type": "code",
+        "code": "#!source\n# This named TypR source cell is read by compile_to_typr.\n# It is appended to the generated code because TypR cells are isolated.\n\n# --- Queries ---\nlet results <- ancestor_all(\"alice\");\ncat(\"Descendants of alice:\", paste(sep = \", \", ...results), fill = TRUE);\nlet is_anc <- ancestor_check(\"alice\", \"eve\");\ncat(\"alice is ancestor of eve:\", is_anc, fill = TRUE);\nlet is_anc2 <- ancestor_check(\"alice\", \"frank\");\ncat(\"alice is ancestor of frank:\", is_anc2, fill = TRUE);",
+        "language": "typr",
+        "name": "typr_queries"
+      },
+      {
+        "type": "code",
+        "code": "% Read the highlighted Prolog and TypR source from named cells\n\\+ \\+ (\n    user:nb_read('family_tree', '.code', _PrologSrc),\n    setup_call_cleanup(\n        open('/tmp/_nb_typr_family.pl', write, _Out),\n        write(_Out, _PrologSrc),\n        close(_Out)),\n    catch(abolish(parent/2), _, true),\n    catch(abolish(ancestor/2), _, true),\n    consult('/tmp/_nb_typr_family.pl'),\n\n    user:nb_read('typr_queries', '.code', _QuerySource),\n    split_string(_QuerySource, \"\\n\", \"\\r\", [\"#!source\"|_QueryLines]),\n    atomics_to_string(_QueryLines, \"\\n\", _Queries),\n\n    % Compile ancestor/2 to explicitly typed TypR and append the named queries\n    recursive_compiler:compile_recursive(ancestor/2, [target(typr), typed_mode(explicit)], _Code),\n    format('--- Generated TypR code ---~n~w~n', [_Code]),\n    format(string(_FullCode), '~w~n~n~w~n', [_Code, _Queries]),\n    user:nb_write('typr_output', '.code', _FullCode),\n    writeln('TypR code written to cell: typr_output')\n).",
+        "language": "prolog",
+        "name": "compile_to_typr"
+      },
+      {
+        "type": "markdown",
+        "code": "## 생성된 TypR 코드\n\n아래 셀에는 UnifyWeaver가 생성한 TypR 코드에 쿼리가 추가된 내용이 포함되어 있습니다.\n포함 내용:\n- `fn(start: char): [#N, char]`와 같은 타입 지정된 함수 시그니처\n- 타입 지정된 벡터 바인딩 및 네이티브 `while`, `if` 순회\n- 네이티브 동적 인덱싱, 벡터 추가, 할당\n- Prolog 어서션에서 시드된 부모(parent) 사실\n- 생성된 클로저 내에 `@{ ... }@` 순수 R 이스케이프 블록 없음\n\n**참고:** TypR 변수는 셀 간에 유지되지 않으므로 모든 코드는 단일 셀 내에서 실행되어야 합니다.",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "# This cell will be populated by the compiler.\n# Run the 'compile_to_typr' cell above first.",
+        "language": "typr",
+        "name": "typr_output"
+      },
+      {
+        "type": "markdown",
+        "code": "## 비교: 동일한 서술어, R 대상\n\nUnifyWeaver는 동일한 Prolog 서술어를 순수 R로 컴파일할 수도 있습니다.\n아래 셀은 동일한 `ancestor/2`에서 타입이 지정되지 않은 R 코드를 생성합니다.",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "% Reload the same named Prolog source so this cell runs independently\n\\+ \\+ (\n    user:nb_read('family_tree', '.code', _PrologSrc),\n    setup_call_cleanup(\n        open('/tmp/_nb_r_family.pl', write, _Out),\n        write(_Out, _PrologSrc),\n        close(_Out)),\n    catch(abolish(parent/2), _, true),\n    catch(abolish(ancestor/2), _, true),\n    consult('/tmp/_nb_r_family.pl'),\n\n    % Compile to R with embedded facts; the highlighted r_queries cell runs next\n    recursive_compiler:compile_recursive(ancestor/2, [target(r), input(embedded)], _RCode),\n    format('--- Generated R code ---~n~w~n', [_RCode]),\n    user:nb_write('r_output', '.code', _RCode),\n    writeln('R code written to cell: r_output')\n).",
+        "language": "prolog",
+        "name": "compile_to_r"
+      },
+      {
+        "type": "code",
+        "code": "# This cell will be populated with plain R code.\n# Run the 'compile_to_r' cell above first.",
+        "language": "r",
+        "name": "r_output"
+      },
+      {
+        "type": "code",
+        "code": "# Query the generated R functions in a separate, highlighted cell.\nresults <- ancestor_all(\"alice\")\ncat(\"Descendants of alice:\", paste(results, collapse=\", \"), \"\\n\")\ncat(\"alice is ancestor of eve:\", ancestor_check(\"alice\", \"eve\"), \"\\n\")\ncat(\"alice is ancestor of frank:\", ancestor_check(\"alice\", \"frank\"), \"\\n\")",
+        "language": "r",
+        "name": "r_queries"
+      }
+    ]
+  }
+}

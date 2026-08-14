@@ -1,0 +1,60 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "Prolog로 ClojureScript 생성: 컴파일러 데모",
+    "cells": [
+      {
+        "type": "markdown",
+        "code": "# Prolog로 ClojureScript 생성\n\n이 워크북은 UnifyWeaver가 Prolog 서술어(predicate)를 **ClojureScript**로 컴파일한 뒤, Scittle 커널을 통해 브라우저에서 그 결과를 실행하는 과정을 보여줍니다.\n\n작업 흐름:\n1. Prolog 서술어 정의 (사실 + 규칙)\n2. UnifyWeaver가 재귀 패턴(이행 폐포) 감지\n3. ClojureScript 대상이 브라우저에서 실행 가능한 CLJS 생성 (`atom` 맵 기반 너비 우선 탐색(BFS), 임베디드 사실, JVM 상호운용성 없음)\n4. 생성된 정의를 전용 구문 강조 ClojureScript 셀에 작성\n5. 영구 Scittle 컨텍스트를 대상으로 별도의 구문 강조 쿼리 셀 실행\n\n이 워크북을 사용할 때 카탈로그에서 필요한 **UnifyWeaver SciREPL** 패키지가 자동으로 설치됩니다.\n\n**주요 장점:** TypR 데모와 달리, ClojureScript 상태는 *셀 간에 유지됩니다* (Scittle은 페이지당 하나의 SCI 컨텍스트를 유지함). 따라서 생성된 정의와 쿼리를 깔끔하게 분리하여 관리할 수 있습니다.",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "% Load UnifyWeaver compiler modules\n['../init'].\n:- use_module(unifyweaver(targets/clojurescript_target)).\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "language": "prolog",
+        "name": "load_compiler"
+      },
+      {
+        "type": "code",
+        "code": "% Define a family tree as Prolog facts\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% Transitive closure: ancestor(X, Y) if X is an ancestor of Y\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "language": "prolog",
+        "name": "family_tree"
+      },
+      {
+        "type": "code",
+        "code": "% Compile ancestor/2 to ClojureScript definitions only\n\\+ \\+ (\n    recursive_compiler:compile_recursive(ancestor/2, [target(clojurescript)], _Code),\n    format('--- Generated ClojureScript code ---~n~w~n', [_Code]),\n    % End with nil so generated seed expressions do not become notebook output\n    format(string(_Definitions), '~w~n~nnil~n', [_Code]),\n    user:nb_write('cljs_output', '.code', _Definitions),\n    writeln('ClojureScript definitions written to cell: cljs_output')\n).",
+        "language": "prolog",
+        "name": "compile_to_clojurescript"
+      },
+      {
+        "type": "markdown",
+        "code": "## 생성된 ClojureScript 코드\n\n아래 셀에는 UnifyWeaver가 생성한 ClojureScript 정의만 포함되어 있습니다.\n포함 내용:\n- `(def base-relation (atom {}))` — 가변 맵 형태의 관계\n- `find-all` / `check-path` — 관계에 대한 너비 우선 탐색 (BFS)\n- Prolog 사실로부터 임베드된 `(add-fact ...)` 시드 호출\n- JS 호스트 전용 상호운용성 (`java.io`, `System/exit`, `*command-line-args*` 없음)\n\n이어지는 구문 강조 셀에서 이 영구 정의들을 조회(쿼리)합니다.",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": ";; This cell will be populated by the compiler.\n;; Run the 'compile_to_clojurescript' cell above first.",
+        "language": "clojurescript",
+        "name": "cljs_output"
+      },
+      {
+        "type": "code",
+        "code": ";; Query the generated definitions in Scittle's persistent context.\n(print (str \"Descendants of alice: \" (pr-str (sort (find-all \"alice\"))) \"\\n\"\n            \"alice is ancestor of eve: \" (check-path \"alice\" \"eve\") \"\\n\"\n            \"alice is ancestor of frank: \" (check-path \"alice\" \"frank\") \"\\n\"))",
+        "language": "clojurescript",
+        "name": "cljs_queries"
+      },
+      {
+        "type": "markdown",
+        "code": "## 비교: 동일한 서술어, JVM Clojure 대상\n\nUnifyWeaver는 동일한 서술어를 JVM Clojure로도 컴파일할 수 있습니다. 해당 출력은 표준 입력(stdin)에서 사실을 읽고 `System/exit`을 사용합니다. 이는 JVM/Node 호스트 환경에서는 문제없지만 브라우저에서 직접 실행할 수는 없으며, 이것이 바로 ClojureScript 대상이 존재하는 이유입니다 (JVM 호스트 상호운용성을 JS용으로 재작성함).",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "% Compile the same predicate to JVM Clojure for comparison (display only)\n\\+ \\+ (\n    recursive_compiler:compile_recursive(ancestor/2, [target(clojure)], _ClojureCode),\n    format('--- Generated JVM Clojure code (note java.io / *command-line-args*) ---~n~w~n', [_ClojureCode])\n).",
+        "language": "prolog",
+        "name": "compile_to_clojure"
+      }
+    ]
+  }
+}

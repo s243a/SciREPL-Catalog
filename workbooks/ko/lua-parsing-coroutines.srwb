@@ -1,0 +1,149 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-03-10T00:00:00.000Z",
+  "notebook": {
+    "id": "nb-lua-parsing-001",
+    "name": "Lua: 코루틴을 이용한 구문 분석",
+    "description": "Building parsers in Lua using coroutines as lexers, closures as combinators, and tables as ASTs.",
+    "kernelLanguage": "lua",
+    "cellCounter": 30,
+    "cells": [
+      {
+        "code": "# Lua에서 코루틴을 이용한 구문 분석\n\nLua의 코루틴, 클로저, 패턴 매칭은 외부 라이브러리 없이도 파서를 구축할 수 있는 자연스러운 툴킷을 제공합니다.\n\n이 워크북은 기본 패턴부터 시작하여 동작하는 수식 평가기까지 점진적으로 구축합니다:\n\n1. **Lua 패턴** — 내장 패턴 매칭 시스템\n2. **코루틴 렉서** — 한 번에 하나의 토큰씩 지연 생성(yield)하여 입력을 토큰화\n3. **재귀 하강 파서** — 토큰을 소비하여 AST 구축\n4. **평가기** — 구문 트리를 순회하여 결과 계산\n5. **컴비네이터 라이브러리** — 클로저로 조합 가능한 파서",
+        "type": "markdown",
+        "language": "lua"
+      },
+      {
+        "code": "## 1. Lua 패턴\n\nLua에는 정규표현식이 없으며, 대신 `string.find`, `string.match`, `string.gmatch`, `string.gsub`에 내장된 더 가벼운 시스템인 *패턴*을 사용합니다.\n\n주요 문자 클래스: `%a` (알파벳), `%d` (숫자), `%w` (영숫자), `%s` (공백), `%p` (구두점/특수문자). 대문자는 여집합을 나타냅니다 (`%A` = 알파벳 제외). `.`은 모든 문자와 일치합니다.",
+        "type": "markdown",
+        "language": "lua"
+      },
+      {
+        "code": "-- string.match: extract captures\nlocal year, month, day = string.match(\"2026-03-10\", \"(%d+)-(%d+)-(%d+)\")\nprint(\"Year:\", year, \"Month:\", month, \"Day:\", day)\n\n-- string.gmatch: iterate over all matches\nprint(\"\\nWords in sentence:\")\nfor word in string.gmatch(\"the quick brown fox\", \"%a+\") do\n  print(\"  \" .. word)\nend",
+        "type": "code",
+        "language": "lua"
+      },
+      {
+        "code": "-- string.gsub: search and replace\nlocal result = string.gsub(\"Hello World\", \"%u\", function(c)\n  return \"[\" .. c .. \"]\"\nend)\nprint(result)  -- [H]ello [W]orld\n\n-- Swap key=value pairs\nlocal swapped = string.gsub(\"name=Alice age=30\", \"(%w+)=(%w+)\", \"%2=%1\")\nprint(swapped)  -- Alice=name 30=age",
+        "type": "code",
+        "language": "lua"
+      },
+      {
+        "code": "-- string.find: locate the complete match and capture the function name\nlocal s = \"function foo(x, y)\"\nlocal i, j, name = string.find(s, \"function%s+(%w+)\")\nprint(string.format(\"Matched '%s' at positions %d-%d; captured name '%s'\", s:sub(i, j), i, j, name))\n\n-- Frontier pattern %f[]: match at boundary transitions\nlocal text = \"camelCaseVariable\"\nlocal parts = {}\nfor word in string.gmatch(text, \"%u?%l+\") do\n  parts[#parts + 1] = word\nend\nprint(\"Split camelCase:\", table.concat(parts, \" | \"))",
+        "type": "code",
+        "language": "lua"
+      },
+      {
+        "code": "## 2. 코루틴 렉서 (어휘 분석기)\n\n**렉서** (토큰화기)는 입력 텍스트를 토큰으로 분해합니다. 코루틴을 사용하면 토큰을 하나씩 `yield`할 수 있으며, 파서는 필요할 때마다 온디맨드로 토큰을 가져옵니다. 중간 배열이 필요하지 않습니다.",
+        "type": "markdown",
+        "language": "lua"
+      },
+      {
+        "code": "-- Token types\nNUM = \"NUM\"\nOP  = \"OP\"\nID  = \"ID\"\nLPAREN = \"LPAREN\"\nRPAREN = \"RPAREN\"\nEOF = \"EOF\"\n\nfunction lexer(input)\n  return coroutine.wrap(function()\n    local pos = 1\n    while pos <= #input do\n      -- Skip whitespace\n      local ws = string.match(input, \"^%s+\", pos)\n      if ws then pos = pos + #ws end\n      if pos > #input then break end\n\n      -- Numbers (integers and decimals)\n      local num = string.match(input, \"^%d+%.?%d*\", pos)\n      if num then\n        coroutine.yield({ type = NUM, value = tonumber(num), pos = pos })\n        pos = pos + #num\n      -- Identifiers / keywords\n      elseif string.match(input, \"^%a\", pos) then\n        local id = string.match(input, \"^%a%w*\", pos)\n        coroutine.yield({ type = ID, value = id, pos = pos })\n        pos = pos + #id\n      -- Operators\n      elseif string.find(\"+-*/^%%\", string.sub(input, pos, pos), 1, true) then\n        coroutine.yield({ type = OP, value = string.sub(input, pos, pos), pos = pos })\n        pos = pos + 1\n      -- Parentheses\n      elseif string.sub(input, pos, pos) == \"(\" then\n        coroutine.yield({ type = LPAREN, pos = pos })\n        pos = pos + 1\n      elseif string.sub(input, pos, pos) == \")\" then\n        coroutine.yield({ type = RPAREN, pos = pos })\n        pos = pos + 1\n      else\n        error(\"Unexpected character at position \" .. pos .. \": '\" .. string.sub(input, pos, pos) .. \"'\")\n      end\n    end\n    coroutine.yield({ type = EOF })\n  end)\nend\n\n-- Test the lexer\nprint(\"Tokens for '3 + 42 * (x - 1)':\")\nfor tok in lexer(\"3 + 42 * (x - 1)\") do\n  if tok.value then\n    print(string.format(\"  %-7s %s\", tok.type, tostring(tok.value)))\n  else\n    print(string.format(\"  %s\", tok.type))\n  end\nend",
+        "type": "code",
+        "language": "lua"
+      },
+      {
+        "code": "## 3. 토큰 스트림\n\n파서는 토큰을 소비하지 않고 미리 확인(peek)할 수 있어야 합니다. 렉서 코루틴을 하나의 토큰을 버퍼링하는 스트림으로 감쌉니다.",
+        "type": "markdown",
+        "language": "lua"
+      },
+      {
+        "code": "function TokenStream(input)\n  local next_token = lexer(input)\n  local current = next_token()\n\n  local stream = {}\n\n  function stream.peek()\n    return current\n  end\n\n  function stream.consume()\n    local tok = current\n    current = next_token()\n    return tok\n  end\n\n  function stream.expect(typ)\n    local tok = current\n    if tok.type ~= typ then\n      error(\"Expected \" .. typ .. \" but got \" .. tok.type\n        .. (tok.pos and \" at position \" .. tok.pos or \"\"))\n    end\n    return stream.consume()\n  end\n\n  return stream\nend\n\n-- Test peek/consume\nlocal s = TokenStream(\"10 + 20\")\nprint(\"Peek:\", s.peek().type, s.peek().value)\nprint(\"Consume:\", s.consume().value)\nprint(\"Next:\", s.peek().type, s.peek().value)",
+        "type": "code",
+        "language": "lua"
+      },
+      {
+        "code": "## 4. 재귀 하강 파서\n\n연산자 우선순위를 고려하여 산술식을 분석합니다:\n- `+`, `-` (가장 낮음)\n- `*`, `/` (중간)\n- `^` (가장 높음, 우결합)\n- 괄호 및 단항 마이너스\n\n파서는 테이블을 사용하여 **AST** (추상 구문 트리)를 구축합니다.",
+        "type": "markdown",
+        "language": "lua"
+      },
+      {
+        "code": "-- AST node constructors\nfunction NumNode(value)\n  return { tag = \"num\", value = value }\nend\n\nfunction VarNode(name)\n  return { tag = \"var\", name = name }\nend\n\nfunction BinOp(op, left, right)\n  return { tag = \"binop\", op = op, left = left, right = right }\nend\n\nfunction UnaryOp(op, operand)\n  return { tag = \"unary\", op = op, operand = operand }\nend\n\nfunction CallNode(name, args)\n  return { tag = \"call\", name = name, args = args }\nend",
+        "type": "code",
+        "language": "lua"
+      },
+      {
+        "code": "-- Parser: recursive descent with precedence climbing\nfunction parse(input)\n  local tokens = TokenStream(input)\n\n  -- expr = term (('+' | '-') term)*\n  local function expr()\n    local node = term()\n    while tokens.peek().type == OP\n      and (tokens.peek().value == \"+\" or tokens.peek().value == \"-\") do\n      local op = tokens.consume().value\n      node = BinOp(op, node, term())\n    end\n    return node\n  end\n\n  -- term = power (('*' | '/' | '%') power)*\n  function term()\n    local node = power()\n    while tokens.peek().type == OP\n      and (tokens.peek().value == \"*\" or tokens.peek().value == \"/\"\n           or tokens.peek().value == \"%\") do\n      local op = tokens.consume().value\n      node = BinOp(op, node, power())\n    end\n    return node\n  end\n\n  -- power = unary ('^' power)?  (right-associative)\n  function power()\n    local node = unary()\n    if tokens.peek().type == OP and tokens.peek().value == \"^\" then\n      tokens.consume()\n      node = BinOp(\"^\", node, power())  -- right-recursive!\n    end\n    return node\n  end\n\n  -- unary = '-' unary | atom\n  function unary()\n    if tokens.peek().type == OP and tokens.peek().value == \"-\" then\n      tokens.consume()\n      return UnaryOp(\"-\", unary())\n    end\n    return atom()\n  end\n\n  -- atom = NUM | ID | ID '(' args ')' | '(' expr ')'\n  function atom()\n    local tok = tokens.peek()\n\n    if tok.type == NUM then\n      tokens.consume()\n      return NumNode(tok.value)\n    end\n\n    if tok.type == ID then\n      local name = tokens.consume().value\n      -- Function call?\n      if tokens.peek().type == LPAREN then\n        tokens.consume()  -- eat '('\n        local args = {}\n        if tokens.peek().type ~= RPAREN then\n          args[1] = expr()\n          while tokens.peek().type == OP and tokens.peek().value == \",\" do\n            tokens.consume()\n            args[#args + 1] = expr()\n          end\n        end\n        tokens.expect(RPAREN)\n        return CallNode(name, args)\n      end\n      return VarNode(name)\n    end\n\n    if tok.type == LPAREN then\n      tokens.consume()\n      local node = expr()\n      tokens.expect(RPAREN)\n      return node\n    end\n\n    error(\"Unexpected token: \" .. tok.type\n      .. (tok.pos and \" at position \" .. tok.pos or \"\"))\n  end\n\n  local ast = expr()\n  tokens.expect(EOF)\n  return ast\nend\n\nprint(\"Parser loaded.\")",
+        "type": "code",
+        "language": "lua"
+      },
+      {
+        "code": "## 5. AST 프리티 프린터\n\n평가하기 전에 파서가 생성한 AST를 시각화해 봅니다.",
+        "type": "markdown",
+        "language": "lua"
+      },
+      {
+        "code": "function pretty(node, indent)\n  indent = indent or 0\n  local pad = string.rep(\"  \", indent)\n\n  if node.tag == \"num\" then\n    return pad .. tostring(node.value)\n  elseif node.tag == \"var\" then\n    return pad .. node.name\n  elseif node.tag == \"unary\" then\n    return pad .. \"(\" .. node.op .. \"\\n\" .. pretty(node.operand, indent + 1) .. \")\"\n  elseif node.tag == \"binop\" then\n    return pad .. \"(\" .. node.op .. \"\\n\"\n      .. pretty(node.left, indent + 1) .. \"\\n\"\n      .. pretty(node.right, indent + 1) .. \")\"\n  elseif node.tag == \"call\" then\n    local argStrs = {}\n    for _, a in ipairs(node.args) do\n      argStrs[#argStrs + 1] = pretty(a, indent + 1)\n    end\n    return pad .. node.name .. \"(\\n\" .. table.concat(argStrs, \"\\n\") .. \")\"\n  end\n  return pad .. \"??\"\nend\n\n-- Parse and display\nlocal ast = parse(\"2 ^ 3 ^ 2 + 1\")\nprint(\"AST for '2 ^ 3 ^ 2 + 1':\")\nprint(pretty(ast))\n\nprint(\"\\nAST for '-(3 + 4) * 2':\")\nprint(pretty(parse(\"-(3 + 4) * 2\")))",
+        "type": "code",
+        "language": "lua"
+      },
+      {
+        "code": "## 6. 평가기\n\nAST를 순회하여 결과를 계산합니다. 변수와 함수는 환경 테이블에서 조회됩니다.",
+        "type": "markdown",
+        "language": "lua"
+      },
+      {
+        "code": "function evaluate(node, env)\n  env = env or {}\n\n  if node.tag == \"num\" then\n    return node.value\n\n  elseif node.tag == \"var\" then\n    local val = env[node.name]\n    if val == nil then error(\"Undefined variable: \" .. node.name) end\n    return val\n\n  elseif node.tag == \"unary\" then\n    if node.op == \"-\" then\n      return -evaluate(node.operand, env)\n    end\n\n  elseif node.tag == \"binop\" then\n    local l = evaluate(node.left, env)\n    local r = evaluate(node.right, env)\n    if     node.op == \"+\" then return l + r\n    elseif node.op == \"-\" then return l - r\n    elseif node.op == \"*\" then return l * r\n    elseif node.op == \"/\" then return l / r\n    elseif node.op == \"%\" then return l % r\n    elseif node.op == \"^\" then return l ^ r\n    end\n\n  elseif node.tag == \"call\" then\n    local fn = env[node.name]\n    if type(fn) ~= \"function\" then\n      error(\"Not a function: \" .. node.name)\n    end\n    local args = {}\n    for _, a in ipairs(node.args) do\n      args[#args + 1] = evaluate(a, env)\n    end\n    return fn(table.unpack(args))\n  end\n\n  error(\"Unknown node tag: \" .. tostring(node.tag))\nend\n\n-- Convenience: parse + evaluate\nfunction calc(expr, env)\n  return evaluate(parse(expr), env)\nend\n\nprint(\"Calculator loaded.\")",
+        "type": "code",
+        "language": "lua"
+      },
+      {
+        "code": "-- Basic arithmetic\nprint(\"2 + 3 * 4      =\", calc(\"2 + 3 * 4\"))\nprint(\"(2 + 3) * 4    =\", calc(\"(2 + 3) * 4\"))\nprint(\"2 ^ 3 ^ 2      =\", calc(\"2 ^ 3 ^ 2\"))      -- right-assoc: 2^(3^2) = 512\nprint(\"-5 + 3         =\", calc(\"-5 + 3\"))\nprint(\"10 % 3         =\", calc(\"10 % 3\"))",
+        "type": "code",
+        "language": "lua"
+      },
+      {
+        "code": "-- With variables and functions\nlocal env = {\n  pi = math.pi,\n  e  = math.exp(1),\n  x  = 10,\n  sqrt = math.sqrt,\n  sin  = math.sin,\n  cos  = math.cos,\n  abs  = math.abs,\n}\n\nprint(\"pi * x ^ 2    =\", calc(\"pi * x ^ 2\", env))\nprint(\"sqrt(144)      =\", calc(\"sqrt(144)\", env))\nprint(\"sin(pi / 2)    =\", calc(\"sin(pi / 2)\", env))\nprint(\"abs(-42) + e   =\", calc(\"abs(-42) + e\", env))",
+        "type": "code",
+        "language": "lua"
+      },
+      {
+        "code": "## 7. 파서 컴비네이터\n\n다른 접근 방식: 클로저를 사용하여 작고 조합 가능한 조각들로부터 파서를 구축합니다. 각 파서는 입력(문자열 + 위치)을 받아 결과 + 새 위치를 반환하거나 실패 시 `nil`을 반환하는 함수입니다.",
+        "type": "markdown",
+        "language": "lua"
+      },
+      {
+        "code": "-- A parser is: function(input, pos) -> result, newpos | nil\n\n-- Match a Lua pattern, return captured group\nfunction P(pattern)\n  return function(input, pos)\n    local s, e, cap = string.find(input, \"^(\" .. pattern .. \")\", pos)\n    if s then return cap, e + 1 end\n    return nil\n  end\nend\n\n-- Match literal string\nfunction L(str)\n  return function(input, pos)\n    if string.sub(input, pos, pos + #str - 1) == str then\n      return str, pos + #str\n    end\n    return nil\n  end\nend\n\n-- Skip whitespace, then apply parser\nfunction Token(parser)\n  return function(input, pos)\n    local _, p2 = string.find(input, \"^%s*\", pos)\n    return parser(input, (p2 or pos) + 1)\n  end\nend\n\nprint(\"Combinators loaded.\")",
+        "type": "code",
+        "language": "lua"
+      },
+      {
+        "code": "-- Sequence: all parsers must match in order\nfunction Seq(...)\n  local parsers = {...}\n  return function(input, pos)\n    local results = {}\n    local p = pos\n    for _, parser in ipairs(parsers) do\n      local r, np = parser(input, p)\n      if r == nil then return nil end\n      results[#results + 1] = r\n      p = np\n    end\n    return results, p\n  end\nend\n\n-- Choice: try each parser, return first match\nfunction Choice(...)\n  local parsers = {...}\n  return function(input, pos)\n    for _, parser in ipairs(parsers) do\n      local r, np = parser(input, pos)\n      if r ~= nil then return r, np end\n    end\n    return nil\n  end\nend\n\n-- Zero or more repetitions\nfunction Many(parser)\n  return function(input, pos)\n    local results = {}\n    local p = pos\n    while true do\n      local r, np = parser(input, p)\n      if r == nil then break end\n      results[#results + 1] = r\n      p = np\n    end\n    return results, p\n  end\nend\n\n-- Transform result\nfunction Map(parser, fn)\n  return function(input, pos)\n    local r, np = parser(input, pos)\n    if r ~= nil then return fn(r), np end\n    return nil\n  end\nend\n\nprint(\"Seq, Choice, Many, Map loaded.\")",
+        "type": "code",
+        "language": "lua"
+      },
+      {
+        "code": "-- Parse a simple key-value config format:\n--   host = localhost\n--   port = 8080\n--   debug = true\n\nlocal key   = Token(P(\"%a%w*\"))\nlocal eq    = Token(L(\"=\"))\nlocal value = Token(P(\"%S+\"))\n\nlocal pair  = Map(\n  Seq(key, eq, value),\n  function(r) return { key = r[1], value = r[3] } end\n)\n\nlocal config = Many(pair)\n\nlocal input = \"host = localhost  port = 8080  debug = true\"\nlocal result, pos = config(input, 1)\n\nprint(\"Parsed config:\")\nfor _, entry in ipairs(result) do\n  print(string.format(\"  %-8s = %s\", entry.key, entry.value))\nend",
+        "type": "code",
+        "language": "lua"
+      },
+      {
+        "code": "## 8. CSV 파서\n\n보다 실용적인 예제: 컴비네이터 접근 방식을 사용하여 따옴표로 묶인 필드가 포함된 CSV를 파싱합니다.",
+        "type": "markdown",
+        "language": "lua"
+      },
+      {
+        "code": "function parseCSV(input)\n  local rows = {}\n\n  -- Use a coroutine to yield rows as they're parsed\n  local function parseField(line, pos)\n    if string.sub(line, pos, pos) == '\"' then\n      -- Quoted field: find closing quote (handles escaped \"\")\n      local field = {}\n      pos = pos + 1\n      while pos <= #line do\n        if string.sub(line, pos, pos + 1) == '\"\"' then\n          field[#field + 1] = '\"'\n          pos = pos + 2\n        elseif string.sub(line, pos, pos) == '\"' then\n          pos = pos + 1\n          break\n        else\n          field[#field + 1] = string.sub(line, pos, pos)\n          pos = pos + 1\n        end\n      end\n      return table.concat(field), pos\n    else\n      -- Unquoted field: read until comma or end\n      local s, e, val = string.find(line, \"^([^,]*)\", pos)\n      return val or \"\", (e or pos) + 1\n    end\n  end\n\n  for line in string.gmatch(input, \"([^\\n]+)\") do\n    local row = {}\n    local pos = 1\n    while pos <= #line do\n      local field\n      field, pos = parseField(line, pos)\n      row[#row + 1] = field\n      -- Skip comma separator\n      if string.sub(line, pos, pos) == \",\" then\n        pos = pos + 1\n      end\n    end\n    rows[#rows + 1] = row\n  end\n\n  return rows\nend\n\nlocal csv = [[name,age,city\nAlice,30,\"New York\"\nBob,25,\"San Francisco\"\n\"O'Brien, Charlie\",40,\"Boston\"]]\n\nlocal data = parseCSV(csv)\n\n-- Print as a formatted table\nlocal widths = {}\nfor _, row in ipairs(data) do\n  for i, field in ipairs(row) do\n    widths[i] = math.max(widths[i] or 0, #field)\n  end\nend\n\nfor r, row in ipairs(data) do\n  local parts = {}\n  for i, field in ipairs(row) do\n    parts[i] = field .. string.rep(\" \", widths[i] - #field)\n  end\n  print(table.concat(parts, \"  |  \"))\n  if r == 1 then\n    local sep = {}\n    for i = 1, #widths do sep[i] = string.rep(\"-\", widths[i]) end\n    print(table.concat(sep, \"--+--\"))\n  end\nend",
+        "type": "code",
+        "language": "lua"
+      },
+      {
+        "code": "## 9. 스트리밍 파이프라인\n\n모든 것을 결합합니다: 한 줄씩 완전한 지연 방식으로 일련의 수식을 어휘 분석, 구문 분석 및 평가하는 코루틴 기반 파이프라인입니다.",
+        "type": "markdown",
+        "language": "lua"
+      },
+      {
+        "code": "function repl_eval(lines, env)\n  return coroutine.wrap(function()\n    for line in string.gmatch(lines, \"([^\\n]+)\") do\n      -- Skip comments and blank lines\n      local trimmed = string.match(line, \"^%s*(.-)%s*$\")\n      if trimmed ~= \"\" and string.sub(trimmed, 1, 1) ~= \"#\" then\n        local ok, result = pcall(function()\n          return calc(trimmed, env)\n        end)\n        if ok then\n          coroutine.yield(trimmed, result, nil)\n        else\n          coroutine.yield(trimmed, nil, result)\n        end\n      end\n    end\n  end)\nend\n\nlocal program = [[\n# Physics calculations\n9.8 * 2\nsqrt(144) + 1\npi * r ^ 2\n2 ^ 10\nabs(-7) * 3\n5 / 0\n]]\n\nlocal env = {\n  pi = math.pi, r = 5,\n  sqrt = math.sqrt, abs = math.abs,\n}\n\nprint(\"Expression evaluator:\")\nprint(string.rep(\"-\", 40))\nfor expr, result, err in repl_eval(program, env) do\n  if err then\n    print(string.format(\"  %-20s  ERROR: %s\", expr, err))\n  else\n    print(string.format(\"  %-20s  = %g\", expr, result))\n  end\nend",
+        "type": "code",
+        "language": "lua"
+      },
+      {
+        "code": "## 요약\n\nLua 표준 라이브러리만으로 구축한 구성 요소:\n\n| 구성 요소 | 기법/기술 |\n|---|---|\n| 렉서 | 코루틴 + `string.match` 패턴 |\n| 토큰 스트림 | 클로저 (코루틴 대상 peek/consume) |\n| 재귀 하강 파서 | 상호 재귀 + AST로서의 테이블 |\n| 평가기 | 환경 테이블을 활용한 트리 순회 |\n| 컴비네이터 | 고계 클로저 (Seq, Choice, Many, Map) |\n| CSV 파서 | 패턴 매칭 + 상태 기계 |\n| 스트리밍 파이프라인 | `pcall` 오류 처리를 갖춘 코루틴 체인 |\n\n외부 라이브러리, 정규표현식 엔진, 파서 생성기 없이 오직 패턴, 코루틴, 클로저, 테이블만으로 구현되었습니다.",
+        "type": "markdown",
+        "language": "lua"
+      }
+    ]
+  }
+}
