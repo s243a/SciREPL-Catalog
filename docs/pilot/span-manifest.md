@@ -63,7 +63,10 @@ gating the wrong files.
    itself falls to spot-check, as the proposal's residue section says.
 3. **`reaches_output: none`** spans (comments, docstrings) must produce
    *no* output difference; if the translated run's stdout differs in a
-   region no stdout-span explains, the gate fails.
+   region no stdout-span explains, the gate fails. The classification is
+   itself runtime-checked: if any `none`-classified span's target text
+   appears in captured stdout, the classification was wrong and the gate
+   fails — the field is a checked claim, not a trusted one.
 4. **`exclusions`** are subtracted before all of the above. They come from
    the determinism envelope (English run twice): any output region that
    disagrees between the two English runs must be either pinned in the
@@ -127,23 +130,28 @@ columns, exclusive end), against the English source cell:
 Note what the example demonstrates: a multi-code-point translation
 (`Círculo`) is fine because columns count code points, not bytes; the
 comment span excludes `# `; and the plot label never touches the text
-oracle. A complete manifest for this workbook has roughly 20 spans across
+oracle. A complete manifest for this workbook has roughly 27 spans across
 cells 1–5 (exact count falls out of the derived extractor; the task file's
 exhaustive list is its specification).
 
-## Open questions for the controller (Fable)
+## Open questions — resolved in review (Fable, PR #2)
 
-1. **Masking collisions:** if a translated string happens to also appear
-   in legitimately-changed output, masking hides it. Acceptable at Stage A
-   scale (one workbook, reviewed), but worth a note in the gate's caveats.
-2. **srwb vs ipynb positions:** this schema assumes positions within a
-   cell's `code` string, which both formats share. If the ipynb `source`
-   array-of-lines form ever appears in this catalog, the extractor should
-   join with `\n` before counting — worth pinning in the extractor's
-   README rather than complicating the schema.
-3. **Does `reaches_output` belong in a *static* manifest?** Strictly it
-   is a claim about execution. It stays because the derived extractor can
-   classify it mechanically for this catalog's idioms, and the oracle
-   needs it at mask time; but if a future kernel makes destination
-   classification non-mechanical, this field is where the schema will
-   bend first.
+1. **Masking collisions — accepted with caveat; strengthening recorded.**
+   At Stage A all non-span output must be byte-identical anyway, so a
+   collision can only false-pass when a target span's text coincidentally
+   appears in output that should have failed. Pilot scale: noted, move on.
+   If it ever bites: *symmetric sentinel masking* — replace source-span
+   texts in the English capture AND target-span texts in the translated
+   capture with indexed sentinels (`⟦S3⟧`), then require identity. Same
+   mechanics, collision-resistant.
+2. **srwb vs ipynb positions — extractor README, not schema; join is
+   keepends.** nbformat `source` lines keep their trailing `\n`, so the
+   extractor joins with `''` (empty string) — joining with `\n` would
+   double every newline. Pinned here rather than in the schema, as
+   proposed; just with the right joint.
+3. **`reaches_output` as a static claim — kept, because the oracle
+   verifies it at runtime for free.** See the checked-claim rule added to
+   "How the oracle consumes it", item 3: any `none`-classified span whose
+   target text shows up in captured stdout fails the gate. The
+   philosophical objection dissolves — the field was never trusted, only
+   asserted.

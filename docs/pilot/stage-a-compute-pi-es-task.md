@@ -35,6 +35,14 @@ Nothing else. No git operations, no index edits; the controller commits.
 Cell indices are zero-based; names as stored in the file. Translate ONLY
 these spans. All are in Python code cells.
 
+Provenance note: this list was hand-drafted, then audited by a scanner
+that dumped every comment and string literal per cell — the audit caught
+omitted trailing fragments in cell 5 (fixed below). Treat the list as
+complete *because it survived the scan*, and translate nothing outside it.
+From gate v2 on, lists like this one are scanner-produced, not hand-read:
+the gate's translatable-candidate linter warns on every prose-like literal
+or comment not covered by any span, so completeness becomes mechanical.
+
 ### Cell 1 — "geometry"
 - Comment: `# Visualize the starting hexagon inside a unit circle.`
 - Trace-name strings (plot legend labels; kind `plot_label`):
@@ -57,7 +65,10 @@ these spans. All are in Python code cells.
 
 ### Cell 4 — "symbolic_limit"
 - `"Symbolic check of the familiar inscribed-area formula:"`
-- `"limit as n approaches infinity ="`
+- `"limit as n approaches infinity ="` — note: the `n` inside this *prose*
+  is the symbolic variable's name. Keep it `n` (Spanish does so naturally:
+  «límite cuando n tiende a infinito =»). Same rule as the line below,
+  here inside translatable text.
 - **Do NOT translate `'n'` in `sp.symbols('n', …)`** — it is the symbolic
   variable's name, not prose. Translating it changes the rendered symbolic
   output and breaks the differential oracle outside any declared span.
@@ -65,11 +76,17 @@ these spans. All are in Python code cells.
 ### Cell 5 — "comparison"
 - Comment: `# Alternating-series remainder for pi is at most 4/(2N+1).`
 - `"Work needed for about 1e-10 absolute accuracy:"`
-- f-string row labels: `Leibniz guarantee:`, `Polygon bound width:`,
-  `Machin formula in float:` — keep the leading two-space indent; you MAY
-  adjust the run of padding spaces between a label and its `{...}`
-  placeholder to preserve column alignment, but the placeholder itself is
-  untouchable.
+- f-string row labels **and the unit prose after their placeholders** —
+  both translate:
+  - `Leibniz guarantee:` … ` terms`
+  - `Polygon bound width:` … ` sides (width ` … `)` — the parenthesis is
+    literal: `(width` keeps its open paren, the closing `)` after the
+    interior `{polygon_width:.2e}` placeholder belongs to the translatable
+    text, and that interior placeholder is untouchable
+  - `Machin formula in float:` … ` terms per arctangent`
+  Keep the leading two-space indent; you MAY adjust the run of padding
+  spaces between a label and its `{...}` placeholder to preserve column
+  alignment, but every placeholder itself is untouchable.
 - The two closing print literals ("The methods have very different …").
 
 ### Cell 6 — markdown. Do not touch.
