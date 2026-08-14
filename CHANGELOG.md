@@ -43,6 +43,12 @@ and work deliberately deferred.
   third locale in the same continued worker session with no context
   degradation. «이행 폐포», «강결합 컴포넌트», recursion terms flagged for
   native review; native testers lined up.
+
+- **Brazilian Portuguese (pt-BR): all 15 workbook editions** — ~9 min, 7
+  approvals, fourth locale in the continued session, no degradation.
+  This locale is also the filter's subtag test case (`pt` primary
+  matching `pt-BR` content). Verified distinct from the Spanish editions
+  (Latin-locale lazy-copy guard).
 - The 15 English source workbooks under `workbooks/en/` (translation inputs,
   not index items — the app already ships them built in).
 - `tools/build-index.mjs` — sha256/size integrity for every index item, with
