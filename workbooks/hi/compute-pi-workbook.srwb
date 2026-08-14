@@ -1,0 +1,49 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "पाई की गणना: आर्किमिडीज सीमाएं",
+    "cells": [
+      {
+        "type": "markdown",
+        "code": "# आर्किमिडीज सीमाओं के साथ पाई की गणना\n\nआर्किमिडीज ने वृत्त के अंदर और बाहर खींचे गए बहुभुजों की परिधियों के बीच पाई को सीमित किया था। यह वर्कबुक संख्यात्मक पुनरावृत्ति में पाई का मान पहले से रखे बिना उसी विचार का उपयोग करती है: हम इकाई वृत्त में एक षट्भुज से शुरुआत करते हैं, बार-बार उसकी भुजाओं को दोगुना करते हैं, और पाई को निचली और ऊपरी सीमा के बीच सीमित करते हैं।\n\nपहला प्लॉट केवल ज्यामिति को स्पष्ट करने के लिए त्रिकोणमिति का उपयोग करता है। इसके बाद की सीमा गणना में केवल वर्गमूल और पिछले बहुभुज की भुजा की लंबाई का उपयोग किया जाता है।",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "import numpy as np\n\n# Visualize the starting hexagon inside a unit circle.\ntheta = np.linspace(0, 2 * np.pi, 200)\nangles = np.linspace(0, 2 * np.pi, 6, endpoint=False)\nx_hex = np.r_[np.cos(angles), np.cos(angles[0])]\ny_hex = np.r_[np.sin(angles), np.sin(angles[0])]\n\ncircle = {\"x\": np.cos(theta), \"y\": np.sin(theta), \"mode\": \"lines\", \"name\": \"Unit circle\"}\nhexagon = {\"x\": x_hex, \"y\": y_hex, \"mode\": \"lines+markers\", \"name\": \"Inscribed hexagon\"}\nlayout = {\"title\": \"Archimedes starts with a hexagon\", \"xaxis\": {\"scaleanchor\": \"y\"}, \"yaxis\": {\"scaleanchor\": \"x\"}}\nmplot([circle, hexagon], layout=layout)",
+        "language": "python",
+        "name": "geometry"
+      },
+      {
+        "type": "code",
+        "code": "import math\n\ndef archimedes_rows(doublings=16):\n    \"\"\"Return rigorous polygon bounds for a unit circle.\n\n    chord is the side length of the inscribed n-gon. The stable half-angle\n    recurrence doubles n without requiring pi.\n    \"\"\"\n    n = 6\n    chord = 1.0\n    rows = []\n    for step in range(doublings + 1):\n        half_chord = chord / 2\n        lower = n * half_chord\n        upper = n * half_chord / math.sqrt(1 - half_chord * half_chord)\n        rows.append((step, n, lower, upper, upper - lower))\n        chord = chord / math.sqrt(2 + math.sqrt(4 - chord * chord))\n        n *= 2\n    return rows\n\nrows = archimedes_rows()\nprint(f\"{'step':>4} {'sides':>9} {'lower bound':>16} {'upper bound':>16} {'width':>12}\")\nfor step, n, lower, upper, width in rows:\n    if step in {0, 1, 2, 4, 7, 10, 13, 16}:\n        print(f\"{step:>4} {n:>9,} {lower:>16.12f} {upper:>16.12f} {width:>12.2e}\")\n\nlower, upper = rows[-1][2], rows[-1][3]\nprint(f\"\\nFinal enclosure: {lower:.12f} < pi < {upper:.12f}\")",
+        "language": "python",
+        "name": "bounds"
+      },
+      {
+        "type": "code",
+        "code": "# How many sides are needed before the complete enclosure is narrower\n# than 10^-d? Values are for repeated doubling from the hexagon.\nfirst_for_digits = {}\nfor step, n, lower, upper, width in archimedes_rows(22):\n    for d in range(1, 11):\n        if d not in first_for_digits and width < 10 ** (-d):\n            first_for_digits[d] = (n, width)\n\nprint(f\"{'d':>3} {'first doubled n':>18} {'bound width':>14}\")\nfor d in range(1, 11):\n    n, width = first_for_digits[d]\n    print(f\"{d:>3} {n:>18,} {width:>14.2e}\")\n\nprint(\"\\nA narrower enclosure certifies more absolute accuracy; it is stronger\")\nprint(\"than merely counting matching digits in one floating-point approximation.\")",
+        "language": "python",
+        "name": "accuracy"
+      },
+      {
+        "type": "code",
+        "code": "import sympy as sp\n\nn = sp.symbols('n', positive=True)\ninscribed_area = (n / 2) * sp.sin(2 * sp.pi / n)\nlimit_value = sp.limit(inscribed_area, n, sp.oo)\n\nprint(\"Symbolic check of the familiar inscribed-area formula:\")\nprint(\"limit as n approaches infinity =\", limit_value)\nassert limit_value == sp.pi\ninscribed_area",
+        "language": "python",
+        "name": "symbolic_limit"
+      },
+      {
+        "type": "code",
+        "code": "def leibniz_terms_for_error(d):\n    # Alternating-series remainder for pi is at most 4/(2N+1).\n    return math.ceil((4 * 10**d - 1) / 2)\n\ndef arctan_series(x, terms):\n    return sum((-1)**k * x**(2*k + 1) / (2*k + 1) for k in range(terms))\n\ndef machin_pi(terms):\n    return 4 * (4 * arctan_series(1/5, terms) - arctan_series(1/239, terms))\n\nmachin_terms = next(n for n in range(1, 30) if abs(machin_pi(n) - math.pi) < 1e-10)\npolygon_sides, polygon_width = first_for_digits[10]\n\nprint(\"Work needed for about 1e-10 absolute accuracy:\")\nprint(f\"  Leibniz guarantee:       {leibniz_terms_for_error(10):,} terms\")\nprint(f\"  Polygon bound width:     {polygon_sides:,} sides (width {polygon_width:.2e})\")\nprint(f\"  Machin formula in float: {machin_terms} terms per arctangent\")\nprint(\"\\nThe methods have very different convergence rates; the polygon method's\")\nprint(\"historical importance is its rigorous geometric squeeze, not raw speed.\")",
+        "language": "python",
+        "name": "comparison"
+      },
+      {
+        "type": "markdown",
+        "code": "## मुख्य निष्कर्ष\n\n- संख्यात्मक पुनरावृत्ति एक ज्ञात षट्भुज भुजा से शुरू होती है और पाई का कोई संख्यात्मक मान पहले से मानकर नहीं चलती।\n- प्रत्येक पुनरावृत्ति निचली और ऊपरी दोनों सीमाएं प्रदान करती है।\n- भुजाओं की संख्या दोगुनी करने से अंतराल की चौड़ाई लगभग चार गुना कम हो जाती है।\n- प्रतीकात्मक सीमाएं अभिसरण (कन्वर्जेंस) की व्याख्या करती हैं; वे स्वयं संख्यात्मक एल्गोरिदम नहीं हैं।\n- एक कठोर त्रुटि सीमा (error bound) केवल उन अंकों को गिनने से भिन्न होती है जो फ्लोटिंग-पॉइंट संदर्भ से संयोगवश मेल खाते हैं।",
+        "language": "markdown"
+      }
+    ]
+  }
+}

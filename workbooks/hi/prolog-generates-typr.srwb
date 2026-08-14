@@ -1,0 +1,72 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "Prolog जनरेट करता है TypR: कंपाइलर डेमो",
+    "cells": [
+      {
+        "type": "markdown",
+        "code": "# Prolog जनरेट करता है TypR\n\nयह वर्कबुक दर्शाती है कि UnifyWeaver कैसे Prolog प्रेडिकेट्स को **TypR** — R के एक टाइप किए गए सुपरसेट — में संकलित करता है।\n\nकार्यप्रवाह:\n1. नामित सेल `family_tree` में Prolog प्रेडिकेट्स (तथ्य + नियम) परिभाषित करें\n2. नामित हाइलाइट की गई स्रोत सेल `typr_queries` में क्वेरी प्रोग्राम परिभाषित करें\n3. Notebook VFS के माध्यम से दोनों सेलों को पढ़ें\n4. UnifyWeaver रिकर्सन पैटर्न (ट्रांजिटिव क्लोजर) का पता लगाता है\n5. कंपाइलर `let`, `fn`, और टाइप एनोटेशन के साथ टाइप किया गया TypR कोड उत्पन्न करता है\n6. नामित क्वेरी जोड़ें और TypR कर्नेल में पूरा प्रोग्राम चलाएं\n\nनामित सेलों में स्रोत प्रोग्राम रखने से सिंटैक्स हाइलाइटिंग बनी रहती है और उन्हें Prolog स्ट्रिंग्स में एम्बेड करने से बचा जा सकता है।\n\nकैटलॉग इस वर्कबुक के साथ आवश्यक **UnifyWeaver SciREPL** पैकेज स्वचालित रूप से स्थापित करता है।\n\n**सीमा:** TypR सेलें एक दूसरे से पृथक (isolated) हैं। `#!source` निर्देश **सभी चलाएं** (Run All) के दौरान `typr_queries` को एक गैर-निष्पादन योग्य स्रोत स्निपेट के रूप में सुरक्षित रखता है; `compile_to_typr` इसे `typr_output` लिखने से पहले जनरेट की गई परिभाषाओं में जोड़ता है।",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "% Load UnifyWeaver compiler modules\n['../init'].\n:- use_module(unifyweaver(targets/typr_target)).\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "language": "prolog",
+        "name": "load_compiler"
+      },
+      {
+        "type": "code",
+        "code": "% Define a family tree as Prolog facts\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% Transitive closure: ancestor(X, Y) if X is an ancestor of Y\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "language": "prolog",
+        "name": "family_tree"
+      },
+      {
+        "type": "code",
+        "code": "#!source\n# This named TypR source cell is read by compile_to_typr.\n# It is appended to the generated code because TypR cells are isolated.\n\n# --- Queries ---\nlet results <- ancestor_all(\"alice\");\ncat(\"Descendants of alice:\", paste(sep = \", \", ...results), fill = TRUE);\nlet is_anc <- ancestor_check(\"alice\", \"eve\");\ncat(\"alice is ancestor of eve:\", is_anc, fill = TRUE);\nlet is_anc2 <- ancestor_check(\"alice\", \"frank\");\ncat(\"alice is ancestor of frank:\", is_anc2, fill = TRUE);",
+        "language": "typr",
+        "name": "typr_queries"
+      },
+      {
+        "type": "code",
+        "code": "% Read the highlighted Prolog and TypR source from named cells\n\\+ \\+ (\n    user:nb_read('family_tree', '.code', _PrologSrc),\n    setup_call_cleanup(\n        open('/tmp/_nb_typr_family.pl', write, _Out),\n        write(_Out, _PrologSrc),\n        close(_Out)),\n    catch(abolish(parent/2), _, true),\n    catch(abolish(ancestor/2), _, true),\n    consult('/tmp/_nb_typr_family.pl'),\n\n    user:nb_read('typr_queries', '.code', _QuerySource),\n    split_string(_QuerySource, \"\\n\", \"\\r\", [\"#!source\"|_QueryLines]),\n    atomics_to_string(_QueryLines, \"\\n\", _Queries),\n\n    % Compile ancestor/2 to explicitly typed TypR and append the named queries\n    recursive_compiler:compile_recursive(ancestor/2, [target(typr), typed_mode(explicit)], _Code),\n    format('--- Generated TypR code ---~n~w~n', [_Code]),\n    format(string(_FullCode), '~w~n~n~w~n', [_Code, _Queries]),\n    user:nb_write('typr_output', '.code', _FullCode),\n    writeln('TypR code written to cell: typr_output')\n).",
+        "language": "prolog",
+        "name": "compile_to_typr"
+      },
+      {
+        "type": "markdown",
+        "code": "## जनरेट किया गया TypR कोड\n\nनीचे दी गई सेल में UnifyWeaver द्वारा जनरेट किया गया TypR कोड शामिल है जिसमें क्वेरी जोड़ी गई हैं।\nइसमें शामिल हैं:\n- `fn(start: char): [#N, char]` जैसे टाइप किए गए फ़ंक्शन हस्ताक्षर\n- टाइप किए गए वेक्टर बाइंडिंग और नेटिव `while` और `if` ट्रैवर्सल\n- नेटिव डायनेमिक इंडेक्सिंग, वेक्टर अपेंड और असाइनमेंट\n- Prolog घोषणाओं से इंजेक्ट किए गए अभिभावक तथ्य\n- जनरेट किए गए क्लोजर में कोई कच्चा R एस्केप ब्लॉक `@{ ... }@` नहीं\n\n**नोट:** सारा कोड एक ही सेल में चलना चाहिए क्योंकि TypR वेरिएबल सेलों के बीच स्थायी नहीं रहते हैं।",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "# This cell will be populated by the compiler.\n# Run the 'compile_to_typr' cell above first.",
+        "language": "typr",
+        "name": "typr_output"
+      },
+      {
+        "type": "markdown",
+        "code": "## तुलना: वही प्रेडिकेट, R लक्ष्य\n\nUnifyWeaver उसी Prolog प्रेडिकेट को सादे R में भी संकलित कर सकता है।\nनीचे दी गई सेल उसी `ancestor/2` से अनटाइप्ड R कोड उत्पन्न करती है।",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "% Reload the same named Prolog source so this cell runs independently\n\\+ \\+ (\n    user:nb_read('family_tree', '.code', _PrologSrc),\n    setup_call_cleanup(\n        open('/tmp/_nb_r_family.pl', write, _Out),\n        write(_Out, _PrologSrc),\n        close(_Out)),\n    catch(abolish(parent/2), _, true),\n    catch(abolish(ancestor/2), _, true),\n    consult('/tmp/_nb_r_family.pl'),\n\n    % Compile to R with embedded facts; the highlighted r_queries cell runs next\n    recursive_compiler:compile_recursive(ancestor/2, [target(r), input(embedded)], _RCode),\n    format('--- Generated R code ---~n~w~n', [_RCode]),\n    user:nb_write('r_output', '.code', _RCode),\n    writeln('R code written to cell: r_output')\n).",
+        "language": "prolog",
+        "name": "compile_to_r"
+      },
+      {
+        "type": "code",
+        "code": "# This cell will be populated with plain R code.\n# Run the 'compile_to_r' cell above first.",
+        "language": "r",
+        "name": "r_output"
+      },
+      {
+        "type": "code",
+        "code": "# Query the generated R functions in a separate, highlighted cell.\nresults <- ancestor_all(\"alice\")\ncat(\"Descendants of alice:\", paste(results, collapse=\", \"), \"\\n\")\ncat(\"alice is ancestor of eve:\", ancestor_check(\"alice\", \"eve\"), \"\\n\")\ncat(\"alice is ancestor of frank:\", ancestor_check(\"alice\", \"frank\"), \"\\n\")",
+        "language": "r",
+        "name": "r_queries"
+      }
+    ]
+  }
+}

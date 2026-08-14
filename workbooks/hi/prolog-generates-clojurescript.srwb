@@ -1,0 +1,60 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "Prolog जनरेट करता है ClojureScript: कंपाइलर डेमो",
+    "cells": [
+      {
+        "type": "markdown",
+        "code": "# Prolog जनरेट करता है ClojureScript\n\nयह वर्कबुक दर्शाती है कि UnifyWeaver कैसे Prolog प्रेडिकेट्स को **ClojureScript** में संकलित करता है और Scittle कर्नेल के माध्यम से ब्राउज़र में परिणाम चलाता है।\n\nकार्यप्रवाह:\n1. Prolog प्रेडिकेट्स (तथ्य + नियम) परिभाषित करें\n2. UnifyWeaver रिकर्सन पैटर्न (ट्रांजिटिव क्लोजर) का पता लगाता है\n3. ClojureScript लक्ष्य ब्राउज़र-रन करने योग्य CLJS कोड उत्पन्न करता है (`atom` मैप पर BFS, अंतर्निहित तथ्य, कोई JVM इंटरऑप नहीं)\n4. जनरेट की गई परिभाषाओं को अपनी हाइलाइट की गई ClojureScript सेल में लिखें\n5. स्थायी Scittle संदर्भ के विरुद्ध अलग से हाइलाइट की गई क्वेरी सेल चलाएं\n\nकैटलॉग इस वर्कबुक के साथ आवश्यक **UnifyWeaver SciREPL** पैकेज स्वचालित रूप से स्थापित करता है।\n\n**अच्छी विशेषता:** TypR डेमो के विपरीत, ClojureScript की स्थिति *सेलों के बीच स्थायी रहती है* — Scittle प्रति पृष्ठ एक SCI संदर्भ बनाए रखता है — इसलिए जनरेट की गई परिभाषाएं और क्वेरी स्पष्ट रूप से अलग रहती हैं।",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "% Load UnifyWeaver compiler modules\n['../init'].\n:- use_module(unifyweaver(targets/clojurescript_target)).\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "language": "prolog",
+        "name": "load_compiler"
+      },
+      {
+        "type": "code",
+        "code": "% Define a family tree as Prolog facts\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% Transitive closure: ancestor(X, Y) if X is an ancestor of Y\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "language": "prolog",
+        "name": "family_tree"
+      },
+      {
+        "type": "code",
+        "code": "% Compile ancestor/2 to ClojureScript definitions only\n\\+ \\+ (\n    recursive_compiler:compile_recursive(ancestor/2, [target(clojurescript)], _Code),\n    format('--- Generated ClojureScript code ---~n~w~n', [_Code]),\n    % End with nil so generated seed expressions do not become notebook output\n    format(string(_Definitions), '~w~n~nnil~n', [_Code]),\n    user:nb_write('cljs_output', '.code', _Definitions),\n    writeln('ClojureScript definitions written to cell: cljs_output')\n).",
+        "language": "prolog",
+        "name": "compile_to_clojurescript"
+      },
+      {
+        "type": "markdown",
+        "code": "## जनरेट किया गया ClojureScript कोड\n\nनीचे दी गई सेल में केवल UnifyWeaver द्वारा जनरेट की गई ClojureScript परिभाषाएं शामिल हैं।\nइसमें शामिल हैं:\n- `(def base-relation (atom {}))` — परिवर्तनीय मैप के रूप में संबंध\n- `find-all` / `check-path` — संबंध पर BFS\n- Prolog तथ्यों से अंतर्निहित `(add-fact ...)` सीड कॉल\n- केवल JS होस्ट इंटरऑप (कोई `java.io`, `System/exit`, या `*command-line-args*` नहीं)\n\nअगली हाइलाइट की गई सेल इन स्थायी परिभाषाओं को क्वेरी करती है।",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": ";; This cell will be populated by the compiler.\n;; Run the 'compile_to_clojurescript' cell above first.",
+        "language": "clojurescript",
+        "name": "cljs_output"
+      },
+      {
+        "type": "code",
+        "code": ";; Query the generated definitions in Scittle's persistent context.\n(print (str \"Descendants of alice: \" (pr-str (sort (find-all \"alice\"))) \"\\n\"\n            \"alice is ancestor of eve: \" (check-path \"alice\" \"eve\") \"\\n\"\n            \"alice is ancestor of frank: \" (check-path \"alice\" \"frank\") \"\\n\"))",
+        "language": "clojurescript",
+        "name": "cljs_queries"
+      },
+      {
+        "type": "markdown",
+        "code": "## तुलना: वही प्रेडिकेट, JVM Clojure लक्ष्य\n\nUnifyWeaver JVM Clojure के लिए भी इसी प्रेडिकेट को संकलित कर सकता है। यह आउटपुट stdin से तथ्यों को पढ़ता है और `System/exit` का उपयोग करता है — जो JVM/Node होस्ट के तहत उपयुक्त है लेकिन सीधे ब्राउज़र में निष्पादन योग्य नहीं है। यही कारण है कि ClojureScript लक्ष्य मौजूद है (यह JVM होस्ट इंटरऑप को JS में फिर से लिखता है)।",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "% Compile the same predicate to JVM Clojure for comparison (display only)\n\\+ \\+ (\n    recursive_compiler:compile_recursive(ancestor/2, [target(clojure)], _ClojureCode),\n    format('--- Generated JVM Clojure code (note java.io / *command-line-args*) ---~n~w~n', [_ClojureCode])\n).",
+        "language": "prolog",
+        "name": "compile_to_clojure"
+      }
+    ]
+  }
+}
