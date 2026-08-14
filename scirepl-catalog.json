@@ -2898,6 +2898,269 @@
       "revision": 1,
       "sha256": "2f6b1f87b7e3de775cf72172d5493a35ac825b3ac53e5ff87987573e64692ac4",
       "size": 12420
+    },
+    {
+      "id": "compute-pi-workbook-id",
+      "name": "Menghitung Pi: Batas Archimedes",
+      "description": "Mengapit π di antara poligon dalam dan luar dengan metode Archimedes. Edisi bahasa Indonesia.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "id"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/id/compute-pi-workbook.srwb",
+      "revision": 1,
+      "sha256": "bb1810d5916351752ce3e12aec883f56d439f51f8696cefed49d669115145dfc",
+      "size": 5692
+    },
+    {
+      "id": "lua-tables-coroutines-id",
+      "name": "Lua: Tabel, Coroutine, dan Closure",
+      "description": "Tabel, coroutine, dan closure: inti Lua lewat contoh yang bisa dijalankan. Edisi bahasa Indonesia.",
+      "type": "workbook",
+      "kernels": [
+        "lua"
+      ],
+      "locales": [
+        "id"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/id/lua-tables-coroutines.srwb",
+      "revision": 1,
+      "sha256": "abd30461fc5d3b76855425103e3a3deeb418a14610a815f9e28f54d8ab6acd19",
+      "size": 13660
+    },
+    {
+      "id": "lua-parsing-coroutines-id",
+      "name": "Lua: Penguraian dengan Coroutine",
+      "description": "Parsing dengan coroutine di Lua: lexer, parser, dan stream malas. Edisi bahasa Indonesia.",
+      "type": "workbook",
+      "kernels": [
+        "lua"
+      ],
+      "locales": [
+        "id"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/id/lua-parsing-coroutines.srwb",
+      "revision": 1,
+      "sha256": "74f74ef368f79d3ab100ee34318765bf903fccd9b26cbe63b89c77713728785c",
+      "size": 21463
+    },
+    {
+      "id": "typr-intro-id",
+      "name": "Pengantar TypR",
+      "description": "Pengantar TypR: tipe dan transpilasi ke R. Edisi bahasa Indonesia.",
+      "type": "workbook",
+      "kernels": [
+        "typr"
+      ],
+      "locales": [
+        "id"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/id/typr-intro.srwb",
+      "revision": 1,
+      "sha256": "55779f471a3cd9e443c09e407cb410df50c8e1c752bbe4945c9c5e4c967cb705",
+      "size": 2886
+    },
+    {
+      "id": "prolog-generates-r-id",
+      "name": "Prolog Menghasilkan R: Demo Kompiler",
+      "description": "UnifyWeaver mengompilasi logika Prolog menjadi kode R yang dapat dijalankan. Edisi bahasa Indonesia.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "r"
+      ],
+      "locales": [
+        "id"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/id/prolog-generates-r.srwb",
+      "revision": 1,
+      "sha256": "bff7908bd34286b4fb2c69a4b1765c6c60ac7c87a40be4a5d4c335a7584973aa",
+      "size": 14026
+    },
+    {
+      "id": "prolog-generates-lua-id",
+      "name": "Prolog Menghasilkan Lua: Demo Kompiler",
+      "description": "UnifyWeaver mengompilasi logika Prolog menjadi kode Lua. Edisi bahasa Indonesia.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "lua"
+      ],
+      "locales": [
+        "id"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/id/prolog-generates-lua.srwb",
+      "revision": 1,
+      "sha256": "90a732e15bb8c5a3f3bcd4c38ee44eb8741a49eb49482de5267c934011401c73",
+      "size": 6355
+    },
+    {
+      "id": "prolog-generates-clojurescript-id",
+      "name": "Prolog Menghasilkan ClojureScript: Demo Kompiler",
+      "description": "UnifyWeaver mengompilasi logika Prolog menjadi ClojureScript. Edisi bahasa Indonesia.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "clojurescript"
+      ],
+      "locales": [
+        "id"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/id/prolog-generates-clojurescript.srwb",
+      "revision": 1,
+      "sha256": "057fa1de218aaaf042ab76d916c503ee424c913847a93679685f3f13e5f11488",
+      "size": 4817
+    },
+    {
+      "id": "prolog-generates-typr-id",
+      "name": "Prolog Menghasilkan TypR: Demo Kompiler",
+      "description": "UnifyWeaver mengompilasi logika Prolog menjadi TypR. Edisi bahasa Indonesia.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "typr"
+      ],
+      "locales": [
+        "id"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/id/prolog-generates-typr.srwb",
+      "revision": 1,
+      "sha256": "7a23060e50ac90dac7db00cedea68b6f5d8d0adf9c8e25c8b38876fd5dcf1332",
+      "size": 6564
+    },
+    {
+      "id": "r-ggplot2-showcase-id",
+      "name": "Pameran ggplot2",
+      "description": "Pameran ggplot2: diagram pencar, faset, box plot, dan heatmap. Edisi bahasa Indonesia.",
+      "type": "workbook",
+      "kernels": [
+        "r"
+      ],
+      "locales": [
+        "id"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/id/r_ggplot2_showcase.ipynb",
+      "revision": 1,
+      "sha256": "56995bb205f48e8fcb0f2fedc6e65348a57bf6a1823051605c2ad3c3fdb17eb5",
+      "size": 4288
+    },
+    {
+      "id": "r-statistics-id",
+      "name": "Statistik dengan R",
+      "description": "Statistika dengan R: uji hipotesis, regresi, dan selang kepercayaan. Edisi bahasa Indonesia.",
+      "type": "workbook",
+      "kernels": [
+        "r"
+      ],
+      "locales": [
+        "id"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/id/r_statistics.ipynb",
+      "revision": 1,
+      "sha256": "ac2a6bfbde3e81adbdd7869196a093b087033442983bbbe52d870b891dca0548",
+      "size": 5932
+    },
+    {
+      "id": "r-tidyverse-wrangling-id",
+      "name": "Pembersihan dan Manipulasi Data (Data Wrangling) dengan Tidyverse",
+      "description": "Pembersihan dan manipulasi data dengan dplyr dan tidyr. Edisi bahasa Indonesia.",
+      "type": "workbook",
+      "kernels": [
+        "r"
+      ],
+      "locales": [
+        "id"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/id/r_tidyverse_wrangling.ipynb",
+      "revision": 1,
+      "sha256": "42fb9bc2a5d92a73f25d4d96ec348271e51d406c980e4aa49398203680fe0eca",
+      "size": 7810
+    },
+    {
+      "id": "01-family-tree-tutorial-id",
+      "name": "Tutorial Silsilah Keluarga UnifyWeaver",
+      "description": "Tutorial silsilah keluarga: kompilasi predikat Prolog langkah demi langkah dengan UnifyWeaver. Edisi bahasa Indonesia.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "bash"
+      ],
+      "locales": [
+        "id"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/id/01_family_tree_tutorial.ipynb",
+      "revision": 1,
+      "sha256": "45094e50275a85465f4576d75864333323f7e9f4a0ea76e985478670dbf56d40",
+      "size": 10442
+    },
+    {
+      "id": "02-recursion-patterns-id",
+      "name": "Pola Rekursi Tingkat Lanjut di UnifyWeaver",
+      "description": "Pola rekursi (ekor, linier, pohon, timbal balik) dan cara UnifyWeaver mengompilasinya. Edisi bahasa Indonesia.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "bash"
+      ],
+      "locales": [
+        "id"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/id/02_recursion_patterns.ipynb",
+      "revision": 1,
+      "sha256": "11565ac029aed1ff115c803805c6c3aabcf675a0c0752cc28416133cbcbfc68f",
+      "size": 16454
+    },
+    {
+      "id": "03-call-graph-analysis-id",
+      "name": "Analisis Graf Panggilan dan Deteksi Komponen Terhubung Kuat (SCC)",
+      "description": "Analisis graf pemanggilan: komponen terhubung kuat dan urutan topologis. Edisi bahasa Indonesia.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "bash"
+      ],
+      "locales": [
+        "id"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/id/03_call_graph_analysis.ipynb",
+      "revision": 1,
+      "sha256": "3d372e0d03cdb4365ae7858bef5966d4af0bcf633f8424c9169d604cb0dc5a70",
+      "size": 13995
+    },
+    {
+      "id": "life-expectancy-csv-demo-id",
+      "name": "Analisis Angka Harapan Hidup",
+      "description": "Pipeline data lintas bahasa dengan dataset harapan hidup. Edisi bahasa Indonesia.",
+      "type": "workbook",
+      "kernels": [
+        "python",
+        "r"
+      ],
+      "locales": [
+        "id"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/id/life_expectancy_csv_demo.ipynb",
+      "revision": 1,
+      "sha256": "7370de647bdc47705e81fec4578949eea1d99993e709ee13f1233e12f59e6871",
+      "size": 11475
     }
   ]
 }

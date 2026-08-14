@@ -1,0 +1,72 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "Prolog Menghasilkan TypR: Demo Kompiler",
+    "cells": [
+      {
+        "type": "markdown",
+        "code": "# Prolog Menghasilkan TypR\n\nBuku kerja ini mendemonstrasikan bagaimana UnifyWeaver mengompilasi predikat Prolog ke dalam **TypR** — superset bertipe dari bahasa R.\n\nAlur kerja:\n1. Mendefinisikan predikat Prolog (fakta + aturan) di sel bernama `family_tree`\n2. Mendefinisikan program kueri di sel sumber bernama berpenyorot `typr_queries`\n3. Membaca kedua sel melalui Notebook VFS\n4. UnifyWeaver mendeteksi pola rekursi (penutupan transitif)\n5. Kompiler menghasilkan kode TypR bertipe dengan `let`, `fn`, dan anotasi tipe\n6. Menambahkan kueri bernama dan menjalankan program lengkap di kernel TypR\n\nMenyimpan program sumber dalam sel bernama akan mempertahankan penyorotan sintaksis dan menghindari penyematan di dalam string Prolog.\n\nKatalog secara otomatis memasang paket **UnifyWeaver SciREPL** yang diperlukan bersama buku kerja ini.\n\n**Batasan:** Sel TypR saling terisolasi. Direktif `#!source` mempertahankan `typr_queries` sebagai cuplikan sumber yang tidak dieksekusi selama **Jalankan Semua** (Run All); `compile_to_typr` menambahkannya ke definisi yang dihasilkan sebelum menulis `typr_output`.",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "% Load UnifyWeaver compiler modules\n['../init'].\n:- use_module(unifyweaver(targets/typr_target)).\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "language": "prolog",
+        "name": "load_compiler"
+      },
+      {
+        "type": "code",
+        "code": "% Define a family tree as Prolog facts\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% Transitive closure: ancestor(X, Y) if X is an ancestor of Y\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "language": "prolog",
+        "name": "family_tree"
+      },
+      {
+        "type": "code",
+        "code": "#!source\n# This named TypR source cell is read by compile_to_typr.\n# It is appended to the generated code because TypR cells are isolated.\n\n# --- Queries ---\nlet results <- ancestor_all(\"alice\");\ncat(\"Descendants of alice:\", paste(sep = \", \", ...results), fill = TRUE);\nlet is_anc <- ancestor_check(\"alice\", \"eve\");\ncat(\"alice is ancestor of eve:\", is_anc, fill = TRUE);\nlet is_anc2 <- ancestor_check(\"alice\", \"frank\");\ncat(\"alice is ancestor of frank:\", is_anc2, fill = TRUE);",
+        "language": "typr",
+        "name": "typr_queries"
+      },
+      {
+        "type": "code",
+        "code": "% Read the highlighted Prolog and TypR source from named cells\n\\+ \\+ (\n    user:nb_read('family_tree', '.code', _PrologSrc),\n    setup_call_cleanup(\n        open('/tmp/_nb_typr_family.pl', write, _Out),\n        write(_Out, _PrologSrc),\n        close(_Out)),\n    catch(abolish(parent/2), _, true),\n    catch(abolish(ancestor/2), _, true),\n    consult('/tmp/_nb_typr_family.pl'),\n\n    user:nb_read('typr_queries', '.code', _QuerySource),\n    split_string(_QuerySource, \"\\n\", \"\\r\", [\"#!source\"|_QueryLines]),\n    atomics_to_string(_QueryLines, \"\\n\", _Queries),\n\n    % Compile ancestor/2 to explicitly typed TypR and append the named queries\n    recursive_compiler:compile_recursive(ancestor/2, [target(typr), typed_mode(explicit)], _Code),\n    format('--- Generated TypR code ---~n~w~n', [_Code]),\n    format(string(_FullCode), '~w~n~n~w~n', [_Code, _Queries]),\n    user:nb_write('typr_output', '.code', _FullCode),\n    writeln('TypR code written to cell: typr_output')\n).",
+        "language": "prolog",
+        "name": "compile_to_typr"
+      },
+      {
+        "type": "markdown",
+        "code": "## Kode TypR yang Dihasilkan\n\nSel di bawah ini berisi kode TypR yang dihasilkan UnifyWeaver dengan kueri yang ditambahkan.\nIni mencakup:\n- Tanda tangan fungsi bertipe seperti `fn(start: char): [#N, char]`\n- Pengikatan vektor bertipe dan penelusuran `while` serta `if` native\n- Pengindeksan dinamis native, penambahan vektor, dan penugasan\n- Fakta orang tua yang disuntikkan dari asersi Prolog\n- Tidak ada blok pelarian (escape) R mentah `@{ ... }@` dalam penutupan yang dihasilkan\n\n**Catatan:** Semua kode harus dijalankan dalam satu sel karena variabel TypR tidak persisten di seluruh sel.",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "# This cell will be populated by the compiler.\n# Run the 'compile_to_typr' cell above first.",
+        "language": "typr",
+        "name": "typr_output"
+      },
+      {
+        "type": "markdown",
+        "code": "## Perbandingan: Predikat yang Sama, Target R\n\nUnifyWeaver juga dapat mengompilasi predikat Prolog yang sama ke dalam R biasa.\nSel di bawah ini menghasilkan kode R yang tidak bertipe dari `ancestor/2` yang sama.",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "% Reload the same named Prolog source so this cell runs independently\n\\+ \\+ (\n    user:nb_read('family_tree', '.code', _PrologSrc),\n    setup_call_cleanup(\n        open('/tmp/_nb_r_family.pl', write, _Out),\n        write(_Out, _PrologSrc),\n        close(_Out)),\n    catch(abolish(parent/2), _, true),\n    catch(abolish(ancestor/2), _, true),\n    consult('/tmp/_nb_r_family.pl'),\n\n    % Compile to R with embedded facts; the highlighted r_queries cell runs next\n    recursive_compiler:compile_recursive(ancestor/2, [target(r), input(embedded)], _RCode),\n    format('--- Generated R code ---~n~w~n', [_RCode]),\n    user:nb_write('r_output', '.code', _RCode),\n    writeln('R code written to cell: r_output')\n).",
+        "language": "prolog",
+        "name": "compile_to_r"
+      },
+      {
+        "type": "code",
+        "code": "# This cell will be populated with plain R code.\n# Run the 'compile_to_r' cell above first.",
+        "language": "r",
+        "name": "r_output"
+      },
+      {
+        "type": "code",
+        "code": "# Query the generated R functions in a separate, highlighted cell.\nresults <- ancestor_all(\"alice\")\ncat(\"Descendants of alice:\", paste(results, collapse=\", \"), \"\\n\")\ncat(\"alice is ancestor of eve:\", ancestor_check(\"alice\", \"eve\"), \"\\n\")\ncat(\"alice is ancestor of frank:\", ancestor_check(\"alice\", \"frank\"), \"\\n\")",
+        "language": "r",
+        "name": "r_queries"
+      }
+    ]
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "Prolog Menghasilkan ClojureScript: Demo Kompiler",
+    "cells": [
+      {
+        "type": "markdown",
+        "code": "# Prolog Menghasilkan ClojureScript\n\nBuku kerja ini mendemonstrasikan bagaimana UnifyWeaver mengompilasi predikat Prolog ke dalam **ClojureScript** dan menjalankan hasilnya di peramban (browser) melalui kernel Scittle.\n\nAlur kerja:\n1. Mendefinisikan predikat Prolog (fakta + aturan)\n2. UnifyWeaver mendeteksi pola rekursi (penutupan transitif / transitive closure)\n3. Target ClojureScript menghasilkan CLJS yang dapat dijalankan di peramban (BFS pada peta `atom`, fakta tersemat, tanpa interoperabilitas JVM)\n4. Menulis definisi yang dihasilkan ke dalam sel ClojureScript berpenyorot miliknya sendiri\n5. Menjalankan sel kueri berpenyorot terpisah terhadap konteks Scittle yang persisten\n\nKatalog secara otomatis memasang paket **UnifyWeaver SciREPL** yang diperlukan bersama buku kerja ini.\n\n**Properti Bagus:** Tidak seperti demo TypR, status ClojureScript *tetap persisten di seluruh sel* — Scittle mempertahankan satu konteks SCI per halaman — sehingga definisi yang dihasilkan dan kueri tetap terpisah dengan rapi.",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "% Load UnifyWeaver compiler modules\n['../init'].\n:- use_module(unifyweaver(targets/clojurescript_target)).\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "language": "prolog",
+        "name": "load_compiler"
+      },
+      {
+        "type": "code",
+        "code": "% Define a family tree as Prolog facts\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% Transitive closure: ancestor(X, Y) if X is an ancestor of Y\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "language": "prolog",
+        "name": "family_tree"
+      },
+      {
+        "type": "code",
+        "code": "% Compile ancestor/2 to ClojureScript definitions only\n\\+ \\+ (\n    recursive_compiler:compile_recursive(ancestor/2, [target(clojurescript)], _Code),\n    format('--- Generated ClojureScript code ---~n~w~n', [_Code]),\n    % End with nil so generated seed expressions do not become notebook output\n    format(string(_Definitions), '~w~n~nnil~n', [_Code]),\n    user:nb_write('cljs_output', '.code', _Definitions),\n    writeln('ClojureScript definitions written to cell: cljs_output')\n).",
+        "language": "prolog",
+        "name": "compile_to_clojurescript"
+      },
+      {
+        "type": "markdown",
+        "code": "## Kode ClojureScript yang Dihasilkan\n\nSel di bawah ini hanya berisi definisi ClojureScript yang dihasilkan oleh UnifyWeaver.\nIni mencakup:\n- `(def base-relation (atom {}))` — relasi sebagai peta yang dapat berubah (mutable map)\n- `find-all` / `check-path` — BFS pada relasi\n- Panggilan seed `(add-fact ...)` tersemat dari fakta Prolog\n- Hanya interoperabilitas host JS (tidak ada `java.io`, `System/exit`, atau `*command-line-args*`)\n\nSel berpenyorot berikutnya mengkueri definisi persisten ini.",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": ";; This cell will be populated by the compiler.\n;; Run the 'compile_to_clojurescript' cell above first.",
+        "language": "clojurescript",
+        "name": "cljs_output"
+      },
+      {
+        "type": "code",
+        "code": ";; Query the generated definitions in Scittle's persistent context.\n(print (str \"Descendants of alice: \" (pr-str (sort (find-all \"alice\"))) \"\\n\"\n            \"alice is ancestor of eve: \" (check-path \"alice\" \"eve\") \"\\n\"\n            \"alice is ancestor of frank: \" (check-path \"alice\" \"frank\") \"\\n\"))",
+        "language": "clojurescript",
+        "name": "cljs_queries"
+      },
+      {
+        "type": "markdown",
+        "code": "## Perbandingan: Predikat yang Sama, Target JVM Clojure\n\nUnifyWeaver juga dapat mengompilasi predikat yang sama untuk JVM Clojure. Output ini membaca fakta dari stdin dan menggunakan `System/exit` — cocok di bawah host JVM/Node tetapi tidak dapat langsung dieksekusi di peramban. Itulah alasan target ClojureScript ada (ia menulis ulang interoperabilitas host JVM ke JS).",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "% Compile the same predicate to JVM Clojure for comparison (display only)\n\\+ \\+ (\n    recursive_compiler:compile_recursive(ancestor/2, [target(clojure)], _ClojureCode),\n    format('--- Generated JVM Clojure code (note java.io / *command-line-args*) ---~n~w~n', [_ClojureCode])\n).",
+        "language": "prolog",
+        "name": "compile_to_clojure"
+      }
+    ]
+  }
+}

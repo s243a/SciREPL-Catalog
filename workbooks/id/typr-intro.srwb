@@ -1,0 +1,55 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "Pengantar TypR",
+    "cells": [
+      {
+        "type": "markdown",
+        "code": "# TypR — R yang Bertipe\n\nTypR adalah superset bertipe dari bahasa R yang dikompilasi menjadi kode R standar.\nIni menambahkan anotasi tipe, pemeriksaan tipe (type checking), dan generik dengan tetap menjaga kompatibilitas penuh dengan R.\n\n**Catatan Sintaks:**\n- Pernyataan diakhiri dengan titik koma: `let x <- 42;`\n- Fungsi bertipe menggunakan `fn(x: int): int { x * x }`\n- TypR mendukung fungsi variadik dan titik bernama, sehingga `cat(\"x =\", x);` dapat langsung berfungsi.",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "let x <- 42;\n# Variadic arguments are supported\ncat(\"x =\", x);",
+        "language": "typr",
+        "name": "basics"
+      },
+      {
+        "type": "code",
+        "code": "# Function bodies require braces\nlet add <- function(a, b) { a + b };\nlet result <- add(3, 4);\nprint(result);",
+        "language": "typr",
+        "name": "functions"
+      },
+      {
+        "type": "code",
+        "code": "let greeting: char <- \"Hello from TypR!\";\nprint(greeting);",
+        "language": "typr",
+        "name": "typed"
+      },
+      {
+        "type": "code",
+        "code": "# Explicit parameter and return types make calls statically checkable\nlet square <- fn(x: int): int { x * x };\nlet result <- square(7);\n# Variadic arguments work directly\ncat(\"7 squared =\", result);",
+        "language": "typr",
+        "name": "square"
+      },
+      {
+        "type": "code",
+        "code": "# Forward heterogeneous named arguments\nlet collect <- fn(...args: Any): [#N, Any] { args };\nlet forward <- fn(...args: Any): [#N, Any] { collect(...args) };\nlet values <- forward(count = 1, enabled = true);\nprint(values);\n@{ base::cat(\"Names:\", base::paste(base::names(values$data), collapse = \", \"), \"\\n\") }@;",
+        "language": "typr",
+        "name": "variadic_forwarding"
+      },
+      {
+        "type": "markdown",
+        "code": "## Direktif\n\nTempatkan direktif pada baris pertama sel TypR:\n\n- `#!source` mempertahankan cuplikan kode sumber bernama dan berpenyorot tanpa mengompilasi atau mengeksekusi isinya. Sel khusus sumber sengaja tidak menghasilkan `Out [n]` dan tetap dapat dibaca melalui Notebook VFS.\n- `#!typecheck` memeriksa tipe dari kode berikut tanpa menjalankannya.\n- `#!transpile` menampilkan output R hasil transpilasi.\n- `#!show-r` beralih menampilkan kode R yang dihasilkan untuk eksekusi TypR berikutnya.",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "#!transpile\nlet fib <- fn(n: int): int {\n  if (n <= 1) { n }\n  else { fib(n - 1) + fib(n - 2) }\n};\nprint(fib(10));",
+        "language": "typr",
+        "name": "transpile_demo"
+      }
+    ]
+  }
+}
