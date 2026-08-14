@@ -33,6 +33,11 @@ packages/                 package zips
 tools/build-index.mjs     recomputes sha256/size for every item from the files
 ```
 
+- **Cell names stay in English** in translated editions. Names are
+  load-bearing identifiers — `nb_read("cell_name", …)` references them from
+  code cells, which translations must keep byte-identical — and a translated
+  workbook is only exempt from runtime re-testing because its executable
+  surface is provably unchanged. Translate markdown; leave names alone.
 - Item `locales` use BCP 47 tags (`en`, `ja`, `pt-BR`). A translated edition
   of a workbook is a **separate item** with its own id (e.g. `compute-pi-ja`),
   not a variant of the English one.
