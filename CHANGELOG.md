@@ -7,7 +7,7 @@ and work deliberately deferred.
 
 ### Added
 
-- **Spanish (es): 11 workbook editions**, translated from the English sources
+- **Spanish (es): 15 workbook editions**, translated from the English sources
   by the supervised agy/Gemini pipeline (per-action permission review, audit
   logs, and a mechanical verification gate on every file):
   - `compute-pi-workbook.srwb` (pilot)
@@ -17,8 +17,13 @@ and work deliberately deferred.
   - `prolog-generates-clojurescript.srwb`, `prolog-generates-typr.srwb`
   - `r_ggplot2_showcase.ipynb`, `r_statistics.ipynb`,
     `r_tidyverse_wrangling.ipynb`
-  - Remaining four (the three UnifyWeaver tutorials and
-    `life_expectancy_csv_demo.ipynb`) are in progress.
+  - `01_family_tree_tutorial.ipynb`, `02_recursion_patterns.ipynb`,
+    `03_call_graph_analysis.ipynb`, `life_expectancy_csv_demo.ipynb`
+    (batch 3, translated on Gemini 3.7 Flash the week of its release;
+    batches 1–2 used 3.6 Flash — no quality difference surfaced in
+    review, and the same gates passed for both)
+
+  **Spanish is complete: all 15 built-in workbooks have es editions.**
 - The 15 English source workbooks under `workbooks/en/` (translation inputs,
   not index items — the app already ships them built in).
 - `tools/build-index.mjs` — sha256/size integrity for every index item, with
