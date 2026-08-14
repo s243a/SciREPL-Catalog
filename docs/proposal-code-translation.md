@@ -181,11 +181,39 @@ known translated string spans** — numbers exact, structure exact, every
 diff inside a fragment the translation step itself declared. That
 differential check is mechanical and catches computation-breaking
 translation errors (mangled format strings, shifted quotes) outright.
-The oracle's edges define the residue: plot images (labels change bytes
-wholesale — script asserts a plot rendered; label text falls to
-spot-check), translation quality itself (native review, as ever), and
-Stages B/C, where code changes weaken "identical modulo spans" toward
-"same numeric results".
+Four hardenings (from review) make the oracle trustworthy:
+
+- **Determinism envelope.** The English run must pass its own oracle
+  first: run it twice, diff, and only outputs stable across both runs are
+  oracle-eligible. Nondeterministic channels — unseeded RNG, timestamps,
+  async completion order, stream interleaving — are either pinned in the
+  workbook (seeds) or excluded from the oracle by the manifest. A
+  workbook whose English runs disagree cannot gate a translation.
+- **Runtime-locale pinning.** `toLocaleString`, `Intl.*`, and date
+  formatting follow the *browser environment's* locale, not the
+  workbook's language — identical code diverges across machines with no
+  translation error at all. The bench pins browser locale and timezone
+  identically for baseline and translated runs.
+- **Spans are derived, never self-certified.** The static gate diff of
+  the code cells mechanically derives the changed comment/string spans;
+  that derived manifest is what the runtime oracle consumes.
+  Worker-declared spans are at most a cross-check. This closes the hole
+  where a lazy or compromised worker hides errors by over-declaring, and
+  gives the regression property for free: gate v2 rejects everything v1
+  rejects outside the derived spans.
+- **Placeholder integrity.** Within translated strings, the placeholder
+  set (`{name}`, `%s`, printf codes) must be equal between source and
+  translation — checked statically, catching the most common i18n break
+  before execution is even needed.
+
+The oracle's edges define the residue: plot images — where "a plot
+rendered" is too weak; check dimensions plus non-blank pixel fraction,
+then pixel-diff against the English raster with a threshold outside the
+declared label regions, keeping everything but the labels inside the
+mechanical oracle (noting even untranslated plots drift byte-wise via
+font rasterization) — translation quality itself (native review, as
+ever), and Stages B/C, where code changes weaken "identical modulo spans"
+toward "same numeric results".
 
 Worker *self-checks* remain valuable as an inner loop (the worker already
 writes and runs its own verify scripts, catching errors before they cost a
