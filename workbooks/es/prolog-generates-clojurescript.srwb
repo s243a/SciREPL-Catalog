@@ -1,0 +1,60 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "Prolog genera ClojureScript: Demostración del compilador",
+    "cells": [
+      {
+        "type": "markdown",
+        "code": "# Prolog genera ClojureScript\n\nEste cuaderno de trabajo demuestra cómo UnifyWeaver compila predicados de Prolog en **ClojureScript**, ejecutando luego el resultado en el navegador a través del kernel Scittle.\n\nEl flujo de trabajo:\n1. Definir los predicados de Prolog (hechos + reglas)\n2. UnifyWeaver detecta el patrón de recursión (clausura transitiva)\n3. El destino ClojureScript genera CLJS ejecutable en el navegador (BFS sobre un mapa `atom`, hechos embebidos, sin interoperabilidad con la JVM)\n4. Escribir las definiciones generadas en su propia celda resaltada de ClojureScript\n5. Ejecutar la celda de consulta resaltada separada contra el contexto persistente de Scittle\n\nEl catálogo instala automáticamente el paquete requerido **UnifyWeaver SciREPL** con este cuaderno de trabajo.\n\n**Propiedad destacada:** a diferencia de la demo de TypR, el estado de ClojureScript *persiste entre celdas* —Scittle mantiene un único contexto SCI por página—, por lo que las definiciones generadas y las consultas permanecen limpiamente separadas.",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "% Load UnifyWeaver compiler modules\n['../init'].\n:- use_module(unifyweaver(targets/clojurescript_target)).\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "language": "prolog",
+        "name": "load_compiler"
+      },
+      {
+        "type": "code",
+        "code": "% Define a family tree as Prolog facts\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% Transitive closure: ancestor(X, Y) if X is an ancestor of Y\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "language": "prolog",
+        "name": "family_tree"
+      },
+      {
+        "type": "code",
+        "code": "% Compile ancestor/2 to ClojureScript definitions only\n\\+ \\+ (\n    recursive_compiler:compile_recursive(ancestor/2, [target(clojurescript)], _Code),\n    format('--- Generated ClojureScript code ---~n~w~n', [_Code]),\n    % End with nil so generated seed expressions do not become notebook output\n    format(string(_Definitions), '~w~n~nnil~n', [_Code]),\n    user:nb_write('cljs_output', '.code', _Definitions),\n    writeln('ClojureScript definitions written to cell: cljs_output')\n).",
+        "language": "prolog",
+        "name": "compile_to_clojurescript"
+      },
+      {
+        "type": "markdown",
+        "code": "## Código ClojureScript generado\n\nLa celda siguiente contiene únicamente las definiciones de ClojureScript generadas por UnifyWeaver.\nIncluye:\n- `(def base-relation (atom {}))` — la relación como un mapa mutable\n- `find-all` / `check-path` — BFS sobre la relación\n- Llamadas semilla `(add-fact ...)` embebidas a partir de los hechos de Prolog\n- Solo interoperabilidad con el entorno host de JS (sin `java.io`, `System/exit` ni `*command-line-args*`)\n\nLa celda resaltada siguiente consulta esas definiciones persistentes.",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": ";; This cell will be populated by the compiler.\n;; Run the 'compile_to_clojurescript' cell above first.",
+        "language": "clojurescript",
+        "name": "cljs_output"
+      },
+      {
+        "type": "code",
+        "code": ";; Query the generated definitions in Scittle's persistent context.\n(print (str \"Descendants of alice: \" (pr-str (sort (find-all \"alice\"))) \"\\n\"\n            \"alice is ancestor of eve: \" (check-path \"alice\" \"eve\") \"\\n\"\n            \"alice is ancestor of frank: \" (check-path \"alice\" \"frank\") \"\\n\"))",
+        "language": "clojurescript",
+        "name": "cljs_queries"
+      },
+      {
+        "type": "markdown",
+        "code": "## Comparación: El mismo predicado, destino Clojure para JVM\n\nUnifyWeaver puede compilar el mismo predicado a Clojure para la JVM. Esa salida lee hechos desde la entrada estándar (stdin) y usa `System/exit`, lo cual es adecuado en un host JVM/Node, pero no es ejecutable directamente en el navegador, razón precisa por la que existe el destino ClojureScript (reescribe la interoperabilidad del host JVM a JS).",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "% Compile the same predicate to JVM Clojure for comparison (display only)\n\\+ \\+ (\n    recursive_compiler:compile_recursive(ancestor/2, [target(clojure)], _ClojureCode),\n    format('--- Generated JVM Clojure code (note java.io / *command-line-args*) ---~n~w~n', [_ClojureCode])\n).",
+        "language": "prolog",
+        "name": "compile_to_clojure"
+      }
+    ]
+  }
+}

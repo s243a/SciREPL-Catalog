@@ -109,6 +109,93 @@
       "revision": 1,
       "sha256": "1b62081830fd0447aa93dada95dc91ee12ac8d504b5a70ecf8ad64c83e4c6a88",
       "size": 6545
+    },
+    {
+      "id": "prolog-generates-clojurescript-es",
+      "name": "Prolog genera ClojureScript: Demostración del compilador",
+      "description": "UnifyWeaver compila lógica de Prolog a ClojureScript ejecutable. Edición en español.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "clojurescript"
+      ],
+      "locales": [
+        "es"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/es/prolog-generates-clojurescript.srwb",
+      "revision": 1,
+      "sha256": "53128573b363edaa7491d4778c26f588363ca20ab40d82e54478ca7816ffb068",
+      "size": 4923
+    },
+    {
+      "id": "prolog-generates-typr-es",
+      "name": "Prolog genera TypR: Demostración del compilador",
+      "description": "UnifyWeaver compila lógica de Prolog a TypR ejecutable. Edición en español.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "typr"
+      ],
+      "locales": [
+        "es"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/es/prolog-generates-typr.srwb",
+      "revision": 1,
+      "sha256": "e95b08629e8214803003616fb25a6139e8244b65689047406ebb2dbf679f9bed",
+      "size": 6654
+    },
+    {
+      "id": "r-ggplot2-showcase-es",
+      "name": "Muestrario de ggplot2",
+      "description": "Muestrario de ggplot2: dispersión, facetas, cajas y mapas de calor. Edición en español.",
+      "type": "workbook",
+      "kernels": [
+        "r"
+      ],
+      "locales": [
+        "es"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/es/r_ggplot2_showcase.ipynb",
+      "revision": 1,
+      "sha256": "d0eab9168034be85bd43d2755c417eee68d40c4160b680a7702f25cde4030571",
+      "size": 4387
+    },
+    {
+      "id": "r-statistics-es",
+      "name": "Estadística con R",
+      "description": "Contraste de hipótesis, regresión e intervalos de confianza con R. Edición en español.",
+      "type": "workbook",
+      "kernels": [
+        "r"
+      ],
+      "locales": [
+        "es"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/es/r_statistics.ipynb",
+      "revision": 1,
+      "sha256": "46ea6f994b9b2f6bcd3849285b0fdb22349f769240ac54a1698e26cee813a7f5",
+      "size": 6043
+    },
+    {
+      "id": "r-tidyverse-wrangling-es",
+      "name": "Manipulación de datos con Tidyverse",
+      "description": "Manipulación de datos con dplyr y tidyr. Edición en español.",
+      "type": "workbook",
+      "kernels": [
+        "r"
+      ],
+      "locales": [
+        "es"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/es/r_tidyverse_wrangling.ipynb",
+      "revision": 1,
+      "sha256": "7ee8598046a7bef17a942d5f390c31535ed8f02f691a8ae77069558ab437f016",
+      "size": 7926
     }
   ]
 }
