@@ -22,6 +22,93 @@
       "revision": 1,
       "sha256": "eb9a05c57fd34320392485e2b56474c1445f3b90020d0d83199211fc247ef1a2",
       "size": 5697
+    },
+    {
+      "id": "lua-tables-coroutines-es",
+      "name": "Lua: Tablas, corrutinas y clausuras",
+      "description": "Tablas, corrutinas y clausuras: las ideas centrales de Lua, con ejemplos ejecutables. Edición en español.",
+      "type": "workbook",
+      "kernels": [
+        "lua"
+      ],
+      "locales": [
+        "es"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/es/lua-tables-coroutines.srwb",
+      "revision": 1,
+      "sha256": "0550759ba95f99b942124dcaf9bceeab771d36cdf729f7e68cbd41398bffbe8c",
+      "size": 13623
+    },
+    {
+      "id": "lua-parsing-coroutines-es",
+      "name": "Lua: Análisis sintáctico con corrutinas",
+      "description": "Análisis sintáctico con corrutinas en Lua: lexer, parser y flujos perezosos. Edición en español.",
+      "type": "workbook",
+      "kernels": [
+        "lua"
+      ],
+      "locales": [
+        "es"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/es/lua-parsing-coroutines.srwb",
+      "revision": 1,
+      "sha256": "4d90a12eb9b8411a154ae39a0e8413904ecd8bb5bdd92822ffc330b481ebc660",
+      "size": 21696
+    },
+    {
+      "id": "typr-intro-es",
+      "name": "Introducción a TypR",
+      "description": "Introducción a TypR: tipado y transpilación a R. Edición en español.",
+      "type": "workbook",
+      "kernels": [
+        "typr"
+      ],
+      "locales": [
+        "es"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/es/typr-intro.srwb",
+      "revision": 1,
+      "sha256": "031eca0c30ef18c2ceca9bfcf1e810904be25bb0837217c7db3cf7eaf44937ff",
+      "size": 2943
+    },
+    {
+      "id": "prolog-generates-r-es",
+      "name": "Prolog genera R: Demostración del compilador",
+      "description": "UnifyWeaver compila lógica de Prolog a código R ejecutable, en vivo. Edición en español.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "r"
+      ],
+      "locales": [
+        "es"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/es/prolog-generates-r.srwb",
+      "revision": 1,
+      "sha256": "106888cba947bc33791defff2d256ccd9d67db7ecf9f349eefd4b782e85cfa7e",
+      "size": 14110
+    },
+    {
+      "id": "prolog-generates-lua-es",
+      "name": "Prolog genera Lua: Demostración del compilador",
+      "description": "UnifyWeaver compila lógica de Prolog a código Lua ejecutable. Edición en español.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "lua"
+      ],
+      "locales": [
+        "es"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/es/prolog-generates-lua.srwb",
+      "revision": 1,
+      "sha256": "1b62081830fd0447aa93dada95dc91ee12ac8d504b5a70ecf8ad64c83e4c6a88",
+      "size": 6545
     }
   ]
 }
