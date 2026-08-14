@@ -218,7 +218,8 @@ correctness. Stage A has a strong one: the English original's outputs.
 Because only comments and display strings change, a correct translated run
 must produce outputs **identical to the English outputs except within the
 known translated string spans** — numbers exact, structure exact, every
-diff inside a fragment the translation step itself declared. That
+diff inside a fragment mechanically derived from the static code-cell
+diff (see the hardenings below — spans are never self-certified). That
 differential check is mechanical and catches computation-breaking
 translation errors (mangled format strings, shifted quotes) outright.
 Four hardenings (from review) make the oracle trustworthy:
