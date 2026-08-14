@@ -1,0 +1,72 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "Prolog يولد TypR: عرض توضيحي للمترجم",
+    "cells": [
+      {
+        "type": "markdown",
+        "code": "# Prolog يولد TypR\n\nيوضح هذا المصنف كيف يترجم UnifyWeaver محددات Prolog إلى **TypR** — وهي مجموعة شاملة ومزودة بالأنواع (typed superset) من R.\n\nسير العمل:\n1. تعريف محددات Prolog (حقائق + قواعد) في الخلية المسماة `family_tree`\n2. تعريف برنامج الاستعلام في الخلية المسماة والمميزة لونيًا لمصدر `typr_queries`\n3. قراءة كلا الخليتين عبر Notebook VFS\n4. يكتشف UnifyWeaver نمط العودية (الانغلاق المتعدي)\n5. يولد المترجم كود TypR محدد الأنواع مع `let` و`fn` والتعليقات التوضيحية للأنواع\n6. إلحاق الاستعلامات المسماة وتنفيذ البرنامج الكامل في نواة TypR\n\nيحافظ الاحتفاظ ببرامج المصدر في خلايا مسماة على تمييز البنية النحوية لونيًا ويتجنب تضمينها داخل سلاسل نصوص Prolog.\n\nيقوم الكتالوج بتثبيت حزمة **UnifyWeaver SciREPL** المطلوبة تلقائيًا مع هذا المصنف.\n\n**محدودية:** خلايا TypR معزولة عن بعضها. يحتفظ التوجيه `#!source` بـ `typr_queries` كمقطع مصدري لا يتم تنفيذه أثناء **تشغيل الكل** (Run All)؛ وتقوم `compile_to_typr` بإلحاقه بالتعريفات المولدة قبل كتابة `typr_output`.",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "% Load UnifyWeaver compiler modules\n['../init'].\n:- use_module(unifyweaver(targets/typr_target)).\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "language": "prolog",
+        "name": "load_compiler"
+      },
+      {
+        "type": "code",
+        "code": "% Define a family tree as Prolog facts\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% Transitive closure: ancestor(X, Y) if X is an ancestor of Y\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "language": "prolog",
+        "name": "family_tree"
+      },
+      {
+        "type": "code",
+        "code": "#!source\n# This named TypR source cell is read by compile_to_typr.\n# It is appended to the generated code because TypR cells are isolated.\n\n# --- Queries ---\nlet results <- ancestor_all(\"alice\");\ncat(\"Descendants of alice:\", paste(sep = \", \", ...results), fill = TRUE);\nlet is_anc <- ancestor_check(\"alice\", \"eve\");\ncat(\"alice is ancestor of eve:\", is_anc, fill = TRUE);\nlet is_anc2 <- ancestor_check(\"alice\", \"frank\");\ncat(\"alice is ancestor of frank:\", is_anc2, fill = TRUE);",
+        "language": "typr",
+        "name": "typr_queries"
+      },
+      {
+        "type": "code",
+        "code": "% Read the highlighted Prolog and TypR source from named cells\n\\+ \\+ (\n    user:nb_read('family_tree', '.code', _PrologSrc),\n    setup_call_cleanup(\n        open('/tmp/_nb_typr_family.pl', write, _Out),\n        write(_Out, _PrologSrc),\n        close(_Out)),\n    catch(abolish(parent/2), _, true),\n    catch(abolish(ancestor/2), _, true),\n    consult('/tmp/_nb_typr_family.pl'),\n\n    user:nb_read('typr_queries', '.code', _QuerySource),\n    split_string(_QuerySource, \"\\n\", \"\\r\", [\"#!source\"|_QueryLines]),\n    atomics_to_string(_QueryLines, \"\\n\", _Queries),\n\n    % Compile ancestor/2 to explicitly typed TypR and append the named queries\n    recursive_compiler:compile_recursive(ancestor/2, [target(typr), typed_mode(explicit)], _Code),\n    format('--- Generated TypR code ---~n~w~n', [_Code]),\n    format(string(_FullCode), '~w~n~n~w~n', [_Code, _Queries]),\n    user:nb_write('typr_output', '.code', _FullCode),\n    writeln('TypR code written to cell: typr_output')\n).",
+        "language": "prolog",
+        "name": "compile_to_typr"
+      },
+      {
+        "type": "markdown",
+        "code": "## كود TypR المولد\n\nتحتوي الخلية أدناه على كود TypR المولد بواسطة UnifyWeaver مع إلحاق الاستعلامات به.\nوهو يتضمن:\n- تواقيع دوال محددة الأنواع مثل `fn(start: char): [#N, char]`\n- ربط متجهات محددة الأنواع والتنقل الأصيل باستخدام `while` و`if`\n- الفهرسة الديناميكية الأصيلة وإلحاق المتجهات والإسناد\n- حقائق الوالدين المأخوذة من تأكيدات Prolog\n- لا توجد كتل تخطٍ برمجية خام لـ R بصيغة `@{ ... }@` في المنغلق المولد\n\n**ملاحظة:** يجب تشغيل جميع الأكواد في خلية واحدة لأن متغيرات TypR لا تستمر عبر الخلايا.",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "# This cell will be populated by the compiler.\n# Run the 'compile_to_typr' cell above first.",
+        "language": "typr",
+        "name": "typr_output"
+      },
+      {
+        "type": "markdown",
+        "code": "## مقارنة: المحدد ذاته، هدف R\n\nيمكن لـ UnifyWeaver تجميع محدد Prolog ذاته إلى كود R العادي.\nتولد الخلية أدناه كود R غير محدد الأنواع من `ancestor/2` ذاته.",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "% Reload the same named Prolog source so this cell runs independently\n\\+ \\+ (\n    user:nb_read('family_tree', '.code', _PrologSrc),\n    setup_call_cleanup(\n        open('/tmp/_nb_r_family.pl', write, _Out),\n        write(_Out, _PrologSrc),\n        close(_Out)),\n    catch(abolish(parent/2), _, true),\n    catch(abolish(ancestor/2), _, true),\n    consult('/tmp/_nb_r_family.pl'),\n\n    % Compile to R with embedded facts; the highlighted r_queries cell runs next\n    recursive_compiler:compile_recursive(ancestor/2, [target(r), input(embedded)], _RCode),\n    format('--- Generated R code ---~n~w~n', [_RCode]),\n    user:nb_write('r_output', '.code', _RCode),\n    writeln('R code written to cell: r_output')\n).",
+        "language": "prolog",
+        "name": "compile_to_r"
+      },
+      {
+        "type": "code",
+        "code": "# This cell will be populated with plain R code.\n# Run the 'compile_to_r' cell above first.",
+        "language": "r",
+        "name": "r_output"
+      },
+      {
+        "type": "code",
+        "code": "# Query the generated R functions in a separate, highlighted cell.\nresults <- ancestor_all(\"alice\")\ncat(\"Descendants of alice:\", paste(results, collapse=\", \"), \"\\n\")\ncat(\"alice is ancestor of eve:\", ancestor_check(\"alice\", \"eve\"), \"\\n\")\ncat(\"alice is ancestor of frank:\", ancestor_check(\"alice\", \"frank\"), \"\\n\")",
+        "language": "r",
+        "name": "r_queries"
+      }
+    ]
+  }
+}

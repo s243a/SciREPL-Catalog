@@ -30,6 +30,14 @@ and work deliberately deferred.
   sessions amortize far better than the es-era batches). Terminology from
   the app's own ja UI glossary; «推移閉包», «強連結成分», «末尾再帰» et al.
   flagged by the worker as judgment calls for native review.
+
+- **Arabic (ar): all 15 workbook editions** — one supervised session, ~10
+  minutes and only 7 approvals: the worker reused its established
+  batch-script pattern from the Japanese session, combining build+verify
+  per prompt. RTL note for reviewers: judge the files directly, not
+  terminal captures (bidirectional rendering garbles PTY output).
+  «الانغلاق المتعدي», «المكونات شديدة الترابط» and the recursion terms are
+  flagged for native review; native testers are lined up for this locale.
 - The 15 English source workbooks under `workbooks/en/` (translation inputs,
   not index items — the app already ships them built in).
 - `tools/build-index.mjs` — sha256/size integrity for every index item, with

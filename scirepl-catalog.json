@@ -531,6 +531,269 @@
       "revision": 1,
       "sha256": "beece58dfda5b15d380699e417bbe6a63f36823de66eb00531d44e35fed6241e",
       "size": 11699
+    },
+    {
+      "id": "compute-pi-workbook-ar",
+      "name": "حساب باي: حدود أرخميدس",
+      "description": "حصر قيمة π بين مضلعات داخلية وخارجية بطريقة أرخميدس. النسخة العربية.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "ar"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ar/compute-pi-workbook.srwb",
+      "revision": 1,
+      "sha256": "295e3411a4310c255a6980e3884011152c0145e03c1cf81bef1f9c409cc8efcf",
+      "size": 6069
+    },
+    {
+      "id": "lua-tables-coroutines-ar",
+      "name": "Lua: الجداول والروتينات المساعدة والمنغلقات",
+      "description": "الجداول والروتينات المشتركة والانغلاقات: جوهر لغة Lua بأمثلة قابلة للتنفيذ. النسخة العربية.",
+      "type": "workbook",
+      "kernels": [
+        "lua"
+      ],
+      "locales": [
+        "ar"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ar/lua-tables-coroutines.srwb",
+      "revision": 1,
+      "sha256": "e8b1501f638e91a993cb4b42d646d1805f0123519e8a6768ff33a71d85f92950",
+      "size": 15126
+    },
+    {
+      "id": "lua-parsing-coroutines-ar",
+      "name": "Lua: التحليل النحوي باستخدام الروتينات المساعدة",
+      "description": "التحليل النحوي بالروتينات المشتركة في Lua: محلل لفظي ومعرب وتدفقات كسولة. النسخة العربية.",
+      "type": "workbook",
+      "kernels": [
+        "lua"
+      ],
+      "locales": [
+        "ar"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ar/lua-parsing-coroutines.srwb",
+      "revision": 1,
+      "sha256": "9fd5c597e89f73d368324cacc33bb7db57ec5ad2ad3ecfdf1d159b22accf7114",
+      "size": 23238
+    },
+    {
+      "id": "typr-intro-ar",
+      "name": "مقدمة إلى TypR",
+      "description": "مقدمة إلى TypR: الأنماط والتحويل إلى R. النسخة العربية.",
+      "type": "workbook",
+      "kernels": [
+        "typr"
+      ],
+      "locales": [
+        "ar"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ar/typr-intro.srwb",
+      "revision": 1,
+      "sha256": "8ef313e539190b3297b1eba18ab9bfee0707e7f113610d71d8a753c34accdafa",
+      "size": 3341
+    },
+    {
+      "id": "prolog-generates-r-ar",
+      "name": "Prolog يولد R: عرض توضيحي للمترجم",
+      "description": "يحوّل UnifyWeaver منطق Prolog إلى كود R قابل للتنفيذ، مباشرة. النسخة العربية.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "r"
+      ],
+      "locales": [
+        "ar"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ar/prolog-generates-r.srwb",
+      "revision": 1,
+      "sha256": "20bb21eafb2f8a63b42da608b3fb9666bbb26d10454c16f3db83238a280f0b21",
+      "size": 15462
+    },
+    {
+      "id": "prolog-generates-lua-ar",
+      "name": "Prolog يولد Lua: عرض توضيحي للمترجم",
+      "description": "يحوّل UnifyWeaver منطق Prolog إلى كود Lua قابل للتنفيذ. النسخة العربية.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "lua"
+      ],
+      "locales": [
+        "ar"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ar/prolog-generates-lua.srwb",
+      "revision": 1,
+      "sha256": "ce4f28de4fb171b509ef0fc3ab573f6ac3f30e827bbd8c6546827f531fccab7c",
+      "size": 6994
+    },
+    {
+      "id": "prolog-generates-clojurescript-ar",
+      "name": "Prolog يولد ClojureScript: عرض توضيحي للمترجم",
+      "description": "يحوّل UnifyWeaver منطق Prolog إلى ClojureScript. النسخة العربية.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "clojurescript"
+      ],
+      "locales": [
+        "ar"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ar/prolog-generates-clojurescript.srwb",
+      "revision": 1,
+      "sha256": "ae88e807c85b5acfe07e575d6e6953728960d69cae65eddfd475f7e6290d0c38",
+      "size": 5472
+    },
+    {
+      "id": "prolog-generates-typr-ar",
+      "name": "Prolog يولد TypR: عرض توضيحي للمترجم",
+      "description": "يحوّل UnifyWeaver منطق Prolog إلى TypR. النسخة العربية.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "typr"
+      ],
+      "locales": [
+        "ar"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ar/prolog-generates-typr.srwb",
+      "revision": 1,
+      "sha256": "9170cc2a145b5ffb2092583790c12c7c5eb772f70194c040da0879e17a551fef",
+      "size": 7270
+    },
+    {
+      "id": "r-ggplot2-showcase-ar",
+      "name": "معرض ggplot2",
+      "description": "عرض ggplot2: مخططات التشتت والتقسيمات والصناديق وخرائط الحرارة. النسخة العربية.",
+      "type": "workbook",
+      "kernels": [
+        "r"
+      ],
+      "locales": [
+        "ar"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ar/r_ggplot2_showcase.ipynb",
+      "revision": 1,
+      "sha256": "37f29da196d6b76d84e42e611fc1735385b86f716f630c5d1b9bd7c0b334d659",
+      "size": 4597
+    },
+    {
+      "id": "r-statistics-ar",
+      "name": "الإحصاء باستخدام R",
+      "description": "الإحصاء مع R: اختبار الفرضيات والانحدار وفترات الثقة. النسخة العربية.",
+      "type": "workbook",
+      "kernels": [
+        "r"
+      ],
+      "locales": [
+        "ar"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ar/r_statistics.ipynb",
+      "revision": 1,
+      "sha256": "a3215ca659e1418848ad0f35e0a39181a4e711ae30f28f46d318f992b11bdc66",
+      "size": 6485
+    },
+    {
+      "id": "r-tidyverse-wrangling-ar",
+      "name": "معالجة البيانات وإعدادها باستخدام Tidyverse",
+      "description": "معالجة البيانات وإعدادها باستخدام dplyr وtidyr. النسخة العربية.",
+      "type": "workbook",
+      "kernels": [
+        "r"
+      ],
+      "locales": [
+        "ar"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ar/r_tidyverse_wrangling.ipynb",
+      "revision": 1,
+      "sha256": "c6df07df4e842efc148e838323d2fbce76d642b71bb9461bbfe93a0ed45fa41e",
+      "size": 8227
+    },
+    {
+      "id": "01-family-tree-tutorial-ar",
+      "name": "البرنامج التعليمي لشجرة العائلة باستخدام UnifyWeaver",
+      "description": "درس شجرة العائلة: ترجمة محمولات Prolog خطوة بخطوة مع UnifyWeaver. النسخة العربية.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "bash"
+      ],
+      "locales": [
+        "ar"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ar/01_family_tree_tutorial.ipynb",
+      "revision": 1,
+      "sha256": "afe18781de5bee0c775d2990fbd60dcb4eab7310dfdccccb690c67c14727af69",
+      "size": 11276
+    },
+    {
+      "id": "02-recursion-patterns-ar",
+      "name": "أنماط العودية المتقدمة في UnifyWeaver",
+      "description": "أنماط العودية (الذيل، الخطية، الشجرية، المتبادلة) وكيف يترجمها UnifyWeaver. النسخة العربية.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "bash"
+      ],
+      "locales": [
+        "ar"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ar/02_recursion_patterns.ipynb",
+      "revision": 1,
+      "sha256": "81f4258659d1041bbf1f4e499bc0c795bcf277087323fbe5f4a14f93c2c682e1",
+      "size": 18081
+    },
+    {
+      "id": "03-call-graph-analysis-ar",
+      "name": "تحليل رسم الاستدعاءات واكتشاف المكونات شديدة الترابط (SCC)",
+      "description": "تحليل مخطط الاستدعاءات: المكونات شديدة الترابط والترتيب الطوبولوجي. النسخة العربية.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "bash"
+      ],
+      "locales": [
+        "ar"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ar/03_call_graph_analysis.ipynb",
+      "revision": 1,
+      "sha256": "49a4fbf7e3109985f86ffa69940d2ff261c47e6b8011fb046037867818084123",
+      "size": 15233
+    },
+    {
+      "id": "life-expectancy-csv-demo-ar",
+      "name": "تحليل متوسط العمر المتوقع",
+      "description": "خط أنابيب بيانات متعدد اللغات مع بيانات متوسط العمر المتوقع. النسخة العربية.",
+      "type": "workbook",
+      "kernels": [
+        "python",
+        "r"
+      ],
+      "locales": [
+        "ar"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ar/life_expectancy_csv_demo.ipynb",
+      "revision": 1,
+      "sha256": "0ea8b874811c17458288bf8855b05792b963cd6c24df14dc4af3a2d50405a925",
+      "size": 11992
     }
   ]
 }
