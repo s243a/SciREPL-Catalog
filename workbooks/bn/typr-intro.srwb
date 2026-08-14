@@ -1,0 +1,55 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "TypR পরিচিতি",
+    "cells": [
+      {
+        "type": "markdown",
+        "code": "# TypR — টাইপড R\n\nTypR হলো R-এর একটি টাইপড সুপারসেট যা স্ট্যান্ডার্ড R কোডে কম্পাইল হয়।\nএটি R-এর সাথে সম্পূর্ণ সামঞ্জস্য বজায় রেখে টাইপ অ্যানোটেশন, টাইপ চেকিং এবং জেনেরিক্স যুক্ত করে।\n\n**সিনট্যাক্স সংক্রান্ত নির্দেশাবলী:**\n- স্টেটমেন্টগুলো সেমিকোলন দিয়ে শেষ হয়: `let x <- 42;`\n- টাইপড ফাংশনে `fn(x: int): int { x * x }` ব্যবহার করা হয়\n- TypR ভ্যারিয়াডিক ফাংশন এবং নামযুক্ত ডটস সমর্থন করে, তাই `cat(\"x =\", x);` সরাসরি কাজ করে।",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "let x <- 42;\n# Variadic arguments are supported\ncat(\"x =\", x);",
+        "language": "typr",
+        "name": "basics"
+      },
+      {
+        "type": "code",
+        "code": "# Function bodies require braces\nlet add <- function(a, b) { a + b };\nlet result <- add(3, 4);\nprint(result);",
+        "language": "typr",
+        "name": "functions"
+      },
+      {
+        "type": "code",
+        "code": "let greeting: char <- \"Hello from TypR!\";\nprint(greeting);",
+        "language": "typr",
+        "name": "typed"
+      },
+      {
+        "type": "code",
+        "code": "# Explicit parameter and return types make calls statically checkable\nlet square <- fn(x: int): int { x * x };\nlet result <- square(7);\n# Variadic arguments work directly\ncat(\"7 squared =\", result);",
+        "language": "typr",
+        "name": "square"
+      },
+      {
+        "type": "code",
+        "code": "# Forward heterogeneous named arguments\nlet collect <- fn(...args: Any): [#N, Any] { args };\nlet forward <- fn(...args: Any): [#N, Any] { collect(...args) };\nlet values <- forward(count = 1, enabled = true);\nprint(values);\n@{ base::cat(\"Names:\", base::paste(base::names(values$data), collapse = \", \"), \"\\n\") }@;",
+        "language": "typr",
+        "name": "variadic_forwarding"
+      },
+      {
+        "type": "markdown",
+        "code": "## নির্দেশাবলী (Directives)\n\nএকটি TypR সেলের প্রথম লাইনে একটি নির্দেশিকা রাখুন:\n\n- `#!source` বিষয়বস্তু কম্পাইল বা কার্যকর না করেই একটি নামযুক্ত, সিনট্যাক্স-হাইলাইট করা সোর্স কোড স্নিপেট বজায় রাখে। শুধুমাত্র-সোর্স সেল ইচ্ছাকৃতভাবেই কোনো `Out [n]` তৈরি করে না এবং Notebook VFS-এর মাধ্যমে পাঠযোগ্য থাকে।\n- `#!typecheck` কোড রান না করেই পরবর্তী কোডের টাইপ পরীক্ষা করে।\n- `#!transpile` রূপান্তরিত R আউটপুট দেখায়।\n- `#!show-r` পরবর্তী TypR এক্সিকিউশনের জন্য জেনারেট করা R কোডের প্রদর্শন টগল করে।",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "#!transpile\nlet fib <- fn(n: int): int {\n  if (n <= 1) { n }\n  else { fib(n - 1) + fib(n - 2) }\n};\nprint(fib(10));",
+        "language": "typr",
+        "name": "transpile_demo"
+      }
+    ]
+  }
+}

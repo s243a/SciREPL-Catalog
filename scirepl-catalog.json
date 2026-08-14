@@ -2635,6 +2635,269 @@
       "revision": 1,
       "sha256": "a19983bf65490f984ec1a04ad59e51cefbad3a04b633db3c208a44b7bf9a2686",
       "size": 12486
+    },
+    {
+      "id": "compute-pi-workbook-bn",
+      "name": "পাই গণনা: আর্কিমিডিসের সীমা",
+      "description": "আর্কিমিডিসের পদ্ধতিতে অন্তর্লিখিত ও পরিলিখিত বহুভুজের মধ্যে π নির্ণয়। বাংলা সংস্করণ।",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "bn"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/bn/compute-pi-workbook.srwb",
+      "revision": 1,
+      "sha256": "7e29783a4ff550917060d8312680ca8086ba3d9bb6f6c3fa0c1e6f8232dc3501",
+      "size": 7323
+    },
+    {
+      "id": "lua-tables-coroutines-bn",
+      "name": "Lua: টেবিল, কোরুটিন এবং ক্লোজার",
+      "description": "টেবিল, কোরুটিন ও ক্লোজার: চালানো যায় এমন উদাহরণে Lua-র মূল ধারণা। বাংলা সংস্করণ।",
+      "type": "workbook",
+      "kernels": [
+        "lua"
+      ],
+      "locales": [
+        "bn"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/bn/lua-tables-coroutines.srwb",
+      "revision": 1,
+      "sha256": "08e6d042795a02ad7d622fbece1578c38cad84e9316f07c993390ef2d7ea1e9f",
+      "size": 16608
+    },
+    {
+      "id": "lua-parsing-coroutines-bn",
+      "name": "Lua: কোরুটিনের সাহায্যে পার্সিং",
+      "description": "Lua-তে কোরুটিন দিয়ে পার্সিং: লেক্সার, পার্সার ও অলস স্ট্রিম। বাংলা সংস্করণ।",
+      "type": "workbook",
+      "kernels": [
+        "lua"
+      ],
+      "locales": [
+        "bn"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/bn/lua-parsing-coroutines.srwb",
+      "revision": 1,
+      "sha256": "1d20cc3efbebe6f8f0918220d60d06be39ee2790f96ed75ac504e40eb6352c52",
+      "size": 25361
+    },
+    {
+      "id": "typr-intro-bn",
+      "name": "TypR পরিচিতি",
+      "description": "TypR পরিচিতি: টাইপ ও R-এ ট্রান্সপাইল। বাংলা সংস্করণ।",
+      "type": "workbook",
+      "kernels": [
+        "typr"
+      ],
+      "locales": [
+        "bn"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/bn/typr-intro.srwb",
+      "revision": 1,
+      "sha256": "7268143a8d4fb6e7e2dc5dd733ef5e8a816a010786c3b91d369d32d9161ab764",
+      "size": 4029
+    },
+    {
+      "id": "prolog-generates-r-bn",
+      "name": "Prolog জেনারেট করে R: কম্পাইলার ডেমো",
+      "description": "UnifyWeaver, Prolog লজিককে চালানো যায় এমন R কোডে কম্পাইল করে। বাংলা সংস্করণ।",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "r"
+      ],
+      "locales": [
+        "bn"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/bn/prolog-generates-r.srwb",
+      "revision": 1,
+      "sha256": "f7c77b3fa60d57a4035abf5afbdd8a9901dd0346fcc0951b146fab2298004207",
+      "size": 19185
+    },
+    {
+      "id": "prolog-generates-lua-bn",
+      "name": "Prolog জেনারেট করে Lua: কম্পাইলার ডেমো",
+      "description": "UnifyWeaver, Prolog লজিককে Lua কোডে কম্পাইল করে। বাংলা সংস্করণ।",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "lua"
+      ],
+      "locales": [
+        "bn"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/bn/prolog-generates-lua.srwb",
+      "revision": 1,
+      "sha256": "b94794668b2ff67f89609f8cc2bdf6c5a13606ab8d529b1da8e113dafcf8ceaf",
+      "size": 8244
+    },
+    {
+      "id": "prolog-generates-clojurescript-bn",
+      "name": "Prolog জেনারেট করে ClojureScript: কম্পাইলার ডেমো",
+      "description": "UnifyWeaver, Prolog লজিককে ClojureScript-এ কম্পাইল করে। বাংলা সংস্করণ।",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "clojurescript"
+      ],
+      "locales": [
+        "bn"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/bn/prolog-generates-clojurescript.srwb",
+      "revision": 1,
+      "sha256": "295a6360740b00d4f519a17c5d7383cf184b9b30fe1965b1047462d795c22312",
+      "size": 6727
+    },
+    {
+      "id": "prolog-generates-typr-bn",
+      "name": "Prolog জেনারেট করে TypR: কম্পাইলার ডেমো",
+      "description": "UnifyWeaver, Prolog লজিককে TypR-এ কম্পাইল করে। বাংলা সংস্করণ।",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "typr"
+      ],
+      "locales": [
+        "bn"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/bn/prolog-generates-typr.srwb",
+      "revision": 1,
+      "sha256": "6d8c9d7e31c73bf7de053facdd318a041a86e560bd02e1c9849d459dab4861f9",
+      "size": 8706
+    },
+    {
+      "id": "r-ggplot2-showcase-bn",
+      "name": "ggplot2 প্রদর্শনী",
+      "description": "ggplot2 প্রদর্শনী: স্ক্যাটার, ফ্যাসেট, বক্স প্লট ও হিটম্যাপ। বাংলা সংস্করণ।",
+      "type": "workbook",
+      "kernels": [
+        "r"
+      ],
+      "locales": [
+        "bn"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/bn/r_ggplot2_showcase.ipynb",
+      "revision": 1,
+      "sha256": "d2140bb09ecb68f37443827bd40f47e270522981dc51996a24d07bb83f9329dc",
+      "size": 5043
+    },
+    {
+      "id": "r-statistics-bn",
+      "name": "R দিয়ে পরিসংখ্যান",
+      "description": "R দিয়ে পরিসংখ্যান: অনুকল্প পরীক্ষা, রিগ্রেশন ও আস্থা ব্যবধান। বাংলা সংস্করণ।",
+      "type": "workbook",
+      "kernels": [
+        "r"
+      ],
+      "locales": [
+        "bn"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/bn/r_statistics.ipynb",
+      "revision": 1,
+      "sha256": "c578fed4fb912af50132503f567ff7cebe10980e3da8f6e74264c11eee7a88ac",
+      "size": 7597
+    },
+    {
+      "id": "r-tidyverse-wrangling-bn",
+      "name": "Tidyverse দিয়ে ডেটা র‍্যাংগলিং ও প্রক্রিয়াকরণ",
+      "description": "dplyr ও tidyr দিয়ে ডেটা র‍্যাংগলিং ও প্রক্রিয়াকরণ। বাংলা সংস্করণ।",
+      "type": "workbook",
+      "kernels": [
+        "r"
+      ],
+      "locales": [
+        "bn"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/bn/r_tidyverse_wrangling.ipynb",
+      "revision": 1,
+      "sha256": "5b311f218ac1d9a3a414a141bff9c25fab330f7fd0e997db74577e59800cce66",
+      "size": 8869
+    },
+    {
+      "id": "01-family-tree-tutorial-bn",
+      "name": "UnifyWeaver বংশলতিকা টিউটোরিয়াল",
+      "description": "বংশলতিকা টিউটোরিয়াল: UnifyWeaver দিয়ে ধাপে ধাপে Prolog প্রেডিকেট কম্পাইল। বাংলা সংস্করণ।",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "bash"
+      ],
+      "locales": [
+        "bn"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/bn/01_family_tree_tutorial.ipynb",
+      "revision": 1,
+      "sha256": "f3865e665d6279c5c0ff9599733f1ac62e10420afe70f2b1c37adcd0c0e7ba14",
+      "size": 14383
+    },
+    {
+      "id": "02-recursion-patterns-bn",
+      "name": "UnifyWeaver-এ উন্নত রিকার্শন প্যাটার্ন",
+      "description": "রিকার্শন প্যাটার্ন (টেইল, লিনিয়ার, ট্রি, মিউচুয়াল) ও তাদের কম্পাইলেশন। বাংলা সংস্করণ।",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "bash"
+      ],
+      "locales": [
+        "bn"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/bn/02_recursion_patterns.ipynb",
+      "revision": 1,
+      "sha256": "95b0ea42588a755f584f1e485dc489f91a27c4b731617cb8c11ff9c7b49d2a2d",
+      "size": 21006
+    },
+    {
+      "id": "03-call-graph-analysis-bn",
+      "name": "কল গ্রাফ বিশ্লেষণ এবং স্ট্রংলি কানেক্টেড কম্পোনেন্টস (SCC) সনাক্তকরণ",
+      "description": "কল গ্রাফ বিশ্লেষণ: স্ট্রংলি কানেক্টেড কম্পোনেন্টস ও টপোলজিক্যাল ক্রম। বাংলা সংস্করণ।",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "bash"
+      ],
+      "locales": [
+        "bn"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/bn/03_call_graph_analysis.ipynb",
+      "revision": 1,
+      "sha256": "9c749d24b003e6d3e753f959e185b2660b6e9f8a02481b6b5cd428002ede1313",
+      "size": 17553
+    },
+    {
+      "id": "life-expectancy-csv-demo-bn",
+      "name": "গড় আয়ু বিশ্লেষণ",
+      "description": "গড় আয়ু ডেটাসেট দিয়ে বহুভাষিক ডেটা পাইপলাইন। বাংলা সংস্করণ।",
+      "type": "workbook",
+      "kernels": [
+        "python",
+        "r"
+      ],
+      "locales": [
+        "bn"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/bn/life_expectancy_csv_demo.ipynb",
+      "revision": 1,
+      "sha256": "2f6b1f87b7e3de775cf72172d5493a35ac825b3ac53e5ff87987573e64692ac4",
+      "size": 12420
     }
   ]
 }
