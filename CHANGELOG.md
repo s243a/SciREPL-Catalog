@@ -49,6 +49,10 @@ and work deliberately deferred.
   This locale is also the filter's subtag test case (`pt` primary
   matching `pt-BR` content). Verified distinct from the Spanish editions
   (Latin-locale lazy-copy guard).
+
+- **German (de): all 15 workbook editions** — ~9 min, 7 approvals, fifth
+  locale in the continued session. «transitive Hülle», «Endrekursion»,
+  «starke Zusammenhangskomponenten» flagged for native review.
 - The 15 English source workbooks under `workbooks/en/` (translation inputs,
   not index items — the app already ships them built in).
 - `tools/build-index.mjs` — sha256/size integrity for every index item, with

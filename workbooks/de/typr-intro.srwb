@@ -1,0 +1,55 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "Einführung in TypR",
+    "cells": [
+      {
+        "type": "markdown",
+        "code": "# TypR — Typisiertes R\n\nTypR ist eine typisierte Obermenge (Superset) von R, die zu Standard-R-Code kompiliert.\nEs ergänzt Typannotationen, Typprüfung und Generics bei voller Kompatibilität mit R.\n\n**Syntax-Hinweise:**\n- Anweisungen enden mit einem Semikolon: `let x <- 42;`\n- Typisierte Funktionen verwenden `fn(x: int): int { x * x }`\n- TypR unterstützt variadische Funktionen und benannte Punkte, sodass `cat(\"x =\", x);` direkt funktioniert.",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "let x <- 42;\n# Variadic arguments are supported\ncat(\"x =\", x);",
+        "language": "typr",
+        "name": "basics"
+      },
+      {
+        "type": "code",
+        "code": "# Function bodies require braces\nlet add <- function(a, b) { a + b };\nlet result <- add(3, 4);\nprint(result);",
+        "language": "typr",
+        "name": "functions"
+      },
+      {
+        "type": "code",
+        "code": "let greeting: char <- \"Hello from TypR!\";\nprint(greeting);",
+        "language": "typr",
+        "name": "typed"
+      },
+      {
+        "type": "code",
+        "code": "# Explicit parameter and return types make calls statically checkable\nlet square <- fn(x: int): int { x * x };\nlet result <- square(7);\n# Variadic arguments work directly\ncat(\"7 squared =\", result);",
+        "language": "typr",
+        "name": "square"
+      },
+      {
+        "type": "code",
+        "code": "# Forward heterogeneous named arguments\nlet collect <- fn(...args: Any): [#N, Any] { args };\nlet forward <- fn(...args: Any): [#N, Any] { collect(...args) };\nlet values <- forward(count = 1, enabled = true);\nprint(values);\n@{ base::cat(\"Names:\", base::paste(base::names(values$data), collapse = \", \"), \"\\n\") }@;",
+        "language": "typr",
+        "name": "variadic_forwarding"
+      },
+      {
+        "type": "markdown",
+        "code": "## Direktiven\n\nGeben Sie eine Direktive in die erste Zeile einer TypR-Zelle ein:\n\n- `#!source` behält ein benanntes, hervorgehobenes Quellcode-Fragment bei, ohne dessen Inhalt zu kompilieren oder auszuführen. Eine reine Quellcode-Zelle erzeugt absichtlich kein `Out [n]` und bleibt über das Notebook VFS lesbar.\n- `#!typecheck` prüft die Typen des folgenden Codes, ohne ihn auszuführen.\n- `#!transpile` zeigt die transpilierte R-Ausgabe an.\n- `#!show-r` schaltet die Anzeige des generierten R-Codes für nachfolgende TypR-Ausführungen um.",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "#!transpile\nlet fib <- fn(n: int): int {\n  if (n <= 1) { n }\n  else { fib(n - 1) + fib(n - 2) }\n};\nprint(fib(10));",
+        "language": "typr",
+        "name": "transpile_demo"
+      }
+    ]
+  }
+}
