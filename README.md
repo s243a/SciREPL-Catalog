@@ -49,6 +49,13 @@ tools/build-index.mjs     recomputes sha256/size for every item from the files
 - `sha256` is required here (the format makes it optional; this repository
   does not publish unverified items). Never hand-edit it — run the tool.
 
+## How the translations are made
+
+Every non-English edition comes from a supervised multi-agent pipeline —
+machine translation with per-action human-policy review and a mechanical
+verification gate. The process, its gates, and its economics are documented
+in [docs/translation-process.md](docs/translation-process.md).
+
 ## Publishing a change
 
 1. Add or edit the artifact under `workbooks/` or `packages/`.
