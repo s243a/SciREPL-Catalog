@@ -114,6 +114,16 @@ The current tool surface (`list_cells`, `read_cell(s)`, `write_cell`,
 `inspect_namespace`, read-only VFS: `list_dir`, `read_file`, `grep`) has no
 first-class workbook import/export. Observations:
 
+- **Resolved by experiment (Pro PR #38):** readback is NOT export. The
+  canonical `.srwb` serialization measured 13,810 bytes against a
+  4,570-byte best-effort `read_cells` reconstruction, first divergence at
+  byte 401 — notebook identity, metadata, and output encoding are simply
+  absent from the cell-level view. `export_workbook`/`import_workbook`
+  are implemented app-side behind an independent default-Off permission
+  (refusable per call; cell-edit permission does not grant it; Review
+  always applies); the broker direct-to-file tier is specified
+  (SciREPL-MCP `docs/workbook-file-transfer.md`) and awaits
+  implementation. The original hypothesis, kept for the record:
 - **Readback ≈ export already.** `read_cells` after `run_cells` returns
   full notebook state including fresh outputs; the agent can serialize that
   to `.srwb`/`.ipynb` in its own workspace. What is missing is only a
