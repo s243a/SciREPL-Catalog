@@ -154,6 +154,32 @@ content through an agent context is real cost). Import has the same split:
 a broker-side file *source* (agent names an allowlisted path; broker
 streams it to the app) is the token-cheap "should" over reconstruction.
 
+## Verification economics: who verifies, and what it costs
+
+A tempting trade — let the worker verify via its own Playwright access
+(cheap tokens, weak sandbox) versus the supervisor verifying (expensive
+tokens, stronger trust) — hides the option that dominates both:
+**authoritative verification should be deterministic code, invoked by the
+controller, entering no agent's context at all.** The static gate
+(`verify-translation.mjs`) already works this way; Stage A's runtime check
+should too — a run-all-and-capture Playwright script in the shape of the
+app's own release suites, whose token cost is a verdict line regardless of
+content size.
+
+| Who verifies | Token cost | Trust |
+| --- | --- | --- |
+| Worker, via its own browser access | low | weakest twice over: full browser in the least-trusted hands, and self-verification is a claim, not a check |
+| Supervisor, via tools | high | medium — agent tokens spent on what a script does better |
+| Deterministic harness, controller-invoked | ~zero | strongest — only the verdict enters a context |
+
+Worker *self-checks* remain valuable as an inner loop (the worker already
+writes and runs its own verify scripts, catching errors before they cost a
+supervision round-trip) — cheap precisely because they are also
+script-shaped, and never authoritative. The full stack: worker self-checks
+(fast, non-authoritative) → mechanical gate (authoritative, token-free) →
+agent judgment only for the residue that genuinely cannot be scripted, with
+that residue assigned to a trust tier proportional to the stakes.
+
 ## Replicating without Pro
 
 The `/app` MCP surface requires SciREPL Pro's Remote bridge, which the Free
