@@ -2109,6 +2109,269 @@
       "revision": 1,
       "sha256": "0b4fe59538b9087f6dab2976e7e211b64f4df9026c13b3c0ae2cf8e887598581",
       "size": 12289
+    },
+    {
+      "id": "compute-pi-workbook-zh",
+      "name": "计算圆周率：阿基米德上下界",
+      "description": "用阿基米德的内接与外切多边形方法夹逼 π。简体中文版。",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "zh"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/zh/compute-pi-workbook.srwb",
+      "revision": 1,
+      "sha256": "eca177ccd0f7752f4a44eb1c71ecdbe865a8b9b3ee32a71dee852fe8ff6b00a5",
+      "size": 5464
+    },
+    {
+      "id": "lua-tables-coroutines-zh",
+      "name": "Lua：表、协程与闭包",
+      "description": "表、协程与闭包：通过可运行示例学习 Lua 的核心。简体中文版。",
+      "type": "workbook",
+      "kernels": [
+        "lua"
+      ],
+      "locales": [
+        "zh"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/zh/lua-tables-coroutines.srwb",
+      "revision": 1,
+      "sha256": "0665a6cde09b47046d24630f126375612d4f249bd1a5e1ad492c80458426ba26",
+      "size": 13374
+    },
+    {
+      "id": "lua-parsing-coroutines-zh",
+      "name": "Lua：使用协程进行语法解析",
+      "description": "用协程做语法分析：词法分析器、解析器与惰性流。简体中文版。",
+      "type": "workbook",
+      "kernels": [
+        "lua"
+      ],
+      "locales": [
+        "zh"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/zh/lua-parsing-coroutines.srwb",
+      "revision": 1,
+      "sha256": "7d40af3d18c460f9e9bcbb8d32a569150e6c75eebcee4c237977ed9222ada427",
+      "size": 21023
+    },
+    {
+      "id": "typr-intro-zh",
+      "name": "TypR 简介",
+      "description": "TypR 入门：类型与转译到 R。简体中文版。",
+      "type": "workbook",
+      "kernels": [
+        "typr"
+      ],
+      "locales": [
+        "zh"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/zh/typr-intro.srwb",
+      "revision": 1,
+      "sha256": "4ee5699cbd3fa98d3fdd5a12a0a35f71155c7e5fbe315d6bd5b2390374024005",
+      "size": 2744
+    },
+    {
+      "id": "prolog-generates-r-zh",
+      "name": "Prolog 生成 R：编译器演示",
+      "description": "UnifyWeaver 将 Prolog 逻辑实时编译为可执行的 R 代码。简体中文版。",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "r"
+      ],
+      "locales": [
+        "zh"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/zh/prolog-generates-r.srwb",
+      "revision": 1,
+      "sha256": "fae8606bd9b4825d4cdfe062de6bc3b41f777f9aa86ee2e9d33795bc927ed948",
+      "size": 13330
+    },
+    {
+      "id": "prolog-generates-lua-zh",
+      "name": "Prolog 生成 Lua：编译器演示",
+      "description": "UnifyWeaver 将 Prolog 逻辑编译为 Lua 代码。简体中文版。",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "lua"
+      ],
+      "locales": [
+        "zh"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/zh/prolog-generates-lua.srwb",
+      "revision": 1,
+      "sha256": "3f1e36cbe81e3856564d16854f10f009f3b9dfe86c2099bb1d137e358c11143f",
+      "size": 6173
+    },
+    {
+      "id": "prolog-generates-clojurescript-zh",
+      "name": "Prolog 生成 ClojureScript：编译器演示",
+      "description": "UnifyWeaver 将 Prolog 逻辑编译为 ClojureScript。简体中文版。",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "clojurescript"
+      ],
+      "locales": [
+        "zh"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/zh/prolog-generates-clojurescript.srwb",
+      "revision": 1,
+      "sha256": "27e14228ff2a66cdf2a88acdf81f0c0a2044130d9ff35a0d3041becef6e5e0d1",
+      "size": 4626
+    },
+    {
+      "id": "prolog-generates-typr-zh",
+      "name": "Prolog 生成 TypR：编译器演示",
+      "description": "UnifyWeaver 将 Prolog 逻辑编译为 TypR。简体中文版。",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "typr"
+      ],
+      "locales": [
+        "zh"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/zh/prolog-generates-typr.srwb",
+      "revision": 1,
+      "sha256": "4a0546263a895214084d7ad7ec96b8445a08f83f6d24e5ba69483d0a3e6de0b0",
+      "size": 6362
+    },
+    {
+      "id": "r-ggplot2-showcase-zh",
+      "name": "ggplot2 功能展示",
+      "description": "ggplot2 展示：散点图、分面、箱线图与热力图。简体中文版。",
+      "type": "workbook",
+      "kernels": [
+        "r"
+      ],
+      "locales": [
+        "zh"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/zh/r_ggplot2_showcase.ipynb",
+      "revision": 1,
+      "sha256": "b15780972310f4957583ac734562c10bb5d32adafd4944c50e552d0d3896d898",
+      "size": 4250
+    },
+    {
+      "id": "r-statistics-zh",
+      "name": "R 语言统计分析",
+      "description": "R 语言统计：假设检验、回归与置信区间。简体中文版。",
+      "type": "workbook",
+      "kernels": [
+        "r"
+      ],
+      "locales": [
+        "zh"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/zh/r_statistics.ipynb",
+      "revision": 1,
+      "sha256": "5cfad41c4c0fba9da80ade215e07f874b42f4f9287bbcf8152b76d0e8a0958bc",
+      "size": 5744
+    },
+    {
+      "id": "r-tidyverse-wrangling-zh",
+      "name": "使用 Tidyverse 进行数据整理与操作",
+      "description": "使用 dplyr 和 tidyr 进行数据整理与操作。简体中文版。",
+      "type": "workbook",
+      "kernels": [
+        "r"
+      ],
+      "locales": [
+        "zh"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/zh/r_tidyverse_wrangling.ipynb",
+      "revision": 1,
+      "sha256": "af4ec4b77c247f2adf74bd48f66214597ae9c9f4582418f25384f1c5fbcd1ab4",
+      "size": 7755
+    },
+    {
+      "id": "01-family-tree-tutorial-zh",
+      "name": "UnifyWeaver 家谱教程",
+      "description": "家谱教程：用 UnifyWeaver 逐步编译 Prolog 谓词。简体中文版。",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "bash"
+      ],
+      "locales": [
+        "zh"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/zh/01_family_tree_tutorial.ipynb",
+      "revision": 1,
+      "sha256": "104b0ed8bf6c5de5bb84080f74189b5ecb9d3c7534c613300167914e34b6fc4a",
+      "size": 9917
+    },
+    {
+      "id": "02-recursion-patterns-zh",
+      "name": "UnifyWeaver 中的高级递归模式",
+      "description": "递归模式（尾递归、线性、树形、互递归）及其编译方式。简体中文版。",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "bash"
+      ],
+      "locales": [
+        "zh"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/zh/02_recursion_patterns.ipynb",
+      "revision": 1,
+      "sha256": "50dcd9300e660e9059250998ad37d08ed7d555f6afc682ccf0f5d649116aa2e4",
+      "size": 16076
+    },
+    {
+      "id": "03-call-graph-analysis-zh",
+      "name": "调用图分析与强连通分量 (SCC) 检测",
+      "description": "调用图分析：强连通分量、拓扑排序与模式匹配。简体中文版。",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "bash"
+      ],
+      "locales": [
+        "zh"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/zh/03_call_graph_analysis.ipynb",
+      "revision": 1,
+      "sha256": "ed3677691890a96347e36229046cebcd336b093e1ebc285c33630112bd1788ed",
+      "size": 13388
+    },
+    {
+      "id": "life-expectancy-csv-demo-zh",
+      "name": "预期寿命分析",
+      "description": "以预期寿命数据集演示跨语言数据管道。简体中文版。",
+      "type": "workbook",
+      "kernels": [
+        "python",
+        "r"
+      ],
+      "locales": [
+        "zh"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/zh/life_expectancy_csv_demo.ipynb",
+      "revision": 1,
+      "sha256": "54ac790516dd80c3b49cdb44e06661339d2a8177875269df263d1fbe2ba5fe34",
+      "size": 11398
     }
   ]
 }

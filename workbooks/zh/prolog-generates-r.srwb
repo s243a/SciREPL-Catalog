@@ -1,0 +1,238 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-03-12T00:00:00.000Z",
+  "notebook": {
+    "id": "nb-prolog-gen-r-001",
+    "name": "Prolog 生成 R：编译器演示",
+    "description": "Demonstrates UnifyWeaver compiling Prolog predicates into R code. Part 1: factorial (linear→tail transformation). Part 2: ancestor (transitive closure vs skip/pattern).",
+    "kernelLanguage": null,
+    "cellCounter": 26,
+    "cells": [
+      {
+        "code": "# Prolog 生成 R — UnifyWeaver 编译器演示\n\n本工作簿演示了 **UnifyWeaver** 如何将 Prolog 逻辑编译为可执行的 R 代码 — 实时且直接在笔记本中运行。\n\n## 第 1 部分：阶乘（线性递归）\n1. 加载 UnifyWeaver 编译器环境\n2. 在 Prolog 中定义递归的 `factorial/2`\n3. 编译器检测递归模式并生成等效的 R 循环\n4. 通过 `nb_write/3` 将生成的 R 代码写入另一个单元格\n5. 运行 R 单元格以验证正确性\n\n## 第 2 部分：祖先（传递闭包与模式控制）\n8. 在 Prolog 中定义 `parent/2` 事实和 `ancestor/2` 规则\n9. 使用默认模式编译 → 传递闭包（广度优先图遍历 BFS）\n10. 使用 `skip(transitive_closure)` 重新编译 → 生成不同的代码\n11. 并排比较两种方法",
+        "type": "markdown",
+        "language": "python",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## 步骤 1：加载 UnifyWeaver\n\n加载 UnifyWeaver 环境和 R 目标编译器。\n\n**注意：** 在 swipl-wasm 中，请使用 `use_module(unifyweaver(...))`（搜索路径别名），而不是 `use_module(library(...))`。调用 `['../init'].` 会设置 `unifyweaver` 搜索路径，以便正确解析模块。",
+        "type": "markdown",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "['../init'].\n:- use_module(unifyweaver(targets/r_target)).\n:- use_module(unifyweaver(core/advanced/linear_recursion)).\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "type": "code",
+        "language": "prolog",
+        "name": "load_uw",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## 步骤 2：在 Prolog 中定义阶乘\n\n一个简单的递归阶乘。基本情况在 N 为 0 时返回 1。递归情况计算 `N * factorial(N-1)`。",
+        "type": "markdown",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": ":- dynamic factorial/2.\n\nfactorial(0, 1).\nfactorial(N, F) :-\n    N > 0,\n    N1 is N - 1,\n    factorial(N1, F1),\n    F is N * F1.",
+        "type": "code",
+        "language": "prolog",
+        "name": "prolog_factorial",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## 步骤 3：编译 Prolog → R\n\n编译器执行以下操作：\n1. 通过 `nb_read/3` 从 **prolog_factorial** 单元格读取 Prolog 源码\n2. 进行 consult 将子句插入数据库\n3. 调用 `compile_linear_recursion/3` 检测递归模式，提取步长（`N1 is N - 1` → step=1，递减）并生成 R 的 `for` 循环\n4. 通过 `nb_write/3` 将生成的 R 代码写入 **r_factorial** 单元格\n\n选项 `memo(false)` 请求基于循环的编译，而不是记忆化规约（memoized reduce）。",
+        "type": "markdown",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "%% Read the Prolog source from the previous cell\nuser:nb_read('prolog_factorial', '.code', _PrologSrc),\nformat('Read from prolog_factorial:~n~w~n~n', [_PrologSrc]),\n\n%% Consult it to assert the clauses\nsetup_call_cleanup(\n    open('/tmp/_nb_src.pl', write, _Out),\n    write(_Out, _PrologSrc),\n    close(_Out)),\nconsult('/tmp/_nb_src.pl'),\n\n%% Compile factorial/2 → R\nr_target:init_r_target,\nlinear_recursion:compile_linear_recursion(factorial/2, [target(r), memo(false)], _Code),\nformat('--- Generated R code ---~n~w~n', [_Code]),\n\n%% Write compiler output to the R cell\nuser:nb_write('r_factorial', '.code', _Code),\nwriteln('\\nR code written to cell: r_factorial').",
+        "type": "code",
+        "language": "prolog",
+        "name": "compile_to_r",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## 步骤 4：运行生成的 R 代码\n\n下面的单元格包含编译器生成的 `factorial` 函数。运行它以定义函数，然后运行步骤 5 进行测试。",
+        "type": "markdown",
+        "language": "python",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "# This cell will be overwritten by the compiler.\n# Run the 'compile_to_r' cell above first.",
+        "type": "code",
+        "language": "r",
+        "name": "r_factorial",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## 步骤 5：测试生成的 R 代码\n\n调用编译器生成的 `factorial` 函数以验证其是否产生正确的结果。",
+        "type": "markdown",
+        "language": "python",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "cat(\"6! =\", factorial(6), \"\\n\")\ncat(\"20! =\", factorial(20), \"\\n\")\ncat(\"0! =\", factorial(0), \"\\n\")",
+        "type": "code",
+        "language": "r",
+        "name": "test_r",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## 步骤 6：通过 Bash 检查\n\nNotebook VFS 允许任何内核检查单元格。这里 Bash 读取编译器生成的代码：",
+        "type": "markdown",
+        "language": "python",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "echo \"=== Cells ===\"\nls /nb/\necho \"\"\necho \"=== r_factorial code ===\"\ncat /nb/r_factorial/.code\necho \"\"\necho \"=== r_factorial language ===\"\ncat /nb/r_factorial/.language",
+        "type": "code",
+        "language": "bash",
+        "name": "inspect",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "# Step 7: Relative addressing — /nb/-1/.output reads the previous cell's output.\n# /nb/./.code reads this cell's own code. Copy-paste to accumulate!\necho \"[accumulate] previous cell output via /nb/-1/.output:\"\necho \"---\"\ncat /nb/-1/.output\necho \"---\"\necho \"\"\necho \"[self] this cell's code via /nb/./.code:\"\ncat /nb/./.code",
+        "type": "code",
+        "language": "bash",
+        "name": "accumulate",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "---\n\n# 第 2 部分：祖先 — 传递闭包与模式控制\n\n同一个编译器也可以处理关系谓词。在这里，我们将 `ancestor/2` 定义为 `parent/2` 事实上的传递闭包。\n\n编译器识别该模式并生成 R 语言的**广度优先搜索 (BFS) 图遍历代码**。但我们也可以传入 `skip(transitive_closure)` 来强制使用不同的编译策略 — 演示 `skip` 和 `pattern` 选项如何控制编译器输出的代码。",
+        "type": "markdown",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## 步骤 8：在 Prolog 中定义家谱\n\n一个使用 `parent/2` 事实的小型家谱，其中 `ancestor/2` 定义为传递闭包。\n\n注意 Prolog 的简洁性 — `ancestor/2` 只有 2 个子句。所有图遍历逻辑均由编译器自动生成。",
+        "type": "markdown",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": ":- dynamic parent/2, ancestor/2.\n\n%% Family tree\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\n\n%% Transitive closure: ancestor(X, Y) if X is an ancestor of Y\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "type": "code",
+        "language": "prolog",
+        "name": "prolog_ancestor",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## 步骤 9：编译 ancestor/2 → R（默认：传递闭包）\n\n编译器将 `ancestor/2` 分类为 `parent/2` 上的**传递闭包**，并生成包含以下内容的 R 代码：\n- 邻接表（环境哈希表）\n- BFS 遍历函数（`ancestor_all`、`ancestor_check`）\n- 用于填充图的 `add_parent` 函数\n\n这是图中可达性查询的最佳编译方式。",
+        "type": "markdown",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "%% Consult the ancestor definitions\nuser:nb_read('prolog_ancestor', '.code', _AncSrc),\nformat('Read from prolog_ancestor:~n~w~n~n', [_AncSrc]),\nsetup_call_cleanup(\n    open('/tmp/_nb_anc.pl', write, _Out),\n    write(_Out, _AncSrc),\n    close(_Out)),\nconsult('/tmp/_nb_anc.pl'),\n\n%% Compile with default pattern detection → transitive closure\nrecursive_compiler:compile_recursive(ancestor/2, [target(r)], _Code1),\nformat('--- Pattern: transitive_closure ---~n~w~n', [_Code1]),\n\n%% Write to the R cell\nuser:nb_write('r_ancestor_tc', '.code', _Code1),\nwriteln('\\nR code written to cell: r_ancestor_tc').",
+        "type": "code",
+        "language": "prolog",
+        "name": "compile_ancestor_tc",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## 步骤 10：生成的 R 代码（传递闭包）\n\n此单元格会被编译器用 BFS 图遍历代码覆盖。\n请先运行上面的 `compile_ancestor_tc` 单元格。",
+        "type": "markdown",
+        "language": "r",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "# This cell will be overwritten by the compiler.\n# Run 'compile_ancestor_tc' above first.",
+        "type": "code",
+        "language": "r",
+        "name": "r_ancestor_tc",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## 步骤 11：查询生成的 R 程序\n\n生成的定义和内嵌的父母事实保留在 R 内核中，因此此单元格将测试这两个可达性 API。",
+        "type": "markdown",
+        "language": "r",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "descendants <- ancestor_all(\"alice\")\ncat(\"Descendants of alice:\", paste(descendants, collapse = \", \"), \"\\n\")\ncat(\"alice is ancestor of eve:\", ancestor_check(\"alice\", \"eve\"), \"\\n\")\ncat(\"alice is ancestor of frank:\", ancestor_check(\"alice\", \"frank\"), \"\\n\")",
+        "type": "code",
+        "language": "r",
+        "name": "test_r_ancestor",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## 步骤 12：检查实验性 Bash 回退\n\n现在我们在跳过传递闭包模式的情况下编译**同一个谓词**。编译器回退到其通用的 Bash 尾递归脚手架。\n\n这演示了目标选择机制和跳过选项，但生成的 Bash 包含显式的 TODO，**并不是 ancestor/2 的行为等效实现**。请将其视为编译器开发输出，而非等价程序。",
+        "type": "markdown",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "%% Compile ancestor/2 again, but skip transitive closure → falls to tail recursion\n%% Also target bash to show cross-language compilation\nrecursive_compiler:compile_recursive(\n    ancestor/2,\n    [target(bash), skip(transitive_closure)],\n    _Code2),\nformat('--- Pattern: tail_recursion (bash) ---~n~w~n', [_Code2]),\n\n%% Write to the bash cell\nuser:nb_write('bash_ancestor_alt', '.code', _Code2),\nwriteln('\\nBash code written to cell: bash_ancestor_alt').",
+        "type": "code",
+        "language": "prolog",
+        "name": "compile_ancestor_skip",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "# This cell will be overwritten by the compiler.\n# Run 'compile_ancestor_skip' above first.",
+        "type": "code",
+        "language": "bash",
+        "name": "bash_ancestor_alt",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## 步骤 13：比较生成的输出\n\n使用 Notebook VFS 并排检查完整的 R 实现与显式实验性的 Bash 脚手架：",
+        "type": "markdown",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "echo \"=== R (transitive closure / BFS) ===\"\necho \"Language: $(cat /nb/r_ancestor_tc/.language)\"\necho \"---\"\ncat /nb/r_ancestor_tc/.code\necho \"\"\necho \"\"\necho \"=== Bash (tail recursion) ===\"\necho \"Language: $(cat /nb/bash_ancestor_alt/.language)\"\necho \"---\"\ncat /nb/bash_ancestor_alt/.code",
+        "type": "code",
+        "language": "bash",
+        "name": "compare_outputs",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      }
+    ]
+  }
+}

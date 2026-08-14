@@ -1,0 +1,89 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "Prolog 生成 Lua：编译器演示",
+    "cells": [
+      {
+        "type": "markdown",
+        "code": "# Prolog 生成 Lua\n\n本工作簿演示了 UnifyWeaver 如何将 Prolog 谓词编译为 **Lua** 代码。\n\n工作流程将每种编程语言保留在各自已命名的高亮单元格中：\n1. 在 Prolog 单元格 `family_tree` 中定义家谱\n2. 在 Lua 源码单元格 `lua_queries` 中定义共享查询程序\n3. 通过 Notebook VFS 读取查询单元格，并追加到每个生成的程序中\n4. 运行内嵌事实版本以及运行时 VFS 版本\n\n展示了两种输入模式：\n- **内嵌** — 事实直接编译进 Lua 代码中\n- **VFS** — 运行时从另一个笔记本单元格中读取事实\n\nLua 还提供了 `nb.read()`、`nb.write()`、`nb.list()` 和 `nb.name()` 用于直接访问单元格；最后一节演示了完整的读写循环。\n\n目录会自动随本工作簿安装所需的 **UnifyWeaver SciREPL** 软件包。",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "% Load UnifyWeaver compiler modules\n['../init'].\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "language": "prolog",
+        "name": "load_compiler"
+      },
+      {
+        "type": "code",
+        "code": "% Define a family tree as Prolog facts\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% Transitive closure: ancestor(X, Y) if X is an ancestor of Y\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "language": "prolog",
+        "name": "family_tree"
+      },
+      {
+        "type": "code",
+        "code": "#!source\n-- This named Lua source cell is read by both compiler cells.\n-- It is appended to each generated program and executes there.\n\n-- --- Queries ---\nlocal results = find_all(\"alice\")\nprint(\"Descendants of alice: \" .. table.concat(results, \", \"))\nprint(\"alice -> eve: \" .. tostring(check(\"alice\", \"eve\")))\nprint(\"alice -> frank: \" .. tostring(check(\"alice\", \"frank\")))",
+        "language": "lua",
+        "name": "lua_queries"
+      },
+      {
+        "type": "markdown",
+        "code": "## 模式 1：内嵌输入\n\n使用 `input(embedded)` 时，Prolog 事实作为 `add_fact()` 调用直接编译到 Lua 代码中。编译器单元格读取高亮单元格 `lua_queries` 并将其追加，使生成的程序自包含。",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "% Read the highlighted Lua query program from its named source cell\n\\+ \\+ (\n    user:nb_read('lua_queries', '.code', _QuerySource),\n    split_string(_QuerySource, \"\\n\", \"\\r\", [\"#!source\"|_QueryLines]),\n    atomics_to_string(_QueryLines, \"\\n\", _Queries),\n\n    % Compile with input(embedded) — facts baked into the code\n    recursive_compiler:compile_recursive(ancestor/2, [target(lua), input(embedded)], _Code),\n    format(string(_FullCode), '~w~n~n~w~n', [_Code, _Queries]),\n    user:nb_write('lua_embedded', '.code', _FullCode),\n    writeln('Lua code (embedded) written to cell: lua_embedded')\n).",
+        "language": "prolog",
+        "name": "compile_embedded"
+      },
+      {
+        "type": "code",
+        "code": "-- This cell will be populated by the compiler.\n-- Run the 'compile_embedded' cell above first.",
+        "language": "lua",
+        "name": "lua_embedded"
+      },
+      {
+        "type": "markdown",
+        "code": "## 模式 2：VFS 输入\n\n使用 `input(vfs(facts_data, '.code'))` 时，生成的 Lua 代码在运行时通过 `nb.read()` 从另一个单元格的代码中读取事实。这允许在无需重新编译的情况下更改数据。相同的命名 `lua_queries` 程序也会追加到此变体中。\n\n下方的数据单元格在 Lua 注释块中包含 `from:to` 格式的事实行：",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "-- Data cell: facts in from:to format (one per line)\n-- The VFS-compiled cell reads this via nb.read(\"facts_data\", \".code\")\n--[[\nalice:bob\nbob:charlie\nbob:diana\ncharlie:eve\ndiana:frank\n]]",
+        "language": "lua",
+        "name": "facts_data"
+      },
+      {
+        "type": "code",
+        "code": "% Read the same highlighted Lua query program\n\\+ \\+ (\n    user:nb_read('lua_queries', '.code', _QuerySource),\n    split_string(_QuerySource, \"\\n\", \"\\r\", [\"#!source\"|_QueryLines]),\n    atomics_to_string(_QueryLines, \"\\n\", _Queries),\n\n    % Compile with input(vfs(facts_data)) — reads from the cell above\n    recursive_compiler:compile_recursive(ancestor/2, [target(lua), input(vfs(facts_data, '.code'))], _Code),\n    format(string(_FullCode), '~w~n~n~w~n', [_Code, _Queries]),\n    user:nb_write('lua_vfs', '.code', _FullCode),\n    writeln('Lua code (VFS) written to cell: lua_vfs')\n).",
+        "language": "prolog",
+        "name": "compile_vfs"
+      },
+      {
+        "type": "code",
+        "code": "-- This cell will be populated by the compiler.\n-- Run the 'compile_vfs' cell above first.",
+        "language": "lua",
+        "name": "lua_vfs"
+      },
+      {
+        "type": "markdown",
+        "code": "## Lua 读写笔记本单元格\n\nLua 可以直接使用 Notebook VFS。此单元格读取已命名的源单元格 `lua_queries`，并将注释写入随后的单元格 `lua_written`。",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "local query_source = nb.read(\"lua_queries\", \".code\")\nassert(query_source ~= nil)\nlocal note = \"-- Written from Lua after reading lua_queries (\" .. tostring(#query_source) .. \" characters)\"\nassert(nb.write(\"lua_written\", \".code\", note))\nprint(\"Lua read lua_queries and wrote lua_written\")",
+        "language": "lua",
+        "name": "lua_cell_io"
+      },
+      {
+        "type": "code",
+        "code": "-- This cell will be populated by lua_cell_io.",
+        "language": "lua",
+        "name": "lua_written"
+      }
+    ]
+  }
+}

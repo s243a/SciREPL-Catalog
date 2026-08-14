@@ -1,0 +1,55 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "TypR 简介",
+    "cells": [
+      {
+        "type": "markdown",
+        "code": "# TypR — 类型化 R 语言\n\nTypR 是 R 语言的类型化超集（Superset），可编译为标准 R 代码。\n它增加了类型注解、类型检查和泛型，同时保持与 R 的完全兼容。\n\n**语法要点：**\n- 语句以分号结尾：`let x <- 42;`\n- 类型化函数使用 `fn(x: int): int { x * x }`\n- TypR 支持变长参数和命名点号，因此 `cat(\"x =\", x);` 可以直接使用。",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "let x <- 42;\n# Variadic arguments are supported\ncat(\"x =\", x);",
+        "language": "typr",
+        "name": "basics"
+      },
+      {
+        "type": "code",
+        "code": "# Function bodies require braces\nlet add <- function(a, b) { a + b };\nlet result <- add(3, 4);\nprint(result);",
+        "language": "typr",
+        "name": "functions"
+      },
+      {
+        "type": "code",
+        "code": "let greeting: char <- \"Hello from TypR!\";\nprint(greeting);",
+        "language": "typr",
+        "name": "typed"
+      },
+      {
+        "type": "code",
+        "code": "# Explicit parameter and return types make calls statically checkable\nlet square <- fn(x: int): int { x * x };\nlet result <- square(7);\n# Variadic arguments work directly\ncat(\"7 squared =\", result);",
+        "language": "typr",
+        "name": "square"
+      },
+      {
+        "type": "code",
+        "code": "# Forward heterogeneous named arguments\nlet collect <- fn(...args: Any): [#N, Any] { args };\nlet forward <- fn(...args: Any): [#N, Any] { collect(...args) };\nlet values <- forward(count = 1, enabled = true);\nprint(values);\n@{ base::cat(\"Names:\", base::paste(base::names(values$data), collapse = \", \"), \"\\n\") }@;",
+        "language": "typr",
+        "name": "variadic_forwarding"
+      },
+      {
+        "type": "markdown",
+        "code": "## 指令\n\n在 TypR 单元格的第一行放置指令：\n\n- `#!source` 保留已命名的带语法高亮的源代码片段，而不编译或执行其内容。纯源码单元格特意不产生 `Out [n]`，并可通过 Notebook VFS 读取。\n- `#!typecheck` 仅对后续代码执行类型检查而不运行。\n- `#!transpile` 显示转译后的 R 输出。\n- `#!show-r` 切换后续 TypR 执行时是否显示生成的 R 代码。",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "#!transpile\nlet fib <- fn(n: int): int {\n  if (n <= 1) { n }\n  else { fib(n - 1) + fib(n - 2) }\n};\nprint(fib(10));",
+        "language": "typr",
+        "name": "transpile_demo"
+      }
+    ]
+  }
+}

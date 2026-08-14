@@ -1,0 +1,149 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-03-10T00:00:00.000Z",
+  "notebook": {
+    "id": "nb-lua-parsing-001",
+    "name": "Lua：使用协程进行语法解析",
+    "description": "Building parsers in Lua using coroutines as lexers, closures as combinators, and tables as ASTs.",
+    "kernelLanguage": "lua",
+    "cellCounter": 30,
+    "cells": [
+      {
+        "code": "# 在 Lua 中使用协程进行语法解析\n\nLua 中的协程（Coroutines）、闭包（Closures）和模式匹配（Pattern Matching）相结合，构成了构建解析器的天然工具箱 — 无需任何外部库。\n\n本工作簿从基础模式逐步构建到一个功能完备的表达式求值器：\n\n1. **Lua 模式** — 内置的模式匹配系统\n2. **协程词法分析器 (Lexer)** — 惰性（lazy）将输入标记化，每次生成一个标记 (Token)\n3. **递归下降解析器** — 处理标记以构建 AST\n4. **求值器 (Evaluator)** — 遍历语法树以计算结果\n5. **组合子库** — 由闭包构建的可组合解析器",
+        "type": "markdown",
+        "language": "lua"
+      },
+      {
+        "code": "## 1. Lua 模式\n\nLua 没有传统的正则表达式 — 取而代之的是*模式 (Patterns)*，这是一种更轻量级的系统，内置于 `string.find`、`string.match`、`string.gmatch` 和 `string.gsub` 中。\n\n核心字符类：`%a`（字母）、`%d`（数字）、`%w`（字母数字）、`%s`（空白）、`%p`（标点）。大写表示补集（`%A` = 非字母）。`.` 匹配任意字符。",
+        "type": "markdown",
+        "language": "lua"
+      },
+      {
+        "code": "-- string.match: extract captures\nlocal year, month, day = string.match(\"2026-03-10\", \"(%d+)-(%d+)-(%d+)\")\nprint(\"Year:\", year, \"Month:\", month, \"Day:\", day)\n\n-- string.gmatch: iterate over all matches\nprint(\"\\nWords in sentence:\")\nfor word in string.gmatch(\"the quick brown fox\", \"%a+\") do\n  print(\"  \" .. word)\nend",
+        "type": "code",
+        "language": "lua"
+      },
+      {
+        "code": "-- string.gsub: search and replace\nlocal result = string.gsub(\"Hello World\", \"%u\", function(c)\n  return \"[\" .. c .. \"]\"\nend)\nprint(result)  -- [H]ello [W]orld\n\n-- Swap key=value pairs\nlocal swapped = string.gsub(\"name=Alice age=30\", \"(%w+)=(%w+)\", \"%2=%1\")\nprint(swapped)  -- Alice=name 30=age",
+        "type": "code",
+        "language": "lua"
+      },
+      {
+        "code": "-- string.find: locate the complete match and capture the function name\nlocal s = \"function foo(x, y)\"\nlocal i, j, name = string.find(s, \"function%s+(%w+)\")\nprint(string.format(\"Matched '%s' at positions %d-%d; captured name '%s'\", s:sub(i, j), i, j, name))\n\n-- Frontier pattern %f[]: match at boundary transitions\nlocal text = \"camelCaseVariable\"\nlocal parts = {}\nfor word in string.gmatch(text, \"%u?%l+\") do\n  parts[#parts + 1] = word\nend\nprint(\"Split camelCase:\", table.concat(parts, \" | \"))",
+        "type": "code",
+        "language": "lua"
+      },
+      {
+        "code": "## 2. 协程词法分析器 (Lexer)\n\n**词法分析器**（Token 标记生成器）将输入文本拆分为 Token。使用协程，我们可以逐个产出 (`yield`) 标记 — 解析器根据需要按需拉取。无需中间数组。",
+        "type": "markdown",
+        "language": "lua"
+      },
+      {
+        "code": "-- Token types\nNUM = \"NUM\"\nOP  = \"OP\"\nID  = \"ID\"\nLPAREN = \"LPAREN\"\nRPAREN = \"RPAREN\"\nEOF = \"EOF\"\n\nfunction lexer(input)\n  return coroutine.wrap(function()\n    local pos = 1\n    while pos <= #input do\n      -- Skip whitespace\n      local ws = string.match(input, \"^%s+\", pos)\n      if ws then pos = pos + #ws end\n      if pos > #input then break end\n\n      -- Numbers (integers and decimals)\n      local num = string.match(input, \"^%d+%.?%d*\", pos)\n      if num then\n        coroutine.yield({ type = NUM, value = tonumber(num), pos = pos })\n        pos = pos + #num\n      -- Identifiers / keywords\n      elseif string.match(input, \"^%a\", pos) then\n        local id = string.match(input, \"^%a%w*\", pos)\n        coroutine.yield({ type = ID, value = id, pos = pos })\n        pos = pos + #id\n      -- Operators\n      elseif string.find(\"+-*/^%%\", string.sub(input, pos, pos), 1, true) then\n        coroutine.yield({ type = OP, value = string.sub(input, pos, pos), pos = pos })\n        pos = pos + 1\n      -- Parentheses\n      elseif string.sub(input, pos, pos) == \"(\" then\n        coroutine.yield({ type = LPAREN, pos = pos })\n        pos = pos + 1\n      elseif string.sub(input, pos, pos) == \")\" then\n        coroutine.yield({ type = RPAREN, pos = pos })\n        pos = pos + 1\n      else\n        error(\"Unexpected character at position \" .. pos .. \": '\" .. string.sub(input, pos, pos) .. \"'\")\n      end\n    end\n    coroutine.yield({ type = EOF })\n  end)\nend\n\n-- Test the lexer\nprint(\"Tokens for '3 + 42 * (x - 1)':\")\nfor tok in lexer(\"3 + 42 * (x - 1)\") do\n  if tok.value then\n    print(string.format(\"  %-7s %s\", tok.type, tostring(tok.value)))\n  else\n    print(string.format(\"  %s\", tok.type))\n  end\nend",
+        "type": "code",
+        "language": "lua"
+      },
+      {
+        "code": "## 3. 标记流 (Token Stream)\n\n解析器需要能够在不消耗标记的情况下向前查看 (peek)。我们将词法分析器协程包装在一个缓冲单个标记的流中。",
+        "type": "markdown",
+        "language": "lua"
+      },
+      {
+        "code": "function TokenStream(input)\n  local next_token = lexer(input)\n  local current = next_token()\n\n  local stream = {}\n\n  function stream.peek()\n    return current\n  end\n\n  function stream.consume()\n    local tok = current\n    current = next_token()\n    return tok\n  end\n\n  function stream.expect(typ)\n    local tok = current\n    if tok.type ~= typ then\n      error(\"Expected \" .. typ .. \" but got \" .. tok.type\n        .. (tok.pos and \" at position \" .. tok.pos or \"\"))\n    end\n    return stream.consume()\n  end\n\n  return stream\nend\n\n-- Test peek/consume\nlocal s = TokenStream(\"10 + 20\")\nprint(\"Peek:\", s.peek().type, s.peek().value)\nprint(\"Consume:\", s.consume().value)\nprint(\"Next:\", s.peek().type, s.peek().value)",
+        "type": "code",
+        "language": "lua"
+      },
+      {
+        "code": "## 4. 递归下降解析器\n\n我们按照运算符优先级解析算术表达式：\n- `+`, `-`（最低）\n- `*`, `/`（居中）\n- `^`（最高，右结合）\n- 括号和一元负号\n\n解析器从表构建 **AST**（抽象语法树）。",
+        "type": "markdown",
+        "language": "lua"
+      },
+      {
+        "code": "-- AST node constructors\nfunction NumNode(value)\n  return { tag = \"num\", value = value }\nend\n\nfunction VarNode(name)\n  return { tag = \"var\", name = name }\nend\n\nfunction BinOp(op, left, right)\n  return { tag = \"binop\", op = op, left = left, right = right }\nend\n\nfunction UnaryOp(op, operand)\n  return { tag = \"unary\", op = op, operand = operand }\nend\n\nfunction CallNode(name, args)\n  return { tag = \"call\", name = name, args = args }\nend",
+        "type": "code",
+        "language": "lua"
+      },
+      {
+        "code": "-- Parser: recursive descent with precedence climbing\nfunction parse(input)\n  local tokens = TokenStream(input)\n\n  -- expr = term (('+' | '-') term)*\n  local function expr()\n    local node = term()\n    while tokens.peek().type == OP\n      and (tokens.peek().value == \"+\" or tokens.peek().value == \"-\") do\n      local op = tokens.consume().value\n      node = BinOp(op, node, term())\n    end\n    return node\n  end\n\n  -- term = power (('*' | '/' | '%') power)*\n  function term()\n    local node = power()\n    while tokens.peek().type == OP\n      and (tokens.peek().value == \"*\" or tokens.peek().value == \"/\"\n           or tokens.peek().value == \"%\") do\n      local op = tokens.consume().value\n      node = BinOp(op, node, power())\n    end\n    return node\n  end\n\n  -- power = unary ('^' power)?  (right-associative)\n  function power()\n    local node = unary()\n    if tokens.peek().type == OP and tokens.peek().value == \"^\" then\n      tokens.consume()\n      node = BinOp(\"^\", node, power())  -- right-recursive!\n    end\n    return node\n  end\n\n  -- unary = '-' unary | atom\n  function unary()\n    if tokens.peek().type == OP and tokens.peek().value == \"-\" then\n      tokens.consume()\n      return UnaryOp(\"-\", unary())\n    end\n    return atom()\n  end\n\n  -- atom = NUM | ID | ID '(' args ')' | '(' expr ')'\n  function atom()\n    local tok = tokens.peek()\n\n    if tok.type == NUM then\n      tokens.consume()\n      return NumNode(tok.value)\n    end\n\n    if tok.type == ID then\n      local name = tokens.consume().value\n      -- Function call?\n      if tokens.peek().type == LPAREN then\n        tokens.consume()  -- eat '('\n        local args = {}\n        if tokens.peek().type ~= RPAREN then\n          args[1] = expr()\n          while tokens.peek().type == OP and tokens.peek().value == \",\" do\n            tokens.consume()\n            args[#args + 1] = expr()\n          end\n        end\n        tokens.expect(RPAREN)\n        return CallNode(name, args)\n      end\n      return VarNode(name)\n    end\n\n    if tok.type == LPAREN then\n      tokens.consume()\n      local node = expr()\n      tokens.expect(RPAREN)\n      return node\n    end\n\n    error(\"Unexpected token: \" .. tok.type\n      .. (tok.pos and \" at position \" .. tok.pos or \"\"))\n  end\n\n  local ast = expr()\n  tokens.expect(EOF)\n  return ast\nend\n\nprint(\"Parser loaded.\")",
+        "type": "code",
+        "language": "lua"
+      },
+      {
+        "code": "## 5. AST 格式化输出 (Pretty-Printer)\n\n在求值之前，先直观展示解析器生成的结构。",
+        "type": "markdown",
+        "language": "lua"
+      },
+      {
+        "code": "function pretty(node, indent)\n  indent = indent or 0\n  local pad = string.rep(\"  \", indent)\n\n  if node.tag == \"num\" then\n    return pad .. tostring(node.value)\n  elseif node.tag == \"var\" then\n    return pad .. node.name\n  elseif node.tag == \"unary\" then\n    return pad .. \"(\" .. node.op .. \"\\n\" .. pretty(node.operand, indent + 1) .. \")\"\n  elseif node.tag == \"binop\" then\n    return pad .. \"(\" .. node.op .. \"\\n\"\n      .. pretty(node.left, indent + 1) .. \"\\n\"\n      .. pretty(node.right, indent + 1) .. \")\"\n  elseif node.tag == \"call\" then\n    local argStrs = {}\n    for _, a in ipairs(node.args) do\n      argStrs[#argStrs + 1] = pretty(a, indent + 1)\n    end\n    return pad .. node.name .. \"(\\n\" .. table.concat(argStrs, \"\\n\") .. \")\"\n  end\n  return pad .. \"??\"\nend\n\n-- Parse and display\nlocal ast = parse(\"2 ^ 3 ^ 2 + 1\")\nprint(\"AST for '2 ^ 3 ^ 2 + 1':\")\nprint(pretty(ast))\n\nprint(\"\\nAST for '-(3 + 4) * 2':\")\nprint(pretty(parse(\"-(3 + 4) * 2\")))",
+        "type": "code",
+        "language": "lua"
+      },
+      {
+        "code": "## 6. 求值器 (Evaluator)\n\n遍历 AST 计算结果。变量和函数在环境表中查找。",
+        "type": "markdown",
+        "language": "lua"
+      },
+      {
+        "code": "function evaluate(node, env)\n  env = env or {}\n\n  if node.tag == \"num\" then\n    return node.value\n\n  elseif node.tag == \"var\" then\n    local val = env[node.name]\n    if val == nil then error(\"Undefined variable: \" .. node.name) end\n    return val\n\n  elseif node.tag == \"unary\" then\n    if node.op == \"-\" then\n      return -evaluate(node.operand, env)\n    end\n\n  elseif node.tag == \"binop\" then\n    local l = evaluate(node.left, env)\n    local r = evaluate(node.right, env)\n    if     node.op == \"+\" then return l + r\n    elseif node.op == \"-\" then return l - r\n    elseif node.op == \"*\" then return l * r\n    elseif node.op == \"/\" then return l / r\n    elseif node.op == \"%\" then return l % r\n    elseif node.op == \"^\" then return l ^ r\n    end\n\n  elseif node.tag == \"call\" then\n    local fn = env[node.name]\n    if type(fn) ~= \"function\" then\n      error(\"Not a function: \" .. node.name)\n    end\n    local args = {}\n    for _, a in ipairs(node.args) do\n      args[#args + 1] = evaluate(a, env)\n    end\n    return fn(table.unpack(args))\n  end\n\n  error(\"Unknown node tag: \" .. tostring(node.tag))\nend\n\n-- Convenience: parse + evaluate\nfunction calc(expr, env)\n  return evaluate(parse(expr), env)\nend\n\nprint(\"Calculator loaded.\")",
+        "type": "code",
+        "language": "lua"
+      },
+      {
+        "code": "-- Basic arithmetic\nprint(\"2 + 3 * 4      =\", calc(\"2 + 3 * 4\"))\nprint(\"(2 + 3) * 4    =\", calc(\"(2 + 3) * 4\"))\nprint(\"2 ^ 3 ^ 2      =\", calc(\"2 ^ 3 ^ 2\"))      -- right-assoc: 2^(3^2) = 512\nprint(\"-5 + 3         =\", calc(\"-5 + 3\"))\nprint(\"10 % 3         =\", calc(\"10 % 3\"))",
+        "type": "code",
+        "language": "lua"
+      },
+      {
+        "code": "-- With variables and functions\nlocal env = {\n  pi = math.pi,\n  e  = math.exp(1),\n  x  = 10,\n  sqrt = math.sqrt,\n  sin  = math.sin,\n  cos  = math.cos,\n  abs  = math.abs,\n}\n\nprint(\"pi * x ^ 2    =\", calc(\"pi * x ^ 2\", env))\nprint(\"sqrt(144)      =\", calc(\"sqrt(144)\", env))\nprint(\"sin(pi / 2)    =\", calc(\"sin(pi / 2)\", env))\nprint(\"abs(-42) + e   =\", calc(\"abs(-42) + e\", env))",
+        "type": "code",
+        "language": "lua"
+      },
+      {
+        "code": "## 7. 解析器组合子\n\n另一种方法：使用闭包从小型可组合构建块构建解析器。每个解析器都是一个函数，接受输入（字符串 + 位置），并返回结果 + 新位置，失败时返回 `nil`。",
+        "type": "markdown",
+        "language": "lua"
+      },
+      {
+        "code": "-- A parser is: function(input, pos) -> result, newpos | nil\n\n-- Match a Lua pattern, return captured group\nfunction P(pattern)\n  return function(input, pos)\n    local s, e, cap = string.find(input, \"^(\" .. pattern .. \")\", pos)\n    if s then return cap, e + 1 end\n    return nil\n  end\nend\n\n-- Match literal string\nfunction L(str)\n  return function(input, pos)\n    if string.sub(input, pos, pos + #str - 1) == str then\n      return str, pos + #str\n    end\n    return nil\n  end\nend\n\n-- Skip whitespace, then apply parser\nfunction Token(parser)\n  return function(input, pos)\n    local _, p2 = string.find(input, \"^%s*\", pos)\n    return parser(input, (p2 or pos) + 1)\n  end\nend\n\nprint(\"Combinators loaded.\")",
+        "type": "code",
+        "language": "lua"
+      },
+      {
+        "code": "-- Sequence: all parsers must match in order\nfunction Seq(...)\n  local parsers = {...}\n  return function(input, pos)\n    local results = {}\n    local p = pos\n    for _, parser in ipairs(parsers) do\n      local r, np = parser(input, p)\n      if r == nil then return nil end\n      results[#results + 1] = r\n      p = np\n    end\n    return results, p\n  end\nend\n\n-- Choice: try each parser, return first match\nfunction Choice(...)\n  local parsers = {...}\n  return function(input, pos)\n    for _, parser in ipairs(parsers) do\n      local r, np = parser(input, pos)\n      if r ~= nil then return r, np end\n    end\n    return nil\n  end\nend\n\n-- Zero or more repetitions\nfunction Many(parser)\n  return function(input, pos)\n    local results = {}\n    local p = pos\n    while true do\n      local r, np = parser(input, p)\n      if r == nil then break end\n      results[#results + 1] = r\n      p = np\n    end\n    return results, p\n  end\nend\n\n-- Transform result\nfunction Map(parser, fn)\n  return function(input, pos)\n    local r, np = parser(input, pos)\n    if r ~= nil then return fn(r), np end\n    return nil\n  end\nend\n\nprint(\"Seq, Choice, Many, Map loaded.\")",
+        "type": "code",
+        "language": "lua"
+      },
+      {
+        "code": "-- Parse a simple key-value config format:\n--   host = localhost\n--   port = 8080\n--   debug = true\n\nlocal key   = Token(P(\"%a%w*\"))\nlocal eq    = Token(L(\"=\"))\nlocal value = Token(P(\"%S+\"))\n\nlocal pair  = Map(\n  Seq(key, eq, value),\n  function(r) return { key = r[1], value = r[3] } end\n)\n\nlocal config = Many(pair)\n\nlocal input = \"host = localhost  port = 8080  debug = true\"\nlocal result, pos = config(input, 1)\n\nprint(\"Parsed config:\")\nfor _, entry in ipairs(result) do\n  print(string.format(\"  %-8s = %s\", entry.key, entry.value))\nend",
+        "type": "code",
+        "language": "lua"
+      },
+      {
+        "code": "## 8. CSV 解析器\n\n一个更实用的示例：使用组合子方法解析带有带引号字段的 CSV。",
+        "type": "markdown",
+        "language": "lua"
+      },
+      {
+        "code": "function parseCSV(input)\n  local rows = {}\n\n  -- Use a coroutine to yield rows as they're parsed\n  local function parseField(line, pos)\n    if string.sub(line, pos, pos) == '\"' then\n      -- Quoted field: find closing quote (handles escaped \"\")\n      local field = {}\n      pos = pos + 1\n      while pos <= #line do\n        if string.sub(line, pos, pos + 1) == '\"\"' then\n          field[#field + 1] = '\"'\n          pos = pos + 2\n        elseif string.sub(line, pos, pos) == '\"' then\n          pos = pos + 1\n          break\n        else\n          field[#field + 1] = string.sub(line, pos, pos)\n          pos = pos + 1\n        end\n      end\n      return table.concat(field), pos\n    else\n      -- Unquoted field: read until comma or end\n      local s, e, val = string.find(line, \"^([^,]*)\", pos)\n      return val or \"\", (e or pos) + 1\n    end\n  end\n\n  for line in string.gmatch(input, \"([^\\n]+)\") do\n    local row = {}\n    local pos = 1\n    while pos <= #line do\n      local field\n      field, pos = parseField(line, pos)\n      row[#row + 1] = field\n      -- Skip comma separator\n      if string.sub(line, pos, pos) == \",\" then\n        pos = pos + 1\n      end\n    end\n    rows[#rows + 1] = row\n  end\n\n  return rows\nend\n\nlocal csv = [[name,age,city\nAlice,30,\"New York\"\nBob,25,\"San Francisco\"\n\"O'Brien, Charlie\",40,\"Boston\"]]\n\nlocal data = parseCSV(csv)\n\n-- Print as a formatted table\nlocal widths = {}\nfor _, row in ipairs(data) do\n  for i, field in ipairs(row) do\n    widths[i] = math.max(widths[i] or 0, #field)\n  end\nend\n\nfor r, row in ipairs(data) do\n  local parts = {}\n  for i, field in ipairs(row) do\n    parts[i] = field .. string.rep(\" \", widths[i] - #field)\n  end\n  print(table.concat(parts, \"  |  \"))\n  if r == 1 then\n    local sep = {}\n    for i = 1, #widths do sep[i] = string.rep(\"-\", widths[i]) end\n    print(table.concat(sep, \"--+--\"))\n  end\nend",
+        "type": "code",
+        "language": "lua"
+      },
+      {
+        "code": "## 9. 流式处理流水线 (Streaming Pipeline)\n\n融会贯通：一个基于协程的流水线，逐行且完全惰性地对一系列表达式进行词法分析、解析和求值。",
+        "type": "markdown",
+        "language": "lua"
+      },
+      {
+        "code": "function repl_eval(lines, env)\n  return coroutine.wrap(function()\n    for line in string.gmatch(lines, \"([^\\n]+)\") do\n      -- Skip comments and blank lines\n      local trimmed = string.match(line, \"^%s*(.-)%s*$\")\n      if trimmed ~= \"\" and string.sub(trimmed, 1, 1) ~= \"#\" then\n        local ok, result = pcall(function()\n          return calc(trimmed, env)\n        end)\n        if ok then\n          coroutine.yield(trimmed, result, nil)\n        else\n          coroutine.yield(trimmed, nil, result)\n        end\n      end\n    end\n  end)\nend\n\nlocal program = [[\n# Physics calculations\n9.8 * 2\nsqrt(144) + 1\npi * r ^ 2\n2 ^ 10\nabs(-7) * 3\n5 / 0\n]]\n\nlocal env = {\n  pi = math.pi, r = 5,\n  sqrt = math.sqrt, abs = math.abs,\n}\n\nprint(\"Expression evaluator:\")\nprint(string.rep(\"-\", 40))\nfor expr, result, err in repl_eval(program, env) do\n  if err then\n    print(string.format(\"  %-20s  ERROR: %s\", expr, err))\n  else\n    print(string.format(\"  %-20s  = %g\", expr, result))\n  end\nend",
+        "type": "code",
+        "language": "lua"
+      },
+      {
+        "code": "## 总结\n\n我们仅使用 Lua 标准库构建的内容：\n\n| 组件 | 技术 |\n|---|---|\n| 词法分析器 | 协程 + `string.match` 模式 |\n| 标记流 | 闭包（在协程上实现 peek/consume） |\n| 递归下降解析器 | 相互递归 + 用作 AST 的表 |\n| 求值器 | 带环境表的树遍历 |\n| 组合子 | 高阶闭包（Seq, Choice, Many, Map） |\n| CSV 解析器 | 模式匹配 + 状态机 |\n| 流式处理流水线 | 带 `pcall` 错误处理的协程链 |\n\n无需外部库，无需正则引擎，无需解析器生成器 — 仅依靠模式、协程、闭包和表。",
+        "type": "markdown",
+        "language": "lua"
+      }
+    ]
+  }
+}
