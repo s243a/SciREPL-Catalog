@@ -1,0 +1,238 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-03-12T00:00:00.000Z",
+  "notebook": {
+    "id": "nb-prolog-gen-r-001",
+    "name": "Prolog генерирует R: Демонстрация компилятора",
+    "description": "Demonstrates UnifyWeaver compiling Prolog predicates into R code. Part 1: factorial (linear→tail transformation). Part 2: ancestor (transitive closure vs skip/pattern).",
+    "kernelLanguage": null,
+    "cellCounter": 26,
+    "cells": [
+      {
+        "code": "# Prolog генерирует R — Демонстрация компилятора UnifyWeaver\n\nВ этой книге демонстрируется, как **UnifyWeaver** компилирует логику Prolog в исполняемый код R — в реальном времени, прямо в блокноте.\n\n## Часть 1: Факториал (Линейная рекурсия)\n1. Загрузка среды компилятора UnifyWeaver\n2. Определение рекурсивного `factorial/2` на Prolog\n3. Компилятор определяет паттерн рекурсии и генерирует эквивалентный цикл на языке R\n4. Сгенерированный код R записывается в другую ячейку через `nb_write/3`\n5. Выполнение ячейки R для проверки корректности\n\n## Часть 2: Предок (Транзитивное замыкание и управление паттернами)\n8. Определение фактов `parent/2` и правила `ancestor/2` на Prolog\n9. Компиляция по умолчанию → транзитивное замыкание (обход графа в ширину BFS)\n10. Повторная компиляция с `skip(transitive_closure)` → другой сгенерированный код\n11. Сравнение двух подходов рядом",
+        "type": "markdown",
+        "language": "python",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## Шаг 1: Загрузка UnifyWeaver\n\nЗагрузка среды UnifyWeaver и целевого компилятора R.\n\n**Примечание:** В swipl-wasm используйте `use_module(unifyweaver(...))` (псевдоним пути поиска) вместо `use_module(library(...))`. Вызов `['../init'].` настраивает путь поиска `unifyweaver`, чтобы модули корректно разрешались.",
+        "type": "markdown",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "['../init'].\n:- use_module(unifyweaver(targets/r_target)).\n:- use_module(unifyweaver(core/advanced/linear_recursion)).\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "type": "code",
+        "language": "prolog",
+        "name": "load_uw",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## Шаг 2: Определение факториала на Prolog\n\nПростой рекурсивный факториал. Базовый случай возвращает 1, когда N равен 0. Рекурсивный случай вычисляет `N * factorial(N-1)`.",
+        "type": "markdown",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": ":- dynamic factorial/2.\n\nfactorial(0, 1).\nfactorial(N, F) :-\n    N > 0,\n    N1 is N - 1,\n    factorial(N1, F1),\n    F is N * F1.",
+        "type": "code",
+        "language": "prolog",
+        "name": "prolog_factorial",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## Шаг 3: Компиляция Prolog → R\n\nКомпилятор:\n1. Считывает исходный код Prolog из ячейки **prolog_factorial** с помощью `nb_read/3`\n2. Загружает его (consult) для добавления предложений в базу данных\n3. Вызывает `compile_linear_recursion/3`, который определяет паттерн рекурсии, извлекает шаг (`N1 is N - 1` → step=1, уменьшение) и генерирует цикл `for` на R\n4. Записывает сгенерированный код R в ячейку **r_factorial** с помощью `nb_write/3`\n\nОпция `memo(false)` запрашивает компиляцию на основе циклов вместо мемоизированного reduce.",
+        "type": "markdown",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "%% Read the Prolog source from the previous cell\nuser:nb_read('prolog_factorial', '.code', _PrologSrc),\nformat('Read from prolog_factorial:~n~w~n~n', [_PrologSrc]),\n\n%% Consult it to assert the clauses\nsetup_call_cleanup(\n    open('/tmp/_nb_src.pl', write, _Out),\n    write(_Out, _PrologSrc),\n    close(_Out)),\nconsult('/tmp/_nb_src.pl'),\n\n%% Compile factorial/2 → R\nr_target:init_r_target,\nlinear_recursion:compile_linear_recursion(factorial/2, [target(r), memo(false)], _Code),\nformat('--- Generated R code ---~n~w~n', [_Code]),\n\n%% Write compiler output to the R cell\nuser:nb_write('r_factorial', '.code', _Code),\nwriteln('\\nR code written to cell: r_factorial').",
+        "type": "code",
+        "language": "prolog",
+        "name": "compile_to_r",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## Шаг 4: Выполнение сгенерированного кода R\n\nПриведенная ниже ячейка содержит сгенерированную компилятором функцию `factorial`. Выполните ее, чтобы определить функцию, а затем перейдите к Шагу 5 для тестирования.",
+        "type": "markdown",
+        "language": "python",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "# This cell will be overwritten by the compiler.\n# Run the 'compile_to_r' cell above first.",
+        "type": "code",
+        "language": "r",
+        "name": "r_factorial",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## Шаг 5: Тестирование сгенерированного кода R\n\nВызовите сгенерированную компилятором функцию `factorial`, чтобы убедиться, что она возвращает правильные результаты.",
+        "type": "markdown",
+        "language": "python",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "cat(\"6! =\", factorial(6), \"\\n\")\ncat(\"20! =\", factorial(20), \"\\n\")\ncat(\"0! =\", factorial(0), \"\\n\")",
+        "type": "code",
+        "language": "r",
+        "name": "test_r",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## Шаг 6: Проверка через Bash\n\nNotebook VFS позволяет любому ядру инспектировать ячейки. Здесь Bash считывает сгенерированный компилятором код:",
+        "type": "markdown",
+        "language": "python",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "echo \"=== Cells ===\"\nls /nb/\necho \"\"\necho \"=== r_factorial code ===\"\ncat /nb/r_factorial/.code\necho \"\"\necho \"=== r_factorial language ===\"\ncat /nb/r_factorial/.language",
+        "type": "code",
+        "language": "bash",
+        "name": "inspect",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "# Step 7: Relative addressing — /nb/-1/.output reads the previous cell's output.\n# /nb/./.code reads this cell's own code. Copy-paste to accumulate!\necho \"[accumulate] previous cell output via /nb/-1/.output:\"\necho \"---\"\ncat /nb/-1/.output\necho \"---\"\necho \"\"\necho \"[self] this cell's code via /nb/./.code:\"\ncat /nb/./.code",
+        "type": "code",
+        "language": "bash",
+        "name": "accumulate",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "---\n\n# Часть 2: Предок — Транзитивное замыкание и управление паттернами\n\nТот же компилятор обрабатывает и реляционные предикаты. Здесь мы определяем `ancestor/2` как транзитивное замыкание над фактами `parent/2`.\n\nКомпилятор распознает паттерн и генерирует код **обхода графа в ширину (BFS)** на языке R. Но мы также можем передать `skip(transitive_closure)`, чтобы принудительно использовать другую стратегию компиляции — это демонстрирует, как параметры `skip` и `pattern` управляют выводимым компилятором кодом.",
+        "type": "markdown",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## Шаг 8: Определение генеалогического древа на Prolog\n\nНебольшое генеалогическое древо с фактами `parent/2` и правилом `ancestor/2`, определенным как транзитивное замыкание.\n\nОбратите внимание на лаконичность Prolog — всего 2 предложения для `ancestor/2`. Вся логика обхода графа генерируется компилятором автоматически.",
+        "type": "markdown",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": ":- dynamic parent/2, ancestor/2.\n\n%% Family tree\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\n\n%% Transitive closure: ancestor(X, Y) if X is an ancestor of Y\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "type": "code",
+        "language": "prolog",
+        "name": "prolog_ancestor",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## Шаг 9: Компиляция ancestor/2 → R (по умолчанию: транзитивное замыкание)\n\nКомпилятор классифицирует `ancestor/2` как **транзитивное замыкание** над `parent/2` и генерирует код R, включающий:\n- Список смежности (хэш-таблицу окружения)\n- Функции обхода BFS (`ancestor_all`, `ancestor_check`)\n- Функцию `add_parent` для заполнения графа\n\nЭто оптимальная компиляция для запросов достижимости на графах.",
+        "type": "markdown",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "%% Consult the ancestor definitions\nuser:nb_read('prolog_ancestor', '.code', _AncSrc),\nformat('Read from prolog_ancestor:~n~w~n~n', [_AncSrc]),\nsetup_call_cleanup(\n    open('/tmp/_nb_anc.pl', write, _Out),\n    write(_Out, _AncSrc),\n    close(_Out)),\nconsult('/tmp/_nb_anc.pl'),\n\n%% Compile with default pattern detection → transitive closure\nrecursive_compiler:compile_recursive(ancestor/2, [target(r)], _Code1),\nformat('--- Pattern: transitive_closure ---~n~w~n', [_Code1]),\n\n%% Write to the R cell\nuser:nb_write('r_ancestor_tc', '.code', _Code1),\nwriteln('\\nR code written to cell: r_ancestor_tc').",
+        "type": "code",
+        "language": "prolog",
+        "name": "compile_ancestor_tc",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## Шаг 10: Сгенерированный код R (Транзитивное замыкание)\n\nЭта ячейка перезаписывается компилятором кодом обхода графа BFS.\nСначала выполните ячейку `compile_ancestor_tc` выше.",
+        "type": "markdown",
+        "language": "r",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "# This cell will be overwritten by the compiler.\n# Run 'compile_ancestor_tc' above first.",
+        "type": "code",
+        "language": "r",
+        "name": "r_ancestor_tc",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## Шаг 11: Запрос к сгенерированной программе R\n\nСгенерированные определения и встроенные факты о родителях сохраняются в ядре R, поэтому эта ячейка проверяет оба API достижимости.",
+        "type": "markdown",
+        "language": "r",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "descendants <- ancestor_all(\"alice\")\ncat(\"Descendants of alice:\", paste(descendants, collapse = \", \"), \"\\n\")\ncat(\"alice is ancestor of eve:\", ancestor_check(\"alice\", \"eve\"), \"\\n\")\ncat(\"alice is ancestor of frank:\", ancestor_check(\"alice\", \"frank\"), \"\\n\")",
+        "type": "code",
+        "language": "r",
+        "name": "test_r_ancestor",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## Шаг 12: Анализ экспериментального резервного варианта на Bash\n\nТеперь мы компилируем **тот же самый предикат**, пропуская паттерн транзитивного замыкания. Компилятор переключается на общий каркас хвостовой рекурсии на Bash.\n\nЭто демонстрирует механизм выбора целевого языка и параметры пропуска, однако сгенерированный скрипт Bash содержит явный маркер TODO и **не является эквивалентной реализацией ancestor/2**. Рассматривайте его как промежуточный вывод компилятора в процессе разработки, а не как готовую программу.",
+        "type": "markdown",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "%% Compile ancestor/2 again, but skip transitive closure → falls to tail recursion\n%% Also target bash to show cross-language compilation\nrecursive_compiler:compile_recursive(\n    ancestor/2,\n    [target(bash), skip(transitive_closure)],\n    _Code2),\nformat('--- Pattern: tail_recursion (bash) ---~n~w~n', [_Code2]),\n\n%% Write to the bash cell\nuser:nb_write('bash_ancestor_alt', '.code', _Code2),\nwriteln('\\nBash code written to cell: bash_ancestor_alt').",
+        "type": "code",
+        "language": "prolog",
+        "name": "compile_ancestor_skip",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "# This cell will be overwritten by the compiler.\n# Run 'compile_ancestor_skip' above first.",
+        "type": "code",
+        "language": "bash",
+        "name": "bash_ancestor_alt",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## Шаг 13: Сравнение сгенерированных результатов\n\nИспользуйте Notebook VFS для параллельного сравнения полной реализации на R и явно экспериментального каркаса на Bash:",
+        "type": "markdown",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "echo \"=== R (transitive closure / BFS) ===\"\necho \"Language: $(cat /nb/r_ancestor_tc/.language)\"\necho \"---\"\ncat /nb/r_ancestor_tc/.code\necho \"\"\necho \"\"\necho \"=== Bash (tail recursion) ===\"\necho \"Language: $(cat /nb/bash_ancestor_alt/.language)\"\necho \"---\"\ncat /nb/bash_ancestor_alt/.code",
+        "type": "code",
+        "language": "bash",
+        "name": "compare_outputs",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      }
+    ]
+  }
+}

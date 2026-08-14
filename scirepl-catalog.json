@@ -1846,6 +1846,269 @@
       "revision": 1,
       "sha256": "4cecc1f02378d9b3c8823339b7848b3b06826bd4a263826ec3b6b2bcf4cf4ee9",
       "size": 11581
+    },
+    {
+      "id": "compute-pi-workbook-ru",
+      "name": "Вычисление числа Пи: Архимедовы границы",
+      "description": "Зажимаем π между вписанными и описанными многоугольниками по методу Архимеда. Русское издание.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "ru"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ru/compute-pi-workbook.srwb",
+      "revision": 1,
+      "sha256": "d09f1d770ddfab2713f10c00dd6d944172ab5e6d4781c7a37c05c19e2139bce8",
+      "size": 6708
+    },
+    {
+      "id": "lua-tables-coroutines-ru",
+      "name": "Lua: Таблицы, сопрограммы и замыкания",
+      "description": "Таблицы, сопрограммы и замыкания: ядро Lua на исполняемых примерах. Русское издание.",
+      "type": "workbook",
+      "kernels": [
+        "lua"
+      ],
+      "locales": [
+        "ru"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ru/lua-tables-coroutines.srwb",
+      "revision": 1,
+      "sha256": "8fdc2309a9b0d06dba3b1661ce4173e0a6dc452c0d085d04e8989d52aac8219f",
+      "size": 15636
+    },
+    {
+      "id": "lua-parsing-coroutines-ru",
+      "name": "Lua: Парсинг с помощью сопрограмм",
+      "description": "Синтаксический разбор на сопрограммах в Lua: лексер, парсер и ленивые потоки. Русское издание.",
+      "type": "workbook",
+      "kernels": [
+        "lua"
+      ],
+      "locales": [
+        "ru"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ru/lua-parsing-coroutines.srwb",
+      "revision": 1,
+      "sha256": "76634d2fbb2cfa9b8730ebb95de67a64359e2d58dcfbd5fc32582574f2a1b573",
+      "size": 23896
+    },
+    {
+      "id": "typr-intro-ru",
+      "name": "Введение в TypR",
+      "description": "Введение в TypR: типы и трансляция в R. Русское издание.",
+      "type": "workbook",
+      "kernels": [
+        "typr"
+      ],
+      "locales": [
+        "ru"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ru/typr-intro.srwb",
+      "revision": 1,
+      "sha256": "a362b7cc37b71943cba6d4676ef1a4c235e8a3127ab3bf07bee48261d17b7deb",
+      "size": 3653
+    },
+    {
+      "id": "prolog-generates-r-ru",
+      "name": "Prolog генерирует R: Демонстрация компилятора",
+      "description": "UnifyWeaver компилирует логику Prolog в исполняемый код R, вживую. Русское издание.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "r"
+      ],
+      "locales": [
+        "ru"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ru/prolog-generates-r.srwb",
+      "revision": 1,
+      "sha256": "9cf2891d8803bd64a178c1155954fbabf122da2783dba0519ed5ccccae6d6f4b",
+      "size": 17142
+    },
+    {
+      "id": "prolog-generates-lua-ru",
+      "name": "Prolog генерирует Lua: Демонстрация компилятора",
+      "description": "UnifyWeaver компилирует логику Prolog в код Lua. Русское издание.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "lua"
+      ],
+      "locales": [
+        "ru"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ru/prolog-generates-lua.srwb",
+      "revision": 1,
+      "sha256": "4a59f3a57d92c0abad68dc9da4d47cb82a11f30facd176bafbf376d907d8dc94",
+      "size": 7783
+    },
+    {
+      "id": "prolog-generates-clojurescript-ru",
+      "name": "Prolog генерирует ClojureScript: Демонстрация компилятора",
+      "description": "UnifyWeaver компилирует логику Prolog в ClojureScript. Русское издание.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "clojurescript"
+      ],
+      "locales": [
+        "ru"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ru/prolog-generates-clojurescript.srwb",
+      "revision": 1,
+      "sha256": "d7993db0eca0bdfb2b6421f9b60e731ea7c4fef7f000254a97348586b4b43e63",
+      "size": 6161
+    },
+    {
+      "id": "prolog-generates-typr-ru",
+      "name": "Prolog генерирует TypR: Демонстрация компилятора",
+      "description": "UnifyWeaver компилирует логику Prolog в TypR. Русское издание.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "typr"
+      ],
+      "locales": [
+        "ru"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ru/prolog-generates-typr.srwb",
+      "revision": 1,
+      "sha256": "cfb2995912ce9431679c92af2526b9a1099d652f71bb88dbfec70b8630e08f12",
+      "size": 7993
+    },
+    {
+      "id": "r-ggplot2-showcase-ru",
+      "name": "Демонстрация возможностей ggplot2",
+      "description": "Витрина ggplot2: диаграммы рассеяния, фасеты, ящики с усами и тепловые карты. Русское издание.",
+      "type": "workbook",
+      "kernels": [
+        "r"
+      ],
+      "locales": [
+        "ru"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ru/r_ggplot2_showcase.ipynb",
+      "revision": 1,
+      "sha256": "df5ae4df3c96d8b0f1cc67ac540b02a5ea5e5c734fc8dbafe35a7e299518ceb5",
+      "size": 4813
+    },
+    {
+      "id": "r-statistics-ru",
+      "name": "Статистика в R",
+      "description": "Статистика в R: проверка гипотез, регрессия и доверительные интервалы. Русское издание.",
+      "type": "workbook",
+      "kernels": [
+        "r"
+      ],
+      "locales": [
+        "ru"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ru/r_statistics.ipynb",
+      "revision": 1,
+      "sha256": "ec6271a6fdc1815574f7d584b0e9ccb6b7e397290adb59872f866cf7f2d99d8d",
+      "size": 7335
+    },
+    {
+      "id": "r-tidyverse-wrangling-ru",
+      "name": "Обработка и подготовка данных с помощью Tidyverse",
+      "description": "Обработка и подготовка данных с dplyr и tidyr. Русское издание.",
+      "type": "workbook",
+      "kernels": [
+        "r"
+      ],
+      "locales": [
+        "ru"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ru/r_tidyverse_wrangling.ipynb",
+      "revision": 1,
+      "sha256": "03bc1e27501ea52fca7b28bc65546d670f1418fb21f587d433315e4e848f0182",
+      "size": 8520
+    },
+    {
+      "id": "01-family-tree-tutorial-ru",
+      "name": "Руководство по генеалогическому древу в UnifyWeaver",
+      "description": "Учебник по семейному древу: пошаговая компиляция предикатов Prolog в UnifyWeaver. Русское издание.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "bash"
+      ],
+      "locales": [
+        "ru"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ru/01_family_tree_tutorial.ipynb",
+      "revision": 1,
+      "sha256": "7e28a3c84f0a72a93eb030526003ca62bc6f670962781d119f6bf0d1e78c0715",
+      "size": 12383
+    },
+    {
+      "id": "02-recursion-patterns-ru",
+      "name": "Продвинутые паттерны рекурсии в UnifyWeaver",
+      "description": "Шаблоны рекурсии (хвостовая, линейная, древовидная, взаимная) и их компиляция. Русское издание.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "bash"
+      ],
+      "locales": [
+        "ru"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ru/02_recursion_patterns.ipynb",
+      "revision": 1,
+      "sha256": "2481c6031b109f3322e73bd69b72a053342cc2901a6d6172729a2a443a6ecf30",
+      "size": 19393
+    },
+    {
+      "id": "03-call-graph-analysis-ru",
+      "name": "Анализ графа вызовов и поиск сильно связных компонент (SCC)",
+      "description": "Анализ графа вызовов: сильно связные компоненты и топологический порядок. Русское издание.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "bash"
+      ],
+      "locales": [
+        "ru"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ru/03_call_graph_analysis.ipynb",
+      "revision": 1,
+      "sha256": "d603fa337b7a3a7f6c2e05347b2129894953cea24fb9956966019ffe0411d66f",
+      "size": 16074
+    },
+    {
+      "id": "life-expectancy-csv-demo-ru",
+      "name": "Анализ ожидаемой продолжительности жизни",
+      "description": "Межъязыковой конвейер данных на наборе данных о продолжительности жизни. Русское издание.",
+      "type": "workbook",
+      "kernels": [
+        "python",
+        "r"
+      ],
+      "locales": [
+        "ru"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ru/life_expectancy_csv_demo.ipynb",
+      "revision": 1,
+      "sha256": "0b4fe59538b9087f6dab2976e7e211b64f4df9026c13b3c0ae2cf8e887598581",
+      "size": 12289
     }
   ]
 }
