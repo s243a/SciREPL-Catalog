@@ -24,6 +24,12 @@ and work deliberately deferred.
     review, and the same gates passed for both)
 
   **Spanish is complete: all 15 built-in workbooks have es editions.**
+
+- **Japanese (ja): all 15 workbook editions**, one supervised session on
+  Gemini 3.7 Flash (30 approvals, 0 denials; ~40 minutes — whole-locale
+  sessions amortize far better than the es-era batches). Terminology from
+  the app's own ja UI glossary; «推移閉包», «強連結成分», «末尾再帰» et al.
+  flagged by the worker as judgment calls for native review.
 - The 15 English source workbooks under `workbooks/en/` (translation inputs,
   not index items — the app already ships them built in).
 - `tools/build-index.mjs` — sha256/size integrity for every index item, with

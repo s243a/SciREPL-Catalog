@@ -1,0 +1,60 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "Prolog による ClojureScript の生成: コンパイラデモ",
+    "cells": [
+      {
+        "type": "markdown",
+        "code": "# Prolog による ClojureScript の生成\n\nこのワークブックでは、UnifyWeaver が Prolog の述語を **ClojureScript** にコンパイルし、Scittle カーネルを介してブラウザ上でその結果を実行する様子を実演します。\n\nワークフロー:\n1. Prolog の述語（事実 + 規則）を定義\n2. UnifyWeaver が再帰パターン（推移閉包）を検出\n3. ClojureScript ターゲットがブラウザで実行可能な CLJS を生成（`atom` マップ上の幅優先探索 (BFS)、埋め込み事実、JVM 相互運用なし）\n4. 生成された定義を専用の構文強調された ClojureScript セルに書き込み\n5. 永続的な Scittle コンテキストに対して、独立した構文強調されたクエリセルを実行\n\nこのワークブックとともに、カタログから必要な **UnifyWeaver SciREPL** パッケージが自動的にインストールされます。\n\n**優れた特徴:** TypR デモとは異なり、ClojureScript の状態は *セル間で永続化されます* （Scittle はページごとに1つの SCI コンテキストを保持します）。そのため、生成された定義とクエリを綺麗に分離したまま保持できます。",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "% Load UnifyWeaver compiler modules\n['../init'].\n:- use_module(unifyweaver(targets/clojurescript_target)).\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "language": "prolog",
+        "name": "load_compiler"
+      },
+      {
+        "type": "code",
+        "code": "% Define a family tree as Prolog facts\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% Transitive closure: ancestor(X, Y) if X is an ancestor of Y\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "language": "prolog",
+        "name": "family_tree"
+      },
+      {
+        "type": "code",
+        "code": "% Compile ancestor/2 to ClojureScript definitions only\n\\+ \\+ (\n    recursive_compiler:compile_recursive(ancestor/2, [target(clojurescript)], _Code),\n    format('--- Generated ClojureScript code ---~n~w~n', [_Code]),\n    % End with nil so generated seed expressions do not become notebook output\n    format(string(_Definitions), '~w~n~nnil~n', [_Code]),\n    user:nb_write('cljs_output', '.code', _Definitions),\n    writeln('ClojureScript definitions written to cell: cljs_output')\n).",
+        "language": "prolog",
+        "name": "compile_to_clojurescript"
+      },
+      {
+        "type": "markdown",
+        "code": "## 生成された ClojureScript コード\n\n以下のセルには、UnifyWeaver によって生成された ClojureScript の定義のみが含まれています。\n以下が含まれます:\n- `(def base-relation (atom {}))` — 可変マップとしての関係\n- `find-all` / `check-path` — 関係に対する幅優先探索 (BFS)\n- Prolog の事実から埋め込まれた `(add-fact ...)` シード呼び出し\n- JS ホストとの相互運用のみ（`java.io`、`System/exit`、`*command-line-args*` は含まれません）\n\n続く構文強調されたセルで、これらの永続的な定義に対してクエリを実行します。",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": ";; This cell will be populated by the compiler.\n;; Run the 'compile_to_clojurescript' cell above first.",
+        "language": "clojurescript",
+        "name": "cljs_output"
+      },
+      {
+        "type": "code",
+        "code": ";; Query the generated definitions in Scittle's persistent context.\n(print (str \"Descendants of alice: \" (pr-str (sort (find-all \"alice\"))) \"\\n\"\n            \"alice is ancestor of eve: \" (check-path \"alice\" \"eve\") \"\\n\"\n            \"alice is ancestor of frank: \" (check-path \"alice\" \"frank\") \"\\n\"))",
+        "language": "clojurescript",
+        "name": "cljs_queries"
+      },
+      {
+        "type": "markdown",
+        "code": "## 比較: 同じ述語、JVM Clojure ターゲット\n\nUnifyWeaver は同じ述語を JVM Clojure にコンパイルすることもできます。その出力は標準入力（stdin）から事実を読み取り、`System/exit` を使用します。これは JVM/Node ホスト環境では問題ありませんが、ブラウザ上で直接実行することはできません。これこそが ClojureScript ターゲットが存在する理由です（JVM ホストの相互運用を JS 用に書き換えます）。",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "% Compile the same predicate to JVM Clojure for comparison (display only)\n\\+ \\+ (\n    recursive_compiler:compile_recursive(ancestor/2, [target(clojure)], _ClojureCode),\n    format('--- Generated JVM Clojure code (note java.io / *command-line-args*) ---~n~w~n', [_ClojureCode])\n).",
+        "language": "prolog",
+        "name": "compile_to_clojure"
+      }
+    ]
+  }
+}

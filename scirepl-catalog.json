@@ -268,6 +268,269 @@
       "revision": 1,
       "sha256": "2b0371f8797051d3599337749f4811428cbc1b9c357665964f8daf441f727a84",
       "size": 11537
+    },
+    {
+      "id": "compute-pi-workbook-ja",
+      "name": "円周率の計算: アルキメデスの上下界",
+      "description": "内接・外接多角形で円周率を挟み込むアルキメデスの方法。日本語版。",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "ja"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ja/compute-pi-workbook.srwb",
+      "revision": 1,
+      "sha256": "25850dbe21a8c4c134be89e53f3c8afb0b98674c7c07b2e810d7adf7b064d2f4",
+      "size": 6060
+    },
+    {
+      "id": "lua-tables-coroutines-ja",
+      "name": "Lua: テーブル、コルーチン、クロージャ",
+      "description": "Luaの中核となるテーブル・コルーチン・クロージャを実行可能な例で学ぶ。日本語版。",
+      "type": "workbook",
+      "kernels": [
+        "lua"
+      ],
+      "locales": [
+        "ja"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ja/lua-tables-coroutines.srwb",
+      "revision": 1,
+      "sha256": "4d2693227083583b174e1fcb5d74edfdb8946b5b8da2ddc066bc00186e4ebf23",
+      "size": 14465
+    },
+    {
+      "id": "lua-parsing-coroutines-ja",
+      "name": "Lua: コルーチンによる構文解析",
+      "description": "コルーチンによる構文解析：字句解析器、パーサー、遅延ストリーム。日本語版。",
+      "type": "workbook",
+      "kernels": [
+        "lua"
+      ],
+      "locales": [
+        "ja"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ja/lua-parsing-coroutines.srwb",
+      "revision": 1,
+      "sha256": "d1b39274661ef371975f555b3bb3b5860e5a357261947098541c1ec5ee6c8698",
+      "size": 22305
+    },
+    {
+      "id": "typr-intro-ja",
+      "name": "TypR 入門",
+      "description": "TypR入門：型付けとRへのトランスパイル。日本語版。",
+      "type": "workbook",
+      "kernels": [
+        "typr"
+      ],
+      "locales": [
+        "ja"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ja/typr-intro.srwb",
+      "revision": 1,
+      "sha256": "086199044f18dc335698a5d216679b68eff77841db002376213a7373c6fb18d2",
+      "size": 3185
+    },
+    {
+      "id": "prolog-generates-r-ja",
+      "name": "Prolog による R の生成: コンパイラデモ",
+      "description": "UnifyWeaverがPrologの論理を実行可能なRコードにコンパイルする実演。日本語版。",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "r"
+      ],
+      "locales": [
+        "ja"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ja/prolog-generates-r.srwb",
+      "revision": 1,
+      "sha256": "6c9ec064d4a48cc54ea97c6529fb68ccb42acc336380e30b48b2dcd3214bc127",
+      "size": 15101
+    },
+    {
+      "id": "prolog-generates-lua-ja",
+      "name": "Prolog による Lua の生成: コンパイラデモ",
+      "description": "UnifyWeaverがPrologの論理をLuaコードにコンパイルする実演。日本語版。",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "lua"
+      ],
+      "locales": [
+        "ja"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ja/prolog-generates-lua.srwb",
+      "revision": 1,
+      "sha256": "ec0ec9528a7e94bf0a7226735f211595f93f5a04708545cf9e3bdd9b85e20e91",
+      "size": 6896
+    },
+    {
+      "id": "prolog-generates-clojurescript-ja",
+      "name": "Prolog による ClojureScript の生成: コンパイラデモ",
+      "description": "UnifyWeaverがPrologの論理をClojureScriptにコンパイルする実演。日本語版。",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "clojurescript"
+      ],
+      "locales": [
+        "ja"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ja/prolog-generates-clojurescript.srwb",
+      "revision": 1,
+      "sha256": "00fe67db5f052e17a90b4d75cef4fde9f66ed5ec644021eea284a8ca19a5efff",
+      "size": 5336
+    },
+    {
+      "id": "prolog-generates-typr-ja",
+      "name": "Prolog による TypR の生成: コンパイラデモ",
+      "description": "UnifyWeaverがPrologの論理をTypRにコンパイルする実演。日本語版。",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "typr"
+      ],
+      "locales": [
+        "ja"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ja/prolog-generates-typr.srwb",
+      "revision": 1,
+      "sha256": "1de7ab7cf778316096d0f6b9d909f2c9517df4079769eea948eb0c9e707508e1",
+      "size": 7173
+    },
+    {
+      "id": "r-ggplot2-showcase-ja",
+      "name": "ggplot2 ショーケース",
+      "description": "ggplot2の見本集：散布図、ファセット、箱ひげ図、ヒートマップ。日本語版。",
+      "type": "workbook",
+      "kernels": [
+        "r"
+      ],
+      "locales": [
+        "ja"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ja/r_ggplot2_showcase.ipynb",
+      "revision": 1,
+      "sha256": "e94efb832776d30833b55ba89fe31c652c0decb61df91c952fdedb32d16c1383",
+      "size": 4477
+    },
+    {
+      "id": "r-statistics-ja",
+      "name": "R による統計分析",
+      "description": "Rによる統計：仮説検定、回帰、信頼区間。日本語版。",
+      "type": "workbook",
+      "kernels": [
+        "r"
+      ],
+      "locales": [
+        "ja"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ja/r_statistics.ipynb",
+      "revision": 1,
+      "sha256": "435fe12bcae94da6cfaa1ff017c35a9177c49e285dbbb5ff06cae848204095db",
+      "size": 6206
+    },
+    {
+      "id": "r-tidyverse-wrangling-ja",
+      "name": "Tidyverse によるデータ加工・整形",
+      "description": "dplyrとtidyrによるデータ加工・整形。日本語版。",
+      "type": "workbook",
+      "kernels": [
+        "r"
+      ],
+      "locales": [
+        "ja"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ja/r_tidyverse_wrangling.ipynb",
+      "revision": 1,
+      "sha256": "af823c7af50b80bb70dc853ad2f1a5f6863acf133cc3e9aa1d323e1a2ede2e39",
+      "size": 8035
+    },
+    {
+      "id": "1-family-tree-tutorial-ja",
+      "name": "UnifyWeaver による家系図チュートリアル",
+      "description": "家系図チュートリアル：UnifyWeaverでProlog述語を段階的にコンパイル。日本語版。",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "bash"
+      ],
+      "locales": [
+        "ja"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ja/01_family_tree_tutorial.ipynb",
+      "revision": 1,
+      "sha256": "b2673fba5d7e7096c2b83ede0964909dd11602881b9fa53173013b1b5778dce6",
+      "size": 11195
+    },
+    {
+      "id": "2-recursion-patterns-ja",
+      "name": "UnifyWeaver における高度な再帰パターン",
+      "description": "再帰パターン（末尾・線形・木・相互）とUnifyWeaverのコンパイル方法。日本語版。",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "bash"
+      ],
+      "locales": [
+        "ja"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ja/02_recursion_patterns.ipynb",
+      "revision": 1,
+      "sha256": "862befe26b8fb03ff72183ad0bef477521166644c2b195023153c6c6335f86c8",
+      "size": 17144
+    },
+    {
+      "id": "3-call-graph-analysis-ja",
+      "name": "コールグラフ解析と強連結成分（SCC）検出",
+      "description": "呼び出しグラフ解析：強連結成分、トポロジカル順序、パターン照合。日本語版。",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "bash"
+      ],
+      "locales": [
+        "ja"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ja/03_call_graph_analysis.ipynb",
+      "revision": 1,
+      "sha256": "cab2c7cfeb4e38b906f6eb30bec39fd2789fafec9d0d1fee818a32a7cf252a0c",
+      "size": 14352
+    },
+    {
+      "id": "life-expectancy-csv-demo-ja",
+      "name": "平均余命データの分析",
+      "description": "平均寿命データセットによる言語間データパイプライン。日本語版。",
+      "type": "workbook",
+      "kernels": [
+        "python",
+        "r"
+      ],
+      "locales": [
+        "ja"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ja/life_expectancy_csv_demo.ipynb",
+      "revision": 1,
+      "sha256": "beece58dfda5b15d380699e417bbe6a63f36823de66eb00531d44e35fed6241e",
+      "size": 11699
     }
   ]
 }

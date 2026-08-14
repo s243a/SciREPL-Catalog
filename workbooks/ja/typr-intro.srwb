@@ -1,0 +1,55 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "TypR 入門",
+    "cells": [
+      {
+        "type": "markdown",
+        "code": "# TypR — 型付きR\n\nTypR は、標準の R コードへとコンパイルされる、R の型付きスーパーセット（拡張言語）です。\nR との完全な互換性を維持しながら、型アノテーション、型チェック、ジェネリクスを追加します。\n\n**構文に関する注意:**\n- 文末にはセミコロンを付けます: `let x <- 42;`\n- 型付き関数は `fn(x: int): int { x * x }` のように定義します\n- TypR は可変長引数と名前付きドットをサポートしているため、`cat(\"x =\", x);` がそのまま動作します。",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "let x <- 42;\n# Variadic arguments are supported\ncat(\"x =\", x);",
+        "language": "typr",
+        "name": "basics"
+      },
+      {
+        "type": "code",
+        "code": "# Function bodies require braces\nlet add <- function(a, b) { a + b };\nlet result <- add(3, 4);\nprint(result);",
+        "language": "typr",
+        "name": "functions"
+      },
+      {
+        "type": "code",
+        "code": "let greeting: char <- \"Hello from TypR!\";\nprint(greeting);",
+        "language": "typr",
+        "name": "typed"
+      },
+      {
+        "type": "code",
+        "code": "# Explicit parameter and return types make calls statically checkable\nlet square <- fn(x: int): int { x * x };\nlet result <- square(7);\n# Variadic arguments work directly\ncat(\"7 squared =\", result);",
+        "language": "typr",
+        "name": "square"
+      },
+      {
+        "type": "code",
+        "code": "# Forward heterogeneous named arguments\nlet collect <- fn(...args: Any): [#N, Any] { args };\nlet forward <- fn(...args: Any): [#N, Any] { collect(...args) };\nlet values <- forward(count = 1, enabled = true);\nprint(values);\n@{ base::cat(\"Names:\", base::paste(base::names(values$data), collapse = \", \"), \"\\n\") }@;",
+        "language": "typr",
+        "name": "variadic_forwarding"
+      },
+      {
+        "type": "markdown",
+        "code": "## ディレクティブ\n\nTypR セルの先頭行にディレクティブを記述できます:\n\n- `#!source` は、内容をコンパイルまたは実行することなく、名前付きの構文強調されたソースフラグメントとして保持します。ソース専用セルは意図的に `Out [n]` を生成せず、Notebook VFS 経由で読み取り可能な状態を維持します。\n- `#!typecheck` は、コードを実行せずに型チェックのみを行います。\n- `#!transpile` は、トランスパイルされた R の出力を表示します。\n- `#!show-r` は、以降の TypR 実行時に生成された R コードの表示を切り替えます。",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "#!transpile\nlet fib <- fn(n: int): int {\n  if (n <= 1) { n }\n  else { fib(n - 1) + fib(n - 2) }\n};\nprint(fib(10));",
+        "language": "typr",
+        "name": "transpile_demo"
+      }
+    ]
+  }
+}
