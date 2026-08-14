@@ -1,0 +1,55 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "Introduction à TypR",
+    "cells": [
+      {
+        "type": "markdown",
+        "code": "# TypR — R typé\n\nTypR est un sur-ensemble typé de R qui se compile en code R standard.\nIl ajoute des annotations de type, la vérification de type et les génériques tout en conservant une compatibilité totale avec R.\n\n**Remarques sur la syntaxe :**\n- Les instructions se terminent par un point-virgule : `let x <- 42;`\n- Les fonctions typées utilisent `fn(x: int): int { x * x }`\n- TypR prend en charge les fonctions variadiques et les points nommés, de sorte que `cat(\"x =\", x);` fonctionne directement.",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "let x <- 42;\n# Variadic arguments are supported\ncat(\"x =\", x);",
+        "language": "typr",
+        "name": "basics"
+      },
+      {
+        "type": "code",
+        "code": "# Function bodies require braces\nlet add <- function(a, b) { a + b };\nlet result <- add(3, 4);\nprint(result);",
+        "language": "typr",
+        "name": "functions"
+      },
+      {
+        "type": "code",
+        "code": "let greeting: char <- \"Hello from TypR!\";\nprint(greeting);",
+        "language": "typr",
+        "name": "typed"
+      },
+      {
+        "type": "code",
+        "code": "# Explicit parameter and return types make calls statically checkable\nlet square <- fn(x: int): int { x * x };\nlet result <- square(7);\n# Variadic arguments work directly\ncat(\"7 squared =\", result);",
+        "language": "typr",
+        "name": "square"
+      },
+      {
+        "type": "code",
+        "code": "# Forward heterogeneous named arguments\nlet collect <- fn(...args: Any): [#N, Any] { args };\nlet forward <- fn(...args: Any): [#N, Any] { collect(...args) };\nlet values <- forward(count = 1, enabled = true);\nprint(values);\n@{ base::cat(\"Names:\", base::paste(base::names(values$data), collapse = \", \"), \"\\n\") }@;",
+        "language": "typr",
+        "name": "variadic_forwarding"
+      },
+      {
+        "type": "markdown",
+        "code": "## Directives\n\nPlacez une directive sur la première ligne d'une cellule TypR :\n\n- `#!source` conserve un fragment de code source nommé et mis en évidence sans compiler ni exécuter son contenu. Une cellule réservée au code source ne produit intentionnellement aucun `Out [n]` et reste lisible via le Notebook VFS.\n- `#!typecheck` vérifie les types du code suivant sans l'exécuter.\n- `#!transpile` affiche la sortie R transpilée.\n- `#!show-r` bascule l'affichage du code R généré pour les exécutions ultérieures de TypR.",
+        "language": "markdown"
+      },
+      {
+        "type": "code",
+        "code": "#!transpile\nlet fib <- fn(n: int): int {\n  if (n <= 1) { n }\n  else { fib(n - 1) + fib(n - 2) }\n};\nprint(fib(10));",
+        "language": "typr",
+        "name": "transpile_demo"
+      }
+    ]
+  }
+}

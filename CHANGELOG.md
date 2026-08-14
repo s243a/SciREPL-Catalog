@@ -53,6 +53,11 @@ and work deliberately deferred.
 - **German (de): all 15 workbook editions** — ~9 min, 7 approvals, fifth
   locale in the continued session. «transitive Hülle», «Endrekursion»,
   «starke Zusammenhangskomponenten» flagged for native review.
+
+- **French (fr): all 15 workbook editions** — ~7 min, 6 approvals, sixth
+  locale in the continued session, fastest yet. «fermeture transitive»,
+  «récursion terminale», «composantes fortement connexes» flagged for
+  native review.
 - The 15 English source workbooks under `workbooks/en/` (translation inputs,
   not index items — the app already ships them built in).
 - `tools/build-index.mjs` — sha256/size integrity for every index item, with

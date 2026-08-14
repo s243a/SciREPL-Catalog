@@ -1583,6 +1583,269 @@
       "revision": 1,
       "sha256": "adcff6feaf2b7f0d529e94821838e28fe574fcde6938c43da20fd8fb828bea78",
       "size": 11537
+    },
+    {
+      "id": "compute-pi-workbook-fr",
+      "name": "Calcul de Pi : Bornes d'Archimède",
+      "description": "Encadrer π entre polygones inscrits et circonscrits, selon Archimède. Édition française.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "fr"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/fr/compute-pi-workbook.srwb",
+      "revision": 1,
+      "sha256": "670dd5ee9add30bc8f9c4ce1c37ac6eb46c69a3d195f279bc28969620ecce7a7",
+      "size": 5843
+    },
+    {
+      "id": "lua-tables-coroutines-fr",
+      "name": "Lua : Tables, coroutines et fermetures",
+      "description": "Tables, coroutines et fermetures : le cœur de Lua avec des exemples exécutables. Édition française.",
+      "type": "workbook",
+      "kernels": [
+        "lua"
+      ],
+      "locales": [
+        "fr"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/fr/lua-tables-coroutines.srwb",
+      "revision": 1,
+      "sha256": "d711bc73ae4c287164827b150fa31c0972c399f406889ab0098379e042af6c59",
+      "size": 13966
+    },
+    {
+      "id": "lua-parsing-coroutines-fr",
+      "name": "Lua : Analyse syntaxique avec coroutines",
+      "description": "Analyse syntaxique par coroutines en Lua : lexer, parseur et flux paresseux. Édition française.",
+      "type": "workbook",
+      "kernels": [
+        "lua"
+      ],
+      "locales": [
+        "fr"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/fr/lua-parsing-coroutines.srwb",
+      "revision": 1,
+      "sha256": "1ed05841c4dd532853562ca2a2d9e8dd51192de6ba47785bf2a758507a26ea6a",
+      "size": 21804
+    },
+    {
+      "id": "typr-intro-fr",
+      "name": "Introduction à TypR",
+      "description": "Introduction à TypR : typage et transpilation vers R. Édition française.",
+      "type": "workbook",
+      "kernels": [
+        "typr"
+      ],
+      "locales": [
+        "fr"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/fr/typr-intro.srwb",
+      "revision": 1,
+      "sha256": "07d6152de09624b7f2ed26ddef70a34a130cbfda79611bbb5f6ab37a81bc0fbc",
+      "size": 2966
+    },
+    {
+      "id": "prolog-generates-r-fr",
+      "name": "Prolog génère R : Démonstration du compilateur",
+      "description": "UnifyWeaver compile la logique Prolog en code R exécutable, en direct. Édition française.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "r"
+      ],
+      "locales": [
+        "fr"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/fr/prolog-generates-r.srwb",
+      "revision": 1,
+      "sha256": "8a47aa745dcacc9ef461b583986958df363b5048a7842e9fcd1f8d8b87fa1b7b",
+      "size": 14359
+    },
+    {
+      "id": "prolog-generates-lua-fr",
+      "name": "Prolog génère Lua : Démonstration du compilateur",
+      "description": "UnifyWeaver compile la logique Prolog en code Lua. Édition française.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "lua"
+      ],
+      "locales": [
+        "fr"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/fr/prolog-generates-lua.srwb",
+      "revision": 1,
+      "sha256": "a4078548d749c118545a2c235bc509ffe0b0ccc703863fe8aa4d427de87cf9e7",
+      "size": 6529
+    },
+    {
+      "id": "prolog-generates-clojurescript-fr",
+      "name": "Prolog génère ClojureScript : Démonstration du compilateur",
+      "description": "UnifyWeaver compile la logique Prolog en ClojureScript. Édition française.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "clojurescript"
+      ],
+      "locales": [
+        "fr"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/fr/prolog-generates-clojurescript.srwb",
+      "revision": 1,
+      "sha256": "0d63fd167fef8b0964e098ec707e617cd580c6ce4fd37d7403e0e00da7384ca8",
+      "size": 5000
+    },
+    {
+      "id": "prolog-generates-typr-fr",
+      "name": "Prolog génère TypR : Démonstration du compilateur",
+      "description": "UnifyWeaver compile la logique Prolog en TypR. Édition française.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "typr"
+      ],
+      "locales": [
+        "fr"
+      ],
+      "format": "srwb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/fr/prolog-generates-typr.srwb",
+      "revision": 1,
+      "sha256": "c0e04da89ed34f93c4c777c78d918b789098ccb167461879a306cbdf16bbfea8",
+      "size": 6705
+    },
+    {
+      "id": "r-ggplot2-showcase-fr",
+      "name": "Vitrine ggplot2",
+      "description": "Vitrine ggplot2 : nuages de points, facettes, boîtes à moustaches et cartes de chaleur. Édition française.",
+      "type": "workbook",
+      "kernels": [
+        "r"
+      ],
+      "locales": [
+        "fr"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/fr/r_ggplot2_showcase.ipynb",
+      "revision": 1,
+      "sha256": "c3302f577f8c2aa2ce2bd915d71ba00d6aa25fa584839238ab59bdcf03c2f944",
+      "size": 4438
+    },
+    {
+      "id": "r-statistics-fr",
+      "name": "Statistiques avec R",
+      "description": "Statistiques avec R : tests d’hypothèses, régression et intervalles de confiance. Édition française.",
+      "type": "workbook",
+      "kernels": [
+        "r"
+      ],
+      "locales": [
+        "fr"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/fr/r_statistics.ipynb",
+      "revision": 1,
+      "sha256": "23d7e42ffa02874c4f39d78ab8cefcfebea436af5e585eebe5648d9793ad7f41",
+      "size": 6138
+    },
+    {
+      "id": "r-tidyverse-wrangling-fr",
+      "name": "Nettoyage et manipulation de données avec Tidyverse",
+      "description": "Nettoyage et manipulation de données avec dplyr et tidyr. Édition française.",
+      "type": "workbook",
+      "kernels": [
+        "r"
+      ],
+      "locales": [
+        "fr"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/fr/r_tidyverse_wrangling.ipynb",
+      "revision": 1,
+      "sha256": "dac6f52add76366e9acfc737de447d1994f63defc18d8a6308a994111a1e8c33",
+      "size": 7921
+    },
+    {
+      "id": "01-family-tree-tutorial-fr",
+      "name": "Tutoriel d'arbre généalogique avec UnifyWeaver",
+      "description": "Tutoriel de l’arbre généalogique : compiler des prédicats Prolog pas à pas avec UnifyWeaver. Édition française.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "bash"
+      ],
+      "locales": [
+        "fr"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/fr/01_family_tree_tutorial.ipynb",
+      "revision": 1,
+      "sha256": "437a4e43410d218bd45798c270f78783c40605fab4476c5e47b1f8e819e595ab",
+      "size": 10563
+    },
+    {
+      "id": "02-recursion-patterns-fr",
+      "name": "Motifs de récursion avancés dans UnifyWeaver",
+      "description": "Motifs de récursion (terminale, linéaire, arborescente, mutuelle) et leur compilation. Édition française.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "bash"
+      ],
+      "locales": [
+        "fr"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/fr/02_recursion_patterns.ipynb",
+      "revision": 1,
+      "sha256": "5987390f1490d3b8459577b2de4459b66e970ffa391a768fb2dd973addc7f298",
+      "size": 16811
+    },
+    {
+      "id": "03-call-graph-analysis-fr",
+      "name": "Analyse du graphe d'appels et détection des composantes fortement connexes (SCC)",
+      "description": "Analyse du graphe d’appels : composantes fortement connexes et ordre topologique. Édition française.",
+      "type": "workbook",
+      "kernels": [
+        "prolog",
+        "bash"
+      ],
+      "locales": [
+        "fr"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/fr/03_call_graph_analysis.ipynb",
+      "revision": 1,
+      "sha256": "0a8278e3bace876df387c96f8b5da87cc86d7efcb35e44deea8cc61e878d54dd",
+      "size": 14335
+    },
+    {
+      "id": "life-expectancy-csv-demo-fr",
+      "name": "Analyse de l'espérance de vie",
+      "description": "Pipeline de données multi-langages avec le jeu de données d’espérance de vie. Édition française.",
+      "type": "workbook",
+      "kernels": [
+        "python",
+        "r"
+      ],
+      "locales": [
+        "fr"
+      ],
+      "format": "ipynb",
+      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/fr/life_expectancy_csv_demo.ipynb",
+      "revision": 1,
+      "sha256": "4cecc1f02378d9b3c8823339b7848b3b06826bd4a263826ec3b6b2bcf4cf4ee9",
+      "size": 11581
     }
   ]
 }

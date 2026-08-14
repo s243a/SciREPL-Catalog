@@ -1,0 +1,238 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-03-12T00:00:00.000Z",
+  "notebook": {
+    "id": "nb-prolog-gen-r-001",
+    "name": "Prolog génère R : Démonstration du compilateur",
+    "description": "Demonstrates UnifyWeaver compiling Prolog predicates into R code. Part 1: factorial (linear→tail transformation). Part 2: ancestor (transitive closure vs skip/pattern).",
+    "kernelLanguage": null,
+    "cellCounter": 26,
+    "cells": [
+      {
+        "code": "# Prolog génère R — Démonstration du compilateur UnifyWeaver\n\nCe classeur montre comment **UnifyWeaver** compile de la logique Prolog en code R exécutable — en direct, au sein d'un carnet.\n\n## Partie 1 : Factorielle (Récursion linéaire)\n1. Charger l'environnement du compilateur UnifyWeaver\n2. Définir un `factorial/2` récursif en Prolog\n3. Le compilateur détecte le motif de récursion et génère une boucle R équivalente\n4. Le code R généré est écrit dans une autre cellule via `nb_write/3`\n5. Exécuter la cellule R pour vérifier l'exactitude\n\n## Partie 2 : Ancêtre (Fermeture transitive & contrôle des motifs)\n8. Définir des faits `parent/2` et la règle `ancestor/2` en Prolog\n9. Compiler avec le motif par défaut → fermeture transitive (parcours de graphe en largeur - BFS)\n10. Compiler à nouveau avec `skip(transitive_closure)` → code généré différent\n11. Comparer les deux approches côte à côte",
+        "type": "markdown",
+        "language": "python",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## Étape 1 : Charger UnifyWeaver\n\nCharger l'environnement UnifyWeaver et le compilateur cible R.\n\n**Remarque :** Dans swipl-wasm, utilisez `use_module(unifyweaver(...))` (alias de chemin de recherche) au lieu de `use_module(library(...))`. L'appel `['../init'].` configure le chemin de recherche `unifyweaver` afin que les modules soient correctement résolus.",
+        "type": "markdown",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "['../init'].\n:- use_module(unifyweaver(targets/r_target)).\n:- use_module(unifyweaver(core/advanced/linear_recursion)).\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "type": "code",
+        "language": "prolog",
+        "name": "load_uw",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## Étape 2 : Définir la factorielle en Prolog\n\nUne factorielle récursive simple. Le cas de base renvoie 1 lorsque N vaut 0. Le cas récursif calcule `N * factorial(N-1)`.",
+        "type": "markdown",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": ":- dynamic factorial/2.\n\nfactorial(0, 1).\nfactorial(N, F) :-\n    N > 0,\n    N1 is N - 1,\n    factorial(N1, F1),\n    F is N * F1.",
+        "type": "code",
+        "language": "prolog",
+        "name": "prolog_factorial",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## Étape 3 : Compiler Prolog → R\n\nLe compilateur :\n1. Lit le code source Prolog depuis la cellule **prolog_factorial** via `nb_read/3`\n2. Le consulte pour insérer les clauses dans la base de données\n3. Appelle `compile_linear_recursion/3` qui détecte le motif de récursion, extrait le pas (`N1 is N - 1` → step=1, décroissant) et génère une boucle `for` en R\n4. Écrit le code R généré dans la cellule **r_factorial** via `nb_write/3`\n\nL'option `memo(false)` demande une compilation basée sur des boucles plutôt qu'une réduction mémoïsée.",
+        "type": "markdown",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "%% Read the Prolog source from the previous cell\nuser:nb_read('prolog_factorial', '.code', _PrologSrc),\nformat('Read from prolog_factorial:~n~w~n~n', [_PrologSrc]),\n\n%% Consult it to assert the clauses\nsetup_call_cleanup(\n    open('/tmp/_nb_src.pl', write, _Out),\n    write(_Out, _PrologSrc),\n    close(_Out)),\nconsult('/tmp/_nb_src.pl'),\n\n%% Compile factorial/2 → R\nr_target:init_r_target,\nlinear_recursion:compile_linear_recursion(factorial/2, [target(r), memo(false)], _Code),\nformat('--- Generated R code ---~n~w~n', [_Code]),\n\n%% Write compiler output to the R cell\nuser:nb_write('r_factorial', '.code', _Code),\nwriteln('\\nR code written to cell: r_factorial').",
+        "type": "code",
+        "language": "prolog",
+        "name": "compile_to_r",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## Étape 4 : Exécuter le code R généré\n\nLa cellule ci-dessous contiendra la fonction `factorial` générée par le compilateur. Exécutez-la pour définir la fonction, puis exécutez l'Étape 5 pour la tester.",
+        "type": "markdown",
+        "language": "python",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "# This cell will be overwritten by the compiler.\n# Run the 'compile_to_r' cell above first.",
+        "type": "code",
+        "language": "r",
+        "name": "r_factorial",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## Étape 5 : Tester le code R généré\n\nAppelez la fonction `factorial` générée par le compilateur pour vérifier qu'elle produit des résultats corrects.",
+        "type": "markdown",
+        "language": "python",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "cat(\"6! =\", factorial(6), \"\\n\")\ncat(\"20! =\", factorial(20), \"\\n\")\ncat(\"0! =\", factorial(0), \"\\n\")",
+        "type": "code",
+        "language": "r",
+        "name": "test_r",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## Étape 6 : Inspecter via Bash\n\nLe Notebook VFS permet à n'importe quel noyau d'inspecter les cellules. Ici, Bash lit le code généré par le compilateur :",
+        "type": "markdown",
+        "language": "python",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "echo \"=== Cells ===\"\nls /nb/\necho \"\"\necho \"=== r_factorial code ===\"\ncat /nb/r_factorial/.code\necho \"\"\necho \"=== r_factorial language ===\"\ncat /nb/r_factorial/.language",
+        "type": "code",
+        "language": "bash",
+        "name": "inspect",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "# Step 7: Relative addressing — /nb/-1/.output reads the previous cell's output.\n# /nb/./.code reads this cell's own code. Copy-paste to accumulate!\necho \"[accumulate] previous cell output via /nb/-1/.output:\"\necho \"---\"\ncat /nb/-1/.output\necho \"---\"\necho \"\"\necho \"[self] this cell's code via /nb/./.code:\"\ncat /nb/./.code",
+        "type": "code",
+        "language": "bash",
+        "name": "accumulate",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "---\n\n# Partie 2 : Ancêtre — Fermeture transitive & contrôle des motifs\n\nLe même compilateur gère également les prédicats relationnels. Ici, nous définissons `ancestor/2` comme une fermeture transitive sur les faits `parent/2`.\n\nLe compilateur reconnaît le motif et génère du code de **parcours de graphe en largeur (BFS)** en R. Mais nous pouvons également utiliser `skip(transitive_closure)` pour forcer une stratégie de compilation différente — démontrant ainsi comment les options `skip` et `pattern` contrôlent le code émis par le compilateur.",
+        "type": "markdown",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## Étape 8 : Définir l'arbre généalogique en Prolog\n\nUn petit arbre généalogique utilisant des faits `parent/2`, avec `ancestor/2` défini comme une fermeture transitive.\n\nRemarquez la concision de Prolog — seulement 2 clauses pour `ancestor/2`. Tout le mécanisme de parcours de graphe sera généré automatiquement par le compilateur.",
+        "type": "markdown",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": ":- dynamic parent/2, ancestor/2.\n\n%% Family tree\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\n\n%% Transitive closure: ancestor(X, Y) if X is an ancestor of Y\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "type": "code",
+        "language": "prolog",
+        "name": "prolog_ancestor",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## Étape 9 : Compiler ancestor/2 → R (par défaut : fermeture transitive)\n\nLe compilateur classe `ancestor/2` comme une **fermeture transitive** sur `parent/2` et génère du code R comprenant :\n- Une liste d'adjacence (table de hachage d'environnement)\n- Des fonctions de parcours BFS (`ancestor_all`, `ancestor_check`)\n- Une fonction `add_parent` pour alimenter le graphe\n\nIl s'agit de la compilation optimale pour les requêtes d'accessibilité dans un graphe.",
+        "type": "markdown",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "%% Consult the ancestor definitions\nuser:nb_read('prolog_ancestor', '.code', _AncSrc),\nformat('Read from prolog_ancestor:~n~w~n~n', [_AncSrc]),\nsetup_call_cleanup(\n    open('/tmp/_nb_anc.pl', write, _Out),\n    write(_Out, _AncSrc),\n    close(_Out)),\nconsult('/tmp/_nb_anc.pl'),\n\n%% Compile with default pattern detection → transitive closure\nrecursive_compiler:compile_recursive(ancestor/2, [target(r)], _Code1),\nformat('--- Pattern: transitive_closure ---~n~w~n', [_Code1]),\n\n%% Write to the R cell\nuser:nb_write('r_ancestor_tc', '.code', _Code1),\nwriteln('\\nR code written to cell: r_ancestor_tc').",
+        "type": "code",
+        "language": "prolog",
+        "name": "compile_ancestor_tc",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## Étape 10 : Le code R généré (Fermeture transitive)\n\nCette cellule est écrasée par le compilateur avec le code de parcours de graphe BFS.\nExécutez d'abord la cellule `compile_ancestor_tc` ci-dessus.",
+        "type": "markdown",
+        "language": "r",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "# This cell will be overwritten by the compiler.\n# Run 'compile_ancestor_tc' above first.",
+        "type": "code",
+        "language": "r",
+        "name": "r_ancestor_tc",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## Étape 11 : Interroger le programme R généré\n\nLes définitions générées et les faits de parenté intégrés persistent dans le noyau R, cette cellule vérifie donc les deux API d'accessibilité.",
+        "type": "markdown",
+        "language": "r",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "descendants <- ancestor_all(\"alice\")\ncat(\"Descendants of alice:\", paste(descendants, collapse = \", \"), \"\\n\")\ncat(\"alice is ancestor of eve:\", ancestor_check(\"alice\", \"eve\"), \"\\n\")\ncat(\"alice is ancestor of frank:\", ancestor_check(\"alice\", \"frank\"), \"\\n\")",
+        "type": "code",
+        "language": "r",
+        "name": "test_r_ancestor",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## Étape 12 : Inspecter le repli expérimental en Bash\n\nNous compilons maintenant le **même prédicat** en ignorant le motif de fermeture transitive. Le compilateur se rabat sur son squelette générique en Bash pour la récursion terminale.\n\nCela illustre le fonctionnement de la sélection de cible et des options de saut, mais le Bash généré contient un TODO explicite et **ne constitue pas une implémentation préservant le comportement de ancestor/2**. Considérez-le comme une sortie de développement du compilateur, et non comme un programme équivalent.",
+        "type": "markdown",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "%% Compile ancestor/2 again, but skip transitive closure → falls to tail recursion\n%% Also target bash to show cross-language compilation\nrecursive_compiler:compile_recursive(\n    ancestor/2,\n    [target(bash), skip(transitive_closure)],\n    _Code2),\nformat('--- Pattern: tail_recursion (bash) ---~n~w~n', [_Code2]),\n\n%% Write to the bash cell\nuser:nb_write('bash_ancestor_alt', '.code', _Code2),\nwriteln('\\nBash code written to cell: bash_ancestor_alt').",
+        "type": "code",
+        "language": "prolog",
+        "name": "compile_ancestor_skip",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "# This cell will be overwritten by the compiler.\n# Run 'compile_ancestor_skip' above first.",
+        "type": "code",
+        "language": "bash",
+        "name": "bash_ancestor_alt",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "## Étape 13 : Comparer les sorties générées\n\nUtilisez le Notebook VFS pour inspecter côte à côte l'implémentation R complète et le squelette expérimental en Bash :",
+        "type": "markdown",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "code": "echo \"=== R (transitive closure / BFS) ===\"\necho \"Language: $(cat /nb/r_ancestor_tc/.language)\"\necho \"---\"\ncat /nb/r_ancestor_tc/.code\necho \"\"\necho \"\"\necho \"=== Bash (tail recursion) ===\"\necho \"Language: $(cat /nb/bash_ancestor_alt/.language)\"\necho \"---\"\ncat /nb/bash_ancestor_alt/.code",
+        "type": "code",
+        "language": "bash",
+        "name": "compare_outputs",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      }
+    ]
+  }
+}
