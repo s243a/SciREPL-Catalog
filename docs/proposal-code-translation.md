@@ -13,14 +13,23 @@ Keywords are not localizable in any shipped language (`def`, `for`, `if`
 stay English — a fact of the languages, not a choice). The translatable
 ceiling varies by kernel:
 
-| Kernel | Comments | Display strings | Identifiers |
-| --- | --- | --- | --- |
-| Python | yes | yes (changes outputs) | yes — Unicode identifiers legal (PEP 3131) |
-| JavaScript | yes | yes | yes |
-| R | yes | yes | mostly (locale-sensitive edge cases) |
-| Lua (Fengari) | yes | yes | **no — ASCII-only identifiers** |
-| Prolog | yes | yes | atoms yes; variables must start uppercase, so caseless scripts (CJK, Arabic) need `V_…` workarounds |
-| TypR / ClojureScript | yes | likely | probe empirically before relying on it |
+| Kernel | Comments | Display strings | Identifiers | Status |
+| --- | --- | --- | --- | --- |
+| Python | yes | yes (changes outputs) | yes — Unicode identifiers incl. CJK-initial (PEP 3131) | **verified** (CPython probe; Pyodide is CPython) |
+| JavaScript | yes | yes | yes — Unicode identifiers | **verified** (V8 probe; same engine as the browser) |
+| R | yes | yes | mostly (locale-sensitive edge cases) | pilot probes in-app |
+| Lua (Fengari) | yes | yes | **no — strictly ASCII**: CJK *and accented Latin* (`área`) are syntax errors | **verified** (fengari npm, the engine SciREPL loads) |
+| Prolog | yes | yes | atoms in any script (`家族` works, incl. as predicate names); **CJK text parses as an atom, never a variable** — so a "CJK variable" fails as atom unification, not syntax; `_家族` (underscore-prefixed) is a legal variable workaround | **verified** (swipl probes) |
+| TypR / ClojureScript | yes | likely | unknown | pilot probes in-app |
+
+Verification method: local interpreter probes (python3, node, `fengari` from
+npm — the same engine the app loads — and swipl). Pyodide is CPython and the
+browser's JS is the same V8 family, so those results carry; R, TypR and
+ClojureScript get probed in-app during the pilot. Practical consequences:
+Stage C for Lua is comments/strings only in *every* locale (even Spanish
+cannot rename `área`); for Prolog, CJK/Arabic locales can localize atoms and
+predicate names but variables only via the `_…` form, which reads poorly —
+another argument for deferring Stage C until testers ask for it.
 
 ## Stages
 
