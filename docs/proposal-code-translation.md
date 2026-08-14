@@ -105,6 +105,13 @@ first-class workbook import/export. Observations:
   arbitrary VFS I/O, smuggling import/export through code. Policy: file-
   shaped operations happen via tools, never via kernel code — otherwise the
   tool-level auditability that motivated MCP is dissolved.
+- **The side door (review finding)**: the same backdoor composes with the
+  "benign" read-only VFS tools — kernel code writes a file into the
+  browser VFS, then `read_file` walks it out. The baseline policy of
+  approving all reads misses this. Rule: **VFS reads of kernel-written
+  files are export-class operations**, judged under export policy, not
+  read policy. Practically: the supervisor tracks which paths kernel code
+  has written this session and escalates reads of them.
 
 Proposed addition — a first-class pair, permission-gated separately:
 
@@ -141,6 +148,17 @@ never carries**:
 In the direct variant the browser app still cannot touch host files; the
 **broker** intercepts the export payload and writes it into an allowlisted
 directory in the agent workspace, returning only a receipt to the agent.
+The receipt must be **evidence, not a claim** (review): sha256 computed by
+re-reading the file after write and fsync (hashing the inbound payload
+misses truncation); bound to the tool-call id, notebook identity/revision,
+and timestamp so a stale receipt is distinguishable; the path proven
+canonical inside the allowlist (symlinks resolved, `..` rejected) with the
+allowlist constraining extension as well as directory; and **dual-logged**
+— the broker writes the same hash to its own audit channel the agent
+cannot touch, and on-disk review trusts the broker log, never the agent's
+copy. Import mirrors all of it: same allowlist, and the broker logs the
+hash of what it streamed *in*, so the audit trail proves which bytes
+entered the app.
 Supervision relocates rather than degrades: the supervisor reviews the
 artifact on disk, exactly the scratch-script pattern already codified as
 policy rule 3. The gating stack: the app permission class decides *whether*
