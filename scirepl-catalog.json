@@ -1,0 +1,9 @@
+{
+  "format_version": "1.0",
+  "name": "SciREPL Catalog",
+  "source": "https://github.com/s243a/SciREPL-Catalog",
+  "locales": [
+    "en"
+  ],
+  "items": []
+}
