@@ -116,6 +116,35 @@ Whether the canonical serializer lives in the app (ToolCore) or the MCP
 layer is an implementation question for the app team; the app already owns
 save/load, which argues for ToolCore with the broker as a pure relay.
 
+### Need vs should: the direct-to-file variant
+
+Returning serialized bytes over MCP (above) routes the full content through
+the agent's context — supervisable in-channel, but expensive in tokens at
+scale. A third design writes the export **directly to a file the agent
+never carries**:
+
+| Design | Token cost | Supervision |
+| --- | --- | --- |
+| Readback + agent serializes | high | full, in-channel |
+| `export_workbook` returns bytes | high | full, in-channel |
+| Direct-to-file (broker sink) | ~zero (receipt only) | shifted on-disk |
+
+In the direct variant the browser app still cannot touch host files; the
+**broker** intercepts the export payload and writes it into an allowlisted
+directory in the agent workspace, returning only a receipt to the agent.
+Supervision relocates rather than degrades: the supervisor reviews the
+artifact on disk, exactly the scratch-script pattern already codified as
+policy rule 3. The gating stack: the app permission class decides *whether*
+an agent may export; a broker-side directory allowlist decides *where*;
+the supervisor and the verification gate decide *what* is acceptable.
+
+Classification: designs 1–2 are the **need** (the pilot runs on them);
+design 3 is the **should**, justified by token economics once the process
+scales past a pilot (15 workbooks × 12 locales of round-tripped notebook
+content through an agent context is real cost). Import has the same split:
+a broker-side file *source* (agent names an allowlisted path; broker
+streams it to the app) is the token-cheap "should" over reconstruction.
+
 ## Pilot
 
 One workbook (compute-pi), one locale (es), Stage A only: agy translates
