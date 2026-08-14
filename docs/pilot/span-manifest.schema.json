@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/docs/pilot/span-manifest.schema.json",
+  "title": "SciREPL translation span manifest",
+  "description": "Records which spans of a translated workbook's code cells may differ from the source, and where those differences may surface in executed output. Emitted in two forms with the SAME shape: 'derived' (authoritative — produced by the static gate's diff of source vs target code cells) and 'worker' (cross-check — produced by the translating agent). The gate compares the two; see docs/pilot/span-manifest.md for semantics.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["manifest_version", "produced_by", "locale", "source", "target", "spans"],
+  "properties": {
+    "manifest_version": {
+      "const": 1,
+      "description": "Schema version of this manifest."
+    },
+    "produced_by": {
+      "enum": ["derived", "worker"],
+      "description": "'derived' = extracted mechanically by the gate; 'worker' = declared by the translating agent as a cross-check."
+    },
+    "generator": {
+      "type": "string",
+      "description": "Tool and version that emitted this manifest, e.g. 'extract-spans.mjs@0.1.0' or 'agy-gemini-flash'. Optional on worker manifests, required on derived ones."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "locale": {
+      "type": "string",
+      "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]+)*$",
+      "description": "BCP 47 tag of the target locale, e.g. 'es'."
+    },
+    "source": { "$ref": "#/$defs/artifact" },
+    "target": { "$ref": "#/$defs/artifact" },
+    "spans": {
+      "type": "array",
+      "description": "Canonical order: sorted by (cell_index, source_span.start.line, source_span.start.col). Comparison between worker and derived manifests is set-based after this canonicalization.",
+      "items": { "$ref": "#/$defs/span" }
+    },
+    "exclusions": {
+      "type": "array",
+      "description": "Output channels excluded from the differential oracle because the determinism envelope showed they are not reproducible run-to-run. Empty means fully deterministic — expected for compute-pi.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["channel", "selector", "reason"],
+        "properties": {
+          "channel": { "enum": ["stdout", "stderr", "plot", "metadata"] },
+          "selector": {
+            "type": "string",
+            "description": "What is excluded, in gate-consumable form, e.g. a line-regex for stdout or a cell name for plot."
+          },
+          "reason": { "type": "string" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Repo-relative path, e.g. 'workbooks/en/compute-pi-workbook.srwb'."
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "Hash of the exact bytes the manifest describes. Binds the manifest to the artifacts so a stale manifest fails loudly."
+        }
+      }
+    },
+    "position": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["line", "col"],
+      "properties": {
+        "line": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "1-based line within the cell's code text (not the file)."
+        },
+        "col": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "1-based column counted in Unicode code points (not bytes, not UTF-16 units)."
+        }
+      }
+    },
+    "span_text": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start", "end", "text"],
+      "properties": {
+        "start": { "$ref": "#/$defs/position" },
+        "end": {
+          "$ref": "#/$defs/position",
+          "description": "Exclusive end position."
+        },
+        "text": {
+          "type": "string",
+          "description": "Exact span content. For comments: excludes the leading '#' and one following space. For strings: excludes the quote delimiters and any f/r/b prefix. For docstrings: the full docstring content."
+        }
+      }
+    },
+    "span": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cell_index", "cell_name", "kind", "source_span", "target_span", "reaches_output", "placeholders"],
+      "properties": {
+        "cell_index": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Zero-based index into the notebook's cell array."
+        },
+        "cell_name": {
+          "type": "string",
+          "description": "Stored cell name (informative; identity is cell_index). Empty string for unnamed cells."
+        },
+        "kind": {
+          "enum": ["comment", "docstring", "display_string", "plot_label"],
+          "description": "plot_label is a display_string whose destination is a rendered figure rather than stdout — routed to the plot check instead of the text oracle."
+        },
+        "source_span": { "$ref": "#/$defs/span_text" },
+        "target_span": { "$ref": "#/$defs/span_text" },
+        "reaches_output": {
+          "enum": ["none", "stdout", "plot", "both"],
+          "description": "Where a correct translation of this span may cause executed-output differences. comments/docstrings: 'none' (unless __doc__ is printed — then 'stdout'). print literals: 'stdout'. trace names / plot titles: 'plot'."
+        },
+        "placeholders": {
+          "type": "array",
+          "description": "Ordered placeholder/format tokens of the ENCLOSING string token (e.g. ['{lower:.12f}', '{upper:.12f}']), identical between source and target — the gate asserts this. Empty for comments, docstrings without braces, and plain strings.",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}
