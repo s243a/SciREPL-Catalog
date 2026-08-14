@@ -40,12 +40,22 @@ another argument for deferring Stage C until testers ask for it.
   capture regenerated outputs.
 - **Stage B — cell names.** The pass deferred from round one: translate the
   ~19 code-unreferenced names *and* the ~30 referenced ones together with
-  their code references, provable only by execution. Prose mentions of
-  renamed cells must be updated in the same change.
+  their code references, provable only by execution. (Counts from a
+  substring scan of cell names against all code cells, run 2026-08-13;
+  rerun the scan before Stage B begins.) Prose mentions of renamed cells
+  must be updated in the same change. Stage A has the same issue in
+  miniature: markdown that *quotes output strings* diverges when the
+  string is translated — the Stage A checklist includes syncing quoted
+  outputs in prose.
 - **Stage C — identifiers.** Per-kernel per the table; skip Lua, special-
-  case Prolog variables. Deferred until native-tester feedback shows demand
-  — many programming communities prefer English identifiers, and this stage
-  is the most invasive for the least certain benefit.
+  case Prolog variables — the real ceiling is Python/JS/R only. Deferred
+  until native-tester demand, **per-locale opt-in, with a precondition and
+  a kill criterion** (review): any locale shipping Stage C must maintain a
+  bidirectional English↔localized identifier map, or upstream English
+  fixes stop propagating mechanically and cross-locale greppability dies
+  (a user quoting a localized identifier in a bug report becomes
+  unfindable). If the map cannot be maintained, Stage C is killed for
+  that locale, not deferred.
 
 Each stage gets a gate revision: `verify-translation.mjs` relaxes
 deep-equality exactly where the stage permits (Stage A: comment/string
@@ -83,7 +93,19 @@ Claude subagent + Playwright driver: visual/regression checks on the PWA
   approve `list_cells`/`read_*`/`create_cell`/`write_cell`/`rename_cell`/
   `run_cells`/`execute_cell` against the workbook under test; deny
   `execute_cell` payloads that perform file I/O (see below); deny
-  everything else.
+  everything else — with the side-door exception below: VFS reads of
+  kernel-written files are export-class, not baseline reads.
+- **Cross-channel rules (review).** Two connections invite laundering:
+  content written via the PTY side (reviewed as a file write) becoming an
+  MCP-side import source. Closed by construction: import sources may come
+  only from the broker-allowlisted directory, whose contents are
+  broker-written exports and controller-placed files — never
+  worker-written files. And the two permission layers (supervisor policy,
+  app device permissions) are independent verdicts on one action:
+  **most-restrictive wins**, and both layers' verdicts land in a single
+  ordered audit timeline keyed by a shared session id — without which
+  "what did the worker actually do" cannot be reconstructed across
+  channels, defeating the audit log's purpose.
 
 ## Import/export over MCP
 
@@ -259,6 +281,18 @@ workbook in the Free PWA mutates only a browser profile, and a small blast
 radius justifies a light control. Multi-app brokering (one broker, several
 paired apps) is not currently supported and is not needed for any of these
 paths; a Pro user wanting two paired apps runs two brokers on two ports.
+
+## Pilot deliverables (beyond the artifact)
+
+- The Stage A harness: determinism envelope, locale-pinned bench, derived
+  span manifest, differential output gate, plot checks.
+- A **headless-runnability inventory**: which of the 15 workbooks Run All
+  cleanly without interaction or long compute — the scaling
+  prerequisite the pilot is positioned to produce cheaply.
+- Version pinning: record probe-interpreter and shipped-engine versions
+  (Pyodide/CPython, Fengari, swipl) so the kernel-table claims stay
+  auditable as engines move.
+- A verdict on reconstruction vs first-class import/export before scaling.
 
 ## Pilot
 
