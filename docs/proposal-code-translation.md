@@ -283,6 +283,24 @@ radius justifies a light control. Multi-app brokering (one broker, several
 paired apps) is not currently supported and is not needed for any of these
 paths; a Pro user wanting two paired apps runs two brokers on two ports.
 
+## Generalization economics
+
+The pilot's hand-built artifacts (the exhaustive span list, width
+constraints, no-translate traps) are **specifications for generators, not
+the working form** — the same trajectory as round one, where a bespoke
+pilot prompt became `gen-task.mjs` and eleven locales then ran at ~7
+minutes each. Concretely: the completeness linter run in reverse *is* the
+span-list generator (every comment/docstring/prose-like string, classified
+by destination); width constraints are read out of the format specs
+mechanically (`{'step':>4}` contains the 4); traps become scanner
+heuristics seeded by the pilot's cases. Per-workbook human/model effort
+drops from authoring a list to reviewing a generated one — and the list is
+per-workbook, not per-locale, so 15 reviews serve all 180 artifacts.
+
+**Success criterion (testable):** workbook #2's task file must be ≥90%
+generated. If it still needs hand-authoring at pilot fidelity, the design
+does not generalize and gets rethought before scaling.
+
 ## Pilot deliverables (beyond the artifact)
 
 - The Stage A harness: determinism envelope, locale-pinned bench, derived
