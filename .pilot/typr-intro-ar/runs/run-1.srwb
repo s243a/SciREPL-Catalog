@@ -1,54 +1,88 @@
 {
   "format": "srwb",
-  "version": "1.0",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T15:35:40.365Z",
   "notebook": {
+    "id": "default",
     "name": "مقدمة إلى TypR",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "python",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 8,
     "cells": [
       {
-        "type": "markdown",
+        "id": 1,
         "code": "# TypR — لغة R ذات الأنواع المحددة\n\nتعد TypR مجموعة شاملة ومزودة بالأنواع (typed superset) من R يتم تجميعها إلى كود R قياسي.\nتضيف اللغة تعليقات توضيحية للأنواع (type annotations)، والتحقق من الأنواع، والدوال العامة مع الحفاظ على التوافق الكامل مع R.\n\n**ملاحظات حول البنية النحوية:**\n- تنتهي التعليمات البرمجية بفاصلة منقوطة: `let x <- 42;`\n- تستخدم الدوال محددة الأنواع الصيغة: `fn(x: int): int { x * x }`\n- تدعم TypR الدوال متغيرة المعاملات والنقاط المسماة، لذا فإن `cat(\"x =\", x);` تعمل مباشرة.",
-        "language": "markdown"
-      },
-      {
-        "type": "code",
-        "code": "let x <- 42;\n# المعاملات متغيرة العدد مدعومة\ncat(\"x =\", x);",
-        "language": "typr",
-        "name": "basics"
-      },
-      {
-        "type": "code",
-        "code": "# تتطلب أجسام الدوال استخدام الأقواس المعقوفة\nlet add <- function(a, b) { a + b };\nlet result <- add(3, 4);\nprint(result);",
-        "language": "typr",
-        "name": "functions"
-      },
-      {
-        "type": "code",
-        "code": "let greeting: char <- \"مرحبًا من TypR!\";\nprint(greeting);",
-        "language": "typr",
-        "name": "typed"
-      },
-      {
-        "type": "code",
-        "code": "# الأنواع الصريحة للمعاملات وقيم الإرجاع تجعل الاستدعاءات قابلة للتحقق منها ساكنًا\nlet square <- fn(x: int): int { x * x };\nlet result <- square(7);\n# المعاملات متغيرة العدد تعمل مباشرة\ncat(\"مربع 7 =\", result);",
-        "language": "typr",
-        "name": "square"
-      },
-      {
-        "type": "code",
-        "code": "# تمرير المعاملات المسماة غير المتجانسة\nlet collect <- fn(...args: Any): [#N, Any] { args };\nlet forward <- fn(...args: Any): [#N, Any] { collect(...args) };\nlet values <- forward(count = 1, enabled = true);\nprint(values);\n@{ base::cat(\"الأسماء:\", base::paste(base::names(values$data), collapse = \", \"), \"\\n\") }@;",
-        "language": "typr",
-        "name": "variadic_forwarding"
-      },
-      {
         "type": "markdown",
-        "code": "## التوجيهات\n\nضع توجيهًا في السطر الأول من خلية TypR:\n\n- `#!source` يحتفظ بمقطع نصي مسمى ومميز لونيًا دون تجميع أو تنفيذ محتوياته. الخلية المخصصة للمصدر فقط لا تُنتج `Out [n]` عن قصد وتظل قابلة للقراءة عبر Notebook VFS.\n- `#!typecheck` يتحقق من أنواع الكود التالي دون تنفيذه.\n- `#!transpile` يعرض ناتج التحويل البرمجي إلى R.\n- `#!show-r` يبدل عرض كود R المولد لعمليات تنفيذ TypR اللاحقة.",
-        "language": "markdown"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 2,
+        "code": "let x <- 42;\n# المعاملات متغيرة العدد مدعومة\ncat(\"x =\", x);",
         "type": "code",
-        "code": "#!transpile\nlet fib <- fn(n: int): int {\n  if (n <= 1) { n }\n  else { fib(n - 1) + fib(n - 2) }\n};\nprint(fib(10));",
         "language": "typr",
-        "name": "transpile_demo"
+        "name": "basics",
+        "lastOutput": "x = 42",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">x = 42</pre>"
+      },
+      {
+        "id": 3,
+        "code": "# تتطلب أجسام الدوال استخدام الأقواس المعقوفة\nlet add <- function(a, b) { a + b };\nlet result <- add(3, 4);\nprint(result);",
+        "type": "code",
+        "language": "typr",
+        "name": "functions",
+        "lastOutput": "7",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">7</pre>"
+      },
+      {
+        "id": 4,
+        "code": "let greeting: char <- \"مرحبًا من TypR!\";\nprint(greeting);",
+        "type": "code",
+        "language": "typr",
+        "name": "typed",
+        "lastOutput": "مرحبًا من TypR!",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">مرحبًا من TypR!</pre>"
+      },
+      {
+        "id": 5,
+        "code": "# الأنواع الصريحة للمعاملات وقيم الإرجاع تجعل الاستدعاءات قابلة للتحقق منها ساكنًا\nlet square <- fn(x: int): int { x * x };\nlet result <- square(7);\n# المعاملات متغيرة العدد تعمل مباشرة\ncat(\"مربع 7 =\", result);",
+        "type": "code",
+        "language": "typr",
+        "name": "square",
+        "lastOutput": "مربع 7 = 49",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">مربع 7 = 49</pre>"
+      },
+      {
+        "id": 6,
+        "code": "# تمرير المعاملات المسماة غير المتجانسة\nlet collect <- fn(...args: Any): [#N, Any] { args };\nlet forward <- fn(...args: Any): [#N, Any] { collect(...args) };\nlet values <- forward(count = 1, enabled = true);\nprint(values);\n@{ base::cat(\"الأسماء:\", base::paste(base::names(values$data), collapse = \", \"), \"\\n\") }@;",
+        "type": "code",
+        "language": "typr",
+        "name": "variadic_forwarding",
+        "lastOutput": "typed_vec [2]\n[1] 1\n[2] TRUE\nالأسماء: count, enabled",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">typed_vec [2]\n[1] 1\n[2] TRUE\nالأسماء: count, enabled</pre>"
+      },
+      {
+        "id": 7,
+        "code": "## التوجيهات\n\nضع توجيهًا في السطر الأول من خلية TypR:\n\n- `#!source` يحتفظ بمقطع نصي مسمى ومميز لونيًا دون تجميع أو تنفيذ محتوياته. الخلية المخصصة للمصدر فقط لا تُنتج `Out [n]` عن قصد وتظل قابلة للقراءة عبر Notebook VFS.\n- `#!typecheck` يتحقق من أنواع الكود التالي دون تنفيذه.\n- `#!transpile` يعرض ناتج التحويل البرمجي إلى R.\n- `#!show-r` يبدل عرض كود R المولد لعمليات تنفيذ TypR اللاحقة.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 8,
+        "code": "#!transpile\nlet fib <- fn(n: int): int {\n  if (n <= 1) { n }\n  else { fib(n - 1) + fib(n - 2) }\n};\nprint(fib(10));",
+        "type": "code",
+        "language": "typr",
+        "name": "transpile_demo",
+        "lastOutput": "\n`fib.integer` <- (function(n) {\nif(n <= 1L |> as.Integer()) {\nn \n} else {\nfib(n - 1L |> as.Integer()) + fib(n - 2L |> as.Integer())\n}\n} |> as.Integer()) |> as.Generic()\n\nprint(fib(10L |> as.Integer()))",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">\n`fib.integer` &lt;- (function(n) {\nif(n &lt;= 1L |&gt; as.Integer()) {\nn \n} else {\nfib(n - 1L |&gt; as.Integer()) + fib(n - 2L |&gt; as.Integer())\n}\n} |&gt; as.Integer()) |&gt; as.Generic()\n\nprint(fib(10L |&gt; as.Integer()))</pre>"
       }
     ]
   }

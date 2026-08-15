@@ -1,148 +1,259 @@
 {
   "format": "srwb",
   "format_version": "1.0",
-  "exported_at": "2026-03-10T00:00:00.000Z",
+  "exported_at": "2026-08-15T15:35:25.902Z",
   "notebook": {
-    "id": "nb-lua-parsing-001",
+    "id": "default",
     "name": "Lua: التحليل النحوي باستخدام الروتينات المساعدة",
+    "autoNameNumber": null,
     "description": "Building parsers in Lua using coroutines as lexers, closures as combinators, and tables as ASTs.",
     "kernelLanguage": "lua",
+    "catalogId": null,
+    "catalogRevision": null,
     "cellCounter": 30,
     "cells": [
       {
+        "id": 1,
         "code": "# التحليل النحوي باستخدام الروتينات المساعدة في Lua\n\nتتحد الروتينات المساعدة (coroutines) والمنغلقات (closures) ومطابقة الأنماط في Lua لتشكل مجموعة أدوات طبيعية لبناء المحللات النحوية — دون الحاجة إلى مكتبات خارجية.\n\nيتدرج هذا المصنف من الأنماط البسيطة وصولاً إلى مقيم تعبيرات حسابية فعال:\n\n1. **أنماط Lua** — نظام مطابقة الأنماط المدمج\n2. **محلل المفردات بالروتينات المساعدة (Coroutine lexer)** — تقسيم المدخلات إلى رموز بطريقة كسولة، مع إرجاع رمز واحد في كل مرة\n3. **محلل الانحدار العودي (Recursive descent parser)** — استهلاك الرموز لبناء شجرة إعراب مجردة (AST)\n4. **المقيم (Evaluator)** — التنقل في الشجرة لحساب النتائج\n5. **مكتبة المجمعات (Combinator library)** — محللات قابلة للتركيب مبنية من المنغلقات",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 2,
         "code": "## 1. أنماط Lua\n\nلا تحتوي Lua على تعبيرات نمطية عادية (regex) — بل تمتلك *أنماطًا (patterns)*، وهو نظام أخف مدمج في `string.find` و`string.match` و`string.gmatch` و`string.gsub`.\n\nالفئات الرئيسية: `%a` (حرف)، `%d` (رقم)، `%w` (أبجدي رقمي)، `%s` (مسافة)، `%p` (علامات الترقيم). تمثل الأحرف الكبيرة المتمم (`%A` = ليس حرفًا). يطابق `.` أي محرف.",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 3,
         "code": "-- string.match: استخراج المطابقات الملتقطة\nlocal year, month, day = string.match(\"2026-03-10\", \"(%d+)-(%d+)-(%d+)\")\nprint(\"السنة:\", year, \"الشهر:\", month, \"اليوم:\", day)\n\n-- string.gmatch: التكرار عبر جميع المطابقات\nprint(\"\\nالكلمات في الجملة:\")\nfor word in string.gmatch(\"the quick brown fox\", \"%a+\") do\n  print(\"  \" .. word)\nend",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "السنة:\t2026\tالشهر:\t03\tاليوم:\t10\n\nالكلمات في الجملة:\n  the\n  quick\n  brown\n  fox\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">السنة:\t2026\tالشهر:\t03\tاليوم:\t10\n\nالكلمات في الجملة:\n  the\n  quick\n  brown\n  fox\n</pre>"
       },
       {
+        "id": 4,
         "code": "-- string.gsub: البحث والاستبدال\nlocal result = string.gsub(\"Hello World\", \"%u\", function(c)\n  return \"[\" .. c .. \"]\"\nend)\nprint(result)  -- [H]ello [W]orld\n\n-- تبديل أزواج المفتاح=القيمة\nlocal swapped = string.gsub(\"name=Alice age=30\", \"(%w+)=(%w+)\", \"%2=%1\")\nprint(swapped)  -- Alice=name 30=age",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "[H]ello [W]orld\nAlice=name 30=age\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">[H]ello [W]orld\nAlice=name 30=age\n</pre>"
       },
       {
+        "id": 5,
         "code": "-- string.find: تحديد موقع التطابق الكامل والتقاط اسم الدالة\nlocal s = \"function foo(x, y)\"\nlocal i, j, name = string.find(s, \"function%s+(%w+)\")\nprint(string.format(\"تمت مطابقة '%s' في المواضع %d-%d؛ تم التقاط الاسم '%s'\", s:sub(i, j), i, j, name))\n\n-- نمط الحدود %f[]: المطابقة عند الانتقالات الحدية\nlocal text = \"camelCaseVariable\"\nlocal parts = {}\nfor word in string.gmatch(text, \"%u?%l+\") do\n  parts[#parts + 1] = word\nend\nprint(\"تقسيم camelCase:\", table.concat(parts, \" | \"))",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "تمت مطابقة 'function foo' في المواضع 1-12؛ تم التقاط الاسم 'foo'\nتقسيم camelCase:\tcamel | Case | Variable\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">تمت مطابقة 'function foo' في المواضع 1-12؛ تم التقاط الاسم 'foo'\nتقسيم camelCase:\tcamel | Case | Variable\n</pre>"
       },
       {
+        "id": 6,
         "code": "## 2. محلل المفردات بالروتينات المساعدة (Coroutine Lexer)\n\nيقوم **محلل المفردات** (المقسم إلى رموز) بتفكيك النص المدخل إلى رموز مميزة (tokens). باستخدام روتين مساعد (coroutine)، يمكننا إرجاع (`yield`) الرموز واحدًا تلو الآخر — حيث يسحبها المحلل النحوي عند الطلب. لا حاجة لمصفوفة وسيطة.",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 7,
         "code": "-- أنواع الرموز\nNUM = \"NUM\"\nOP  = \"OP\"\nID  = \"ID\"\nLPAREN = \"LPAREN\"\nRPAREN = \"RPAREN\"\nEOF = \"EOF\"\n\nfunction lexer(input)\n  return coroutine.wrap(function()\n    local pos = 1\n    while pos <= #input do\n      -- تخطي المسافات البيضاء\n      local ws = string.match(input, \"^%s+\", pos)\n      if ws then pos = pos + #ws end\n      if pos > #input then break end\n\n      -- الأرقام (الأعداد الصحيحة والعشرية)\n      local num = string.match(input, \"^%d+%.?%d*\", pos)\n      if num then\n        coroutine.yield({ type = NUM, value = tonumber(num), pos = pos })\n        pos = pos + #num\n      -- المعرفات / الكلمات المفتاحية\n      elseif string.match(input, \"^%a\", pos) then\n        local id = string.match(input, \"^%a%w*\", pos)\n        coroutine.yield({ type = ID, value = id, pos = pos })\n        pos = pos + #id\n      -- العوامل\n      elseif string.find(\"+-*/^%%\", string.sub(input, pos, pos), 1, true) then\n        coroutine.yield({ type = OP, value = string.sub(input, pos, pos), pos = pos })\n        pos = pos + 1\n      -- الأقواس\n      elseif string.sub(input, pos, pos) == \"(\" then\n        coroutine.yield({ type = LPAREN, pos = pos })\n        pos = pos + 1\n      elseif string.sub(input, pos, pos) == \")\" then\n        coroutine.yield({ type = RPAREN, pos = pos })\n        pos = pos + 1\n      else\n        error(\"محرف غير متوقع في الموضع \" .. pos .. \": '\" .. string.sub(input, pos, pos) .. \"'\")\n      end\n    end\n    coroutine.yield({ type = EOF })\n  end)\nend\n\n-- اختبار محلل المفردات\nprint(\"رموز '3 + 42 * (x - 1)':\")\nfor tok in lexer(\"3 + 42 * (x - 1)\") do\n  if tok.value then\n    print(string.format(\"  %-7s %s\", tok.type, tostring(tok.value)))\n  else\n    print(string.format(\"  %s\", tok.type))\n  end\nend",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "رموز '3 + 42 * (x - 1)':\n  NUM     3\n  OP      +\n  NUM     42\n  OP      *\n  LPAREN\n  ID      x\n  OP      -\n  NUM     1\n  RPAREN\n  EOF\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">رموز '3 + 42 * (x - 1)':\n  NUM     3\n  OP      +\n  NUM     42\n  OP      *\n  LPAREN\n  ID      x\n  OP      -\n  NUM     1\n  RPAREN\n  EOF\n</pre>"
       },
       {
+        "id": 8,
         "code": "## 3. تدفق الرموز (Token Stream)\n\nيحتاج المحلل النحوي إلى استراق النظر للأمام (peek) دون استهلاك الرمز. نقوم بتغليف الروتين المساعد لمحلل المفردات في تدفق يخزن رمزًا واحدًا مؤقتًا.",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 9,
         "code": "function TokenStream(input)\n  local next_token = lexer(input)\n  local current = next_token()\n\n  local stream = {}\n\n  function stream.peek()\n    return current\n  end\n\n  function stream.consume()\n    local tok = current\n    current = next_token()\n    return tok\n  end\n\n  function stream.expect(typ)\n    local tok = current\n    if tok.type ~= typ then\n      error(\"المتوقع \" .. typ .. \" ولكن تم الحصول على \" .. tok.type\n        .. (tok.pos and \" في الموضع \" .. tok.pos or \"\"))\n    end\n    return stream.consume()\n  end\n\n  return stream\nend\n\n-- اختبار peek/consume\nlocal s = TokenStream(\"10 + 20\")\nprint(\"استراق النظر:\", s.peek().type, s.peek().value)\nprint(\"استهلاك:\", s.consume().value)\nprint(\"التالي:\", s.peek().type, s.peek().value)",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "استراق النظر:\tNUM\t10\nاستهلاك:\t10\nالتالي:\tOP\t+\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">استراق النظر:\tNUM\t10\nاستهلاك:\t10\nالتالي:\tOP\t+\n</pre>"
       },
       {
+        "id": 10,
         "code": "## 4. محلل الانحدار العودي (Recursive Descent Parser)\n\nنقوم بتحليل التعبيرات الحسابية مع مراعاة أسبقية العوامل:\n- `+`، `-` (الأدنى)\n- `*`، `/` (أعلى)\n- `^` (الأعلى، تجميعي من اليمين)\n- الأقواس وعامل الطرح الأحادي\n\nيبني المحلل النحوي **شجرة إعراب مجردة (AST)** باستخدام الجداول (tables).",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 11,
         "code": "-- منشئات عقد شجرة AST\nfunction NumNode(value)\n  return { tag = \"num\", value = value }\nend\n\nfunction VarNode(name)\n  return { tag = \"var\", name = name }\nend\n\nfunction BinOp(op, left, right)\n  return { tag = \"binop\", op = op, left = left, right = right }\nend\n\nfunction UnaryOp(op, operand)\n  return { tag = \"unary\", op = op, operand = operand }\nend\n\nfunction CallNode(name, args)\n  return { tag = \"call\", name = name, args = args }\nend",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 12,
         "code": "-- المحلل النحوي: الانحدار العودي مع تسلق الأسبقية\nfunction parse(input)\n  local tokens = TokenStream(input)\n\n  -- expr = term (('+' | '-') term)*\n  local function expr()\n    local node = term()\n    while tokens.peek().type == OP\n      and (tokens.peek().value == \"+\" or tokens.peek().value == \"-\") do\n      local op = tokens.consume().value\n      node = BinOp(op, node, term())\n    end\n    return node\n  end\n\n  -- term = power (('*' | '/' | '%') power)*\n  function term()\n    local node = power()\n    while tokens.peek().type == OP\n      and (tokens.peek().value == \"*\" or tokens.peek().value == \"/\"\n           or tokens.peek().value == \"%\") do\n      local op = tokens.consume().value\n      node = BinOp(op, node, power())\n    end\n    return node\n  end\n\n  -- power = unary ('^' power)?  (تجميعي من اليمين)\n  function power()\n    local node = unary()\n    if tokens.peek().type == OP and tokens.peek().value == \"^\" then\n      tokens.consume()\n      node = BinOp(\"^\", node, power())  -- عودي من اليمين!\n    end\n    return node\n  end\n\n  -- unary = '-' unary | atom\n  function unary()\n    if tokens.peek().type == OP and tokens.peek().value == \"-\" then\n      tokens.consume()\n      return UnaryOp(\"-\", unary())\n    end\n    return atom()\n  end\n\n  -- atom = NUM | ID | ID '(' args ')' | '(' expr ')'\n  function atom()\n    local tok = tokens.peek()\n\n    if tok.type == NUM then\n      tokens.consume()\n      return NumNode(tok.value)\n    end\n\n    if tok.type == ID then\n      local name = tokens.consume().value\n      -- استدعاء دالة؟\n      if tokens.peek().type == LPAREN then\n        tokens.consume()  -- استهلاك '('\n        local args = {}\n        if tokens.peek().type ~= RPAREN then\n          args[1] = expr()\n          while tokens.peek().type == OP and tokens.peek().value == \",\" do\n            tokens.consume()\n            args[#args + 1] = expr()\n          end\n        end\n        tokens.expect(RPAREN)\n        return CallNode(name, args)\n      end\n      return VarNode(name)\n    end\n\n    if tok.type == LPAREN then\n      tokens.consume()\n      local node = expr()\n      tokens.expect(RPAREN)\n      return node\n    end\n\n    error(\"رمز غير متوقع: \" .. tok.type\n      .. (tok.pos and \" في الموضع \" .. tok.pos or \"\"))\n  end\n\n  local ast = expr()\n  tokens.expect(EOF)\n  return ast\nend\n\nprint(\"تم تحميل المحلل النحوي.\")",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "تم تحميل المحلل النحوي.\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">تم تحميل المحلل النحوي.\n</pre>"
       },
       {
+        "id": 13,
         "code": "## 5. المنسق الجمالي لـ AST (Pretty-Printer)\n\nقبل إجراء التقييم، دعنا نعاين الشجرة التي ينتجها المحلل النحوي بصريًا.",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 14,
         "code": "function pretty(node, indent)\n  indent = indent or 0\n  local pad = string.rep(\"  \", indent)\n\n  if node.tag == \"num\" then\n    return pad .. tostring(node.value)\n  elseif node.tag == \"var\" then\n    return pad .. node.name\n  elseif node.tag == \"unary\" then\n    return pad .. \"(\" .. node.op .. \"\\n\" .. pretty(node.operand, indent + 1) .. \")\"\n  elseif node.tag == \"binop\" then\n    return pad .. \"(\" .. node.op .. \"\\n\"\n      .. pretty(node.left, indent + 1) .. \"\\n\"\n      .. pretty(node.right, indent + 1) .. \")\"\n  elseif node.tag == \"call\" then\n    local argStrs = {}\n    for _, a in ipairs(node.args) do\n      argStrs[#argStrs + 1] = pretty(a, indent + 1)\n    end\n    return pad .. node.name .. \"(\\n\" .. table.concat(argStrs, \"\\n\") .. \")\"\n  end\n  return pad .. \"??\"\nend\n\n-- تحليل وعرض\nlocal ast = parse(\"2 ^ 3 ^ 2 + 1\")\nprint(\"شجرة AST لـ '2 ^ 3 ^ 2 + 1':\")\nprint(pretty(ast))\n\nprint(\"\\nشجرة AST لـ '-(3 + 4) * 2':\")\nprint(pretty(parse(\"-(3 + 4) * 2\")))",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "شجرة AST لـ '2 ^ 3 ^ 2 + 1':\n(+\n  (^\n    2\n    (^\n      3\n      2))\n  1)\n\nشجرة AST لـ '-(3 + 4) * 2':\n(*\n  (-\n    (+\n      3\n      4))\n  2)\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">شجرة AST لـ '2 ^ 3 ^ 2 + 1':\n(+\n  (^\n    2\n    (^\n      3\n      2))\n  1)\n\nشجرة AST لـ '-(3 + 4) * 2':\n(*\n  (-\n    (+\n      3\n      4))\n  2)\n</pre>"
       },
       {
+        "id": 15,
         "code": "## 6. المقيم (Evaluator)\n\nالتنقل عبر شجرة AST لحساب النتيجة. يتم البحث عن المتغيرات والدوال في جدول البيئة.",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 16,
         "code": "function evaluate(node, env)\n  env = env or {}\n\n  if node.tag == \"num\" then\n    return node.value\n\n  elseif node.tag == \"var\" then\n    local val = env[node.name]\n    if val == nil then error(\"متغير غير معرف: \" .. node.name) end\n    return val\n\n  elseif node.tag == \"unary\" then\n    if node.op == \"-\" then\n      return -evaluate(node.operand, env)\n    end\n\n  elseif node.tag == \"binop\" then\n    local l = evaluate(node.left, env)\n    local r = evaluate(node.right, env)\n    if     node.op == \"+\" then return l + r\n    elseif node.op == \"-\" then return l - r\n    elseif node.op == \"*\" then return l * r\n    elseif node.op == \"/\" then return l / r\n    elseif node.op == \"%\" then return l % r\n    elseif node.op == \"^\" then return l ^ r\n    end\n\n  elseif node.tag == \"call\" then\n    local fn = env[node.name]\n    if type(fn) ~= \"function\" then\n      error(\"ليست دالة: \" .. node.name)\n    end\n    local args = {}\n    for _, a in ipairs(node.args) do\n      args[#args + 1] = evaluate(a, env)\n    end\n    return fn(table.unpack(args))\n  end\n\n  error(\"وسم عقدة غير معروف: \" .. tostring(node.tag))\nend\n\n-- ملاءمة: تحليل + تقييم\nfunction calc(expr, env)\n  return evaluate(parse(expr), env)\nend\n\nprint(\"تم تحميل الآلة الحاسبة.\")",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "تم تحميل الآلة الحاسبة.\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">تم تحميل الآلة الحاسبة.\n</pre>"
       },
       {
+        "id": 17,
         "code": "-- حساب أساسي\nprint(\"2 + 3 * 4      =\", calc(\"2 + 3 * 4\"))\nprint(\"(2 + 3) * 4    =\", calc(\"(2 + 3) * 4\"))\nprint(\"2 ^ 3 ^ 2      =\", calc(\"2 ^ 3 ^ 2\"))      -- تجميعي من اليمين: 2^(3^2) = 512\nprint(\"-5 + 3         =\", calc(\"-5 + 3\"))\nprint(\"10 % 3         =\", calc(\"10 % 3\"))",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "2 + 3 * 4      =\t14\n(2 + 3) * 4    =\t20\n2 ^ 3 ^ 2      =\t512.0\n-5 + 3         =\t-2\n10 % 3         =\t1\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">2 + 3 * 4      =\t14\n(2 + 3) * 4    =\t20\n2 ^ 3 ^ 2      =\t512.0\n-5 + 3         =\t-2\n10 % 3         =\t1\n</pre>"
       },
       {
+        "id": 18,
         "code": "-- مع المتغيرات والدوال\nlocal env = {\n  pi = math.pi,\n  e  = math.exp(1),\n  x  = 10,\n  sqrt = math.sqrt,\n  sin  = math.sin,\n  cos  = math.cos,\n  abs  = math.abs,\n}\n\nprint(\"pi * x ^ 2    =\", calc(\"pi * x ^ 2\", env))\nprint(\"sqrt(144)      =\", calc(\"sqrt(144)\", env))\nprint(\"sin(pi / 2)    =\", calc(\"sin(pi / 2)\", env))\nprint(\"abs(-42) + e   =\", calc(\"abs(-42) + e\", env))",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "pi * x ^ 2    =\t314.15926535898\nsqrt(144)      =\t12.0\nsin(pi / 2)    =\t1.0\nabs(-42) + e   =\t44.718281828459\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">pi * x ^ 2    =\t314.15926535898\nsqrt(144)      =\t12.0\nsin(pi / 2)    =\t1.0\nabs(-42) + e   =\t44.718281828459\n</pre>"
       },
       {
+        "id": 19,
         "code": "## 7. مجمعات المحللات (Parser Combinators)\n\nنهج مختلف: بناء المحللات النحوية من أجزاء صغيرة قابلة للتركيب باستخدام المنغلقات (closures). كل محلل عبارة عن دالة تأخذ مدخلاً (سلسلة نصية + موضع) وتعيد نتيجة + موضعًا جديدًا، أو `nil` عند الفشل.",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 20,
         "code": "-- المحلل النحوي هو: function(input, pos) -> result, newpos | nil\n\n-- مطابقة نمط Lua، وإرجاع المجموعة الملتقطة\nfunction P(pattern)\n  return function(input, pos)\n    local s, e, cap = string.find(input, \"^(\" .. pattern .. \")\", pos)\n    if s then return cap, e + 1 end\n    return nil\n  end\nend\n\n-- مطابقة سلسلة نصية حرفية\nfunction L(str)\n  return function(input, pos)\n    if string.sub(input, pos, pos + #str - 1) == str then\n      return str, pos + #str\n    end\n    return nil\n  end\nend\n\n-- تخطي المسافات البيضاء، ثم تطبيق المحلل النحوي\nfunction Token(parser)\n  return function(input, pos)\n    local _, p2 = string.find(input, \"^%s*\", pos)\n    return parser(input, (p2 or pos) + 1)\n  end\nend\n\nprint(\"تم تحميل المجمعات.\")",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "تم تحميل المجمعات.\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">تم تحميل المجمعات.\n</pre>"
       },
       {
+        "id": 21,
         "code": "-- التسلسل (Sequence): يجب أن تتطابق جميع المحللات بالترتيب\nfunction Seq(...)\n  local parsers = {...}\n  return function(input, pos)\n    local results = {}\n    local p = pos\n    for _, parser in ipairs(parsers) do\n      local r, np = parser(input, p)\n      if r == nil then return nil end\n      results[#results + 1] = r\n      p = np\n    end\n    return results, p\n  end\nend\n\n-- الاختيار (Choice): تجربة كل محلل، وإرجاع أول تطابق\nfunction Choice(...)\n  local parsers = {...}\n  return function(input, pos)\n    for _, parser in ipairs(parsers) do\n      local r, np = parser(input, pos)\n      if r ~= nil then return r, np end\n    end\n    return nil\n  end\nend\n\n-- صفر أو أكثر من التكرارات\nfunction Many(parser)\n  return function(input, pos)\n    local results = {}\n    local p = pos\n    while true do\n      local r, np = parser(input, p)\n      if r == nil then break end\n      results[#results + 1] = r\n      p = np\n    end\n    return results, p\n  end\nend\n\n-- تحويل النتيجة\nfunction Map(parser, fn)\n  return function(input, pos)\n    local r, np = parser(input, pos)\n    if r ~= nil then return fn(r), np end\n    return nil\n  end\nend\n\nprint(\"تم تحميل Seq و Choice و Many و Map.\")",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "تم تحميل Seq و Choice و Many و Map.\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">تم تحميل Seq و Choice و Many و Map.\n</pre>"
       },
       {
+        "id": 22,
         "code": "-- تحليل تنسيق تكوين بسيط للمفتاح والقيمة:\n--   host = localhost\n--   port = 8080\n--   debug = true\n\nlocal key   = Token(P(\"%a%w*\"))\nlocal eq    = Token(L(\"=\"))\nlocal value = Token(P(\"%S+\"))\n\nlocal pair  = Map(\n  Seq(key, eq, value),\n  function(r) return { key = r[1], value = r[3] } end\n)\n\nlocal config = Many(pair)\n\nlocal input = \"host = localhost  port = 8080  debug = true\"\nlocal result, pos = config(input, 1)\n\nprint(\"التكوين المحلل:\")\nfor _, entry in ipairs(result) do\n  print(string.format(\"  %-8s = %s\", entry.key, entry.value))\nend",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "التكوين المحلل:\n  host     = localhost\n  port     = 8080\n  debug    = true\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">التكوين المحلل:\n  host     = localhost\n  port     = 8080\n  debug    = true\n</pre>"
       },
       {
+        "id": 23,
         "code": "## 8. محلل CSV\n\nمثال أكثر عملية: تحليل ملفات CSV التي تحتوي على حقول مقتبسة، باستخدام نهج المجمعات.",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 24,
         "code": "function parseCSV(input)\n  local rows = {}\n\n  -- استخدام روتين مساعد لتوليد الصفوف أثناء تحليلها\n  local function parseField(line, pos)\n    if string.sub(line, pos, pos) == '\"' then\n      -- حقل بين علامتي اقتباس: البحث عن علامة الإغلاق (يتعامل مع \"\" المهروبة)\n      local field = {}\n      pos = pos + 1\n      while pos <= #line do\n        if string.sub(line, pos, pos + 1) == '\"\"' then\n          field[#field + 1] = '\"'\n          pos = pos + 2\n        elseif string.sub(line, pos, pos) == '\"' then\n          pos = pos + 1\n          break\n        else\n          field[#field + 1] = string.sub(line, pos, pos)\n          pos = pos + 1\n        end\n      end\n      return table.concat(field), pos\n    else\n      -- حقل بدون علامات اقتباس: القراءة حتى الفاصلة أو النهاية\n      local s, e, val = string.find(line, \"^([^,]*)\", pos)\n      return val or \"\", (e or pos) + 1\n    end\n  end\n\n  for line in string.gmatch(input, \"([^\\n]+)\") do\n    local row = {}\n    local pos = 1\n    while pos <= #line do\n      local field\n      field, pos = parseField(line, pos)\n      row[#row + 1] = field\n      -- تخطي الفاصلة\n      if string.sub(line, pos, pos) == \",\" then\n        pos = pos + 1\n      end\n    end\n    rows[#rows + 1] = row\n  end\n\n  return rows\nend\n\nlocal csv = [[name,age,city\nAlice,30,\"New York\"\nBob,25,\"San Francisco\"\n\"O'Brien, Charlie\",40,\"Boston\"]]\n\nlocal data = parseCSV(csv)\n\n-- طباعة كجدول منسق\nlocal widths = {}\nfor _, row in ipairs(data) do\n  for i, field in ipairs(row) do\n    widths[i] = math.max(widths[i] or 0, #field)\n  end\nend\n\nfor r, row in ipairs(data) do\n  local parts = {}\n  for i, field in ipairs(row) do\n    parts[i] = field .. string.rep(\" \", widths[i] - #field)\n  end\n  print(table.concat(parts, \"  |  \"))\n  if r == 1 then\n    local sep = {}\n    for i = 1, #widths do sep[i] = string.rep(\"-\", widths[i]) end\n    print(table.concat(sep, \"--+--\"))\n  end\nend",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "name              |  age  |  city         \n------------------+-------+---------------\nAlice             |  30   |  New York     \nBob               |  25   |  San Francisco\nO'Brien, Charlie  |  40   |  Boston       \n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">name              |  age  |  city         \n------------------+-------+---------------\nAlice             |  30   |  New York     \nBob               |  25   |  San Francisco\nO'Brien, Charlie  |  40   |  Boston       \n</pre>"
       },
       {
+        "id": 25,
         "code": "## 9. خط معالجة التدفق (Streaming Pipeline)\n\nدمج كل شيء: خط معالجة معتمد على الروتينات المساعدة يقوم بالتحليل المفرداتي والنحوي وتقييم سلسلة من التعبيرات — سطرًا بسطر وبتقييم كسول بالكامل.",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 26,
         "code": "function repl_eval(lines, env)\n  return coroutine.wrap(function()\n    for line in string.gmatch(lines, \"([^\\n]+)\") do\n      -- تخطي التعليقات والأسطر الفارغة\n      local trimmed = string.match(line, \"^%s*(.-)%s*$\")\n      if trimmed ~= \"\" and string.sub(trimmed, 1, 1) ~= \"#\" then\n        local ok, result = pcall(function()\n          return calc(trimmed, env)\n        end)\n        if ok then\n          coroutine.yield(trimmed, result, nil)\n        else\n          coroutine.yield(trimmed, nil, result)\n        end\n      end\n    end\n  end)\nend\n\nlocal program = [[\n# Physics calculations\n9.8 * 2\nsqrt(144) + 1\npi * r ^ 2\n2 ^ 10\nabs(-7) * 3\n5 / 0\n]]\n\nlocal env = {\n  pi = math.pi, r = 5,\n  sqrt = math.sqrt, abs = math.abs,\n}\n\nprint(\"مقيم التعبيرات:\")\nprint(string.rep(\"-\", 40))\nfor expr, result, err in repl_eval(program, env) do\n  if err then\n    print(string.format(\"  %-20s  خطأ: %s\", expr, err))\n  else\n    print(string.format(\"  %-20s  = %g\", expr, result))\n  end\nend",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "مقيم التعبيرات:\n----------------------------------------\n  9.8 * 2               = 19.6\n  sqrt(144) + 1         = 13\n  pi * r ^ 2            = 78.53981633974483\n  2 ^ 10                = 1024\n  abs(-7) * 3           = 21\n  5 / 0                 = Infinity\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">مقيم التعبيرات:\n----------------------------------------\n  9.8 * 2               = 19.6\n  sqrt(144) + 1         = 13\n  pi * r ^ 2            = 78.53981633974483\n  2 ^ 10                = 1024\n  abs(-7) * 3           = 21\n  5 / 0                 = Infinity\n</pre>"
       },
       {
+        "id": 27,
         "code": "## الملخص\n\nما بنيناه باستخدام مكتبة Lua القياسية فقط:\n\n| المكون | التقنية |\n|---|---|\n| محلل المفردات (Lexer) | روتين مساعد + أنماط `string.match` |\n| تدفق الرموز (Token stream) | منغلق (peek/consume على روتين مساعد) |\n| محلل الانحدار العودي | عودية متبادلة + جداول كـ AST |\n| المقيم (Evaluator) | تنقل في الشجرة مع جدول بيئة |\n| المجمعات (Combinators) | منغلقات ذات رتبة أعلى (Seq, Choice, Many, Map) |\n| محلل CSV | مطابقة أنماط + آلة حالة (state machine) |\n| خط معالجة التدفق | سلسلة روتينات مساعدة مع معالجة أخطاء `pcall` |\n\nلا مكتبات خارجية، ولا محرك تعبيرات نمطية، ولا مولد محللات نحوية — فقط الأنماط، والروتينات المساعدة، والمنغلقات، والجداول.",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       }
     ]
   }
