@@ -57,7 +57,13 @@ execute_cell, inspect_namespace — NOT export/import/file tools) to agy's
 own permissions config. Removes the per-call supervision cost; the
 supervised PTY mode works today and remains the default until reviewed.
 
-Division of boundary authority (settled): the CONTROLLER imports the
-working copy into the app and exports the result — two deterministic MCP
-calls with hash receipts. The worker's tool surface is cells only; the
-sandbox/filesystem crossing never belongs to the worker.
+Division of boundary authority: the DEFAULT is that the CONTROLLER imports
+the working copy into the app and exports the result — two deterministic
+MCP calls with hash receipts; the worker's tool surface is cells only.
+A worker WITH import/export capability is a documented ALTERNATIVE (it can
+then fetch reference material or stage its own working copies), guarded by
+three independent layers: the supervisor's per-call approvals, the MCP
+broker's file-scope permissions (allowlisted roots, deny rules,
+content-size caps), and the app's own permission gate on workbook
+transfer. Least authority argues for the default; the alternative is a
+policy choice, not a design violation.
