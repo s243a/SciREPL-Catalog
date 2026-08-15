@@ -1626,9 +1626,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/fr/lua-tables-coroutines.srwb",
-      "revision": 1,
-      "sha256": "d711bc73ae4c287164827b150fa31c0972c399f406889ab0098379e042af6c59",
-      "size": 13966
+      "revision": 2,
+      "sha256": "c637ad102459b53d03f4eb342e8ca90e180ca722bdfa7ad54f963bb88cebd04d",
+      "size": 14311
     },
     {
       "id": "lua-parsing-coroutines-fr",
@@ -1643,9 +1643,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/fr/lua-parsing-coroutines.srwb",
-      "revision": 1,
-      "sha256": "1ed05841c4dd532853562ca2a2d9e8dd51192de6ba47785bf2a758507a26ea6a",
-      "size": 21804
+      "revision": 2,
+      "sha256": "abe11786a9cc3943b26cb98332791f0fdceeb56e8540fbeead1cbf7d4d418101",
+      "size": 22324
     },
     {
       "id": "typr-intro-fr",
@@ -1660,9 +1660,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/fr/typr-intro.srwb",
-      "revision": 1,
-      "sha256": "07d6152de09624b7f2ed26ddef70a34a130cbfda79611bbb5f6ab37a81bc0fbc",
-      "size": 2966
+      "revision": 2,
+      "sha256": "af4c9931727528d49eb1ef3b7fdd4d12c934399217743e17465608792f8434f4",
+      "size": 3054
     },
     {
       "id": "prolog-generates-r-fr",
@@ -1678,9 +1678,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/fr/prolog-generates-r.srwb",
-      "revision": 1,
-      "sha256": "8a47aa745dcacc9ef461b583986958df363b5048a7842e9fcd1f8d8b87fa1b7b",
-      "size": 14359
+      "revision": 2,
+      "sha256": "58716250438aa3b72a5a3673a7715cd97403e4e48203041c4cf86124a299f44e",
+      "size": 14558
     },
     {
       "id": "prolog-generates-lua-fr",
@@ -1696,9 +1696,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/fr/prolog-generates-lua.srwb",
-      "revision": 1,
-      "sha256": "a4078548d749c118545a2c235bc509ffe0b0ccc703863fe8aa4d427de87cf9e7",
-      "size": 6529
+      "revision": 2,
+      "sha256": "dba9f1b4f5f914096ba813e5ab1c81441d5e32f65d561097c8b5180dd90a1191",
+      "size": 6718
     },
     {
       "id": "prolog-generates-clojurescript-fr",
@@ -1714,9 +1714,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/fr/prolog-generates-clojurescript.srwb",
-      "revision": 1,
-      "sha256": "0d63fd167fef8b0964e098ec707e617cd580c6ce4fd37d7403e0e00da7384ca8",
-      "size": 5000
+      "revision": 2,
+      "sha256": "a44a59718da9ef1d55df3c614e9b2264f3fbb88f24cf7d8c01f33bc0dc6d6431",
+      "size": 5125
     },
     {
       "id": "prolog-generates-typr-fr",
@@ -1732,9 +1732,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/fr/prolog-generates-typr.srwb",
-      "revision": 1,
-      "sha256": "c0e04da89ed34f93c4c777c78d918b789098ccb167461879a306cbdf16bbfea8",
-      "size": 6705
+      "revision": 2,
+      "sha256": "bc148ee5a782f44a1238083446bbd5ba526ddb9819d10f8ffac83a2d01f393de",
+      "size": 6879
     },
     {
       "id": "r-ggplot2-showcase-fr",
@@ -1749,9 +1749,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/fr/r_ggplot2_showcase.ipynb",
-      "revision": 1,
-      "sha256": "c3302f577f8c2aa2ce2bd915d71ba00d6aa25fa584839238ab59bdcf03c2f944",
-      "size": 4438
+      "revision": 2,
+      "sha256": "a3d0f296f97ac993d3c9e23cf17e98352702bf382c98d52c95c377568e9bd4d2",
+      "size": 5062
     },
     {
       "id": "r-statistics-fr",
@@ -1766,9 +1766,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/fr/r_statistics.ipynb",
-      "revision": 1,
-      "sha256": "23d7e42ffa02874c4f39d78ab8cefcfebea436af5e585eebe5648d9793ad7f41",
-      "size": 6138
+      "revision": 2,
+      "sha256": "f506e28ca0a47869b3f21e514026564024965d2f7e4d2616aac8ba2a17c33fd5",
+      "size": 6959
     },
     {
       "id": "r-tidyverse-wrangling-fr",
@@ -1783,9 +1783,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/fr/r_tidyverse_wrangling.ipynb",
-      "revision": 1,
-      "sha256": "dac6f52add76366e9acfc737de447d1994f63defc18d8a6308a994111a1e8c33",
-      "size": 7921
+      "revision": 2,
+      "sha256": "4ec5e4d1e87728e06d12c6e4afdf9ebc0cc7135ca5fa624d379db0d18c404e2e",
+      "size": 8856
     },
     {
       "id": "01-family-tree-tutorial-fr",
@@ -1855,9 +1855,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/fr/life_expectancy_csv_demo.ipynb",
-      "revision": 1,
-      "sha256": "4cecc1f02378d9b3c8823339b7848b3b06826bd4a263826ec3b6b2bcf4cf4ee9",
-      "size": 11581
+      "revision": 2,
+      "sha256": "dfa5cecd0eeba40c29145b68cbb8882cede4a3cf812a494fa6b3aaac674e30fd",
+      "size": 12806
     },
     {
       "id": "compute-pi-workbook-ru",

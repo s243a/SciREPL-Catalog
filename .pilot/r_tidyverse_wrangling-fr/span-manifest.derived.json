@@ -1,0 +1,410 @@
+{
+  "manifest_version": 1,
+  "produced_by": "derived",
+  "generator": "tools/span-derive.mjs",
+  "locale": "fr",
+  "source": {
+    "path": "workbooks/en/r_tidyverse_wrangling.ipynb",
+    "sha256": "1d4cc5b57e54b3526c5533e0c4140b5565614e0d13a2b63d2c01841defc33ab9"
+  },
+  "target": {
+    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/jobs/r_tidyverse_wrangling-fr/translated.ipynb",
+    "sha256": "4ec5e4d1e87728e06d12c6e4afdf9ebc0cc7135ca5fa624d379db0d18c404e2e"
+  },
+  "spans": [
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 14,
+          "col": 9
+        },
+        "end": {
+          "line": 14,
+          "col": 62
+        },
+        "text": "Downloaded: "
+      },
+      "target_span": {
+        "start": {
+          "line": 14,
+          "col": 9
+        },
+        "end": {
+          "line": 14,
+          "col": 66
+        },
+        "text": "Téléchargé : "
+      },
+      "placeholders": [
+        "{df.shape[0]}",
+        "{df.shape[1]}"
+      ]
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 14,
+          "col": 9
+        },
+        "end": {
+          "line": 14,
+          "col": 62
+        },
+        "text": " rows, "
+      },
+      "target_span": {
+        "start": {
+          "line": 14,
+          "col": 9
+        },
+        "end": {
+          "line": 14,
+          "col": 66
+        },
+        "text": " lignes, "
+      },
+      "placeholders": [
+        "{df.shape[0]}",
+        "{df.shape[1]}"
+      ]
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 14,
+          "col": 9
+        },
+        "end": {
+          "line": 14,
+          "col": 62
+        },
+        "text": " columns"
+      },
+      "target_span": {
+        "start": {
+          "line": 14,
+          "col": 9
+        },
+        "end": {
+          "line": 14,
+          "col": 66
+        },
+        "text": " colonnes"
+      },
+      "placeholders": [
+        "{df.shape[0]}",
+        "{df.shape[1]}"
+      ]
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 6
+        },
+        "end": {
+          "line": 5,
+          "col": 26
+        },
+        "text": "Read from SharedVFS:"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 6
+        },
+        "end": {
+          "line": 5,
+          "col": 27
+        },
+        "text": "Lu depuis SharedVFS :"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 41
+        },
+        "end": {
+          "line": 5,
+          "col": 47
+        },
+        "text": "rows\\n"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 42
+        },
+        "end": {
+          "line": 5,
+          "col": 50
+        },
+        "text": "lignes\\n"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 12,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 50
+        },
+        "text": "Write continent summary for Python to visualize"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 64
+        },
+        "text": "Écrire le résumé par continent pour visualisation dans Python"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 12,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 11,
+          "col": 6
+        },
+        "end": {
+          "line": 11,
+          "col": 40
+        },
+        "text": "Wrote /shared/data/r_summary.csv\\n"
+      },
+      "target_span": {
+        "start": {
+          "line": 11,
+          "col": 6
+        },
+        "end": {
+          "line": 11,
+          "col": 40
+        },
+        "text": "/shared/data/r_summary.csv écrit\\n"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 21,
+          "col": 8
+        },
+        "end": {
+          "line": 21,
+          "col": 43
+        },
+        "text": "Read from SharedVFS (written by R):"
+      },
+      "target_span": {
+        "start": {
+          "line": 21,
+          "col": 8
+        },
+        "end": {
+          "line": 21,
+          "col": 43
+        },
+        "text": "Lu depuis SharedVFS (écrit par R) :"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 25,
+          "col": 21
+        },
+        "end": {
+          "line": 25,
+          "col": 79
+        },
+        "text": "Mean Life Expectancy by Continent (2007) — from R → Python"
+      },
+      "target_span": {
+        "start": {
+          "line": 25,
+          "col": 21
+        },
+        "end": {
+          "line": 25,
+          "col": 82
+        },
+        "text": "Espérance de vie moyenne par continent (2007) — de R → Python"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 26,
+          "col": 36
+        },
+        "end": {
+          "line": 26,
+          "col": 59
+        },
+        "text": "Life Expectancy (years)"
+      },
+      "target_span": {
+        "start": {
+          "line": 26,
+          "col": 36
+        },
+        "end": {
+          "line": 26,
+          "col": 61
+        },
+        "text": "Espérance de vie (années)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 15,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 25
+        },
+        "end": {
+          "line": 3,
+          "col": 86
+        },
+        "text": "GDP vs Life Expectancy by Continent (R summary → Python plot)"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 25
+        },
+        "end": {
+          "line": 3,
+          "col": 92
+        },
+        "text": "PIB vs espérance de vie par continent (résumé R → graphique Python)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 15,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 39
+        },
+        "end": {
+          "line": 4,
+          "col": 58
+        },
+        "text": "Mean GDP per Capita"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 39
+        },
+        "end": {
+          "line": 4,
+          "col": 61
+        },
+        "text": "PIB moyen par habitant"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 15,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 75
+        },
+        "end": {
+          "line": 4,
+          "col": 95
+        },
+        "text": "Mean Life Expectancy"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 78
+        },
+        "end": {
+          "line": 4,
+          "col": 102
+        },
+        "text": "Espérance de vie moyenne"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    }
+  ],
+  "exclusions": [
+    {
+      "cell_index": 4,
+      "reason": "unstable across identical English runs — pin (seed/clock) or accept exclusion",
+      "sample_a": "Downloading webR package: generics\nDownloading webR package: magrittr\nDownloading webR package: utf8\nDownloading webR package: pillar\nDownloading webR package: ",
+      "sample_b": "Read from SharedVFS: 1704 rows\nRows: 1,704\nColumns: 6\n$ country   <chr> \"Afghanistan\", \"Afghanistan\", \"Afghanistan\", \"Afghanistan\", …\n$ year      <int> 1952, 19"
+    }
+  ]
+}

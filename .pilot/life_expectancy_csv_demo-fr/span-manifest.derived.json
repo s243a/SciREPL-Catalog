@@ -1,0 +1,1232 @@
+{
+  "manifest_version": 1,
+  "produced_by": "derived",
+  "generator": "tools/span-derive.mjs",
+  "locale": "fr",
+  "source": {
+    "path": "workbooks/en/life_expectancy_csv_demo.ipynb",
+    "sha256": "9cffd27d993bae8a27ae3d1c0b695f97530897b424a7d8ca68dc1aa827658466"
+  },
+  "target": {
+    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/jobs/life_expectancy_csv_demo-fr/translated.ipynb",
+    "sha256": "dfa5cecd0eeba40c29145b68cbb8882cede4a3cf812a494fa6b3aaac674e30fd"
+  },
+  "spans": [
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 8
+        },
+        "end": {
+          "line": 3,
+          "col": 33
+        },
+        "text": "Installed pandas + plotly"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 8
+        },
+        "end": {
+          "line": 3,
+          "col": 33
+        },
+        "text": "pandas + plotly installés"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 17,
+          "col": 17
+        },
+        "end": {
+          "line": 17,
+          "col": 39
+        },
+        "text": "Already exists: "
+      },
+      "target_span": {
+        "start": {
+          "line": 17,
+          "col": 17
+        },
+        "end": {
+          "line": 17,
+          "col": 37
+        },
+        "text": "Existe déjà : "
+      },
+      "placeholders": [
+        "{path}"
+      ]
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 24,
+          "col": 17
+        },
+        "end": {
+          "line": 24,
+          "col": 49
+        },
+        "text": "Downloaded "
+      },
+      "target_span": {
+        "start": {
+          "line": 24,
+          "col": 17
+        },
+        "end": {
+          "line": 24,
+          "col": 52
+        },
+        "text": "Téléchargé : "
+      },
+      "placeholders": [
+        "{name}",
+        "{lines}"
+      ]
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 24,
+          "col": 17
+        },
+        "end": {
+          "line": 24,
+          "col": 49
+        },
+        "text": " lines"
+      },
+      "target_span": {
+        "start": {
+          "line": 24,
+          "col": 17
+        },
+        "end": {
+          "line": 24,
+          "col": 52
+        },
+        "text": " lignes"
+      },
+      "placeholders": [
+        "{name}",
+        "{lines}"
+      ]
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 9
+        },
+        "end": {
+          "line": 4,
+          "col": 27
+        },
+        "text": "Shape: "
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 9
+        },
+        "end": {
+          "line": 4,
+          "col": 40
+        },
+        "text": "Dimension (Shape) : "
+      },
+      "placeholders": [
+        "{gap.shape}"
+      ]
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 9
+        },
+        "end": {
+          "line": 5,
+          "col": 56
+        },
+        "text": "Continents: "
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 9
+        },
+        "end": {
+          "line": 5,
+          "col": 57
+        },
+        "text": "Continents : "
+      },
+      "placeholders": [
+        "{sorted(gap['continent'].unique())}"
+      ]
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 9
+        },
+        "end": {
+          "line": 6,
+          "col": 60
+        },
+        "text": "Year range: "
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 9
+        },
+        "end": {
+          "line": 6,
+          "col": 65
+        },
+        "text": "Plage d'années : "
+      },
+      "placeholders": [
+        "{gap['year'].min()}",
+        "{gap['year'].max()}"
+      ]
+    },
+    {
+      "cell_index": 5,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 18,
+          "col": 1
+        },
+        "end": {
+          "line": 18,
+          "col": 41
+        },
+        "text": "Life expectancy over time by continent"
+      },
+      "target_span": {
+        "start": {
+          "line": 18,
+          "col": 1
+        },
+        "end": {
+          "line": 18,
+          "col": 49
+        },
+        "text": "Espérance de vie au fil du temps par continent"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 21,
+          "col": 22
+        },
+        "end": {
+          "line": 21,
+          "col": 62
+        },
+        "text": "Life Expectancy by Continent (1952-2007)"
+      },
+      "target_span": {
+        "start": {
+          "line": 21,
+          "col": 22
+        },
+        "end": {
+          "line": 21,
+          "col": 64
+        },
+        "text": "Espérance de vie par continent (1952–2007)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 22,
+          "col": 35
+        },
+        "end": {
+          "line": 22,
+          "col": 58
+        },
+        "text": "Life Expectancy (years)"
+      },
+      "target_span": {
+        "start": {
+          "line": 22,
+          "col": 35
+        },
+        "end": {
+          "line": 22,
+          "col": 60
+        },
+        "text": "Espérance de vie (années)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 22,
+          "col": 70
+        },
+        "end": {
+          "line": 22,
+          "col": 74
+        },
+        "text": "Year"
+      },
+      "target_span": {
+        "start": {
+          "line": 22,
+          "col": 72
+        },
+        "end": {
+          "line": 22,
+          "col": 77
+        },
+        "text": "Année"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 58
+        },
+        "text": "GDP vs Life Expectancy (2007), bubble size = population"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 65
+        },
+        "text": "PIB vs espérance de vie (2007), taille des bulles = population"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 25
+        },
+        "end": {
+          "line": 6,
+          "col": 54
+        },
+        "text": "GDP vs Life Expectancy (2007)"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 25
+        },
+        "end": {
+          "line": 6,
+          "col": 55
+        },
+        "text": "PIB vs espérance de vie (2007)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 40
+        },
+        "end": {
+          "line": 7,
+          "col": 60
+        },
+        "text": "GDP per capita (log)"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 40
+        },
+        "end": {
+          "line": 7,
+          "col": 62
+        },
+        "text": "PIB par habitant (log)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 75
+        },
+        "end": {
+          "line": 7,
+          "col": 90
+        },
+        "text": "Life Expectancy"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 77
+        },
+        "end": {
+          "line": 7,
+          "col": 93
+        },
+        "text": "Espérance de vie"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 9,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 54
+        },
+        "text": "Life expectancy distribution by continent (boxplot)"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 72
+        },
+        "text": "Distribution de l'espérance de vie par continent (boîte à moustaches)"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 9,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 17
+        },
+        "end": {
+          "line": 5,
+          "col": 45
+        },
+        "text": "Life Expectancy by Continent"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 17
+        },
+        "end": {
+          "line": 5,
+          "col": 47
+        },
+        "text": "Espérance de vie par continent"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 9,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 37
+        },
+        "end": {
+          "line": 6,
+          "col": 60
+        },
+        "text": "Life Expectancy (years)"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 37
+        },
+        "end": {
+          "line": 6,
+          "col": 62
+        },
+        "text": "Espérance de vie (années)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 10,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 65
+        },
+        "text": "Top 10 countries by life expectancy improvement (1952 vs 2007)"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 61
+        },
+        "text": "Top 10 des pays par gain d'espérance de vie (1952 vs 2007)"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 10,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 12,
+          "col": 17
+        },
+        "end": {
+          "line": 12,
+          "col": 57
+        },
+        "text": "Top 10: Life Expectancy Gain (1952-2007)"
+      },
+      "target_span": {
+        "start": {
+          "line": 12,
+          "col": 17
+        },
+        "end": {
+          "line": 12,
+          "col": 61
+        },
+        "text": "Top 10 : Gain d'espérance de vie (1952–2007)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 10,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 13,
+          "col": 17
+        },
+        "end": {
+          "line": 13,
+          "col": 29
+        },
+        "text": "Years gained"
+      },
+      "target_span": {
+        "start": {
+          "line": 13,
+          "col": 17
+        },
+        "end": {
+          "line": 13,
+          "col": 31
+        },
+        "text": "Années gagnées"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 12,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 9
+        },
+        "end": {
+          "line": 2,
+          "col": 27
+        },
+        "text": "Shape: "
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 9
+        },
+        "end": {
+          "line": 2,
+          "col": 40
+        },
+        "text": "Dimension (Shape) : "
+      },
+      "placeholders": [
+        "{who.shape}"
+      ]
+    },
+    {
+      "cell_index": 12,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 9
+        },
+        "end": {
+          "line": 3,
+          "col": 37
+        },
+        "text": "Columns: "
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 9
+        },
+        "end": {
+          "line": 3,
+          "col": 39
+        },
+        "text": "Colonnes : "
+      },
+      "placeholders": [
+        "{list(who.columns)}"
+      ]
+    },
+    {
+      "cell_index": 12,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 9
+        },
+        "end": {
+          "line": 4,
+          "col": 34
+        },
+        "text": "\\nMissing values (top 5):"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 9
+        },
+        "end": {
+          "line": 4,
+          "col": 39
+        },
+        "text": "\\nValeurs manquantes (top 5) :"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 68
+        },
+        "text": "Developing vs Developed: pre-binned life expectancy distributions"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 89
+        },
+        "text": "Pays en développement vs développés : distributions pré-agrégées de l'espérance de vie"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 82
+        },
+        "text": "Explicit bar coordinates render consistently through the browser Plotly bridge."
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 112
+        },
+        "text": "Les coordonnées de barres explicites s'affichent de manière cohérente via la passerelle Plotly du navigateur."
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 19,
+          "col": 21
+        },
+        "end": {
+          "line": 19,
+          "col": 61
+        },
+        "text": "Life Expectancy: Developing vs Developed"
+      },
+      "target_span": {
+        "start": {
+          "line": 19,
+          "col": 21
+        },
+        "end": {
+          "line": 19,
+          "col": 70
+        },
+        "text": "Espérance de vie : En développement vs Développés"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 20,
+          "col": 42
+        },
+        "end": {
+          "line": 20,
+          "col": 65
+        },
+        "text": "Life Expectancy (years)"
+      },
+      "target_span": {
+        "start": {
+          "line": 20,
+          "col": 42
+        },
+        "end": {
+          "line": 20,
+          "col": 67
+        },
+        "text": "Espérance de vie (années)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 31
+        },
+        "text": "Schooling vs Life Expectancy"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 36
+        },
+        "text": "Scolarisation vs espérance de vie"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 25
+        },
+        "end": {
+          "line": 5,
+          "col": 60
+        },
+        "text": "Schooling vs Life Expectancy (2014)"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 25
+        },
+        "end": {
+          "line": 5,
+          "col": 65
+        },
+        "text": "Scolarisation vs espérance de vie (2014)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 46
+        },
+        "end": {
+          "line": 6,
+          "col": 69
+        },
+        "text": "Life Expectancy (years)"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 46
+        },
+        "end": {
+          "line": 6,
+          "col": 71
+        },
+        "text": "Espérance de vie (années)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 40
+        },
+        "end": {
+          "line": 7,
+          "col": 58
+        },
+        "text": "Years of Schooling"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 40
+        },
+        "end": {
+          "line": 7,
+          "col": 63
+        },
+        "text": "Années de scolarisation"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 6
+        },
+        "end": {
+          "line": 3,
+          "col": 18
+        },
+        "text": "\\nCountries:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 6
+        },
+        "end": {
+          "line": 3,
+          "col": 14
+        },
+        "text": "\\nPays :"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 6
+        },
+        "end": {
+          "line": 4,
+          "col": 19
+        },
+        "text": "\\nYear range:"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 6
+        },
+        "end": {
+          "line": 4,
+          "col": 24
+        },
+        "text": "\\nPlage d'années :"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 17,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 50
+        },
+        "text": "Correlation: Adult Mortality vs Life Expectancy"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 53
+        },
+        "text": "Corrélation : Mortalité adulte vs espérance de vie"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 17,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 14
+        },
+        "end": {
+          "line": 7,
+          "col": 48
+        },
+        "text": "Adult Mortality vs Life Expectancy"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 14
+        },
+        "end": {
+          "line": 7,
+          "col": 50
+        },
+        "text": "Mortalité adulte vs espérance de vie"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 17,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 8,
+          "col": 14
+        },
+        "end": {
+          "line": 8,
+          "col": 40
+        },
+        "text": "Adult Mortality (per 1000)"
+      },
+      "target_span": {
+        "start": {
+          "line": 8,
+          "col": 14
+        },
+        "end": {
+          "line": 8,
+          "col": 42
+        },
+        "text": "Mortalité adulte (pour 1000)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 17,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 9,
+          "col": 14
+        },
+        "end": {
+          "line": 9,
+          "col": 37
+        },
+        "text": "Life Expectancy (years)"
+      },
+      "target_span": {
+        "start": {
+          "line": 9,
+          "col": 14
+        },
+        "end": {
+          "line": 9,
+          "col": 39
+        },
+        "text": "Espérance de vie (années)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 17,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 10,
+          "col": 32
+        },
+        "end": {
+          "line": 10,
+          "col": 41
+        },
+        "text": "Developed"
+      },
+      "target_span": {
+        "start": {
+          "line": 10,
+          "col": 32
+        },
+        "end": {
+          "line": 10,
+          "col": 42
+        },
+        "text": "Développés"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 17,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 10,
+          "col": 45
+        },
+        "end": {
+          "line": 10,
+          "col": 55
+        },
+        "text": "Developing"
+      },
+      "target_span": {
+        "start": {
+          "line": 10,
+          "col": 46
+        },
+        "end": {
+          "line": 10,
+          "col": 62
+        },
+        "text": "En développement"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 18,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 54
+        },
+        "text": "Simple linear model: what predicts life expectancy?"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 73
+        },
+        "text": "Modèle linéaire simple : quels facteurs prédisent l'espérance de vie ?"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    }
+  ],
+  "exclusions": [
+    {
+      "cell_index": 2,
+      "reason": "unstable across identical English runs — pin (seed/clock) or accept exclusion",
+      "sample_a": "Installed pandas + plotly\nAlready exists: /shared/data/gapminder.csv\nDownloaded who_life_expectancy.csv: 2939 lines\n",
+      "sample_b": "Installed pandas + plotly\nAlready exists: /shared/data/gapminder.csv\nAlready exists: /shared/data/who_life_expectancy.csv\n"
+    }
+  ]
+}

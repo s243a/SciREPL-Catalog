@@ -1,0 +1,713 @@
+{
+  "manifest_version": 1,
+  "produced_by": "derived",
+  "generator": "tools/span-derive.mjs",
+  "locale": "fr",
+  "source": {
+    "path": "workbooks/en/prolog-generates-r.srwb",
+    "sha256": "e31f536491362efacd7c9ff1ee69cab7947ff5b42e260446001d3ee1e468d930"
+  },
+  "target": {
+    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/jobs/prolog-generates-r-fr/translated.srwb",
+    "sha256": "58716250438aa3b72a5a3673a7715cd97403e4e48203041c4cf86124a299f44e"
+  },
+  "spans": [
+    {
+      "cell_index": 6,
+      "cell_name": "compile_to_r",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 49
+        },
+        "text": "% Read the Prolog source from the previous cell"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 60
+        },
+        "text": "%% Lire le code source Prolog depuis la cellule précédente"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": "compile_to_r",
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 36
+        },
+        "text": "% Consult it to assert the clauses"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 42
+        },
+        "text": "%% Le consulter pour insérer les clauses"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": "compile_to_r",
+      "source_span": {
+        "start": {
+          "line": 12,
+          "col": 1
+        },
+        "end": {
+          "line": 12,
+          "col": 27
+        },
+        "text": "% Compile factorial/2 → R"
+      },
+      "target_span": {
+        "start": {
+          "line": 12,
+          "col": 1
+        },
+        "end": {
+          "line": 12,
+          "col": 29
+        },
+        "text": "%% Compiler factorial/2 → R"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": "compile_to_r",
+      "source_span": {
+        "start": {
+          "line": 17,
+          "col": 1
+        },
+        "end": {
+          "line": 17,
+          "col": 39
+        },
+        "text": "% Write compiler output to the R cell"
+      },
+      "target_span": {
+        "start": {
+          "line": 17,
+          "col": 1
+        },
+        "end": {
+          "line": 17,
+          "col": 54
+        },
+        "text": "%% Écrire la sortie du compilateur dans la cellule R"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 12,
+      "cell_name": "inspect",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 7
+        },
+        "end": {
+          "line": 1,
+          "col": 20
+        },
+        "text": "=== Cells ==="
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 7
+        },
+        "end": {
+          "line": 1,
+          "col": 23
+        },
+        "text": "=== Cellules ==="
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 12,
+      "cell_name": "inspect",
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 7
+        },
+        "end": {
+          "line": 4,
+          "col": 31
+        },
+        "text": "=== r_factorial code ==="
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 7
+        },
+        "end": {
+          "line": 4,
+          "col": 34
+        },
+        "text": "=== Code de r_factorial ==="
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 12,
+      "cell_name": "inspect",
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 7
+        },
+        "end": {
+          "line": 7,
+          "col": 35
+        },
+        "text": "=== r_factorial language ==="
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 7
+        },
+        "end": {
+          "line": 7,
+          "col": 37
+        },
+        "text": "=== Langage de r_factorial ==="
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": "accumulate",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 81
+        },
+        "text": "Step 7: Relative addressing — /nb/-1/.output reads the previous cell's output."
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 89
+        },
+        "text": "# Étape 7 : Adressage relatif — /nb/-1/.output lit la sortie de la cellule précédente."
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": "accumulate",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 68
+        },
+        "text": "/nb/./.code reads this cell's own code. Copy-paste to accumulate!"
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 87
+        },
+        "text": "# /nb/./.code lit le code de cette cellule elle-même. Copier-coller pour accumuler !"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": "accumulate",
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 60
+        },
+        "text": "[accumulate] previous cell output via /nb/-1/.output:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 71
+        },
+        "text": "[accumuler] sortie de la cellule précédente via /nb/-1/.output :"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": "accumulate",
+      "source_span": {
+        "start": {
+          "line": 8,
+          "col": 7
+        },
+        "end": {
+          "line": 8,
+          "col": 47
+        },
+        "text": "[self] this cell's code via /nb/./.code:"
+      },
+      "target_span": {
+        "start": {
+          "line": 8,
+          "col": 7
+        },
+        "end": {
+          "line": 8,
+          "col": 57
+        },
+        "text": "[soi-même] code de cette cellule via /nb/./.code :"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": "prolog_ancestor",
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 1
+        },
+        "end": {
+          "line": 3,
+          "col": 15
+        },
+        "text": "% Family tree"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 1
+        },
+        "end": {
+          "line": 3,
+          "col": 23
+        },
+        "text": "%% Arbre généalogique"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": "prolog_ancestor",
+      "source_span": {
+        "start": {
+          "line": 9,
+          "col": 1
+        },
+        "end": {
+          "line": 9,
+          "col": 63
+        },
+        "text": "% Transitive closure: ancestor(X, Y) if X is an ancestor of Y"
+      },
+      "target_span": {
+        "start": {
+          "line": 9,
+          "col": 1
+        },
+        "end": {
+          "line": 9,
+          "col": 65
+        },
+        "text": "%% Clôture transitive : ancestor(X, Y) si X est un ancêtre de Y"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 18,
+      "cell_name": "compile_ancestor_tc",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 36
+        },
+        "text": "% Consult the ancestor definitions"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 41
+        },
+        "text": "%% Consulter les définitions d'ancestor"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 18,
+      "cell_name": "compile_ancestor_tc",
+      "source_span": {
+        "start": {
+          "line": 10,
+          "col": 1
+        },
+        "end": {
+          "line": 10,
+          "col": 63
+        },
+        "text": "% Compile with default pattern detection → transitive closure"
+      },
+      "target_span": {
+        "start": {
+          "line": 10,
+          "col": 1
+        },
+        "end": {
+          "line": 10,
+          "col": 71
+        },
+        "text": "%% Compiler avec détection de motif par défaut → fermeture transitive"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 18,
+      "cell_name": "compile_ancestor_tc",
+      "source_span": {
+        "start": {
+          "line": 14,
+          "col": 1
+        },
+        "end": {
+          "line": 14,
+          "col": 23
+        },
+        "text": "% Write to the R cell"
+      },
+      "target_span": {
+        "start": {
+          "line": 14,
+          "col": 1
+        },
+        "end": {
+          "line": 14,
+          "col": 29
+        },
+        "text": "%% Écrire dans la cellule R"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 22,
+      "cell_name": "test_r_ancestor",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 6
+        },
+        "end": {
+          "line": 2,
+          "col": 27
+        },
+        "text": "Descendants of alice:"
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 6
+        },
+        "end": {
+          "line": 2,
+          "col": 27
+        },
+        "text": "Descendants d'alice :"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 22,
+      "cell_name": "test_r_ancestor",
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 6
+        },
+        "end": {
+          "line": 3,
+          "col": 31
+        },
+        "text": "alice is ancestor of eve:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 6
+        },
+        "end": {
+          "line": 3,
+          "col": 31
+        },
+        "text": "alice est ancêtre d'eve :"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 22,
+      "cell_name": "test_r_ancestor",
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 6
+        },
+        "end": {
+          "line": 4,
+          "col": 33
+        },
+        "text": "alice is ancestor of frank:"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 6
+        },
+        "end": {
+          "line": 4,
+          "col": 34
+        },
+        "text": "alice est ancêtre de frank :"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": "compile_ancestor_skip",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 83
+        },
+        "text": "% Compile ancestor/2 again, but skip transitive closure → falls to tail recursion"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 109
+        },
+        "text": "%% Compiler ancestor/2 à nouveau, mais ignorer la fermeture transitive → retombe sur la récursion terminale"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": "compile_ancestor_skip",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 55
+        },
+        "text": "% Also target bash to show cross-language compilation"
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 69
+        },
+        "text": "%% Cibler également bash pour montrer la compilation multi-langages"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": "compile_ancestor_skip",
+      "source_span": {
+        "start": {
+          "line": 9,
+          "col": 1
+        },
+        "end": {
+          "line": 9,
+          "col": 26
+        },
+        "text": "% Write to the bash cell"
+      },
+      "target_span": {
+        "start": {
+          "line": 9,
+          "col": 1
+        },
+        "end": {
+          "line": 9,
+          "col": 32
+        },
+        "text": "%% Écrire dans la cellule bash"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 27,
+      "cell_name": "compare_outputs",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 7
+        },
+        "end": {
+          "line": 1,
+          "col": 43
+        },
+        "text": "=== R (transitive closure / BFS) ==="
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 7
+        },
+        "end": {
+          "line": 1,
+          "col": 45
+        },
+        "text": "=== R (fermeture transitive / BFS) ==="
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 27,
+      "cell_name": "compare_outputs",
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 7
+        },
+        "end": {
+          "line": 7,
+          "col": 36
+        },
+        "text": "=== Bash (tail recursion) ==="
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 7
+        },
+        "end": {
+          "line": 7,
+          "col": 41
+        },
+        "text": "=== Bash (récursion terminale) ==="
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    }
+  ],
+  "exclusions": []
+}

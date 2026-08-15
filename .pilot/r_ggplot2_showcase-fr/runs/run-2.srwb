@@ -1,0 +1,134 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T15:19:18.440Z",
+  "notebook": {
+    "id": "default",
+    "name": "Vitrine ggplot2",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "r",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 13,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# Vitrine ggplot2\n\nGraphiques interactifs avec ggplot2 utilisant le thème sombre de SciREPL — appliqué automatiquement, sans configuration requise.\n\nUtilise les jeux de données intégrés de R (`mpg`, `mtcars`). Aucun téléchargement de données n'est requis.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "install.packages(\"ggplot2\")\nlibrary(ggplot2)\ncat(\"ggplot2 chargé — theme_scirepl() appliqué automatiquement\\n\")",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "ggplot2 chargé — theme_scirepl() appliqué automatiquement",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">ggplot2 chargé — theme_scirepl() appliqué automatiquement</pre>"
+      },
+      {
+        "id": 3,
+        "code": "## 1. Nuage de points avec courbe de tendance",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 4,
+        "code": "ggplot(mpg, aes(displ, hwy, color = class)) +\n  geom_point(size = 2, alpha = 0.7) +\n  geom_smooth(method = \"lm\", se = FALSE, color = \"#58a6ff\") +\n  labs(title = \"Cylindrée vs MPG sur autoroute\",\n       x = \"Cylindrée (L)\", y = \"MPG sur autoroute\")",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "`geom_smooth()` using formula = 'y ~ x'",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">`geom_smooth()` using formula = 'y ~ x'</pre><img src=\"blob:http://localhost:8090/0da94bc3-22e6-4abb-b554-e71a6b47c1dc\" style=\"max-width: 100%; border-radius: 6px; margin-top: 8px;\">"
+      },
+      {
+        "id": 5,
+        "code": "## 2. Diagramme en barres à facettes (Faceted)",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 6,
+        "code": "ggplot(mpg, aes(class, fill = drv)) +\n  geom_bar(position = \"dodge\") +\n  facet_wrap(~year) +\n  labs(title = \"Classes de véhicules par type de transmission (1999 vs 2008)\",\n       x = \"Classe\", y = \"Nombre\") +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1))",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": "<img src=\"blob:http://localhost:8090/0aa8f538-f9d1-450c-98be-89210e6961c5\" style=\"max-width: 100%; border-radius: 6px; margin-top: 8px;\">"
+      },
+      {
+        "id": 7,
+        "code": "## 3. Graphique de densité",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 8,
+        "code": "ggplot(mpg, aes(hwy, fill = drv)) +\n  geom_density(alpha = 0.5) +\n  labs(title = \"Distribution du MPG sur autoroute par type de transmission\",\n       x = \"MPG sur autoroute\", y = \"Densité\")",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": "<img src=\"blob:http://localhost:8090/61bb51a7-18a4-448a-83f6-ade36bec7f80\" style=\"max-width: 100%; border-radius: 6px; margin-top: 8px;\">"
+      },
+      {
+        "id": 9,
+        "code": "## 4. Boîte à moustaches avec dispersion de points (Jitter)",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 10,
+        "code": "ggplot(mpg, aes(class, hwy, fill = class)) +\n  geom_boxplot(alpha = 0.7, show.legend = FALSE) +\n  geom_jitter(width = 0.2, alpha = 0.3, size = 1) +\n  labs(title = \"MPG sur autoroute par classe de véhicule\",\n       x = \"Classe\", y = \"MPG sur autoroute\") +\n  coord_flip()",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": "<img src=\"blob:http://localhost:8090/2864c305-0a8e-45a2-9d2a-aa2930421599\" style=\"max-width: 100%; border-radius: 6px; margin-top: 8px;\">"
+      },
+      {
+        "id": 11,
+        "code": "## 5. Carte thermique de corrélation",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 12,
+        "code": "corr <- round(cor(mtcars), 2)\nvars <- colnames(mtcars)\ngrid <- expand.grid(x = vars, y = vars)\ngrid$value <- as.vector(corr)\nggplot(grid, aes(x, y, fill = value)) +\n  geom_tile(color = \"#30363d\") +\n  geom_text(aes(label = ifelse(abs(value) > 0.5, value, \"\")),\n            color = \"#e6edf3\", size = 2.5) +\n  scale_fill_gradient2(low = \"#f85149\", mid = \"#161b22\", high = \"#58a6ff\",\n                       midpoint = 0, limits = c(-1, 1)) +\n  labs(title = \"Carte thermique de corrélation mtcars\", fill = \"r\") +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1))",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": "<img src=\"blob:http://localhost:8090/7aba9aab-9b89-4965-a9eb-661a47167972\" style=\"max-width: 100%; border-radius: 6px; margin-top: 8px;\">"
+      },
+      {
+        "id": 13,
+        "code": "## Résumé\n\nTous les graphiques ci-dessus utilisent `theme_scirepl()`, appliqué automatiquement lors du chargement de ggplot2 dans SciREPL.\n\nPersonnalisez n'importe quel graphique avec les surcharges standard `+ theme(...)` de ggplot2.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      }
+    ]
+  }
+}

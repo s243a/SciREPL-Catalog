@@ -1,0 +1,24 @@
+{
+  "spans": {
+    "1:0:0": "% Charger les modules du compilateur UnifyWeaver",
+    "2:0:0": "% Définir un arbre généalogique sous forme de faits Prolog",
+    "2:2:0": "% Clôture transitive : ancestor(X, Y) si X est un ancêtre de Y",
+    "3:0:0": "% Compiler ancestor/2 uniquement en définitions ClojureScript",
+    "3:2:0": "% Terminer par nil pour que les expressions initiales générées ne deviennent pas une sortie de carnet",
+    "6:0:0": ";; Interroger les définitions générées dans le contexte persistant de Scittle.",
+    "6:2:0": "Descendants d'alice : ",
+    "6:8:0": "alice est ancêtre d'eve : ",
+    "6:16:0": "alice est ancêtre de frank : ",
+    "8:0:0": "% Compiler le même prédicat pour JVM Clojure à des fins de comparaison (affichage seul)"
+  },
+  "keeps": [
+    "5:0:0",
+    "5:2:0",
+    "6:4:0",
+    "6:10:0",
+    "6:12:0",
+    "6:18:0",
+    "6:20:0"
+  ],
+  "suggestions": []
+}

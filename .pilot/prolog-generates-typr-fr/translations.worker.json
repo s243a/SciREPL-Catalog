@@ -1,0 +1,40 @@
+{
+  "spans": {
+    "1:0:0": "% Charger les modules du compilateur UnifyWeaver",
+    "2:0:0": "% Définir un arbre généalogique sous forme de faits Prolog",
+    "2:2:0": "% Clôture transitive : ancestor(X, Y) si X est un ancêtre de Y",
+    "3:2:0": "# Cette cellule source TypR nommée est lue par compile_to_typr.",
+    "3:4:0": "# Elle est ajoutée au code généré car les cellules TypR sont isolées.",
+    "3:6:0": "# --- Requêtes ---",
+    "3:10:0": "Descendants d'alice :",
+    "3:18:0": "alice est ancêtre d'eve :",
+    "3:24:0": "alice est ancêtre de frank :",
+    "4:0:0": "% Lire les sources Prolog et TypR mises en évidence depuis les cellules nommées",
+    "4:10:0": "% Compiler ancestor/2 en TypR explicitement typé et ajouter les requêtes nommées",
+    "8:0:0": "% Recharger la même source Prolog nommée afin que cette cellule s'exécute de façon autonome",
+    "8:2:0": "% Compiler en R avec faits intégrés ; la cellule mise en évidence r_queries s'exécute ensuite",
+    "10:0:0": "# Interroger les fonctions R générées dans une cellule distincte mise en évidence.",
+    "10:4:0": "Descendants d'alice :",
+    "10:10:0": "alice est ancêtre d'eve :",
+    "10:18:0": "alice est ancêtre de frank :"
+  },
+  "keeps": [
+    "3:0:0",
+    "3:8:0",
+    "3:14:0",
+    "3:16:0",
+    "3:20:0",
+    "3:22:0",
+    "4:6:0",
+    "6:0:0",
+    "6:2:0",
+    "9:0:0",
+    "9:2:0",
+    "10:2:0",
+    "10:12:0",
+    "10:14:0",
+    "10:20:0",
+    "10:22:0"
+  ],
+  "suggestions": []
+}

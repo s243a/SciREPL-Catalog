@@ -1,0 +1,1206 @@
+{
+  "manifest_version": 1,
+  "produced_by": "derived",
+  "generator": "tools/span-derive.mjs",
+  "locale": "fr",
+  "source": {
+    "path": "workbooks/en/lua-tables-coroutines.srwb",
+    "sha256": "52667b62bc8e78f57987aeb0b3df737791f21ab6c4e96eb87b43ce990c863eaa"
+  },
+  "target": {
+    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/jobs/lua-tables-coroutines-fr/translated.srwb",
+    "sha256": "c637ad102459b53d03f4eb342e8ca90e180ca722bdfa7ad54f963bb88cebd04d"
+  },
+  "spans": [
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 23
+        },
+        "text": "Arrays (1-indexed!)"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 38
+        },
+        "text": "Tableaux (indexés à partir de 1 !)"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 8
+        },
+        "end": {
+          "line": 4,
+          "col": 15
+        },
+        "text": "length:"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 8
+        },
+        "end": {
+          "line": 4,
+          "col": 18
+        },
+        "text": "longueur :"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 16
+        },
+        "text": "Dictionaries"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 17
+        },
+        "text": "Dictionnaires"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 44
+        },
+        "end": {
+          "line": 7,
+          "col": 53
+        },
+        "text": "km radius"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 44
+        },
+        "end": {
+          "line": 7,
+          "col": 55
+        },
+        "text": "km de rayon"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 9,
+          "col": 1
+        },
+        "end": {
+          "line": 9,
+          "col": 26
+        },
+        "text": "Add fields dynamically"
+      },
+      "target_span": {
+        "start": {
+          "line": 9,
+          "col": 1
+        },
+        "end": {
+          "line": 9,
+          "col": 36
+        },
+        "text": "Ajouter des champs dynamiquement"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 11,
+          "col": 8
+        },
+        "end": {
+          "line": 11,
+          "col": 14
+        },
+        "text": "Moons:"
+      },
+      "target_span": {
+        "start": {
+          "line": 11,
+          "col": 8
+        },
+        "end": {
+          "line": 11,
+          "col": 15
+        },
+        "text": "Lunes :"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 45
+        },
+        "text": "Tables can mix array and dictionary parts"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 63
+        },
+        "text": "Les tables peuvent mélanger parties tableau et dictionnaire"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 8
+        },
+        "end": {
+          "line": 3,
+          "col": 19
+        },
+        "text": "Array part:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 8
+        },
+        "end": {
+          "line": 3,
+          "col": 24
+        },
+        "text": "Partie tableau :"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 8
+        },
+        "end": {
+          "line": 4,
+          "col": 18
+        },
+        "text": "Dict part:"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 8
+        },
+        "end": {
+          "line": 4,
+          "col": 29
+        },
+        "text": "Partie dictionnaire :"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 39
+        },
+        "text": "Nested tables — build any structure"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 61
+        },
+        "text": "Tables imbriquées — construire n'importe quelle structure"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 7,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 41
+        },
+        "text": "A 2D vector with operator overloading"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 45
+        },
+        "text": "Un vecteur 2D avec surcharge d'opérateurs"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 9,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 68
+        },
+        "text": "A counter factory — each call returns a new, independent counter"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 84
+        },
+        "text": "Une fabrique de compteurs — chaque appel renvoie un nouveau compteur indépendant"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 10,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 28
+        },
+        "text": "Memoization via closures"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 34
+        },
+        "text": "Mémoïsation via des fermetures"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 11,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 23
+        },
+        "text": "Partial application"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 25
+        },
+        "text": "Application partielle"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 50
+        },
+        "text": "Basic coroutine: a producer that yields values"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 58
+        },
+        "text": "Coroutine basique : un producteur qui émet des valeurs"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 12
+        },
+        "end": {
+          "line": 5,
+          "col": 25
+        },
+        "text": "  producing: "
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 12
+        },
+        "end": {
+          "line": 5,
+          "col": 27
+        },
+        "text": "  production : "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 12,
+          "col": 8
+        },
+        "end": {
+          "line": 12,
+          "col": 22
+        },
+        "text": "Consumer loop:"
+      },
+      "target_span": {
+        "start": {
+          "line": 12,
+          "col": 8
+        },
+        "end": {
+          "line": 12,
+          "col": 30
+        },
+        "text": "Boucle consommatrice :"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 16,
+          "col": 12
+        },
+        "end": {
+          "line": 16,
+          "col": 25
+        },
+        "text": "  consumed:  "
+      },
+      "target_span": {
+        "start": {
+          "line": 16,
+          "col": 12
+        },
+        "end": {
+          "line": 16,
+          "col": 27
+        },
+        "text": "  consommé :   "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 31
+        },
+        "text": "Infinite sequence generator"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 31
+        },
+        "text": "Générateur de suite infinie"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 12,
+          "col": 11
+        },
+        "end": {
+          "line": 12,
+          "col": 22
+        },
+        "text": "Fibonacci: "
+      },
+      "target_span": {
+        "start": {
+          "line": 12,
+          "col": 11
+        },
+        "end": {
+          "line": 12,
+          "col": 32
+        },
+        "text": "Suite de Fibonacci : "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 15,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 44
+        },
+        "text": "Pipeline: chaining coroutines as filters"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 51
+        },
+        "text": "Pipeline : chaînage de coroutines comme filtres"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 15,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 24,
+          "col": 1
+        },
+        "end": {
+          "line": 24,
+          "col": 45
+        },
+        "text": "Pipeline: 1..20 → keep odds → square them"
+      },
+      "target_span": {
+        "start": {
+          "line": 24,
+          "col": 1
+        },
+        "end": {
+          "line": 24,
+          "col": 66
+        },
+        "text": "Pipeline : 1..20 → conserver les impairs → les élever au carré"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 15,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 30,
+          "col": 11
+        },
+        "end": {
+          "line": 30,
+          "col": 24
+        },
+        "text": "Odd squares: "
+      },
+      "target_span": {
+        "start": {
+          "line": 30,
+          "col": 11
+        },
+        "end": {
+          "line": 30,
+          "col": 28
+        },
+        "text": "Carrés impairs : "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 51
+        },
+        "text": "Cooperative scheduler — round-robin task runner"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 74
+        },
+        "text": "Ordonnanceur coopératif — exécuteur de tâches tourniquet (round-robin)"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 16,
+          "col": 31
+        },
+        "end": {
+          "line": 16,
+          "col": 38
+        },
+        "text": "Error: "
+      },
+      "target_span": {
+        "start": {
+          "line": 16,
+          "col": 31
+        },
+        "end": {
+          "line": 16,
+          "col": 40
+        },
+        "text": "Erreur : "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 32,
+          "col": 12
+        },
+        "end": {
+          "line": 32,
+          "col": 23
+        },
+        "text": "  [A] step "
+      },
+      "target_span": {
+        "start": {
+          "line": 32,
+          "col": 12
+        },
+        "end": {
+          "line": 32,
+          "col": 24
+        },
+        "text": "  [A] étape "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 39,
+          "col": 12
+        },
+        "end": {
+          "line": 39,
+          "col": 23
+        },
+        "text": "  [B] step "
+      },
+      "target_span": {
+        "start": {
+          "line": 39,
+          "col": 12
+        },
+        "end": {
+          "line": 39,
+          "col": 24
+        },
+        "text": "  [B] étape "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 46,
+          "col": 12
+        },
+        "end": {
+          "line": 46,
+          "col": 23
+        },
+        "text": "  [C] step "
+      },
+      "target_span": {
+        "start": {
+          "line": 46,
+          "col": 12
+        },
+        "end": {
+          "line": 46,
+          "col": 24
+        },
+        "text": "  [C] étape "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 51,
+          "col": 8
+        },
+        "end": {
+          "line": 51,
+          "col": 26
+        },
+        "text": "Running scheduler:"
+      },
+      "target_span": {
+        "start": {
+          "line": 51,
+          "col": 8
+        },
+        "end": {
+          "line": 51,
+          "col": 37
+        },
+        "text": "Exécution de l'ordonnanceur :"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 53,
+          "col": 8
+        },
+        "end": {
+          "line": 53,
+          "col": 27
+        },
+        "text": "All tasks complete."
+      },
+      "target_span": {
+        "start": {
+          "line": 53,
+          "col": 8
+        },
+        "end": {
+          "line": 53,
+          "col": 41
+        },
+        "text": "Toutes les tâches sont terminées."
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 18,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 63
+        },
+        "text": "Closure-based iterator: iterate a table in sorted key order"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 88
+        },
+        "text": "Itérateur basé sur des fermetures : parcourir une table dans l'ordre des clés triées"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 18,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 16,
+          "col": 8
+        },
+        "end": {
+          "line": 16,
+          "col": 27
+        },
+        "text": "Sorted leaderboard:"
+      },
+      "target_span": {
+        "start": {
+          "line": 16,
+          "col": 8
+        },
+        "end": {
+          "line": 16,
+          "col": 25
+        },
+        "text": "Classement trié :"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 19,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 46
+        },
+        "text": "Coroutine iterator: permutations of a list"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 54
+        },
+        "text": "Itérateur par coroutine : permutations d'une liste"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 19,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 19,
+          "col": 5
+        },
+        "end": {
+          "line": 19,
+          "col": 22
+        },
+        "text": "Work on a copy"
+      },
+      "target_span": {
+        "start": {
+          "line": 19,
+          "col": 5
+        },
+        "end": {
+          "line": 19,
+          "col": 32
+        },
+        "text": "Travailler sur une copie"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 19,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 26,
+          "col": 8
+        },
+        "end": {
+          "line": 26,
+          "col": 32
+        },
+        "text": "Permutations of {1,2,3}:"
+      },
+      "target_span": {
+        "start": {
+          "line": 26,
+          "col": 8
+        },
+        "end": {
+          "line": 26,
+          "col": 33
+        },
+        "text": "Permutations de {1,2,3} :"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 22,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 26
+        },
+        "text": "Use the stream library"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 45
+        },
+        "text": "Utiliser la bibliothèque de flux (stream)"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 22,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 47
+        },
+        "end": {
+          "line": 3,
+          "col": 64
+        },
+        "text": "divisible by 3"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 47
+        },
+        "end": {
+          "line": 3,
+          "col": 65
+        },
+        "text": "divisible par 3"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 22,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 47
+        },
+        "end": {
+          "line": 4,
+          "col": 56
+        },
+        "text": "square"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 47
+        },
+        "end": {
+          "line": 4,
+          "col": 58
+        },
+        "text": "au carré"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 22,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 48
+        },
+        "end": {
+          "line": 5,
+          "col": 58
+        },
+        "text": "first 5"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 48
+        },
+        "end": {
+          "line": 5,
+          "col": 65
+        },
+        "text": "les 5 premiers"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 22,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 8
+        },
+        "end": {
+          "line": 7,
+          "col": 22
+        },
+        "text": "Stream result:"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 8
+        },
+        "end": {
+          "line": 7,
+          "col": 26
+        },
+        "text": "Résultat du flux :"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 22,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 13,
+          "col": 8
+        },
+        "end": {
+          "line": 13,
+          "col": 27
+        },
+        "text": "Sum of values > 10:"
+      },
+      "target_span": {
+        "start": {
+          "line": 13,
+          "col": 8
+        },
+        "end": {
+          "line": 13,
+          "col": 32
+        },
+        "text": "Somme des valeurs > 10 :"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    }
+  ],
+  "exclusions": []
+}
