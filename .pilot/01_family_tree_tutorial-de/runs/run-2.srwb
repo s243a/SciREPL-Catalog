@@ -1,0 +1,269 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T17:18:48.020Z",
+  "notebook": {
+    "id": "default",
+    "name": "Stammbaum-Tutorial mit UnifyWeaver",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "prolog",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 28,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# Stammbaum-Tutorial mit UnifyWeaver\n\nDieses interaktive Notebook demonstriert, wie Sie UnifyWeaver verwenden, um Prolog-Prädikate in Bash-Skripte zu kompilieren.\n\n## Voraussetzungen\n\n- SWI-Prolog installiert\n- UnifyWeaver-Bibliothek verfügbar\n- Prolog-Jupyter-Kernel installiert (`pip install prolog-jupyter-kernel`)\n\n## Lernziele\n\nAm Ende dieses Notebooks werden Sie in der Lage sein:\n1. Prolog-Fakten und -Regeln zu definieren\n2. UnifyWeaver zum Kompilieren von Prädikaten nach Bash zu verwenden\n3. Die generierten Bash-Skripte zu testen\n4. Die Kompilierung transitiver Hüllen zu verstehen",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "## Schritt 1: UnifyWeaver-Umgebung initialisieren\n\nZuerst müssen wir die UnifyWeaver-Module laden. Wir verwenden die Datei `init.pl` aus dem Education-Verzeichnis.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 3,
+        "code": "% Initialisierungsdatei laden\n['../init'].",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
+      },
+      {
+        "id": 4,
+        "code": "## Schritt 2: Familienbeziehungen definieren\n\nDefinieren wir einige Eltern-Kind-Beziehungen aus dem biblischen Stammbaum.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 5,
+        "code": "% Parent-Fakten definieren\n:- dynamic parent/2.\n\nparent(abraham, isaac).\nparent(abraham, ishmael).\nparent(isaac, jacob).\nparent(isaac, esau).\nparent(jacob, reuben).\nparent(jacob, simeon).\nparent(jacob, levi).\nparent(jacob, judah).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 6,
+        "code": "## Schritt 3: Eltern-Abfragen testen\n\nVor dem Kompilieren überprüfen wir mit einigen Prolog-Abfragen, ob unsere Daten korrekt sind.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 7,
+        "code": "% Abfrage: Wer sind Abrahams Kinder?\nparent(abraham, Child).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Child = isaac\nChild = ishmael",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Child = isaac\nChild = ishmael</pre>"
+      },
+      {
+        "id": 8,
+        "code": "% Abfrage: Wer sind Jakobs Kinder?\nparent(jacob, Child).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Child = reuben\nChild = simeon\nChild = levi\nChild = judah",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Child = reuben\nChild = simeon\nChild = levi\nChild = judah</pre>"
+      },
+      {
+        "id": 9,
+        "code": "## Schritt 4: Vorfahren-Beziehung definieren\n\nNun definieren wir die transitive Hülle — die `ancestor`-Relation.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 10,
+        "code": "% Ancestor als transitive Hülle von parent definieren\n:- dynamic ancestor/2.\n\n% Basisfall: Ein Elternteil ist ein Vorfahre\nancestor(X, Y) :- parent(X, Y).\n\n% Rekursiver Fall: Wenn X Elternteil von Y ist und Y Vorfahre von Z ist, dann ist X Vorfahre von Z\nancestor(X, Z) :- parent(X, Y), ancestor(Y, Z).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 11,
+        "code": "## Schritt 5: Vorfahren-Abfragen testen\n\nÜberprüfen wir, ob unser Vorfahren-Prädikat korrekt funktioniert.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 12,
+        "code": "% Abfrage: Ist Abraham ein Vorfahre von Jakob?\n( ancestor(abraham, jacob) ->\n    writeln('Yes: Abraham is an ancestor of Jacob')\n;\n    writeln('No: Abraham is not an ancestor of Jacob')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Yes: Abraham is an ancestor of Jacob",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Yes: Abraham is an ancestor of Jacob</pre>"
+      },
+      {
+        "id": 13,
+        "code": "% Abfrage: Wer sind alle Nachkommen von Abraham?\nancestor(abraham, Descendant).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Descendant = isaac\nDescendant = ishmael\nDescendant = jacob\nDescendant = esau\nDescendant = reuben\nDescendant = simeon\nDescendant = levi\nDescendant = judah",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Descendant = isaac\nDescendant = ishmael\nDescendant = jacob\nDescendant = esau\nDescendant = reuben\nDescendant = simeon\nDescendant = levi\nDescendant = judah</pre>"
+      },
+      {
+        "id": 14,
+        "code": "## Schritt 6: Parent nach Bash kompilieren\n\nNun zum spannenden Teil — kompilieren wir unsere `parent/2`-Fakten in ein Bash-Skript!",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 15,
+        "code": "% Stream-Compiler laden\n\\+ \\+ (\n    use_module(unifyweaver(core/stream_compiler)),\n\n    % Parent-Fakten nach Bash kompilieren\n    stream_compiler:compile_facts(parent, 2, [], _BashCode),\n    writeln('Generated Bash code for parent/2:'),\n    writeln(_BashCode)\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "source_sink `unifyweaver(core/stream_compiler)' does not exist",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">source_sink `unifyweaver(core/stream_compiler)' does not exist</pre>"
+      },
+      {
+        "id": 16,
+        "code": "## Schritt 7: Parent-Skript speichern\n\nSpeichern wir den generierten Bash-Code in einer Datei.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 17,
+        "code": "% In Datei speichern\n\\+ \\+ (\n    stream_compiler:compile_facts(parent, 2, [], _BashCode),\n    setup_call_cleanup(\n        open('../output/parent.sh', write, _Stream),\n        write(_Stream, _BashCode),\n        close(_Stream)),\n    writeln('Saved to ../output/parent.sh')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: stream_compiler:compile_facts/4",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: stream_compiler:compile_facts/4</pre>"
+      },
+      {
+        "id": 18,
+        "code": "## Schritt 8: Ancestor nach Bash kompilieren\n\nNun kompilieren wir das Prädikat `ancestor/2`, das Rekursion verwendet.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 19,
+        "code": "% Rekursiven Compiler laden\n\\+ \\+ (\n    use_module(unifyweaver(core/recursive_compiler)),\n\n    % Ancestor nach Bash kompilieren\n    compile_recursive(ancestor/2, [], _BashCode),\n    writeln('Generated Bash code for ancestor/2:'),\n    writeln(_BashCode)\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "source_sink `unifyweaver(core/recursive_compiler)' does not exist",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">source_sink `unifyweaver(core/recursive_compiler)' does not exist</pre>"
+      },
+      {
+        "id": 20,
+        "code": "## Schritt 9: Ancestor-Skript speichern\n\nSpeichern Sie das Ancestor-Skript in einer Datei.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 21,
+        "code": "% In Datei speichern\n\\+ \\+ (\n    compile_recursive(ancestor/2, [], _BashCode),\n    setup_call_cleanup(\n        open('../output/ancestor.sh', write, _Stream),\n        write(_Stream, _BashCode),\n        close(_Stream)),\n    writeln('Saved to ../output/ancestor.sh')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: compile_recursive/3</pre>"
+      },
+      {
+        "id": 22,
+        "code": "## Schritt 10: Die generierten Skripte testen\n\nTesten wir nun unsere generierten Bash-Skripte! Wir verwenden das `%%bash`-Magic-Kommando, um Bash-Befehle auszuführen.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 23,
+        "code": "# Parent-Skript mit source einbinden\nsource ../output/parent.sh\n\n# Test: Wer sind Abrahams Kinder?\necho \"Abrahams Kinder:\"\nparent abraham",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "Abrahams Kinder:\nerror: source: failed to source file: ../output/parent.sh\nerror: failed to execute command 'parent': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Abrahams Kinder:\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/parent.sh\nerror: failed to execute command 'parent': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 24,
+        "code": "# Beide Skripte mit source einbinden\nsource ../output/parent.sh\nsource ../output/ancestor.sh\n\n# Test: Wer sind Abrahams Nachkommen?\necho \"Abrahams Nachkommen:\"\nancestor abraham",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "Abrahams Nachkommen:\nerror: source: failed to source file: ../output/parent.sh\nerror: source: failed to source file: ../output/ancestor.sh\nerror: failed to execute command 'ancestor': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Abrahams Nachkommen:\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/parent.sh\nerror: source: failed to source file: ../output/ancestor.sh\nerror: failed to execute command 'ancestor': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 25,
+        "code": "# Beide Skripte mit source einbinden\nsource ../output/parent.sh\nsource ../output/ancestor.sh\n\n# Test: Ist Abraham ein Vorfahre von Juda?\nif ancestor abraham judah >/dev/null 2>&1; then\n    echo \"✓ Ja, Abraham ist ein Vorfahre von Juda\"\nelse\n    echo \"✗ Nein\"\nfi",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "✗ Nein\nerror: source: failed to source file: ../output/parent.sh\nerror: source: failed to source file: ../output/ancestor.sh\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">✗ Nein\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/parent.sh\nerror: source: failed to source file: ../output/ancestor.sh\n</pre>"
+      },
+      {
+        "id": 26,
+        "code": "## Schritt 11: Die Kompilierungsstrategie verstehen\n\nAnalysieren wir, was UnifyWeaver getan hat:\n\n1. **Parent-Kompilierung**: Verwendete `stream_compiler`, um eine einfache Streaming-Funktion zu erstellen, die alle Eltern-Kind-Paare ausgibt\n\n2. **Ancestor-Kompilierung**: Erkannte das Muster der transitiven Hülle und wendete die BFS-Optimierung (Breitensuche) an, um alle erreichbaren Vorfahren effizient zu berechnen\n\nÜberprüfen wir die Kompilierungsstrategie:",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 27,
+        "code": "% Prüfen, ob ancestor als rekursiv klassifiziert ist\n\\+ \\+ (\n    use_module(unifyweaver(core/recursive_compiler)),\n    recursive_compiler:classify_predicate(ancestor/2, _Classification),\n    format('Ancestor classification: ~w~n', [_Classification])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "source_sink `unifyweaver(core/recursive_compiler)' does not exist",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">source_sink `unifyweaver(core/recursive_compiler)' does not exist</pre>"
+      },
+      {
+        "id": 28,
+        "code": "## Zusammenfassung\n\nIn diesem Notebook haben Sie gelernt:\n\n✅ Wie man Prolog-Fakten und -Regeln definiert\n\n✅ Wie man `stream_compiler` von UnifyWeaver für Fakten verwendet\n\n✅ Wie man `recursive_compiler` von UnifyWeaver für rekursive Prädikate verwendet\n\n✅ Wie man generierte Bash-Skripte testet\n\n✅ Dass UnifyWeaver transitive Hüllen automatisch erkennt und BFS-Optimierung anwendet\n\n## Nächste Schritte\n\nProbieren Sie diese Übungen aus:\n\n1. Fügen Sie dem Stammbaum weitere Familienmitglieder hinzu\n2. Definieren Sie ein `grandparent/2`-Prädikat und kompilieren Sie es\n3. Erstellen Sie ein `sibling/2`-Prädikat (zwei Personen mit denselben Eltern)\n4. Untersuchen Sie den generierten Bash-Code, um den BFS-Algorithmus zu verstehen\n\nFahren Sie mit **Notebook 2: Vergleich von Rekursionsmustern** fort, um mehr über fortgeschrittene Rekursionsmuster zu erfahren!",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      }
+    ]
+  }
+}

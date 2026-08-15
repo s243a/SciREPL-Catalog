@@ -1556,9 +1556,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/de/02_recursion_patterns.ipynb",
-      "revision": 1,
-      "sha256": "00b7e55c1f0fd13faad226cd7735c6c34b4fb5f309aae13ae6c08b8844a1cc8f",
-      "size": 16701
+      "revision": 2,
+      "sha256": "9fc7597af8ce260876ec5270eec5c6b275ec44e807d7b3a59decb54d10230091",
+      "size": 19016
     },
     {
       "id": "03-call-graph-analysis-de",
@@ -1574,9 +1574,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/de/03_call_graph_analysis.ipynb",
-      "revision": 1,
-      "sha256": "0fd3f9a6031db29d3e8f5f057aa8ffdd835f2b2bc4cfbed644aadfe25752781a",
-      "size": 14132
+      "revision": 2,
+      "sha256": "5c1be9f07c0c1f535b813231a03518af922321fb3d4cf82185922201fe697d06",
+      "size": 16059
     },
     {
       "id": "life-expectancy-csv-demo-de",
