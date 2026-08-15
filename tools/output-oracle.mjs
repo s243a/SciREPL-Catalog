@@ -41,7 +41,11 @@ export function extractTextOutputs(nb) {
   return cells.map((c) => {
     const blocks = [];
     const push = (v) => { if (typeof v === 'string' && v.length) blocks.push(v); };
-    // srwb-style single output property (string or object)
+    // srwb post-run shape (confirmed on the live bench 2026-08-15):
+    // `lastOutput` is the text stream; `lastOutputHtml` is rendered output
+    // (plots) and is plot-check territory, not the text oracle's.
+    if (typeof c.lastOutput === 'string') push(c.lastOutput);
+    // tolerated legacy/alternative shapes
     const out = c.output;
     if (typeof out === 'string') push(out);
     else if (out && typeof out === 'object') {
