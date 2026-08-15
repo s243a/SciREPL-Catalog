@@ -1,0 +1,1075 @@
+{
+  "manifest_version": 1,
+  "produced_by": "derived",
+  "generator": "tools/span-derive.mjs",
+  "locale": "bn",
+  "source": {
+    "path": "workbooks/en/compute-pi-workbook.srwb",
+    "sha256": "390396a85df660459b2ae6df25e19fde05c525d4c1a8cea17727fd547a258e4f"
+  },
+  "target": {
+    "path": "workbooks/bn/compute-pi-workbook.srwb",
+    "sha256": "855f1b5bf5fb097c8c61a63b208accc28c3784601ad242acd73373762acadd8d"
+  },
+  "spans": [
+    {
+      "cell_index": 1,
+      "cell_name": "geometry",
+      "kind": "cell_name",
+      "reaches_output": "none",
+      "source_span": {
+        "text": "geometry"
+      },
+      "target_span": {
+        "text": "জ্যামিতি"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 1,
+      "cell_name": "geometry",
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 1
+        },
+        "end": {
+          "line": 3,
+          "col": 55
+        },
+        "text": "Visualize the starting hexagon inside a unit circle."
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 1
+        },
+        "end": {
+          "line": 3,
+          "col": 46
+        },
+        "text": "একক বৃত্তের ভেতরে প্রারম্ভিক ষড়ভুজটি দেখুন।"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 1,
+      "cell_name": "geometry",
+      "source_span": {
+        "start": {
+          "line": 9,
+          "col": 77
+        },
+        "end": {
+          "line": 9,
+          "col": 88
+        },
+        "text": "Unit circle"
+      },
+      "target_span": {
+        "start": {
+          "line": 9,
+          "col": 76
+        },
+        "end": {
+          "line": 9,
+          "col": 85
+        },
+        "text": "একক বৃত্ত"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 1,
+      "cell_name": "geometry",
+      "source_span": {
+        "start": {
+          "line": 10,
+          "col": 70
+        },
+        "end": {
+          "line": 10,
+          "col": 87
+        },
+        "text": "Inscribed hexagon"
+      },
+      "target_span": {
+        "start": {
+          "line": 10,
+          "col": 75
+        },
+        "end": {
+          "line": 10,
+          "col": 92
+        },
+        "text": "অন্তর্লিখিত ষড়ভুজ"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 1,
+      "cell_name": "geometry",
+      "source_span": {
+        "start": {
+          "line": 11,
+          "col": 21
+        },
+        "end": {
+          "line": 11,
+          "col": 53
+        },
+        "text": "Archimedes starts with a hexagon"
+      },
+      "target_span": {
+        "start": {
+          "line": 11,
+          "col": 20
+        },
+        "end": {
+          "line": 11,
+          "col": 56
+        },
+        "text": "আর্কিমিডিস একটি ষড়ভুজ দিয়ে শুরু করেন"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "bounds",
+      "kind": "cell_name",
+      "reaches_output": "none",
+      "source_span": {
+        "text": "bounds"
+      },
+      "target_span": {
+        "text": "সীমা"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "bounds",
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 8
+        },
+        "end": {
+          "line": 8,
+          "col": 5
+        },
+        "text": "Return rigorous polygon bounds for a unit circle.\n\n    chord is the side length of the inscribed n-gon. The stable half-angle\n    recurrence doubles n without requiring pi.\n    "
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 8
+        },
+        "end": {
+          "line": 8,
+          "col": 5
+        },
+        "text": "একটি একক বৃত্তের জন্য সুনির্দিষ্ট বহুভুজ সীমা প্রদান করে।\n\n    জ্যা হলো অন্তর্লিখিত n-ভুজের বাহুর দৈর্ঘ্য। স্থিতিশীল অর্ধ-কোণ\n    পুনরাবৃত্তি pi ছাড়াই n-কে দ্বিগুণ করে।\n    "
+      },
+      "kind": "docstring",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "bounds",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "format_spec": ">4",
+      "source_span": {
+        "start": {
+          "line": 22,
+          "col": 9
+        },
+        "end": {
+          "line": 22,
+          "col": 87
+        },
+        "text": "step"
+      },
+      "target_span": {
+        "start": {
+          "line": 22,
+          "col": 9
+        },
+        "end": {
+          "line": 22,
+          "col": 84
+        },
+        "text": "ধাপ"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "bounds",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "format_spec": ">9",
+      "source_span": {
+        "start": {
+          "line": 22,
+          "col": 9
+        },
+        "end": {
+          "line": 22,
+          "col": 87
+        },
+        "text": "sides"
+      },
+      "target_span": {
+        "start": {
+          "line": 22,
+          "col": 9
+        },
+        "end": {
+          "line": 22,
+          "col": 84
+        },
+        "text": "বাহু"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "bounds",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "format_spec": ">16",
+      "source_span": {
+        "start": {
+          "line": 22,
+          "col": 9
+        },
+        "end": {
+          "line": 22,
+          "col": 87
+        },
+        "text": "lower bound"
+      },
+      "target_span": {
+        "start": {
+          "line": 22,
+          "col": 9
+        },
+        "end": {
+          "line": 22,
+          "col": 84
+        },
+        "text": "নিম্ন সীমা"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "bounds",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "format_spec": ">16",
+      "source_span": {
+        "start": {
+          "line": 22,
+          "col": 9
+        },
+        "end": {
+          "line": 22,
+          "col": 87
+        },
+        "text": "upper bound"
+      },
+      "target_span": {
+        "start": {
+          "line": 22,
+          "col": 9
+        },
+        "end": {
+          "line": 22,
+          "col": 84
+        },
+        "text": "উচ্চ সীমা"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "bounds",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "format_spec": ">12",
+      "source_span": {
+        "start": {
+          "line": 22,
+          "col": 9
+        },
+        "end": {
+          "line": 22,
+          "col": 87
+        },
+        "text": "width"
+      },
+      "target_span": {
+        "start": {
+          "line": 22,
+          "col": 9
+        },
+        "end": {
+          "line": 22,
+          "col": 84
+        },
+        "text": "ব্যবধান"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "bounds",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 28,
+          "col": 9
+        },
+        "end": {
+          "line": 28,
+          "col": 60
+        },
+        "text": "\\nFinal enclosure: "
+      },
+      "target_span": {
+        "start": {
+          "line": 28,
+          "col": 9
+        },
+        "end": {
+          "line": 28,
+          "col": 66
+        },
+        "text": "\\nচূড়ান্ত সীমা: "
+      },
+      "placeholders": [
+        "{lower:.12f}",
+        "{upper:.12f}"
+      ]
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "accuracy",
+      "kind": "cell_name",
+      "reaches_output": "none",
+      "source_span": {
+        "text": "accuracy"
+      },
+      "target_span": {
+        "text": "নির্ভুলতা"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "accuracy",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 70
+        },
+        "text": "How many sides are needed before the complete enclosure is narrower"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 66
+        },
+        "text": "সম্পূর্ণ সীমাবদ্ধতা এর চেয়ে সংকীর্ণ হওয়ার আগে কতটি বাহু প্রয়োজন"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "accuracy",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 65
+        },
+        "text": "than 10^-d? Values are for repeated doubling from the hexagon."
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 59
+        },
+        "text": "10^-d থেকে? মানগুলি ষড়ভুজ থেকে বারবার দ্বিগুণ করার জন্য।"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "accuracy",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "format_spec": ">18",
+      "source_span": {
+        "start": {
+          "line": 9,
+          "col": 9
+        },
+        "end": {
+          "line": 9,
+          "col": 61
+        },
+        "text": "first doubled n"
+      },
+      "target_span": {
+        "start": {
+          "line": 9,
+          "col": 9
+        },
+        "end": {
+          "line": 9,
+          "col": 63
+        },
+        "text": "প্রথম দ্বিগুণ n"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "accuracy",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "format_spec": ">14",
+      "source_span": {
+        "start": {
+          "line": 9,
+          "col": 9
+        },
+        "end": {
+          "line": 9,
+          "col": 61
+        },
+        "text": "bound width"
+      },
+      "target_span": {
+        "start": {
+          "line": 9,
+          "col": 9
+        },
+        "end": {
+          "line": 9,
+          "col": 63
+        },
+        "text": "সীমার ব্যবধান"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "accuracy",
+      "source_span": {
+        "start": {
+          "line": 14,
+          "col": 8
+        },
+        "end": {
+          "line": 14,
+          "col": 79
+        },
+        "text": "\\nA narrower enclosure certifies more absolute accuracy; it is stronger"
+      },
+      "target_span": {
+        "start": {
+          "line": 14,
+          "col": 8
+        },
+        "end": {
+          "line": 14,
+          "col": 68
+        },
+        "text": "\\nএকটি সংকীর্ণ সীমাবদ্ধতা আরও পরম নির্ভুলতা নিশ্চিত করে; এটি"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "accuracy",
+      "source_span": {
+        "start": {
+          "line": 15,
+          "col": 8
+        },
+        "end": {
+          "line": 15,
+          "col": 81
+        },
+        "text": "than merely counting matching digits in one floating-point approximation."
+      },
+      "target_span": {
+        "start": {
+          "line": 15,
+          "col": 8
+        },
+        "end": {
+          "line": 15,
+          "col": 79
+        },
+        "text": "একটি ফ্লোটিং-পয়েন্ট অনুমানে মিলে যাওয়া অঙ্ক গণনার চেয়ে অধিক শক্তিশালী।"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": "symbolic_limit",
+      "kind": "cell_name",
+      "reaches_output": "none",
+      "source_span": {
+        "text": "symbolic_limit"
+      },
+      "target_span": {
+        "text": "প্রতীকী_সীমা"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": "symbolic_limit",
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 8
+        },
+        "end": {
+          "line": 7,
+          "col": 62
+        },
+        "text": "Symbolic check of the familiar inscribed-area formula:"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 8
+        },
+        "end": {
+          "line": 7,
+          "col": 59
+        },
+        "text": "পরিচিত অন্তর্লিখিত ক্ষেত্রফল সূত্রের প্রতীকী যাচাই:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": "symbolic_limit",
+      "source_span": {
+        "start": {
+          "line": 8,
+          "col": 8
+        },
+        "end": {
+          "line": 8,
+          "col": 40
+        },
+        "text": "limit as n approaches infinity ="
+      },
+      "target_span": {
+        "start": {
+          "line": 8,
+          "col": 8
+        },
+        "end": {
+          "line": 8,
+          "col": 41
+        },
+        "text": "n অসীমের দিকে অগ্রসর হওয়ার সীমা ="
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "kind": "cell_name",
+      "reaches_output": "none",
+      "source_span": {
+        "text": "comparison"
+      },
+      "target_span": {
+        "text": "তুলনা"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 5
+        },
+        "end": {
+          "line": 2,
+          "col": 63
+        },
+        "text": "Alternating-series remainder for pi is at most 4/(2N+1)."
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 5
+        },
+        "end": {
+          "line": 2,
+          "col": 62
+        },
+        "text": "পাই-এর জন্য একান্তর ধারার অবশিষ্টাংশ সর্বোচ্চ 4/(2N+1)।"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "source_span": {
+        "start": {
+          "line": 14,
+          "col": 8
+        },
+        "end": {
+          "line": 14,
+          "col": 54
+        },
+        "text": "Work needed for about 1e-10 absolute accuracy:"
+      },
+      "target_span": {
+        "start": {
+          "line": 14,
+          "col": 8
+        },
+        "end": {
+          "line": 14,
+          "col": 54
+        },
+        "text": "প্রায় 1e-10 পরম নির্ভুলতার জন্য প্রয়োজনীয় কাজ:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 15,
+          "col": 9
+        },
+        "end": {
+          "line": 15,
+          "col": 73
+        },
+        "text": "  Leibniz guarantee:       "
+      },
+      "target_span": {
+        "start": {
+          "line": 15,
+          "col": 9
+        },
+        "end": {
+          "line": 15,
+          "col": 70
+        },
+        "text": "  লাইবনিজ নিশ্চয়তা:        "
+      },
+      "placeholders": [
+        "{leibniz_terms_for_error(10):,}"
+      ]
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 15,
+          "col": 9
+        },
+        "end": {
+          "line": 15,
+          "col": 73
+        },
+        "text": " terms"
+      },
+      "target_span": {
+        "start": {
+          "line": 15,
+          "col": 9
+        },
+        "end": {
+          "line": 15,
+          "col": 70
+        },
+        "text": " পদ"
+      },
+      "placeholders": [
+        "{leibniz_terms_for_error(10):,}"
+      ]
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 16,
+          "col": 9
+        },
+        "end": {
+          "line": 16,
+          "col": 87
+        },
+        "text": "  Polygon bound width:     "
+      },
+      "target_span": {
+        "start": {
+          "line": 16,
+          "col": 9
+        },
+        "end": {
+          "line": 16,
+          "col": 86
+        },
+        "text": "  বহুভুজ সীমার ব্যবধান:   "
+      },
+      "placeholders": [
+        "{polygon_sides:,}",
+        "{polygon_width:.2e}"
+      ]
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 16,
+          "col": 9
+        },
+        "end": {
+          "line": 16,
+          "col": 87
+        },
+        "text": " sides (width "
+      },
+      "target_span": {
+        "start": {
+          "line": 16,
+          "col": 9
+        },
+        "end": {
+          "line": 16,
+          "col": 86
+        },
+        "text": " বাহু (ব্যবধান "
+      },
+      "placeholders": [
+        "{polygon_sides:,}",
+        "{polygon_width:.2e}"
+      ]
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 17,
+          "col": 9
+        },
+        "end": {
+          "line": 17,
+          "col": 71
+        },
+        "text": "  Machin formula in float: "
+      },
+      "target_span": {
+        "start": {
+          "line": 17,
+          "col": 9
+        },
+        "end": {
+          "line": 17,
+          "col": 72
+        },
+        "text": "  ফ্লোটে ম্যাসিন সূত্র:    "
+      },
+      "placeholders": [
+        "{machin_terms}"
+      ]
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 17,
+          "col": 9
+        },
+        "end": {
+          "line": 17,
+          "col": 71
+        },
+        "text": " terms per arctangent"
+      },
+      "target_span": {
+        "start": {
+          "line": 17,
+          "col": 9
+        },
+        "end": {
+          "line": 17,
+          "col": 72
+        },
+        "text": " পদ প্রতি আর্কট্যানজেন্ট"
+      },
+      "placeholders": [
+        "{machin_terms}"
+      ]
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "source_span": {
+        "start": {
+          "line": 18,
+          "col": 8
+        },
+        "end": {
+          "line": 18,
+          "col": 81
+        },
+        "text": "\\nThe methods have very different convergence rates; the polygon method's"
+      },
+      "target_span": {
+        "start": {
+          "line": 18,
+          "col": 8
+        },
+        "end": {
+          "line": 18,
+          "col": 62
+        },
+        "text": "\\nপদ্ধতিগুলির অভিসরণ হার অত্যন্ত ভিন্ন; বহুভুজ পদ্ধতির"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "source_span": {
+        "start": {
+          "line": 19,
+          "col": 8
+        },
+        "end": {
+          "line": 19,
+          "col": 79
+        },
+        "text": "historical importance is its rigorous geometric squeeze, not raw speed."
+      },
+      "target_span": {
+        "start": {
+          "line": 19,
+          "col": 8
+        },
+        "end": {
+          "line": 19,
+          "col": 68
+        },
+        "text": "ঐতিহাসিক গুরুত্ব এর কঠোর জ্যামিতিক সীমাবদ্ধতায়, দ্রুততায় নয়।"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    }
+  ],
+  "exclusions": [],
+  "stage": "b",
+  "renames": [
+    {
+      "from": "angles",
+      "to": "কোণ",
+      "occurrences": 5
+    },
+    {
+      "from": "archimedes_rows",
+      "to": "আর্কিমিডিস_সারি",
+      "occurrences": 3
+    },
+    {
+      "from": "arctan_series",
+      "to": "আর্কট্যান_ধারা",
+      "occurrences": 3
+    },
+    {
+      "from": "chord",
+      "to": "জ্যা",
+      "occurrences": 6
+    },
+    {
+      "from": "circle",
+      "to": "বৃত্ত",
+      "occurrences": 2
+    },
+    {
+      "from": "doublings",
+      "to": "দ্বিগুণ_করা",
+      "occurrences": 2
+    },
+    {
+      "from": "first_for_digits",
+      "to": "অঙ্কের_জন্য_প্রথম",
+      "occurrences": 5
+    },
+    {
+      "from": "half_chord",
+      "to": "অর্ধ_জ্যা",
+      "occurrences": 5
+    },
+    {
+      "from": "hexagon",
+      "to": "ষড়ভুজ",
+      "occurrences": 2
+    },
+    {
+      "from": "inscribed_area",
+      "to": "অন্তর্লিখিত_ক্ষেত্রফল",
+      "occurrences": 3
+    },
+    {
+      "from": "layout",
+      "to": "লেআউট",
+      "occurrences": 2
+    },
+    {
+      "from": "leibniz_terms_for_error",
+      "to": "ত্রুটির_জন্য_লাইবনিজ_পদ",
+      "occurrences": 2
+    },
+    {
+      "from": "limit_value",
+      "to": "সীমার_মান",
+      "occurrences": 3
+    },
+    {
+      "from": "lower",
+      "to": "নিম্ন_সীমা",
+      "occurrences": 8
+    },
+    {
+      "from": "machin_pi",
+      "to": "ম্যাসিন_পাই",
+      "occurrences": 2
+    },
+    {
+      "from": "machin_terms",
+      "to": "ম্যাসিন_পদ",
+      "occurrences": 2
+    },
+    {
+      "from": "polygon_sides",
+      "to": "বহুভুজ_বাহু",
+      "occurrences": 2
+    },
+    {
+      "from": "polygon_width",
+      "to": "বহুভুজ_ব্যবধান",
+      "occurrences": 2
+    },
+    {
+      "from": "rows",
+      "to": "সারি",
+      "occurrences": 7
+    },
+    {
+      "from": "step",
+      "to": "ধাপ",
+      "occurrences": 6
+    },
+    {
+      "from": "terms",
+      "to": "পদ",
+      "occurrences": 5
+    },
+    {
+      "from": "upper",
+      "to": "উচ্চ_সীমা",
+      "occurrences": 8
+    },
+    {
+      "from": "width",
+      "to": "ব্যবধান",
+      "occurrences": 7
+    },
+    {
+      "from": "x_hex",
+      "to": "x_ষড়ভুজ",
+      "occurrences": 2
+    },
+    {
+      "from": "y_hex",
+      "to": "y_ষড়ভুজ",
+      "occurrences": 2
+    }
+  ]
+}

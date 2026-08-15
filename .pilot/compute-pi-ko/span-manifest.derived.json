@@ -1,0 +1,1075 @@
+{
+  "manifest_version": 1,
+  "produced_by": "derived",
+  "generator": "tools/span-derive.mjs",
+  "locale": "ko",
+  "source": {
+    "path": "workbooks/en/compute-pi-workbook.srwb",
+    "sha256": "390396a85df660459b2ae6df25e19fde05c525d4c1a8cea17727fd547a258e4f"
+  },
+  "target": {
+    "path": "workbooks/ko/compute-pi-workbook.srwb",
+    "sha256": "b3a3400cefe75edb2abe0ad7edb1f87792667cbab906bb58d0ad01a03ff07586"
+  },
+  "spans": [
+    {
+      "cell_index": 1,
+      "cell_name": "geometry",
+      "kind": "cell_name",
+      "reaches_output": "none",
+      "source_span": {
+        "text": "geometry"
+      },
+      "target_span": {
+        "text": "기하"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 1,
+      "cell_name": "geometry",
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 1
+        },
+        "end": {
+          "line": 3,
+          "col": 55
+        },
+        "text": "Visualize the starting hexagon inside a unit circle."
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 1
+        },
+        "end": {
+          "line": 3,
+          "col": 26
+        },
+        "text": "단위 원 안의 초기 육각형을 시각화합니다."
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 1,
+      "cell_name": "geometry",
+      "source_span": {
+        "start": {
+          "line": 9,
+          "col": 77
+        },
+        "end": {
+          "line": 9,
+          "col": 88
+        },
+        "text": "Unit circle"
+      },
+      "target_span": {
+        "start": {
+          "line": 9,
+          "col": 72
+        },
+        "end": {
+          "line": 9,
+          "col": 76
+        },
+        "text": "단위 원"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 1,
+      "cell_name": "geometry",
+      "source_span": {
+        "start": {
+          "line": 10,
+          "col": 70
+        },
+        "end": {
+          "line": 10,
+          "col": 87
+        },
+        "text": "Inscribed hexagon"
+      },
+      "target_span": {
+        "start": {
+          "line": 10,
+          "col": 66
+        },
+        "end": {
+          "line": 10,
+          "col": 72
+        },
+        "text": "내접 육각형"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 1,
+      "cell_name": "geometry",
+      "source_span": {
+        "start": {
+          "line": 11,
+          "col": 21
+        },
+        "end": {
+          "line": 11,
+          "col": 53
+        },
+        "text": "Archimedes starts with a hexagon"
+      },
+      "target_span": {
+        "start": {
+          "line": 11,
+          "col": 19
+        },
+        "end": {
+          "line": 11,
+          "col": 38
+        },
+        "text": "아르키메데스는 육각형에서 시작합니다"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "bounds",
+      "kind": "cell_name",
+      "reaches_output": "none",
+      "source_span": {
+        "text": "bounds"
+      },
+      "target_span": {
+        "text": "상하계"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "bounds",
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 8
+        },
+        "end": {
+          "line": 8,
+          "col": 5
+        },
+        "text": "Return rigorous polygon bounds for a unit circle.\n\n    chord is the side length of the inscribed n-gon. The stable half-angle\n    recurrence doubles n without requiring pi.\n    "
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 8
+        },
+        "end": {
+          "line": 8,
+          "col": 5
+        },
+        "text": "단위 원에 대한 엄밀한 다각형 상하계를 반환합니다.\n\n    현_길이는 내접 n각형의 변 길이입니다. 안정적인 반각\n    점화식은 pi 없이 n을 두 배로 늘립니다.\n    "
+      },
+      "kind": "docstring",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "bounds",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "format_spec": ">4",
+      "source_span": {
+        "start": {
+          "line": 22,
+          "col": 9
+        },
+        "end": {
+          "line": 22,
+          "col": 87
+        },
+        "text": "step"
+      },
+      "target_span": {
+        "start": {
+          "line": 22,
+          "col": 9
+        },
+        "end": {
+          "line": 22,
+          "col": 66
+        },
+        "text": "단계"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "bounds",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "format_spec": ">9",
+      "source_span": {
+        "start": {
+          "line": 22,
+          "col": 9
+        },
+        "end": {
+          "line": 22,
+          "col": 87
+        },
+        "text": "sides"
+      },
+      "target_span": {
+        "start": {
+          "line": 22,
+          "col": 9
+        },
+        "end": {
+          "line": 22,
+          "col": 66
+        },
+        "text": "변의 수"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "bounds",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "format_spec": ">16",
+      "source_span": {
+        "start": {
+          "line": 22,
+          "col": 9
+        },
+        "end": {
+          "line": 22,
+          "col": 87
+        },
+        "text": "lower bound"
+      },
+      "target_span": {
+        "start": {
+          "line": 22,
+          "col": 9
+        },
+        "end": {
+          "line": 22,
+          "col": 66
+        },
+        "text": "하계"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "bounds",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "format_spec": ">16",
+      "source_span": {
+        "start": {
+          "line": 22,
+          "col": 9
+        },
+        "end": {
+          "line": 22,
+          "col": 87
+        },
+        "text": "upper bound"
+      },
+      "target_span": {
+        "start": {
+          "line": 22,
+          "col": 9
+        },
+        "end": {
+          "line": 22,
+          "col": 66
+        },
+        "text": "상계"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "bounds",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "format_spec": ">12",
+      "source_span": {
+        "start": {
+          "line": 22,
+          "col": 9
+        },
+        "end": {
+          "line": 22,
+          "col": 87
+        },
+        "text": "width"
+      },
+      "target_span": {
+        "start": {
+          "line": 22,
+          "col": 9
+        },
+        "end": {
+          "line": 22,
+          "col": 66
+        },
+        "text": "구간 너비"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "bounds",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 28,
+          "col": 9
+        },
+        "end": {
+          "line": 28,
+          "col": 60
+        },
+        "text": "\\nFinal enclosure: "
+      },
+      "target_span": {
+        "start": {
+          "line": 28,
+          "col": 9
+        },
+        "end": {
+          "line": 28,
+          "col": 47
+        },
+        "text": "\\n최종 포위 구간: "
+      },
+      "placeholders": [
+        "{lower:.12f}",
+        "{upper:.12f}"
+      ]
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "accuracy",
+      "kind": "cell_name",
+      "reaches_output": "none",
+      "source_span": {
+        "text": "accuracy"
+      },
+      "target_span": {
+        "text": "정확도"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "accuracy",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 70
+        },
+        "text": "How many sides are needed before the complete enclosure is narrower"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 36
+        },
+        "text": "전체 포위 구간이 다음보다 좁아지려면 몇 개의 변이 필요한가"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "accuracy",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 65
+        },
+        "text": "than 10^-d? Values are for repeated doubling from the hexagon."
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 38
+        },
+        "text": "10^-d? 값은 육각형에서 반복적으로 두 배 늘린 결과입니다."
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "accuracy",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "format_spec": ">18",
+      "source_span": {
+        "start": {
+          "line": 9,
+          "col": 9
+        },
+        "end": {
+          "line": 9,
+          "col": 61
+        },
+        "text": "first doubled n"
+      },
+      "target_span": {
+        "start": {
+          "line": 9,
+          "col": 9
+        },
+        "end": {
+          "line": 9,
+          "col": 50
+        },
+        "text": "최초 배가 n"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "accuracy",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "format_spec": ">14",
+      "source_span": {
+        "start": {
+          "line": 9,
+          "col": 9
+        },
+        "end": {
+          "line": 9,
+          "col": 61
+        },
+        "text": "bound width"
+      },
+      "target_span": {
+        "start": {
+          "line": 9,
+          "col": 9
+        },
+        "end": {
+          "line": 9,
+          "col": 50
+        },
+        "text": "포위 구간 너비"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "accuracy",
+      "source_span": {
+        "start": {
+          "line": 14,
+          "col": 8
+        },
+        "end": {
+          "line": 14,
+          "col": 79
+        },
+        "text": "\\nA narrower enclosure certifies more absolute accuracy; it is stronger"
+      },
+      "target_span": {
+        "start": {
+          "line": 14,
+          "col": 8
+        },
+        "end": {
+          "line": 14,
+          "col": 44
+        },
+        "text": "\\n더 좁은 포위 구간은 더 높은 절대 정확도를 보증합니다. 이는"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "accuracy",
+      "source_span": {
+        "start": {
+          "line": 15,
+          "col": 8
+        },
+        "end": {
+          "line": 15,
+          "col": 81
+        },
+        "text": "than merely counting matching digits in one floating-point approximation."
+      },
+      "target_span": {
+        "start": {
+          "line": 15,
+          "col": 8
+        },
+        "end": {
+          "line": 15,
+          "col": 51
+        },
+        "text": "하나의 부동소수점 근사치에서 일치하는 자릿수를 단순히 세는 것보다 강력합니다."
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": "symbolic_limit",
+      "kind": "cell_name",
+      "reaches_output": "none",
+      "source_span": {
+        "text": "symbolic_limit"
+      },
+      "target_span": {
+        "text": "기호_극한"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": "symbolic_limit",
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 8
+        },
+        "end": {
+          "line": 7,
+          "col": 62
+        },
+        "text": "Symbolic check of the familiar inscribed-area formula:"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 8
+        },
+        "end": {
+          "line": 7,
+          "col": 36
+        },
+        "text": "친숙한 내접 다각형 넓이 공식에 대한 기호적 검증:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": "symbolic_limit",
+      "source_span": {
+        "start": {
+          "line": 8,
+          "col": 8
+        },
+        "end": {
+          "line": 8,
+          "col": 40
+        },
+        "text": "limit as n approaches infinity ="
+      },
+      "target_span": {
+        "start": {
+          "line": 8,
+          "col": 8
+        },
+        "end": {
+          "line": 8,
+          "col": 25
+        },
+        "text": "n이 무한대로 갈 때의 극한 ="
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "kind": "cell_name",
+      "reaches_output": "none",
+      "source_span": {
+        "text": "comparison"
+      },
+      "target_span": {
+        "text": "비교"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 5
+        },
+        "end": {
+          "line": 2,
+          "col": 63
+        },
+        "text": "Alternating-series remainder for pi is at most 4/(2N+1)."
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 5
+        },
+        "end": {
+          "line": 2,
+          "col": 41
+        },
+        "text": "원주율에 대한 교대급수의 잉여항은 최대 4/(2N+1)입니다."
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "source_span": {
+        "start": {
+          "line": 14,
+          "col": 8
+        },
+        "end": {
+          "line": 14,
+          "col": 54
+        },
+        "text": "Work needed for about 1e-10 absolute accuracy:"
+      },
+      "target_span": {
+        "start": {
+          "line": 14,
+          "col": 8
+        },
+        "end": {
+          "line": 14,
+          "col": 32
+        },
+        "text": "약 1e-10 절대 정확도에 필요한 계산량:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 15,
+          "col": 9
+        },
+        "end": {
+          "line": 15,
+          "col": 73
+        },
+        "text": "  Leibniz guarantee:       "
+      },
+      "target_span": {
+        "start": {
+          "line": 15,
+          "col": 9
+        },
+        "end": {
+          "line": 15,
+          "col": 50
+        },
+        "text": "  라이프니츠 보증:         "
+      },
+      "placeholders": [
+        "{leibniz_terms_for_error(10):,}"
+      ]
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 15,
+          "col": 9
+        },
+        "end": {
+          "line": 15,
+          "col": 73
+        },
+        "text": " terms"
+      },
+      "target_span": {
+        "start": {
+          "line": 15,
+          "col": 9
+        },
+        "end": {
+          "line": 15,
+          "col": 50
+        },
+        "text": " 항"
+      },
+      "placeholders": [
+        "{leibniz_terms_for_error(10):,}"
+      ]
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 16,
+          "col": 9
+        },
+        "end": {
+          "line": 16,
+          "col": 87
+        },
+        "text": "  Polygon bound width:     "
+      },
+      "target_span": {
+        "start": {
+          "line": 16,
+          "col": 9
+        },
+        "end": {
+          "line": 16,
+          "col": 59
+        },
+        "text": "  다각형 상하계 너비:      "
+      },
+      "placeholders": [
+        "{polygon_sides:,}",
+        "{polygon_width:.2e}"
+      ]
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 16,
+          "col": 9
+        },
+        "end": {
+          "line": 16,
+          "col": 87
+        },
+        "text": " sides (width "
+      },
+      "target_span": {
+        "start": {
+          "line": 16,
+          "col": 9
+        },
+        "end": {
+          "line": 16,
+          "col": 59
+        },
+        "text": " 변 (너비 "
+      },
+      "placeholders": [
+        "{polygon_sides:,}",
+        "{polygon_width:.2e}"
+      ]
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 17,
+          "col": 9
+        },
+        "end": {
+          "line": 17,
+          "col": 71
+        },
+        "text": "  Machin formula in float: "
+      },
+      "target_span": {
+        "start": {
+          "line": 17,
+          "col": 9
+        },
+        "end": {
+          "line": 17,
+          "col": 45
+        },
+        "text": "  부동소수점 머신 공식:    "
+      },
+      "placeholders": [
+        "{machin_terms}"
+      ]
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 17,
+          "col": 9
+        },
+        "end": {
+          "line": 17,
+          "col": 71
+        },
+        "text": " terms per arctangent"
+      },
+      "target_span": {
+        "start": {
+          "line": 17,
+          "col": 9
+        },
+        "end": {
+          "line": 17,
+          "col": 45
+        },
+        "text": " 항 (아크탄젠트당)"
+      },
+      "placeholders": [
+        "{machin_terms}"
+      ]
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "source_span": {
+        "start": {
+          "line": 18,
+          "col": 8
+        },
+        "end": {
+          "line": 18,
+          "col": 81
+        },
+        "text": "\\nThe methods have very different convergence rates; the polygon method's"
+      },
+      "target_span": {
+        "start": {
+          "line": 18,
+          "col": 8
+        },
+        "end": {
+          "line": 18,
+          "col": 39
+        },
+        "text": "\\n각 방법의 수렴 속도는 매우 다릅니다. 다각형 방법의"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "source_span": {
+        "start": {
+          "line": 19,
+          "col": 8
+        },
+        "end": {
+          "line": 19,
+          "col": 79
+        },
+        "text": "historical importance is its rigorous geometric squeeze, not raw speed."
+      },
+      "target_span": {
+        "start": {
+          "line": 19,
+          "col": 8
+        },
+        "end": {
+          "line": 19,
+          "col": 46
+        },
+        "text": "역사적 중요성은 계산 속도가 아니라 엄밀한 기하학적 포위에 있습니다."
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    }
+  ],
+  "exclusions": [],
+  "stage": "b",
+  "renames": [
+    {
+      "from": "angles",
+      "to": "각도",
+      "occurrences": 5
+    },
+    {
+      "from": "archimedes_rows",
+      "to": "아르키메데스_행",
+      "occurrences": 3
+    },
+    {
+      "from": "arctan_series",
+      "to": "아크탄젠트_급수",
+      "occurrences": 3
+    },
+    {
+      "from": "chord",
+      "to": "현_길이",
+      "occurrences": 6
+    },
+    {
+      "from": "circle",
+      "to": "원",
+      "occurrences": 2
+    },
+    {
+      "from": "doublings",
+      "to": "배가_횟수",
+      "occurrences": 2
+    },
+    {
+      "from": "first_for_digits",
+      "to": "자릿수별_최초_n",
+      "occurrences": 5
+    },
+    {
+      "from": "half_chord",
+      "to": "반현_길이",
+      "occurrences": 5
+    },
+    {
+      "from": "hexagon",
+      "to": "육각형",
+      "occurrences": 2
+    },
+    {
+      "from": "inscribed_area",
+      "to": "내접_넓이",
+      "occurrences": 3
+    },
+    {
+      "from": "layout",
+      "to": "레이아웃",
+      "occurrences": 2
+    },
+    {
+      "from": "leibniz_terms_for_error",
+      "to": "라이프니츠_오차_항수",
+      "occurrences": 2
+    },
+    {
+      "from": "limit_value",
+      "to": "극한값",
+      "occurrences": 3
+    },
+    {
+      "from": "lower",
+      "to": "하계",
+      "occurrences": 8
+    },
+    {
+      "from": "machin_pi",
+      "to": "머신_원주율",
+      "occurrences": 2
+    },
+    {
+      "from": "machin_terms",
+      "to": "머신_항수",
+      "occurrences": 2
+    },
+    {
+      "from": "polygon_sides",
+      "to": "다각형_변_수",
+      "occurrences": 2
+    },
+    {
+      "from": "polygon_width",
+      "to": "다각형_너비",
+      "occurrences": 2
+    },
+    {
+      "from": "rows",
+      "to": "행_목록",
+      "occurrences": 7
+    },
+    {
+      "from": "step",
+      "to": "단계",
+      "occurrences": 6
+    },
+    {
+      "from": "terms",
+      "to": "항_수",
+      "occurrences": 5
+    },
+    {
+      "from": "upper",
+      "to": "상계",
+      "occurrences": 8
+    },
+    {
+      "from": "width",
+      "to": "너비",
+      "occurrences": 7
+    },
+    {
+      "from": "x_hex",
+      "to": "x_육각형",
+      "occurrences": 2
+    },
+    {
+      "from": "y_hex",
+      "to": "y_육각형",
+      "occurrences": 2
+    }
+  ]
+}

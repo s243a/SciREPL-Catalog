@@ -11,33 +11,33 @@
       },
       {
         "type": "code",
-        "code": "import numpy as np\n\n# Visualize the starting hexagon inside a unit circle.\ntheta = np.linspace(0, 2 * np.pi, 200)\nangles = np.linspace(0, 2 * np.pi, 6, endpoint=False)\nx_hex = np.r_[np.cos(angles), np.cos(angles[0])]\ny_hex = np.r_[np.sin(angles), np.sin(angles[0])]\n\ncircle = {\"x\": np.cos(theta), \"y\": np.sin(theta), \"mode\": \"lines\", \"name\": \"Unit circle\"}\nhexagon = {\"x\": x_hex, \"y\": y_hex, \"mode\": \"lines+markers\", \"name\": \"Inscribed hexagon\"}\nlayout = {\"title\": \"Archimedes starts with a hexagon\", \"xaxis\": {\"scaleanchor\": \"y\"}, \"yaxis\": {\"scaleanchor\": \"x\"}}\nmplot([circle, hexagon], layout=layout)",
+        "code": "import numpy as np\n\n# Visualizar o hexágono inicial dentro de um círculo unitário.\ntheta = np.linspace(0, 2 * np.pi, 200)\nângulos = np.linspace(0, 2 * np.pi, 6, endpoint=False)\nx_hexágono = np.r_[np.cos(ângulos), np.cos(ângulos[0])]\ny_hexágono = np.r_[np.sin(ângulos), np.sin(ângulos[0])]\n\ncírculo = {\"x\": np.cos(theta), \"y\": np.sin(theta), \"mode\": \"lines\", \"name\": \"Círculo unitário\"}\nhexágono = {\"x\": x_hexágono, \"y\": y_hexágono, \"mode\": \"lines+markers\", \"name\": \"Hexágono inscrito\"}\ndisposição = {\"title\": \"Arquimedes começa com um hexágono\", \"xaxis\": {\"scaleanchor\": \"y\"}, \"yaxis\": {\"scaleanchor\": \"x\"}}\nmplot([círculo, hexágono], layout=disposição)",
         "language": "python",
-        "name": "geometry"
+        "name": "geometria"
       },
       {
         "type": "code",
-        "code": "import math\n\ndef archimedes_rows(doublings=16):\n    \"\"\"Return rigorous polygon bounds for a unit circle.\n\n    chord is the side length of the inscribed n-gon. The stable half-angle\n    recurrence doubles n without requiring pi.\n    \"\"\"\n    n = 6\n    chord = 1.0\n    rows = []\n    for step in range(doublings + 1):\n        half_chord = chord / 2\n        lower = n * half_chord\n        upper = n * half_chord / math.sqrt(1 - half_chord * half_chord)\n        rows.append((step, n, lower, upper, upper - lower))\n        chord = chord / math.sqrt(2 + math.sqrt(4 - chord * chord))\n        n *= 2\n    return rows\n\nrows = archimedes_rows()\nprint(f\"{'step':>4} {'sides':>9} {'lower bound':>16} {'upper bound':>16} {'width':>12}\")\nfor step, n, lower, upper, width in rows:\n    if step in {0, 1, 2, 4, 7, 10, 13, 16}:\n        print(f\"{step:>4} {n:>9,} {lower:>16.12f} {upper:>16.12f} {width:>12.2e}\")\n\nlower, upper = rows[-1][2], rows[-1][3]\nprint(f\"\\nFinal enclosure: {lower:.12f} < pi < {upper:.12f}\")",
+        "code": "import math\n\ndef linhas_arquimedes(duplicações=16):\n    \"\"\"Retorna limites poligonais rigorosos para um círculo unitário.\n\n    corda é o comprimento do lado do n-ágono inscrito. A recorrência estável de meio ângulo\n    dobra n sem exigir pi.\n    \"\"\"\n    n = 6\n    corda = 1.0\n    linhas = []\n    for passo in range(duplicações + 1):\n        meia_corda = corda / 2\n        limite_inferior = n * meia_corda\n        limite_superior = n * meia_corda / math.sqrt(1 - meia_corda * meia_corda)\n        linhas.append((passo, n, limite_inferior, limite_superior, limite_superior - limite_inferior))\n        corda = corda / math.sqrt(2 + math.sqrt(4 - corda * corda))\n        n *= 2\n    return linhas\n\nlinhas = linhas_arquimedes()\nprint(f\"{'pass':>4} {'lados':>9} {'limite inferior':>16} {'limite superior':>16} {'largura':>12}\")\nfor passo, n, limite_inferior, limite_superior, largura in linhas:\n    if passo in {0, 1, 2, 4, 7, 10, 13, 16}:\n        print(f\"{passo:>4} {n:>9,} {limite_inferior:>16.12f} {limite_superior:>16.12f} {largura:>12.2e}\")\n\nlimite_inferior, limite_superior = linhas[-1][2], linhas[-1][3]\nprint(f\"\\nEnquadramento final: {limite_inferior:.12f} < pi < {limite_superior:.12f}\")",
         "language": "python",
-        "name": "bounds"
+        "name": "limites"
       },
       {
         "type": "code",
-        "code": "# How many sides are needed before the complete enclosure is narrower\n# than 10^-d? Values are for repeated doubling from the hexagon.\nfirst_for_digits = {}\nfor step, n, lower, upper, width in archimedes_rows(22):\n    for d in range(1, 11):\n        if d not in first_for_digits and width < 10 ** (-d):\n            first_for_digits[d] = (n, width)\n\nprint(f\"{'d':>3} {'first doubled n':>18} {'bound width':>14}\")\nfor d in range(1, 11):\n    n, width = first_for_digits[d]\n    print(f\"{d:>3} {n:>18,} {width:>14.2e}\")\n\nprint(\"\\nA narrower enclosure certifies more absolute accuracy; it is stronger\")\nprint(\"than merely counting matching digits in one floating-point approximation.\")",
+        "code": "# Quantos lados são necessários antes que o enquadramento completo seja mais estreito\n# do que 10^-d? Os valores são para duplicações repetidas a partir do hexágono.\nprimeiro_para_dígitos = {}\nfor passo, n, limite_inferior, limite_superior, largura in linhas_arquimedes(22):\n    for d in range(1, 11):\n        if d not in primeiro_para_dígitos and largura < 10 ** (-d):\n            primeiro_para_dígitos[d] = (n, largura)\n\nprint(f\"{'d':>3} {'primeiro n dobrado':>18} {'largura limite':>14}\")\nfor d in range(1, 11):\n    n, largura = primeiro_para_dígitos[d]\n    print(f\"{d:>3} {n:>18,} {largura:>14.2e}\")\n\nprint(\"\\nUm enquadramento mais estreito garante maior precisão absoluta; é mais forte\")\nprint(\"do que simplesmente contar dígitos coincidentes em uma aproximação de ponto flutuante.\")",
         "language": "python",
-        "name": "accuracy"
+        "name": "precisão"
       },
       {
         "type": "code",
-        "code": "import sympy as sp\n\nn = sp.symbols('n', positive=True)\ninscribed_area = (n / 2) * sp.sin(2 * sp.pi / n)\nlimit_value = sp.limit(inscribed_area, n, sp.oo)\n\nprint(\"Symbolic check of the familiar inscribed-area formula:\")\nprint(\"limit as n approaches infinity =\", limit_value)\nassert limit_value == sp.pi\ninscribed_area",
+        "code": "import sympy as sp\n\nn = sp.symbols('n', positive=True)\nárea_inscrita = (n / 2) * sp.sin(2 * sp.pi / n)\nvalor_limite = sp.limit(área_inscrita, n, sp.oo)\n\nprint(\"Verificação simbólica da fórmula conhecida da área inscrita:\")\nprint(\"limite quando n tende ao infinito =\", valor_limite)\nassert valor_limite == sp.pi\nárea_inscrita",
         "language": "python",
-        "name": "symbolic_limit"
+        "name": "limite_simbólico"
       },
       {
         "type": "code",
-        "code": "def leibniz_terms_for_error(d):\n    # Alternating-series remainder for pi is at most 4/(2N+1).\n    return math.ceil((4 * 10**d - 1) / 2)\n\ndef arctan_series(x, terms):\n    return sum((-1)**k * x**(2*k + 1) / (2*k + 1) for k in range(terms))\n\ndef machin_pi(terms):\n    return 4 * (4 * arctan_series(1/5, terms) - arctan_series(1/239, terms))\n\nmachin_terms = next(n for n in range(1, 30) if abs(machin_pi(n) - math.pi) < 1e-10)\npolygon_sides, polygon_width = first_for_digits[10]\n\nprint(\"Work needed for about 1e-10 absolute accuracy:\")\nprint(f\"  Leibniz guarantee:       {leibniz_terms_for_error(10):,} terms\")\nprint(f\"  Polygon bound width:     {polygon_sides:,} sides (width {polygon_width:.2e})\")\nprint(f\"  Machin formula in float: {machin_terms} terms per arctangent\")\nprint(\"\\nThe methods have very different convergence rates; the polygon method's\")\nprint(\"historical importance is its rigorous geometric squeeze, not raw speed.\")",
+        "code": "def termos_leibniz_para_erro(d):\n    # O resto da série alternada para pi é no máximo 4/(2N+1).\n    return math.ceil((4 * 10**d - 1) / 2)\n\ndef série_arcotangente(x, termos):\n    return sum((-1)**k * x**(2*k + 1) / (2*k + 1) for k in range(termos))\n\ndef pi_machin(termos):\n    return 4 * (4 * série_arcotangente(1/5, termos) - série_arcotangente(1/239, termos))\n\ntermos_machin = next(n for n in range(1, 30) if abs(pi_machin(n) - math.pi) < 1e-10)\nlados_polígono, largura_polígono = primeiro_para_dígitos[10]\n\nprint(\"Trabalho necessário para precisão absoluta de cerca de 1e-10:\")\nprint(f\"  Garantia de Leibniz:     {termos_leibniz_para_erro(10):,} termos\")\nprint(f\"  Largura limites polígono:{lados_polígono:,} lados (largura {largura_polígono:.2e})\")\nprint(f\"  Fórmula Machin em float: {termos_machin} termos por arcotangente\")\nprint(\"\\nOs métodos têm taxas de convergência muito diferentes; a importância\")\nprint(\"histórica do método dos polígonos está em seu enquadramento geométrico rigoroso, não na velocidade bruta.\")",
         "language": "python",
-        "name": "comparison"
+        "name": "comparação"
       },
       {
         "type": "markdown",

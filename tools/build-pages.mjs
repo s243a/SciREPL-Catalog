@@ -70,6 +70,7 @@ for (const tag of tags) {
     const data = gitBuf('show', `${commit}:${rel}`);
     const sha = createHash('sha256').update(data).digest('hex');
     if (sha !== item.sha256) throw new Error(`${tag}: sha256 mismatch for ${rel} (index ${item.sha256.slice(0, 12)}, actual ${sha.slice(0, 12)})`);
+    if (data.toString('utf8').includes('\uFFFD')) throw new Error(`${tag}: ${rel} contains U+FFFD replacement characters (mojibake) — refusing to publish`);
     if (data.length !== item.size) throw new Error(`${tag}: size mismatch for ${rel}`);
     const dest = path.join(relDir, 'files', rel);
     mkdirSync(path.dirname(dest), { recursive: true });

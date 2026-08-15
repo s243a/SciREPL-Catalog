@@ -11,33 +11,33 @@
       },
       {
         "type": "code",
-        "code": "import numpy as np\n\n# Visualize the starting hexagon inside a unit circle.\ntheta = np.linspace(0, 2 * np.pi, 200)\nangles = np.linspace(0, 2 * np.pi, 6, endpoint=False)\nx_hex = np.r_[np.cos(angles), np.cos(angles[0])]\ny_hex = np.r_[np.sin(angles), np.sin(angles[0])]\n\ncircle = {\"x\": np.cos(theta), \"y\": np.sin(theta), \"mode\": \"lines\", \"name\": \"Unit circle\"}\nhexagon = {\"x\": x_hex, \"y\": y_hex, \"mode\": \"lines+markers\", \"name\": \"Inscribed hexagon\"}\nlayout = {\"title\": \"Archimedes starts with a hexagon\", \"xaxis\": {\"scaleanchor\": \"y\"}, \"yaxis\": {\"scaleanchor\": \"x\"}}\nmplot([circle, hexagon], layout=layout)",
+        "code": "import numpy as np\n\n# একক বৃত্তের ভেতরে প্রারম্ভিক ষড়ভুজটি দেখুন।\ntheta = np.linspace(0, 2 * np.pi, 200)\nকোণ = np.linspace(0, 2 * np.pi, 6, endpoint=False)\nx_ষড়ভুজ = np.r_[np.cos(কোণ), np.cos(কোণ[0])]\ny_ষড়ভুজ = np.r_[np.sin(কোণ), np.sin(কোণ[0])]\n\nবৃত্ত = {\"x\": np.cos(theta), \"y\": np.sin(theta), \"mode\": \"lines\", \"name\": \"একক বৃত্ত\"}\nষড়ভুজ = {\"x\": x_ষড়ভুজ, \"y\": y_ষড়ভুজ, \"mode\": \"lines+markers\", \"name\": \"অন্তর্লিখিত ষড়ভুজ\"}\nলেআউট = {\"title\": \"আর্কিমিডিস একটি ষড়ভুজ দিয়ে শুরু করেন\", \"xaxis\": {\"scaleanchor\": \"y\"}, \"yaxis\": {\"scaleanchor\": \"x\"}}\nmplot([বৃত্ত, ষড়ভুজ], layout=লেআউট)",
         "language": "python",
-        "name": "geometry"
+        "name": "জ্যামিতি"
       },
       {
         "type": "code",
-        "code": "import math\n\ndef archimedes_rows(doublings=16):\n    \"\"\"Return rigorous polygon bounds for a unit circle.\n\n    chord is the side length of the inscribed n-gon. The stable half-angle\n    recurrence doubles n without requiring pi.\n    \"\"\"\n    n = 6\n    chord = 1.0\n    rows = []\n    for step in range(doublings + 1):\n        half_chord = chord / 2\n        lower = n * half_chord\n        upper = n * half_chord / math.sqrt(1 - half_chord * half_chord)\n        rows.append((step, n, lower, upper, upper - lower))\n        chord = chord / math.sqrt(2 + math.sqrt(4 - chord * chord))\n        n *= 2\n    return rows\n\nrows = archimedes_rows()\nprint(f\"{'step':>4} {'sides':>9} {'lower bound':>16} {'upper bound':>16} {'width':>12}\")\nfor step, n, lower, upper, width in rows:\n    if step in {0, 1, 2, 4, 7, 10, 13, 16}:\n        print(f\"{step:>4} {n:>9,} {lower:>16.12f} {upper:>16.12f} {width:>12.2e}\")\n\nlower, upper = rows[-1][2], rows[-1][3]\nprint(f\"\\nFinal enclosure: {lower:.12f} < pi < {upper:.12f}\")",
+        "code": "import math\n\ndef আর্কিমিডিস_সারি(দ্বিগুণ_করা=16):\n    \"\"\"একটি একক বৃত্তের জন্য সুনির্দিষ্ট বহুভুজ সীমা প্রদান করে।\n\n    জ্যা হলো অন্তর্লিখিত n-ভুজের বাহুর দৈর্ঘ্য। স্থিতিশীল অর্ধ-কোণ\n    পুনরাবৃত্তি pi ছাড়াই n-কে দ্বিগুণ করে।\n    \"\"\"\n    n = 6\n    জ্যা = 1.0\n    সারি = []\n    for ধাপ in range(দ্বিগুণ_করা + 1):\n        অর্ধ_জ্যা = জ্যা / 2\n        নিম্ন_সীমা = n * অর্ধ_জ্যা\n        উচ্চ_সীমা = n * অর্ধ_জ্যা / math.sqrt(1 - অর্ধ_জ্যা * অর্ধ_জ্যা)\n        সারি.append((ধাপ, n, নিম্ন_সীমা, উচ্চ_সীমা, উচ্চ_সীমা - নিম্ন_সীমা))\n        জ্যা = জ্যা / math.sqrt(2 + math.sqrt(4 - জ্যা * জ্যা))\n        n *= 2\n    return সারি\n\nসারি = আর্কিমিডিস_সারি()\nprint(f\"{'ধাপ':>4} {'বাহু':>9} {'নিম্ন সীমা':>16} {'উচ্চ সীমা':>16} {'ব্যবধান':>12}\")\nfor ধাপ, n, নিম্ন_সীমা, উচ্চ_সীমা, ব্যবধান in সারি:\n    if ধাপ in {0, 1, 2, 4, 7, 10, 13, 16}:\n        print(f\"{ধাপ:>4} {n:>9,} {নিম্ন_সীমা:>16.12f} {উচ্চ_সীমা:>16.12f} {ব্যবধান:>12.2e}\")\n\nনিম্ন_সীমা, উচ্চ_সীমা = সারি[-1][2], সারি[-1][3]\nprint(f\"\\nচূড়ান্ত সীমা: {নিম্ন_সীমা:.12f} < pi < {উচ্চ_সীমা:.12f}\")",
         "language": "python",
-        "name": "bounds"
+        "name": "সীমা"
       },
       {
         "type": "code",
-        "code": "# How many sides are needed before the complete enclosure is narrower\n# than 10^-d? Values are for repeated doubling from the hexagon.\nfirst_for_digits = {}\nfor step, n, lower, upper, width in archimedes_rows(22):\n    for d in range(1, 11):\n        if d not in first_for_digits and width < 10 ** (-d):\n            first_for_digits[d] = (n, width)\n\nprint(f\"{'d':>3} {'first doubled n':>18} {'bound width':>14}\")\nfor d in range(1, 11):\n    n, width = first_for_digits[d]\n    print(f\"{d:>3} {n:>18,} {width:>14.2e}\")\n\nprint(\"\\nA narrower enclosure certifies more absolute accuracy; it is stronger\")\nprint(\"than merely counting matching digits in one floating-point approximation.\")",
+        "code": "# সম্পূর্ণ সীমাবদ্ধতা এর চেয়ে সংকীর্ণ হওয়ার আগে কতটি বাহু প্রয়োজন\n# 10^-d থেকে? মানগুলি ষড়ভুজ থেকে বারবার দ্বিগুণ করার জন্য।\nঅঙ্কের_জন্য_প্রথম = {}\nfor ধাপ, n, নিম্ন_সীমা, উচ্চ_সীমা, ব্যবধান in আর্কিমিডিস_সারি(22):\n    for d in range(1, 11):\n        if d not in অঙ্কের_জন্য_প্রথম and ব্যবধান < 10 ** (-d):\n            অঙ্কের_জন্য_প্রথম[d] = (n, ব্যবধান)\n\nprint(f\"{'d':>3} {'প্রথম দ্বিগুণ n':>18} {'সীমার ব্যবধান':>14}\")\nfor d in range(1, 11):\n    n, ব্যবধান = অঙ্কের_জন্য_প্রথম[d]\n    print(f\"{d:>3} {n:>18,} {ব্যবধান:>14.2e}\")\n\nprint(\"\\nএকটি সংকীর্ণ সীমাবদ্ধতা আরও পরম নির্ভুলতা নিশ্চিত করে; এটি\")\nprint(\"একটি ফ্লোটিং-পয়েন্ট অনুমানে মিলে যাওয়া অঙ্ক গণনার চেয়ে অধিক শক্তিশালী।\")",
         "language": "python",
-        "name": "accuracy"
+        "name": "নির্ভুলতা"
       },
       {
         "type": "code",
-        "code": "import sympy as sp\n\nn = sp.symbols('n', positive=True)\ninscribed_area = (n / 2) * sp.sin(2 * sp.pi / n)\nlimit_value = sp.limit(inscribed_area, n, sp.oo)\n\nprint(\"Symbolic check of the familiar inscribed-area formula:\")\nprint(\"limit as n approaches infinity =\", limit_value)\nassert limit_value == sp.pi\ninscribed_area",
+        "code": "import sympy as sp\n\nn = sp.symbols('n', positive=True)\nঅন্তর্লিখিত_ক্ষেত্রফল = (n / 2) * sp.sin(2 * sp.pi / n)\nসীমার_মান = sp.limit(অন্তর্লিখিত_ক্ষেত্রফল, n, sp.oo)\n\nprint(\"পরিচিত অন্তর্লিখিত ক্ষেত্রফল সূত্রের প্রতীকী যাচাই:\")\nprint(\"n অসীমের দিকে অগ্রসর হওয়ার সীমা =\", সীমার_মান)\nassert সীমার_মান == sp.pi\nঅন্তর্লিখিত_ক্ষেত্রফল",
         "language": "python",
-        "name": "symbolic_limit"
+        "name": "প্রতীকী_সীমা"
       },
       {
         "type": "code",
-        "code": "def leibniz_terms_for_error(d):\n    # Alternating-series remainder for pi is at most 4/(2N+1).\n    return math.ceil((4 * 10**d - 1) / 2)\n\ndef arctan_series(x, terms):\n    return sum((-1)**k * x**(2*k + 1) / (2*k + 1) for k in range(terms))\n\ndef machin_pi(terms):\n    return 4 * (4 * arctan_series(1/5, terms) - arctan_series(1/239, terms))\n\nmachin_terms = next(n for n in range(1, 30) if abs(machin_pi(n) - math.pi) < 1e-10)\npolygon_sides, polygon_width = first_for_digits[10]\n\nprint(\"Work needed for about 1e-10 absolute accuracy:\")\nprint(f\"  Leibniz guarantee:       {leibniz_terms_for_error(10):,} terms\")\nprint(f\"  Polygon bound width:     {polygon_sides:,} sides (width {polygon_width:.2e})\")\nprint(f\"  Machin formula in float: {machin_terms} terms per arctangent\")\nprint(\"\\nThe methods have very different convergence rates; the polygon method's\")\nprint(\"historical importance is its rigorous geometric squeeze, not raw speed.\")",
+        "code": "def ত্রুটির_জন্য_লাইবনিজ_পদ(d):\n    # পাই-এর জন্য একান্তর ধারার অবশিষ্টাংশ সর্বোচ্চ 4/(2N+1)।\n    return math.ceil((4 * 10**d - 1) / 2)\n\ndef আর্কট্যান_ধারা(x, পদ):\n    return sum((-1)**k * x**(2*k + 1) / (2*k + 1) for k in range(পদ))\n\ndef ম্যাসিন_পাই(পদ):\n    return 4 * (4 * আর্কট্যান_ধারা(1/5, পদ) - আর্কট্যান_ধারা(1/239, পদ))\n\nম্যাসিন_পদ = next(n for n in range(1, 30) if abs(ম্যাসিন_পাই(n) - math.pi) < 1e-10)\nবহুভুজ_বাহু, বহুভুজ_ব্যবধান = অঙ্কের_জন্য_প্রথম[10]\n\nprint(\"প্রায় 1e-10 পরম নির্ভুলতার জন্য প্রয়োজনীয় কাজ:\")\nprint(f\"  লাইবনিজ নিশ্চয়তা:        {ত্রুটির_জন্য_লাইবনিজ_পদ(10):,} পদ\")\nprint(f\"  বহুভুজ সীমার ব্যবধান:   {বহুভুজ_বাহু:,} বাহু (ব্যবধান {বহুভুজ_ব্যবধান:.2e})\")\nprint(f\"  ফ্লোটে ম্যাসিন সূত্র:    {ম্যাসিন_পদ} পদ প্রতি আর্কট্যানজেন্ট\")\nprint(\"\\nপদ্ধতিগুলির অভিসরণ হার অত্যন্ত ভিন্ন; বহুভুজ পদ্ধতির\")\nprint(\"ঐতিহাসিক গুরুত্ব এর কঠোর জ্যামিতিক সীমাবদ্ধতায়, দ্রুততায় নয়।\")",
         "language": "python",
-        "name": "comparison"
+        "name": "তুলনা"
       },
       {
         "type": "markdown",

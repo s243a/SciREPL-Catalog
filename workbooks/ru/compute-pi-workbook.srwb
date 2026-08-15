@@ -11,33 +11,33 @@
       },
       {
         "type": "code",
-        "code": "import numpy as np\n\n# Visualize the starting hexagon inside a unit circle.\ntheta = np.linspace(0, 2 * np.pi, 200)\nangles = np.linspace(0, 2 * np.pi, 6, endpoint=False)\nx_hex = np.r_[np.cos(angles), np.cos(angles[0])]\ny_hex = np.r_[np.sin(angles), np.sin(angles[0])]\n\ncircle = {\"x\": np.cos(theta), \"y\": np.sin(theta), \"mode\": \"lines\", \"name\": \"Unit circle\"}\nhexagon = {\"x\": x_hex, \"y\": y_hex, \"mode\": \"lines+markers\", \"name\": \"Inscribed hexagon\"}\nlayout = {\"title\": \"Archimedes starts with a hexagon\", \"xaxis\": {\"scaleanchor\": \"y\"}, \"yaxis\": {\"scaleanchor\": \"x\"}}\nmplot([circle, hexagon], layout=layout)",
+        "code": "import numpy as np\n\n# Визуализировать начальный шестиугольник внутри единичной окружности.\ntheta = np.linspace(0, 2 * np.pi, 200)\nуглы = np.linspace(0, 2 * np.pi, 6, endpoint=False)\nx_шестиугольник = np.r_[np.cos(углы), np.cos(углы[0])]\ny_шестиугольник = np.r_[np.sin(углы), np.sin(углы[0])]\n\nокружность = {\"x\": np.cos(theta), \"y\": np.sin(theta), \"mode\": \"lines\", \"name\": \"Единичная окружность\"}\nшестиугольник = {\"x\": x_шестиугольник, \"y\": y_шестиугольник, \"mode\": \"lines+markers\", \"name\": \"Вписанный шестиугольник\"}\nмакет = {\"title\": \"Архимед начинает с шестиугольника\", \"xaxis\": {\"scaleanchor\": \"y\"}, \"yaxis\": {\"scaleanchor\": \"x\"}}\nmplot([окружность, шестиугольник], layout=макет)",
         "language": "python",
-        "name": "geometry"
+        "name": "геометрия"
       },
       {
         "type": "code",
-        "code": "import math\n\ndef archimedes_rows(doublings=16):\n    \"\"\"Return rigorous polygon bounds for a unit circle.\n\n    chord is the side length of the inscribed n-gon. The stable half-angle\n    recurrence doubles n without requiring pi.\n    \"\"\"\n    n = 6\n    chord = 1.0\n    rows = []\n    for step in range(doublings + 1):\n        half_chord = chord / 2\n        lower = n * half_chord\n        upper = n * half_chord / math.sqrt(1 - half_chord * half_chord)\n        rows.append((step, n, lower, upper, upper - lower))\n        chord = chord / math.sqrt(2 + math.sqrt(4 - chord * chord))\n        n *= 2\n    return rows\n\nrows = archimedes_rows()\nprint(f\"{'step':>4} {'sides':>9} {'lower bound':>16} {'upper bound':>16} {'width':>12}\")\nfor step, n, lower, upper, width in rows:\n    if step in {0, 1, 2, 4, 7, 10, 13, 16}:\n        print(f\"{step:>4} {n:>9,} {lower:>16.12f} {upper:>16.12f} {width:>12.2e}\")\n\nlower, upper = rows[-1][2], rows[-1][3]\nprint(f\"\\nFinal enclosure: {lower:.12f} < pi < {upper:.12f}\")",
+        "code": "import math\n\ndef строки_архимеда(удвоения=16):\n    \"\"\"Возвращает строгие полигональные границы для единичной окружности.\n\n    хорда — длина стороны вписанного n-угольника. Устойчивая рекуррентная\n    формула половинного угла удваивает n без использования pi.\n    \"\"\"\n    n = 6\n    хорда = 1.0\n    строки = []\n    for шаг in range(удвоения + 1):\n        половина_хорды = хорда / 2\n        нижняя_граница = n * половина_хорды\n        верхняя_граница = n * половина_хорды / math.sqrt(1 - половина_хорды * половина_хорды)\n        строки.append((шаг, n, нижняя_граница, верхняя_граница, верхняя_граница - нижняя_граница))\n        хорда = хорда / math.sqrt(2 + math.sqrt(4 - хорда * хорда))\n        n *= 2\n    return строки\n\nстроки = строки_архимеда()\nprint(f\"{'шаг':>4} {'стороны':>9} {'нижняя граница':>16} {'верхняя граница':>16} {'ширина':>12}\")\nfor шаг, n, нижняя_граница, верхняя_граница, ширина in строки:\n    if шаг in {0, 1, 2, 4, 7, 10, 13, 16}:\n        print(f\"{шаг:>4} {n:>9,} {нижняя_граница:>16.12f} {верхняя_граница:>16.12f} {ширина:>12.2e}\")\n\nнижняя_граница, верхняя_граница = строки[-1][2], строки[-1][3]\nprint(f\"\\nИтоговый интервал: {нижняя_граница:.12f} < pi < {верхняя_граница:.12f}\")",
         "language": "python",
-        "name": "bounds"
+        "name": "границы"
       },
       {
         "type": "code",
-        "code": "# How many sides are needed before the complete enclosure is narrower\n# than 10^-d? Values are for repeated doubling from the hexagon.\nfirst_for_digits = {}\nfor step, n, lower, upper, width in archimedes_rows(22):\n    for d in range(1, 11):\n        if d not in first_for_digits and width < 10 ** (-d):\n            first_for_digits[d] = (n, width)\n\nprint(f\"{'d':>3} {'first doubled n':>18} {'bound width':>14}\")\nfor d in range(1, 11):\n    n, width = first_for_digits[d]\n    print(f\"{d:>3} {n:>18,} {width:>14.2e}\")\n\nprint(\"\\nA narrower enclosure certifies more absolute accuracy; it is stronger\")\nprint(\"than merely counting matching digits in one floating-point approximation.\")",
+        "code": "# Сколько сторон требуется, чтобы интервал локализации стал уже\n# чем 10^-d? Значения получены последовательным удвоением от шестиугольника.\nпервое_по_разрядам = {}\nfor шаг, n, нижняя_граница, верхняя_граница, ширина in строки_архимеда(22):\n    for d in range(1, 11):\n        if d not in первое_по_разрядам and ширина < 10 ** (-d):\n            первое_по_разрядам[d] = (n, ширина)\n\nprint(f\"{'d':>3} {'первое удвоенное n':>18} {'ширина границ':>14}\")\nfor d in range(1, 11):\n    n, ширина = первое_по_разрядам[d]\n    print(f\"{d:>3} {n:>18,} {ширина:>14.2e}\")\n\nprint(\"\\nБолее узкий интервал гарантирует более высокую абсолютную точность; это надежнее\")\nprint(\"чем простой подсчет совпадающих цифр в приближении с плавающей запятой.\")",
         "language": "python",
-        "name": "accuracy"
+        "name": "точность"
       },
       {
         "type": "code",
-        "code": "import sympy as sp\n\nn = sp.symbols('n', positive=True)\ninscribed_area = (n / 2) * sp.sin(2 * sp.pi / n)\nlimit_value = sp.limit(inscribed_area, n, sp.oo)\n\nprint(\"Symbolic check of the familiar inscribed-area formula:\")\nprint(\"limit as n approaches infinity =\", limit_value)\nassert limit_value == sp.pi\ninscribed_area",
+        "code": "import sympy as sp\n\nn = sp.symbols('n', positive=True)\nплощадь_вписанного = (n / 2) * sp.sin(2 * sp.pi / n)\nзначение_предела = sp.limit(площадь_вписанного, n, sp.oo)\n\nprint(\"Символьная проверка известной формулы площади вписанного многоугольника:\")\nprint(\"предел при n, стремящемся к бесконечности =\", значение_предела)\nassert значение_предела == sp.pi\nплощадь_вписанного",
         "language": "python",
-        "name": "symbolic_limit"
+        "name": "символьный_предел"
       },
       {
         "type": "code",
-        "code": "def leibniz_terms_for_error(d):\n    # Alternating-series remainder for pi is at most 4/(2N+1).\n    return math.ceil((4 * 10**d - 1) / 2)\n\ndef arctan_series(x, terms):\n    return sum((-1)**k * x**(2*k + 1) / (2*k + 1) for k in range(terms))\n\ndef machin_pi(terms):\n    return 4 * (4 * arctan_series(1/5, terms) - arctan_series(1/239, terms))\n\nmachin_terms = next(n for n in range(1, 30) if abs(machin_pi(n) - math.pi) < 1e-10)\npolygon_sides, polygon_width = first_for_digits[10]\n\nprint(\"Work needed for about 1e-10 absolute accuracy:\")\nprint(f\"  Leibniz guarantee:       {leibniz_terms_for_error(10):,} terms\")\nprint(f\"  Polygon bound width:     {polygon_sides:,} sides (width {polygon_width:.2e})\")\nprint(f\"  Machin formula in float: {machin_terms} terms per arctangent\")\nprint(\"\\nThe methods have very different convergence rates; the polygon method's\")\nprint(\"historical importance is its rigorous geometric squeeze, not raw speed.\")",
+        "code": "def члены_лейбница_для_ошибки(d):\n    # Остаток знакочередующегося ряда для pi не превышает 4/(2N+1).\n    return math.ceil((4 * 10**d - 1) / 2)\n\ndef ряд_арктангенса(x, члены):\n    return sum((-1)**k * x**(2*k + 1) / (2*k + 1) for k in range(члены))\n\ndef пи_мэчина(члены):\n    return 4 * (4 * ряд_арктангенса(1/5, члены) - ряд_арктангенса(1/239, члены))\n\nчлены_мэчина = next(n for n in range(1, 30) if abs(пи_мэчина(n) - math.pi) < 1e-10)\nстороны_многоугольника, ширина_многоугольника = первое_по_разрядам[10]\n\nprint(\"Объем вычислений для абсолютной точности порядка 1e-10:\")\nprint(f\"  Гарантия Лейбница:       {члены_лейбница_для_ошибки(10):,} членов\")\nprint(f\"  Ширина границ полигона:  {стороны_многоугольника:,} сторон (ширина {ширина_многоугольника:.2e})\")\nprint(f\"  Формула Мэчина (float):  {члены_мэчина} членов на арктангенс\")\nprint(\"\\nМетоды имеют очень разную скорость сходимости; историческое\")\nprint(\"значение метода многоугольников — в строгом геометрическом зажатии, а не в скорости.\")",
         "language": "python",
-        "name": "comparison"
+        "name": "сравнение"
       },
       {
         "type": "markdown",

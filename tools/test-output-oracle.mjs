@@ -106,6 +106,23 @@ const mCN = manifest([
 const jCN = judge(run([null, 'the accuracy of pi']), run([null, 'the precisión de pi']), mCN);
 check('cell name coinciding with output prose passes', jCN.pass, jCN.failures.join(' | '));
 
+console.log('8c. Plot cells excluded from the text diff (ko regression)');
+// a cell with rendered html in BOTH runs may show different tick text
+// (auto-range shifts with label width) — routed to plot check instead
+const plotRun = (ticks) => ({ format: 'srwb', notebook: { cells: [
+  { type: 'python', code: 'x', lastOutput: ticks, lastOutputHtml: '<svg>...</svg>' },
+  { type: 'python', code: 'y', lastOutput: 'stable' },
+] } });
+const jP = judge(plotRun('−2−1012'), plotRun('−3−2−10123'), manifest([]));
+check('differing plot tick text passes (routed to plot check)', jP.pass, jP.failures.join(' | '));
+check('plot cell reported for plot check', jP.plotCells.includes(0), JSON.stringify(jP.plotCells));
+const jP2 = judge(plotRun('−2−1012'),
+  { format: 'srwb', notebook: { cells: [
+    { type: 'python', code: 'x', lastOutput: '−2−1012', lastOutputHtml: '<svg>...</svg>' },
+    { type: 'python', code: 'y', lastOutput: 'CHANGED' },
+  ] } }, manifest([]));
+check('non-plot cell still text-diffed strictly', !jP2.pass);
+
 console.log('9. Sentinel collision resistance');
 // translated word 'términos' coincidentally equals another legit span's text —
 // symmetric sentinels keep them distinct because masking is per-span-index
