@@ -1,0 +1,1931 @@
+{
+  "manifest_version": 1,
+  "produced_by": "derived",
+  "generator": "tools/span-derive.mjs",
+  "locale": "id",
+  "source": {
+    "path": "workbooks/en/lua-parsing-coroutines.srwb",
+    "sha256": "cb7f874ca2748c056c020cc5dda8d6621422e02b8b73da84d34f156509cbcb62"
+  },
+  "target": {
+    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/jobs/lua-parsing-coroutines-id/translated.srwb",
+    "sha256": "736b52e53ef84d0824dd8775f6862cb64a251ef7acdb61fd8a488fb2a0d632a3"
+  },
+  "spans": [
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 34
+        },
+        "text": "string.match: extract captures"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 41
+        },
+        "text": "string.match: ekstrak hasil tangkapan"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 8
+        },
+        "end": {
+          "line": 3,
+          "col": 13
+        },
+        "text": "Year:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 8
+        },
+        "end": {
+          "line": 3,
+          "col": 14
+        },
+        "text": "Tahun:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 23
+        },
+        "end": {
+          "line": 3,
+          "col": 29
+        },
+        "text": "Month:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 24
+        },
+        "end": {
+          "line": 3,
+          "col": 30
+        },
+        "text": "Bulan:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 40
+        },
+        "end": {
+          "line": 3,
+          "col": 44
+        },
+        "text": "Day:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 41
+        },
+        "end": {
+          "line": 3,
+          "col": 46
+        },
+        "text": "Hari:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 43
+        },
+        "text": "string.gmatch: iterate over all matches"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 45
+        },
+        "text": "string.gmatch: iterasi di semua kecocokan"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 8
+        },
+        "end": {
+          "line": 6,
+          "col": 28
+        },
+        "text": "\\nWords in sentence:"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 8
+        },
+        "end": {
+          "line": 6,
+          "col": 34
+        },
+        "text": "\\nKata-kata dalam kalimat:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 35
+        },
+        "text": "string.gsub: search and replace"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 31
+        },
+        "text": "string.gsub: cari dan ganti"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 1
+        },
+        "end": {
+          "line": 7,
+          "col": 24
+        },
+        "text": "Swap key=value pairs"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 1
+        },
+        "end": {
+          "line": 7,
+          "col": 28
+        },
+        "text": "Tukar pasangan key=value"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 72
+        },
+        "text": "string.find: locate the complete match and capture the function name"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 66
+        },
+        "text": "string.find: temukan kecocokan lengkap dan tangkap nama fungsi"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 22
+        },
+        "end": {
+          "line": 4,
+          "col": 73
+        },
+        "text": "Matched '%s' at positions %d-%d; captured name '%s'"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 22
+        },
+        "end": {
+          "line": 4,
+          "col": 76
+        },
+        "text": "Cocok '%s' pada posisi %d-%d; nama yang ditangkap '%s'"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 1
+        },
+        "end": {
+          "line": 6,
+          "col": 56
+        },
+        "text": "Frontier pattern %f[]: match at boundary transitions"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 1
+        },
+        "end": {
+          "line": 6,
+          "col": 54
+        },
+        "text": "Pola perbatasan %f[]: cocokkan pada transisi batas"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 12,
+          "col": 8
+        },
+        "end": {
+          "line": 12,
+          "col": 24
+        },
+        "text": "Split camelCase:"
+      },
+      "target_span": {
+        "start": {
+          "line": 12,
+          "col": 8
+        },
+        "end": {
+          "line": 12,
+          "col": 27
+        },
+        "text": "Pisahkan camelCase:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 15
+        },
+        "text": "Token types"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 21
+        },
+        "text": "Jenis-jenis token"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 13,
+          "col": 7
+        },
+        "end": {
+          "line": 13,
+          "col": 25
+        },
+        "text": "Skip whitespace"
+      },
+      "target_span": {
+        "start": {
+          "line": 13,
+          "col": 7
+        },
+        "end": {
+          "line": 13,
+          "col": 28
+        },
+        "text": "Lewati spasi putih"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 18,
+          "col": 7
+        },
+        "end": {
+          "line": 18,
+          "col": 41
+        },
+        "text": "Numbers (integers and decimals)"
+      },
+      "target_span": {
+        "start": {
+          "line": 18,
+          "col": 7
+        },
+        "end": {
+          "line": 18,
+          "col": 44
+        },
+        "text": "Angka (bilangan bulat dan pecahan)"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 23,
+          "col": 7
+        },
+        "end": {
+          "line": 23,
+          "col": 32
+        },
+        "text": "Identifiers / keywords"
+      },
+      "target_span": {
+        "start": {
+          "line": 23,
+          "col": 7
+        },
+        "end": {
+          "line": 23,
+          "col": 36
+        },
+        "text": "Identifikator / kata kunci"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 28,
+          "col": 7
+        },
+        "end": {
+          "line": 28,
+          "col": 19
+        },
+        "text": "Operators"
+      },
+      "target_span": {
+        "start": {
+          "line": 28,
+          "col": 7
+        },
+        "end": {
+          "line": 28,
+          "col": 24
+        },
+        "text": "Simbol operasi"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 32,
+          "col": 7
+        },
+        "end": {
+          "line": 32,
+          "col": 21
+        },
+        "text": "Parentheses"
+      },
+      "target_span": {
+        "start": {
+          "line": 32,
+          "col": 7
+        },
+        "end": {
+          "line": 32,
+          "col": 22
+        },
+        "text": "Tanda kurung"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 40,
+          "col": 16
+        },
+        "end": {
+          "line": 40,
+          "col": 49
+        },
+        "text": "Unexpected character at position "
+      },
+      "target_span": {
+        "start": {
+          "line": 40,
+          "col": 16
+        },
+        "end": {
+          "line": 40,
+          "col": 51
+        },
+        "text": "Karakter tidak terduga pada posisi "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 47,
+          "col": 1
+        },
+        "end": {
+          "line": 47,
+          "col": 18
+        },
+        "text": "Test the lexer"
+      },
+      "target_span": {
+        "start": {
+          "line": 47,
+          "col": 1
+        },
+        "end": {
+          "line": 47,
+          "col": 29
+        },
+        "text": "Uji penganalisis leksikal"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 48,
+          "col": 8
+        },
+        "end": {
+          "line": 48,
+          "col": 38
+        },
+        "text": "Tokens for '3 + 42 * (x - 1)':"
+      },
+      "target_span": {
+        "start": {
+          "line": 48,
+          "col": 8
+        },
+        "end": {
+          "line": 48,
+          "col": 39
+        },
+        "text": "Token untuk '3 + 42 * (x - 1)':"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 20,
+          "col": 14
+        },
+        "end": {
+          "line": 20,
+          "col": 23
+        },
+        "text": "Expected "
+      },
+      "target_span": {
+        "start": {
+          "line": 20,
+          "col": 14
+        },
+        "end": {
+          "line": 20,
+          "col": 25
+        },
+        "text": "Diharapkan "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 20,
+          "col": 36
+        },
+        "end": {
+          "line": 20,
+          "col": 45
+        },
+        "text": " but got "
+      },
+      "target_span": {
+        "start": {
+          "line": 20,
+          "col": 38
+        },
+        "end": {
+          "line": 20,
+          "col": 58
+        },
+        "text": " tetapi mendapatkan "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 21,
+          "col": 26
+        },
+        "end": {
+          "line": 21,
+          "col": 39
+        },
+        "text": " at position "
+      },
+      "target_span": {
+        "start": {
+          "line": 21,
+          "col": 26
+        },
+        "end": {
+          "line": 21,
+          "col": 39
+        },
+        "text": " pada posisi "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 29,
+          "col": 1
+        },
+        "end": {
+          "line": 29,
+          "col": 21
+        },
+        "text": "Test peek/consume"
+      },
+      "target_span": {
+        "start": {
+          "line": 29,
+          "col": 1
+        },
+        "end": {
+          "line": 29,
+          "col": 20
+        },
+        "text": "Uji peek/consume"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 33,
+          "col": 8
+        },
+        "end": {
+          "line": 33,
+          "col": 13
+        },
+        "text": "Next:"
+      },
+      "target_span": {
+        "start": {
+          "line": 33,
+          "col": 8
+        },
+        "end": {
+          "line": 33,
+          "col": 19
+        },
+        "text": "Berikutnya:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 10,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 25
+        },
+        "text": "AST node constructors"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 26
+        },
+        "text": "Konstruktor simpul AST"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 11,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 54
+        },
+        "text": "Parser: recursive descent with precedence climbing"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 56
+        },
+        "text": "Parser: recursive descent dengan precedence climbing"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 11,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 28,
+          "col": 3
+        },
+        "end": {
+          "line": 28,
+          "col": 53
+        },
+        "text": "power = unary ('^' power)?  (right-associative)"
+      },
+      "target_span": {
+        "start": {
+          "line": 28,
+          "col": 3
+        },
+        "end": {
+          "line": 28,
+          "col": 51
+        },
+        "text": "power = unary ('^' power)?  (asosiatif kanan)"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 11,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 33,
+          "col": 41
+        },
+        "end": {
+          "line": 33,
+          "col": 60
+        },
+        "text": "right-recursive!"
+      },
+      "target_span": {
+        "start": {
+          "line": 33,
+          "col": 41
+        },
+        "end": {
+          "line": 33,
+          "col": 59
+        },
+        "text": "rekursif kanan!"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 11,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 58,
+          "col": 7
+        },
+        "end": {
+          "line": 58,
+          "col": 24
+        },
+        "text": "Function call?"
+      },
+      "target_span": {
+        "start": {
+          "line": 58,
+          "col": 7
+        },
+        "end": {
+          "line": 58,
+          "col": 27
+        },
+        "text": "Panggilan fungsi?"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 11,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 60,
+          "col": 27
+        },
+        "end": {
+          "line": 60,
+          "col": 37
+        },
+        "text": "eat '('"
+      },
+      "target_span": {
+        "start": {
+          "line": 60,
+          "col": 27
+        },
+        "end": {
+          "line": 60,
+          "col": 39
+        },
+        "text": "ambil '('"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 11,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 82,
+          "col": 12
+        },
+        "end": {
+          "line": 82,
+          "col": 30
+        },
+        "text": "Unexpected token: "
+      },
+      "target_span": {
+        "start": {
+          "line": 82,
+          "col": 12
+        },
+        "end": {
+          "line": 82,
+          "col": 33
+        },
+        "text": "Token tidak terduga: "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 11,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 83,
+          "col": 24
+        },
+        "end": {
+          "line": 83,
+          "col": 37
+        },
+        "text": " at position "
+      },
+      "target_span": {
+        "start": {
+          "line": 83,
+          "col": 24
+        },
+        "end": {
+          "line": 83,
+          "col": 37
+        },
+        "text": " pada posisi "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 11,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 91,
+          "col": 8
+        },
+        "end": {
+          "line": 91,
+          "col": 22
+        },
+        "text": "Parser loaded."
+      },
+      "target_span": {
+        "start": {
+          "line": 91,
+          "col": 8
+        },
+        "end": {
+          "line": 91,
+          "col": 22
+        },
+        "text": "Parser dimuat."
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 25,
+          "col": 1
+        },
+        "end": {
+          "line": 25,
+          "col": 21
+        },
+        "text": "Parse and display"
+      },
+      "target_span": {
+        "start": {
+          "line": 25,
+          "col": 1
+        },
+        "end": {
+          "line": 25,
+          "col": 22
+        },
+        "text": "Urai dan tampilkan"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 27,
+          "col": 8
+        },
+        "end": {
+          "line": 27,
+          "col": 32
+        },
+        "text": "AST for '2 ^ 3 ^ 2 + 1':"
+      },
+      "target_span": {
+        "start": {
+          "line": 27,
+          "col": 8
+        },
+        "end": {
+          "line": 27,
+          "col": 34
+        },
+        "text": "AST untuk '2 ^ 3 ^ 2 + 1':"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 30,
+          "col": 8
+        },
+        "end": {
+          "line": 30,
+          "col": 33
+        },
+        "text": "\\nAST for '-(3 + 4) * 2':"
+      },
+      "target_span": {
+        "start": {
+          "line": 30,
+          "col": 8
+        },
+        "end": {
+          "line": 30,
+          "col": 35
+        },
+        "text": "\\nAST untuk '-(3 + 4) * 2':"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 15,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 9,
+          "col": 31
+        },
+        "end": {
+          "line": 9,
+          "col": 51
+        },
+        "text": "Undefined variable: "
+      },
+      "target_span": {
+        "start": {
+          "line": 9,
+          "col": 31
+        },
+        "end": {
+          "line": 9,
+          "col": 59
+        },
+        "text": "Variabel tidak terdefinisi: "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 15,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 31,
+          "col": 14
+        },
+        "end": {
+          "line": 31,
+          "col": 30
+        },
+        "text": "Not a function: "
+      },
+      "target_span": {
+        "start": {
+          "line": 31,
+          "col": 14
+        },
+        "end": {
+          "line": 31,
+          "col": 28
+        },
+        "text": "Bukan fungsi: "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 15,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 40,
+          "col": 10
+        },
+        "end": {
+          "line": 40,
+          "col": 28
+        },
+        "text": "Unknown node tag: "
+      },
+      "target_span": {
+        "start": {
+          "line": 40,
+          "col": 10
+        },
+        "end": {
+          "line": 40,
+          "col": 36
+        },
+        "text": "Tag simpul tidak dikenal: "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 15,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 43,
+          "col": 1
+        },
+        "end": {
+          "line": 43,
+          "col": 33
+        },
+        "text": "Convenience: parse + evaluate"
+      },
+      "target_span": {
+        "start": {
+          "line": 43,
+          "col": 1
+        },
+        "end": {
+          "line": 43,
+          "col": 30
+        },
+        "text": "Kemudahan: urai + evaluasi"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 15,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 48,
+          "col": 8
+        },
+        "end": {
+          "line": 48,
+          "col": 26
+        },
+        "text": "Calculator loaded."
+      },
+      "target_span": {
+        "start": {
+          "line": 48,
+          "col": 8
+        },
+        "end": {
+          "line": 48,
+          "col": 26
+        },
+        "text": "Kalkulator dimuat."
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 20
+        },
+        "text": "Basic arithmetic"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 20
+        },
+        "text": "Aritmatika dasar"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 51
+        },
+        "end": {
+          "line": 4,
+          "col": 80
+        },
+        "text": "right-assoc: 2^(3^2) = 512"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 51
+        },
+        "end": {
+          "line": 4,
+          "col": 84
+        },
+        "text": "asosiatif kanan: 2^(3^2) = 512"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 17,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 32
+        },
+        "text": "With variables and functions"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 30
+        },
+        "text": "Dengan variabel dan fungsi"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 19,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 61
+        },
+        "text": "A parser is: function(input, pos) -> result, newpos | nil"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 63
+        },
+        "text": "Parser adalah: function(input, pos) -> result, newpos | nil"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 19,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 1
+        },
+        "end": {
+          "line": 3,
+          "col": 46
+        },
+        "text": "Match a Lua pattern, return captured group"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 1
+        },
+        "end": {
+          "line": 3,
+          "col": 53
+        },
+        "text": "Cocokkan pola Lua, kembalikan grup yang ditangkap"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 19,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 12,
+          "col": 1
+        },
+        "end": {
+          "line": 12,
+          "col": 24
+        },
+        "text": "Match literal string"
+      },
+      "target_span": {
+        "start": {
+          "line": 12,
+          "col": 1
+        },
+        "end": {
+          "line": 12,
+          "col": 26
+        },
+        "text": "Cocokkan untai harfiah"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 19,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 22,
+          "col": 1
+        },
+        "end": {
+          "line": 22,
+          "col": 38
+        },
+        "text": "Skip whitespace, then apply parser"
+      },
+      "target_span": {
+        "start": {
+          "line": 22,
+          "col": 1
+        },
+        "end": {
+          "line": 22,
+          "col": 38
+        },
+        "text": "Lewati spasi, lalu terapkan parser"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 19,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 30,
+          "col": 8
+        },
+        "end": {
+          "line": 30,
+          "col": 27
+        },
+        "text": "Combinators loaded."
+      },
+      "target_span": {
+        "start": {
+          "line": 30,
+          "col": 8
+        },
+        "end": {
+          "line": 30,
+          "col": 26
+        },
+        "text": "Kombinator dimuat."
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 20,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 45
+        },
+        "text": "Sequence: all parsers must match in order"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 53
+        },
+        "text": "Urutan: semua parser harus cocok secara berurutan"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 20,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 17,
+          "col": 1
+        },
+        "end": {
+          "line": 17,
+          "col": 47
+        },
+        "text": "Choice: try each parser, return first match"
+      },
+      "target_span": {
+        "start": {
+          "line": 17,
+          "col": 1
+        },
+        "end": {
+          "line": 17,
+          "col": 61
+        },
+        "text": "Pilihan: coba setiap parser, kembalikan kecocokan pertama"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 20,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 29,
+          "col": 1
+        },
+        "end": {
+          "line": 29,
+          "col": 28
+        },
+        "text": "Zero or more repetitions"
+      },
+      "target_span": {
+        "start": {
+          "line": 29,
+          "col": 1
+        },
+        "end": {
+          "line": 29,
+          "col": 30
+        },
+        "text": "Nol atau lebih pengulangan"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 20,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 44,
+          "col": 1
+        },
+        "end": {
+          "line": 44,
+          "col": 20
+        },
+        "text": "Transform result"
+      },
+      "target_span": {
+        "start": {
+          "line": 44,
+          "col": 1
+        },
+        "end": {
+          "line": 44,
+          "col": 14
+        },
+        "text": "Ubah hasil"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 20,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 53,
+          "col": 8
+        },
+        "end": {
+          "line": 53,
+          "col": 38
+        },
+        "text": "Seq, Choice, Many, Map loaded."
+      },
+      "target_span": {
+        "start": {
+          "line": 53,
+          "col": 8
+        },
+        "end": {
+          "line": 53,
+          "col": 38
+        },
+        "text": "Seq, Choice, Many, Map dimuat."
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 21,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 43
+        },
+        "text": "Parse a simple key-value config format:"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 50
+        },
+        "text": "Urai format konfigurasi kunci-nilai sederhana:"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 21,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 20,
+          "col": 8
+        },
+        "end": {
+          "line": 20,
+          "col": 22
+        },
+        "text": "Parsed config:"
+      },
+      "target_span": {
+        "start": {
+          "line": 20,
+          "col": 8
+        },
+        "end": {
+          "line": 20,
+          "col": 32
+        },
+        "text": "Konfigurasi yang diurai:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 23,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 3
+        },
+        "end": {
+          "line": 4,
+          "col": 53
+        },
+        "text": "Use a coroutine to yield rows as they're parsed"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 3
+        },
+        "end": {
+          "line": 4,
+          "col": 60
+        },
+        "text": "Gunakan coroutine untuk menghasilkan baris saat diurai"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 23,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 7
+        },
+        "end": {
+          "line": 7,
+          "col": 63
+        },
+        "text": "Quoted field: find closing quote (handles escaped \"\")"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 7
+        },
+        "end": {
+          "line": 7,
+          "col": 90
+        },
+        "text": "Bidang bertanda kutip: temukan tanda kutip penutup (menangani \"\" yang di-escape)"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 23,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 24,
+          "col": 7
+        },
+        "end": {
+          "line": 24,
+          "col": 49
+        },
+        "text": "Unquoted field: read until comma or end"
+      },
+      "target_span": {
+        "start": {
+          "line": 24,
+          "col": 7
+        },
+        "end": {
+          "line": 24,
+          "col": 63
+        },
+        "text": "Bidang tanpa tanda kutip: baca hingga koma atau akhir"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 23,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 37,
+          "col": 7
+        },
+        "end": {
+          "line": 37,
+          "col": 30
+        },
+        "text": "Skip comma separator"
+      },
+      "target_span": {
+        "start": {
+          "line": 37,
+          "col": 7
+        },
+        "end": {
+          "line": 37,
+          "col": 29
+        },
+        "text": "Lewati pemisah koma"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 23,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 55,
+          "col": 1
+        },
+        "end": {
+          "line": 55,
+          "col": 30
+        },
+        "text": "Print as a formatted table"
+      },
+      "target_span": {
+        "start": {
+          "line": 55,
+          "col": 1
+        },
+        "end": {
+          "line": 55,
+          "col": 33
+        },
+        "text": "Cetak sebagai tabel berformat"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 25,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 7
+        },
+        "end": {
+          "line": 4,
+          "col": 39
+        },
+        "text": "Skip comments and blank lines"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 7
+        },
+        "end": {
+          "line": 4,
+          "col": 42
+        },
+        "text": "Lewati komentar dan baris kosong"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 25,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 35,
+          "col": 8
+        },
+        "end": {
+          "line": 35,
+          "col": 29
+        },
+        "text": "Expression evaluator:"
+      },
+      "target_span": {
+        "start": {
+          "line": 35,
+          "col": 8
+        },
+        "end": {
+          "line": 35,
+          "col": 30
+        },
+        "text": "Pengevaluasi ekspresi:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 25,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 39,
+          "col": 26
+        },
+        "end": {
+          "line": 39,
+          "col": 44
+        },
+        "text": "  %-20s  ERROR: %s"
+      },
+      "target_span": {
+        "start": {
+          "line": 39,
+          "col": 26
+        },
+        "end": {
+          "line": 39,
+          "col": 48
+        },
+        "text": "  %-20s  KESALAHAN: %s"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    }
+  ],
+  "exclusions": []
+}

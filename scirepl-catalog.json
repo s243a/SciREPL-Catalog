@@ -328,9 +328,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ja/lua-parsing-coroutines.srwb",
-      "revision": 1,
-      "sha256": "d1b39274661ef371975f555b3bb3b5860e5a357261947098541c1ec5ee6c8698",
-      "size": 22305
+      "revision": 2,
+      "sha256": "553536ddef4e9b1dece947d9847e70e6b0eca76b11e0bbba90845de03b2cc76b",
+      "size": 22917
     },
     {
       "id": "typr-intro-ja",
@@ -2958,9 +2958,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/id/lua-parsing-coroutines.srwb",
-      "revision": 1,
-      "sha256": "74f74ef368f79d3ab100ee34318765bf903fccd9b26cbe63b89c77713728785c",
-      "size": 21463
+      "revision": 2,
+      "sha256": "736b52e53ef84d0824dd8775f6862cb64a251ef7acdb61fd8a488fb2a0d632a3",
+      "size": 21661
     },
     {
       "id": "typr-intro-id",

@@ -1,148 +1,259 @@
 {
   "format": "srwb",
   "format_version": "1.0",
-  "exported_at": "2026-03-10T00:00:00.000Z",
+  "exported_at": "2026-08-15T16:14:37.282Z",
   "notebook": {
-    "id": "nb-lua-parsing-001",
+    "id": "default",
     "name": "Lua: コルーチンによる構文解析",
+    "autoNameNumber": null,
     "description": "Building parsers in Lua using coroutines as lexers, closures as combinators, and tables as ASTs.",
     "kernelLanguage": "lua",
+    "catalogId": null,
+    "catalogRevision": null,
     "cellCounter": 30,
     "cells": [
       {
+        "id": 1,
         "code": "# Lua におけるコルーチンを用いた構文解析\n\nLua のコルーチン、クロージャ、パターンマッチングを組み合わせることで、外部ライブラリを一切使わずにパーサーを構築するための自然なツールキットが完成します。\n\nこのワークブックでは、基本的なパターンから動作する数式評価器までを段階的に構築していきます:\n\n1. **Lua パターン** — 組み込みのパターンマッチングシステム\n2. **コルーチン字句解析器（レクサー）** — 入力を遅延トークン化し、1度に1トークンずつ yield\n3. **再帰下降パーサー** — トークンを消費して AST を構築\n4. **評価器** — 構文木を走査して計算結果を算出\n5. **コンビネータライブラリ** — クロージャから組み立て可能なパーサー",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 2,
         "code": "## 1. Lua パターン\n\nLua には正規表現はありません — 代わりに `string.find`、`string.match`、`string.gmatch`、`string.gsub` に組み込まれた、より軽量なシステムである*パターン*を備えています。\n\n主要な文字クラス: `%a` (アルファベット), `%d` (数字), `%w` (英数字), `%s` (空白文字), `%p` (句読点・記号)。大文字は補集合を表します（`%A` = 非アルファベット）。`.` は任意の文字に一致します。",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 3,
         "code": "-- string.match: キャプチャの抽出\nlocal year, month, day = string.match(\"2026-03-10\", \"(%d+)-(%d+)-(%d+)\")\nprint(\"年:\", year, \"月:\", month, \"日:\", day)\n\n-- string.gmatch: すべての一致を反復処理\nprint(\"\\n文中の単語:\")\nfor word in string.gmatch(\"the quick brown fox\", \"%a+\") do\n  print(\"  \" .. word)\nend",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "年:\t2026\t月:\t03\t日:\t10\n\n文中の単語:\n  the\n  quick\n  brown\n  fox\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">年:\t2026\t月:\t03\t日:\t10\n\n文中の単語:\n  the\n  quick\n  brown\n  fox\n</pre>"
       },
       {
+        "id": 4,
         "code": "-- string.gsub: 検索と置換\nlocal result = string.gsub(\"Hello World\", \"%u\", function(c)\n  return \"[\" .. c .. \"]\"\nend)\nprint(result)  -- [H]ello [W]orld\n\n-- key=value のペアを入れ替え\nlocal swapped = string.gsub(\"name=Alice age=30\", \"(%w+)=(%w+)\", \"%2=%1\")\nprint(swapped)  -- Alice=name 30=age",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "[H]ello [W]orld\nAlice=name 30=age\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">[H]ello [W]orld\nAlice=name 30=age\n</pre>"
       },
       {
+        "id": 5,
         "code": "-- string.find: 完全一致の位置を特定し、関数名をキャプチャ\nlocal s = \"function foo(x, y)\"\nlocal i, j, name = string.find(s, \"function%s+(%w+)\")\nprint(string.format(\"一致 '%s' 位置 %d-%d; キャプチャした名前 '%s'\", s:sub(i, j), i, j, name))\n\n-- フロンティアパターン %f[]: 境界遷移で一致\nlocal text = \"camelCaseVariable\"\nlocal parts = {}\nfor word in string.gmatch(text, \"%u?%l+\") do\n  parts[#parts + 1] = word\nend\nprint(\"camelCase を分割:\", table.concat(parts, \" | \"))",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "一致 'function foo' 位置 1-12; キャプチャした名前 'foo'\ncamelCase を分割:\tcamel | Case | Variable\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">一致 'function foo' 位置 1-12; キャプチャした名前 'foo'\ncamelCase を分割:\tcamel | Case | Variable\n</pre>"
       },
       {
+        "id": 6,
         "code": "## 2. コルーチン字句解析器（レクサー）\n\n**字句解析器（レクサー / トークナイザー）**は、入力テキストをトークンに分解します。コルーチンを使用することで、トークンを1つずつ `yield` できます — パーサーは必要なときに必要な分だけトークンを取り出します（オンデマンド）。中間配列を用意する必要はありません。",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 7,
         "code": "-- トークンの種類\nNUM = \"NUM\"\nOP  = \"OP\"\nID  = \"ID\"\nLPAREN = \"LPAREN\"\nRPAREN = \"RPAREN\"\nEOF = \"EOF\"\n\nfunction lexer(input)\n  return coroutine.wrap(function()\n    local pos = 1\n    while pos <= #input do\n      -- 空白文字をスキップ\n      local ws = string.match(input, \"^%s+\", pos)\n      if ws then pos = pos + #ws end\n      if pos > #input then break end\n\n      -- 数値（整数および小数）\n      local num = string.match(input, \"^%d+%.?%d*\", pos)\n      if num then\n        coroutine.yield({ type = NUM, value = tonumber(num), pos = pos })\n        pos = pos + #num\n      -- 識別子 / キーワード\n      elseif string.match(input, \"^%a\", pos) then\n        local id = string.match(input, \"^%a%w*\", pos)\n        coroutine.yield({ type = ID, value = id, pos = pos })\n        pos = pos + #id\n      -- 演算子\n      elseif string.find(\"+-*/^%%\", string.sub(input, pos, pos), 1, true) then\n        coroutine.yield({ type = OP, value = string.sub(input, pos, pos), pos = pos })\n        pos = pos + 1\n      -- カッコ\n      elseif string.sub(input, pos, pos) == \"(\" then\n        coroutine.yield({ type = LPAREN, pos = pos })\n        pos = pos + 1\n      elseif string.sub(input, pos, pos) == \")\" then\n        coroutine.yield({ type = RPAREN, pos = pos })\n        pos = pos + 1\n      else\n        error(\"予期しない文字（位置 \" .. pos .. \": '\" .. string.sub(input, pos, pos) .. \"'\")\n      end\n    end\n    coroutine.yield({ type = EOF })\n  end)\nend\n\n-- レクサーをテスト\nprint(\"'3 + 42 * (x - 1)' のトークン:\")\nfor tok in lexer(\"3 + 42 * (x - 1)\") do\n  if tok.value then\n    print(string.format(\"  %-7s %s\", tok.type, tostring(tok.value)))\n  else\n    print(string.format(\"  %s\", tok.type))\n  end\nend",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "'3 + 42 * (x - 1)' のトークン:\n  NUM     3\n  OP      +\n  NUM     42\n  OP      *\n  LPAREN\n  ID      x\n  OP      -\n  NUM     1\n  RPAREN\n  EOF\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">'3 + 42 * (x - 1)' のトークン:\n  NUM     3\n  OP      +\n  NUM     42\n  OP      *\n  LPAREN\n  ID      x\n  OP      -\n  NUM     1\n  RPAREN\n  EOF\n</pre>"
       },
       {
+        "id": 8,
         "code": "## 3. トークンストリーム\n\nパーサーは、トークンを消費せずに先読み（peek）できる必要があります。そこで、1つのトークンをバッファリングするストリームでレクサーコルーチンをラップします。",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 9,
         "code": "function TokenStream(input)\n  local next_token = lexer(input)\n  local current = next_token()\n\n  local stream = {}\n\n  function stream.peek()\n    return current\n  end\n\n  function stream.consume()\n    local tok = current\n    current = next_token()\n    return tok\n  end\n\n  function stream.expect(typ)\n    local tok = current\n    if tok.type ~= typ then\n      error(\"期待されたトークン: \" .. typ .. \"、実際のトークン: \" .. tok.type\n        .. (tok.pos and \"（位置 \" .. tok.pos or \"\"))\n    end\n    return stream.consume()\n  end\n\n  return stream\nend\n\n-- peek/consume のテスト\nlocal s = TokenStream(\"10 + 20\")\nprint(\"Peek:\", s.peek().type, s.peek().value)\nprint(\"Consume:\", s.consume().value)\nprint(\"Next:\", s.peek().type, s.peek().value)",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "Peek:\tNUM\t10\nConsume:\t10\nNext:\tOP\t+\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Peek:\tNUM\t10\nConsume:\t10\nNext:\tOP\t+\n</pre>"
       },
       {
+        "id": 10,
         "code": "## 4. 再帰下降パーサー\n\n演算子の優先順位を考慮して算術式を解析します:\n- `+`、`-`（最低）\n- `*`、`/`（中）\n- `^`（最高、右結合）\n- カッコと単項マイナス\n\nパーサーはテーブルから **AST**（抽象構文木）を構築します。",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 11,
         "code": "-- AST ノードコンストラクタ\nfunction NumNode(value)\n  return { tag = \"num\", value = value }\nend\n\nfunction VarNode(name)\n  return { tag = \"var\", name = name }\nend\n\nfunction BinOp(op, left, right)\n  return { tag = \"binop\", op = op, left = left, right = right }\nend\n\nfunction UnaryOp(op, operand)\n  return { tag = \"unary\", op = op, operand = operand }\nend\n\nfunction CallNode(name, args)\n  return { tag = \"call\", name = name, args = args }\nend",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 12,
         "code": "-- パーサー: 演算子優先順位上昇を伴う再帰下降\nfunction parse(input)\n  local tokens = TokenStream(input)\n\n  -- expr = term (('+' | '-') term)*\n  local function expr()\n    local node = term()\n    while tokens.peek().type == OP\n      and (tokens.peek().value == \"+\" or tokens.peek().value == \"-\") do\n      local op = tokens.consume().value\n      node = BinOp(op, node, term())\n    end\n    return node\n  end\n\n  -- term = power (('*' | '/' | '%') power)*\n  function term()\n    local node = power()\n    while tokens.peek().type == OP\n      and (tokens.peek().value == \"*\" or tokens.peek().value == \"/\"\n           or tokens.peek().value == \"%\") do\n      local op = tokens.consume().value\n      node = BinOp(op, node, power())\n    end\n    return node\n  end\n\n  -- power = unary ('^' power)?  (右結合)\n  function power()\n    local node = unary()\n    if tokens.peek().type == OP and tokens.peek().value == \"^\" then\n      tokens.consume()\n      node = BinOp(\"^\", node, power())  -- 右再帰！\n    end\n    return node\n  end\n\n  -- unary = '-' unary | atom\n  function unary()\n    if tokens.peek().type == OP and tokens.peek().value == \"-\" then\n      tokens.consume()\n      return UnaryOp(\"-\", unary())\n    end\n    return atom()\n  end\n\n  -- atom = NUM | ID | ID '(' args ')' | '(' expr ')'\n  function atom()\n    local tok = tokens.peek()\n\n    if tok.type == NUM then\n      tokens.consume()\n      return NumNode(tok.value)\n    end\n\n    if tok.type == ID then\n      local name = tokens.consume().value\n      -- 関数呼び出し？\n      if tokens.peek().type == LPAREN then\n        tokens.consume()  -- '(' を消費\n        local args = {}\n        if tokens.peek().type ~= RPAREN then\n          args[1] = expr()\n          while tokens.peek().type == OP and tokens.peek().value == \",\" do\n            tokens.consume()\n            args[#args + 1] = expr()\n          end\n        end\n        tokens.expect(RPAREN)\n        return CallNode(name, args)\n      end\n      return VarNode(name)\n    end\n\n    if tok.type == LPAREN then\n      tokens.consume()\n      local node = expr()\n      tokens.expect(RPAREN)\n      return node\n    end\n\n    error(\"予期しないトークン: \" .. tok.type\n      .. (tok.pos and \"（位置 \" .. tok.pos or \"\"))\n  end\n\n  local ast = expr()\n  tokens.expect(EOF)\n  return ast\nend\n\nprint(\"パーサーが読み込まれました。\")",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "パーサーが読み込まれました。\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">パーサーが読み込まれました。\n</pre>"
       },
       {
+        "id": 13,
         "code": "## 5. AST プリティプリンタ\n\n評価を行う前に、パーサーが生成した AST を視覚化してみましょう。",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 14,
         "code": "function pretty(node, indent)\n  indent = indent or 0\n  local pad = string.rep(\"  \", indent)\n\n  if node.tag == \"num\" then\n    return pad .. tostring(node.value)\n  elseif node.tag == \"var\" then\n    return pad .. node.name\n  elseif node.tag == \"unary\" then\n    return pad .. \"(\" .. node.op .. \"\\n\" .. pretty(node.operand, indent + 1) .. \")\"\n  elseif node.tag == \"binop\" then\n    return pad .. \"(\" .. node.op .. \"\\n\"\n      .. pretty(node.left, indent + 1) .. \"\\n\"\n      .. pretty(node.right, indent + 1) .. \")\"\n  elseif node.tag == \"call\" then\n    local argStrs = {}\n    for _, a in ipairs(node.args) do\n      argStrs[#argStrs + 1] = pretty(a, indent + 1)\n    end\n    return pad .. node.name .. \"(\\n\" .. table.concat(argStrs, \"\\n\") .. \")\"\n  end\n  return pad .. \"??\"\nend\n\n-- 構文解析と表示\nlocal ast = parse(\"2 ^ 3 ^ 2 + 1\")\nprint(\"'2 ^ 3 ^ 2 + 1' の AST:\")\nprint(pretty(ast))\n\nprint(\"\\n'-(3 + 4) * 2' の AST:\")\nprint(pretty(parse(\"-(3 + 4) * 2\")))",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "'2 ^ 3 ^ 2 + 1' の AST:\n(+\n  (^\n    2\n    (^\n      3\n      2))\n  1)\n\n'-(3 + 4) * 2' の AST:\n(*\n  (-\n    (+\n      3\n      4))\n  2)\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">'2 ^ 3 ^ 2 + 1' の AST:\n(+\n  (^\n    2\n    (^\n      3\n      2))\n  1)\n\n'-(3 + 4) * 2' の AST:\n(*\n  (-\n    (+\n      3\n      4))\n  2)\n</pre>"
       },
       {
+        "id": 15,
         "code": "## 6. 評価器\n\nAST を走査して結果を計算します。変数や関数は環境テーブルから検索されます。",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 16,
         "code": "function evaluate(node, env)\n  env = env or {}\n\n  if node.tag == \"num\" then\n    return node.value\n\n  elseif node.tag == \"var\" then\n    local val = env[node.name]\n    if val == nil then error(\"未定義の変数: \" .. node.name) end\n    return val\n\n  elseif node.tag == \"unary\" then\n    if node.op == \"-\" then\n      return -evaluate(node.operand, env)\n    end\n\n  elseif node.tag == \"binop\" then\n    local l = evaluate(node.left, env)\n    local r = evaluate(node.right, env)\n    if     node.op == \"+\" then return l + r\n    elseif node.op == \"-\" then return l - r\n    elseif node.op == \"*\" then return l * r\n    elseif node.op == \"/\" then return l / r\n    elseif node.op == \"%\" then return l % r\n    elseif node.op == \"^\" then return l ^ r\n    end\n\n  elseif node.tag == \"call\" then\n    local fn = env[node.name]\n    if type(fn) ~= \"function\" then\n      error(\"関数ではありません: \" .. node.name)\n    end\n    local args = {}\n    for _, a in ipairs(node.args) do\n      args[#args + 1] = evaluate(a, env)\n    end\n    return fn(table.unpack(args))\n  end\n\n  error(\"不明なノードタグ: \" .. tostring(node.tag))\nend\n\n-- 利便性: 構文解析 + 評価\nfunction calc(expr, env)\n  return evaluate(parse(expr), env)\nend\n\nprint(\"計算機が読み込まれました。\")",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "計算機が読み込まれました。\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">計算機が読み込まれました。\n</pre>"
       },
       {
+        "id": 17,
         "code": "-- 基本的な算術演算\nprint(\"2 + 3 * 4      =\", calc(\"2 + 3 * 4\"))\nprint(\"(2 + 3) * 4    =\", calc(\"(2 + 3) * 4\"))\nprint(\"2 ^ 3 ^ 2      =\", calc(\"2 ^ 3 ^ 2\"))      -- 右結合: 2^(3^2) = 512\nprint(\"-5 + 3         =\", calc(\"-5 + 3\"))\nprint(\"10 % 3         =\", calc(\"10 % 3\"))",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "2 + 3 * 4      =\t14\n(2 + 3) * 4    =\t20\n2 ^ 3 ^ 2      =\t512.0\n-5 + 3         =\t-2\n10 % 3         =\t1\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">2 + 3 * 4      =\t14\n(2 + 3) * 4    =\t20\n2 ^ 3 ^ 2      =\t512.0\n-5 + 3         =\t-2\n10 % 3         =\t1\n</pre>"
       },
       {
+        "id": 18,
         "code": "-- 変数と関数を使用\nlocal env = {\n  pi = math.pi,\n  e  = math.exp(1),\n  x  = 10,\n  sqrt = math.sqrt,\n  sin  = math.sin,\n  cos  = math.cos,\n  abs  = math.abs,\n}\n\nprint(\"pi * x ^ 2    =\", calc(\"pi * x ^ 2\", env))\nprint(\"sqrt(144)      =\", calc(\"sqrt(144)\", env))\nprint(\"sin(pi / 2)    =\", calc(\"sin(pi / 2)\", env))\nprint(\"abs(-42) + e   =\", calc(\"abs(-42) + e\", env))",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "pi * x ^ 2    =\t314.15926535898\nsqrt(144)      =\t12.0\nsin(pi / 2)    =\t1.0\nabs(-42) + e   =\t44.718281828459\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">pi * x ^ 2    =\t314.15926535898\nsqrt(144)      =\t12.0\nsin(pi / 2)    =\t1.0\nabs(-42) + e   =\t44.718281828459\n</pre>"
       },
       {
+        "id": 19,
         "code": "## 7. パーサーコンビネータ\n\n別のアプローチ: クロージャを使用して、小さな組み合わせ可能なパーツからパーサーを構築します。各パーサーは、入力（文字列 + 位置）を受け取り、結果 + 新しい位置を返す（失敗時は `nil` を返す）関数です。",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 20,
         "code": "-- パーサーの定義: function(input, pos) -> result, newpos | nil\n\n-- Lua パターンと照合し、キャプチャしたグループを返す\nfunction P(pattern)\n  return function(input, pos)\n    local s, e, cap = string.find(input, \"^(\" .. pattern .. \")\", pos)\n    if s then return cap, e + 1 end\n    return nil\n  end\nend\n\n-- リテラル文字列と照合\nfunction L(str)\n  return function(input, pos)\n    if string.sub(input, pos, pos + #str - 1) == str then\n      return str, pos + #str\n    end\n    return nil\n  end\nend\n\n-- 空白文字をスキップしてからパーサーを適用\nfunction Token(parser)\n  return function(input, pos)\n    local _, p2 = string.find(input, \"^%s*\", pos)\n    return parser(input, (p2 or pos) + 1)\n  end\nend\n\nprint(\"コンビネータが読み込まれました。\")",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "コンビネータが読み込まれました。\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">コンビネータが読み込まれました。\n</pre>"
       },
       {
+        "id": 21,
         "code": "-- 順序 (Sequence): すべてのパーサーが順番に一致する必要がある\nfunction Seq(...)\n  local parsers = {...}\n  return function(input, pos)\n    local results = {}\n    local p = pos\n    for _, parser in ipairs(parsers) do\n      local r, np = parser(input, p)\n      if r == nil then return nil end\n      results[#results + 1] = r\n      p = np\n    end\n    return results, p\n  end\nend\n\n-- 選択 (Choice): 各パーサーを試し、最初の一致を返す\nfunction Choice(...)\n  local parsers = {...}\n  return function(input, pos)\n    for _, parser in ipairs(parsers) do\n      local r, np = parser(input, pos)\n      if r ~= nil then return r, np end\n    end\n    return nil\n  end\nend\n\n-- 0 回以上の繰り返し\nfunction Many(parser)\n  return function(input, pos)\n    local results = {}\n    local p = pos\n    while true do\n      local r, np = parser(input, p)\n      if r == nil then break end\n      results[#results + 1] = r\n      p = np\n    end\n    return results, p\n  end\nend\n\n-- 結果を変換\nfunction Map(parser, fn)\n  return function(input, pos)\n    local r, np = parser(input, pos)\n    if r ~= nil then return fn(r), np end\n    return nil\n  end\nend\n\nprint(\"Seq, Choice, Many, Map が読み込まれました。\")",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "Seq, Choice, Many, Map が読み込まれました。\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Seq, Choice, Many, Map が読み込まれました。\n</pre>"
       },
       {
+        "id": 22,
         "code": "-- シンプルな key-value 設定フォーマットを解析:\n--   host = localhost\n--   port = 8080\n--   debug = true\n\nlocal key   = Token(P(\"%a%w*\"))\nlocal eq    = Token(L(\"=\"))\nlocal value = Token(P(\"%S+\"))\n\nlocal pair  = Map(\n  Seq(key, eq, value),\n  function(r) return { key = r[1], value = r[3] } end\n)\n\nlocal config = Many(pair)\n\nlocal input = \"host = localhost  port = 8080  debug = true\"\nlocal result, pos = config(input, 1)\n\nprint(\"解析された設定:\")\nfor _, entry in ipairs(result) do\n  print(string.format(\"  %-8s = %s\", entry.key, entry.value))\nend",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "解析された設定:\n  host     = localhost\n  port     = 8080\n  debug    = true\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">解析された設定:\n  host     = localhost\n  port     = 8080\n  debug    = true\n</pre>"
       },
       {
+        "id": 23,
         "code": "## 8. CSV パーサー\n\nより実践的な例: コンビネータのアプローチを使用して、引用符付きフィールドを含む CSV を解析します。",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 24,
         "code": "function parseCSV(input)\n  local rows = {}\n\n  -- コルーチンを使用して解析された行を順次 yield\n  local function parseField(line, pos)\n    if string.sub(line, pos, pos) == '\"' then\n      -- 引用符付きフィールド: 閉じ引用符を検索（エスケープされた \"\" を処理）\n      local field = {}\n      pos = pos + 1\n      while pos <= #line do\n        if string.sub(line, pos, pos + 1) == '\"\"' then\n          field[#field + 1] = '\"'\n          pos = pos + 2\n        elseif string.sub(line, pos, pos) == '\"' then\n          pos = pos + 1\n          break\n        else\n          field[#field + 1] = string.sub(line, pos, pos)\n          pos = pos + 1\n        end\n      end\n      return table.concat(field), pos\n    else\n      -- 引用符なしフィールド: カンマまたは末尾まで読み取る\n      local s, e, val = string.find(line, \"^([^,]*)\", pos)\n      return val or \"\", (e or pos) + 1\n    end\n  end\n\n  for line in string.gmatch(input, \"([^\\n]+)\") do\n    local row = {}\n    local pos = 1\n    while pos <= #line do\n      local field\n      field, pos = parseField(line, pos)\n      row[#row + 1] = field\n      -- 区切り文字カンマをスキップ\n      if string.sub(line, pos, pos) == \",\" then\n        pos = pos + 1\n      end\n    end\n    rows[#rows + 1] = row\n  end\n\n  return rows\nend\n\nlocal csv = [[name,age,city\nAlice,30,\"New York\"\nBob,25,\"San Francisco\"\n\"O'Brien, Charlie\",40,\"Boston\"]]\n\nlocal data = parseCSV(csv)\n\n-- フォーマットされた表として出力\nlocal widths = {}\nfor _, row in ipairs(data) do\n  for i, field in ipairs(row) do\n    widths[i] = math.max(widths[i] or 0, #field)\n  end\nend\n\nfor r, row in ipairs(data) do\n  local parts = {}\n  for i, field in ipairs(row) do\n    parts[i] = field .. string.rep(\" \", widths[i] - #field)\n  end\n  print(table.concat(parts, \"  |  \"))\n  if r == 1 then\n    local sep = {}\n    for i = 1, #widths do sep[i] = string.rep(\"-\", widths[i]) end\n    print(table.concat(sep, \"--+--\"))\n  end\nend",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "name              |  age  |  city         \n------------------+-------+---------------\nAlice             |  30   |  New York     \nBob               |  25   |  San Francisco\nO'Brien, Charlie  |  40   |  Boston       \n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">name              |  age  |  city         \n------------------+-------+---------------\nAlice             |  30   |  New York     \nBob               |  25   |  San Francisco\nO'Brien, Charlie  |  40   |  Boston       \n</pre>"
       },
       {
+        "id": 25,
         "code": "## 9. ストリーミングパイプライン\n\nすべてを統合します: 式のシーケンスを1行ずつ完全に遅延評価しながら、字句解析、構文解析、評価を行うコルーチンベースのパイプラインです。",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 26,
         "code": "function repl_eval(lines, env)\n  return coroutine.wrap(function()\n    for line in string.gmatch(lines, \"([^\\n]+)\") do\n      -- コメントと空白行をスキップ\n      local trimmed = string.match(line, \"^%s*(.-)%s*$\")\n      if trimmed ~= \"\" and string.sub(trimmed, 1, 1) ~= \"#\" then\n        local ok, result = pcall(function()\n          return calc(trimmed, env)\n        end)\n        if ok then\n          coroutine.yield(trimmed, result, nil)\n        else\n          coroutine.yield(trimmed, nil, result)\n        end\n      end\n    end\n  end)\nend\n\nlocal program = [[\n# Physics calculations\n9.8 * 2\nsqrt(144) + 1\npi * r ^ 2\n2 ^ 10\nabs(-7) * 3\n5 / 0\n]]\n\nlocal env = {\n  pi = math.pi, r = 5,\n  sqrt = math.sqrt, abs = math.abs,\n}\n\nprint(\"数式評価器:\")\nprint(string.rep(\"-\", 40))\nfor expr, result, err in repl_eval(program, env) do\n  if err then\n    print(string.format(\"  %-20s  エラー: %s\", expr, err))\n  else\n    print(string.format(\"  %-20s  = %g\", expr, result))\n  end\nend",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "数式評価器:\n----------------------------------------\n  9.8 * 2               = 19.6\n  sqrt(144) + 1         = 13\n  pi * r ^ 2            = 78.53981633974483\n  2 ^ 10                = 1024\n  abs(-7) * 3           = 21\n  5 / 0                 = Infinity\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">数式評価器:\n----------------------------------------\n  9.8 * 2               = 19.6\n  sqrt(144) + 1         = 13\n  pi * r ^ 2            = 78.53981633974483\n  2 ^ 10                = 1024\n  abs(-7) * 3           = 21\n  5 / 0                 = Infinity\n</pre>"
       },
       {
+        "id": 27,
         "code": "## まとめ\n\nLua の標準ライブラリのみで構築したもの:\n\n| コンポーネント | 手法・技術 |\n|---|---|\n| 字句解析器（レクサー） | コルーチン + `string.match` パターン |\n| トークンストリーム | クロージャ（コルーチンに対する peek/consume） |\n| 再帰下降パーサー | 相互再帰 + AST としてのテーブル |\n| 評価器 | 環境テーブルを用いた木構造走査 |\n| コンビネータ | 高階クロージャ（Seq, Choice, Many, Map） |\n| CSV パーサー | パターンマッチング + 状態遷移機械 |\n| ストリーミングパイプライン | `pcall` エラーハンドリングを備えたコルーチンチェーン |\n\n外部ライブラリも、正規表現エンジンも、パーサージェネレータも使用せず — パターン、コルーチン、クロージャ、テーブルだけで実現しました。",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       }
     ]
   }
