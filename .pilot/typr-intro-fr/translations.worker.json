@@ -1,0 +1,18 @@
+{
+  "spans": {
+    "1:1:0": "Les arguments variadiques sont pris en charge",
+    "2:0:0": "Le corps des fonctions nécessite des accolades",
+    "3:1:0": "Bonjour de TypR !",
+    "4:0:0": "Les types explicites de paramètres et de retour rendent les appels vérifiables statiquement",
+    "4:2:0": "Les arguments variadiques fonctionnent directement",
+    "4:4:0": "7 au carré =",
+    "5:0:0": "Transférer des arguments nommés hétérogènes",
+    "5:6:0": "Noms :"
+  },
+  "keeps": [
+    "5:2:0",
+    "5:4:0",
+    "7:0:0"
+  ],
+  "suggestions": []
+}

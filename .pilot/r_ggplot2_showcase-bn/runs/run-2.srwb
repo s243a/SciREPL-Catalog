@@ -1,0 +1,134 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T16:04:16.371Z",
+  "notebook": {
+    "id": "default",
+    "name": "ggplot2 প্রদর্শনী",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "r",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 13,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# ggplot2 প্রদর্শনী\n\nSciREPL-এর ডার্ক থিমযুক্ত ইন্টারেক্টিভ ggplot2 চার্ট — স্বয়ংক্রিয়ভাবে প্রয়োগ করা হয়, কোনো অতিরিক্ত সেটআপের প্রয়োজন নেই।\n\nR-এর অন্তর্নির্মিত ডেটাসেট (`mpg`, `mtcars`) ব্যবহার করে। কোনো ডেটা ডাউনলোডের প্রয়োজন নেই।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "install.packages(\"ggplot2\")\nlibrary(ggplot2)\ncat(\"ggplot2 লোড হয়েছে — theme_scirepl() স্বয়ংক্রিয়ভাবে প্রয়োগ করা হয়েছে\\n\")",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "ggplot2 লোড হয়েছে — theme_scirepl() স্বয়ংক্রিয়ভাবে প্রয়োগ করা হয়েছে",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">ggplot2 লোড হয়েছে — theme_scirepl() স্বয়ংক্রিয়ভাবে প্রয়োগ করা হয়েছে</pre>"
+      },
+      {
+        "id": 3,
+        "code": "## ১. ট্রেন্ড লাইন সহ স্ক্যাটার প্লট",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 4,
+        "code": "ggplot(mpg, aes(displ, hwy, color = class)) +\n  geom_point(size = 2, alpha = 0.7) +\n  geom_smooth(method = \"lm\", se = FALSE, color = \"#58a6ff\") +\n  labs(title = \"ইঞ্জিনের আকার বনাম হাইওয়ে MPG\",\n       x = \"ডিসপ্লেসমেন্ট (লিটার)\", y = \"হাইওয়ে MPG\")",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "`geom_smooth()` using formula = 'y ~ x'",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">`geom_smooth()` using formula = 'y ~ x'</pre><img src=\"blob:http://localhost:8090/0137e123-d0b9-4296-a86f-019f232b4066\" style=\"max-width: 100%; border-radius: 6px; margin-top: 8px;\">"
+      },
+      {
+        "id": 5,
+        "code": "## ২. ফ্যাসেটেড বার চার্ট",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 6,
+        "code": "ggplot(mpg, aes(class, fill = drv)) +\n  geom_bar(position = \"dodge\") +\n  facet_wrap(~year) +\n  labs(title = \"ড্রাইভের ধরন অনুযায়ী যানবাহনের শ্রেণী (১৯৯৯ বনাম ২০০৮)\",\n       x = \"শ্রেণী\", y = \"গণনা / সংখ্যা\") +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1))",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": "<img src=\"blob:http://localhost:8090/712e305e-b489-47b2-b127-68de8cda5a1a\" style=\"max-width: 100%; border-radius: 6px; margin-top: 8px;\">"
+      },
+      {
+        "id": 7,
+        "code": "## ৩. ডেনসিটি প্লট",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 8,
+        "code": "ggplot(mpg, aes(hwy, fill = drv)) +\n  geom_density(alpha = 0.5) +\n  labs(title = \"ড্রাইভের ধরন অনুযায়ী হাইওয়ে MPG বণ্টন\",\n       x = \"হাইওয়ে MPG\", y = \"ঘনত্ব (Density)\")",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": "<img src=\"blob:http://localhost:8090/65169ee1-b5dd-478b-917c-02b9fdb2befd\" style=\"max-width: 100%; border-radius: 6px; margin-top: 8px;\">"
+      },
+      {
+        "id": 9,
+        "code": "## ৪. জিটার সহ বক্সপ্লট (Boxplot with Jitter)",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 10,
+        "code": "ggplot(mpg, aes(class, hwy, fill = class)) +\n  geom_boxplot(alpha = 0.7, show.legend = FALSE) +\n  geom_jitter(width = 0.2, alpha = 0.3, size = 1) +\n  labs(title = \"যানবাহনের শ্রেণী অনুযায়ী হাইওয়ে MPG\",\n       x = \"শ্রেণী\", y = \"হাইওয়ে MPG\") +\n  coord_flip()",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": "<img src=\"blob:http://localhost:8090/a890e3e5-6cc1-4862-8b56-2c8a58b4b202\" style=\"max-width: 100%; border-radius: 6px; margin-top: 8px;\">"
+      },
+      {
+        "id": 11,
+        "code": "## ৫. কোরিলেশন হিটম্যাপ",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 12,
+        "code": "corr <- round(cor(mtcars), 2)\nvars <- colnames(mtcars)\ngrid <- expand.grid(x = vars, y = vars)\ngrid$value <- as.vector(corr)\nggplot(grid, aes(x, y, fill = value)) +\n  geom_tile(color = \"#30363d\") +\n  geom_text(aes(label = ifelse(abs(value) > 0.5, value, \"\")),\n            color = \"#e6edf3\", size = 2.5) +\n  scale_fill_gradient2(low = \"#f85149\", mid = \"#161b22\", high = \"#58a6ff\",\n                       midpoint = 0, limits = c(-1, 1)) +\n  labs(title = \"mtcars কোরিলেশন হিটম্যাপ\", fill = \"r\") +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1))",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": "<img src=\"blob:http://localhost:8090/d1f830d7-4519-4a01-9fce-efd530c1b87e\" style=\"max-width: 100%; border-radius: 6px; margin-top: 8px;\">"
+      },
+      {
+        "id": 13,
+        "code": "## সারসংক্ষেপ\n\nউপরের সমস্ত প্লট `theme_scirepl()` ব্যবহার করে, যা SciREPL-এ ggplot2 লোড হলে স্বয়ংক্রিয়ভাবে প্রয়োগ করা হয়।\n\nস্ট্যান্ডার্ড ggplot2 `+ theme(...)` ওভাররাইড দিয়ে যেকোনো প্লট কাস্টমাইজ করুন।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      }
+    ]
+  }
+}

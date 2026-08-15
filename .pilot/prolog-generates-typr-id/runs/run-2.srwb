@@ -1,0 +1,116 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T15:41:21.427Z",
+  "notebook": {
+    "id": "default",
+    "name": "Prolog Menghasilkan TypR: Demo Kompiler",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "python",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 11,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# Prolog Menghasilkan TypR\n\nBuku kerja ini mendemonstrasikan bagaimana UnifyWeaver mengompilasi predikat Prolog ke dalam **TypR** — superset bertipe dari bahasa R.\n\nAlur kerja:\n1. Mendefinisikan predikat Prolog (fakta + aturan) di sel bernama `family_tree`\n2. Mendefinisikan program kueri di sel sumber bernama berpenyorot `typr_queries`\n3. Membaca kedua sel melalui Notebook VFS\n4. UnifyWeaver mendeteksi pola rekursi (penutupan transitif)\n5. Kompiler menghasilkan kode TypR bertipe dengan `let`, `fn`, dan anotasi tipe\n6. Menambahkan kueri bernama dan menjalankan program lengkap di kernel TypR\n\nMenyimpan program sumber dalam sel bernama akan mempertahankan penyorotan sintaksis dan menghindari penyematan di dalam string Prolog.\n\nKatalog secara otomatis memasang paket **UnifyWeaver SciREPL** yang diperlukan bersama buku kerja ini.\n\n**Batasan:** Sel TypR saling terisolasi. Direktif `#!source` mempertahankan `typr_queries` sebagai cuplikan sumber yang tidak dieksekusi selama **Jalankan Semua** (Run All); `compile_to_typr` menambahkannya ke definisi yang dihasilkan sebelum menulis `typr_output`.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "% Muat modul kompiler UnifyWeaver\n['../init'].\n:- use_module(unifyweaver(targets/typr_target)).\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "type": "code",
+        "language": "prolog",
+        "name": "load_compiler",
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
+      },
+      {
+        "id": 3,
+        "code": "% Definisikan silsilah keluarga sebagai fakta Prolog\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% Penutupan transitif: ancestor(X, Y) jika X adalah leluhur dari Y\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "type": "code",
+        "language": "prolog",
+        "name": "family_tree",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 4,
+        "code": "#!source\n# Sel sumber TypR bernama ini dibaca oleh compile_to_typr.\n# Ini ditambahkan ke kode yang dihasilkan karena sel TypR terisolasi.\n\n# --- Kueri ---\nlet results <- ancestor_all(\"alice\");\ncat(\"Keturunan dari alice:\", paste(sep = \", \", ...results), fill = TRUE);\nlet is_anc <- ancestor_check(\"alice\", \"eve\");\ncat(\"alice adalah leluhur dari eve:\", is_anc, fill = TRUE);\nlet is_anc2 <- ancestor_check(\"alice\", \"frank\");\ncat(\"alice adalah leluhur dari frank:\", is_anc2, fill = TRUE);",
+        "type": "code",
+        "language": "typr",
+        "name": "typr_queries",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 5,
+        "code": "% Baca sumber Prolog dan TypR berpenyorot dari sel bernama\n\\+ \\+ (\n    user:nb_read('family_tree', '.code', _PrologSrc),\n    setup_call_cleanup(\n        open('/tmp/_nb_typr_family.pl', write, _Out),\n        write(_Out, _PrologSrc),\n        close(_Out)),\n    catch(abolish(parent/2), _, true),\n    catch(abolish(ancestor/2), _, true),\n    consult('/tmp/_nb_typr_family.pl'),\n\n    user:nb_read('typr_queries', '.code', _QuerySource),\n    split_string(_QuerySource, \"\\n\", \"\\r\", [\"#!source\"|_QueryLines]),\n    atomics_to_string(_QueryLines, \"\\n\", _Queries),\n\n    % Kompilasi ancestor/2 ke TypR bertipe secara eksplisit dan tambahkan kueri bernama\n    recursive_compiler:compile_recursive(ancestor/2, [target(typr), typed_mode(explicit)], _Code),\n    format('--- Generated TypR code ---~n~w~n', [_Code]),\n    format(string(_FullCode), '~w~n~n~w~n', [_Code, _Queries]),\n    user:nb_write('typr_output', '.code', _FullCode),\n    writeln('TypR code written to cell: typr_output')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "compile_to_typr",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
+      },
+      {
+        "id": 6,
+        "code": "## Kode TypR yang Dihasilkan\n\nSel di bawah ini berisi kode TypR yang dihasilkan UnifyWeaver dengan kueri yang ditambahkan.\nIni mencakup:\n- Tanda tangan fungsi bertipe seperti `fn(start: char): [#N, char]`\n- Pengikatan vektor bertipe dan penelusuran `while` serta `if` native\n- Pengindeksan dinamis native, penambahan vektor, dan penugasan\n- Fakta orang tua yang disuntikkan dari asersi Prolog\n- Tidak ada blok pelarian (escape) R mentah `@{ ... }@` dalam penutupan yang dihasilkan\n\n**Catatan:** Semua kode harus dijalankan dalam satu sel karena variabel TypR tidak persisten di seluruh sel.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 7,
+        "code": "# Sel ini akan diisi oleh kompiler.\n# Jalankan sel 'compile_to_typr' di atas terlebih dahulu.",
+        "type": "code",
+        "language": "typr",
+        "name": "typr_output",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 8,
+        "code": "## Perbandingan: Predikat yang Sama, Target R\n\nUnifyWeaver juga dapat mengompilasi predikat Prolog yang sama ke dalam R biasa.\nSel di bawah ini menghasilkan kode R yang tidak bertipe dari `ancestor/2` yang sama.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 9,
+        "code": "% Muat ulang sumber Prolog bernama yang sama agar sel ini berjalan secara independen\n\\+ \\+ (\n    user:nb_read('family_tree', '.code', _PrologSrc),\n    setup_call_cleanup(\n        open('/tmp/_nb_r_family.pl', write, _Out),\n        write(_Out, _PrologSrc),\n        close(_Out)),\n    catch(abolish(parent/2), _, true),\n    catch(abolish(ancestor/2), _, true),\n    consult('/tmp/_nb_r_family.pl'),\n\n    % Kompilasi ke R dengan fakta tersemat; sel r_queries berpenyorot dijalankan berikutnya\n    recursive_compiler:compile_recursive(ancestor/2, [target(r), input(embedded)], _RCode),\n    format('--- Generated R code ---~n~w~n', [_RCode]),\n    user:nb_write('r_output', '.code', _RCode),\n    writeln('R code written to cell: r_output')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "compile_to_r",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
+      },
+      {
+        "id": 10,
+        "code": "# Sel ini akan diisi dengan kode R biasa.\n# Jalankan sel 'compile_to_r' di atas terlebih dahulu.",
+        "type": "code",
+        "language": "r",
+        "name": "r_output",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 11,
+        "code": "# Kueri fungsi R yang dihasilkan dalam sel terpisah dan berpenyorot.\nresults <- ancestor_all(\"alice\")\ncat(\"Keturunan dari alice:\", paste(results, collapse=\", \"), \"\\n\")\ncat(\"alice adalah leluhur dari eve:\", ancestor_check(\"alice\", \"eve\"), \"\\n\")\ncat(\"alice adalah leluhur dari frank:\", ancestor_check(\"alice\", \"frank\"), \"\\n\")",
+        "type": "code",
+        "language": "r",
+        "name": "r_queries",
+        "lastOutput": "Error: could not find function \"ancestor_all\"",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Error: could not find function \"ancestor_all\"</pre>"
+      }
+    ]
+  }
+}

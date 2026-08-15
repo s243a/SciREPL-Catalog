@@ -1,0 +1,260 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T15:50:39.635Z",
+  "notebook": {
+    "id": "default",
+    "name": "Lua：使用协程进行语法解析",
+    "autoNameNumber": null,
+    "description": "Building parsers in Lua using coroutines as lexers, closures as combinators, and tables as ASTs.",
+    "kernelLanguage": "lua",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 30,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# 在 Lua 中使用协程进行语法解析\n\nLua 中的协程（Coroutines）、闭包（Closures）和模式匹配（Pattern Matching）相结合，构成了构建解析器的天然工具箱 — 无需任何外部库。\n\n本工作簿从基础模式逐步构建到一个功能完备的表达式求值器：\n\n1. **Lua 模式** — 内置的模式匹配系统\n2. **协程词法分析器 (Lexer)** — 惰性（lazy）将输入标记化，每次生成一个标记 (Token)\n3. **递归下降解析器** — 处理标记以构建 AST\n4. **求值器 (Evaluator)** — 遍历语法树以计算结果\n5. **组合子库** — 由闭包构建的可组合解析器",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "## 1. Lua 模式\n\nLua 没有传统的正则表达式 — 取而代之的是*模式 (Patterns)*，这是一种更轻量级的系统，内置于 `string.find`、`string.match`、`string.gmatch` 和 `string.gsub` 中。\n\n核心字符类：`%a`（字母）、`%d`（数字）、`%w`（字母数字）、`%s`（空白）、`%p`（标点）。大写表示补集（`%A` = 非字母）。`.` 匹配任意字符。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 3,
+        "code": "-- string.match: 提取捕获项\nlocal year, month, day = string.match(\"2026-03-10\", \"(%d+)-(%d+)-(%d+)\")\nprint(\"年:\", year, \"月:\", month, \"日:\", day)\n\n-- string.gmatch: 迭代所有匹配项\nprint(\"\\n句子中的单词:\")\nfor word in string.gmatch(\"the quick brown fox\", \"%a+\") do\n  print(\"  \" .. word)\nend",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "年:\t2026\t月:\t03\t日:\t10\n\n句子中的单词:\n  the\n  quick\n  brown\n  fox\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">年:\t2026\t月:\t03\t日:\t10\n\n句子中的单词:\n  the\n  quick\n  brown\n  fox\n</pre>"
+      },
+      {
+        "id": 4,
+        "code": "-- string.gsub: 搜索与替换\nlocal result = string.gsub(\"Hello World\", \"%u\", function(c)\n  return \"[\" .. c .. \"]\"\nend)\nprint(result)  -- [H]ello [W]orld\n\n-- 交换 key=value 键值对\nlocal swapped = string.gsub(\"name=Alice age=30\", \"(%w+)=(%w+)\", \"%2=%1\")\nprint(swapped)  -- Alice=name 30=age",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "[H]ello [W]orld\nAlice=name 30=age\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">[H]ello [W]orld\nAlice=name 30=age\n</pre>"
+      },
+      {
+        "id": 5,
+        "code": "-- string.find: 定位完整匹配项并捕获函数名\nlocal s = \"function foo(x, y)\"\nlocal i, j, name = string.find(s, \"function%s+(%w+)\")\nprint(string.format(\"匹配到 '%s'，位置 %d-%d；捕获的名称 '%s'\", s:sub(i, j), i, j, name))\n\n-- 前沿模式 %f[]: 在边界转换处匹配\nlocal text = \"camelCaseVariable\"\nlocal parts = {}\nfor word in string.gmatch(text, \"%u?%l+\") do\n  parts[#parts + 1] = word\nend\nprint(\"拆分 camelCase:\", table.concat(parts, \" | \"))",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "匹配到 'function foo'，位置 1-12；捕获的名称 'foo'\n拆分 camelCase:\tcamel | Case | Variable\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">匹配到 'function foo'，位置 1-12；捕获的名称 'foo'\n拆分 camelCase:\tcamel | Case | Variable\n</pre>"
+      },
+      {
+        "id": 6,
+        "code": "## 2. 协程词法分析器 (Lexer)\n\n**词法分析器**（Token 标记生成器）将输入文本拆分为 Token。使用协程，我们可以逐个产出 (`yield`) 标记 — 解析器根据需要按需拉取。无需中间数组。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 7,
+        "code": "-- Token（标记）类型\nNUM = \"NUM\"\nOP  = \"OP\"\nID  = \"ID\"\nLPAREN = \"LPAREN\"\nRPAREN = \"RPAREN\"\nEOF = \"EOF\"\n\nfunction lexer(input)\n  return coroutine.wrap(function()\n    local pos = 1\n    while pos <= #input do\n      -- 跳过空白字符\n      local ws = string.match(input, \"^%s+\", pos)\n      if ws then pos = pos + #ws end\n      if pos > #input then break end\n\n      -- 数字（整数和小数）\n      local num = string.match(input, \"^%d+%.?%d*\", pos)\n      if num then\n        coroutine.yield({ type = NUM, value = tonumber(num), pos = pos })\n        pos = pos + #num\n      -- 标识符 / 关键字\n      elseif string.match(input, \"^%a\", pos) then\n        local id = string.match(input, \"^%a%w*\", pos)\n        coroutine.yield({ type = ID, value = id, pos = pos })\n        pos = pos + #id\n      -- 运算符\n      elseif string.find(\"+-*/^%%\", string.sub(input, pos, pos), 1, true) then\n        coroutine.yield({ type = OP, value = string.sub(input, pos, pos), pos = pos })\n        pos = pos + 1\n      -- 括号\n      elseif string.sub(input, pos, pos) == \"(\" then\n        coroutine.yield({ type = LPAREN, pos = pos })\n        pos = pos + 1\n      elseif string.sub(input, pos, pos) == \")\" then\n        coroutine.yield({ type = RPAREN, pos = pos })\n        pos = pos + 1\n      else\n        error(\"出现意外字符，位于位置 \" .. pos .. \": '\" .. string.sub(input, pos, pos) .. \"'\")\n      end\n    end\n    coroutine.yield({ type = EOF })\n  end)\nend\n\n-- 测试词法分析器\nprint(\"'3 + 42 * (x - 1)' 的 Token:\")\nfor tok in lexer(\"3 + 42 * (x - 1)\") do\n  if tok.value then\n    print(string.format(\"  %-7s %s\", tok.type, tostring(tok.value)))\n  else\n    print(string.format(\"  %s\", tok.type))\n  end\nend",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "'3 + 42 * (x - 1)' 的 Token:\n  NUM     3\n  OP      +\n  NUM     42\n  OP      *\n  LPAREN\n  ID      x\n  OP      -\n  NUM     1\n  RPAREN\n  EOF\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">'3 + 42 * (x - 1)' 的 Token:\n  NUM     3\n  OP      +\n  NUM     42\n  OP      *\n  LPAREN\n  ID      x\n  OP      -\n  NUM     1\n  RPAREN\n  EOF\n</pre>"
+      },
+      {
+        "id": 8,
+        "code": "## 3. 标记流 (Token Stream)\n\n解析器需要能够在不消耗标记的情况下向前查看 (peek)。我们将词法分析器协程包装在一个缓冲单个标记的流中。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 9,
+        "code": "function TokenStream(input)\n  local next_token = lexer(input)\n  local current = next_token()\n\n  local stream = {}\n\n  function stream.peek()\n    return current\n  end\n\n  function stream.consume()\n    local tok = current\n    current = next_token()\n    return tok\n  end\n\n  function stream.expect(typ)\n    local tok = current\n    if tok.type ~= typ then\n      error(\"期望 \" .. typ .. \" 但得到 \" .. tok.type\n        .. (tok.pos and \"，位于位置 \" .. tok.pos or \"\"))\n    end\n    return stream.consume()\n  end\n\n  return stream\nend\n\n-- 测试 peek/consume\nlocal s = TokenStream(\"10 + 20\")\nprint(\"查看 (Peek):\", s.peek().type, s.peek().value)\nprint(\"消耗 (Consume):\", s.consume().value)\nprint(\"下一个 (Next):\", s.peek().type, s.peek().value)",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "查看 (Peek):\tNUM\t10\n消耗 (Consume):\t10\n下一个 (Next):\tOP\t+\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">查看 (Peek):\tNUM\t10\n消耗 (Consume):\t10\n下一个 (Next):\tOP\t+\n</pre>"
+      },
+      {
+        "id": 10,
+        "code": "## 4. 递归下降解析器\n\n我们按照运算符优先级解析算术表达式：\n- `+`, `-`（最低）\n- `*`, `/`（居中）\n- `^`（最高，右结合）\n- 括号和一元负号\n\n解析器从表构建 **AST**（抽象语法树）。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 11,
+        "code": "-- AST 节点构造函数\nfunction NumNode(value)\n  return { tag = \"num\", value = value }\nend\n\nfunction VarNode(name)\n  return { tag = \"var\", name = name }\nend\n\nfunction BinOp(op, left, right)\n  return { tag = \"binop\", op = op, left = left, right = right }\nend\n\nfunction UnaryOp(op, operand)\n  return { tag = \"unary\", op = op, operand = operand }\nend\n\nfunction CallNode(name, args)\n  return { tag = \"call\", name = name, args = args }\nend",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 12,
+        "code": "-- 解析器: 结合优先级爬升的递归下降解析\nfunction parse(input)\n  local tokens = TokenStream(input)\n\n  -- expr = term (('+' | '-') term)*\n  local function expr()\n    local node = term()\n    while tokens.peek().type == OP\n      and (tokens.peek().value == \"+\" or tokens.peek().value == \"-\") do\n      local op = tokens.consume().value\n      node = BinOp(op, node, term())\n    end\n    return node\n  end\n\n  -- term = power (('*' | '/' | '%') power)*\n  function term()\n    local node = power()\n    while tokens.peek().type == OP\n      and (tokens.peek().value == \"*\" or tokens.peek().value == \"/\"\n           or tokens.peek().value == \"%\") do\n      local op = tokens.consume().value\n      node = BinOp(op, node, power())\n    end\n    return node\n  end\n\n  -- power = unary ('^' power)?  (right-associative)\n  function power()\n    local node = unary()\n    if tokens.peek().type == OP and tokens.peek().value == \"^\" then\n      tokens.consume()\n      node = BinOp(\"^\", node, power())  -- 右递归！\n    end\n    return node\n  end\n\n  -- unary = '-' unary | atom\n  function unary()\n    if tokens.peek().type == OP and tokens.peek().value == \"-\" then\n      tokens.consume()\n      return UnaryOp(\"-\", unary())\n    end\n    return atom()\n  end\n\n  -- atom = NUM | ID | ID '(' args ')' | '(' expr ')'\n  function atom()\n    local tok = tokens.peek()\n\n    if tok.type == NUM then\n      tokens.consume()\n      return NumNode(tok.value)\n    end\n\n    if tok.type == ID then\n      local name = tokens.consume().value\n      -- 函数调用？\n      if tokens.peek().type == LPAREN then\n        tokens.consume()  -- 消耗 '('\n        local args = {}\n        if tokens.peek().type ~= RPAREN then\n          args[1] = expr()\n          while tokens.peek().type == OP and tokens.peek().value == \",\" do\n            tokens.consume()\n            args[#args + 1] = expr()\n          end\n        end\n        tokens.expect(RPAREN)\n        return CallNode(name, args)\n      end\n      return VarNode(name)\n    end\n\n    if tok.type == LPAREN then\n      tokens.consume()\n      local node = expr()\n      tokens.expect(RPAREN)\n      return node\n    end\n\n    error(\"意外的 Token: \" .. tok.type\n      .. (tok.pos and \"，位于位置 \" .. tok.pos or \"\"))\n  end\n\n  local ast = expr()\n  tokens.expect(EOF)\n  return ast\nend\n\nprint(\"解析器已加载。\")",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "解析器已加载。\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">解析器已加载。\n</pre>"
+      },
+      {
+        "id": 13,
+        "code": "## 5. AST 格式化输出 (Pretty-Printer)\n\n在求值之前，先直观展示解析器生成的结构。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 14,
+        "code": "function pretty(node, indent)\n  indent = indent or 0\n  local pad = string.rep(\"  \", indent)\n\n  if node.tag == \"num\" then\n    return pad .. tostring(node.value)\n  elseif node.tag == \"var\" then\n    return pad .. node.name\n  elseif node.tag == \"unary\" then\n    return pad .. \"(\" .. node.op .. \"\\n\" .. pretty(node.operand, indent + 1) .. \")\"\n  elseif node.tag == \"binop\" then\n    return pad .. \"(\" .. node.op .. \"\\n\"\n      .. pretty(node.left, indent + 1) .. \"\\n\"\n      .. pretty(node.right, indent + 1) .. \")\"\n  elseif node.tag == \"call\" then\n    local argStrs = {}\n    for _, a in ipairs(node.args) do\n      argStrs[#argStrs + 1] = pretty(a, indent + 1)\n    end\n    return pad .. node.name .. \"(\\n\" .. table.concat(argStrs, \"\\n\") .. \")\"\n  end\n  return pad .. \"??\"\nend\n\n-- 解析并显示\nlocal ast = parse(\"2 ^ 3 ^ 2 + 1\")\nprint(\"'2 ^ 3 ^ 2 + 1' 的 AST:\")\nprint(pretty(ast))\n\nprint(\"\\n'-(3 + 4) * 2' 的 AST:\")\nprint(pretty(parse(\"-(3 + 4) * 2\")))",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "'2 ^ 3 ^ 2 + 1' 的 AST:\n(+\n  (^\n    2\n    (^\n      3\n      2))\n  1)\n\n'-(3 + 4) * 2' 的 AST:\n(*\n  (-\n    (+\n      3\n      4))\n  2)\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">'2 ^ 3 ^ 2 + 1' 的 AST:\n(+\n  (^\n    2\n    (^\n      3\n      2))\n  1)\n\n'-(3 + 4) * 2' 的 AST:\n(*\n  (-\n    (+\n      3\n      4))\n  2)\n</pre>"
+      },
+      {
+        "id": 15,
+        "code": "## 6. 求值器 (Evaluator)\n\n遍历 AST 计算结果。变量和函数在环境表中查找。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 16,
+        "code": "function evaluate(node, env)\n  env = env or {}\n\n  if node.tag == \"num\" then\n    return node.value\n\n  elseif node.tag == \"var\" then\n    local val = env[node.name]\n    if val == nil then error(\"未定义的变量: \" .. node.name) end\n    return val\n\n  elseif node.tag == \"unary\" then\n    if node.op == \"-\" then\n      return -evaluate(node.operand, env)\n    end\n\n  elseif node.tag == \"binop\" then\n    local l = evaluate(node.left, env)\n    local r = evaluate(node.right, env)\n    if     node.op == \"+\" then return l + r\n    elseif node.op == \"-\" then return l - r\n    elseif node.op == \"*\" then return l * r\n    elseif node.op == \"/\" then return l / r\n    elseif node.op == \"%\" then return l % r\n    elseif node.op == \"^\" then return l ^ r\n    end\n\n  elseif node.tag == \"call\" then\n    local fn = env[node.name]\n    if type(fn) ~= \"function\" then\n      error(\"不是函数: \" .. node.name)\n    end\n    local args = {}\n    for _, a in ipairs(node.args) do\n      args[#args + 1] = evaluate(a, env)\n    end\n    return fn(table.unpack(args))\n  end\n\n  error(\"未知的节点标签: \" .. tostring(node.tag))\nend\n\n-- 便捷函数: 解析 + 求值\nfunction calc(expr, env)\n  return evaluate(parse(expr), env)\nend\n\nprint(\"计算器已加载。\")",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "计算器已加载。\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">计算器已加载。\n</pre>"
+      },
+      {
+        "id": 17,
+        "code": "-- 基本算术运算\nprint(\"2 + 3 * 4      =\", calc(\"2 + 3 * 4\"))\nprint(\"(2 + 3) * 4    =\", calc(\"(2 + 3) * 4\"))\nprint(\"2 ^ 3 ^ 2      =\", calc(\"2 ^ 3 ^ 2\"))      -- 右结合: 2^(3^2) = 512\nprint(\"-5 + 3         =\", calc(\"-5 + 3\"))\nprint(\"10 % 3         =\", calc(\"10 % 3\"))",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "2 + 3 * 4      =\t14\n(2 + 3) * 4    =\t20\n2 ^ 3 ^ 2      =\t512.0\n-5 + 3         =\t-2\n10 % 3         =\t1\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">2 + 3 * 4      =\t14\n(2 + 3) * 4    =\t20\n2 ^ 3 ^ 2      =\t512.0\n-5 + 3         =\t-2\n10 % 3         =\t1\n</pre>"
+      },
+      {
+        "id": 18,
+        "code": "-- 包含变量和函数\nlocal env = {\n  pi = math.pi,\n  e  = math.exp(1),\n  x  = 10,\n  sqrt = math.sqrt,\n  sin  = math.sin,\n  cos  = math.cos,\n  abs  = math.abs,\n}\n\nprint(\"pi * x ^ 2    =\", calc(\"pi * x ^ 2\", env))\nprint(\"sqrt(144)      =\", calc(\"sqrt(144)\", env))\nprint(\"sin(pi / 2)    =\", calc(\"sin(pi / 2)\", env))\nprint(\"abs(-42) + e   =\", calc(\"abs(-42) + e\", env))",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "pi * x ^ 2    =\t314.15926535898\nsqrt(144)      =\t12.0\nsin(pi / 2)    =\t1.0\nabs(-42) + e   =\t44.718281828459\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">pi * x ^ 2    =\t314.15926535898\nsqrt(144)      =\t12.0\nsin(pi / 2)    =\t1.0\nabs(-42) + e   =\t44.718281828459\n</pre>"
+      },
+      {
+        "id": 19,
+        "code": "## 7. 解析器组合子\n\n另一种方法：使用闭包从小型可组合构建块构建解析器。每个解析器都是一个函数，接受输入（字符串 + 位置），并返回结果 + 新位置，失败时返回 `nil`。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 20,
+        "code": "-- 解析器的定义: function(input, pos) -> result, newpos | nil\n\n-- 匹配 Lua 模式，返回捕获的组\nfunction P(pattern)\n  return function(input, pos)\n    local s, e, cap = string.find(input, \"^(\" .. pattern .. \")\", pos)\n    if s then return cap, e + 1 end\n    return nil\n  end\nend\n\n-- 匹配字面量字符串\nfunction L(str)\n  return function(input, pos)\n    if string.sub(input, pos, pos + #str - 1) == str then\n      return str, pos + #str\n    end\n    return nil\n  end\nend\n\n-- 跳过空白字符，然后应用解析器\nfunction Token(parser)\n  return function(input, pos)\n    local _, p2 = string.find(input, \"^%s*\", pos)\n    return parser(input, (p2 or pos) + 1)\n  end\nend\n\nprint(\"组合子已加载。\")",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "组合子已加载。\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">组合子已加载。\n</pre>"
+      },
+      {
+        "id": 21,
+        "code": "-- Sequence: 所有解析器必须按顺序匹配\nfunction Seq(...)\n  local parsers = {...}\n  return function(input, pos)\n    local results = {}\n    local p = pos\n    for _, parser in ipairs(parsers) do\n      local r, np = parser(input, p)\n      if r == nil then return nil end\n      results[#results + 1] = r\n      p = np\n    end\n    return results, p\n  end\nend\n\n-- Choice: 依次尝试每个解析器，返回第一个匹配项\nfunction Choice(...)\n  local parsers = {...}\n  return function(input, pos)\n    for _, parser in ipairs(parsers) do\n      local r, np = parser(input, pos)\n      if r ~= nil then return r, np end\n    end\n    return nil\n  end\nend\n\n-- 零次或多次重复\nfunction Many(parser)\n  return function(input, pos)\n    local results = {}\n    local p = pos\n    while true do\n      local r, np = parser(input, p)\n      if r == nil then break end\n      results[#results + 1] = r\n      p = np\n    end\n    return results, p\n  end\nend\n\n-- 转换结果\nfunction Map(parser, fn)\n  return function(input, pos)\n    local r, np = parser(input, pos)\n    if r ~= nil then return fn(r), np end\n    return nil\n  end\nend\n\nprint(\"Seq, Choice, Many, Map 已加载。\")",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "Seq, Choice, Many, Map 已加载。\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Seq, Choice, Many, Map 已加载。\n</pre>"
+      },
+      {
+        "id": 22,
+        "code": "-- 解析简单的 key-value 配置格式:\n--   host = localhost\n--   port = 8080\n--   debug = true\n\nlocal key   = Token(P(\"%a%w*\"))\nlocal eq    = Token(L(\"=\"))\nlocal value = Token(P(\"%S+\"))\n\nlocal pair  = Map(\n  Seq(key, eq, value),\n  function(r) return { key = r[1], value = r[3] } end\n)\n\nlocal config = Many(pair)\n\nlocal input = \"host = localhost  port = 8080  debug = true\"\nlocal result, pos = config(input, 1)\n\nprint(\"解析后的配置:\")\nfor _, entry in ipairs(result) do\n  print(string.format(\"  %-8s = %s\", entry.key, entry.value))\nend",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "解析后的配置:\n  host     = localhost\n  port     = 8080\n  debug    = true\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">解析后的配置:\n  host     = localhost\n  port     = 8080\n  debug    = true\n</pre>"
+      },
+      {
+        "id": 23,
+        "code": "## 8. CSV 解析器\n\n一个更实用的示例：使用组合子方法解析带有带引号字段的 CSV。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 24,
+        "code": "function parseCSV(input)\n  local rows = {}\n\n  -- 使用协程在解析时逐行 yield 产出行\n  local function parseField(line, pos)\n    if string.sub(line, pos, pos) == '\"' then\n      -- 带引号的字段: 查找闭合引号（处理转义的 \"\"）\n      local field = {}\n      pos = pos + 1\n      while pos <= #line do\n        if string.sub(line, pos, pos + 1) == '\"\"' then\n          field[#field + 1] = '\"'\n          pos = pos + 2\n        elseif string.sub(line, pos, pos) == '\"' then\n          pos = pos + 1\n          break\n        else\n          field[#field + 1] = string.sub(line, pos, pos)\n          pos = pos + 1\n        end\n      end\n      return table.concat(field), pos\n    else\n      -- 不带引号的字段: 读取直到逗号或末尾\n      local s, e, val = string.find(line, \"^([^,]*)\", pos)\n      return val or \"\", (e or pos) + 1\n    end\n  end\n\n  for line in string.gmatch(input, \"([^\\n]+)\") do\n    local row = {}\n    local pos = 1\n    while pos <= #line do\n      local field\n      field, pos = parseField(line, pos)\n      row[#row + 1] = field\n      -- 跳过逗号分隔符\n      if string.sub(line, pos, pos) == \",\" then\n        pos = pos + 1\n      end\n    end\n    rows[#rows + 1] = row\n  end\n\n  return rows\nend\n\nlocal csv = [[name,age,city\nAlice,30,\"New York\"\nBob,25,\"San Francisco\"\n\"O'Brien, Charlie\",40,\"Boston\"]]\n\nlocal data = parseCSV(csv)\n\n-- 打印为格式化表格\nlocal widths = {}\nfor _, row in ipairs(data) do\n  for i, field in ipairs(row) do\n    widths[i] = math.max(widths[i] or 0, #field)\n  end\nend\n\nfor r, row in ipairs(data) do\n  local parts = {}\n  for i, field in ipairs(row) do\n    parts[i] = field .. string.rep(\" \", widths[i] - #field)\n  end\n  print(table.concat(parts, \"  |  \"))\n  if r == 1 then\n    local sep = {}\n    for i = 1, #widths do sep[i] = string.rep(\"-\", widths[i]) end\n    print(table.concat(sep, \"--+--\"))\n  end\nend",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "name              |  age  |  city         \n------------------+-------+---------------\nAlice             |  30   |  New York     \nBob               |  25   |  San Francisco\nO'Brien, Charlie  |  40   |  Boston       \n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">name              |  age  |  city         \n------------------+-------+---------------\nAlice             |  30   |  New York     \nBob               |  25   |  San Francisco\nO'Brien, Charlie  |  40   |  Boston       \n</pre>"
+      },
+      {
+        "id": 25,
+        "code": "## 9. 流式处理流水线 (Streaming Pipeline)\n\n融会贯通：一个基于协程的流水线，逐行且完全惰性地对一系列表达式进行词法分析、解析和求值。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 26,
+        "code": "function repl_eval(lines, env)\n  return coroutine.wrap(function()\n    for line in string.gmatch(lines, \"([^\\n]+)\") do\n      -- 跳过注释和空行\n      local trimmed = string.match(line, \"^%s*(.-)%s*$\")\n      if trimmed ~= \"\" and string.sub(trimmed, 1, 1) ~= \"#\" then\n        local ok, result = pcall(function()\n          return calc(trimmed, env)\n        end)\n        if ok then\n          coroutine.yield(trimmed, result, nil)\n        else\n          coroutine.yield(trimmed, nil, result)\n        end\n      end\n    end\n  end)\nend\n\nlocal program = [[\n# Physics calculations\n9.8 * 2\nsqrt(144) + 1\npi * r ^ 2\n2 ^ 10\nabs(-7) * 3\n5 / 0\n]]\n\nlocal env = {\n  pi = math.pi, r = 5,\n  sqrt = math.sqrt, abs = math.abs,\n}\n\nprint(\"表达式求值器:\")\nprint(string.rep(\"-\", 40))\nfor expr, result, err in repl_eval(program, env) do\n  if err then\n    print(string.format(\"  %-20s  错误: %s\", expr, err))\n  else\n    print(string.format(\"  %-20s  = %g\", expr, result))\n  end\nend",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "表达式求值器:\n----------------------------------------\n  9.8 * 2               = 19.6\n  sqrt(144) + 1         = 13\n  pi * r ^ 2            = 78.53981633974483\n  2 ^ 10                = 1024\n  abs(-7) * 3           = 21\n  5 / 0                 = Infinity\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">表达式求值器:\n----------------------------------------\n  9.8 * 2               = 19.6\n  sqrt(144) + 1         = 13\n  pi * r ^ 2            = 78.53981633974483\n  2 ^ 10                = 1024\n  abs(-7) * 3           = 21\n  5 / 0                 = Infinity\n</pre>"
+      },
+      {
+        "id": 27,
+        "code": "## 总结\n\n我们仅使用 Lua 标准库构建的内容：\n\n| 组件 | 技术 |\n|---|---|\n| 词法分析器 | 协程 + `string.match` 模式 |\n| 标记流 | 闭包（在协程上实现 peek/consume） |\n| 递归下降解析器 | 相互递归 + 用作 AST 的表 |\n| 求值器 | 带环境表的树遍历 |\n| 组合子 | 高阶闭包（Seq, Choice, Many, Map） |\n| CSV 解析器 | 模式匹配 + 状态机 |\n| 流式处理流水线 | 带 `pcall` 错误处理的协程链 |\n\n无需外部库，无需正则引擎，无需解析器生成器 — 仅依靠模式、协程、闭包和表。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      }
+    ]
+  }
+}

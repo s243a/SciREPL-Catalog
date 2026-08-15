@@ -26,3 +26,12 @@ reject U+FFFD at four layers (span-apply, apply-renames, span-derive,
 build-pages), but the transport should stop corrupting regardless.
 
 *Status: catalog repaired + guarded; broker fix proposed to Sol.*
+
+## From the es Pass-2 sweep workers (2026-08-15)
+
+- **01_family_tree_tutorial-es** cell 6: Avoid apostrophe in Prolog single-line comment to prevent quote tokenization issues.
+- **01_family_tree_tutorial-es** cell 7: Avoid apostrophe in Prolog single-line comment to prevent quote tokenization issues.
+- **01_family_tree_tutorial-es** cell 12: Avoid apostrophe in Prolog single-line comment to prevent quote tokenization issues.
+- **03_call_graph_analysis-es** cell 14: Avoid apostrophe in Prolog single-line comment to prevent quote tokenization issues.
+
+*Status: awaiting owner decision; fixes land in the EN source only.*

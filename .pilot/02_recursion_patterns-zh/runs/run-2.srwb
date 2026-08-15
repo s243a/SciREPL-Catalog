@@ -1,0 +1,431 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T17:24:33.139Z",
+  "notebook": {
+    "id": "default",
+    "name": "UnifyWeaver 中的高级递归模式",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "prolog",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 46,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# UnifyWeaver 中的高级递归模式\n\n本笔记本演示了 UnifyWeaver 能够检测和优化的四种主要递归模式：\n\n1. **尾递归 (Tail Recursion)** - 带累加器的迭代循环\n2. **线性递归 (Linear Recursion)** - 带记忆化的单次递归调用\n3. **树形递归 (Tree Recursion)** - 在结构各部分上的多次递归调用\n4. **互递归 (Mutual Recursion)** - 循环相互调用的谓词\n\n## 学习目标\n\n- 理解不同的递归模式\n- 了解 UnifyWeaver 如何检测和优化每种模式\n- 比较性能特征\n- 掌握何时使用每种模式",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "## 环境配置\n\n初始化 UnifyWeaver 环境。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 3,
+        "code": "% 加载初始化\n['../init'].\n\n% 加载必要的模块\nuse_module(unifyweaver(core/recursive_compiler)).\nuse_module(unifyweaver(core/advanced/pattern_matchers)).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
+      },
+      {
+        "id": 4,
+        "code": "## 模式 1：尾递归 (Tail Recursion)\n\n尾递归使用累加器传递中间结果，且递归调用是函数中的**最后一个操作**。\n\n### 示例：统计列表中的元素个数",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 5,
+        "code": "% 定义尾递归 count_items\n:- dynamic count_items/3.\n\n% 基本情况：空列表，返回累加器\ncount_items([], Acc, Acc).\n\n% 递归情况：递增累加器，对尾部进行递归\ncount_items([_|T], Acc, N) :-\n    Acc1 is Acc + 1,\n    count_items(T, Acc1, N).  % ← 尾部位置！",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 6,
+        "code": "### 在 Prolog 中测试",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 7,
+        "code": "% 测试：统计 [a,b,c,d,e] 中的元素\n\\+ \\+ (\n    count_items([a,b,c,d,e], 0, _N),\n    format('Count: ~w~n', [_N])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Count: 5",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Count: 5</pre>"
+      },
+      {
+        "id": 8,
+        "code": "### 检查模式检测结果",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 9,
+        "code": "% 检查是否被检测为尾递归\n\\+ \\+ (\n    is_tail_recursive_accumulator(count_items/3, _AccInfo),\n    format('Tail recursive: ~w~n', [_AccInfo])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: is_tail_recursive_accumulator/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: is_tail_recursive_accumulator/2</pre>"
+      },
+      {
+        "id": 10,
+        "code": "### 编译为 Bash",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 11,
+        "code": "% 编译并保存\n\\+ \\+ (\n    compile_recursive(count_items/3, [], _BashCode),\n    setup_call_cleanup(\n        open('../output/count_items_demo.sh', write, _Stream),\n        write(_Stream, _BashCode),\n        close(_Stream)),\n    writeln('✓ Compiled count_items to Bash with tail recursion optimization')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: compile_recursive/3</pre>"
+      },
+      {
+        "id": 12,
+        "code": "### 测试生成的 Bash 代码",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 13,
+        "code": "source ../output/count_items_demo.sh\necho \"统计 [a,b,c,d,e] 中的元素：\"\ncount_items \"[a,b,c,d,e]\" 0 \"\"",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "统计 [a,b,c,d,e] 中的元素：\nerror: source: failed to source file: ../output/count_items_demo.sh\nerror: failed to execute command 'count_items': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">统计 [a,b,c,d,e] 中的元素：\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/count_items_demo.sh\nerror: failed to execute command 'count_items': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 14,
+        "code": "## 模式 2：线性递归 (Linear Recursion)\n\n线性递归在每个子句中包含**恰好一个**递归调用，计算在递归调用返回后进行。\n\n### 示例：阶乘 (Factorial)",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 15,
+        "code": "% 定义阶乘\n:- dynamic factorial/2.\n\n% 基本情况\nfactorial(0, 1).\n\n% 递归情况：恰好一次递归调用\nfactorial(N, F) :-\n    N > 0,\n    N1 is N - 1,\n    factorial(N1, F1),  % ← 一次递归调用\n    F is N * F1.        % ← 调用后的计算",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 16,
+        "code": "### 在 Prolog 中测试",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 17,
+        "code": "% 测试：5 的阶乘\n\\+ \\+ (\n    factorial(5, _F),\n    format('5! = ~w~n', [_F])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "5! = 120",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">5! = 120</pre>"
+      },
+      {
+        "id": 18,
+        "code": "### 检查模式检测结果",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 19,
+        "code": "% 检查是否被检测为线性递归\nis_linear_recursive_streamable(factorial/2),\nwriteln('✓ Detected as linear recursion').",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: is_linear_recursive_streamable/1",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: is_linear_recursive_streamable/1</pre>"
+      },
+      {
+        "id": 20,
+        "code": "### 编译为 Bash",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 21,
+        "code": "% 编译并保存\n\\+ \\+ (\n    compile_recursive(factorial/2, [], _BashCode),\n    % 仅保留函数定义；Brush 将 source 导入的脚本视为直接执行\n    split_string(_BashCode, \"\\n\", \"\\r\", _BashLines),\n    append(_LibraryLines, [\"# Auto-execute when run directly (not when sourced)\"|_], _BashLines),\n    atomics_to_string(_LibraryLines, \"\\n\", _LibraryCode),\n    setup_call_cleanup(\n        open('../output/factorial_demo.sh', write, _Stream),\n        write(_Stream, _LibraryCode),\n        close(_Stream)),\n    writeln('✓ Compiled factorial to Bash with fold-based linear recursion')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: compile_recursive/3</pre>"
+      },
+      {
+        "id": 22,
+        "code": "### 测试生成的 Bash 代码",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 23,
+        "code": "source ../output/factorial_demo.sh\necho \"5 的阶乘：\"\nfactorial 5 \"\"\necho \"\"\necho \"10 的阶乘：\"\nfactorial 10 \"\"",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "5 的阶乘：\n\n10 的阶乘：\nerror: source: failed to source file: ../output/factorial_demo.sh\nerror: failed to execute command 'factorial': operation not supported on this platform\nerror: failed to execute command 'factorial': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">5 的阶乘：\n\n10 的阶乘：\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/factorial_demo.sh\nerror: failed to execute command 'factorial': operation not supported on this platform\nerror: failed to execute command 'factorial': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 24,
+        "code": "## 模式 3：树形递归 (Tree Recursion)\n\n树形递归进行**多次**递归调用以处理结构的不同部分。\n\n### 示例：树节点求和 (Tree Sum)",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 25,
+        "code": "% 定义二叉树的 tree_sum\n% 树格式：[值, 左子树, 右子树] 或 []\n:- dynamic tree_sum/2.\n\n% 基本情况：空树的和为 0\ntree_sum([], 0).\n\n% 递归情况：和 = 值 + 左子树和 + 右子树和\ntree_sum([V, L, R], Sum) :-\n    tree_sum(L, LS),   % ← 第一次递归调用\n    tree_sum(R, RS),   % ← 第二次递归调用\n    Sum is V + LS + RS.",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 26,
+        "code": "### 在 Prolog 中测试",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 27,
+        "code": "% 测试：[5, [3, [1, [], []], []], [2, [], []]] 的 tree_sum\n%       5\n%      / \\\n%     3   2\n%    /\n%   1\n\\+ \\+ (\n    tree_sum([5, [3, [1, [], []], []], [2, [], []]], _Sum),\n    format('Tree sum: ~w (expected 11)~n', [_Sum])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Tree sum: 11 (expected 11)",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Tree sum: 11 (expected 11)</pre>"
+      },
+      {
+        "id": 28,
+        "code": "### 编译为 Bash",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 29,
+        "code": "% 编译并保存\n\\+ \\+ (\n    compile_recursive(tree_sum/2, [], _BashCode),\n    setup_call_cleanup(\n        open('../output/tree_sum_demo.sh', write, _Stream),\n        write(_Stream, _BashCode),\n        close(_Stream)),\n    writeln('✓ Compiled tree_sum to Bash with tree recursion')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: compile_recursive/3</pre>"
+      },
+      {
+        "id": 30,
+        "code": "### 测试生成的 Bash 代码",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 31,
+        "code": "source ../output/tree_sum_demo.sh\necho \"[5,[3,[1,[],[]],[]],[2,[],[]]] 的树求和：\"\ntree_sum \"[5,[3,[1,[],[]],[]],[2,[],[]]]\"",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "[5,[3,[1,[],[]],[]],[2,[],[]]] 的树求和：\nerror: source: failed to source file: ../output/tree_sum_demo.sh\nerror: failed to execute command 'tree_sum': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">[5,[3,[1,[],[]],[]],[2,[],[]]] 的树求和：\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/tree_sum_demo.sh\nerror: failed to execute command 'tree_sum': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 32,
+        "code": "## 模式 4：互递归 (Mutual Recursion)\n\n当两个或多个谓词在一个循环中相互调用时，就会发生互递归。\n\n### 示例：偶数 (Even) 与奇数 (Odd)",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 33,
+        "code": "% 定义互递归的 is_even 和 is_odd\n:- dynamic is_even/1.\n:- dynamic is_odd/1.\n\n% is_even 基本情况\nis_even(0).\n\n% is_even 递归：若 N-1 为奇数则 N 为偶数\nis_even(N) :-\n    N > 0,\n    N1 is N - 1,\n    is_odd(N1).  % ← 调用 is_odd\n\n% is_odd 基本情况\nis_odd(1).\n\n% is_odd 递归：若 N-1 为偶数则 N 为奇数\nis_odd(N) :-\n    N > 1,\n    N1 is N - 1,\n    is_even(N1).  % ← 调用 is_even",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 34,
+        "code": "### 在 Prolog 中测试",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 35,
+        "code": "% 测试偶数/奇数\nis_even(0), writeln('✓ 0 is even').\nis_even(4), writeln('✓ 4 is even').\nis_odd(3), writeln('✓ 3 is odd').\nis_odd(7), writeln('✓ 7 is odd').",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "✓ 0 is even\n✓ 4 is even\n✓ 3 is odd\n✓ 7 is odd",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">✓ 0 is even\n✓ 4 is even\n✓ 3 is odd\n✓ 7 is odd</pre>"
+      },
+      {
+        "id": 36,
+        "code": "### 检查互递归",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 37,
+        "code": "% 构建调用图并查找 SCC\n\\+ \\+ (\n    use_module(unifyweaver(core/advanced/call_graph)),\n    use_module(unifyweaver(core/advanced/scc_detection)),\n\n    build_call_graph([is_even/1, is_odd/1], _Graph),\n    format('Call graph: ~w~n', [_Graph]),\n\n    find_sccs(_Graph, _SCCs),\n    format('SCCs (mutual recursion groups): ~w~n', [_SCCs])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "source_sink `unifyweaver(core/advanced/call_graph)' does not exist",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">source_sink `unifyweaver(core/advanced/call_graph)' does not exist</pre>"
+      },
+      {
+        "id": 38,
+        "code": "### 编译为 Bash",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 39,
+        "code": "% 编译互递归组\n\\+ \\+ (\n    use_module(unifyweaver(core/advanced/mutual_recursion)),\n\n    compile_mutual_recursion([is_even/1, is_odd/1], [], _BashCode),\n    split_string(_BashCode, \"\\n\", \"\\r\", _BashLines),\n    append(_LibraryLines, [\"# Main dispatch: route command line calls to functions\"|_], _BashLines),\n    atomics_to_string(_LibraryLines, \"\\n\", _LibraryCode),\n    setup_call_cleanup(\n        open('../output/even_odd_demo.sh', write, _Stream),\n        write(_Stream, _LibraryCode),\n        close(_Stream)),\n    writeln('✓ Compiled is_even/is_odd to Bash with shared memoization')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 40,
+        "code": "### 测试生成的 Bash 代码",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 41,
+        "code": "source ../output/even_odd_demo.sh\necho \"测试 is_even 和 is_odd：\"\nis_even 0 >/dev/null && echo \"✓ 0 是偶数\"\nis_even 4 >/dev/null && echo \"✓ 4 是偶数\"\nis_odd 3 >/dev/null && echo \"✓ 3 是奇数\"\nis_odd 7 >/dev/null && echo \"✓ 7 是奇数\"\nis_even 5 >/dev/null 2>&1 || echo \"✓ 5 不是偶数\"",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "测试 is_even 和 is_odd：\n✓ 5 不是偶数\nerror: source: failed to source file: ../output/even_odd_demo.sh\nerror: failed to execute command 'is_even': operation not supported on this platform\nerror: failed to execute command 'is_even': operation not supported on this platform\nerror: failed to execute command 'is_odd': operation not supported on this platform\nerror: failed to execute command 'is_odd': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">测试 is_even 和 is_odd：\n✓ 5 不是偶数\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/even_odd_demo.sh\nerror: failed to execute command 'is_even': operation not supported on this platform\nerror: failed to execute command 'is_even': operation not supported on this platform\nerror: failed to execute command 'is_odd': operation not supported on this platform\nerror: failed to execute command 'is_odd': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 42,
+        "code": "## 模式比较\n\n比较每种模式的特性：\n\n| 模式 | 递归调用 | 优化方式 | 空间复杂度 | 最适合场景 |\n|:--------|:----------------|:-------------|:-----------------|:---------|\n| **尾递归** | 1 次（处于尾部位置） | 迭代循环 | O(1) | 累加器、线性扫描 |\n| **线性递归** | 1 次（任意位置） | 折叠 (Fold) + 记忆化 | O(n) 记忆表 | 斐波那契、阶乘 |\n| **树形递归** | 2 次以上（结构各部分） | 结构解构 | O(深度) 栈 | 树/图操作 |\n| **互递归** | 1 次以上（跨谓词） | 共享记忆化 | O(n) 共享表 | 奇/偶判断、相互定义 |",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 43,
+        "code": "## 模式检测顺序\n\nUnifyWeaver 按照以下顺序尝试匹配模式：\n\n1. **尾递归**（最高效）\n2. **线性递归**（除非被禁用）\n3. **树形递归**（结构性）\n4. **互递归**（强连通分量 SCC 检测）\n5. **基础递归**（默认回退方案）\n\n你可以使用 `forbid_linear_recursion/1` 影响检测流程。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 44,
+        "code": "## 练习：动手试试！\n\n尝试定义并编译以下谓词：\n\n### 1. 尾递归求和\n```prolog\nsum_list([], Acc, Acc).\nsum_list([H|T], Acc, Sum) :-\n    Acc1 is Acc + H,\n    sum_list(T, Acc1, Sum).\n```\n\n### 2. 线性递归斐波那契\n```prolog\nfib(0, 0).\nfib(1, 1).\nfib(N, F) :-\n    N > 1,\n    N1 is N - 1,\n    N2 is N - 2,\n    fib(N1, F1),\n    fib(N2, F2),\n    F is F1 + F2.\n```\n\n### 3. 树的高度\n```prolog\ntree_height([], 0).\ntree_height([_, L, R], H) :-\n    tree_height(L, HL),\n    tree_height(R, HR),\n    H is max(HL, HR) + 1.\n```",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 45,
+        "code": "% 在这里编写你的代码！\n",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 46,
+        "code": "## 总结\n\n在本笔记本中，你学习了：\n\n✅ UnifyWeaver 中的四种主要递归模式\n\n✅ 如何在 Prolog 中定义每种模式\n\n✅ UnifyWeaver 如何检测和优化每种模式\n\n✅ 每种模式的性能特征\n\n✅ 何时使用对应模式\n\n## 后续步骤\n\n继续前往 **笔记本 3：调用图可视化**，学习高级代码分析与可视化！",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      }
+    ]
+  }
+}

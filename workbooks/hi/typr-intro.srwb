@@ -11,31 +11,31 @@
       },
       {
         "type": "code",
-        "code": "let x <- 42;\n# Variadic arguments are supported\ncat(\"x =\", x);",
+        "code": "let x <- 42;\n# वैरिएडिक तर्कों (variadic arguments) का समर्थन है\ncat(\"x =\", x);",
         "language": "typr",
         "name": "basics"
       },
       {
         "type": "code",
-        "code": "# Function bodies require braces\nlet add <- function(a, b) { a + b };\nlet result <- add(3, 4);\nprint(result);",
+        "code": "# फ़ंक्शन बॉडी के लिए ब्रेसिज़ आवश्यक हैं\nlet add <- function(a, b) { a + b };\nlet result <- add(3, 4);\nprint(result);",
         "language": "typr",
         "name": "functions"
       },
       {
         "type": "code",
-        "code": "let greeting: char <- \"Hello from TypR!\";\nprint(greeting);",
+        "code": "let greeting: char <- \"TypR की ओर से नमस्ते!\";\nprint(greeting);",
         "language": "typr",
         "name": "typed"
       },
       {
         "type": "code",
-        "code": "# Explicit parameter and return types make calls statically checkable\nlet square <- fn(x: int): int { x * x };\nlet result <- square(7);\n# Variadic arguments work directly\ncat(\"7 squared =\", result);",
+        "code": "# स्पष्ट पैरामीटर और रिटर्न प्रकार कॉल्स को स्थिर रूप से जांचने योग्य बनाते हैं\nlet square <- fn(x: int): int { x * x };\nlet result <- square(7);\n# वैरिएडिक तर्क सीधे काम करते हैं\ncat(\"7 का वर्ग =\", result);",
         "language": "typr",
         "name": "square"
       },
       {
         "type": "code",
-        "code": "# Forward heterogeneous named arguments\nlet collect <- fn(...args: Any): [#N, Any] { args };\nlet forward <- fn(...args: Any): [#N, Any] { collect(...args) };\nlet values <- forward(count = 1, enabled = true);\nprint(values);\n@{ base::cat(\"Names:\", base::paste(base::names(values$data), collapse = \", \"), \"\\n\") }@;",
+        "code": "# विषम नामित तर्कों (heterogeneous named arguments) को अग्रेषित करें\nlet collect <- fn(...args: Any): [#N, Any] { args };\nlet forward <- fn(...args: Any): [#N, Any] { collect(...args) };\nlet values <- forward(count = 1, enabled = true);\nprint(values);\n@{ base::cat(\"नाम:\", base::paste(base::names(values$data), collapse = \", \"), \"\\n\") }@;",
         "language": "typr",
         "name": "variadic_forwarding"
       },

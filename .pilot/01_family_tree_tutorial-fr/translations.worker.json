@@ -1,0 +1,31 @@
+{
+  "spans": {
+    "2:0:0": "Charger le fichier d'initialisation",
+    "4:0:0": "Définir les faits parent",
+    "6:0:0": "Requête : Qui sont les enfants d'Abraham ?",
+    "7:0:0": "Requête : Qui sont les enfants de Jacob ?",
+    "9:0:0": "Définir ancestor comme la fermeture transitive de parent",
+    "9:2:0": "Cas de base : un parent est un ancêtre",
+    "9:4:0": "Cas récursif : si X est le parent de Y et Y est l'ancêtre de Z, alors X est l'ancêtre de Z",
+    "11:0:0": "Requête : Abraham est-il un ancêtre de Jacob ?",
+    "12:0:0": "Requête : Quels sont tous les descendants d'Abraham ?",
+    "14:0:0": "Charger le compilateur de flux",
+    "14:2:0": "Compiler les faits parent en bash",
+    "16:0:0": "Enregistrer dans un fichier",
+    "18:0:0": "Charger le compilateur récursif",
+    "18:2:0": "Compiler ancestor en bash",
+    "20:0:0": "Enregistrer dans un fichier",
+    "22:1:0": "Charger le script parent avec source",
+    "22:3:0": "Test : Qui sont les enfants d'Abraham ?",
+    "22:5:0": "Enfants d'Abraham :",
+    "23:1:0": "Charger les deux scripts avec source",
+    "23:3:0": "Test : Qui sont les descendants d'Abraham ?",
+    "23:5:0": "Descendants d'Abraham :",
+    "24:1:0": "Charger les deux scripts avec source",
+    "24:3:0": "Test : Abraham est-il un ancêtre de Juda ?",
+    "24:5:0": "✓ Oui, Abraham est un ancêtre de Juda",
+    "24:7:0": "✗ Faux",
+    "26:0:0": "Vérifier si ancestor est classé comme récursif"
+  },
+  "keeps": []
+}

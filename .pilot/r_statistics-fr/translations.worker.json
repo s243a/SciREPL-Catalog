@@ -1,0 +1,34 @@
+{
+  "spans": {
+    "2:1:0": "Jeu de données : mtcars (",
+    "2:3:0": " voitures, ",
+    "2:5:0": " variables)\n\n",
+    "4:1:0": "Automatique :",
+    "4:3:0": "MPG (N =",
+    "4:7:0": "Manuelle: ",
+    "4:9:0": "MPG (N =",
+    "4:15:0": "\nConclusion :",
+    "4:17:0": "Rejet de H0 — les voitures manuelles ont un MPG significativement supérieur",
+    "4:19:0": "Échec du rejet de H0",
+    "6:1:0": "Automatique",
+    "6:3:0": "Manuelle",
+    "12:1:0": "Intervalles de confiance à 95 % :\n",
+    "13:5:0": "Estimation",
+    "13:9:0": "Intervalles de confiance à 95 % pour les coefficients",
+    "15:1:0": "\nComparaisons post-hoc de Tukey HSD :\n",
+    "16:1:0": "MPG par nombre de cylindres",
+    "16:3:0": "Cylindres",
+    "16:5:0": "Miles par gallon (MPG)"
+  },
+  "keeps": [
+    "2:7:0",
+    "2:9:0",
+    "2:11:0",
+    "2:13:0",
+    "4:13:0",
+    "13:1:0",
+    "13:11:0",
+    "16:7:0"
+  ],
+  "suggestions": []
+}

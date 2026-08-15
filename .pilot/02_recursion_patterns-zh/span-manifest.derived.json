@@ -1,0 +1,1380 @@
+{
+  "manifest_version": 1,
+  "produced_by": "derived",
+  "generator": "tools/span-derive.mjs",
+  "locale": "zh",
+  "source": {
+    "path": "workbooks/en/02_recursion_patterns.ipynb",
+    "sha256": "6c8e6bff87fe57d5fb79605a216926b5c48b4e263d2208823228dfe6676c6a80"
+  },
+  "target": {
+    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/jobs/02_recursion_patterns-zh/translated.ipynb",
+    "sha256": "04a45c6c338d8591a23e5a7d5715d75c377341184409f0be0e0087bc6266810c"
+  },
+  "spans": [
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 22
+        },
+        "text": "Load initialization"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 8
+        },
+        "text": "加载初始化"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 25
+        },
+        "text": "Load necessary modules"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 10
+        },
+        "text": "加载必要的模块"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 36
+        },
+        "text": "Define tail-recursive count_items"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 20
+        },
+        "text": "定义尾递归 count_items"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 44
+        },
+        "text": "Base case: empty list, return accumulator"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 17
+        },
+        "text": "基本情况：空列表，返回累加器"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 1
+        },
+        "end": {
+          "line": 7,
+          "col": 57
+        },
+        "text": "Recursive case: increment accumulator, recurse on tail"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 1
+        },
+        "end": {
+          "line": 7,
+          "col": 21
+        },
+        "text": "递归情况：递增累加器，对尾部进行递归"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 10,
+          "col": 31
+        },
+        "end": {
+          "line": 10,
+          "col": 49
+        },
+        "text": "← Tail position!"
+      },
+      "target_span": {
+        "start": {
+          "line": 10,
+          "col": 31
+        },
+        "end": {
+          "line": 10,
+          "col": 40
+        },
+        "text": "← 尾部位置！"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 35
+        },
+        "text": "Test: count items in [a,b,c,d,e]"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 25
+        },
+        "text": "测试：统计 [a,b,c,d,e] 中的元素"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 38
+        },
+        "text": "Check if detected as tail recursive"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 14
+        },
+        "text": "检查是否被检测为尾递归"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 10,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 19
+        },
+        "text": "Compile and save"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 8
+        },
+        "text": "编译并保存"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 12,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 37
+        },
+        "text": "Counting items in [a,b,c,d,e]:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 27
+        },
+        "text": "统计 [a,b,c,d,e] 中的元素："
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 19
+        },
+        "text": "Define factorial"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 7
+        },
+        "text": "定义阶乘"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 12
+        },
+        "text": "Base case"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 7
+        },
+        "text": "基本情况"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 1
+        },
+        "end": {
+          "line": 7,
+          "col": 45
+        },
+        "text": "Recursive case: exactly ONE recursive call"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 1
+        },
+        "end": {
+          "line": 7,
+          "col": 16
+        },
+        "text": "递归情况：恰好一次递归调用"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 11,
+          "col": 25
+        },
+        "end": {
+          "line": 11,
+          "col": 47
+        },
+        "text": "← One recursive call"
+      },
+      "target_span": {
+        "start": {
+          "line": 11,
+          "col": 25
+        },
+        "end": {
+          "line": 11,
+          "col": 35
+        },
+        "text": "← 一次递归调用"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 12,
+          "col": 25
+        },
+        "end": {
+          "line": 12,
+          "col": 51
+        },
+        "text": "← Computation after call"
+      },
+      "target_span": {
+        "start": {
+          "line": 12,
+          "col": 25
+        },
+        "end": {
+          "line": 12,
+          "col": 35
+        },
+        "text": "← 调用后的计算"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 23
+        },
+        "text": "Test: factorial of 5"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 11
+        },
+        "text": "测试：5 的阶乘"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 18,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 40
+        },
+        "text": "Check if detected as linear recursive"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 15
+        },
+        "text": "检查是否被检测为线性递归"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 20,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 19
+        },
+        "text": "Compile and save"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 8
+        },
+        "text": "编译并保存"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 20,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 5
+        },
+        "end": {
+          "line": 4,
+          "col": 87
+        },
+        "text": "Keep function definitions only; Brush treats sourced scripts as direct execution"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 5
+        },
+        "end": {
+          "line": 4,
+          "col": 41
+        },
+        "text": "仅保留函数定义；Brush 将 source 导入的脚本视为直接执行"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 22,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 22
+        },
+        "text": "Factorial of 5:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 13
+        },
+        "text": "5 的阶乘："
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 22,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 7
+        },
+        "end": {
+          "line": 6,
+          "col": 23
+        },
+        "text": "Factorial of 10:"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 7
+        },
+        "end": {
+          "line": 6,
+          "col": 14
+        },
+        "text": "10 的阶乘："
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 35
+        },
+        "text": "Define tree_sum for binary trees"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 18
+        },
+        "text": "定义二叉树的 tree_sum"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 56
+        },
+        "text": "Tree format: [Value, LeftSubtree, RightSubtree] or []"
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 25
+        },
+        "text": "树格式：[值, 左子树, 右子树] 或 []"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 34
+        },
+        "text": "Base case: empty tree has sum 0"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 15
+        },
+        "text": "基本情况：空树的和为 0"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 8,
+          "col": 1
+        },
+        "end": {
+          "line": 8,
+          "col": 53
+        },
+        "text": "Recursive case: sum = value + left_sum + right_sum"
+      },
+      "target_span": {
+        "start": {
+          "line": 8,
+          "col": 1
+        },
+        "end": {
+          "line": 8,
+          "col": 27
+        },
+        "text": "递归情况：和 = 值 + 左子树和 + 右子树和"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 10,
+          "col": 24
+        },
+        "end": {
+          "line": 10,
+          "col": 48
+        },
+        "text": "← First recursive call"
+      },
+      "target_span": {
+        "start": {
+          "line": 10,
+          "col": 24
+        },
+        "end": {
+          "line": 10,
+          "col": 35
+        },
+        "text": "← 第一次递归调用"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 11,
+          "col": 24
+        },
+        "end": {
+          "line": 11,
+          "col": 49
+        },
+        "text": "← Second recursive call"
+      },
+      "target_span": {
+        "start": {
+          "line": 11,
+          "col": 24
+        },
+        "end": {
+          "line": 11,
+          "col": 35
+        },
+        "text": "← 第二次递归调用"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 26,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 59
+        },
+        "text": "Test: tree_sum of [5, [3, [1, [], []], []], [2, [], []]]"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 55
+        },
+        "text": "测试：[5, [3, [1, [], []], []], [2, [], []]] 的 tree_sum"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 28,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 19
+        },
+        "text": "Compile and save"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 8
+        },
+        "text": "编译并保存"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 30,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 50
+        },
+        "text": "Tree sum of [5,[3,[1,[],[]],[]],[2,[],[]]]:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 43
+        },
+        "text": "[5,[3,[1,[],[]],[]],[2,[],[]]] 的树求和："
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 32,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 47
+        },
+        "text": "Define mutually recursive is_even and is_odd"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 26
+        },
+        "text": "定义互递归的 is_even 和 is_odd"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 32,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 20
+        },
+        "text": "is_even base case"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 15
+        },
+        "text": "is_even 基本情况"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 32,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 8,
+          "col": 1
+        },
+        "end": {
+          "line": 8,
+          "col": 45
+        },
+        "text": "is_even recursive: N is even if N-1 is odd"
+      },
+      "target_span": {
+        "start": {
+          "line": 8,
+          "col": 1
+        },
+        "end": {
+          "line": 8,
+          "col": 30
+        },
+        "text": "is_even 递归：若 N-1 为奇数则 N 为偶数"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 32,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 12,
+          "col": 18
+        },
+        "end": {
+          "line": 12,
+          "col": 34
+        },
+        "text": "← Calls is_odd"
+      },
+      "target_span": {
+        "start": {
+          "line": 12,
+          "col": 18
+        },
+        "end": {
+          "line": 12,
+          "col": 31
+        },
+        "text": "← 调用 is_odd"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 32,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 14,
+          "col": 1
+        },
+        "end": {
+          "line": 14,
+          "col": 19
+        },
+        "text": "is_odd base case"
+      },
+      "target_span": {
+        "start": {
+          "line": 14,
+          "col": 1
+        },
+        "end": {
+          "line": 14,
+          "col": 14
+        },
+        "text": "is_odd 基本情况"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 32,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 17,
+          "col": 1
+        },
+        "end": {
+          "line": 17,
+          "col": 44
+        },
+        "text": "is_odd recursive: N is odd if N-1 is even"
+      },
+      "target_span": {
+        "start": {
+          "line": 17,
+          "col": 1
+        },
+        "end": {
+          "line": 17,
+          "col": 29
+        },
+        "text": "is_odd 递归：若 N-1 为偶数则 N 为奇数"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 32,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 21,
+          "col": 19
+        },
+        "end": {
+          "line": 21,
+          "col": 36
+        },
+        "text": "← Calls is_even"
+      },
+      "target_span": {
+        "start": {
+          "line": 21,
+          "col": 19
+        },
+        "end": {
+          "line": 21,
+          "col": 33
+        },
+        "text": "← 调用 is_even"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 34,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 16
+        },
+        "text": "Test even/odd"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 10
+        },
+        "text": "测试偶数/奇数"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 36,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 33
+        },
+        "text": "Build call graph and find SCCs"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 15
+        },
+        "text": "构建调用图并查找 SCC"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 38,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 37
+        },
+        "text": "Compile the mutual recursion group"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 9
+        },
+        "text": "编译互递归组"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 40,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 34
+        },
+        "text": "Testing is_even and is_odd:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 27
+        },
+        "text": "测试 is_even 和 is_odd："
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 40,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 31
+        },
+        "end": {
+          "line": 4,
+          "col": 42
+        },
+        "text": "✓ 0 is even"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 31
+        },
+        "end": {
+          "line": 4,
+          "col": 38
+        },
+        "text": "✓ 0 是偶数"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 40,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 31
+        },
+        "end": {
+          "line": 5,
+          "col": 42
+        },
+        "text": "✓ 4 is even"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 31
+        },
+        "end": {
+          "line": 5,
+          "col": 38
+        },
+        "text": "✓ 4 是偶数"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 40,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 30
+        },
+        "end": {
+          "line": 6,
+          "col": 40
+        },
+        "text": "✓ 3 is odd"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 30
+        },
+        "end": {
+          "line": 6,
+          "col": 37
+        },
+        "text": "✓ 3 是奇数"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 40,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 30
+        },
+        "end": {
+          "line": 7,
+          "col": 40
+        },
+        "text": "✓ 7 is odd"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 30
+        },
+        "end": {
+          "line": 7,
+          "col": 37
+        },
+        "text": "✓ 7 是奇数"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 40,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 8,
+          "col": 36
+        },
+        "end": {
+          "line": 8,
+          "col": 51
+        },
+        "text": "✓ 5 is not even"
+      },
+      "target_span": {
+        "start": {
+          "line": 8,
+          "col": 36
+        },
+        "end": {
+          "line": 8,
+          "col": 44
+        },
+        "text": "✓ 5 不是偶数"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 44,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 18
+        },
+        "text": "Your code here!"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 13
+        },
+        "text": "在这里编写你的代码！"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    }
+  ],
+  "exclusions": []
+}

@@ -20,22 +20,22 @@
         "language": "lua"
       },
       {
-        "code": "-- Arrays (1-indexed!)\nfruits = {\"apple\", \"banana\", \"cherry\"}\nprint(fruits[1], fruits[2], fruits[3])\nprint(\"length:\", #fruits)",
+        "code": "-- অ্যারে (১ থেকে ইনডেক্সিং শুরু!)\nfruits = {\"apple\", \"banana\", \"cherry\"}\nprint(fruits[1], fruits[2], fruits[3])\nprint(\"দৈর্ঘ্য:\", #fruits)",
         "type": "code",
         "language": "lua"
       },
       {
-        "code": "-- Dictionaries\nplanet = {\n  name = \"Earth\",\n  radius_km = 6371,\n  has_life = true\n}\nprint(planet.name, \"—\", planet.radius_km, \"km radius\")\n\n-- Add fields dynamically\nplanet.moons = 1\nprint(\"Moons:\", planet.moons)",
+        "code": "-- ডিকশনারি (ম্যাপ)\nplanet = {\n  name = \"Earth\",\n  radius_km = 6371,\n  has_life = true\n}\nprint(planet.name, \"—\", planet.radius_km, \"কিমি ব্যাসার্ধ\")\n\n-- গতিশীলভাবে ফিল্ড যোগ করুন\nplanet.moons = 1\nprint(\"চাঁদ:\", planet.moons)",
         "type": "code",
         "language": "lua"
       },
       {
-        "code": "-- Tables can mix array and dictionary parts\nmixed = {10, 20, 30, label = \"scores\", unit = \"pts\"}\nprint(\"Array part:\", mixed[1], mixed[2], mixed[3])\nprint(\"Dict part:\", mixed.label, mixed.unit)",
+        "code": "-- টেবিল অ্যারে এবং ডিকশনারি উভয় অংশকে একত্রিত করতে পারে\nmixed = {10, 20, 30, label = \"scores\", unit = \"pts\"}\nprint(\"অ্যারে অংশ:\", mixed[1], mixed[2], mixed[3])\nprint(\"ডিকশনারি অংশ:\", mixed.label, mixed.unit)",
         "type": "code",
         "language": "lua"
       },
       {
-        "code": "-- Nested tables — build any structure\ntree = {\n  value = \"root\",\n  children = {\n    { value = \"left\",  children = {} },\n    { value = \"right\", children = {\n      { value = \"right-left\", children = {} }\n    }}\n  }\n}\n\nfunction walk(node, depth)\n  depth = depth or 0\n  print(string.rep(\"  \", depth) .. node.value)\n  for _, child in ipairs(node.children) do\n    walk(child, depth + 1)\n  end\nend\n\nwalk(tree)",
+        "code": "-- নেস্টেড টেবিল — যেকোনো কাঠামো তৈরি করুন\ntree = {\n  value = \"root\",\n  children = {\n    { value = \"left\",  children = {} },\n    { value = \"right\", children = {\n      { value = \"right-left\", children = {} }\n    }}\n  }\n}\n\nfunction walk(node, depth)\n  depth = depth or 0\n  print(string.rep(\"  \", depth) .. node.value)\n  for _, child in ipairs(node.children) do\n    walk(child, depth + 1)\n  end\nend\n\nwalk(tree)",
         "type": "code",
         "language": "lua"
       },
@@ -45,7 +45,7 @@
         "language": "lua"
       },
       {
-        "code": "-- A 2D vector with operator overloading\nVec2 = {}\nVec2.__index = Vec2\n\nfunction Vec2.new(x, y)\n  return setmetatable({x = x, y = y}, Vec2)\nend\n\nfunction Vec2:__add(other)\n  return Vec2.new(self.x + other.x, self.y + other.y)\nend\n\nfunction Vec2:__mul(scalar)\n  return Vec2.new(self.x * scalar, self.y * scalar)\nend\n\nfunction Vec2:length()\n  return math.sqrt(self.x^2 + self.y^2)\nend\n\nfunction Vec2:__tostring()\n  return string.format(\"(%g, %g)\", self.x, self.y)\nend\n\na = Vec2.new(3, 4)\nb = Vec2.new(1, 2)\nprint(\"a =\", a)\nprint(\"b =\", b)\nprint(\"a + b =\", a + b)\nprint(\"a * 3 =\", a * 3)\nprint(\"|a| =\", a:length())",
+        "code": "-- অপারেটর ওভারলোডিং সহ একটি 2D ভেক্টর\nVec2 = {}\nVec2.__index = Vec2\n\nfunction Vec2.new(x, y)\n  return setmetatable({x = x, y = y}, Vec2)\nend\n\nfunction Vec2:__add(other)\n  return Vec2.new(self.x + other.x, self.y + other.y)\nend\n\nfunction Vec2:__mul(scalar)\n  return Vec2.new(self.x * scalar, self.y * scalar)\nend\n\nfunction Vec2:length()\n  return math.sqrt(self.x^2 + self.y^2)\nend\n\nfunction Vec2:__tostring()\n  return string.format(\"(%g, %g)\", self.x, self.y)\nend\n\na = Vec2.new(3, 4)\nb = Vec2.new(1, 2)\nprint(\"a =\", a)\nprint(\"b =\", b)\nprint(\"a + b =\", a + b)\nprint(\"a * 3 =\", a * 3)\nprint(\"|a| =\", a:length())",
         "type": "code",
         "language": "lua"
       },
@@ -55,17 +55,17 @@
         "language": "lua"
       },
       {
-        "code": "-- A counter factory — each call returns a new, independent counter\nfunction make_counter(start)\n  local n = start or 0\n  return {\n    inc = function() n = n + 1; return n end,\n    dec = function() n = n - 1; return n end,\n    get = function() return n end\n  }\nend\n\nc1 = make_counter(0)\nc2 = make_counter(100)\n\nc1.inc(); c1.inc(); c1.inc()\nc2.dec()\n\nprint(\"c1:\", c1.get())  -- 3\nprint(\"c2:\", c2.get())  -- 99",
+        "code": "-- কাউন্টার ফ্যাক্টরি — প্রতিটি কল একটি নতুন স্বতন্ত্র কাউন্টার প্রদান করে\nfunction make_counter(start)\n  local n = start or 0\n  return {\n    inc = function() n = n + 1; return n end,\n    dec = function() n = n - 1; return n end,\n    get = function() return n end\n  }\nend\n\nc1 = make_counter(0)\nc2 = make_counter(100)\n\nc1.inc(); c1.inc(); c1.inc()\nc2.dec()\n\nprint(\"c1:\", c1.get())  -- 3\nprint(\"c2:\", c2.get())  -- 99",
         "type": "code",
         "language": "lua"
       },
       {
-        "code": "-- Memoization via closures\nfunction memoize(fn)\n  local cache = {}\n  return function(n)\n    if cache[n] == nil then\n      cache[n] = fn(n)\n    end\n    return cache[n]\n  end\nend\n\nfib = memoize(function(n)\n  if n < 2 then return n end\n  return fib(n - 1) + fib(n - 2)\nend)\n\nfor i = 0, 15 do\n  io.write(fib(i) .. \" \")\nend\nprint()",
+        "code": "-- ক্লোজারের মাধ্যমে মেমোইজেশন\nfunction memoize(fn)\n  local cache = {}\n  return function(n)\n    if cache[n] == nil then\n      cache[n] = fn(n)\n    end\n    return cache[n]\n  end\nend\n\nfib = memoize(function(n)\n  if n < 2 then return n end\n  return fib(n - 1) + fib(n - 2)\nend)\n\nfor i = 0, 15 do\n  io.write(fib(i) .. \" \")\nend\nprint()",
         "type": "code",
         "language": "lua"
       },
       {
-        "code": "-- Partial application\nfunction partial(fn, ...)\n  local outer_args = table.pack(...)\n  return function(...)\n    local args = {}\n    for i = 1, outer_args.n do args[i] = outer_args[i] end\n    local inner = table.pack(...)\n    for i = 1, inner.n do args[outer_args.n + i] = inner[i] end\n    return fn(table.unpack(args, 1, outer_args.n + inner.n))\n  end\nend\n\nfunction add(a, b) return a + b end\n\nadd10 = partial(add, 10)\nprint(\"add10(5) =\", add10(5))\nprint(\"add10(32) =\", add10(32))",
+        "code": "-- আংশিক প্রয়োগ (Partial application)\nfunction partial(fn, ...)\n  local outer_args = table.pack(...)\n  return function(...)\n    local args = {}\n    for i = 1, outer_args.n do args[i] = outer_args[i] end\n    local inner = table.pack(...)\n    for i = 1, inner.n do args[outer_args.n + i] = inner[i] end\n    return fn(table.unpack(args, 1, outer_args.n + inner.n))\n  end\nend\n\nfunction add(a, b) return a + b end\n\nadd10 = partial(add, 10)\nprint(\"add10(5) এর মান =\", add10(5))\nprint(\"add10(32) এর মান =\", add10(32))",
         "type": "code",
         "language": "lua"
       },
@@ -75,22 +75,22 @@
         "language": "lua"
       },
       {
-        "code": "-- Basic coroutine: a producer that yields values\nfunction producer()\n  local items = {\"alpha\", \"beta\", \"gamma\", \"delta\"}\n  for _, item in ipairs(items) do\n    print(\"  producing: \" .. item)\n    coroutine.yield(item)\n  end\nend\n\nco = coroutine.create(producer)\n\nprint(\"Consumer loop:\")\nwhile coroutine.status(co) ~= \"dead\" do\n  local ok, value = coroutine.resume(co)\n  if ok and value then\n    print(\"  consumed:  \" .. value)\n  end\nend",
+        "code": "-- মৌলিক কোরুটিন: একটি প্রোডিউসার যা মান ইল্ড (yield) করে\nfunction producer()\n  local items = {\"alpha\", \"beta\", \"gamma\", \"delta\"}\n  for _, item in ipairs(items) do\n    print(\"  উৎপাদন করছে: \" .. item)\n    coroutine.yield(item)\n  end\nend\n\nco = coroutine.create(producer)\n\nprint(\"কনজিউমার লুপ:\")\nwhile coroutine.status(co) ~= \"dead\" do\n  local ok, value = coroutine.resume(co)\n  if ok and value then\n    print(\"  গ্রহণ করেছে:  \" .. value)\n  end\nend",
         "type": "code",
         "language": "lua"
       },
       {
-        "code": "-- Infinite sequence generator\nfunction fibonacci()\n  local a, b = 0, 1\n  while true do\n    coroutine.yield(a)\n    a, b = b, a + b\n  end\nend\n\nfib_co = coroutine.wrap(fibonacci)\n\nio.write(\"Fibonacci: \")\nfor i = 1, 12 do\n  io.write(fib_co() .. \" \")\nend\nprint()",
+        "code": "-- অসীম সিকোয়েন্স জেনারেটর\nfunction fibonacci()\n  local a, b = 0, 1\n  while true do\n    coroutine.yield(a)\n    a, b = b, a + b\n  end\nend\n\nfib_co = coroutine.wrap(fibonacci)\n\nio.write(\"ফিবোনাচ্চি: \")\nfor i = 1, 12 do\n  io.write(fib_co() .. \" \")\nend\nprint()",
         "type": "code",
         "language": "lua"
       },
       {
-        "code": "-- Pipeline: chaining coroutines as filters\nfunction range(n)\n  return coroutine.wrap(function()\n    for i = 1, n do coroutine.yield(i) end\n  end)\nend\n\nfunction filter(source, pred)\n  return coroutine.wrap(function()\n    for val in source do\n      if pred(val) then coroutine.yield(val) end\n    end\n  end)\nend\n\nfunction map(source, fn)\n  return coroutine.wrap(function()\n    for val in source do\n      coroutine.yield(fn(val))\n    end\n  end)\nend\n\n-- Pipeline: 1..20 → keep odds → square them\npipeline = map(\n  filter(range(20), function(x) return x % 2 == 1 end),\n  function(x) return x * x end\n)\n\nio.write(\"Odd squares: \")\nfor val in pipeline do\n  io.write(val .. \" \")\nend\nprint()",
+        "code": "-- পাইপলাইন: ফিল্টার হিসেবে কোরুটিন চেইনিং\nfunction range(n)\n  return coroutine.wrap(function()\n    for i = 1, n do coroutine.yield(i) end\n  end)\nend\n\nfunction filter(source, pred)\n  return coroutine.wrap(function()\n    for val in source do\n      if pred(val) then coroutine.yield(val) end\n    end\n  end)\nend\n\nfunction map(source, fn)\n  return coroutine.wrap(function()\n    for val in source do\n      coroutine.yield(fn(val))\n    end\n  end)\nend\n\n-- পাইপলাইন: ১..২০ → বিজোড় সংখ্যা রাখা → তাদের বর্গ করা\npipeline = map(\n  filter(range(20), function(x) return x % 2 == 1 end),\n  function(x) return x * x end\n)\n\nio.write(\"বিজোড় সংখ্যার বর্গ: \")\nfor val in pipeline do\n  io.write(val .. \" \")\nend\nprint()",
         "type": "code",
         "language": "lua"
       },
       {
-        "code": "-- Cooperative scheduler — round-robin task runner\nfunction scheduler()\n  local tasks = {}\n\n  local sched = {}\n\n  function sched.spawn(fn)\n    tasks[#tasks + 1] = coroutine.create(fn)\n  end\n\n  function sched.run()\n    while #tasks > 0 do\n      local next_tasks = {}\n      for _, co in ipairs(tasks) do\n        local ok, err = coroutine.resume(co)\n        if not ok then print(\"Error: \" .. err) end\n        if coroutine.status(co) ~= \"dead\" then\n          next_tasks[#next_tasks + 1] = co\n        end\n      end\n      tasks = next_tasks\n    end\n  end\n\n  return sched\nend\n\nS = scheduler()\n\nS.spawn(function()\n  for i = 1, 4 do\n    print(\"  [A] step \" .. i)\n    coroutine.yield()\n  end\nend)\n\nS.spawn(function()\n  for i = 1, 3 do\n    print(\"  [B] step \" .. i)\n    coroutine.yield()\n  end\nend)\n\nS.spawn(function()\n  for i = 1, 2 do\n    print(\"  [C] step \" .. i)\n    coroutine.yield()\n  end\nend)\n\nprint(\"Running scheduler:\")\nS.run()\nprint(\"All tasks complete.\")",
+        "code": "-- কো-অপারেটিভ শিডিউলার — রাউন্ড-রবিন টাস্ক রানার\nfunction scheduler()\n  local tasks = {}\n\n  local sched = {}\n\n  function sched.spawn(fn)\n    tasks[#tasks + 1] = coroutine.create(fn)\n  end\n\n  function sched.run()\n    while #tasks > 0 do\n      local next_tasks = {}\n      for _, co in ipairs(tasks) do\n        local ok, err = coroutine.resume(co)\n        if not ok then print(\"ত্রুটি: \" .. err) end\n        if coroutine.status(co) ~= \"dead\" then\n          next_tasks[#next_tasks + 1] = co\n        end\n      end\n      tasks = next_tasks\n    end\n  end\n\n  return sched\nend\n\nS = scheduler()\n\nS.spawn(function()\n  for i = 1, 4 do\n    print(\"  [A] ধাপ \" .. i)\n    coroutine.yield()\n  end\nend)\n\nS.spawn(function()\n  for i = 1, 3 do\n    print(\"  [B] ধাপ \" .. i)\n    coroutine.yield()\n  end\nend)\n\nS.spawn(function()\n  for i = 1, 2 do\n    print(\"  [C] ধাপ \" .. i)\n    coroutine.yield()\n  end\nend)\n\nprint(\"শিডিউলার চালানো হচ্ছে:\")\nS.run()\nprint(\"সব কাজ সম্পন্ন হয়েছে।\")",
         "type": "code",
         "language": "lua"
       },
@@ -100,12 +100,12 @@
         "language": "lua"
       },
       {
-        "code": "-- Closure-based iterator: iterate a table in sorted key order\nfunction sorted_pairs(t)\n  local keys = {}\n  for k in pairs(t) do keys[#keys + 1] = k end\n  table.sort(keys)\n  local i = 0\n  return function()\n    i = i + 1\n    local k = keys[i]\n    if k then return k, t[k] end\n  end\nend\n\nscores = { alice = 92, bob = 87, carol = 95, dave = 78 }\n\nprint(\"Sorted leaderboard:\")\nfor name, score in sorted_pairs(scores) do\n  print(string.format(\"  %-8s %d\", name, score))\nend",
+        "code": "-- ক্লোজার-ভিত্তিক ইটারেটর: সাজানো কি (key) অনুসারে টেবিলে ইটারেশন\nfunction sorted_pairs(t)\n  local keys = {}\n  for k in pairs(t) do keys[#keys + 1] = k end\n  table.sort(keys)\n  local i = 0\n  return function()\n    i = i + 1\n    local k = keys[i]\n    if k then return k, t[k] end\n  end\nend\n\nscores = { alice = 92, bob = 87, carol = 95, dave = 78 }\n\nprint(\"সাজানো লিডারবোর্ড:\")\nfor name, score in sorted_pairs(scores) do\n  print(string.format(\"  %-8s %d\", name, score))\nend",
         "type": "code",
         "language": "lua"
       },
       {
-        "code": "-- Coroutine iterator: permutations of a list\nfunction permutations(t)\n  local function generate(a, k)\n    if k == 1 then\n      coroutine.yield(a)\n    else\n      for i = 1, k do\n        generate(a, k - 1)\n        if k % 2 == 0 then\n          a[i], a[k] = a[k], a[i]\n        else\n          a[1], a[k] = a[k], a[1]\n        end\n      end\n    end\n  end\n\n  return coroutine.wrap(function()\n    -- Work on a copy\n    local copy = {}\n    for i, v in ipairs(t) do copy[i] = v end\n    generate(copy, #copy)\n  end)\nend\n\nprint(\"Permutations of {1,2,3}:\")\nfor perm in permutations({1, 2, 3}) do\n  print(\"  \" .. table.concat(perm, \", \"))\nend",
+        "code": "-- কোরুটিন ইটারেটর: একটি তালিকার বিন্যাস (permutations)\nfunction permutations(t)\n  local function generate(a, k)\n    if k == 1 then\n      coroutine.yield(a)\n    else\n      for i = 1, k do\n        generate(a, k - 1)\n        if k % 2 == 0 then\n          a[i], a[k] = a[k], a[i]\n        else\n          a[1], a[k] = a[k], a[1]\n        end\n      end\n    end\n  end\n\n  return coroutine.wrap(function()\n    -- একটি কপির ওপর কাজ করুন\n    local copy = {}\n    for i, v in ipairs(t) do copy[i] = v end\n    generate(copy, #copy)\n  end)\nend\n\nprint(\"{1,2,3}-এর বিন্যাস:\")\nfor perm in permutations({1, 2, 3}) do\n  print(\"  \" .. table.concat(perm, \", \"))\nend",
         "type": "code",
         "language": "lua"
       },
@@ -120,7 +120,7 @@
         "language": "lua"
       },
       {
-        "code": "-- Use the stream library\nresult = Stream.range(1, 50)\n  :filter(function(x) return x % 3 == 0 end)  -- divisible by 3\n  :map(function(x) return x * x end)          -- square\n  :take(5)                                     -- first 5\n\nprint(\"Stream result:\", result)\n\nsum = Stream.from({4, 8, 15, 16, 23, 42})\n  :filter(function(x) return x > 10 end)\n  :reduce(function(a, b) return a + b end, 0)\n\nprint(\"Sum of values > 10:\", sum)",
+        "code": "-- স্ট্রিম লাইব্রেরি ব্যবহার করুন\nresult = Stream.range(1, 50)\n  :filter(function(x) return x % 3 == 0 end)  -- ৩ দ্বারা বিভাজ্য\n  :map(function(x) return x * x end)          -- বর্গ\n  :take(5)                                     -- প্রথম ৫টি\n\nprint(\"স্ট্রিম ফলাফল:\", result)\n\nsum = Stream.from({4, 8, 15, 16, 23, 42})\n  :filter(function(x) return x > 10 end)\n  :reduce(function(a, b) return a + b end, 0)\n\nprint(\"১০-এর চেয়ে বড় মানের যোগফল:\", sum)",
         "type": "code",
         "language": "lua"
       },

@@ -1,0 +1,42 @@
+{
+  "spans": {
+    "1:0:0": "% Charger les modules du compilateur UnifyWeaver",
+    "2:0:0": "% Définir un arbre généalogique sous forme de faits Prolog",
+    "2:2:0": "% Clôture transitive : ancestor(X, Y) si X est un ancêtre de Y",
+    "3:1:0": "-- Cette cellule source Lua nommée est lue par les deux cellules du compilateur.",
+    "3:3:0": "-- Elle est ajoutée à chaque programme généré et s'y exécute.",
+    "3:5:0": "-- --- Requêtes ---",
+    "3:9:0": "Descendants d'alice : ",
+    "3:13:0": "alice -> eve (ancêtre ?) : ",
+    "3:19:0": "alice -> frank (ancêtre ?) : ",
+    "5:0:0": "% Lire le programme de requête Lua mis en évidence depuis sa cellule source nommée",
+    "5:10:0": "% Compiler avec input(embedded) — faits intégrés dans le code",
+    "8:0:0": "-- Cellule de données : faits au format from:to (un par ligne)",
+    "8:2:0": "-- La cellule compilée par VFS lit ceci via nb.read(\"facts_data\", \".code\")",
+    "9:0:0": "% Lire le même programme de requête Lua mis en évidence",
+    "9:10:0": "% Compiler avec input(vfs(facts_data)) — lit depuis la cellule ci-dessus",
+    "12:5:0": "-- Écrit depuis Lua après lecture de lua_queries (",
+    "12:7:0": " caractères)",
+    "12:13:0": "Lua a lu lua_queries et a écrit lua_written"
+  },
+  "keeps": [
+    "3:7:0",
+    "3:15:0",
+    "3:17:0",
+    "3:21:0",
+    "3:23:0",
+    "5:6:0",
+    "6:0:0",
+    "6:2:0",
+    "8:4:0",
+    "9:6:0",
+    "10:0:0",
+    "10:2:0",
+    "12:1:0",
+    "12:3:0",
+    "12:9:0",
+    "12:11:0",
+    "13:0:0"
+  ],
+  "suggestions": []
+}

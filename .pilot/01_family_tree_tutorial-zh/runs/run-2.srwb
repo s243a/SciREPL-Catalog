@@ -1,0 +1,269 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T17:24:12.740Z",
+  "notebook": {
+    "id": "default",
+    "name": "UnifyWeaver 家谱教程",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "prolog",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 28,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# UnifyWeaver 家谱教程\n\n本交互式笔记本演示了如何使用 UnifyWeaver 将 Prolog 谓词编译为 Bash 脚本。\n\n## 前提条件\n\n- 已安装 SWI-Prolog\n- 可用 UnifyWeaver 库\n- 已安装 Prolog Jupyter 内核 (`pip install prolog-jupyter-kernel`)\n\n## 学习目标\n\n完成本笔记本后，你将能够：\n1. 定义 Prolog 事实与规则\n2. 使用 UnifyWeaver 将谓词编译为 Bash\n3. 测试生成的 Bash 脚本\n4. 理解传递闭包的编译原理",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "## 步骤 1：初始化 UnifyWeaver 环境\n\n首先，我们需要加载 UnifyWeaver 模块。我们将使用 education 目录下的 `init.pl` 文件。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 3,
+        "code": "% 加载初始化文件\n['../init'].",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
+      },
+      {
+        "id": 4,
+        "code": "## 步骤 2：定义家庭关系\n\n让我们根据圣经家谱定义一些父母与子女的关系。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 5,
+        "code": "% 定义 parent 事实\n:- dynamic parent/2.\n\nparent(abraham, isaac).\nparent(abraham, ishmael).\nparent(isaac, jacob).\nparent(isaac, esau).\nparent(jacob, reuben).\nparent(jacob, simeon).\nparent(jacob, levi).\nparent(jacob, judah).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 6,
+        "code": "## 步骤 3：测试父母关系查询\n\n在编译之前，让我们用几个 Prolog 查询来验证数据是否正确。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 7,
+        "code": "% 查询：亚伯拉罕的孩子是谁？\nparent(abraham, Child).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Child = isaac\nChild = ishmael",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Child = isaac\nChild = ishmael</pre>"
+      },
+      {
+        "id": 8,
+        "code": "% 查询：雅各的孩子是谁？\nparent(jacob, Child).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Child = reuben\nChild = simeon\nChild = levi\nChild = judah",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Child = reuben\nChild = simeon\nChild = levi\nChild = judah</pre>"
+      },
+      {
+        "id": 9,
+        "code": "## 步骤 4：定义祖先关系\n\n现在我们来定义传递闭包 — `ancestor` 关系。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 10,
+        "code": "% 将 ancestor 定义为 parent 的传递闭包\n:- dynamic ancestor/2.\n\n% 基本情况：父母是祖先\nancestor(X, Y) :- parent(X, Y).\n\n% 递归情况：如果 X 是 Y 的父母且 Y 是 Z 的祖先，则 X 是 Z 的祖先\nancestor(X, Z) :- parent(X, Y), ancestor(Y, Z).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 11,
+        "code": "## 步骤 5：测试祖先关系查询\n\n验证我们的祖先谓词是否正常工作。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 12,
+        "code": "% 查询：亚伯拉罕是雅各的祖先吗？\n( ancestor(abraham, jacob) ->\n    writeln('Yes: Abraham is an ancestor of Jacob')\n;\n    writeln('No: Abraham is not an ancestor of Jacob')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Yes: Abraham is an ancestor of Jacob",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Yes: Abraham is an ancestor of Jacob</pre>"
+      },
+      {
+        "id": 13,
+        "code": "% 查询：亚伯拉罕的所有后代是谁？\nancestor(abraham, Descendant).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Descendant = isaac\nDescendant = ishmael\nDescendant = jacob\nDescendant = esau\nDescendant = reuben\nDescendant = simeon\nDescendant = levi\nDescendant = judah",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Descendant = isaac\nDescendant = ishmael\nDescendant = jacob\nDescendant = esau\nDescendant = reuben\nDescendant = simeon\nDescendant = levi\nDescendant = judah</pre>"
+      },
+      {
+        "id": 14,
+        "code": "## 步骤 6：将 Parent 编译为 Bash\n\n现在进入精彩部分 — 将我们的 `parent/2` 事实编译为一个 Bash 脚本！",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 15,
+        "code": "% 加载流式编译器\n\\+ \\+ (\n    use_module(unifyweaver(core/stream_compiler)),\n\n    % 将 parent 事实编译为 bash\n    stream_compiler:compile_facts(parent, 2, [], _BashCode),\n    writeln('Generated Bash code for parent/2:'),\n    writeln(_BashCode)\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "source_sink `unifyweaver(core/stream_compiler)' does not exist",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">source_sink `unifyweaver(core/stream_compiler)' does not exist</pre>"
+      },
+      {
+        "id": 16,
+        "code": "## 步骤 7：保存 Parent 脚本\n\n将生成的 Bash 代码保存到文件中。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 17,
+        "code": "% 保存到文件\n\\+ \\+ (\n    stream_compiler:compile_facts(parent, 2, [], _BashCode),\n    setup_call_cleanup(\n        open('../output/parent.sh', write, _Stream),\n        write(_Stream, _BashCode),\n        close(_Stream)),\n    writeln('Saved to ../output/parent.sh')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: stream_compiler:compile_facts/4",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: stream_compiler:compile_facts/4</pre>"
+      },
+      {
+        "id": 18,
+        "code": "## 步骤 8：将 Ancestor 编译为 Bash\n\n现在编译使用递归的 `ancestor/2` 谓词。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 19,
+        "code": "% 加载递归编译器\n\\+ \\+ (\n    use_module(unifyweaver(core/recursive_compiler)),\n\n    % 将 ancestor 编译为 bash\n    compile_recursive(ancestor/2, [], _BashCode),\n    writeln('Generated Bash code for ancestor/2:'),\n    writeln(_BashCode)\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "source_sink `unifyweaver(core/recursive_compiler)' does not exist",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">source_sink `unifyweaver(core/recursive_compiler)' does not exist</pre>"
+      },
+      {
+        "id": 20,
+        "code": "## 步骤 9：保存 Ancestor 脚本\n\n将祖先脚本保存到文件中。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 21,
+        "code": "% 保存到文件\n\\+ \\+ (\n    compile_recursive(ancestor/2, [], _BashCode),\n    setup_call_cleanup(\n        open('../output/ancestor.sh', write, _Stream),\n        write(_Stream, _BashCode),\n        close(_Stream)),\n    writeln('Saved to ../output/ancestor.sh')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: compile_recursive/3</pre>"
+      },
+      {
+        "id": 22,
+        "code": "## 步骤 10：测试生成的脚本\n\n现在测试我们生成的 Bash 脚本！我们将使用 `%%bash` 魔法命令来执行 bash 命令。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 23,
+        "code": "# 通过 source 加载 parent 脚本\nsource ../output/parent.sh\n\n# 测试：亚伯拉罕的孩子是谁？\necho \"亚伯拉罕的孩子：\"\nparent abraham",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "亚伯拉罕的孩子：\nerror: source: failed to source file: ../output/parent.sh\nerror: failed to execute command 'parent': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">亚伯拉罕的孩子：\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/parent.sh\nerror: failed to execute command 'parent': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 24,
+        "code": "# 通过 source 加载这两个脚本\nsource ../output/parent.sh\nsource ../output/ancestor.sh\n\n# 测试：亚伯拉罕的后代是谁？\necho \"亚伯拉罕的后代：\"\nancestor abraham",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "亚伯拉罕的后代：\nerror: source: failed to source file: ../output/parent.sh\nerror: source: failed to source file: ../output/ancestor.sh\nerror: failed to execute command 'ancestor': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">亚伯拉罕的后代：\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/parent.sh\nerror: source: failed to source file: ../output/ancestor.sh\nerror: failed to execute command 'ancestor': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 25,
+        "code": "# 通过 source 加载这两个脚本\nsource ../output/parent.sh\nsource ../output/ancestor.sh\n\n# 测试：亚伯拉罕是犹大的祖先吗？\nif ancestor abraham judah >/dev/null 2>&1; then\n    echo \"✓ 是的，亚伯拉罕是犹大的祖先\"\nelse\n    echo \"✗ 否\"\nfi",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "✗ 否\nerror: source: failed to source file: ../output/parent.sh\nerror: source: failed to source file: ../output/ancestor.sh\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">✗ 否\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/parent.sh\nerror: source: failed to source file: ../output/ancestor.sh\n</pre>"
+      },
+      {
+        "id": 26,
+        "code": "## 步骤 11：理解编译策略\n\n让我们分析 UnifyWeaver 的内部处理机制：\n\n1. **Parent 编译**：使用 `stream_compiler` 创建简单的流式函数，输出所有父母-子女对\n\n2. **Ancestor 编译**：检测传递闭包模式并应用 BFS（广度优先搜索）优化，以高效计算所有可达祖先\n\n让我们检查具体的编译策略：",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 27,
+        "code": "% 检查 ancestor 是否被归类为递归\n\\+ \\+ (\n    use_module(unifyweaver(core/recursive_compiler)),\n    recursive_compiler:classify_predicate(ancestor/2, _Classification),\n    format('Ancestor classification: ~w~n', [_Classification])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "source_sink `unifyweaver(core/recursive_compiler)' does not exist",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">source_sink `unifyweaver(core/recursive_compiler)' does not exist</pre>"
+      },
+      {
+        "id": 28,
+        "code": "## 总结\n\n在本笔记本中，你学习了：\n\n✅ 如何定义 Prolog 事实与规则\n\n✅ 如何对事实使用 UnifyWeaver 的 `stream_compiler`\n\n✅ 如何对递归谓词使用 UnifyWeaver 的 `recursive_compiler`\n\n✅ 如何测试生成的 Bash 脚本\n\n✅ UnifyWeaver 会自动检测传递闭包并应用 BFS 优化\n\n## 后续步骤\n\n尝试完成以下练习：\n\n1. 向家谱中添加更多家庭成员\n2. 定义 `grandparent/2` 谓词并进行编译\n3. 创建 `sibling/2` 谓词（拥有共同父母的两人）\n4. 查看生成的 Bash 代码以深入理解 BFS 算法\n\n继续前往 **笔记本 2：递归模式比较**，学习高级递归模式！",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      }
+    ]
+  }
+}

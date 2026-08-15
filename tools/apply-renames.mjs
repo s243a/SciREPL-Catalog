@@ -21,7 +21,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import {
   cellsOf, tokenize, segmentFString, microTokens,
-  isValidPyIdentifier, PY_KEYWORDS,
+  isValidPyIdentifier, PY_KEYWORDS, setCellCode,
 } from './span-lib.mjs';
 
 const [, , wbPath, glossPath, outPath] = process.argv;
@@ -105,7 +105,7 @@ for (const c of cellsOf(wb)) {
   const stack = { current: [] };
   const next = toks.map((t) => rebuild(t, stack)).join('');
   if (next !== c.code) {
-    c.cell.code = next;
+    setCellCode(c, next);
     cellsChanged++;
   }
 }

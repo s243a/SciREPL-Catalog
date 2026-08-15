@@ -1,0 +1,626 @@
+{
+  "manifest_version": 1,
+  "produced_by": "derived",
+  "generator": "tools/span-derive.mjs",
+  "locale": "zh",
+  "source": {
+    "path": "workbooks/en/prolog-generates-lua.srwb",
+    "sha256": "877c2bcc149f6b6814b2395bdf9126f5665b02ce7315006ce4b4064245a1c3b1"
+  },
+  "target": {
+    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/jobs/prolog-generates-lua-zh/translated.srwb",
+    "sha256": "fdc9b6f063bc21d00bef16591a5dfbc5230e30f1d91448acd25a44f41ae4dfe9"
+  },
+  "spans": [
+    {
+      "cell_index": 1,
+      "cell_name": "load_compiler",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 36
+        },
+        "text": "Load UnifyWeaver compiler modules"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 23
+        },
+        "text": "加载 UnifyWeaver 编译器模块"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "family_tree",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 39
+        },
+        "text": "Define a family tree as Prolog facts"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 19
+        },
+        "text": "将家谱定义为 Prolog 事实"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "family_tree",
+      "source_span": {
+        "start": {
+          "line": 10,
+          "col": 1
+        },
+        "end": {
+          "line": 10,
+          "col": 62
+        },
+        "text": "Transitive closure: ancestor(X, Y) if X is an ancestor of Y"
+      },
+      "target_span": {
+        "start": {
+          "line": 10,
+          "col": 1
+        },
+        "end": {
+          "line": 10,
+          "col": 38
+        },
+        "text": "传递闭包: 如果 X 是 Y 的祖先，则 ancestor(X, Y)"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "lua_queries",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 62
+        },
+        "text": "This named Lua source cell is read by both compiler cells."
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 33
+        },
+        "text": "这个已命名的 Lua 源码单元格会被两个编译器单元格读取。"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "lua_queries",
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 1
+        },
+        "end": {
+          "line": 3,
+          "col": 64
+        },
+        "text": "It is appended to each generated program and executes there."
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 1
+        },
+        "end": {
+          "line": 3,
+          "col": 25
+        },
+        "text": "它会被追加到每个生成的程序中并在那里执行。"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "lua_queries",
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 19
+        },
+        "text": "--- Queries ---"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 14
+        },
+        "text": "--- 查询 ---"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "lua_queries",
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 8
+        },
+        "end": {
+          "line": 7,
+          "col": 30
+        },
+        "text": "Descendants of alice: "
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 8
+        },
+        "end": {
+          "line": 7,
+          "col": 19
+        },
+        "text": "alice 的后代: "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "compile_embedded",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 68
+        },
+        "text": "Read the highlighted Lua query program from its named source cell"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 29
+        },
+        "text": "从已命名的源单元格中读取语法高亮的 Lua 查询程序"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "compile_embedded",
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 5
+        },
+        "end": {
+          "line": 7,
+          "col": 63
+        },
+        "text": "Compile with input(embedded) — facts baked into the code"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 5
+        },
+        "end": {
+          "line": 7,
+          "col": 43
+        },
+        "text": "使用 input(embedded) 进行编译 — 事实直接内嵌在代码中"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": "lua_embedded",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 48
+        },
+        "text": "This cell will be populated by the compiler."
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 16
+        },
+        "text": "此单元格将由编译器填充。"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": "lua_embedded",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 48
+        },
+        "text": "Run the 'compile_embedded' cell above first."
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 35
+        },
+        "text": "请先运行上方的 'compile_embedded' 单元格。"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": "facts_data",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 53
+        },
+        "text": "Data cell: facts in from:to format (one per line)"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 30
+        },
+        "text": "数据单元格: from:to 格式的事实（每行一个）"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": "facts_data",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 71
+        },
+        "text": "The VFS-compiled cell reads this via nb.read(\"facts_data\", \".code\")"
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 53
+        },
+        "text": "VFS 编译的单元格通过 nb.read(\"facts_data\", \".code\") 读取此内容"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 9,
+      "cell_name": "compile_vfs",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 46
+        },
+        "text": "Read the same highlighted Lua query program"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 21
+        },
+        "text": "读取相同的语法高亮 Lua 查询程序"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 9,
+      "cell_name": "compile_vfs",
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 5
+        },
+        "end": {
+          "line": 7,
+          "col": 70
+        },
+        "text": "Compile with input(vfs(facts_data)) — reads from the cell above"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 5
+        },
+        "end": {
+          "line": 7,
+          "col": 49
+        },
+        "text": "使用 input(vfs(facts_data)) 进行编译 — 从上方的单元格读取"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 10,
+      "cell_name": "lua_vfs",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 48
+        },
+        "text": "This cell will be populated by the compiler."
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 16
+        },
+        "text": "此单元格将由编译器填充。"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 10,
+      "cell_name": "lua_vfs",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 43
+        },
+        "text": "Run the 'compile_vfs' cell above first."
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 30
+        },
+        "text": "请先运行上方的 'compile_vfs' 单元格。"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 12,
+      "cell_name": "lua_cell_io",
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 15
+        },
+        "end": {
+          "line": 3,
+          "col": 62
+        },
+        "text": "-- Written from Lua after reading lua_queries ("
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 15
+        },
+        "end": {
+          "line": 3,
+          "col": 44
+        },
+        "text": "-- 读取 lua_queries 后由 Lua 写入 ("
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 12,
+      "cell_name": "lua_cell_io",
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 95
+        },
+        "end": {
+          "line": 3,
+          "col": 107
+        },
+        "text": " characters)"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 77
+        },
+        "end": {
+          "line": 3,
+          "col": 82
+        },
+        "text": " 个字符)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 12,
+      "cell_name": "lua_cell_io",
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 8
+        },
+        "end": {
+          "line": 5,
+          "col": 50
+        },
+        "text": "Lua read lua_queries and wrote lua_written"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 8
+        },
+        "end": {
+          "line": 5,
+          "col": 44
+        },
+        "text": "Lua 读取了 lua_queries 并写入了 lua_written"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": "lua_written",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 47
+        },
+        "text": "This cell will be populated by lua_cell_io."
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 26
+        },
+        "text": "此单元格将由 lua_cell_io 填充。"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    }
+  ],
+  "exclusions": []
+}

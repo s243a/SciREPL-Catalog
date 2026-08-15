@@ -1,0 +1,249 @@
+{
+  "manifest_version": 1,
+  "produced_by": "derived",
+  "generator": "tools/span-derive.mjs",
+  "locale": "zh",
+  "source": {
+    "path": "workbooks/en/typr-intro.srwb",
+    "sha256": "b1c7e205ffa7ba7e665ea179a5312106688417709d8a56f98f13cf8521db98fc"
+  },
+  "target": {
+    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/jobs/typr-intro-zh/translated.srwb",
+    "sha256": "933e21e085491baae043fce2a66c6a6c1eb5426e09f12216f80bdaacf7f42393"
+  },
+  "spans": [
+    {
+      "cell_index": 1,
+      "cell_name": "basics",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 35
+        },
+        "text": "Variadic arguments are supported"
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 9
+        },
+        "text": "支持变长参数"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "functions",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 33
+        },
+        "text": "Function bodies require braces"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 11
+        },
+        "text": "函数体需要花括号"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "typed",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 24
+        },
+        "end": {
+          "line": 1,
+          "col": 40
+        },
+        "text": "Hello from TypR!"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 24
+        },
+        "end": {
+          "line": 1,
+          "col": 36
+        },
+        "text": "来自 TypR 的问候！"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": "square",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 70
+        },
+        "text": "Explicit parameter and return types make calls statically checkable"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 26
+        },
+        "text": "显式的参数和返回类型使函数调用具有静态可检查性"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": "square",
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 35
+        },
+        "text": "Variadic arguments work directly"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 13
+        },
+        "text": "变长参数可以直接使用"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": "square",
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 6
+        },
+        "end": {
+          "line": 5,
+          "col": 17
+        },
+        "text": "7 squared ="
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 6
+        },
+        "end": {
+          "line": 5,
+          "col": 13
+        },
+        "text": "7 的平方 ="
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "variadic_forwarding",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 40
+        },
+        "text": "Forward heterogeneous named arguments"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 11
+        },
+        "text": "转发异构命名参数"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "variadic_forwarding",
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 15
+        },
+        "end": {
+          "line": 6,
+          "col": 21
+        },
+        "text": "Names:"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 15
+        },
+        "end": {
+          "line": 6,
+          "col": 18
+        },
+        "text": "名称:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    }
+  ],
+  "exclusions": []
+}

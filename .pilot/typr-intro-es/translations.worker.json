@@ -1,0 +1,18 @@
+{
+  "spans": {
+    "1:1:0": "Se admiten argumentos variádicos",
+    "2:0:0": "Los cuerpos de las funciones requieren llaves",
+    "3:1:0": "¡Hola desde TypR!",
+    "4:0:0": "Los tipos explícitos de parámetros y retorno permiten comprobar las llamadas estáticamente",
+    "4:2:0": "Los argumentos variádicos funcionan directamente",
+    "4:4:0": "7 al cuadrado =",
+    "5:0:0": "Reenviar argumentos nombrados heterogéneos",
+    "5:6:0": "Nombres:"
+  },
+  "keeps": [
+    "5:2:0",
+    "5:4:0",
+    "7:0:0"
+  ],
+  "suggestions": []
+}

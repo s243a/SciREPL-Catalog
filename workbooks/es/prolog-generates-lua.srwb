@@ -11,19 +11,19 @@
       },
       {
         "type": "code",
-        "code": "% Load UnifyWeaver compiler modules\n['../init'].\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "code": "% Cargar los módulos del compilador UnifyWeaver\n['../init'].\n:- use_module(unifyweaver(core/recursive_compiler)).",
         "language": "prolog",
         "name": "load_compiler"
       },
       {
         "type": "code",
-        "code": "% Define a family tree as Prolog facts\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% Transitive closure: ancestor(X, Y) if X is an ancestor of Y\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "code": "% Definir un árbol genealógico como hechos de Prolog\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% Clausura transitiva: ancestor(X, Y) si X es antepasado de Y\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
         "language": "prolog",
         "name": "family_tree"
       },
       {
         "type": "code",
-        "code": "#!source\n-- This named Lua source cell is read by both compiler cells.\n-- It is appended to each generated program and executes there.\n\n-- --- Queries ---\nlocal results = find_all(\"alice\")\nprint(\"Descendants of alice: \" .. table.concat(results, \", \"))\nprint(\"alice -> eve: \" .. tostring(check(\"alice\", \"eve\")))\nprint(\"alice -> frank: \" .. tostring(check(\"alice\", \"frank\")))",
+        "code": "#!source\n-- Ambas celdas del compilador leen esta celda de código fuente nombrada de Lua.\n-- Se anexa a cada programa generado y se ejecuta allí.\n\n-- --- Consultas ---\nlocal results = find_all(\"alice\")\nprint(\"Descendientes de alice: \" .. table.concat(results, \", \"))\nprint(\"¿es alice antepasado de eve?: \" .. tostring(check(\"alice\", \"eve\")))\nprint(\"¿es alice antepasado de frank?: \" .. tostring(check(\"alice\", \"frank\")))",
         "language": "lua",
         "name": "lua_queries"
       },
@@ -34,13 +34,13 @@
       },
       {
         "type": "code",
-        "code": "% Read the highlighted Lua query program from its named source cell\n\\+ \\+ (\n    user:nb_read('lua_queries', '.code', _QuerySource),\n    split_string(_QuerySource, \"\\n\", \"\\r\", [\"#!source\"|_QueryLines]),\n    atomics_to_string(_QueryLines, \"\\n\", _Queries),\n\n    % Compile with input(embedded) — facts baked into the code\n    recursive_compiler:compile_recursive(ancestor/2, [target(lua), input(embedded)], _Code),\n    format(string(_FullCode), '~w~n~n~w~n', [_Code, _Queries]),\n    user:nb_write('lua_embedded', '.code', _FullCode),\n    writeln('Lua code (embedded) written to cell: lua_embedded')\n).",
+        "code": "% Leer el programa de consulta de Lua resaltado desde su celda de código fuente nombrada\n\\+ \\+ (\n    user:nb_read('lua_queries', '.code', _QuerySource),\n    split_string(_QuerySource, \"\\n\", \"\\r\", [\"#!source\"|_QueryLines]),\n    atomics_to_string(_QueryLines, \"\\n\", _Queries),\n\n    % Compilar con input(embedded) — hechos integrados en el código\n    recursive_compiler:compile_recursive(ancestor/2, [target(lua), input(embedded)], _Code),\n    format(string(_FullCode), '~w~n~n~w~n', [_Code, _Queries]),\n    user:nb_write('lua_embedded', '.code', _FullCode),\n    writeln('Lua code (embedded) written to cell: lua_embedded')\n).",
         "language": "prolog",
         "name": "compile_embedded"
       },
       {
         "type": "code",
-        "code": "-- This cell will be populated by the compiler.\n-- Run the 'compile_embedded' cell above first.",
+        "code": "-- El compilador rellenará esta celda.\n-- Ejecuta primero la celda 'compile_embedded' de arriba.",
         "language": "lua",
         "name": "lua_embedded"
       },
@@ -51,19 +51,19 @@
       },
       {
         "type": "code",
-        "code": "-- Data cell: facts in from:to format (one per line)\n-- The VFS-compiled cell reads this via nb.read(\"facts_data\", \".code\")\n--[[\nalice:bob\nbob:charlie\nbob:diana\ncharlie:eve\ndiana:frank\n]]",
+        "code": "-- Celda de datos: hechos en formato origen:destino (uno por línea)\n-- La celda compilada con VFS lee esto mediante nb.read(\"facts_data\", \".code\")\n--[[\nalice:bob\nbob:charlie\nbob:diana\ncharlie:eve\ndiana:frank\n]]",
         "language": "lua",
         "name": "facts_data"
       },
       {
         "type": "code",
-        "code": "% Read the same highlighted Lua query program\n\\+ \\+ (\n    user:nb_read('lua_queries', '.code', _QuerySource),\n    split_string(_QuerySource, \"\\n\", \"\\r\", [\"#!source\"|_QueryLines]),\n    atomics_to_string(_QueryLines, \"\\n\", _Queries),\n\n    % Compile with input(vfs(facts_data)) — reads from the cell above\n    recursive_compiler:compile_recursive(ancestor/2, [target(lua), input(vfs(facts_data, '.code'))], _Code),\n    format(string(_FullCode), '~w~n~n~w~n', [_Code, _Queries]),\n    user:nb_write('lua_vfs', '.code', _FullCode),\n    writeln('Lua code (VFS) written to cell: lua_vfs')\n).",
+        "code": "% Leer el mismo programa de consulta de Lua resaltado\n\\+ \\+ (\n    user:nb_read('lua_queries', '.code', _QuerySource),\n    split_string(_QuerySource, \"\\n\", \"\\r\", [\"#!source\"|_QueryLines]),\n    atomics_to_string(_QueryLines, \"\\n\", _Queries),\n\n    % Compilar con input(vfs(facts_data)) — lee desde la celda de arriba\n    recursive_compiler:compile_recursive(ancestor/2, [target(lua), input(vfs(facts_data, '.code'))], _Code),\n    format(string(_FullCode), '~w~n~n~w~n', [_Code, _Queries]),\n    user:nb_write('lua_vfs', '.code', _FullCode),\n    writeln('Lua code (VFS) written to cell: lua_vfs')\n).",
         "language": "prolog",
         "name": "compile_vfs"
       },
       {
         "type": "code",
-        "code": "-- This cell will be populated by the compiler.\n-- Run the 'compile_vfs' cell above first.",
+        "code": "-- El compilador rellenará esta celda.\n-- Ejecuta primero la celda 'compile_vfs' de arriba.",
         "language": "lua",
         "name": "lua_vfs"
       },
@@ -74,13 +74,13 @@
       },
       {
         "type": "code",
-        "code": "local query_source = nb.read(\"lua_queries\", \".code\")\nassert(query_source ~= nil)\nlocal note = \"-- Written from Lua after reading lua_queries (\" .. tostring(#query_source) .. \" characters)\"\nassert(nb.write(\"lua_written\", \".code\", note))\nprint(\"Lua read lua_queries and wrote lua_written\")",
+        "code": "local query_source = nb.read(\"lua_queries\", \".code\")\nassert(query_source ~= nil)\nlocal note = \"-- Escrito desde Lua tras leer lua_queries (\" .. tostring(#query_source) .. \" caracteres)\"\nassert(nb.write(\"lua_written\", \".code\", note))\nprint(\"Lua leyó lua_queries y escribió lua_written\")",
         "language": "lua",
         "name": "lua_cell_io"
       },
       {
         "type": "code",
-        "code": "-- This cell will be populated by lua_cell_io.",
+        "code": "-- lua_cell_io rellenará esta celda.",
         "language": "lua",
         "name": "lua_written"
       }

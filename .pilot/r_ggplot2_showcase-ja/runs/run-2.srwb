@@ -1,0 +1,134 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T15:47:20.809Z",
+  "notebook": {
+    "id": "default",
+    "name": "ggplot2 ショーケース",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "r",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 13,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# ggplot2 ショーケース\n\nSciREPL のダークテーマが自動適用されたインタラクティブな ggplot2 グラフ — 追加の設定は不要です。\n\nR の組み込みデータセット（`mpg`、`mtcars`）を使用します。データのダウンロードは不要です。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "install.packages(\"ggplot2\")\nlibrary(ggplot2)\ncat(\"ggplot2 が読み込まれました — theme_scirepl() が自動適用されました\\n\")",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "ggplot2 が読み込まれました — theme_scirepl() が自動適用されました",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">ggplot2 が読み込まれました — theme_scirepl() が自動適用されました</pre>"
+      },
+      {
+        "id": 3,
+        "code": "## 1. トレンドライン付き散布図",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 4,
+        "code": "ggplot(mpg, aes(displ, hwy, color = class)) +\n  geom_point(size = 2, alpha = 0.7) +\n  geom_smooth(method = \"lm\", se = FALSE, color = \"#58a6ff\") +\n  labs(title = \"エンジン排気量 vs 高速道路燃費 (MPG)\",\n       x = \"排気量 (L)\", y = \"高速道路燃費 (MPG)\")",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "`geom_smooth()` using formula = 'y ~ x'",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">`geom_smooth()` using formula = 'y ~ x'</pre><img src=\"blob:http://localhost:8090/09c8a1e9-0def-4b72-a04e-7271ba03b401\" style=\"max-width: 100%; border-radius: 6px; margin-top: 8px;\">"
+      },
+      {
+        "id": 5,
+        "code": "## 2. ファセット分割棒グラフ",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 6,
+        "code": "ggplot(mpg, aes(class, fill = drv)) +\n  geom_bar(position = \"dodge\") +\n  facet_wrap(~year) +\n  labs(title = \"駆動方式別の車種クラス (1999年 vs 2008年)\",\n       x = \"クラス\", y = \"件数\") +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1))",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": "<img src=\"blob:http://localhost:8090/8806b7b0-517c-4201-9f58-6d5dcf46c9b2\" style=\"max-width: 100%; border-radius: 6px; margin-top: 8px;\">"
+      },
+      {
+        "id": 7,
+        "code": "## 3. 密度プロット",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 8,
+        "code": "ggplot(mpg, aes(hwy, fill = drv)) +\n  geom_density(alpha = 0.5) +\n  labs(title = \"駆動方式別の高速道路燃費 (MPG) 分布\",\n       x = \"高速道路燃費 (MPG)\", y = \"密度\")",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": "<img src=\"blob:http://localhost:8090/15df900a-6aed-4608-b790-69672646dff4\" style=\"max-width: 100%; border-radius: 6px; margin-top: 8px;\">"
+      },
+      {
+        "id": 9,
+        "code": "## 4. ジッター付き箱ひげ図",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 10,
+        "code": "ggplot(mpg, aes(class, hwy, fill = class)) +\n  geom_boxplot(alpha = 0.7, show.legend = FALSE) +\n  geom_jitter(width = 0.2, alpha = 0.3, size = 1) +\n  labs(title = \"車種クラス別の高速道路燃費 (MPG)\",\n       x = \"クラス\", y = \"高速道路燃費 (MPG)\") +\n  coord_flip()",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": "<img src=\"blob:http://localhost:8090/7306bdd1-defb-47ed-82a0-613d345ace14\" style=\"max-width: 100%; border-radius: 6px; margin-top: 8px;\">"
+      },
+      {
+        "id": 11,
+        "code": "## 5. 相関ヒートマップ",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 12,
+        "code": "corr <- round(cor(mtcars), 2)\nvars <- colnames(mtcars)\ngrid <- expand.grid(x = vars, y = vars)\ngrid$value <- as.vector(corr)\nggplot(grid, aes(x, y, fill = value)) +\n  geom_tile(color = \"#30363d\") +\n  geom_text(aes(label = ifelse(abs(value) > 0.5, value, \"\")),\n            color = \"#e6edf3\", size = 2.5) +\n  scale_fill_gradient2(low = \"#f85149\", mid = \"#161b22\", high = \"#58a6ff\",\n                       midpoint = 0, limits = c(-1, 1)) +\n  labs(title = \"mtcars 相関ヒートマップ\", fill = \"r\") +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1))",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": "<img src=\"blob:http://localhost:8090/ee7b1db2-b124-4ddc-a342-44bbcc8b7aad\" style=\"max-width: 100%; border-radius: 6px; margin-top: 8px;\">"
+      },
+      {
+        "id": 13,
+        "code": "## まとめ\n\n上記のすべてのグラフは、SciREPL で ggplot2 が読み込まれたときに自動適用される `theme_scirepl()` を使用しています。\n\n標準の ggplot2 の `+ theme(...)` による上書きで、任意のグラフを自由にカスタマイズできます。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      }
+    ]
+  }
+}

@@ -1,0 +1,269 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T16:01:49.177Z",
+  "notebook": {
+    "id": "default",
+    "name": "Prolog जनरेट करता है R: कंपाइलर डेमो",
+    "autoNameNumber": null,
+    "description": "Demonstrates UnifyWeaver compiling Prolog predicates into R code. Part 1: factorial (linear→tail transformation). Part 2: ancestor (transitive closure vs skip/pattern).",
+    "kernelLanguage": "python",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 28,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# Prolog जनरेट करता है R — UnifyWeaver कंपाइलर डेमो\n\nयह वर्कबुक दर्शाती है कि **UnifyWeaver** Prolog लॉजिक को निष्पादन योग्य R कोड में कैसे संकलित करता है — लाइव, सीधे एक नोटबुक के भीतर।\n\n## भाग 1: फैक्टोरियल (रैखिक पुनरावृत्ति)\n1. UnifyWeaver कंपाइलर वातावरण लोड करें\n2. Prolog में पुनरावर्ती `factorial/2` परिभाषित करें\n3. कंपाइलर रिकर्सन पैटर्न का पता लगाता है और एक समकक्ष R लूप उत्पन्न करता है\n4. जनरेट किया गया R कोड `nb_write/3` के माध्यम से दूसरी सेल में लिखा जाता है\n5. शुद्धता सत्यापित करने के लिए R सेल चलाएं\n\n## भाग 2: पूर्वज (ट्रांजिटिव क्लोजर और पैटर्न नियंत्रण)\n8. Prolog में `parent/2` तथ्य और `ancestor/2` नियम परिभाषित करें\n9. डिफ़ॉल्ट पैटर्न के साथ संकलित करें → ट्रांजिटिव क्लोजर (BFS ग्राफ ट्रैवर्सल)\n10. `skip(transitive_closure)` के साथ पुनः संकलित करें → भिन्न जनरेट किया गया कोड\n11. दोनों दृष्टिकोणों की अगल-बगल तुलना करें",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "## चरण 1: UnifyWeaver लोड करें\n\nUnifyWeaver वातावरण और R लक्ष्य कंपाइलर लोड करें।\n\n**नोट:** swipl-wasm में, `use_module(library(...))` के बजाय `use_module(unifyweaver(...))` (खोज पथ उपनाम) का उपयोग करें। `['../init'].` कॉल `unifyweaver` खोज पथ सेट करता है ताकि मॉड्यूल सही ढंग से हल हो सकें।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 3,
+        "code": "['../init'].\n:- use_module(unifyweaver(targets/r_target)).\n:- use_module(unifyweaver(core/advanced/linear_recursion)).\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "type": "code",
+        "language": "prolog",
+        "name": "load_uw",
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
+      },
+      {
+        "id": 4,
+        "code": "## चरण 2: Prolog में फैक्टोरियल परिभाषित करें\n\nएक साधारण पुनरावर्ती फैक्टोरियल। जब N 0 हो तो बेस केस 1 लौटाता है। पुनरावर्ती केस `N * factorial(N-1)` की गणना करता है।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 5,
+        "code": ":- dynamic factorial/2.\n\nfactorial(0, 1).\nfactorial(N, F) :-\n    N > 0,\n    N1 is N - 1,\n    factorial(N1, F1),\n    F is N * F1.",
+        "type": "code",
+        "language": "prolog",
+        "name": "prolog_factorial",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 6,
+        "code": "## चरण 3: Prolog → R संकलित करें\n\nकंपाइलर:\n1. `nb_read/3` के माध्यम से **prolog_factorial** सेल से Prolog स्रोत पढ़ता है\n2. डेटाबेस में क्लॉज डालने के लिए इसे consult करता है\n3. `compile_linear_recursion/3` को कॉल करता है, जो रिकर्सन पैटर्न का पता लगाता है, स्टेप निकालता है (`N1 is N - 1` → step=1, घटते क्रम में) और एक R `for` लूप उत्पन्न करता है\n4. जनरेट किए गए R कोड को `nb_write/3` के माध्यम से **r_factorial** सेल में लिखता है\n\n`memo(false)` विकल्प मेमोइज़्ड रिड्यूस के बजाय लूप-आधारित संकलन का अनुरोध करता है।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 7,
+        "code": "%पिछली सेल से Prolog स्रोत पढ़ें\nuser:nb_read('prolog_factorial', '.code', _PrologSrc),\nformat('Read from prolog_factorial:~n~w~n~n', [_PrologSrc]),\n\n%क्लॉज़ जोड़ने के लिए इसे consult करें\nsetup_call_cleanup(\n    open('/tmp/_nb_src.pl', write, _Out),\n    write(_Out, _PrologSrc),\n    close(_Out)),\nconsult('/tmp/_nb_src.pl'),\n\n%factorial/2 → R संकलित करें\nr_target:init_r_target,\nlinear_recursion:compile_linear_recursion(factorial/2, [target(r), memo(false)], _Code),\nformat('--- Generated R code ---~n~w~n', [_Code]),\n\n%कंपाइलर आउटपुट को R सेल में लिखें\nuser:nb_write('r_factorial', '.code', _Code),\nwriteln('\\nR code written to cell: r_factorial').",
+        "type": "code",
+        "language": "prolog",
+        "name": "compile_to_r",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: r_target:init_r_target/0",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: r_target:init_r_target/0</pre>"
+      },
+      {
+        "id": 8,
+        "code": "## चरण 4: जनरेट किया गया R कोड चलाएं\n\nनीचे दी गई सेल में कंपाइलर-जनरेटेड `factorial` फ़ंक्शन शामिल है। फ़ंक्शन को परिभाषित करने के लिए इसे चलाएं, फिर इसका परीक्षण करने के लिए चरण 5 चलाएं।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 9,
+        "code": "# यह सेल कंपाइलर द्वारा अधिलेखित की जाएगी।\n# पहले ऊपर दी गई 'compile_to_r' सेल चलाएं।",
+        "type": "code",
+        "language": "r",
+        "name": "r_factorial",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 10,
+        "code": "## चरण 5: जनरेट किए गए R कोड का परीक्षण करें\n\nयह सत्यापित करने के लिए कंपाइलर-जनरेटेड `factorial` फ़ंक्शन को कॉल करें कि यह सही परिणाम देता है।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 11,
+        "code": "cat(\"6! =\", factorial(6), \"\\n\")\ncat(\"20! =\", factorial(20), \"\\n\")\ncat(\"0! =\", factorial(0), \"\\n\")",
+        "type": "code",
+        "language": "r",
+        "name": "test_r",
+        "lastOutput": "6! = 720 \n20! = 2.432902e+18 \n0! = 1",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">6! = 720 \n20! = 2.432902e+18 \n0! = 1</pre>"
+      },
+      {
+        "id": 12,
+        "code": "## चरण 6: Bash के माध्यम से निरीक्षण करें\n\nNotebook VFS किसी भी कर्नेल को सेलों का निरीक्षण करने की अनुमति देता है। यहाँ Bash कंपाइलर-जनरेटेड कोड को पढ़ता है:",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 13,
+        "code": "echo \"=== सेलों की सूची ===\"\nls /nb/\necho \"\"\necho \"=== r_factorial कोड ===\"\ncat /nb/r_factorial/.code\necho \"\"\necho \"=== r_factorial भाषा ===\"\ncat /nb/r_factorial/.language",
+        "type": "code",
+        "language": "bash",
+        "name": "inspect",
+        "lastOutput": "=== सेलों की सूची ===\nIn[1]  In[2]  In[3]  load_uw  In[4]  In[5]  prolog_factorial  In[6]  In[7]  compile_to_r  In[8]  In[9]  r_factorial  In[10]  In[11]  test_r  In[12]  In[13]  inspect  In[14]  accumulate  In[15]  In[16]  In[17]  prolog_ancestor  In[18]  In[19]  compile_ancestor_tc  In[20]  In[21]  r_ancestor_tc  In[22]  In[23]  test_r_ancestor  In[24]  In[25]  compile_ancestor_skip  In[26]  bash_ancestor_alt  In[27]  In[28]  compare_outputs  \n\n=== r_factorial कोड ===\n# यह सेल कंपाइलर द्वारा अधिलेखित की जाएगी।\n# पहले ऊपर दी गई 'compile_to_r' सेल चलाएं।\n=== r_factorial भाषा ===\nr",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">=== सेलों की सूची ===\nIn[1]  In[2]  In[3]  load_uw  In[4]  In[5]  prolog_factorial  In[6]  In[7]  compile_to_r  In[8]  In[9]  r_factorial  In[10]  In[11]  test_r  In[12]  In[13]  inspect  In[14]  accumulate  In[15]  In[16]  In[17]  prolog_ancestor  In[18]  In[19]  compile_ancestor_tc  In[20]  In[21]  r_ancestor_tc  In[22]  In[23]  test_r_ancestor  In[24]  In[25]  compile_ancestor_skip  In[26]  bash_ancestor_alt  In[27]  In[28]  compare_outputs  \n\n=== r_factorial कोड ===\n# यह सेल कंपाइलर द्वारा अधिलेखित की जाएगी।\n# पहले ऊपर दी गई 'compile_to_r' सेल चलाएं।\n=== r_factorial भाषा ===\nr</pre>"
+      },
+      {
+        "id": 14,
+        "code": "# चरण 7: सापेक्ष एड्रेसिंग — /nb/-1/.output पिछली सेल के आउटपुट को पढ़ता है।\n# /nb/./.code इस सेल के अपने कोड को पढ़ता है। संचित करने के लिए कॉपी-पेस्ट करें!\necho \"[accumulate] /nb/-1/.output के माध्यम से पिछली सेल का आउटपुट:\"\necho \"---\"\ncat /nb/-1/.output\necho \"---\"\necho \"\"\necho \"[self] /nb/./.code के माध्यम से इस सेल का कोड:\"\ncat /nb/./.code",
+        "type": "code",
+        "language": "bash",
+        "name": "accumulate",
+        "lastOutput": "[accumulate] /nb/-1/.output के माध्यम से पिछली सेल का आउटपुट:\n---\n=== सेलों की सूची ===\nIn[1]  In[2]  In[3]  load_uw  In[4]  In[5]  prolog_factorial  In[6]  In[7]  compile_to_r  In[8]  In[9]  r_factorial  In[10]  In[11]  test_r  In[12]  In[13]  inspect  In[14]  accumulate  In[15]  In[16]  In[17]  prolog_ancestor  In[18]  In[19]  compile_ancestor_tc  In[20]  In[21]  r_ancestor_tc  In[22]  In[23]  test_r_ancestor  In[24]  In[25]  compile_ancestor_skip  In[26]  bash_ancestor_alt  In[27]  In[28]  compare_outputs  \n\n=== r_factorial कोड ===\n# यह सेल कंपाइलर द्वारा अधिलेखित की जाएगी।\n# पहले ऊपर दी गई 'compile_to_r' सेल चलाएं।\n=== r_factorial भाषा ===\nr---\n\n[self] /nb/./.code के माध्यम से इस सेल का कोड:\n# चरण 7: सापेक्ष एड्रेसिंग — /nb/-1/.output पिछली सेल के आउटपुट को पढ़ता है।\n# /nb/./.code इस सेल के अपने कोड को पढ़ता है। संचित करने के लिए कॉपी-पेस्ट करें!\necho \"[accumulate] /nb/-1/.output के माध्यम से पिछली सेल का आउटपुट:\"\necho \"---\"\ncat /nb/-1/.output\necho \"---\"\necho \"\"\necho \"[self] /nb/./.code के माध्यम से इस सेल का कोड:\"\ncat /nb/./.code",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">[accumulate] /nb/-1/.output के माध्यम से पिछली सेल का आउटपुट:\n---\n=== सेलों की सूची ===\nIn[1]  In[2]  In[3]  load_uw  In[4]  In[5]  prolog_factorial  In[6]  In[7]  compile_to_r  In[8]  In[9]  r_factorial  In[10]  In[11]  test_r  In[12]  In[13]  inspect  In[14]  accumulate  In[15]  In[16]  In[17]  prolog_ancestor  In[18]  In[19]  compile_ancestor_tc  In[20]  In[21]  r_ancestor_tc  In[22]  In[23]  test_r_ancestor  In[24]  In[25]  compile_ancestor_skip  In[26]  bash_ancestor_alt  In[27]  In[28]  compare_outputs  \n\n=== r_factorial कोड ===\n# यह सेल कंपाइलर द्वारा अधिलेखित की जाएगी।\n# पहले ऊपर दी गई 'compile_to_r' सेल चलाएं।\n=== r_factorial भाषा ===\nr---\n\n[self] /nb/./.code के माध्यम से इस सेल का कोड:\n# चरण 7: सापेक्ष एड्रेसिंग — /nb/-1/.output पिछली सेल के आउटपुट को पढ़ता है।\n# /nb/./.code इस सेल के अपने कोड को पढ़ता है। संचित करने के लिए कॉपी-पेस्ट करें!\necho \"[accumulate] /nb/-1/.output के माध्यम से पिछली सेल का आउटपुट:\"\necho \"---\"\ncat /nb/-1/.output\necho \"---\"\necho \"\"\necho \"[self] /nb/./.code के माध्यम से इस सेल का कोड:\"\ncat /nb/./.code</pre>"
+      },
+      {
+        "id": 15,
+        "code": "---\n\n# भाग 2: पूर्वज — ट्रांजिटिव क्लोजर और पैटर्न नियंत्रण\n\nवही कंपाइलर रिलेशनल प्रेडिकेट्स को भी संभालता है। यहाँ हम `ancestor/2` को `parent/2` तथ्यों पर ट्रांजिटिव क्लोजर के रूप में परिभाषित करते हैं।\n\nकंपाइलर पैटर्न को पहचानता है और R में **BFS ग्राफ ट्रैवर्सल कोड** उत्पन्न करता है। लेकिन हम एक अलग संकलन रणनीति को बाध्य करने के लिए `skip(transitive_closure)` भी पास कर सकते हैं — यह प्रदर्शित करते हुए कि `skip` और `pattern` विकल्प कंपाइलर द्वारा उत्सर्जित कोड को कैसे नियंत्रित करते हैं।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 16,
+        "code": "## चरण 8: Prolog में वंशावली वृक्ष परिभाषित करें\n\n`parent/2` तथ्यों और ट्रांजिटिव क्लोजर के रूप में परिभाषित `ancestor/2` के साथ एक छोटा वंशावली वृक्ष।\n\nProlog की संक्षिप्तता पर ध्यान दें — `ancestor/2` के लिए केवल 2 क्लॉज। संपूर्ण ग्राफ ट्रैवर्सल लॉजिक कंपाइलर द्वारा स्वचालित रूप से उत्पन्न किया जाएगा।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 17,
+        "code": ":- dynamic parent/2, ancestor/2.\n\n%वंशावली वृक्ष\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\n\n%संक्रामक समापन: ancestor(X, Y) यदि X, Y का पूर्वज है\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "type": "code",
+        "language": "prolog",
+        "name": "prolog_ancestor",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 18,
+        "code": "## चरण 9: ancestor/2 → R संकलित करें (डिफ़ॉल्ट: ट्रांजिटिव क्लोजर)\n\nकंपाइलर `ancestor/2` को `parent/2` पर **ट्रांजिटिव क्लोजर** के रूप में वर्गीकृत करता है और R कोड उत्पन्न करता है जिसमें शामिल हैं:\n- एक आसन्नता सूची (एनवायरनमेंट हैश मैप)\n- BFS ट्रैवर्सल फ़ंक्शन (`ancestor_all`, `ancestor_check`)\n- ग्राफ को पॉप्युलेट करने के लिए एक `add_parent` फ़ंक्शन\n\nग्राफ में रीचेबिलिटी क्वेरी के लिए यह इष्टतम संकलन है।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 19,
+        "code": "%ancestor परिभाषाओं को consult करें\nuser:nb_read('prolog_ancestor', '.code', _AncSrc),\nformat('Read from prolog_ancestor:~n~w~n~n', [_AncSrc]),\nsetup_call_cleanup(\n    open('/tmp/_nb_anc.pl', write, _Out),\n    write(_Out, _AncSrc),\n    close(_Out)),\nconsult('/tmp/_nb_anc.pl'),\n\n%डिफ़ॉल्ट पैटर्न पहचान के साथ संकलित करें → संक्रामक समापन\nrecursive_compiler:compile_recursive(ancestor/2, [target(r)], _Code1),\nformat('--- Pattern: transitive_closure ---~n~w~n', [_Code1]),\n\n%R सेल में लिखें\nuser:nb_write('r_ancestor_tc', '.code', _Code1),\nwriteln('\\nR code written to cell: r_ancestor_tc').",
+        "type": "code",
+        "language": "prolog",
+        "name": "compile_ancestor_tc",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
+      },
+      {
+        "id": 20,
+        "code": "## चरण 10: जनरेट किया गया R कोड (ट्रांजिटिव क्लोजर)\n\nयह सेल कंपाइलर द्वारा BFS ग्राफ ट्रैवर्सल कोड से अधिलेखित (overwrite) हो जाती है।\nपहले ऊपर दी गई `compile_ancestor_tc` सेल चलाएं।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 21,
+        "code": "# यह सेल कंपाइलर द्वारा अधिलेखित की जाएगी।\n# पहले ऊपर दी गई 'compile_ancestor_tc' चलाएं।",
+        "type": "code",
+        "language": "r",
+        "name": "r_ancestor_tc",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 22,
+        "code": "## चरण 11: जनरेट किए गए R प्रोग्राम को क्वेरी करें\n\nजनरेट की गई परिभाषाएं और अंतर्निहित अभिभावक तथ्य R कर्नेल में बने रहते हैं, इसलिए यह सेल दोनों रीचेबिलिटी API की पुष्टि करती है।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 23,
+        "code": "descendants <- ancestor_all(\"alice\")\ncat(\"alice के वंशज:\", paste(descendants, collapse = \", \"), \"\\n\")\ncat(\"alice, eve की पूर्वज है:\", ancestor_check(\"alice\", \"eve\"), \"\\n\")\ncat(\"alice, frank की पूर्वज है:\", ancestor_check(\"alice\", \"frank\"), \"\\n\")",
+        "type": "code",
+        "language": "r",
+        "name": "test_r_ancestor",
+        "lastOutput": "Error: could not find function \"ancestor_all\"",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Error: could not find function \"ancestor_all\"</pre>"
+      },
+      {
+        "id": 24,
+        "code": "## चरण 12: प्रायोगिक Bash फॉलबैक का निरीक्षण करें\n\nअब हम ट्रांजिटिव क्लोजर पैटर्न को छोड़ते हुए **उसी प्रेडिकेट** को संकलित करते हैं। कंपाइलर टेल रिकर्सन के लिए अपने सामान्य Bash मचान (scaffold) पर वापस आ जाता है।\n\nयह लक्ष्य चयन तंत्र और स्किप विकल्पों को प्रदर्शित करता है, लेकिन जनरेट किए गए Bash में एक स्पष्ट TODO शामिल है और यह **ancestor/2 का व्यवहार-संरक्षक कार्यान्वयन नहीं है**। इसे कंपाइलर विकास आउटपुट मानें, समकक्ष प्रोग्राम नहीं।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 25,
+        "code": "%ancestor/2 को फिर से संकलित करें, लेकिन संक्रामक समापन छोड़ें → टेल रिकर्सन पर आता है\n%क्रॉस-भाषा संकलन दिखाने के लिए bash को भी लक्षित करें\nrecursive_compiler:compile_recursive(\n    ancestor/2,\n    [target(bash), skip(transitive_closure)],\n    _Code2),\nformat('--- Pattern: tail_recursion (bash) ---~n~w~n', [_Code2]),\n\n%bash सेल में लिखें\nuser:nb_write('bash_ancestor_alt', '.code', _Code2),\nwriteln('\\nBash code written to cell: bash_ancestor_alt').",
+        "type": "code",
+        "language": "prolog",
+        "name": "compile_ancestor_skip",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
+      },
+      {
+        "id": 26,
+        "code": "# यह सेल कंपाइलर द्वारा अधिलेखित की जाएगी।\n# पहले ऊपर दी गई 'compile_ancestor_skip' चलाएं।",
+        "type": "code",
+        "language": "bash",
+        "name": "bash_ancestor_alt",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 27,
+        "code": "## चरण 13: जनरेट किए गए आउटपुट की तुलना करें\n\nपूर्ण R कार्यान्वयन और स्पष्ट रूप से प्रायोगिक Bash मचान का अगल-बगल निरीक्षण करने के लिए Notebook VFS का उपयोग करें:",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 28,
+        "code": "echo \"=== R (संक्रामक समापन / BFS) ===\"\necho \"भाषा: $(cat /nb/r_ancestor_tc/.language)\"\necho \"---\"\ncat /nb/r_ancestor_tc/.code\necho \"\"\necho \"\"\necho \"=== Bash (टेल रिकर्सन) ===\"\necho \"भाषा: $(cat /nb/bash_ancestor_alt/.language)\"\necho \"---\"\ncat /nb/bash_ancestor_alt/.code",
+        "type": "code",
+        "language": "bash",
+        "name": "compare_outputs",
+        "lastOutput": "=== R (संक्रामक समापन / BFS) ===\nभाषा: r\n---\n# यह सेल कंपाइलर द्वारा अधिलेखित की जाएगी।\n# पहले ऊपर दी गई 'compile_ancestor_tc' चलाएं।\n\n=== Bash (टेल रिकर्सन) ===\nभाषा: bash\n---\n# यह सेल कंपाइलर द्वारा अधिलेखित की जाएगी।\n# पहले ऊपर दी गई 'compile_ancestor_skip' चलाएं।",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">=== R (संक्रामक समापन / BFS) ===\nभाषा: r\n---\n# यह सेल कंपाइलर द्वारा अधिलेखित की जाएगी।\n# पहले ऊपर दी गई 'compile_ancestor_tc' चलाएं।\n\n=== Bash (टेल रिकर्सन) ===\nभाषा: bash\n---\n# यह सेल कंपाइलर द्वारा अधिलेखित की जाएगी।\n# पहले ऊपर दी गई 'compile_ancestor_skip' चलाएं।</pre>"
+      }
+    ]
+  }
+}

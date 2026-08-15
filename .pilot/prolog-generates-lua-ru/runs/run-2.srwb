@@ -1,0 +1,143 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T15:44:25.446Z",
+  "notebook": {
+    "id": "default",
+    "name": "Prolog генерирует Lua: Демонстрация компилятора",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "python",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 14,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# Prolog генерирует Lua\n\nВ этой книге демонстрируется, как UnifyWeaver компилирует предикаты Prolog в код на языке **Lua**.\n\nРабочий процесс сохраняет каждый язык программирования в собственной именованной подсвеченной ячейке:\n1. Определение генеалогического древа в ячейке Prolog `family_tree`\n2. Определение общей программы запросов в ячейке с исходным кодом Lua `lua_queries`\n3. Чтение ячейки запросов через Notebook VFS и добавление ее к каждой сгенерированной программе\n4. Запуск вариантов со встроенными фактами и с VFS во время выполнения\n\nПредставлены два режима ввода данных:\n- **Встроенный** — факты компилируются непосредственно в код Lua\n- **VFS** — факты считываются из другой ячейки блокнота во время выполнения\n\nLua также предоставляет функции `nb.read()`, `nb.write()`, `nb.list()` и `nb.name()` для прямого доступа к ячейкам; заключительный раздел демонстрирует полный цикл чтения и записи.\n\nКаталог автоматически устанавливает необходимый пакет **UnifyWeaver SciREPL** вместе с этой книгой.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "% Загрузка модулей компилятора UnifyWeaver\n['../init'].\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "type": "code",
+        "language": "prolog",
+        "name": "load_compiler",
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
+      },
+      {
+        "id": 3,
+        "code": "% Определение генеалогического древа в виде фактов Prolog\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% Транзитивное замыкание: ancestor(X, Y), если X — предок Y\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "type": "code",
+        "language": "prolog",
+        "name": "family_tree",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 4,
+        "code": "#!source\n-- Эта именованная ячейка с кодом Lua читается обеими ячейками компилятора.\n-- Она добавляется к каждой сгенерированной программе и выполняется в ней.\n\n-- --- Запросы ---\nlocal results = find_all(\"alice\")\nprint(\"Потомки alice: \" .. table.concat(results, \", \"))\nprint(\"alice -> eve: \" .. tostring(check(\"alice\", \"eve\")))\nprint(\"alice -> frank: \" .. tostring(check(\"alice\", \"frank\")))",
+        "type": "code",
+        "language": "lua",
+        "name": "lua_queries",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 5,
+        "code": "## Паттерн 1: Встроенный ввод\n\nПри использовании `input(embedded)` факты Prolog компилируются непосредственно в код Lua как вызовы `add_fact()`. Ячейка компилятора считывает подсвеченную ячейку `lua_queries` и добавляет ее, благодаря чему сгенерированная программа является самодостаточной.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 6,
+        "code": "% Чтение подсвеченной программы запросов Lua из ее именованной исходной ячейки\n\\+ \\+ (\n    user:nb_read('lua_queries', '.code', _QuerySource),\n    split_string(_QuerySource, \"\\n\", \"\\r\", [\"#!source\"|_QueryLines]),\n    atomics_to_string(_QueryLines, \"\\n\", _Queries),\n\n    % Компиляция с input(embedded) — факты встроены в код\n    recursive_compiler:compile_recursive(ancestor/2, [target(lua), input(embedded)], _Code),\n    format(string(_FullCode), '~w~n~n~w~n', [_Code, _Queries]),\n    user:nb_write('lua_embedded', '.code', _FullCode),\n    writeln('Lua code (embedded) written to cell: lua_embedded')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "compile_embedded",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
+      },
+      {
+        "id": 7,
+        "code": "-- Эта ячейка будет заполнена компилятором.\n-- Сначала запустите ячейку 'compile_embedded' выше.",
+        "type": "code",
+        "language": "lua",
+        "name": "lua_embedded",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 8,
+        "code": "## Паттерн 2: Ввод через VFS\n\nПри использовании `input(vfs(facts_data, '.code'))` сгенерированный код Lua считывает факты из кода другой ячейки во время выполнения через `nb.read()`. Это позволяет изменять данные без повторной компиляции. Та же именованная программа `lua_queries` добавляется и к этому варианту.\n\nЯчейка данных ниже содержит факты в виде строк формата `from:to` внутри блока комментариев Lua:",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 9,
+        "code": "-- Ячейка данных: факты в формате from:to (по одному на строку)\n-- Скомпилированная с VFS ячейка считывает это через nb.read(\"facts_data\", \".code\")\n--[[\nalice:bob\nbob:charlie\nbob:diana\ncharlie:eve\ndiana:frank\n]]",
+        "type": "code",
+        "language": "lua",
+        "name": "facts_data",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 10,
+        "code": "% Чтение той же подсвеченной программы запросов Lua\n\\+ \\+ (\n    user:nb_read('lua_queries', '.code', _QuerySource),\n    split_string(_QuerySource, \"\\n\", \"\\r\", [\"#!source\"|_QueryLines]),\n    atomics_to_string(_QueryLines, \"\\n\", _Queries),\n\n    % Компиляция с input(vfs(facts_data)) — чтение из ячейки выше\n    recursive_compiler:compile_recursive(ancestor/2, [target(lua), input(vfs(facts_data, '.code'))], _Code),\n    format(string(_FullCode), '~w~n~n~w~n', [_Code, _Queries]),\n    user:nb_write('lua_vfs', '.code', _FullCode),\n    writeln('Lua code (VFS) written to cell: lua_vfs')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "compile_vfs",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
+      },
+      {
+        "id": 11,
+        "code": "-- Эта ячейка будет заполнена компилятором.\n-- Сначала запустите ячейку 'compile_vfs' выше.",
+        "type": "code",
+        "language": "lua",
+        "name": "lua_vfs",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 12,
+        "code": "## Lua читает и записывает ячейки блокнота\n\nLua может напрямую использовать Notebook VFS. Эта ячейка считывает именованный исходный код `lua_queries` и записывает заметку в следующую ячейку `lua_written`.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 13,
+        "code": "local query_source = nb.read(\"lua_queries\", \".code\")\nassert(query_source ~= nil)\nlocal note = \"-- Записано из Lua после чтения lua_queries (\" .. tostring(#query_source) .. \" символов)\"\nassert(nb.write(\"lua_written\", \".code\", note))\nprint(\"Lua прочитала lua_queries и записала lua_written\")",
+        "type": "code",
+        "language": "lua",
+        "name": "lua_cell_io",
+        "lastOutput": "Lua прочитала lua_queries и записала lua_written\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Lua прочитала lua_queries и записала lua_written\n</pre>"
+      },
+      {
+        "id": 14,
+        "code": "-- Записано из Lua после чтения lua_queries (525 символов)",
+        "type": "code",
+        "language": "lua",
+        "name": "lua_written",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      }
+    ]
+  }
+}

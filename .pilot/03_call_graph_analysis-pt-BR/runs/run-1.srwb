@@ -1,0 +1,359 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T17:21:21.472Z",
+  "notebook": {
+    "id": "default",
+    "name": "Análise de Grafo de Chamadas e Detecção de Componentes Fortemente Conexos (SCC)",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "prolog",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 38,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# Análise de Grafo de Chamadas e Detecção de Componentes Fortemente Conexos (SCC)\n\nEste caderno explora os recursos avançados de análise de código do UnifyWeaver:\n\n- **Construção de Grafo de Chamadas** - Construção de grafos de dependência a partir de código Prolog\n- **Detecção de SCC** - Identificação de Componentes Fortemente Conexos (recursão mútua)\n- **Análise de Padrões** - Compreensão de padrões de recursão\n- **Visualização de Dependências** - Visualização dos relacionamentos entre predicados\n\n## Objetivos de Aprendizagem\n\n- Entender como o UnifyWeaver analisa a estrutura do código\n- Construir e inspecionar grafos de chamadas\n- Detectar recursão mútua usando o algoritmo de Tarjan\n- Visualizar dependências de código",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "## Configuração\n\nCarregar o UnifyWeaver e os módulos de análise.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 3,
+        "code": "% Carregar inicialização\n['../init'].\n\n% Carregar módulos de análise\nuse_module(unifyweaver(core/advanced/call_graph)).\nuse_module(unifyweaver(core/advanced/scc_detection)).\nuse_module(unifyweaver(core/advanced/pattern_matchers)).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
+      },
+      {
+        "id": 4,
+        "code": "## Exemplo 1: Grafo de Chamadas Simples\n\nVamos começar com um predicado simples e construir seu grafo de chamadas.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 5,
+        "code": "% Definir o predicado ancestor\n:- dynamic ancestor/2.\n:- dynamic parent/2.\n\n% Fatos de parent\nparent(abraham, isaac).\nparent(isaac, jacob).\n\n% Regras de ancestor\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Z) :- parent(X, Y), ancestor(Y, Z).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 6,
+        "code": "### Construir Grafo de Chamadas",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 7,
+        "code": "% Construir grafo de chamadas para ancestor\nbuild_call_graph([ancestor/2], _Graph),\nformat('Call Graph for ancestor/2:~n'),\nforall(member(_Edge, _Graph),\n    format('  ~w~n', [_Edge])).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: build_call_graph/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: build_call_graph/2</pre>"
+      },
+      {
+        "id": 8,
+        "code": "### Analisar Dependências",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 9,
+        "code": "% Obter todas as dependências de ancestor/2\nget_dependencies(ancestor/2, _Deps),\nformat('Dependencies of ancestor/2: ~w~n', [_Deps]).\n\n% Verificar se é autorrecursivo\n(is_self_recursive(ancestor/2) ->\n    writeln('✓ ancestor/2 is self-recursive')\n;\n    writeln('✗ ancestor/2 is not self-recursive')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: get_dependencies/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: get_dependencies/2</pre>"
+      },
+      {
+        "id": 10,
+        "code": "## Exemplo 2: Detecção de Recursão Mútua\n\nAgora vamos detectar recursão mútua com o exemplo par/ímpar.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 11,
+        "code": "% Definir predicados mutuamente recursivos\n:- dynamic is_even/1.\n:- dynamic is_odd/1.\n\nis_even(0).\nis_even(N) :- N > 0, N1 is N - 1, is_odd(N1).\n\nis_odd(1).\nis_odd(N) :- N > 1, N1 is N - 1, is_even(N1).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 12,
+        "code": "### Construir Grafo de Chamadas para Ambos os Predicados",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 13,
+        "code": "% Construir grafo de chamadas para ambos os predicados\nbuild_call_graph([is_even/1, is_odd/1], _Graph),\nformat('Call Graph for is_even/1 and is_odd/1:~n'),\nforall(member(_Edge, _Graph),\n    format('  ~w~n', [_Edge])).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: build_call_graph/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: build_call_graph/2</pre>"
+      },
+      {
+        "id": 14,
+        "code": "### Encontrar Componentes Fortemente Conexos (SCCs)",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 15,
+        "code": "% Reconstruir o grafo porque as variáveis não persistem entre células do caderno\nbuild_call_graph([is_even/1, is_odd/1], _Graph),\n% Encontrar SCCs usando o algoritmo de Tarjan\nfind_sccs(_Graph, _SCCs),\nformat('Strongly Connected Components:~n'),\nforall(member(_SCC, _SCCs),\n    format('  ~w~n', [_SCC])).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: build_call_graph/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: build_call_graph/2</pre>"
+      },
+      {
+        "id": 16,
+        "code": "### Verificar se o SCC é Trivial",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 17,
+        "code": "% Recalcular os valores derivados para que esta célula também seja executada de forma independente\nbuild_call_graph([is_even/1, is_odd/1], _Graph),\nfind_sccs(_Graph, _SCCs),\n% Verificar cada SCC\nforall(member(_SCC, _SCCs),\n    (   is_trivial_scc(_SCC) ->\n        format('  ~w is trivial (single predicate)~n', [_SCC])\n    ;\n        format('  ~w is NON-TRIVIAL (mutual recursion!)~n', [_SCC])\n    )\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: build_call_graph/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: build_call_graph/2</pre>"
+      },
+      {
+        "id": 18,
+        "code": "## Exemplo 3: Grafo de Chamadas Complexo\n\nVamos analisar um sistema mais complexo com múltiplos predicados.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 19,
+        "code": "% Definir um programa pequeno com múltiplos predicados\n:- dynamic grandparent/2.\n:- dynamic sibling/2.\n:- dynamic cousin/2.\n\n% grandparent usa parent\ngrandparent(X, Z) :- parent(X, Y), parent(Y, Z).\n\n% sibling: mesmos pais, filhos diferentes\nsibling(X, Y) :- parent(P, X), parent(P, Y), X \\= Y.\n\n% cousin: os pais são irmãos\ncousin(X, Y) :- parent(P1, X), parent(P2, Y), sibling(P1, P2).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 20,
+        "code": "### Construir Grafo de Chamadas Completo",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 21,
+        "code": "% Construir grafo de chamadas para todos os predicados\nbuild_call_graph([grandparent/2, sibling/2, cousin/2], _Graph),\nformat('Complete Call Graph:~n'),\nforall(member(_Edge, _Graph),\n    format('  ~w~n', [_Edge])).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: build_call_graph/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: build_call_graph/2</pre>"
+      },
+      {
+        "id": 22,
+        "code": "### Encontrar Grupos de Predicados\n\nEncontrar o grupo de predicados mutuamente recursivos que contém um predicado inicial.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 23,
+        "code": "% Encontrar o grupo mutuamente recursivo que contém cousin/2\npredicates_in_group(cousin/2, _Group),\nformat('Mutually recursive group containing cousin/2: ~w~n', [_Group]).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: predicates_in_group/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: predicates_in_group/2</pre>"
+      },
+      {
+        "id": 24,
+        "code": "## Exemplo 4: Detecção de Padrões\n\nVamos usar correspondentes de padrões para analisar os tipos de recursão.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 25,
+        "code": "% Definir vários padrões recursivos\n:- dynamic count/3.     % Recursivo em cauda\n:- dynamic factorial/2. % Recursivo linear\n:- dynamic fib/2.       % Recursivo em árvore (ou linear se detectado)\n\n% Contagem recursiva em cauda\ncount([], Acc, Acc).\ncount([_|T], Acc, N) :-\n    Acc1 is Acc + 1,\n    count(T, Acc1, N).\n\n% Fatorial recursivo linear\nfactorial(0, 1).\nfactorial(N, F) :-\n    N > 0,\n    N1 is N - 1,\n    factorial(N1, F1),\n    F is N * F1.\n\n% Fibonacci (pode ser detectado como linear ou em árvore)\nfib(0, 0).\nfib(1, 1).\nfib(N, F) :-\n    N > 1,\n    N1 is N - 1,\n    N2 is N - 2,\n    fib(N1, F1),\n    fib(N2, F2),\n    F is F1 + F2.",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 26,
+        "code": "### Detectar Recursão em Cauda",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 27,
+        "code": "% Verificar se count/3 é recursivo em cauda\n(is_tail_recursive_accumulator(count/3, _AccInfo) ->\n    format('✓ count/3 is tail recursive: ~w~n', [_AccInfo])\n;\n    writeln('✗ count/3 is not tail recursive')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: is_tail_recursive_accumulator/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: is_tail_recursive_accumulator/2</pre>"
+      },
+      {
+        "id": 28,
+        "code": "### Detectar Recursão Linear",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 29,
+        "code": "% Verificar se factorial/2 é recursivo linear\n(is_linear_recursive_streamable(factorial/2) ->\n    writeln('✓ factorial/2 is linear recursive')\n;\n    writeln('✗ factorial/2 is not linear recursive')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: is_linear_recursive_streamable/1",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: is_linear_recursive_streamable/1</pre>"
+      },
+      {
+        "id": 30,
+        "code": "### Contar Chamadas Recursivas",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 31,
+        "code": "% Contar chamadas recursivas em fibonacci\nfunctor(_FibHead, fib, 2),\nuser:clause(_FibHead, _FibBody),\nonce(contains_call_to(_FibBody, fib)),\ncount_recursive_calls(_FibBody, fib, _Count),\nformat('Fibonacci body has ~w recursive calls~n', [_Count]).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "once/1: Unknown procedure: contains_call_to/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">once/1: Unknown procedure: contains_call_to/2</pre>"
+      },
+      {
+        "id": 32,
+        "code": "## Visualização com Formato DOT\n\nVamos gerar uma representação Graphviz DOT do nosso grafo de chamadas.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 33,
+        "code": "% Função auxiliar para gerar formato DOT\ngenerate_dot(Graph, DotCode) :-\n    findall(Line,\n        (   member(From -> To, Graph),\n            format(atom(Line), '  \"~w\" -> \"~w\";', [From, To])\n        ),\n        Lines),\n    atomic_list_concat(['digraph CallGraph {', '  rankdir=LR;' | Lines], '\\n', Body),\n    format(atom(DotCode), '~w~n}~n', [Body]).\n\n% Gerar DOT para o grafo par/ímpar\nbuild_call_graph([is_even/1, is_odd/1], _Graph),\ngenerate_dot(_Graph, _DotCode),\nwriteln('DOT Code for even/odd call graph:'),\nwriteln(_DotCode).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: build_call_graph/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: build_call_graph/2</pre>"
+      },
+      {
+        "id": 34,
+        "code": "### Salvar Arquivo DOT",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 35,
+        "code": "% Reconstruir o código-fonte DOT porque as variáveis não persistem entre células\nbuild_call_graph([is_even/1, is_odd/1], _Graph),\ngenerate_dot(_Graph, _DotCode),\nsetup_call_cleanup(\n    open('/shared/data/even_odd_graph.dot', write, _Stream),\n    write(_Stream, _DotCode),\n    close(_Stream)),\nwriteln('✓ Saved to /shared/data/even_odd_graph.dot').\n\nwriteln('To visualize, run:'),\nwriteln('  dot -Tpng /shared/data/even_odd_graph.dot -o even_odd_graph.png').",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: build_call_graph/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: build_call_graph/2</pre>"
+      },
+      {
+        "id": 36,
+        "code": "## Exercício: Analise Seu Próprio Código\n\nTente definir seus próprios predicados e analisá-los!",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 37,
+        "code": "% Defina seus predicados aqui\n% Depois construa grafos de chamadas, encontre SCCs e detecte padrões\n\n% Exemplo:\n% :- dynamic my_predicate/2.\n% my_predicate(...) :- ...\n\n% build_call_graph([my_predicate/2], Graph).\n",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 38,
+        "code": "## Resumo\n\nNeste caderno, você aprendeu:\n\n✅ Como construir grafos de chamadas a partir de código Prolog\n\n✅ Como detectar Componentes Fortemente Conexos (SCCs) para recursão mútua\n\n✅ Como usar correspondentes de padrões para classificar tipos de recursão\n\n✅ Como analisar dependências de predicados\n\n✅ Como visualizar grafos de chamadas com o formato DOT\n\n## Tópicos Avançados\n\nPara análises mais avançadas:\n\n- **Ordenação Topológica**: Utilize `topological_order/2` para ordenar SCCs por dependências\n- **Correspondentes de Padrões Personalizados**: Escreva seus próprios predicados de detecção de padrões\n- **Extração do Padrão de Acumulador**: Utilize `extract_accumulator_pattern/2` para análise detalhada\n- **Proibir Recursão Linear**: Utilize `forbid_linear_recursion/1` para forçar diferentes estratégias de compilação\n\n## Referências e Arquivos Relacionados\n\n- Capítulo 10: Introspecção e Teoria em Prolog\n- `src/unifyweaver/core/advanced/call_graph.pl`\n- `src/unifyweaver/core/advanced/scc_detection.pl`\n- `src/unifyweaver/core/advanced/pattern_matchers.pl`",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      }
+    ]
+  }
+}

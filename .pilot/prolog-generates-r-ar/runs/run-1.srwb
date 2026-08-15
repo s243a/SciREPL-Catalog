@@ -1,0 +1,269 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T15:37:37.611Z",
+  "notebook": {
+    "id": "default",
+    "name": "Prolog يولد R: عرض توضيحي للمترجم",
+    "autoNameNumber": null,
+    "description": "Demonstrates UnifyWeaver compiling Prolog predicates into R code. Part 1: factorial (linear→tail transformation). Part 2: ancestor (transitive closure vs skip/pattern).",
+    "kernelLanguage": "python",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 28,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# Prolog يولد R — عرض توضيحي لمترجم UnifyWeaver\n\nيوضح هذا المصنف كيف يترجم **UnifyWeaver** منطق Prolog إلى كود R قابل للتنفيذ — مباشرة وفعليًا داخل دفتر الملاحظات.\n\n## الجزء 1: العاملي (العودية الخطية)\n1. تحميل بيئة مترجم UnifyWeaver\n2. تعريف `factorial/2` العودية في Prolog\n3. يكتشف المترجم نمط العودية ويولد حلقة R مكافئة\n4. كتابة كود R المولد في خلية أخرى عبر `nb_write/3`\n5. تشغيل خلية R للتحقق من الصحة\n\n## الجزء 2: السلف (الانغلاق المتعدي والتحكم في الأنماط)\n8. تعريف حقائق `parent/2` و`ancestor/2` في Prolog\n9. التجميع بالنمط الافتراضي ← الانغلاق المتعدي (بحث بالاتساع BFS عبر الرسم البياني)\n10. التجميع مرة أخرى باستخدام `skip(transitive_closure)` ← كود مولد مختلف\n11. مقارنة النهجين جنبًا إلى جنب",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "## الخطوة 1: تحميل UnifyWeaver\n\nتحميل بيئة UnifyWeaver ومترجم الهدف R.\n\n**ملاحظة:** في swipl-wasm، استخدم `use_module(unifyweaver(...))` (الاسم المستعار لمسار البحث) بدلاً من `use_module(library(...))`. يقوم الاستدعاء `['../init'].` بتهيئة مسار بحث `unifyweaver` بحيث تُحل الوحدات البرمجية بشكل صحيح.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 3,
+        "code": "['../init'].\n:- use_module(unifyweaver(targets/r_target)).\n:- use_module(unifyweaver(core/advanced/linear_recursion)).\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "type": "code",
+        "language": "prolog",
+        "name": "load_uw",
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
+      },
+      {
+        "id": 4,
+        "code": "## الخطوة 2: تعريف العاملي في Prolog\n\nدالة عاملي عودية بسيطة. تعيد الحالة الأساسية 1 عندما تكون N تساوي 0. وتحسب الحالة العودية `N * factorial(N-1)`.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 5,
+        "code": ":- dynamic factorial/2.\n\nfactorial(0, 1).\nfactorial(N, F) :-\n    N > 0,\n    N1 is N - 1,\n    factorial(N1, F1),\n    F is N * F1.",
+        "type": "code",
+        "language": "prolog",
+        "name": "prolog_factorial",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 6,
+        "code": "## الخطوة 3: تجميع Prolog ← R\n\nيقوم المترجم بما يلي:\n1. قراءة مصدر Prolog من خلية **prolog_factorial** عبر `nb_read/3`\n2. استشارته (consult) لإدراج البنود في قاعدة البيانات\n3. استدعاء `compile_linear_recursion/3` الذي يكتشف نمط العودية، ويستخرج الخطوة (`N1 is N - 1` ← step=1, down)، ويولد حلقة `for` في R\n4. كتابة كود R المولد في خلية **r_factorial** عبر `nb_write/3`\n\nيطلب الخيار `memo(false)` تجميعًا قائمًا على الحلقات بدلاً من الاختزال المحفوظ في الذاكرة (memoized reduce).",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 7,
+        "code": "%قراءة مصدر Prolog من الخلية السابقة\nuser:nb_read('prolog_factorial', '.code', _PrologSrc),\nformat('Read from prolog_factorial:~n~w~n~n', [_PrologSrc]),\n\n%استشارته (consult) لإدراج البنود\nsetup_call_cleanup(\n    open('/tmp/_nb_src.pl', write, _Out),\n    write(_Out, _PrologSrc),\n    close(_Out)),\nconsult('/tmp/_nb_src.pl'),\n\n%تجميع factorial/2 → R\nr_target:init_r_target,\nlinear_recursion:compile_linear_recursion(factorial/2, [target(r), memo(false)], _Code),\nformat('--- Generated R code ---~n~w~n', [_Code]),\n\n%كتابة مخرجات المترجم في خلية R\nuser:nb_write('r_factorial', '.code', _Code),\nwriteln('\\nR code written to cell: r_factorial').",
+        "type": "code",
+        "language": "prolog",
+        "name": "compile_to_r",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: r_target:init_r_target/0",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: r_target:init_r_target/0</pre>"
+      },
+      {
+        "id": 8,
+        "code": "## الخطوة 4: تشغيل كود R المولد\n\nستحتوي الخلية أدناه على دالة `factorial` المولدة بواسطة المترجم. قم بتشغيلها لتعريف الدالة، ثم قم بتشغيل الخطوة 5 لاختبارها.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 9,
+        "code": "# سيتم الكتابة فوق هذه الخلية بواسطة المترجم.\n# قم بتشغيل خلية 'compile_to_r' أعلاه أولاً.",
+        "type": "code",
+        "language": "r",
+        "name": "r_factorial",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 10,
+        "code": "## الخطوة 5: اختبار كود R المولد\n\nاستدعاء دالة `factorial` المولدة بواسطة المترجم للتحقق من أنها تُنتج نتائج صحيحة.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 11,
+        "code": "cat(\"6! =\", factorial(6), \"\\n\")\ncat(\"20! =\", factorial(20), \"\\n\")\ncat(\"0! =\", factorial(0), \"\\n\")",
+        "type": "code",
+        "language": "r",
+        "name": "test_r",
+        "lastOutput": "6! = 720 \n20! = 2.432902e+18 \n0! = 1",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">6! = 720 \n20! = 2.432902e+18 \n0! = 1</pre>"
+      },
+      {
+        "id": 12,
+        "code": "## الخطوة 6: الفحص عبر Bash\n\nيتيح Notebook VFS لأي نواة فحص الخلايا. هنا يقرأ Bash الكود المولد بواسطة المترجم:",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 13,
+        "code": "echo \"=== الخلايا ===\"\nls /nb/\necho \"\"\necho \"=== كود r_factorial ===\"\ncat /nb/r_factorial/.code\necho \"\"\necho \"=== لغة r_factorial ===\"\ncat /nb/r_factorial/.language",
+        "type": "code",
+        "language": "bash",
+        "name": "inspect",
+        "lastOutput": "=== الخلايا ===\nIn[1]  In[2]  In[3]  load_uw  In[4]  In[5]  prolog_factorial  In[6]  In[7]  compile_to_r  In[8]  In[9]  r_factorial  In[10]  In[11]  test_r  In[12]  In[13]  inspect  In[14]  accumulate  In[15]  In[16]  In[17]  prolog_ancestor  In[18]  In[19]  compile_ancestor_tc  In[20]  In[21]  r_ancestor_tc  In[22]  In[23]  test_r_ancestor  In[24]  In[25]  compile_ancestor_skip  In[26]  bash_ancestor_alt  In[27]  In[28]  compare_outputs  \n\n=== كود r_factorial ===\n# سيتم الكتابة فوق هذه الخلية بواسطة المترجم.\n# قم بتشغيل خلية 'compile_to_r' أعلاه أولاً.\n=== لغة r_factorial ===\nr",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">=== الخلايا ===\nIn[1]  In[2]  In[3]  load_uw  In[4]  In[5]  prolog_factorial  In[6]  In[7]  compile_to_r  In[8]  In[9]  r_factorial  In[10]  In[11]  test_r  In[12]  In[13]  inspect  In[14]  accumulate  In[15]  In[16]  In[17]  prolog_ancestor  In[18]  In[19]  compile_ancestor_tc  In[20]  In[21]  r_ancestor_tc  In[22]  In[23]  test_r_ancestor  In[24]  In[25]  compile_ancestor_skip  In[26]  bash_ancestor_alt  In[27]  In[28]  compare_outputs  \n\n=== كود r_factorial ===\n# سيتم الكتابة فوق هذه الخلية بواسطة المترجم.\n# قم بتشغيل خلية 'compile_to_r' أعلاه أولاً.\n=== لغة r_factorial ===\nr</pre>"
+      },
+      {
+        "id": 14,
+        "code": "# الخطوة 7: العنونة النسبية — /nb/-1/.output يقرأ مخرجات الخلية السابقة.\n# /nb/./.code يقرأ كود هذه الخلية الخاص. انسخ والصق للتراكم!\necho \"[accumulate] مخرجات الخلية السابقة عبر /nb/-1/.output:\"\necho \"---\"\ncat /nb/-1/.output\necho \"---\"\necho \"\"\necho \"[self] كود هذه الخلية عبر /nb/./.code:\"\ncat /nb/./.code",
+        "type": "code",
+        "language": "bash",
+        "name": "accumulate",
+        "lastOutput": "[accumulate] مخرجات الخلية السابقة عبر /nb/-1/.output:\n---\n=== الخلايا ===\nIn[1]  In[2]  In[3]  load_uw  In[4]  In[5]  prolog_factorial  In[6]  In[7]  compile_to_r  In[8]  In[9]  r_factorial  In[10]  In[11]  test_r  In[12]  In[13]  inspect  In[14]  accumulate  In[15]  In[16]  In[17]  prolog_ancestor  In[18]  In[19]  compile_ancestor_tc  In[20]  In[21]  r_ancestor_tc  In[22]  In[23]  test_r_ancestor  In[24]  In[25]  compile_ancestor_skip  In[26]  bash_ancestor_alt  In[27]  In[28]  compare_outputs  \n\n=== كود r_factorial ===\n# سيتم الكتابة فوق هذه الخلية بواسطة المترجم.\n# قم بتشغيل خلية 'compile_to_r' أعلاه أولاً.\n=== لغة r_factorial ===\nr---\n\n[self] كود هذه الخلية عبر /nb/./.code:\n# الخطوة 7: العنونة النسبية — /nb/-1/.output يقرأ مخرجات الخلية السابقة.\n# /nb/./.code يقرأ كود هذه الخلية الخاص. انسخ والصق للتراكم!\necho \"[accumulate] مخرجات الخلية السابقة عبر /nb/-1/.output:\"\necho \"---\"\ncat /nb/-1/.output\necho \"---\"\necho \"\"\necho \"[self] كود هذه الخلية عبر /nb/./.code:\"\ncat /nb/./.code",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">[accumulate] مخرجات الخلية السابقة عبر /nb/-1/.output:\n---\n=== الخلايا ===\nIn[1]  In[2]  In[3]  load_uw  In[4]  In[5]  prolog_factorial  In[6]  In[7]  compile_to_r  In[8]  In[9]  r_factorial  In[10]  In[11]  test_r  In[12]  In[13]  inspect  In[14]  accumulate  In[15]  In[16]  In[17]  prolog_ancestor  In[18]  In[19]  compile_ancestor_tc  In[20]  In[21]  r_ancestor_tc  In[22]  In[23]  test_r_ancestor  In[24]  In[25]  compile_ancestor_skip  In[26]  bash_ancestor_alt  In[27]  In[28]  compare_outputs  \n\n=== كود r_factorial ===\n# سيتم الكتابة فوق هذه الخلية بواسطة المترجم.\n# قم بتشغيل خلية 'compile_to_r' أعلاه أولاً.\n=== لغة r_factorial ===\nr---\n\n[self] كود هذه الخلية عبر /nb/./.code:\n# الخطوة 7: العنونة النسبية — /nb/-1/.output يقرأ مخرجات الخلية السابقة.\n# /nb/./.code يقرأ كود هذه الخلية الخاص. انسخ والصق للتراكم!\necho \"[accumulate] مخرجات الخلية السابقة عبر /nb/-1/.output:\"\necho \"---\"\ncat /nb/-1/.output\necho \"---\"\necho \"\"\necho \"[self] كود هذه الخلية عبر /nb/./.code:\"\ncat /nb/./.code</pre>"
+      },
+      {
+        "id": 15,
+        "code": "---\n\n# الجزء 2: السلف — الانغلاق المتعدي والتحكم في الأنماط\n\nيتعامل المترجم ذاته مع المحددات العلائقية أيضًا. هنا نعرف `ancestor/2` كـ انغلاق متعدٍ على حقائق `parent/2`.\n\nيتعرف المترجم على النمط ويولد كود **بحث بالاتساع (BFS) عبر الرسم البياني** في R. ولكن يمكننا أيضًا استخدام `skip(transitive_closure)` لفرض استراتيجية تجميع مختلفة — مما يوضح كيف يتحكم الخياران `skip` و`pattern` في الكود الذي يصدره المترجم.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 16,
+        "code": "## الخطوة 8: تعريف شجرة العائلة في Prolog\n\nشجرة عائلة صغيرة تستخدم حقائق `parent/2`، مع تعريف `ancestor/2` كـ انغلاق متعدٍ.\n\nلاحظ مدى إيجاز كود Prolog — بندان فقط لـ `ancestor/2`. وسيقوم المترجم بتوليد جميع آليات التنقل في الرسم البياني.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 17,
+        "code": ":- dynamic parent/2, ancestor/2.\n\n%شجرة العائلة\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\n\n%الانغلاق المتعدي: ancestor(X, Y) إذا كان X سلفًا لـ Y\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "type": "code",
+        "language": "prolog",
+        "name": "prolog_ancestor",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 18,
+        "code": "## الخطوة 9: تجميع ancestor/2 ← R (الافتراضي: الانغلاق المتعدي)\n\nيصنف المترجم `ancestor/2` كـ **انغلاق متعدٍ** على `parent/2` ويولد كود R يحتوي على:\n- قائمة المجاورة (خريطة تجزئة البيئة)\n- دوال التنقل بالبحث بالاتساع BFS (`ancestor_all` و`ancestor_check`)\n- دالة `add_parent` لتعبئة الرسم البياني بالبيانات\n\nهذا هو التجميع الأمثل لاستعلامات إمكانية الوصول في الرسم البياني.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 19,
+        "code": "%استشارة تعريفات ancestor\nuser:nb_read('prolog_ancestor', '.code', _AncSrc),\nformat('Read from prolog_ancestor:~n~w~n~n', [_AncSrc]),\nsetup_call_cleanup(\n    open('/tmp/_nb_anc.pl', write, _Out),\n    write(_Out, _AncSrc),\n    close(_Out)),\nconsult('/tmp/_nb_anc.pl'),\n\n%التجميع مع الكشف الافتراضي عن الأنماط → الانغلاق المتعدي\nrecursive_compiler:compile_recursive(ancestor/2, [target(r)], _Code1),\nformat('--- Pattern: transitive_closure ---~n~w~n', [_Code1]),\n\n%الكتابة في خلية R\nuser:nb_write('r_ancestor_tc', '.code', _Code1),\nwriteln('\\nR code written to cell: r_ancestor_tc').",
+        "type": "code",
+        "language": "prolog",
+        "name": "compile_ancestor_tc",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
+      },
+      {
+        "id": 20,
+        "code": "## الخطوة 10: كود R المولد (الانغلاق المتعدي)\n\nيتم استبدال محتوى هذه الخلية بواسطة المترجم بكود التنقل بالبحث بالاتساع (BFS) في الرسم البياني.\nقم بتشغيل خلية `compile_ancestor_tc` أعلاه أولاً.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 21,
+        "code": "# سيتم الكتابة فوق هذه الخلية بواسطة المترجم.\n# قم بتشغيل 'compile_ancestor_tc' أعلاه أولاً.",
+        "type": "code",
+        "language": "r",
+        "name": "r_ancestor_tc",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 22,
+        "code": "## الخطوة 11: الاستعلام عن برنامج R المولد\n\nتستمر التعريفات المولدة وحقائق الوالدين المضمنة داخل نواة R، لذا تتحقق هذه الخلية من واجهتي برمجة تطبيقات إمكانية الوصول.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 23,
+        "code": "descendants <- ancestor_all(\"alice\")\ncat(\"ذرية alice:\", paste(descendants, collapse = \", \"), \"\\n\")\ncat(\"alice هي سلف لـ eve:\", ancestor_check(\"alice\", \"eve\"), \"\\n\")\ncat(\"alice هي سلف لـ frank:\", ancestor_check(\"alice\", \"frank\"), \"\\n\")",
+        "type": "code",
+        "language": "r",
+        "name": "test_r_ancestor",
+        "lastOutput": "Error: could not find function \"ancestor_all\"",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Error: could not find function \"ancestor_all\"</pre>"
+      },
+      {
+        "id": 24,
+        "code": "## الخطوة 12: فحص البديل التجريبي لـ Bash\n\nنقوم الآن بتجميع **المحدد ذاته** مع تخطي نمط الانغلاق المتعدي. ينتقل المترجم تلقائيًا إلى هيكل Bash العام للعودية الذيلية.\n\nيوضح هذا آلية اختيار الهدف وتمرير خيارات التخطي، لكن كود Bash المولد يحتوي على TODO صريح و**ليس تطبيقًا يحافظ على سلوك ancestor/2**. تعامل معه كنتاج لتطوير المترجم وليس كبرنامج مكافئ.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 25,
+        "code": "%تجميع ancestor/2 مرة أخرى، مع تخطي الانغلاق المتعدي → يتحول إلى العودية الذيلية\n%استهداف bash أيضًا لتوضيح التجميع عبر اللغات\nrecursive_compiler:compile_recursive(\n    ancestor/2,\n    [target(bash), skip(transitive_closure)],\n    _Code2),\nformat('--- Pattern: tail_recursion (bash) ---~n~w~n', [_Code2]),\n\n%الكتابة في خلية bash\nuser:nb_write('bash_ancestor_alt', '.code', _Code2),\nwriteln('\\nBash code written to cell: bash_ancestor_alt').",
+        "type": "code",
+        "language": "prolog",
+        "name": "compile_ancestor_skip",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
+      },
+      {
+        "id": 26,
+        "code": "# سيتم الكتابة فوق هذه الخلية بواسطة المترجم.\n# قم بتشغيل 'compile_ancestor_skip' أعلاه أولاً.",
+        "type": "code",
+        "language": "bash",
+        "name": "bash_ancestor_alt",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 27,
+        "code": "## الخطوة 13: مقارنة المخرجات المولدة\n\nاستخدم Notebook VFS لفحص تطبيق R الكامل وهيكل Bash التجريبي الصريح جنبًا إلى جنب:",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 28,
+        "code": "echo \"=== R (الانغلاق المتعدي / BFS) ===\"\necho \"اللغة: $(cat /nb/r_ancestor_tc/.language)\"\necho \"---\"\ncat /nb/r_ancestor_tc/.code\necho \"\"\necho \"\"\necho \"=== Bash (العودية الذيلية) ===\"\necho \"اللغة: $(cat /nb/bash_ancestor_alt/.language)\"\necho \"---\"\ncat /nb/bash_ancestor_alt/.code",
+        "type": "code",
+        "language": "bash",
+        "name": "compare_outputs",
+        "lastOutput": "=== R (الانغلاق المتعدي / BFS) ===\nاللغة: r\n---\n# سيتم الكتابة فوق هذه الخلية بواسطة المترجم.\n# قم بتشغيل 'compile_ancestor_tc' أعلاه أولاً.\n\n=== Bash (العودية الذيلية) ===\nاللغة: bash\n---\n# سيتم الكتابة فوق هذه الخلية بواسطة المترجم.\n# قم بتشغيل 'compile_ancestor_skip' أعلاه أولاً.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">=== R (الانغلاق المتعدي / BFS) ===\nاللغة: r\n---\n# سيتم الكتابة فوق هذه الخلية بواسطة المترجم.\n# قم بتشغيل 'compile_ancestor_tc' أعلاه أولاً.\n\n=== Bash (العودية الذيلية) ===\nاللغة: bash\n---\n# سيتم الكتابة فوق هذه الخلية بواسطة المترجم.\n# قم بتشغيل 'compile_ancestor_skip' أعلاه أولاً.</pre>"
+      }
+    ]
+  }
+}

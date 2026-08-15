@@ -1,0 +1,1261 @@
+{
+  "manifest_version": 1,
+  "produced_by": "derived",
+  "generator": "tools/span-derive.mjs",
+  "locale": "ja",
+  "source": {
+    "path": "workbooks/en/life_expectancy_csv_demo.ipynb",
+    "sha256": "9cffd27d993bae8a27ae3d1c0b695f97530897b424a7d8ca68dc1aa827658466"
+  },
+  "target": {
+    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/jobs/life_expectancy_csv_demo-ja/translated.ipynb",
+    "sha256": "bfe97a6b6937f8de6b2278eba30e7feee7698307d280ff017ace3c7b2dbd62b4"
+  },
+  "spans": [
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 8
+        },
+        "end": {
+          "line": 3,
+          "col": 33
+        },
+        "text": "Installed pandas + plotly"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 8
+        },
+        "end": {
+          "line": 3,
+          "col": 35
+        },
+        "text": "pandas + plotly をインストールしました"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 17,
+          "col": 17
+        },
+        "end": {
+          "line": 17,
+          "col": 39
+        },
+        "text": "Already exists: "
+      },
+      "target_span": {
+        "start": {
+          "line": 17,
+          "col": 17
+        },
+        "end": {
+          "line": 17,
+          "col": 32
+        },
+        "text": "既に存在します: "
+      },
+      "placeholders": [
+        "{path}"
+      ]
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 24,
+          "col": 17
+        },
+        "end": {
+          "line": 24,
+          "col": 49
+        },
+        "text": "Downloaded "
+      },
+      "target_span": {
+        "start": {
+          "line": 24,
+          "col": 17
+        },
+        "end": {
+          "line": 24,
+          "col": 43
+        },
+        "text": "ダウンロード完了 "
+      },
+      "placeholders": [
+        "{name}",
+        "{lines}"
+      ]
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 24,
+          "col": 17
+        },
+        "end": {
+          "line": 24,
+          "col": 49
+        },
+        "text": " lines"
+      },
+      "target_span": {
+        "start": {
+          "line": 24,
+          "col": 17
+        },
+        "end": {
+          "line": 24,
+          "col": 43
+        },
+        "text": " 行"
+      },
+      "placeholders": [
+        "{name}",
+        "{lines}"
+      ]
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 9
+        },
+        "end": {
+          "line": 4,
+          "col": 27
+        },
+        "text": "Shape: "
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 9
+        },
+        "end": {
+          "line": 4,
+          "col": 24
+        },
+        "text": "形状: "
+      },
+      "placeholders": [
+        "{gap.shape}"
+      ]
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 9
+        },
+        "end": {
+          "line": 5,
+          "col": 56
+        },
+        "text": "Continents: "
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 9
+        },
+        "end": {
+          "line": 5,
+          "col": 48
+        },
+        "text": "大陸: "
+      },
+      "placeholders": [
+        "{sorted(gap['continent'].unique())}"
+      ]
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 9
+        },
+        "end": {
+          "line": 6,
+          "col": 60
+        },
+        "text": "Year range: "
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 9
+        },
+        "end": {
+          "line": 6,
+          "col": 54
+        },
+        "text": "年の範囲: "
+      },
+      "placeholders": [
+        "{gap['year'].min()}",
+        "{gap['year'].max()}"
+      ]
+    },
+    {
+      "cell_index": 5,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 18,
+          "col": 1
+        },
+        "end": {
+          "line": 18,
+          "col": 41
+        },
+        "text": "Life expectancy over time by continent"
+      },
+      "target_span": {
+        "start": {
+          "line": 18,
+          "col": 1
+        },
+        "end": {
+          "line": 18,
+          "col": 14
+        },
+        "text": "大陸別の平均余命の推移"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 21,
+          "col": 22
+        },
+        "end": {
+          "line": 21,
+          "col": 62
+        },
+        "text": "Life Expectancy by Continent (1952-2007)"
+      },
+      "target_span": {
+        "start": {
+          "line": 21,
+          "col": 22
+        },
+        "end": {
+          "line": 21,
+          "col": 43
+        },
+        "text": "大陸別の平均余命 (1952-2007年)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 22,
+          "col": 35
+        },
+        "end": {
+          "line": 22,
+          "col": 58
+        },
+        "text": "Life Expectancy (years)"
+      },
+      "target_span": {
+        "start": {
+          "line": 22,
+          "col": 35
+        },
+        "end": {
+          "line": 22,
+          "col": 42
+        },
+        "text": "平均余命（年）"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 22,
+          "col": 70
+        },
+        "end": {
+          "line": 22,
+          "col": 74
+        },
+        "text": "Year"
+      },
+      "target_span": {
+        "start": {
+          "line": 22,
+          "col": 54
+        },
+        "end": {
+          "line": 22,
+          "col": 55
+        },
+        "text": "年"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 58
+        },
+        "text": "GDP vs Life Expectancy (2007), bubble size = population"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 34
+        },
+        "text": "GDP vs 平均余命 (2007年)、バブルサイズ = 人口"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 25
+        },
+        "end": {
+          "line": 6,
+          "col": 54
+        },
+        "text": "GDP vs Life Expectancy (2007)"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 25
+        },
+        "end": {
+          "line": 6,
+          "col": 44
+        },
+        "text": "GDP vs 平均余命 (2007年)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 40
+        },
+        "end": {
+          "line": 7,
+          "col": 60
+        },
+        "text": "GDP per capita (log)"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 40
+        },
+        "end": {
+          "line": 7,
+          "col": 53
+        },
+        "text": "1人当たり GDP（対数）"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 75
+        },
+        "end": {
+          "line": 7,
+          "col": 90
+        },
+        "text": "Life Expectancy"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 68
+        },
+        "end": {
+          "line": 7,
+          "col": 72
+        },
+        "text": "平均余命"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 9,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 54
+        },
+        "text": "Life expectancy distribution by continent (boxplot)"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 20
+        },
+        "text": "大陸別の平均余命の分布（箱ひげ図）"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 9,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 17
+        },
+        "end": {
+          "line": 5,
+          "col": 45
+        },
+        "text": "Life Expectancy by Continent"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 17
+        },
+        "end": {
+          "line": 5,
+          "col": 25
+        },
+        "text": "大陸別の平均余命"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 9,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 17
+        },
+        "end": {
+          "line": 6,
+          "col": 26
+        },
+        "text": "Continent"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 17
+        },
+        "end": {
+          "line": 6,
+          "col": 19
+        },
+        "text": "大陸"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 9,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 37
+        },
+        "end": {
+          "line": 6,
+          "col": 60
+        },
+        "text": "Life Expectancy (years)"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 30
+        },
+        "end": {
+          "line": 6,
+          "col": 37
+        },
+        "text": "平均余命（年）"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 10,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 65
+        },
+        "text": "Top 10 countries by life expectancy improvement (1952 vs 2007)"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 33
+        },
+        "text": "平均余命の改善上位10か国 (1952年 vs 2007年)"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 10,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 12,
+          "col": 17
+        },
+        "end": {
+          "line": 12,
+          "col": 57
+        },
+        "text": "Top 10: Life Expectancy Gain (1952-2007)"
+      },
+      "target_span": {
+        "start": {
+          "line": 12,
+          "col": 17
+        },
+        "end": {
+          "line": 12,
+          "col": 45
+        },
+        "text": "上位10か国: 平均余命の伸び (1952-2007年)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 10,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 13,
+          "col": 17
+        },
+        "end": {
+          "line": 13,
+          "col": 29
+        },
+        "text": "Years gained"
+      },
+      "target_span": {
+        "start": {
+          "line": 13,
+          "col": 17
+        },
+        "end": {
+          "line": 13,
+          "col": 22
+        },
+        "text": "伸びた年数"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 12,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 9
+        },
+        "end": {
+          "line": 2,
+          "col": 27
+        },
+        "text": "Shape: "
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 9
+        },
+        "end": {
+          "line": 2,
+          "col": 24
+        },
+        "text": "形状: "
+      },
+      "placeholders": [
+        "{who.shape}"
+      ]
+    },
+    {
+      "cell_index": 12,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 9
+        },
+        "end": {
+          "line": 3,
+          "col": 37
+        },
+        "text": "Columns: "
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 9
+        },
+        "end": {
+          "line": 3,
+          "col": 31
+        },
+        "text": "列: "
+      },
+      "placeholders": [
+        "{list(who.columns)}"
+      ]
+    },
+    {
+      "cell_index": 12,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 9
+        },
+        "end": {
+          "line": 4,
+          "col": 34
+        },
+        "text": "\\nMissing values (top 5):"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 9
+        },
+        "end": {
+          "line": 4,
+          "col": 21
+        },
+        "text": "\\n欠損値（上位5件）:"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 68
+        },
+        "text": "Developing vs Developed: pre-binned life expectancy distributions"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 33
+        },
+        "text": "開発途上国 vs 先進国: 事前ビン分割された平均余命の分布"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 82
+        },
+        "text": "Explicit bar coordinates render consistently through the browser Plotly bridge."
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 49
+        },
+        "text": "明示的な棒グラフ座標により、ブラウザの Plotly ブリッジ経由でも一貫して描画されます。"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 19,
+          "col": 21
+        },
+        "end": {
+          "line": 19,
+          "col": 61
+        },
+        "text": "Life Expectancy: Developing vs Developed"
+      },
+      "target_span": {
+        "start": {
+          "line": 19,
+          "col": 21
+        },
+        "end": {
+          "line": 19,
+          "col": 39
+        },
+        "text": "平均余命: 開発途上国 vs 先進国"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 20,
+          "col": 42
+        },
+        "end": {
+          "line": 20,
+          "col": 65
+        },
+        "text": "Life Expectancy (years)"
+      },
+      "target_span": {
+        "start": {
+          "line": 20,
+          "col": 42
+        },
+        "end": {
+          "line": 20,
+          "col": 49
+        },
+        "text": "平均余命（年）"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 31
+        },
+        "text": "Schooling vs Life Expectancy"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 15
+        },
+        "text": "就学年数 vs 平均余命"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 25
+        },
+        "end": {
+          "line": 5,
+          "col": 60
+        },
+        "text": "Schooling vs Life Expectancy (2014)"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 25
+        },
+        "end": {
+          "line": 5,
+          "col": 45
+        },
+        "text": "就学年数 vs 平均余命 (2014年)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 46
+        },
+        "end": {
+          "line": 6,
+          "col": 69
+        },
+        "text": "Life Expectancy (years)"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 46
+        },
+        "end": {
+          "line": 6,
+          "col": 53
+        },
+        "text": "平均余命（年）"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 40
+        },
+        "end": {
+          "line": 7,
+          "col": 58
+        },
+        "text": "Years of Schooling"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 40
+        },
+        "end": {
+          "line": 7,
+          "col": 44
+        },
+        "text": "就学年数"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 6
+        },
+        "end": {
+          "line": 3,
+          "col": 18
+        },
+        "text": "\\nCountries:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 6
+        },
+        "end": {
+          "line": 3,
+          "col": 11
+        },
+        "text": "\\n国数:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 6
+        },
+        "end": {
+          "line": 4,
+          "col": 19
+        },
+        "text": "\\nYear range:"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 6
+        },
+        "end": {
+          "line": 4,
+          "col": 13
+        },
+        "text": "\\n年の範囲:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 17,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 50
+        },
+        "text": "Correlation: Adult Mortality vs Life Expectancy"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 20
+        },
+        "text": "相関: 成人死亡率 vs 平均余命"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 17,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 14
+        },
+        "end": {
+          "line": 7,
+          "col": 48
+        },
+        "text": "Adult Mortality vs Life Expectancy"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 14
+        },
+        "end": {
+          "line": 7,
+          "col": 27
+        },
+        "text": "成人死亡率 vs 平均余命"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 17,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 8,
+          "col": 14
+        },
+        "end": {
+          "line": 8,
+          "col": 40
+        },
+        "text": "Adult Mortality (per 1000)"
+      },
+      "target_span": {
+        "start": {
+          "line": 8,
+          "col": 14
+        },
+        "end": {
+          "line": 8,
+          "col": 29
+        },
+        "text": "成人死亡率（1000人当たり）"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 17,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 9,
+          "col": 14
+        },
+        "end": {
+          "line": 9,
+          "col": 37
+        },
+        "text": "Life Expectancy (years)"
+      },
+      "target_span": {
+        "start": {
+          "line": 9,
+          "col": 14
+        },
+        "end": {
+          "line": 9,
+          "col": 21
+        },
+        "text": "平均余命（年）"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 17,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 10,
+          "col": 32
+        },
+        "end": {
+          "line": 10,
+          "col": 41
+        },
+        "text": "Developed"
+      },
+      "target_span": {
+        "start": {
+          "line": 10,
+          "col": 32
+        },
+        "end": {
+          "line": 10,
+          "col": 35
+        },
+        "text": "先進国"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 17,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 10,
+          "col": 45
+        },
+        "end": {
+          "line": 10,
+          "col": 55
+        },
+        "text": "Developing"
+      },
+      "target_span": {
+        "start": {
+          "line": 10,
+          "col": 39
+        },
+        "end": {
+          "line": 10,
+          "col": 44
+        },
+        "text": "開発途上国"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 18,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 54
+        },
+        "text": "Simple linear model: what predicts life expectancy?"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 25
+        },
+        "text": "単純線形モデル: 平均余命の予測因子は何か？"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    }
+  ],
+  "exclusions": [
+    {
+      "cell_index": 2,
+      "reason": "unstable across identical English runs — pin (seed/clock) or accept exclusion",
+      "sample_a": "Installed pandas + plotly\nAlready exists: /shared/data/gapminder.csv\nDownloaded who_life_expectancy.csv: 2939 lines\n",
+      "sample_b": "Installed pandas + plotly\nAlready exists: /shared/data/gapminder.csv\nAlready exists: /shared/data/who_life_expectancy.csv\n"
+    }
+  ]
+}

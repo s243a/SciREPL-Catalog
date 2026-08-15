@@ -1,0 +1,431 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T17:28:02.632Z",
+  "notebook": {
+    "id": "default",
+    "name": "أنماط العودية المتقدمة في UnifyWeaver",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "prolog",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 46,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# أنماط العودية المتقدمة في UnifyWeaver\n\nيوضح هذا الدفتر من دفاتر الملاحظات أنماط العودية الأربعة الرئيسية التي يمكن لـ UnifyWeaver اكتشافها وتحسينها:\n\n1. **عودية الذيل (Tail Recursion)** - حلقات تكرارية باستخدام مجمعات القيمة (accumulators)\n2. **العودية الخطية (Linear Recursion)** - استدعاء عودي واحد مع الحفظ في الذاكرة (memoization)\n3. **العودية الشجرية (Tree Recursion)** - استدعاءات عودية متعددة على أجزاء الهيكل\n4. **العودية المتبادلة (Mutual Recursion)** - محددات تستدعي بعضها البعض في دورات\n\n## الأهداف التعليمية\n\n- فهم أنماط العودية المختلفة\n- معرفة كيف يكتشف UnifyWeaver كل نمط ويحسنه\n- مقارنة خصائص الأداء\n- معرفة متى تستخدم كل نمط",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "## الإعداد\n\nتهيئة بيئة UnifyWeaver.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 3,
+        "code": "% تحميل التهيئة\n['../init'].\n\n% تحميل الوحدات النمطية اللازمة\nuse_module(unifyweaver(core/recursive_compiler)).\nuse_module(unifyweaver(core/advanced/pattern_matchers)).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
+      },
+      {
+        "id": 4,
+        "code": "## النمط 1: عودية الذيل (Tail Recursion)\n\nتستخدم عودية الذيل مجمعًا (accumulator) لنقل النتائج الوسيطة، ويكون الاستدعاء العودي هو **الإجراء الأخير** في الدالة.\n\n### مثال: عد العناصر في قائمة",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 5,
+        "code": "% تعريف count_items بعودية الذيل\n:- dynamic count_items/3.\n\n% الحالة الأساسية: قائمة فارغة، إرجاع المجمع\ncount_items([], Acc, Acc).\n\n% الحالة العودية: زيادة المجمع، وتطبيق العودية على الذيل\ncount_items([_|T], Acc, N) :-\n    Acc1 is Acc + 1,\n    count_items(T, Acc1, N).  % ← موضع الذيل!",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 6,
+        "code": "### الاختبار في Prolog",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 7,
+        "code": "% اختبار: عد العناصر في [a,b,c,d,e]\n\\+ \\+ (\n    count_items([a,b,c,d,e], 0, _N),\n    format('Count: ~w~n', [_N])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Count: 5",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Count: 5</pre>"
+      },
+      {
+        "id": 8,
+        "code": "### التحقق من اكتشاف النمط",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 9,
+        "code": "% التحقق مما إذا تم اكتشافها كعودية ذيل\n\\+ \\+ (\n    is_tail_recursive_accumulator(count_items/3, _AccInfo),\n    format('Tail recursive: ~w~n', [_AccInfo])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: is_tail_recursive_accumulator/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: is_tail_recursive_accumulator/2</pre>"
+      },
+      {
+        "id": 10,
+        "code": "### التجميع إلى Bash",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 11,
+        "code": "% تجميع وحفظ\n\\+ \\+ (\n    compile_recursive(count_items/3, [], _BashCode),\n    setup_call_cleanup(\n        open('../output/count_items_demo.sh', write, _Stream),\n        write(_Stream, _BashCode),\n        close(_Stream)),\n    writeln('✓ Compiled count_items to Bash with tail recursion optimization')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: compile_recursive/3</pre>"
+      },
+      {
+        "id": 12,
+        "code": "### اختبار كود Bash المولد",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 13,
+        "code": "source ../output/count_items_demo.sh\necho \"عد العناصر في [a,b,c,d,e]:\"\ncount_items \"[a,b,c,d,e]\" 0 \"\"",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "عد العناصر في [a,b,c,d,e]:\nerror: source: failed to source file: ../output/count_items_demo.sh\nerror: failed to execute command 'count_items': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">عد العناصر في [a,b,c,d,e]:\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/count_items_demo.sh\nerror: failed to execute command 'count_items': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 14,
+        "code": "## النمط 2: العودية الخطية (Linear Recursion)\n\nتحتوي العودية الخطية على استدعاء عودي **واحد فقط** لكل بند، مع حدوث العمليات الحسابية بعد عودة الاستدعاء العودي.\n\n### مثال: العاملي (Factorial)",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 15,
+        "code": "% تعريف المضروب (factorial)\n:- dynamic factorial/2.\n\n% الحالة الأساسية\nfactorial(0, 1).\n\n% الحالة العودية: استدعاء عودي واحد فقط\nfactorial(N, F) :-\n    N > 0,\n    N1 is N - 1,\n    factorial(N1, F1),  % ← استدعاء عودي واحد\n    F is N * F1.        % ← العمليات الحسابية بعد الاستدعاء",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 16,
+        "code": "### الاختبار في Prolog",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 17,
+        "code": "% اختبار: مضروب 5\n\\+ \\+ (\n    factorial(5, _F),\n    format('5! = ~w~n', [_F])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "5! = 120",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">5! = 120</pre>"
+      },
+      {
+        "id": 18,
+        "code": "### التحقق من اكتشاف النمط",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 19,
+        "code": "% التحقق مما إذا تم اكتشافها كعودية خطية\nis_linear_recursive_streamable(factorial/2),\nwriteln('✓ Detected as linear recursion').",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: is_linear_recursive_streamable/1",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: is_linear_recursive_streamable/1</pre>"
+      },
+      {
+        "id": 20,
+        "code": "### التجميع إلى Bash",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 21,
+        "code": "% تجميع وحفظ\n\\+ \\+ (\n    compile_recursive(factorial/2, [], _BashCode),\n    % الاحتفاظ بتعريفات الدوال فقط؛ حيث يتعامل Brush مع السكربتات المستوردة عبر source كتنفيذ مباشر\n    split_string(_BashCode, \"\\n\", \"\\r\", _BashLines),\n    append(_LibraryLines, [\"# Auto-execute when run directly (not when sourced)\"|_], _BashLines),\n    atomics_to_string(_LibraryLines, \"\\n\", _LibraryCode),\n    setup_call_cleanup(\n        open('../output/factorial_demo.sh', write, _Stream),\n        write(_Stream, _LibraryCode),\n        close(_Stream)),\n    writeln('✓ Compiled factorial to Bash with fold-based linear recursion')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: compile_recursive/3</pre>"
+      },
+      {
+        "id": 22,
+        "code": "### اختبار كود Bash المولد",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 23,
+        "code": "source ../output/factorial_demo.sh\necho \"مضروب 5:\"\nfactorial 5 \"\"\necho \"\"\necho \"مضروب 10:\"\nfactorial 10 \"\"",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "مضروب 5:\n\nمضروب 10:\nerror: source: failed to source file: ../output/factorial_demo.sh\nerror: failed to execute command 'factorial': operation not supported on this platform\nerror: failed to execute command 'factorial': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">مضروب 5:\n\nمضروب 10:\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/factorial_demo.sh\nerror: failed to execute command 'factorial': operation not supported on this platform\nerror: failed to execute command 'factorial': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 24,
+        "code": "## النمط 3: العودية الشجرية (Tree Recursion)\n\nتُجري العودية الشجرية استدعاءات عودية **متعددة** لمعالجة أجزاء مختلفة من الهيكل البرمجي.\n\n### مثال: مجموع الشجرة (Tree Sum)",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 25,
+        "code": "% تعريف tree_sum للأشجار الثنائية\n% تنسيق الشجرة: [القيمة, الشجرة_الفرعية_اليسرى, الشجرة_الفرعية_اليمنى] أو []\n:- dynamic tree_sum/2.\n\n% الحالة الأساسية: الشجرة الفارغة مجموعها 0\ntree_sum([], 0).\n\n% الحالة العودية: المجموع = القيمة + مجموع_اليسار + مجموع_اليمين\ntree_sum([V, L, R], Sum) :-\n    tree_sum(L, LS),   % ← الاستدعاء العودي الأول\n    tree_sum(R, RS),   % ← الاستدعاء العودي الثاني\n    Sum is V + LS + RS.",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 26,
+        "code": "### الاختبار في Prolog",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 27,
+        "code": "% اختبار: tree_sum لـ [5, [3, [1, [], []], []], [2, [], []]]\n%       5\n%      / \\\n%     3   2\n%    /\n%   1\n\\+ \\+ (\n    tree_sum([5, [3, [1, [], []], []], [2, [], []]], _Sum),\n    format('Tree sum: ~w (expected 11)~n', [_Sum])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Tree sum: 11 (expected 11)",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Tree sum: 11 (expected 11)</pre>"
+      },
+      {
+        "id": 28,
+        "code": "### التجميع إلى Bash",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 29,
+        "code": "% تجميع وحفظ\n\\+ \\+ (\n    compile_recursive(tree_sum/2, [], _BashCode),\n    setup_call_cleanup(\n        open('../output/tree_sum_demo.sh', write, _Stream),\n        write(_Stream, _BashCode),\n        close(_Stream)),\n    writeln('✓ Compiled tree_sum to Bash with tree recursion')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: compile_recursive/3</pre>"
+      },
+      {
+        "id": 30,
+        "code": "### اختبار كود Bash المولد",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 31,
+        "code": "source ../output/tree_sum_demo.sh\necho \"مجموع الشجرة لـ [5,[3,[1,[],[]],[]],[2,[],[]]]:\"\ntree_sum \"[5,[3,[1,[],[]],[]],[2,[],[]]]\"",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "مجموع الشجرة لـ [5,[3,[1,[],[]],[]],[2,[],[]]]:\nerror: source: failed to source file: ../output/tree_sum_demo.sh\nerror: failed to execute command 'tree_sum': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">مجموع الشجرة لـ [5,[3,[1,[],[]],[]],[2,[],[]]]:\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/tree_sum_demo.sh\nerror: failed to execute command 'tree_sum': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 32,
+        "code": "## النمط 4: العودية المتبادلة (Mutual Recursion)\n\nتحدث العودية المتبادلة عندما يستدعي محددان أو أكثر بعضهما البعض في دورة متكررة.\n\n### مثال: الزوجي (Even) والفردي (Odd)",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 33,
+        "code": "% تعريف is_even و is_odd بالعودية المتبادلة\n:- dynamic is_even/1.\n:- dynamic is_odd/1.\n\n% الحالة الأساسية لـ is_even\nis_even(0).\n\n% is_even العودية: N زوجي إذا كان N-1 فرديًا\nis_even(N) :-\n    N > 0,\n    N1 is N - 1,\n    is_odd(N1).  % ← يستدعي is_odd\n\n% الحالة الأساسية لـ is_odd\nis_odd(1).\n\n% is_odd العودية: N فردي إذا كان N-1 زوجيًا\nis_odd(N) :-\n    N > 1,\n    N1 is N - 1,\n    is_even(N1).  % ← يستدعي is_even",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 34,
+        "code": "### الاختبار في Prolog",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 35,
+        "code": "% اختبار زوجي/فردي\nis_even(0), writeln('✓ 0 is even').\nis_even(4), writeln('✓ 4 is even').\nis_odd(3), writeln('✓ 3 is odd').\nis_odd(7), writeln('✓ 7 is odd').",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "✓ 0 is even\n✓ 4 is even\n✓ 3 is odd\n✓ 7 is odd",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">✓ 0 is even\n✓ 4 is even\n✓ 3 is odd\n✓ 7 is odd</pre>"
+      },
+      {
+        "id": 36,
+        "code": "### التحقق من العودية المتبادلة",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 37,
+        "code": "% بناء مخطط الاستدعاء والبحث عن SCCs\n\\+ \\+ (\n    use_module(unifyweaver(core/advanced/call_graph)),\n    use_module(unifyweaver(core/advanced/scc_detection)),\n\n    build_call_graph([is_even/1, is_odd/1], _Graph),\n    format('Call graph: ~w~n', [_Graph]),\n\n    find_sccs(_Graph, _SCCs),\n    format('SCCs (mutual recursion groups): ~w~n', [_SCCs])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "source_sink `unifyweaver(core/advanced/call_graph)' does not exist",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">source_sink `unifyweaver(core/advanced/call_graph)' does not exist</pre>"
+      },
+      {
+        "id": 38,
+        "code": "### التجميع إلى Bash",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 39,
+        "code": "% تجميع مجموعة العودية المتبادلة\n\\+ \\+ (\n    use_module(unifyweaver(core/advanced/mutual_recursion)),\n\n    compile_mutual_recursion([is_even/1, is_odd/1], [], _BashCode),\n    split_string(_BashCode, \"\\n\", \"\\r\", _BashLines),\n    append(_LibraryLines, [\"# Main dispatch: route command line calls to functions\"|_], _BashLines),\n    atomics_to_string(_LibraryLines, \"\\n\", _LibraryCode),\n    setup_call_cleanup(\n        open('../output/even_odd_demo.sh', write, _Stream),\n        write(_Stream, _LibraryCode),\n        close(_Stream)),\n    writeln('✓ Compiled is_even/is_odd to Bash with shared memoization')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 40,
+        "code": "### اختبار كود Bash المولد",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 41,
+        "code": "source ../output/even_odd_demo.sh\necho \"اختبار is_even و is_odd:\"\nis_even 0 >/dev/null && echo \"✓ 0 زوجي\"\nis_even 4 >/dev/null && echo \"✓ 4 زوجي\"\nis_odd 3 >/dev/null && echo \"✓ 3 فردي\"\nis_odd 7 >/dev/null && echo \"✓ 7 فردي\"\nis_even 5 >/dev/null 2>&1 || echo \"✓ 5 ليس زوجيًا\"",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "اختبار is_even و is_odd:\n✓ 5 ليس زوجيًا\nerror: source: failed to source file: ../output/even_odd_demo.sh\nerror: failed to execute command 'is_even': operation not supported on this platform\nerror: failed to execute command 'is_even': operation not supported on this platform\nerror: failed to execute command 'is_odd': operation not supported on this platform\nerror: failed to execute command 'is_odd': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">اختبار is_even و is_odd:\n✓ 5 ليس زوجيًا\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/even_odd_demo.sh\nerror: failed to execute command 'is_even': operation not supported on this platform\nerror: failed to execute command 'is_even': operation not supported on this platform\nerror: failed to execute command 'is_odd': operation not supported on this platform\nerror: failed to execute command 'is_odd': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 42,
+        "code": "## مقارنة الأنماط\n\nدعنا نقارن خصائص كل نمط:\n\n| النمط | الاستدعاءات العودية | التحسين | التعقيد المكاني | الأفضل لـ |\n|:--------|:----------------|:-------------|:-----------------|:---------|\n| **عودية الذيل** | 1 (في موضع الذيل) | حلقة تكرارية | O(1) | المجمعات، المسح الخطي |\n| **العودية الخطية** | 1 (في أي موضع) | طي (Fold) + حفظ في الذاكرة | O(n) لجدول الحفظ | فيبوناتشي، العاملي |\n| **العودية الشجرية** | 2+ (على أجزاء الهيكل) | التفكيك الهيكلي | O(depth) لحجم المكدس | عمليات الأشجار والرسوم البيانية |\n| **العودية المتبادلة** | 1+ (عبر المحددات) | حفظ مشترك في الذاكرة | O(n) للجدول المشترك | زوجي/فردي، التعريفات المتبادلة |",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 43,
+        "code": "## ترتيب اكتشاف الأنماط\n\nيحاول UnifyWeaver مطابقة الأنماط بهذا الترتيب:\n\n1. **عودية الذيل** (الأكثر كفاءة)\n2. **العودية الخطية** (ما لم تكن محظورة)\n3. **العودية الشجرية** (الهيكلية)\n4. **العودية المتبادلة** (اكتشاف المكونات شديدة الترابط SCC)\n5. **العودية الأساسية** (البديل التلقائي)\n\nيمكنك التأثير على عملية الاكتشاف باستخدام `forbid_linear_recursion/1`.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 44,
+        "code": "## تمرين: دورك الآن!\n\nجرب تعريف هذه المحددات وتجميعها:\n\n### 1. مجموع القائمة بعودية الذيل\n```prolog\nsum_list([], Acc, Acc).\nsum_list([H|T], Acc, Sum) :-\n    Acc1 is Acc + H,\n    sum_list(T, Acc1, Sum).\n```\n\n### 2. فيبوناتشي بالعودية الخطية\n```prolog\nfib(0, 0).\nfib(1, 1).\nfib(N, F) :-\n    N > 1,\n    N1 is N - 1,\n    N2 is N - 2,\n    fib(N1, F1),\n    fib(N2, F2),\n    F is F1 + F2.\n```\n\n### 3. ارتفاع الشجرة\n```prolog\ntree_height([], 0).\ntree_height([_, L, R], H) :-\n    tree_height(L, HL),\n    tree_height(R, HR),\n    H is max(HL, HR) + 1.\n```",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 45,
+        "code": "% كودك هنا!\n",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 46,
+        "code": "## الملخص\n\nفي هذا الدفتر، تعلمت:\n\n✅ أنماط العودية الأربعة الرئيسية في UnifyWeaver\n\n✅ كيفية تعريف كل نمط في Prolog\n\n✅ كيف يكتشف UnifyWeaver كل نمط ويحسنه\n\n✅ خصائص الأداء لكل نمط\n\n✅ متى تستخدم كل نمط\n\n## الخطوات التالية\n\nتابع إلى **دفتر الملاحظات 3: العرض المرئي لرسم الاستدعاءات** للتعرف على التحليل البرمجي المتقدم والعرض المرئي!",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      }
+    ]
+  }
+}

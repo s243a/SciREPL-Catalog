@@ -11,19 +11,19 @@
       },
       {
         "type": "code",
-        "code": "% Load UnifyWeaver compiler modules\n['../init'].\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "code": "% % Charger les modules du compilateur UnifyWeaver\n['../init'].\n:- use_module(unifyweaver(core/recursive_compiler)).",
         "language": "prolog",
         "name": "load_compiler"
       },
       {
         "type": "code",
-        "code": "% Define a family tree as Prolog facts\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% Transitive closure: ancestor(X, Y) if X is an ancestor of Y\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "code": "% % Définir un arbre généalogique sous forme de faits Prolog\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% % Clôture transitive : ancestor(X, Y) si X est un ancêtre de Y\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
         "language": "prolog",
         "name": "family_tree"
       },
       {
         "type": "code",
-        "code": "#!source\n-- This named Lua source cell is read by both compiler cells.\n-- It is appended to each generated program and executes there.\n\n-- --- Queries ---\nlocal results = find_all(\"alice\")\nprint(\"Descendants of alice: \" .. table.concat(results, \", \"))\nprint(\"alice -> eve: \" .. tostring(check(\"alice\", \"eve\")))\nprint(\"alice -> frank: \" .. tostring(check(\"alice\", \"frank\")))",
+        "code": "#!source\n-- -- Cette cellule source Lua nommée est lue par les deux cellules du compilateur.\n-- -- Elle est ajoutée à chaque programme généré et s'y exécute.\n\n-- -- --- Requêtes ---\nlocal results = find_all(\"alice\")\nprint(\"Descendants d'alice : \" .. table.concat(results, \", \"))\nprint(\"alice -> eve (ancêtre ?) : \" .. tostring(check(\"alice\", \"eve\")))\nprint(\"alice -> frank (ancêtre ?) : \" .. tostring(check(\"alice\", \"frank\")))",
         "language": "lua",
         "name": "lua_queries"
       },
@@ -34,7 +34,7 @@
       },
       {
         "type": "code",
-        "code": "% Read the highlighted Lua query program from its named source cell\n\\+ \\+ (\n    user:nb_read('lua_queries', '.code', _QuerySource),\n    split_string(_QuerySource, \"\\n\", \"\\r\", [\"#!source\"|_QueryLines]),\n    atomics_to_string(_QueryLines, \"\\n\", _Queries),\n\n    % Compile with input(embedded) — facts baked into the code\n    recursive_compiler:compile_recursive(ancestor/2, [target(lua), input(embedded)], _Code),\n    format(string(_FullCode), '~w~n~n~w~n', [_Code, _Queries]),\n    user:nb_write('lua_embedded', '.code', _FullCode),\n    writeln('Lua code (embedded) written to cell: lua_embedded')\n).",
+        "code": "% % Lire le programme de requête Lua mis en évidence depuis sa cellule source nommée\n\\+ \\+ (\n    user:nb_read('lua_queries', '.code', _QuerySource),\n    split_string(_QuerySource, \"\\n\", \"\\r\", [\"#!source\"|_QueryLines]),\n    atomics_to_string(_QueryLines, \"\\n\", _Queries),\n\n    % % Compiler avec input(embedded) — faits intégrés dans le code\n    recursive_compiler:compile_recursive(ancestor/2, [target(lua), input(embedded)], _Code),\n    format(string(_FullCode), '~w~n~n~w~n', [_Code, _Queries]),\n    user:nb_write('lua_embedded', '.code', _FullCode),\n    writeln('Lua code (embedded) written to cell: lua_embedded')\n).",
         "language": "prolog",
         "name": "compile_embedded"
       },
@@ -51,13 +51,13 @@
       },
       {
         "type": "code",
-        "code": "-- Data cell: facts in from:to format (one per line)\n-- The VFS-compiled cell reads this via nb.read(\"facts_data\", \".code\")\n--[[\nalice:bob\nbob:charlie\nbob:diana\ncharlie:eve\ndiana:frank\n]]",
+        "code": "-- -- Cellule de données : faits au format from:to (un par ligne)\n-- -- La cellule compilée par VFS lit ceci via nb.read(\"facts_data\", \".code\")\n--[[\nalice:bob\nbob:charlie\nbob:diana\ncharlie:eve\ndiana:frank\n]]",
         "language": "lua",
         "name": "facts_data"
       },
       {
         "type": "code",
-        "code": "% Read the same highlighted Lua query program\n\\+ \\+ (\n    user:nb_read('lua_queries', '.code', _QuerySource),\n    split_string(_QuerySource, \"\\n\", \"\\r\", [\"#!source\"|_QueryLines]),\n    atomics_to_string(_QueryLines, \"\\n\", _Queries),\n\n    % Compile with input(vfs(facts_data)) — reads from the cell above\n    recursive_compiler:compile_recursive(ancestor/2, [target(lua), input(vfs(facts_data, '.code'))], _Code),\n    format(string(_FullCode), '~w~n~n~w~n', [_Code, _Queries]),\n    user:nb_write('lua_vfs', '.code', _FullCode),\n    writeln('Lua code (VFS) written to cell: lua_vfs')\n).",
+        "code": "% % Lire le même programme de requête Lua mis en évidence\n\\+ \\+ (\n    user:nb_read('lua_queries', '.code', _QuerySource),\n    split_string(_QuerySource, \"\\n\", \"\\r\", [\"#!source\"|_QueryLines]),\n    atomics_to_string(_QueryLines, \"\\n\", _Queries),\n\n    % % Compiler avec input(vfs(facts_data)) — lit depuis la cellule ci-dessus\n    recursive_compiler:compile_recursive(ancestor/2, [target(lua), input(vfs(facts_data, '.code'))], _Code),\n    format(string(_FullCode), '~w~n~n~w~n', [_Code, _Queries]),\n    user:nb_write('lua_vfs', '.code', _FullCode),\n    writeln('Lua code (VFS) written to cell: lua_vfs')\n).",
         "language": "prolog",
         "name": "compile_vfs"
       },
@@ -74,7 +74,7 @@
       },
       {
         "type": "code",
-        "code": "local query_source = nb.read(\"lua_queries\", \".code\")\nassert(query_source ~= nil)\nlocal note = \"-- Written from Lua after reading lua_queries (\" .. tostring(#query_source) .. \" characters)\"\nassert(nb.write(\"lua_written\", \".code\", note))\nprint(\"Lua read lua_queries and wrote lua_written\")",
+        "code": "local query_source = nb.read(\"lua_queries\", \".code\")\nassert(query_source ~= nil)\nlocal note = \"-- Écrit depuis Lua après lecture de lua_queries (\" .. tostring(#query_source) .. \" caractères)\"\nassert(nb.write(\"lua_written\", \".code\", note))\nprint(\"Lua a lu lua_queries et a écrit lua_written\")",
         "language": "lua",
         "name": "lua_cell_io"
       },

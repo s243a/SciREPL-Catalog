@@ -1,0 +1,98 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T15:38:03.049Z",
+  "notebook": {
+    "id": "default",
+    "name": "Prolog يولد ClojureScript: عرض توضيحي للمترجم",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "python",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 9,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# Prolog يولد ClojureScript\n\nيوضح هذا المصنف كيف يترجم UnifyWeaver محددات Prolog إلى **ClojureScript**، ثم يشغل النتيجة في المتصفح عبر نواة Scittle.\n\nسير العمل:\n1. تعريف محددات Prolog (حقائق + قواعد)\n2. يكتشف UnifyWeaver نمط العودية (الانغلاق المتعدي)\n3. يولد هدف ClojureScript كود CLJS قابل للتشغيل في المتصفح (بحث بالاتساع BFS عبر خريطة `atom`، وحقائق مضمنة، دون توافقية مع JVM)\n4. كتابة التعريفات المولدة في خلية ClojureScript مخصصة ومميزة لونيًا\n5. تنفيذ خلية الاستعلام المستقلة والمميزة لونيًا مقابل سياق Scittle الدائم\n\nيقوم الكتالوج بتثبيت حزمة **UnifyWeaver SciREPL** المطلوبة تلقائيًا مع هذا المصنف.\n\n**خاصية ممتازة:** على عكس العرض التوضيحي لـ TypR، فإن حالة ClojureScript *تستمر عبر الخلايا* — حيث يحتفظ Scittle بسياق SCI واحد لكل صفحة — وبالتالي تظل التعريفات والاستعلامات المولدة مفصولة بشكل نظيف.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "% تحميل وحدات مترجم UnifyWeaver\n['../init'].\n:- use_module(unifyweaver(targets/clojurescript_target)).\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "type": "code",
+        "language": "prolog",
+        "name": "load_compiler",
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
+      },
+      {
+        "id": 3,
+        "code": "% تعريف شجرة العائلة كحقائق Prolog\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% الانغلاق المتعدي: ancestor(X, Y) إذا كان X سلفًا لـ Y\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "type": "code",
+        "language": "prolog",
+        "name": "family_tree",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 4,
+        "code": "% تجميع ancestor/2 إلى تعريفات ClojureScript فقط\n\\+ \\+ (\n    recursive_compiler:compile_recursive(ancestor/2, [target(clojurescript)], _Code),\n    format('--- Generated ClojureScript code ---~n~w~n', [_Code]),\n    % الإنهاء بـ nil حتى لا تصبح تعبيرات البذار المولدة مخرجات لدفتر الملاحظات\n    format(string(_Definitions), '~w~n~nnil~n', [_Code]),\n    user:nb_write('cljs_output', '.code', _Definitions),\n    writeln('ClojureScript definitions written to cell: cljs_output')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "compile_to_clojurescript",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
+      },
+      {
+        "id": 5,
+        "code": "## كود ClojureScript المولد\n\nتحتوي الخلية أدناه على تعريفات ClojureScript المولدة بواسطة UnifyWeaver فقط.\nوهي تتضمن:\n- `(def base-relation (atom {}))` — العلاقة كخريطة قابلة للتعديل\n- `find-all` / `check-path` — البحث بالاتساع (BFS) عبر العلاقة\n- استدعاءات البذار `(add-fact ...)` المضمنة من حقائق Prolog\n- التوافق مع بيئة مضيف JS فقط (بدون `java.io` أو `System/exit` أو `*command-line-args*`)\n\nتقوم الخلية المميزة لونيًا التالية بالاستعلام عن هذه التعريفات الدائمة.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 6,
+        "code": ";;; سيتم ملء هذه الخلية بواسطة المترجم.\n;;; قم بتشغيل خلية 'compile_to_clojurescript' أعلاه أولاً.",
+        "type": "code",
+        "language": "clojurescript",
+        "name": "cljs_output",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 7,
+        "code": ";;; استعلام التعريفات المولدة في سياق Scittle الدائم.\n(print (str \"ذرية alice: \" (pr-str (sort (find-all \"alice\"))) \"\\n\"\n            \"alice هي سلف لـ eve: \" (check-path \"alice\" \"eve\") \"\\n\"\n            \"alice هي سلف لـ frank: \" (check-path \"alice\" \"frank\") \"\\n\"))",
+        "type": "code",
+        "language": "clojurescript",
+        "name": "cljs_queries",
+        "lastOutput": "Could not resolve symbol: find-all",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Could not resolve symbol: find-all</pre>"
+      },
+      {
+        "id": 8,
+        "code": "## مقارنة: المحدد ذاته، هدف JVM Clojure\n\nيمكن لـ UnifyWeaver تجميع المحدد ذاته إلى Clojure الخاص بـ JVM. يقرأ ذلك الناتج الحقائق من الإدخال القياسي (stdin) ويستخدم `System/exit` — وهو أمر ممتاز في بيئة مضيف JVM/Node، لكنه غير قابل للتشغيل مباشرة في المتصفح، وهذا تحديدًا سبب وجود هدف ClojureScript (فهو يعيد كتابة توافقية المضيف من JVM إلى JS).",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 9,
+        "code": "% تجميع المحدد ذاته إلى JVM Clojure للمقارنة (للعرض فقط)\n\\+ \\+ (\n    recursive_compiler:compile_recursive(ancestor/2, [target(clojure)], _ClojureCode),\n    format('--- Generated JVM Clojure code (note java.io / *command-line-args*) ---~n~w~n', [_ClojureCode])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "compile_to_clojure",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
+      }
+    ]
+  }
+}

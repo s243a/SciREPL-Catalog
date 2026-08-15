@@ -1,0 +1,116 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T15:53:03.345Z",
+  "notebook": {
+    "id": "default",
+    "name": "Prolog 生成 TypR：编译器演示",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "python",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 11,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# Prolog 生成 TypR\n\n本工作簿演示了 UnifyWeaver 如何将 Prolog 谓词编译为 **TypR** — R 语言的类型化超集。\n\n工作流程：\n1. 在命名单元格 `family_tree` 中定义 Prolog 谓词（事实 + 规则）\n2. 在命名高亮源单元格 `typr_queries` 中定义查询程序\n3. 通过 Notebook VFS 读取这两个单元格\n4. UnifyWeaver 检测递归模式（传递闭包）\n5. 编译器生成带有 `let`、`fn` 和类型注解的类型化 TypR 代码\n6. 追加命名查询并在 TypR 内核中运行完整程序\n\n将源程序保留在命名单元格中可以维持语法高亮，并避免将它们嵌入 Prolog 字符串中。\n\n目录会自动随本工作簿安装所需的 **UnifyWeaver SciREPL** 软件包。\n\n**局限性：** TypR 单元格之间是相互隔离的。指令 `#!source` 会在执行**运行全部** (Run All) 时将 `typr_queries` 作为不执行的源码片段保留；`compile_to_typr` 会在写入 `typr_output` 之前将其追加到生成的定义之后。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "% 加载 UnifyWeaver 编译器模块\n['../init'].\n:- use_module(unifyweaver(targets/typr_target)).\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "type": "code",
+        "language": "prolog",
+        "name": "load_compiler",
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
+      },
+      {
+        "id": 3,
+        "code": "% 将家谱定义为 Prolog 事实\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% 传递闭包: 如果 X 是 Y 的祖先，则 ancestor(X, Y)\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "type": "code",
+        "language": "prolog",
+        "name": "family_tree",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 4,
+        "code": "#!source\n# 这个已命名的 TypR 源码单元格会被 compile_to_typr 读取。\n# 它会被追加到生成的代码末尾，因为 TypR 单元格之间是相互隔离的。\n\n# --- 查询 ---\nlet results <- ancestor_all(\"alice\");\ncat(\"alice 的后代:\", paste(sep = \", \", ...results), fill = TRUE);\nlet is_anc <- ancestor_check(\"alice\", \"eve\");\ncat(\"alice 是 eve 的祖先:\", is_anc, fill = TRUE);\nlet is_anc2 <- ancestor_check(\"alice\", \"frank\");\ncat(\"alice 是 frank 的祖先:\", is_anc2, fill = TRUE);",
+        "type": "code",
+        "language": "typr",
+        "name": "typr_queries",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 5,
+        "code": "% 从已命名的单元格中读取语法高亮的 Prolog 和 TypR 源码\n\\+ \\+ (\n    user:nb_read('family_tree', '.code', _PrologSrc),\n    setup_call_cleanup(\n        open('/tmp/_nb_typr_family.pl', write, _Out),\n        write(_Out, _PrologSrc),\n        close(_Out)),\n    catch(abolish(parent/2), _, true),\n    catch(abolish(ancestor/2), _, true),\n    consult('/tmp/_nb_typr_family.pl'),\n\n    user:nb_read('typr_queries', '.code', _QuerySource),\n    split_string(_QuerySource, \"\\n\", \"\\r\", [\"#!source\"|_QueryLines]),\n    atomics_to_string(_QueryLines, \"\\n\", _Queries),\n\n    % 将 ancestor/2 编译为显式类型化的 TypR 并追加已命名的查询\n    recursive_compiler:compile_recursive(ancestor/2, [target(typr), typed_mode(explicit)], _Code),\n    format('--- Generated TypR code ---~n~w~n', [_Code]),\n    format(string(_FullCode), '~w~n~n~w~n', [_Code, _Queries]),\n    user:nb_write('typr_output', '.code', _FullCode),\n    writeln('TypR code written to cell: typr_output')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "compile_to_typr",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
+      },
+      {
+        "id": 6,
+        "code": "## 生成的 TypR 代码\n\n下面的单元格包含由 UnifyWeaver 生成的 TypR 代码，并已追加查询。\n它包含：\n- 类型化函数签名，如 `fn(start: char): [#N, char]`\n- 类型化向量绑定以及原生 `while` 和 `if` 遍历\n- 原生动态索引、向量追加和赋值\n- 从 Prolog 断言中注入的父母事实\n- 生成的闭包中完全没有原生 R 转义块 `@{ ... }@`\n\n**注意：** 所有代码必须在单个单元格中运行，因为 TypR 变量不会在单元格之间持久保留。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 7,
+        "code": "# 此单元格将由编译器填充。\n# 请先运行上方的 'compile_to_typr' 单元格。",
+        "type": "code",
+        "language": "typr",
+        "name": "typr_output",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 8,
+        "code": "## 对比：相同谓词的 R 目标\n\nUnifyWeaver 也可以将相同的 Prolog 谓词编译为纯 R 代码。\n下面的单元格从相同的 `ancestor/2` 生成非类型化的 R 代码。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 9,
+        "code": "% 重新加载相同的已命名 Prolog 源码，使此单元格可独立运行\n\\+ \\+ (\n    user:nb_read('family_tree', '.code', _PrologSrc),\n    setup_call_cleanup(\n        open('/tmp/_nb_r_family.pl', write, _Out),\n        write(_Out, _PrologSrc),\n        close(_Out)),\n    catch(abolish(parent/2), _, true),\n    catch(abolish(ancestor/2), _, true),\n    consult('/tmp/_nb_r_family.pl'),\n\n    % 使用内嵌事实编译为 R；接下来运行语法高亮的 r_queries 单元格\n    recursive_compiler:compile_recursive(ancestor/2, [target(r), input(embedded)], _RCode),\n    format('--- Generated R code ---~n~w~n', [_RCode]),\n    user:nb_write('r_output', '.code', _RCode),\n    writeln('R code written to cell: r_output')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "compile_to_r",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
+      },
+      {
+        "id": 10,
+        "code": "# 此单元格将填充纯 R 代码。\n# 请先运行上方的 'compile_to_r' 单元格。",
+        "type": "code",
+        "language": "r",
+        "name": "r_output",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 11,
+        "code": "# 在单独的高亮单元格中查询生成的 R 函数。\nresults <- ancestor_all(\"alice\")\ncat(\"alice 的后代:\", paste(results, collapse=\", \"), \"\\n\")\ncat(\"alice 是 eve 的祖先:\", ancestor_check(\"alice\", \"eve\"), \"\\n\")\ncat(\"alice 是 frank 的祖先:\", ancestor_check(\"alice\", \"frank\"), \"\\n\")",
+        "type": "code",
+        "language": "r",
+        "name": "r_queries",
+        "lastOutput": "Error: could not find function \"ancestor_all\"",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Error: could not find function \"ancestor_all\"</pre>"
+      }
+    ]
+  }
+}

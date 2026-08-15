@@ -1,0 +1,260 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T16:03:33.198Z",
+  "notebook": {
+    "id": "default",
+    "name": "Lua: কোরুটিনের সাহায্যে পার্সিং",
+    "autoNameNumber": null,
+    "description": "Building parsers in Lua using coroutines as lexers, closures as combinators, and tables as ASTs.",
+    "kernelLanguage": "lua",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 30,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# Lua-তে কোরুটিনের সাহায্যে পার্সিং\n\nLua-তে কোরুটিন, ক্লোজার এবং প্যাটার্ন ম্যাচিং কোনো বহিরাগত লাইব্রেরি ছাড়াই পার্সার তৈরির একটি স্বাভাবিক টুলকিট গঠন করে।\n\nএই ওয়ার্কবুকটি মৌলিক প্যাটার্ন থেকে শুরু করে একটি কার্যকর এক্সপ্রেশন ইভালুয়েটর পর্যন্ত ধাপে ধাপে তৈরি করে:\n\n1. **Lua প্যাটার্ন** — অন্তর্নির্মিত প্যাটার্ন ম্যাচিং সিস্টেম\n2. **কোরুটিন লেক্সার** — অলসভাবে (lazily) ইনপুট টোকেনাইজ করে, প্রতিবারে একটি টোকেন দেয়\n3. **রিকার্সিভ ডিসেন্ট পার্সার** — AST তৈরির জন্য টোকেন প্রসেস করে\n4. **ইভালুয়েটর** — ফলাফল গণনার জন্য ট্রি পরিদর্শন করে\n5. **কম্বিনেটর লাইব্রেরি** — ক্লোজার থেকে তৈরি কম্পোজেবল পার্সার",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "## ১. Lua প্যাটার্ন\n\nLua-তে প্রচলিত রেগুলার এক্সপ্রেশন নেই — এর পরিবর্তে রয়েছে *প্যাটার্ন*, যা `string.find`, `string.match`, `string.gmatch`, এবং `string.gsub`-এ তৈরি একটি হালকা ব্যবস্থা।\n\nমূল ক্যারেক্টার ক্লাস: `%a` (অক্ষর), `%d` (সংখ্যা), `%w` (আলফানিউমেরিক), `%s` (হোয়াইটস্পেস), `%p` (বিরামচিহ্ন)। বড় হাতের অক্ষর পরিপূরক নির্দেশ করে (`%A` = অ-অক্ষর)। `.` যেকোনো অক্ষরের সাথে মেলে।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 3,
+        "code": "-- string.match: ক্যাপচার বের করুন\nlocal year, month, day = string.match(\"2026-03-10\", \"(%d+)-(%d+)-(%d+)\")\nprint(\"বছর:\", year, \"মাস:\", month, \"দিন:\", day)\n\n-- string.gmatch: সমস্ত মিলের ওপর পুনরাবৃত্তি করুন\nprint(\"\\nবাক্যের শব্দসমূহ:\")\nfor word in string.gmatch(\"the quick brown fox\", \"%a+\") do\n  print(\"  \" .. word)\nend",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "বছর:\t2026\tমাস:\t03\tদিন:\t10\n\nবাক্যের শব্দসমূহ:\n  the\n  quick\n  brown\n  fox\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">বছর:\t2026\tমাস:\t03\tদিন:\t10\n\nবাক্যের শব্দসমূহ:\n  the\n  quick\n  brown\n  fox\n</pre>"
+      },
+      {
+        "id": 4,
+        "code": "-- string.gsub: অনুসন্ধান এবং প্রতিস্থাপন\nlocal result = string.gsub(\"Hello World\", \"%u\", function(c)\n  return \"[\" .. c .. \"]\"\nend)\nprint(result)  -- [H]ello [W]orld\n\n-- key=value জোড়া অদলবদল করুন\nlocal swapped = string.gsub(\"name=Alice age=30\", \"(%w+)=(%w+)\", \"%2=%1\")\nprint(swapped)  -- Alice=name 30=age",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "[H]ello [W]orld\nAlice=name 30=age\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">[H]ello [W]orld\nAlice=name 30=age\n</pre>"
+      },
+      {
+        "id": 5,
+        "code": "-- string.find: সম্পূর্ণ মিল খুঁজুন এবং ফাংশনের নাম ক্যাপচার করুন\nlocal s = \"function foo(x, y)\"\nlocal i, j, name = string.find(s, \"function%s+(%w+)\")\nprint(string.format(\"মিল পাওয়া গেছে '%s' অবস্থান %d-%d এ; ক্যাপচারকৃত নাম '%s'\", s:sub(i, j), i, j, name))\n\n-- সীমানা প্যাটার্ন %f[]: সীমানা পরিবর্তনে মিল খুঁজুন\nlocal text = \"camelCaseVariable\"\nlocal parts = {}\nfor word in string.gmatch(text, \"%u?%l+\") do\n  parts[#parts + 1] = word\nend\nprint(\"বিভক্ত camelCase:\", table.concat(parts, \" | \"))",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "মিল পাওয়া গেছে 'function foo' অবস্থান 1-12 এ; ক্যাপচারকৃত নাম 'foo'\nবিভক্ত camelCase:\tcamel | Case | Variable\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">মিল পাওয়া গেছে 'function foo' অবস্থান 1-12 এ; ক্যাপচারকৃত নাম 'foo'\nবিভক্ত camelCase:\tcamel | Case | Variable\n</pre>"
+      },
+      {
+        "id": 6,
+        "code": "## ২. কোরুটিন লেক্সার\n\nএকটি **লেক্সার** (টোকেনাইজার) ইনপুট টেক্সটকে টোকেনে বিভক্ত করে। একটি কোরুটিন ব্যবহার করে আমরা একে একে টোকেন `yield` করতে পারি — পার্সার প্রয়োজন অনুযায়ী সেগুলো গ্রহণ করে। কোনো মধ্যবর্তী অ্যারের প্রয়োজন নেই।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 7,
+        "code": "-- টোকেনের ধরন\nNUM = \"NUM\"\nOP  = \"OP\"\nID  = \"ID\"\nLPAREN = \"LPAREN\"\nRPAREN = \"RPAREN\"\nEOF = \"EOF\"\n\nfunction lexer(input)\n  return coroutine.wrap(function()\n    local pos = 1\n    while pos <= #input do\n      -- হোয়াইটস্পেস এড়িয়ে যান\n      local ws = string.match(input, \"^%s+\", pos)\n      if ws then pos = pos + #ws end\n      if pos > #input then break end\n\n      -- সংখ্যা (পূর্ণसंख्या এবং দশমিক)\n      local num = string.match(input, \"^%d+%.?%d*\", pos)\n      if num then\n        coroutine.yield({ type = NUM, value = tonumber(num), pos = pos })\n        pos = pos + #num\n      -- আইডেন্টিফায়ার / কীওয়ার্ড\n      elseif string.match(input, \"^%a\", pos) then\n        local id = string.match(input, \"^%a%w*\", pos)\n        coroutine.yield({ type = ID, value = id, pos = pos })\n        pos = pos + #id\n      -- অপারেটর\n      elseif string.find(\"+-*/^%%\", string.sub(input, pos, pos), 1, true) then\n        coroutine.yield({ type = OP, value = string.sub(input, pos, pos), pos = pos })\n        pos = pos + 1\n      -- বন্ধনী\n      elseif string.sub(input, pos, pos) == \"(\" then\n        coroutine.yield({ type = LPAREN, pos = pos })\n        pos = pos + 1\n      elseif string.sub(input, pos, pos) == \")\" then\n        coroutine.yield({ type = RPAREN, pos = pos })\n        pos = pos + 1\n      else\n        error(\"অবস্থানে অপ্রত্যাশিত অক্ষর \" .. pos .. \": '\" .. string.sub(input, pos, pos) .. \"'\")\n      end\n    end\n    coroutine.yield({ type = EOF })\n  end)\nend\n\n-- লেক্সার পরীক্ষা করুন\nprint(\"'3 + 42 * (x - 1)' এর জন্য টোকেনসমূহ:\")\nfor tok in lexer(\"3 + 42 * (x - 1)\") do\n  if tok.value then\n    print(string.format(\"  %-7s %s\", tok.type, tostring(tok.value)))\n  else\n    print(string.format(\"  %s\", tok.type))\n  end\nend",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "'3 + 42 * (x - 1)' এর জন্য টোকেনসমূহ:\n  NUM     3\n  OP      +\n  NUM     42\n  OP      *\n  LPAREN\n  ID      x\n  OP      -\n  NUM     1\n  RPAREN\n  EOF\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">'3 + 42 * (x - 1)' এর জন্য টোকেনসমূহ:\n  NUM     3\n  OP      +\n  NUM     42\n  OP      *\n  LPAREN\n  ID      x\n  OP      -\n  NUM     1\n  RPAREN\n  EOF\n</pre>"
+      },
+      {
+        "id": 8,
+        "code": "## ৩. টোকেন স্ট্রিম\n\nটোকেন খরচ না করেই পার্সারের পরবর্তী টোকেন দেখার (peek) ক্ষমতা থাকা প্রয়োজন। আমরা লেক্সার কোরুটিনকে একটি স্ট্রিমে আবৃত করি যা একটি একক টোকেন বাফার করে।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 9,
+        "code": "function TokenStream(input)\n  local next_token = lexer(input)\n  local current = next_token()\n\n  local stream = {}\n\n  function stream.peek()\n    return current\n  end\n\n  function stream.consume()\n    local tok = current\n    current = next_token()\n    return tok\n  end\n\n  function stream.expect(typ)\n    local tok = current\n    if tok.type ~= typ then\n      error(\"প্রত্যাশিত \" .. typ .. \" কিন্তু পাওয়া গেছে \" .. tok.type\n        .. (tok.pos and \" অবস্থানে \" .. tok.pos or \"\"))\n    end\n    return stream.consume()\n  end\n\n  return stream\nend\n\n-- peek/consume পরীক্ষা করুন\nlocal s = TokenStream(\"10 + 20\")\nprint(\"Peek:\", s.peek().type, s.peek().value)\nprint(\"Consume:\", s.consume().value)\nprint(\"Next:\", s.peek().type, s.peek().value)",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "Peek:\tNUM\t10\nConsume:\t10\nNext:\tOP\t+\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Peek:\tNUM\t10\nConsume:\t10\nNext:\tOP\t+\n</pre>"
+      },
+      {
+        "id": 10,
+        "code": "## ৪. রিকার্সিভ ডিসেন্ট পার্সার\n\nআমরা অপারেটরের অগ্রাধিকার বজায় রেখে পাটিগণিত রাশি পার্স করি:\n- `+`, `-` (সর্বনিম্ন)\n- `*`, `/` (মাঝারি)\n- `^` (সর্বোচ্চ, ডান-যুক্ত)\n- বন্ধনী এবং ইউনারি মাইনাস\n\nপার্সার টেবিল থেকে একটি **AST** (অ্যাবস্ট্রাক্ট সিনট্যাক্স ট্রি) তৈরি করে।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 11,
+        "code": "-- AST নোড কনস্ট্রাক্টর\nfunction NumNode(value)\n  return { tag = \"num\", value = value }\nend\n\nfunction VarNode(name)\n  return { tag = \"var\", name = name }\nend\n\nfunction BinOp(op, left, right)\n  return { tag = \"binop\", op = op, left = left, right = right }\nend\n\nfunction UnaryOp(op, operand)\n  return { tag = \"unary\", op = op, operand = operand }\nend\n\nfunction CallNode(name, args)\n  return { tag = \"call\", name = name, args = args }\nend",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 12,
+        "code": "-- পার্সার: অগ্রাধিকার ক্লাইম্বিং সহ রিকার্সিভ ডিসেন্ট\nfunction parse(input)\n  local tokens = TokenStream(input)\n\n  -- expr = term (('+' | '-') term)*\n  local function expr()\n    local node = term()\n    while tokens.peek().type == OP\n      and (tokens.peek().value == \"+\" or tokens.peek().value == \"-\") do\n      local op = tokens.consume().value\n      node = BinOp(op, node, term())\n    end\n    return node\n  end\n\n  -- term = power (('*' | '/' | '%') power)*\n  function term()\n    local node = power()\n    while tokens.peek().type == OP\n      and (tokens.peek().value == \"*\" or tokens.peek().value == \"/\"\n           or tokens.peek().value == \"%\") do\n      local op = tokens.consume().value\n      node = BinOp(op, node, power())\n    end\n    return node\n  end\n\n  -- power = unary ('^' power)?  (ডান-যুক্ত / right-associative)\n  function power()\n    local node = unary()\n    if tokens.peek().type == OP and tokens.peek().value == \"^\" then\n      tokens.consume()\n      node = BinOp(\"^\", node, power())  -- ডান-রিকার্সিভ!\n    end\n    return node\n  end\n\n  -- unary = '-' unary | atom\n  function unary()\n    if tokens.peek().type == OP and tokens.peek().value == \"-\" then\n      tokens.consume()\n      return UnaryOp(\"-\", unary())\n    end\n    return atom()\n  end\n\n  -- atom = NUM | ID | ID '(' args ')' | '(' expr ')'\n  function atom()\n    local tok = tokens.peek()\n\n    if tok.type == NUM then\n      tokens.consume()\n      return NumNode(tok.value)\n    end\n\n    if tok.type == ID then\n      local name = tokens.consume().value\n      -- ফাংশন কল?\n      if tokens.peek().type == LPAREN then\n        tokens.consume()  -- '(' গ্রহণ করুন\n        local args = {}\n        if tokens.peek().type ~= RPAREN then\n          args[1] = expr()\n          while tokens.peek().type == OP and tokens.peek().value == \",\" do\n            tokens.consume()\n            args[#args + 1] = expr()\n          end\n        end\n        tokens.expect(RPAREN)\n        return CallNode(name, args)\n      end\n      return VarNode(name)\n    end\n\n    if tok.type == LPAREN then\n      tokens.consume()\n      local node = expr()\n      tokens.expect(RPAREN)\n      return node\n    end\n\n    error(\"অপ্রত্যাশিত টোকেন: \" .. tok.type\n      .. (tok.pos and \" অবস্থানে \" .. tok.pos or \"\"))\n  end\n\n  local ast = expr()\n  tokens.expect(EOF)\n  return ast\nend\n\nprint(\"পার্সার লোড হয়েছে।\")",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "পার্সার লোড হয়েছে।\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">পার্সার লোড হয়েছে।\n</pre>"
+      },
+      {
+        "id": 13,
+        "code": "## ৫. AST প্রিটি-প্রিন্টার\n\nমূল্যায়ন করার আগে, আসুন পার্সার যা তৈরি করে তা ভিজ্যুয়ালাইজ করি।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 14,
+        "code": "function pretty(node, indent)\n  indent = indent or 0\n  local pad = string.rep(\"  \", indent)\n\n  if node.tag == \"num\" then\n    return pad .. tostring(node.value)\n  elseif node.tag == \"var\" then\n    return pad .. node.name\n  elseif node.tag == \"unary\" then\n    return pad .. \"(\" .. node.op .. \"\\n\" .. pretty(node.operand, indent + 1) .. \")\"\n  elseif node.tag == \"binop\" then\n    return pad .. \"(\" .. node.op .. \"\\n\"\n      .. pretty(node.left, indent + 1) .. \"\\n\"\n      .. pretty(node.right, indent + 1) .. \")\"\n  elseif node.tag == \"call\" then\n    local argStrs = {}\n    for _, a in ipairs(node.args) do\n      argStrs[#argStrs + 1] = pretty(a, indent + 1)\n    end\n    return pad .. node.name .. \"(\\n\" .. table.concat(argStrs, \"\\n\") .. \")\"\n  end\n  return pad .. \"??\"\nend\n\n-- পার্স এবং প্রদর্শন করুন\nlocal ast = parse(\"2 ^ 3 ^ 2 + 1\")\nprint(\"'2 ^ 3 ^ 2 + 1' এর জন্য AST:\")\nprint(pretty(ast))\n\nprint(\"\\n'-(3 + 4) * 2' এর জন্য AST:\")\nprint(pretty(parse(\"-(3 + 4) * 2\")))",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "'2 ^ 3 ^ 2 + 1' এর জন্য AST:\n(+\n  (^\n    2\n    (^\n      3\n      2))\n  1)\n\n'-(3 + 4) * 2' এর জন্য AST:\n(*\n  (-\n    (+\n      3\n      4))\n  2)\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">'2 ^ 3 ^ 2 + 1' এর জন্য AST:\n(+\n  (^\n    2\n    (^\n      3\n      2))\n  1)\n\n'-(3 + 4) * 2' এর জন্য AST:\n(*\n  (-\n    (+\n      3\n      4))\n  2)\n</pre>"
+      },
+      {
+        "id": 15,
+        "code": "## ৬. ইভালুয়েটর\n\nফলাফল গণনা করতে AST পরিদর্শন করুন। ভেরিয়েবল এবং ফাংশনগুলো একটি এনভায়রনমেন্ট টেবিলে খোঁজা হয়।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 16,
+        "code": "function evaluate(node, env)\n  env = env or {}\n\n  if node.tag == \"num\" then\n    return node.value\n\n  elseif node.tag == \"var\" then\n    local val = env[node.name]\n    if val == nil then error(\"অসংজ্ঞায়িত ভেরিয়েবল: \" .. node.name) end\n    return val\n\n  elseif node.tag == \"unary\" then\n    if node.op == \"-\" then\n      return -evaluate(node.operand, env)\n    end\n\n  elseif node.tag == \"binop\" then\n    local l = evaluate(node.left, env)\n    local r = evaluate(node.right, env)\n    if     node.op == \"+\" then return l + r\n    elseif node.op == \"-\" then return l - r\n    elseif node.op == \"*\" then return l * r\n    elseif node.op == \"/\" then return l / r\n    elseif node.op == \"%\" then return l % r\n    elseif node.op == \"^\" then return l ^ r\n    end\n\n  elseif node.tag == \"call\" then\n    local fn = env[node.name]\n    if type(fn) ~= \"function\" then\n      error(\"ফাংশন নয়: \" .. node.name)\n    end\n    local args = {}\n    for _, a in ipairs(node.args) do\n      args[#args + 1] = evaluate(a, env)\n    end\n    return fn(table.unpack(args))\n  end\n\n  error(\"অজানা নোড ট্যাগ: \" .. tostring(node.tag))\nend\n\n-- সুবিধার জন্য: পার্স + মূল্যায়ন\nfunction calc(expr, env)\n  return evaluate(parse(expr), env)\nend\n\nprint(\"ক্যালকুলেটর লোড হয়েছে।\")",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "ক্যালকুলেটর লোড হয়েছে।\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">ক্যালকুলেটর লোড হয়েছে।\n</pre>"
+      },
+      {
+        "id": 17,
+        "code": "-- মৌলিক পাটিগণিত\nprint(\"2 + 3 * 4      =\", calc(\"2 + 3 * 4\"))\nprint(\"(2 + 3) * 4    =\", calc(\"(2 + 3) * 4\"))\nprint(\"2 ^ 3 ^ 2      =\", calc(\"2 ^ 3 ^ 2\"))      -- ডান-যুক্ত: 2^(3^2) = 512\nprint(\"-5 + 3         =\", calc(\"-5 + 3\"))\nprint(\"10 % 3         =\", calc(\"10 % 3\"))",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "2 + 3 * 4      =\t14\n(2 + 3) * 4    =\t20\n2 ^ 3 ^ 2      =\t512.0\n-5 + 3         =\t-2\n10 % 3         =\t1\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">2 + 3 * 4      =\t14\n(2 + 3) * 4    =\t20\n2 ^ 3 ^ 2      =\t512.0\n-5 + 3         =\t-2\n10 % 3         =\t1\n</pre>"
+      },
+      {
+        "id": 18,
+        "code": "-- ভেরিয়েবল এবং ফাংশন সহ\nlocal env = {\n  pi = math.pi,\n  e  = math.exp(1),\n  x  = 10,\n  sqrt = math.sqrt,\n  sin  = math.sin,\n  cos  = math.cos,\n  abs  = math.abs,\n}\n\nprint(\"pi * x ^ 2    =\", calc(\"pi * x ^ 2\", env))\nprint(\"sqrt(144)      =\", calc(\"sqrt(144)\", env))\nprint(\"sin(pi / 2)    =\", calc(\"sin(pi / 2)\", env))\nprint(\"abs(-42) + e   =\", calc(\"abs(-42) + e\", env))",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "pi * x ^ 2    =\t314.15926535898\nsqrt(144)      =\t12.0\nsin(pi / 2)    =\t1.0\nabs(-42) + e   =\t44.718281828459\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">pi * x ^ 2    =\t314.15926535898\nsqrt(144)      =\t12.0\nsin(pi / 2)    =\t1.0\nabs(-42) + e   =\t44.718281828459\n</pre>"
+      },
+      {
+        "id": 19,
+        "code": "## ৭. পার্সার কম্বিনেটর\n\nএকটি ভিন্ন পদ্ধতি: ক্লোজার ব্যবহার করে ছোট, কম্পোজযোগ্য বিল্ডিং ব্লক থেকে পার্সার তৈরি করা। প্রতিটি পার্সার এমন একটি ফাংশন যা ইনপুট (স্ট্রিং + অবস্থান) নেয় এবং ফলাফল + নতুন অবস্থান বা ব্যর্থ হলে `nil` প্রদান করে।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 20,
+        "code": "-- একটি পার্সার হলো: function(input, pos) -> result, newpos | nil\n\n-- একটি Lua প্যাটার্ন মেলান, ক্যাপচারকৃত গ্রুপ প্রদান করুন\nfunction P(pattern)\n  return function(input, pos)\n    local s, e, cap = string.find(input, \"^(\" .. pattern .. \")\", pos)\n    if s then return cap, e + 1 end\n    return nil\n  end\nend\n\n-- লিটারেল স্ট্রিং মেলান\nfunction L(str)\n  return function(input, pos)\n    if string.sub(input, pos, pos + #str - 1) == str then\n      return str, pos + #str\n    end\n    return nil\n  end\nend\n\n-- হোয়াইটস্পেস এড়িয়ে যান, তারপর পার্সার প্রয়োগ করুন\nfunction Token(parser)\n  return function(input, pos)\n    local _, p2 = string.find(input, \"^%s*\", pos)\n    return parser(input, (p2 or pos) + 1)\n  end\nend\n\nprint(\"কম্বিনেটর লোড হয়েছে।\")",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "কম্বিনেটর লোড হয়েছে।\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">কম্বিনেটর লোড হয়েছে।\n</pre>"
+      },
+      {
+        "id": 21,
+        "code": "-- সিকোয়েন্স: সব পার্সারকে ক্রমানুসারে মিলতে হবে\nfunction Seq(...)\n  local parsers = {...}\n  return function(input, pos)\n    local results = {}\n    local p = pos\n    for _, parser in ipairs(parsers) do\n      local r, np = parser(input, p)\n      if r == nil then return nil end\n      results[#results + 1] = r\n      p = np\n    end\n    return results, p\n  end\nend\n\n-- পছন্দ: প্রতিটি পার্সার চেষ্টা করুন, প্রথম মিলটি প্রদান করুন\nfunction Choice(...)\n  local parsers = {...}\n  return function(input, pos)\n    for _, parser in ipairs(parsers) do\n      local r, np = parser(input, pos)\n      if r ~= nil then return r, np end\n    end\n    return nil\n  end\nend\n\n-- শূন্য বা ততোধিক পুনরাবৃত্তি\nfunction Many(parser)\n  return function(input, pos)\n    local results = {}\n    local p = pos\n    while true do\n      local r, np = parser(input, p)\n      if r == nil then break end\n      results[#results + 1] = r\n      p = np\n    end\n    return results, p\n  end\nend\n\n-- ফলাফল রূপান্তর করুন\nfunction Map(parser, fn)\n  return function(input, pos)\n    local r, np = parser(input, pos)\n    if r ~= nil then return fn(r), np end\n    return nil\n  end\nend\n\nprint(\"Seq, Choice, Many, Map লোড হয়েছে।\")",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "Seq, Choice, Many, Map লোড হয়েছে।\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Seq, Choice, Many, Map লোড হয়েছে।\n</pre>"
+      },
+      {
+        "id": 22,
+        "code": "-- একটি সাধারণ কী-মান কনফিগ ফরম্যাট পার্স করুন:\n--   host = localhost\n--   port = 8080\n--   debug = true\n\nlocal key   = Token(P(\"%a%w*\"))\nlocal eq    = Token(L(\"=\"))\nlocal value = Token(P(\"%S+\"))\n\nlocal pair  = Map(\n  Seq(key, eq, value),\n  function(r) return { key = r[1], value = r[3] } end\n)\n\nlocal config = Many(pair)\n\nlocal input = \"host = localhost  port = 8080  debug = true\"\nlocal result, pos = config(input, 1)\n\nprint(\"পার্স করা কনফিগ:\")\nfor _, entry in ipairs(result) do\n  print(string.format(\"  %-8s = %s\", entry.key, entry.value))\nend",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "পার্স করা কনফিগ:\n  host     = localhost\n  port     = 8080\n  debug    = true\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">পার্স করা কনফিগ:\n  host     = localhost\n  port     = 8080\n  debug    = true\n</pre>"
+      },
+      {
+        "id": 23,
+        "code": "## ৮. CSV পার্সার\n\nএকটি ব্যবহারিক উদাহরণ: কম্বিনেটর পদ্ধতি ব্যবহার করে কোট করা ফিল্ড সহ CSV পার্স করা।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 24,
+        "code": "function parseCSV(input)\n  local rows = {}\n\n  -- সারিগুলো পার্স করার সাথে সাথে yield করতে একটি কোরুটিন ব্যবহার করুন\n  local function parseField(line, pos)\n    if string.sub(line, pos, pos) == '\"' then\n      -- উদ্ধৃত ফিল্ড: সমাপ্তি উদ্ধৃতি খুঁজুন (এসকেপ করা \"\" পরিচালনা করে)\n      local field = {}\n      pos = pos + 1\n      while pos <= #line do\n        if string.sub(line, pos, pos + 1) == '\"\"' then\n          field[#field + 1] = '\"'\n          pos = pos + 2\n        elseif string.sub(line, pos, pos) == '\"' then\n          pos = pos + 1\n          break\n        else\n          field[#field + 1] = string.sub(line, pos, pos)\n          pos = pos + 1\n        end\n      end\n      return table.concat(field), pos\n    else\n      -- উদ্ধৃতিহীন ফিল্ড: কমা বা শেষ পর্যন্ত পড়ুন\n      local s, e, val = string.find(line, \"^([^,]*)\", pos)\n      return val or \"\", (e or pos) + 1\n    end\n  end\n\n  for line in string.gmatch(input, \"([^\\n]+)\") do\n    local row = {}\n    local pos = 1\n    while pos <= #line do\n      local field\n      field, pos = parseField(line, pos)\n      row[#row + 1] = field\n      -- কমা বিভাজক এড়িয়ে যান\n      if string.sub(line, pos, pos) == \",\" then\n        pos = pos + 1\n      end\n    end\n    rows[#rows + 1] = row\n  end\n\n  return rows\nend\n\nlocal csv = [[name,age,city\nAlice,30,\"New York\"\nBob,25,\"San Francisco\"\n\"O'Brien, Charlie\",40,\"Boston\"]]\n\nlocal data = parseCSV(csv)\n\n-- একটি ফরম্যাট করা টেবিল হিসেবে প্রিন্ট করুন\nlocal widths = {}\nfor _, row in ipairs(data) do\n  for i, field in ipairs(row) do\n    widths[i] = math.max(widths[i] or 0, #field)\n  end\nend\n\nfor r, row in ipairs(data) do\n  local parts = {}\n  for i, field in ipairs(row) do\n    parts[i] = field .. string.rep(\" \", widths[i] - #field)\n  end\n  print(table.concat(parts, \"  |  \"))\n  if r == 1 then\n    local sep = {}\n    for i = 1, #widths do sep[i] = string.rep(\"-\", widths[i]) end\n    print(table.concat(sep, \"--+--\"))\n  end\nend",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "name              |  age  |  city         \n------------------+-------+---------------\nAlice             |  30   |  New York     \nBob               |  25   |  San Francisco\nO'Brien, Charlie  |  40   |  Boston       \n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">name              |  age  |  city         \n------------------+-------+---------------\nAlice             |  30   |  New York     \nBob               |  25   |  San Francisco\nO'Brien, Charlie  |  40   |  Boston       \n</pre>"
+      },
+      {
+        "id": 25,
+        "code": "## ৯. স্ট্রিমিং পাইপলাইন\n\nসবকিছু একসাথে আনা: একটি কোরুটিন-ভিত্তিক পাইপলাইন যা সারি অনুযায়ী এবং সম্পূর্ণ অলসভাবে এক্সপ্রেশনের একটি অনুক্রমকে লেক্স, পার্স এবং মূল্যায়ন করে।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 26,
+        "code": "function repl_eval(lines, env)\n  return coroutine.wrap(function()\n    for line in string.gmatch(lines, \"([^\\n]+)\") do\n      -- মন্তব্য এবং খালি লাইন এড়িয়ে যান\n      local trimmed = string.match(line, \"^%s*(.-)%s*$\")\n      if trimmed ~= \"\" and string.sub(trimmed, 1, 1) ~= \"#\" then\n        local ok, result = pcall(function()\n          return calc(trimmed, env)\n        end)\n        if ok then\n          coroutine.yield(trimmed, result, nil)\n        else\n          coroutine.yield(trimmed, nil, result)\n        end\n      end\n    end\n  end)\nend\n\nlocal program = [[\n# Physics calculations\n9.8 * 2\nsqrt(144) + 1\npi * r ^ 2\n2 ^ 10\nabs(-7) * 3\n5 / 0\n]]\n\nlocal env = {\n  pi = math.pi, r = 5,\n  sqrt = math.sqrt, abs = math.abs,\n}\n\nprint(\"এক্সপ্রেশন ইভালুয়েটর:\")\nprint(string.rep(\"-\", 40))\nfor expr, result, err in repl_eval(program, env) do\n  if err then\n    print(string.format(\"  %-20s  ত্রুটি: %s\", expr, err))\n  else\n    print(string.format(\"  %-20s  = %g\", expr, result))\n  end\nend",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "এক্সপ্রেশন ইভালুয়েটর:\n----------------------------------------\n  9.8 * 2               = 19.6\n  sqrt(144) + 1         = 13\n  pi * r ^ 2            = 78.53981633974483\n  2 ^ 10                = 1024\n  abs(-7) * 3           = 21\n  5 / 0                 = Infinity\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">এক্সপ্রেশন ইভালুয়েটর:\n----------------------------------------\n  9.8 * 2               = 19.6\n  sqrt(144) + 1         = 13\n  pi * r ^ 2            = 78.53981633974483\n  2 ^ 10                = 1024\n  abs(-7) * 3           = 21\n  5 / 0                 = Infinity\n</pre>"
+      },
+      {
+        "id": 27,
+        "code": "## সারসংক্ষেপ\n\nআমরা কেবল Lua-এর স্ট্যান্ডার্ড লাইব্রেরি ব্যবহার করে যা তৈরি করেছি:\n\n| উপাদান | কৌশল |\n|---|---|\n| লেক্সার | কোরুটিন + `string.match` প্যাটার্ন |\n| টোকেন স্ট্রিম | ক্লোজার (কোরুটিনের ওপর peek/consume) |\n| রিকার্সিভ ডিসেন্ট পার্সার | মিউচুয়াল রিকার্শন + AST হিসেবে টেবিল |\n| ইভালুয়েটর | এনভায়রনমেন্ট টেবিল সহ ট্রি ওয়াক |\n| কম্বিনেটর | উচ্চ-স্তরের ক্লোজার (Seq, Choice, Many, Map) |\n| CSV পার্সার | প্যাটার্ন ম্যাচিং + স্টেট মেশিন |\n| স্ট্রিমিং পাইপলাইন | `pcall` ত্রুটি পরিচালনা সহ কোরুটিন চেইন |\n\nকোনো বহিরাগত লাইব্রেরি নেই, কোনো রেজেক্স ইঞ্জিন নেই, কোনো পার্সার জেনারেটর নেই — শুধুমাত্র প্যাটার্ন, কোরুটিন, ক্লোজার এবং টেবিল।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      }
+    ]
+  }
+}

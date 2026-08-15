@@ -1,0 +1,43 @@
+{
+  "spans": {
+    "6:0:0": "Baca sumber Prolog dari sel sebelumnya",
+    "6:2:0": "Konsultasikan untuk memasukkan klausa",
+    "6:4:0": "Kompilasi factorial/2 → R",
+    "6:6:0": "Tulis keluaran kompiler ke sel R",
+    "8:0:0": "Sel ini akan ditimpa oleh kompiler.",
+    "8:2:0": "Jalankan sel 'compile_to_r' di atas terlebih dahulu.",
+    "12:1:0": "=== Sel ===",
+    "12:5:0": "=== Kode r_factorial ===",
+    "12:9:0": "=== Bahasa r_factorial ===",
+    "13:0:0": "Langkah 7: Pengalamatan relatif — /nb/-1/.output membaca keluaran sel sebelumnya.",
+    "13:2:0": "/nb/./.code membaca kode sel ini sendiri. Salin-tempel untuk mengakumulasi!",
+    "13:4:0": "[accumulate] keluaran sel sebelumnya melalui /nb/-1/.output:",
+    "13:12:0": "[self] kode sel ini melalui /nb/./.code:",
+    "16:1:0": "Silsilah keluarga",
+    "16:3:0": "Penutupan transitif: ancestor(X, Y) jika X adalah leluhur dari Y",
+    "18:0:0": "Konsultasikan definisi ancestor",
+    "18:2:0": "Kompilasi dengan deteksi pola default → penutupan transitif",
+    "18:4:0": "Tulis ke sel R",
+    "20:0:0": "Sel ini akan ditimpa oleh kompiler.",
+    "20:2:0": "Jalankan 'compile_ancestor_tc' di atas terlebih dahulu.",
+    "22:3:0": "Keturunan dari alice:",
+    "22:9:0": "alice adalah leluhur dari eve:",
+    "22:17:0": "alice adalah leluhur dari frank:",
+    "24:0:0": "Kompilasi ancestor/2 lagi, tetapi lewati penutupan transitif → beralih ke rekursi ekor",
+    "24:2:0": "Targetkan juga bash untuk menunjukkan kompilasi lintas bahasa",
+    "24:4:0": "Tulis ke sel bash",
+    "25:0:0": "Sel ini akan ditimpa oleh kompiler.",
+    "25:2:0": "Jalankan 'compile_ancestor_skip' di atas terlebih dahulu.",
+    "27:1:0": "=== R (penutupan transitif / BFS) ===",
+    "27:3:0": "Bahasa: $(cat /nb/r_ancestor_tc/.language)",
+    "27:11:0": "=== Bash (rekursi ekor) ===",
+    "27:13:0": "Bahasa: $(cat /nb/bash_ancestor_alt/.language)"
+  },
+  "keeps": [
+    "22:1:0",
+    "22:11:0",
+    "22:13:0",
+    "22:19:0",
+    "22:21:0"
+  ]
+}

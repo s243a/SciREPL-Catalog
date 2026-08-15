@@ -58,7 +58,7 @@
         "lastOutputHtml": ""
       },
       {
-        "code": "%% Read the Prolog source from the previous cell\nuser:nb_read('prolog_factorial', '.code', _PrologSrc),\nformat('Read from prolog_factorial:~n~w~n~n', [_PrologSrc]),\n\n%% Consult it to assert the clauses\nsetup_call_cleanup(\n    open('/tmp/_nb_src.pl', write, _Out),\n    write(_Out, _PrologSrc),\n    close(_Out)),\nconsult('/tmp/_nb_src.pl'),\n\n%% Compile factorial/2 → R\nr_target:init_r_target,\nlinear_recursion:compile_linear_recursion(factorial/2, [target(r), memo(false)], _Code),\nformat('--- Generated R code ---~n~w~n', [_Code]),\n\n%% Write compiler output to the R cell\nuser:nb_write('r_factorial', '.code', _Code),\nwriteln('\\nR code written to cell: r_factorial').",
+        "code": "%从前一个单元格读取 Prolog 源码\nuser:nb_read('prolog_factorial', '.code', _PrologSrc),\nformat('Read from prolog_factorial:~n~w~n~n', [_PrologSrc]),\n\n%进行 consult 以断言子句\nsetup_call_cleanup(\n    open('/tmp/_nb_src.pl', write, _Out),\n    write(_Out, _PrologSrc),\n    close(_Out)),\nconsult('/tmp/_nb_src.pl'),\n\n%编译 factorial/2 → R\nr_target:init_r_target,\nlinear_recursion:compile_linear_recursion(factorial/2, [target(r), memo(false)], _Code),\nformat('--- Generated R code ---~n~w~n', [_Code]),\n\n%将编译器输出写入 R 单元格\nuser:nb_write('r_factorial', '.code', _Code),\nwriteln('\\nR code written to cell: r_factorial').",
         "type": "code",
         "language": "prolog",
         "name": "compile_to_r",
@@ -74,7 +74,7 @@
         "lastOutputHtml": ""
       },
       {
-        "code": "# This cell will be overwritten by the compiler.\n# Run the 'compile_to_r' cell above first.",
+        "code": "# 此单元格将被编译器覆盖。\n# 请先运行上方的 'compile_to_r' 单元格。",
         "type": "code",
         "language": "r",
         "name": "r_factorial",
@@ -106,7 +106,7 @@
         "lastOutputHtml": ""
       },
       {
-        "code": "echo \"=== Cells ===\"\nls /nb/\necho \"\"\necho \"=== r_factorial code ===\"\ncat /nb/r_factorial/.code\necho \"\"\necho \"=== r_factorial language ===\"\ncat /nb/r_factorial/.language",
+        "code": "echo \"=== 单元格列表 ===\"\nls /nb/\necho \"\"\necho \"=== r_factorial 代码 ===\"\ncat /nb/r_factorial/.code\necho \"\"\necho \"=== r_factorial 语言 ===\"\ncat /nb/r_factorial/.language",
         "type": "code",
         "language": "bash",
         "name": "inspect",
@@ -114,7 +114,7 @@
         "lastOutputHtml": ""
       },
       {
-        "code": "# Step 7: Relative addressing — /nb/-1/.output reads the previous cell's output.\n# /nb/./.code reads this cell's own code. Copy-paste to accumulate!\necho \"[accumulate] previous cell output via /nb/-1/.output:\"\necho \"---\"\ncat /nb/-1/.output\necho \"---\"\necho \"\"\necho \"[self] this cell's code via /nb/./.code:\"\ncat /nb/./.code",
+        "code": "# 步骤 7: 相对寻址 — /nb/-1/.output 读取前一个单元格的输出。\n# /nb/./.code 读取此单元格自身的代码。复制粘贴以进行累积！\necho \"[accumulate] 通过 /nb/-1/.output 获取的前一个单元格输出:\"\necho \"---\"\ncat /nb/-1/.output\necho \"---\"\necho \"\"\necho \"[self] 通过 /nb/./.code 获取的此单元格代码:\"\ncat /nb/./.code",
         "type": "code",
         "language": "bash",
         "name": "accumulate",
@@ -138,7 +138,7 @@
         "lastOutputHtml": ""
       },
       {
-        "code": ":- dynamic parent/2, ancestor/2.\n\n%% Family tree\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\n\n%% Transitive closure: ancestor(X, Y) if X is an ancestor of Y\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "code": ":- dynamic parent/2, ancestor/2.\n\n%家谱\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\n\n%传递闭包: 如果 X 是 Y 的祖先，则 ancestor(X, Y)\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
         "type": "code",
         "language": "prolog",
         "name": "prolog_ancestor",
@@ -154,7 +154,7 @@
         "lastOutputHtml": ""
       },
       {
-        "code": "%% Consult the ancestor definitions\nuser:nb_read('prolog_ancestor', '.code', _AncSrc),\nformat('Read from prolog_ancestor:~n~w~n~n', [_AncSrc]),\nsetup_call_cleanup(\n    open('/tmp/_nb_anc.pl', write, _Out),\n    write(_Out, _AncSrc),\n    close(_Out)),\nconsult('/tmp/_nb_anc.pl'),\n\n%% Compile with default pattern detection → transitive closure\nrecursive_compiler:compile_recursive(ancestor/2, [target(r)], _Code1),\nformat('--- Pattern: transitive_closure ---~n~w~n', [_Code1]),\n\n%% Write to the R cell\nuser:nb_write('r_ancestor_tc', '.code', _Code1),\nwriteln('\\nR code written to cell: r_ancestor_tc').",
+        "code": "%进行 consult 加载 ancestor 的定义\nuser:nb_read('prolog_ancestor', '.code', _AncSrc),\nformat('Read from prolog_ancestor:~n~w~n~n', [_AncSrc]),\nsetup_call_cleanup(\n    open('/tmp/_nb_anc.pl', write, _Out),\n    write(_Out, _AncSrc),\n    close(_Out)),\nconsult('/tmp/_nb_anc.pl'),\n\n%使用默认模式检测进行编译 → 传递闭包\nrecursive_compiler:compile_recursive(ancestor/2, [target(r)], _Code1),\nformat('--- Pattern: transitive_closure ---~n~w~n', [_Code1]),\n\n%写入 R 单元格\nuser:nb_write('r_ancestor_tc', '.code', _Code1),\nwriteln('\\nR code written to cell: r_ancestor_tc').",
         "type": "code",
         "language": "prolog",
         "name": "compile_ancestor_tc",
@@ -170,7 +170,7 @@
         "lastOutputHtml": ""
       },
       {
-        "code": "# This cell will be overwritten by the compiler.\n# Run 'compile_ancestor_tc' above first.",
+        "code": "# 此单元格将被编译器覆盖。\n# 请先运行上方的 'compile_ancestor_tc' 单元格。",
         "type": "code",
         "language": "r",
         "name": "r_ancestor_tc",
@@ -186,7 +186,7 @@
         "lastOutputHtml": ""
       },
       {
-        "code": "descendants <- ancestor_all(\"alice\")\ncat(\"Descendants of alice:\", paste(descendants, collapse = \", \"), \"\\n\")\ncat(\"alice is ancestor of eve:\", ancestor_check(\"alice\", \"eve\"), \"\\n\")\ncat(\"alice is ancestor of frank:\", ancestor_check(\"alice\", \"frank\"), \"\\n\")",
+        "code": "descendants <- ancestor_all(\"alice\")\ncat(\"alice 的后代:\", paste(descendants, collapse = \", \"), \"\\n\")\ncat(\"alice 是 eve 的祖先:\", ancestor_check(\"alice\", \"eve\"), \"\\n\")\ncat(\"alice 是 frank 的祖先:\", ancestor_check(\"alice\", \"frank\"), \"\\n\")",
         "type": "code",
         "language": "r",
         "name": "test_r_ancestor",
@@ -202,7 +202,7 @@
         "lastOutputHtml": ""
       },
       {
-        "code": "%% Compile ancestor/2 again, but skip transitive closure → falls to tail recursion\n%% Also target bash to show cross-language compilation\nrecursive_compiler:compile_recursive(\n    ancestor/2,\n    [target(bash), skip(transitive_closure)],\n    _Code2),\nformat('--- Pattern: tail_recursion (bash) ---~n~w~n', [_Code2]),\n\n%% Write to the bash cell\nuser:nb_write('bash_ancestor_alt', '.code', _Code2),\nwriteln('\\nBash code written to cell: bash_ancestor_alt').",
+        "code": "%再次编译 ancestor/2，但跳过传递闭包 → 回退到尾递归\n%同时以 Bash 为目标展示跨语言编译\nrecursive_compiler:compile_recursive(\n    ancestor/2,\n    [target(bash), skip(transitive_closure)],\n    _Code2),\nformat('--- Pattern: tail_recursion (bash) ---~n~w~n', [_Code2]),\n\n%写入 Bash 单元格\nuser:nb_write('bash_ancestor_alt', '.code', _Code2),\nwriteln('\\nBash code written to cell: bash_ancestor_alt').",
         "type": "code",
         "language": "prolog",
         "name": "compile_ancestor_skip",
@@ -210,7 +210,7 @@
         "lastOutputHtml": ""
       },
       {
-        "code": "# This cell will be overwritten by the compiler.\n# Run 'compile_ancestor_skip' above first.",
+        "code": "# 此单元格将被编译器覆盖。\n# 请先运行上方的 'compile_ancestor_skip' 单元格。",
         "type": "code",
         "language": "bash",
         "name": "bash_ancestor_alt",
@@ -226,7 +226,7 @@
         "lastOutputHtml": ""
       },
       {
-        "code": "echo \"=== R (transitive closure / BFS) ===\"\necho \"Language: $(cat /nb/r_ancestor_tc/.language)\"\necho \"---\"\ncat /nb/r_ancestor_tc/.code\necho \"\"\necho \"\"\necho \"=== Bash (tail recursion) ===\"\necho \"Language: $(cat /nb/bash_ancestor_alt/.language)\"\necho \"---\"\ncat /nb/bash_ancestor_alt/.code",
+        "code": "echo \"=== R (传递闭包 / BFS) ===\"\necho \"语言: $(cat /nb/r_ancestor_tc/.language)\"\necho \"---\"\ncat /nb/r_ancestor_tc/.code\necho \"\"\necho \"\"\necho \"=== Bash (尾递归) ===\"\necho \"语言: $(cat /nb/bash_ancestor_alt/.language)\"\necho \"---\"\ncat /nb/bash_ancestor_alt/.code",
         "type": "code",
         "language": "bash",
         "name": "compare_outputs",

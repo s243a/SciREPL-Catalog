@@ -11,19 +11,19 @@
       },
       {
         "type": "code",
-        "code": "% Load UnifyWeaver compiler modules\n['../init'].\n:- use_module(unifyweaver(targets/clojurescript_target)).\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "code": "% UnifyWeaver कंपाइलर मॉड्यूल लोड करें\n['../init'].\n:- use_module(unifyweaver(targets/clojurescript_target)).\n:- use_module(unifyweaver(core/recursive_compiler)).",
         "language": "prolog",
         "name": "load_compiler"
       },
       {
         "type": "code",
-        "code": "% Define a family tree as Prolog facts\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% Transitive closure: ancestor(X, Y) if X is an ancestor of Y\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "code": "% Prolog तथ्यों के रूप में वंशावली वृक्ष परिभाषित करें\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% संक्रामक समापन: ancestor(X, Y) यदि X, Y का पूर्वज है\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
         "language": "prolog",
         "name": "family_tree"
       },
       {
         "type": "code",
-        "code": "% Compile ancestor/2 to ClojureScript definitions only\n\\+ \\+ (\n    recursive_compiler:compile_recursive(ancestor/2, [target(clojurescript)], _Code),\n    format('--- Generated ClojureScript code ---~n~w~n', [_Code]),\n    % End with nil so generated seed expressions do not become notebook output\n    format(string(_Definitions), '~w~n~nnil~n', [_Code]),\n    user:nb_write('cljs_output', '.code', _Definitions),\n    writeln('ClojureScript definitions written to cell: cljs_output')\n).",
+        "code": "% ancestor/2 को केवल ClojureScript परिभाषाओं में संकलित करें\n\\+ \\+ (\n    recursive_compiler:compile_recursive(ancestor/2, [target(clojurescript)], _Code),\n    format('--- Generated ClojureScript code ---~n~w~n', [_Code]),\n    % nil के साथ समाप्त करें ताकि जनरेट किए गए सीड एक्सप्रेशन नोटबुक आउटपुट न बनें\n    format(string(_Definitions), '~w~n~nnil~n', [_Code]),\n    user:nb_write('cljs_output', '.code', _Definitions),\n    writeln('ClojureScript definitions written to cell: cljs_output')\n).",
         "language": "prolog",
         "name": "compile_to_clojurescript"
       },
@@ -34,13 +34,13 @@
       },
       {
         "type": "code",
-        "code": ";; This cell will be populated by the compiler.\n;; Run the 'compile_to_clojurescript' cell above first.",
+        "code": ";; यह सेल कंपाइलर द्वारा भरी जाएगी।\n;; पहले ऊपर दी गई 'compile_to_clojurescript' सेल चलाएं।",
         "language": "clojurescript",
         "name": "cljs_output"
       },
       {
         "type": "code",
-        "code": ";; Query the generated definitions in Scittle's persistent context.\n(print (str \"Descendants of alice: \" (pr-str (sort (find-all \"alice\"))) \"\\n\"\n            \"alice is ancestor of eve: \" (check-path \"alice\" \"eve\") \"\\n\"\n            \"alice is ancestor of frank: \" (check-path \"alice\" \"frank\") \"\\n\"))",
+        "code": ";; Scittle के स्थायी संदर्भ में जनरेट की गई परिभाषाओं को क्वेरी करें।\n(print (str \"alice के वंशज: \" (pr-str (sort (find-all \"alice\"))) \"\\n\"\n            \"alice, eve की पूर्वज है: \" (check-path \"alice\" \"eve\") \"\\n\"\n            \"alice, frank की पूर्वज है: \" (check-path \"alice\" \"frank\") \"\\n\"))",
         "language": "clojurescript",
         "name": "cljs_queries"
       },
@@ -51,7 +51,7 @@
       },
       {
         "type": "code",
-        "code": "% Compile the same predicate to JVM Clojure for comparison (display only)\n\\+ \\+ (\n    recursive_compiler:compile_recursive(ancestor/2, [target(clojure)], _ClojureCode),\n    format('--- Generated JVM Clojure code (note java.io / *command-line-args*) ---~n~w~n', [_ClojureCode])\n).",
+        "code": "% तुलना के लिए उसी प्रेडिकेट को JVM Clojure में संकलित करें (केवल प्रदर्शन के लिए)\n\\+ \\+ (\n    recursive_compiler:compile_recursive(ancestor/2, [target(clojure)], _ClojureCode),\n    format('--- Generated JVM Clojure code (note java.io / *command-line-args*) ---~n~w~n', [_ClojureCode])\n).",
         "language": "prolog",
         "name": "compile_to_clojure"
       }

@@ -1,0 +1,179 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T06:49:13.431Z",
+  "notebook": {
+    "id": "default",
+    "name": "Estadística con R",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "r",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 18,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# Estadística con R\n\nContraste de hipótesis, regresión e intervalos de confianza utilizando conjuntos de datos integrados de R.\n\nNo requiere descarga de datos ni instalación de paquetes: utiliza únicamente R base.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "## 1. Estadística descriptiva",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 3,
+        "code": "data(mtcars)\ncat(\"Conjunto de datos: mtcars (\", nrow(mtcars), \"automóviles, \", ncol(mtcars), \"variables)\\n\\n\")\nsummary(mtcars[, c(\"mpg\", \"hp\", \"wt\", \"disp\")])",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "Conjunto de datos: mtcars ( 32 automóviles,  11 variables)\n\n      mpg              hp              wt             disp      \n Min.   :10.40   Min.   : 52.0   Min.   :1.513   Min.   : 71.1  \n 1st Qu.:15.43   1st Qu.: 96.5   1st Qu.:2.581   1st Qu.:120.8  \n Median :19.20   Median :123.0   Median :3.325   Median :196.3  \n Mean   :20.09   Mean   :146.7   Mean   :3.217   Mean   :230.7  \n 3rd Qu.:22.80   3rd Qu.:180.0   3rd Qu.:3.610   3rd Qu.:326.0  \n Max.   :33.90   Max.   :335.0   Max.   :5.424   Max.   :472.0",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Conjunto de datos: mtcars ( 32 automóviles,  11 variables)\n\n      mpg              hp              wt             disp      \n Min.   :10.40   Min.   : 52.0   Min.   :1.513   Min.   : 71.1  \n 1st Qu.:15.43   1st Qu.: 96.5   1st Qu.:2.581   1st Qu.:120.8  \n Median :19.20   Median :123.0   Median :3.325   Median :196.3  \n Mean   :20.09   Mean   :146.7   Mean   :3.217   Mean   :230.7  \n 3rd Qu.:22.80   3rd Qu.:180.0   3rd Qu.:3.610   3rd Qu.:326.0  \n Max.   :33.90   Max.   :335.0   Max.   :5.424   Max.   :472.0</pre>"
+      },
+      {
+        "id": 4,
+        "code": "## 2. Prueba t de dos muestras\n\n¿Tienen los automóviles con transmisión manual mejor rendimiento (MPG) que los automáticos?",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 5,
+        "code": "auto <- mtcars$mpg[mtcars$am == 0]\nmanual <- mtcars$mpg[mtcars$am == 1]\n\ncat(\"Automático:\", round(mean(auto), 1), \"MPG (n =\", length(auto), \")\\n\")\ncat(\"Transmisión manual:   \", round(mean(manual), 1), \"MPG (n =\", length(manual), \")\\n\\n\")\n\nt_result <- t.test(manual, auto, alternative = \"greater\")\nprint(t_result)\n\ncat(\"\\nConclusión:\",\n    ifelse(t_result$p.value < 0.05,\n           \"Rechazar H0 — los automóviles manuales tienen un MPG significativamente mayor\",\n           \"No se rechaza H0\"))",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "Automático: 17.1 MPG (n = 19 )\nTransmisión manual:    24.4 MPG (n = 13 )\n\n\n\tWelch Two Sample t-test\n\ndata:  manual and auto\nt = 3.7671, df = 18.332, p-value = 0.0006868\nalternative hypothesis: true difference in means is greater than 0\n95 percent confidence interval:\n 3.913256      Inf\nsample estimates:\nmean of x mean of y \n 24.39231  17.14737 \n\n\nConclusión: Rechazar H0 — los automóviles manuales tienen un MPG significativamente mayor",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Automático: 17.1 MPG (n = 19 )\nTransmisión manual:    24.4 MPG (n = 13 )\n\n\n\tWelch Two Sample t-test\n\ndata:  manual and auto\nt = 3.7671, df = 18.332, p-value = 0.0006868\nalternative hypothesis: true difference in means is greater than 0\n95 percent confidence interval:\n 3.913256      Inf\nsample estimates:\nmean of x mean of y \n 24.39231  17.14737 \n\n\nConclusión: Rechazar H0 — los automóviles manuales tienen un MPG significativamente mayor</pre>"
+      },
+      {
+        "id": 6,
+        "code": "## 3. Prueba de chi-cuadrado\n\n¿Son independientes el número de cilindros y el tipo de transmisión?",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 7,
+        "code": "tab <- table(Cylinders = mtcars$cyl, Transmission = mtcars$am)\ncolnames(tab) <- c(\"Automático\", \"Manual\")\nprint(tab)\ncat(\"\\n\")\nchisq.test(tab)",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "         Transmission\nCylinders Automático Manual\n        4          3      8\n        6          4      3\n        8         12      2\n\nWarning in chisq.test(tab) : Chi-squared approximation may be incorrect\n\n\tPearson's Chi-squared test\n\ndata:  tab\nX-squared = 8.7407, df = 2, p-value = 0.01265",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">         Transmission\nCylinders Automático Manual\n        4          3      8\n        6          4      3\n        8         12      2\n\nWarning in chisq.test(tab) : Chi-squared approximation may be incorrect\n\n\tPearson's Chi-squared test\n\ndata:  tab\nX-squared = 8.7407, df = 2, p-value = 0.01265</pre>"
+      },
+      {
+        "id": 8,
+        "code": "## 4. Regresión lineal múltiple",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 9,
+        "code": "model <- lm(mpg ~ wt + hp + am, data = mtcars)\nsummary(model)",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "\nCall:\nlm(formula = mpg ~ wt + hp + am, data = mtcars)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-3.4221 -1.7924 -0.3788  1.2249  5.5317 \n\nCoefficients:\n             Estimate Std. Error t value Pr(>|t|)    \n(Intercept) 34.002875   2.642659  12.867 2.82e-13 ***\nwt          -2.878575   0.904971  -3.181 0.003574 ** \nhp          -0.037479   0.009605  -3.902 0.000546 ***\nam           2.083710   1.376420   1.514 0.141268    \n---\nSignif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1\n\nResidual standard error: 2.538 on 28 degrees of freedom\nMultiple R-squared:  0.8399,\tAdjusted R-squared:  0.8227 \nF-statistic: 48.96 on 3 and 28 DF,  p-value: 2.908e-11",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">\nCall:\nlm(formula = mpg ~ wt + hp + am, data = mtcars)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-3.4221 -1.7924 -0.3788  1.2249  5.5317 \n\nCoefficients:\n             Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept) 34.002875   2.642659  12.867 2.82e-13 ***\nwt          -2.878575   0.904971  -3.181 0.003574 ** \nhp          -0.037479   0.009605  -3.902 0.000546 ***\nam           2.083710   1.376420   1.514 0.141268    \n---\nSignif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1\n\nResidual standard error: 2.538 on 28 degrees of freedom\nMultiple R-squared:  0.8399,\tAdjusted R-squared:  0.8227 \nF-statistic: 48.96 on 3 and 28 DF,  p-value: 2.908e-11</pre>"
+      },
+      {
+        "id": 10,
+        "code": "## 5. Diagnóstico de la regresión",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 11,
+        "code": "par(mfrow = c(2, 2))\nplot(model)",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": "<img src=\"blob:http://localhost:8090/efd84c7e-f60c-47d4-aa46-0625514a3dc9\" style=\"max-width: 100%; border-radius: 6px; margin-top: 8px;\">"
+      },
+      {
+        "id": 12,
+        "code": "## 6. Intervalos de confianza",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 13,
+        "code": "ci <- confint(model, level = 0.95)\ncat(\"95% Confianza - Intervalos:\\n\")\nprint(round(ci, 4))",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "95% Confianza - Intervalos:\n              2.5 %  97.5 %\n(Intercept) 28.5896 39.4161\nwt          -4.7323 -1.0248\nhp          -0.0572 -0.0178\nam          -0.7358  4.9032",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">95% Confianza - Intervalos:\n              2.5 %  97.5 %\n(Intercept) 28.5896 39.4161\nwt          -4.7323 -1.0248\nhp          -0.0572 -0.0178\nam          -0.7358  4.9032</pre>"
+      },
+      {
+        "id": 14,
+        "code": "coefs <- coef(model)[-1]\nci_vals <- ci[-1, ]\nn <- length(coefs)\n\npar(mfrow = c(1, 1), mar = c(5, 8, 4, 2))\nplot(coefs, 1:n, xlim = range(ci_vals),\n     pch = 19, col = \"#58a6ff\", cex = 1.5,\n     yaxt = \"n\", xlab = \"Estimación\", ylab = \"\",\n     main = \"95% Confianza - Intervalos para los coeficientes\")\naxis(2, at = 1:n, labels = names(coefs), las = 1)\nsegments(ci_vals[, 1], 1:n, ci_vals[, 2], 1:n,\n         lwd = 3, col = \"#58a6ff\")\nabline(v = 0, lty = 2, col = \"#f85149\", lwd = 1.5)",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": "<img src=\"blob:http://localhost:8090/c8b0e6e4-ade3-49f5-93e7-91c3b308c5d4\" style=\"max-width: 100%; border-radius: 6px; margin-top: 8px;\">"
+      },
+      {
+        "id": 15,
+        "code": "## 7. ANOVA de una vía\n\n¿Difiere significativamente el MPG según el número de cilindros?",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 16,
+        "code": "anova_model <- aov(mpg ~ factor(cyl), data = mtcars)\nsummary(anova_model)\ncat(\"\\nComparaciones post hoc de Tukey HSD:\\n\")\nTukeyHSD(anova_model)",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "            Df Sum Sq Mean Sq F value   Pr(>F)    \nfactor(cyl)  2  824.8   412.4    39.7 4.98e-09 ***\nResiduals   29  301.3    10.4                     \n---\nSignif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1\n\nComparaciones post hoc de Tukey HSD:\n  Tukey multiple comparisons of means\n    95% family-wise confidence level\n\nFit: aov(formula = mpg ~ factor(cyl), data = mtcars)\n\n$`factor(cyl)`\n          diff        lwr        upr     p adj\n6-4  -6.920779 -10.769350 -3.0722086 0.0003424\n8-4 -11.563636 -14.770779 -8.3564942 0.0000000\n8-6  -4.642857  -8.327583 -0.9581313 0.0112287",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">            Df Sum Sq Mean Sq F value   Pr(&gt;F)    \nfactor(cyl)  2  824.8   412.4    39.7 4.98e-09 ***\nResiduals   29  301.3    10.4                     \n---\nSignif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1\n\nComparaciones post hoc de Tukey HSD:\n  Tukey multiple comparisons of means\n    95% family-wise confidence level\n\nFit: aov(formula = mpg ~ factor(cyl), data = mtcars)\n\n$`factor(cyl)`\n          diff        lwr        upr     p adj\n6-4  -6.920779 -10.769350 -3.0722086 0.0003424\n8-4 -11.563636 -14.770779 -8.3564942 0.0000000\n8-6  -4.642857  -8.327583 -0.9581313 0.0112287</pre>"
+      },
+      {
+        "id": 17,
+        "code": "boxplot(mpg ~ cyl, data = mtcars,\n        main = \"MPG según el número de cilindros\",\n        xlab = \"Cilindros\", ylab = \"Millas por galón\",\n        col = c(\"#58a6ff\", \"#a371f7\", \"#f85149\"))",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": "<img src=\"blob:http://localhost:8090/e3b764ca-682b-4845-997d-48da1a97bfd9\" style=\"max-width: 100%; border-radius: 6px; margin-top: 8px;\">"
+      },
+      {
+        "id": 18,
+        "code": "## Resumen\n\n- **Prueba t de Welch**: En la comparación unilateral no ajustada, los automóviles con transmisión manual tienen una media de MPG superior\n- **Chi-cuadrado**: La tabla de contingencia sugiere una asociación, pero las bajas frecuencias esperadas activan una advertencia de aproximación, por lo que este resultado debe interpretarse con cautela\n- **Regresión**: El peso y la potencia (horsepower) son predictores negativos significativos tras el ajuste; el tipo de transmisión no resulta significativo en este modelo\n- **ANOVA**: El MPG difiere significativamente entre los grupos de 4, 6 y 8 cilindros; los resultados de Tukey identifican las diferencias por pares",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      }
+    ]
+  }
+}

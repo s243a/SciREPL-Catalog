@@ -1,0 +1,1261 @@
+{
+  "manifest_version": 1,
+  "produced_by": "derived",
+  "generator": "tools/span-derive.mjs",
+  "locale": "hi",
+  "source": {
+    "path": "workbooks/en/life_expectancy_csv_demo.ipynb",
+    "sha256": "9cffd27d993bae8a27ae3d1c0b695f97530897b424a7d8ca68dc1aa827658466"
+  },
+  "target": {
+    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/jobs/life_expectancy_csv_demo-hi/translated.ipynb",
+    "sha256": "d67c226ebfd98789f5f53330435fb73b43f330d27760acbdb6ebe64f46ceb9b4"
+  },
+  "spans": [
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 8
+        },
+        "end": {
+          "line": 3,
+          "col": 33
+        },
+        "text": "Installed pandas + plotly"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 8
+        },
+        "end": {
+          "line": 3,
+          "col": 40
+        },
+        "text": "pandas + plotly स्थापित किया गया"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 17,
+          "col": 17
+        },
+        "end": {
+          "line": 17,
+          "col": 39
+        },
+        "text": "Already exists: "
+      },
+      "target_span": {
+        "start": {
+          "line": 17,
+          "col": 17
+        },
+        "end": {
+          "line": 17,
+          "col": 41
+        },
+        "text": "पहले से मौजूद है: "
+      },
+      "placeholders": [
+        "{path}"
+      ]
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 24,
+          "col": 17
+        },
+        "end": {
+          "line": 24,
+          "col": 49
+        },
+        "text": "Downloaded "
+      },
+      "target_span": {
+        "start": {
+          "line": 24,
+          "col": 17
+        },
+        "end": {
+          "line": 24,
+          "col": 59
+        },
+        "text": "डाउनलोड किया गया "
+      },
+      "placeholders": [
+        "{name}",
+        "{lines}"
+      ]
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 24,
+          "col": 17
+        },
+        "end": {
+          "line": 24,
+          "col": 49
+        },
+        "text": " lines"
+      },
+      "target_span": {
+        "start": {
+          "line": 24,
+          "col": 17
+        },
+        "end": {
+          "line": 24,
+          "col": 59
+        },
+        "text": " पंक्तियाँ"
+      },
+      "placeholders": [
+        "{name}",
+        "{lines}"
+      ]
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 9
+        },
+        "end": {
+          "line": 4,
+          "col": 27
+        },
+        "text": "Shape: "
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 9
+        },
+        "end": {
+          "line": 4,
+          "col": 34
+        },
+        "text": "आकार (Shape): "
+      },
+      "placeholders": [
+        "{gap.shape}"
+      ]
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 9
+        },
+        "end": {
+          "line": 5,
+          "col": 56
+        },
+        "text": "Continents: "
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 9
+        },
+        "end": {
+          "line": 5,
+          "col": 54
+        },
+        "text": "महाद्वीप: "
+      },
+      "placeholders": [
+        "{sorted(gap['continent'].unique())}"
+      ]
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 9
+        },
+        "end": {
+          "line": 6,
+          "col": 60
+        },
+        "text": "Year range: "
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 9
+        },
+        "end": {
+          "line": 6,
+          "col": 59
+        },
+        "text": "वर्ष सीमा: "
+      },
+      "placeholders": [
+        "{gap['year'].min()}",
+        "{gap['year'].max()}"
+      ]
+    },
+    {
+      "cell_index": 5,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 18,
+          "col": 1
+        },
+        "end": {
+          "line": 18,
+          "col": 41
+        },
+        "text": "Life expectancy over time by continent"
+      },
+      "target_span": {
+        "start": {
+          "line": 18,
+          "col": 1
+        },
+        "end": {
+          "line": 18,
+          "col": 47
+        },
+        "text": "महाद्वीप के अनुसार समय के साथ जीवन प्रत्याशा"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 21,
+          "col": 22
+        },
+        "end": {
+          "line": 21,
+          "col": 62
+        },
+        "text": "Life Expectancy by Continent (1952-2007)"
+      },
+      "target_span": {
+        "start": {
+          "line": 21,
+          "col": 22
+        },
+        "end": {
+          "line": 21,
+          "col": 67
+        },
+        "text": "महाद्वीप के अनुसार जीवन प्रत्याशा (1952-2007)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 22,
+          "col": 35
+        },
+        "end": {
+          "line": 22,
+          "col": 58
+        },
+        "text": "Life Expectancy (years)"
+      },
+      "target_span": {
+        "start": {
+          "line": 22,
+          "col": 35
+        },
+        "end": {
+          "line": 22,
+          "col": 56
+        },
+        "text": "जीवन प्रत्याशा (वर्ष)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 22,
+          "col": 70
+        },
+        "end": {
+          "line": 22,
+          "col": 74
+        },
+        "text": "Year"
+      },
+      "target_span": {
+        "start": {
+          "line": 22,
+          "col": 68
+        },
+        "end": {
+          "line": 22,
+          "col": 72
+        },
+        "text": "वर्ष"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 58
+        },
+        "text": "GDP vs Life Expectancy (2007), bubble size = population"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 57
+        },
+        "text": "GDP बनाम जीवन प्रत्याशा (2007), बबल का आकार = जनसंख्या"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 25
+        },
+        "end": {
+          "line": 6,
+          "col": 54
+        },
+        "text": "GDP vs Life Expectancy (2007)"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 25
+        },
+        "end": {
+          "line": 6,
+          "col": 55
+        },
+        "text": "GDP बनाम जीवन प्रत्याशा (2007)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 40
+        },
+        "end": {
+          "line": 7,
+          "col": 60
+        },
+        "text": "GDP per capita (log)"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 40
+        },
+        "end": {
+          "line": 7,
+          "col": 63
+        },
+        "text": "प्रति व्यक्ति GDP (लॉग)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 75
+        },
+        "end": {
+          "line": 7,
+          "col": 90
+        },
+        "text": "Life Expectancy"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 78
+        },
+        "end": {
+          "line": 7,
+          "col": 92
+        },
+        "text": "जीवन प्रत्याशा"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 9,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 54
+        },
+        "text": "Life expectancy distribution by continent (boxplot)"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 58
+        },
+        "text": "महाद्वीप के अनुसार जीवन प्रत्याशा का वितरण (बॉक्सप्लॉट)"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 9,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 17
+        },
+        "end": {
+          "line": 5,
+          "col": 45
+        },
+        "text": "Life Expectancy by Continent"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 17
+        },
+        "end": {
+          "line": 5,
+          "col": 50
+        },
+        "text": "महाद्वीप के अनुसार जीवन प्रत्याशा"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 9,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 17
+        },
+        "end": {
+          "line": 6,
+          "col": 26
+        },
+        "text": "Continent"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 17
+        },
+        "end": {
+          "line": 6,
+          "col": 25
+        },
+        "text": "महाद्वीप"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 9,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 37
+        },
+        "end": {
+          "line": 6,
+          "col": 60
+        },
+        "text": "Life Expectancy (years)"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 36
+        },
+        "end": {
+          "line": 6,
+          "col": 57
+        },
+        "text": "जीवन प्रत्याशा (वर्ष)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 10,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 65
+        },
+        "text": "Top 10 countries by life expectancy improvement (1952 vs 2007)"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 67
+        },
+        "text": "जीवन प्रत्याशा में सुधार के अनुसार शीर्ष 10 देश (1952 बनाम 2007)"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 10,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 12,
+          "col": 17
+        },
+        "end": {
+          "line": 12,
+          "col": 57
+        },
+        "text": "Top 10: Life Expectancy Gain (1952-2007)"
+      },
+      "target_span": {
+        "start": {
+          "line": 12,
+          "col": 17
+        },
+        "end": {
+          "line": 12,
+          "col": 64
+        },
+        "text": "शीर्ष 10: जीवन प्रत्याशा में वृद्धि (1952-2007)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 10,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 13,
+          "col": 17
+        },
+        "end": {
+          "line": 13,
+          "col": 29
+        },
+        "text": "Years gained"
+      },
+      "target_span": {
+        "start": {
+          "line": 13,
+          "col": 17
+        },
+        "end": {
+          "line": 13,
+          "col": 30
+        },
+        "text": "बढ़े हुए वर्ष"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 12,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 9
+        },
+        "end": {
+          "line": 2,
+          "col": 27
+        },
+        "text": "Shape: "
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 9
+        },
+        "end": {
+          "line": 2,
+          "col": 34
+        },
+        "text": "आकार (Shape): "
+      },
+      "placeholders": [
+        "{who.shape}"
+      ]
+    },
+    {
+      "cell_index": 12,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 9
+        },
+        "end": {
+          "line": 3,
+          "col": 37
+        },
+        "text": "Columns: "
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 9
+        },
+        "end": {
+          "line": 3,
+          "col": 34
+        },
+        "text": "कॉलम: "
+      },
+      "placeholders": [
+        "{list(who.columns)}"
+      ]
+    },
+    {
+      "cell_index": 12,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 9
+        },
+        "end": {
+          "line": 4,
+          "col": 34
+        },
+        "text": "\\nMissing values (top 5):"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 9
+        },
+        "end": {
+          "line": 4,
+          "col": 48
+        },
+        "text": "\\nलापता मान / Missing values (शीर्ष 5):"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 68
+        },
+        "text": "Developing vs Developed: pre-binned life expectancy distributions"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 60
+        },
+        "text": "विकासशील बनाम विकसित: पूर्व-वर्गीकृत जीवन प्रत्याशा वितरण"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 82
+        },
+        "text": "Explicit bar coordinates render consistently through the browser Plotly bridge."
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 82
+        },
+        "text": "स्पष्ट बार निर्देशांक ब्राउज़र Plotly ब्रिज के माध्यम से लगातार रेंडर होते हैं।"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 19,
+          "col": 21
+        },
+        "end": {
+          "line": 19,
+          "col": 61
+        },
+        "text": "Life Expectancy: Developing vs Developed"
+      },
+      "target_span": {
+        "start": {
+          "line": 19,
+          "col": 21
+        },
+        "end": {
+          "line": 19,
+          "col": 57
+        },
+        "text": "जीवन प्रत्याशा: विकासशील बनाम विकसित"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 20,
+          "col": 42
+        },
+        "end": {
+          "line": 20,
+          "col": 65
+        },
+        "text": "Life Expectancy (years)"
+      },
+      "target_span": {
+        "start": {
+          "line": 20,
+          "col": 42
+        },
+        "end": {
+          "line": 20,
+          "col": 63
+        },
+        "text": "जीवन प्रत्याशा (वर्ष)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 31
+        },
+        "text": "Schooling vs Life Expectancy"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 36
+        },
+        "text": "स्कूली शिक्षा बनाम जीवन प्रत्याशा"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 25
+        },
+        "end": {
+          "line": 5,
+          "col": 60
+        },
+        "text": "Schooling vs Life Expectancy (2014)"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 25
+        },
+        "end": {
+          "line": 5,
+          "col": 65
+        },
+        "text": "स्कूली शिक्षा बनाम जीवन प्रत्याशा (2014)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 46
+        },
+        "end": {
+          "line": 6,
+          "col": 69
+        },
+        "text": "Life Expectancy (years)"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 46
+        },
+        "end": {
+          "line": 6,
+          "col": 67
+        },
+        "text": "जीवन प्रत्याशा (वर्ष)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 40
+        },
+        "end": {
+          "line": 7,
+          "col": 58
+        },
+        "text": "Years of Schooling"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 40
+        },
+        "end": {
+          "line": 7,
+          "col": 61
+        },
+        "text": "स्कूली शिक्षा के वर्ष"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 6
+        },
+        "end": {
+          "line": 3,
+          "col": 18
+        },
+        "text": "\\nCountries:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 6
+        },
+        "end": {
+          "line": 3,
+          "col": 12
+        },
+        "text": "\\nदेश:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 6
+        },
+        "end": {
+          "line": 4,
+          "col": 19
+        },
+        "text": "\\nYear range:"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 6
+        },
+        "end": {
+          "line": 4,
+          "col": 18
+        },
+        "text": "\\nवर्ष सीमा:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 17,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 50
+        },
+        "text": "Correlation: Adult Mortality vs Life Expectancy"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 47
+        },
+        "text": "सहसंबंध: वयस्क मृत्यु दर बनाम जीवन प्रत्याशा"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 17,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 14
+        },
+        "end": {
+          "line": 7,
+          "col": 48
+        },
+        "text": "Adult Mortality vs Life Expectancy"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 14
+        },
+        "end": {
+          "line": 7,
+          "col": 49
+        },
+        "text": "वयस्क मृत्यु दर बनाम जीवन प्रत्याशा"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 17,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 8,
+          "col": 14
+        },
+        "end": {
+          "line": 8,
+          "col": 40
+        },
+        "text": "Adult Mortality (per 1000)"
+      },
+      "target_span": {
+        "start": {
+          "line": 8,
+          "col": 14
+        },
+        "end": {
+          "line": 8,
+          "col": 42
+        },
+        "text": "वयस्क मृत्यु दर (प्रति 1000)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 17,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 9,
+          "col": 14
+        },
+        "end": {
+          "line": 9,
+          "col": 37
+        },
+        "text": "Life Expectancy (years)"
+      },
+      "target_span": {
+        "start": {
+          "line": 9,
+          "col": 14
+        },
+        "end": {
+          "line": 9,
+          "col": 35
+        },
+        "text": "जीवन प्रत्याशा (वर्ष)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 17,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 10,
+          "col": 32
+        },
+        "end": {
+          "line": 10,
+          "col": 41
+        },
+        "text": "Developed"
+      },
+      "target_span": {
+        "start": {
+          "line": 10,
+          "col": 32
+        },
+        "end": {
+          "line": 10,
+          "col": 38
+        },
+        "text": "विकसित"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 17,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 10,
+          "col": 45
+        },
+        "end": {
+          "line": 10,
+          "col": 55
+        },
+        "text": "Developing"
+      },
+      "target_span": {
+        "start": {
+          "line": 10,
+          "col": 42
+        },
+        "end": {
+          "line": 10,
+          "col": 50
+        },
+        "text": "विकासशील"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 18,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 54
+        },
+        "text": "Simple linear model: what predicts life expectancy?"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 63
+        },
+        "text": "सरल रैखिक मॉडल: जीवन प्रत्याशा का पूर्वानुमान क्या लगाता है?"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    }
+  ],
+  "exclusions": [
+    {
+      "cell_index": 2,
+      "reason": "unstable across identical English runs — pin (seed/clock) or accept exclusion",
+      "sample_a": "Installed pandas + plotly\nAlready exists: /shared/data/gapminder.csv\nDownloaded who_life_expectancy.csv: 2939 lines\n",
+      "sample_b": "Installed pandas + plotly\nAlready exists: /shared/data/gapminder.csv\nAlready exists: /shared/data/who_life_expectancy.csv\n"
+    }
+  ]
+}

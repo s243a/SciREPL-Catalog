@@ -1,0 +1,41 @@
+{
+  "spans": {
+    "1:0:0": "Muat modul kompiler UnifyWeaver",
+    "2:0:0": "Definisikan silsilah keluarga sebagai fakta Prolog",
+    "2:2:0": "Penutupan transitif: ancestor(X, Y) jika X adalah leluhur dari Y",
+    "3:1:0": "Sel sumber Lua bernama ini dibaca oleh kedua sel kompiler.",
+    "3:3:0": "Ini ditambahkan ke setiap program yang dihasilkan dan dieksekusi di sana.",
+    "3:5:0": "--- Kueri ---",
+    "3:9:0": "Keturunan dari alice: ",
+    "5:0:0": "Baca program kueri Lua yang disorot dari sel sumber bernamanya",
+    "5:10:0": "Kompilasi dengan input(embedded) — fakta ditanamkan ke dalam kode",
+    "6:0:0": "Sel ini akan diisi oleh kompiler.",
+    "6:2:0": "Jalankan sel 'compile_embedded' di atas terlebih dahulu.",
+    "8:0:0": "Sel data: fakta dalam format from:to (satu per baris)",
+    "8:2:0": "Sel yang dikompilasi VFS membaca ini melalui nb.read(\"facts_data\", \".code\")",
+    "9:0:0": "Baca program kueri Lua berpenyorot yang sama",
+    "9:10:0": "Kompilasi dengan input(vfs(facts_data)) — membaca dari sel di atas",
+    "10:0:0": "Sel ini akan diisi oleh kompiler.",
+    "10:2:0": "Jalankan sel 'compile_vfs' di atas terlebih dahulu.",
+    "12:5:0": "-- Ditulis dari Lua setelah membaca lua_queries (",
+    "12:7:0": " karakter)",
+    "12:13:0": "Lua membaca lua_queries dan menulis lua_written",
+    "13:0:0": "Sel ini akan diisi oleh lua_cell_io."
+  },
+  "keeps": [
+    "3:7:0",
+    "3:13:0",
+    "3:15:0",
+    "3:17:0",
+    "3:19:0",
+    "3:21:0",
+    "3:23:0",
+    "5:6:0",
+    "8:4:0",
+    "9:6:0",
+    "12:1:0",
+    "12:3:0",
+    "12:9:0",
+    "12:11:0"
+  ]
+}

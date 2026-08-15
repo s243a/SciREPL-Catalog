@@ -1,0 +1,98 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T15:33:54.121Z",
+  "notebook": {
+    "id": "default",
+    "name": "Prolog জেনারেট করে ClojureScript: কম্পাইলার ডেমো",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "python",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 9,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# Prolog জেনারেট করে ClojureScript\n\nএই ওয়ার্কবুকটি দেখায় কীভাবে UnifyWeaver Prolog প্রেডিকেটকে **ClojureScript**-এ কম্পাইল করে এবং Scittle কার্নেলের মাধ্যমে ব্রাউজারে ফলাফল রান করে।\n\nকাজের ধারা:\n1. Prolog প্রেডিকেট (তথ্য + নিয়ম) সংজ্ঞায়িত করুন\n2. UnifyWeaver রিকার্শন প্যাটার্ন (ট্রানজিটিভ ক্লোজার) শনাক্ত করে\n3. ClojureScript টার্গেট ব্রাউজারে চালানোর উপযোগী CLJS কোড তৈরি করে (`atom` ম্যাপের ওপর BFS, এমবেড করা তথ্য, কোনো JVM ইন্টারঅপারেবিলিটি নেই)\n4. জেনারেট করা সংজ্ঞাগুলো নিজস্ব হাইলাইট করা ClojureScript সেলে লিখুন\n5. স্থায়ী Scittle কনটেক্সটের বিপরীতে পৃথক হাইলাইট করা কোয়েরি সেল রান করুন\n\nক্যাটালগ এই ওয়ার্কবুকের সাথে প্রয়োজনীয় **UnifyWeaver SciREPL** প্যাকেজটি স্বয়ংক্রিয়ভাবে ইনস্টল করে।\n\n**চমৎকার বৈশিষ্ট্য:** TypR ডেমোর বিপরীতে, ClojureScript-এর অবস্থা *সেলগুলোর মধ্যে স্থায়ী থাকে* — Scittle প্রতি পৃষ্ঠায় একটি SCI কনটেক্সট বজায় রাখে — যাতে জেনারেট করা সংজ্ঞা এবং কোয়েরি সুন্দরভাবে আলাদা থাকে।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "% UnifyWeaver কম্পাইলার মডিউল লোড করুন\n['../init'].\n:- use_module(unifyweaver(targets/clojurescript_target)).\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "type": "code",
+        "language": "prolog",
+        "name": "load_compiler",
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
+      },
+      {
+        "id": 3,
+        "code": "% Prolog তথ্য হিসেবে বংশলতিকা সংজ্ঞায়িত করুন\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% ট্রানজিটিভ ক্লোজার: ancestor(X, Y) যদি X, Y-এর পূর্বপুরুষ হয়\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "type": "code",
+        "language": "prolog",
+        "name": "family_tree",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 4,
+        "code": "% ancestor/2-কে শুধুমাত্র ClojureScript সংজ্ঞায় কম্পাইল করুন\n\\+ \\+ (\n    recursive_compiler:compile_recursive(ancestor/2, [target(clojurescript)], _Code),\n    format('--- Generated ClojureScript code ---~n~w~n', [_Code]),\n    % nil দিয়ে শেষ করুন যাতে জেনারেট করা সিড এক্সপ্রেশন নোটবুক আউটপুট না হয়\n    format(string(_Definitions), '~w~n~nnil~n', [_Code]),\n    user:nb_write('cljs_output', '.code', _Definitions),\n    writeln('ClojureScript definitions written to cell: cljs_output')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "compile_to_clojurescript",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
+      },
+      {
+        "id": 5,
+        "code": "## জেনারেট করা ClojureScript কোড\n\nনিচের সেলে শুধুমাত্র UnifyWeaver দ্বারা তৈরি ClojureScript সংজ্ঞাগুলো রয়েছে।\nএতে অন্তর্ভুক্ত:\n- `(def base-relation (atom {}))` — পরিবর্তনযোগ্য ম্যাপ হিসেবে রিলেশন\n- `find-all` / `check-path` — রিলেশনের ওপর BFS\n- Prolog তথ্য থেকে অন্তর্ভুক্ত `(add-fact ...)` সিড কল\n- শুধুমাত্র JS হোস্ট ইন্টারঅপারেবিলিটি (কোনো `java.io`, `System/exit`, বা `*command-line-args*` নেই)\n\nপরবর্তী হাইলাইট করা সেলটি এই স্থায়ী সংজ্ঞাগুলো কোয়েরি করে।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 6,
+        "code": ";;; এই সেলটি কম্পাইলার দ্বারা পূর্ণ করা হবে।\n;;; প্রথমে উপরের 'compile_to_clojurescript' সেলটি রান করুন।",
+        "type": "code",
+        "language": "clojurescript",
+        "name": "cljs_output",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 7,
+        "code": ";;; Scittle-এর স্থায়ী কনটেক্সটে জেনারেট করা সংজ্ঞাগুলো কোয়েরি করুন।\n(print (str \"alice-এর উত্তরসূরীবৃন্দ: \" (pr-str (sort (find-all \"alice\"))) \"\\n\"\n            \"alice হলো eve-এর পূর্বপুরুষ: \" (check-path \"alice\" \"eve\") \"\\n\"\n            \"alice হলো frank-এর পূর্বপুরুষ: \" (check-path \"alice\" \"frank\") \"\\n\"))",
+        "type": "code",
+        "language": "clojurescript",
+        "name": "cljs_queries",
+        "lastOutput": "Could not resolve symbol: find-all",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Could not resolve symbol: find-all</pre>"
+      },
+      {
+        "id": 8,
+        "code": "## তুলনা: একই প্রেডিকেট, JVM Clojure টার্গেট\n\nUnifyWeaver একই প্রেডিকেট JVM Clojure-এর জন্যও কম্পাইল করতে পারে। এই আউটপুটটি stdin থেকে তথ্য পড়ে এবং `System/exit` ব্যবহার করে — যা JVM/Node হোস্টের জন্য উপযুক্ত কিন্তু সরাসরি ব্রাউজারে চালানোর মতো নয়। ঠিক এই কারণেই ClojureScript টার্গেটটি তৈরি করা হয়েছে (এটি JVM হোস্ট ইন্টারঅপারেবিলিটি JS-এ রূপান্তর করে)।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 9,
+        "code": "% তুলনার জন্য একই প্রেডিকেট JVM Clojure-এ কম্পাইল করুন (শুধুমাত্র প্রদর্শনের জন্য)\n\\+ \\+ (\n    recursive_compiler:compile_recursive(ancestor/2, [target(clojure)], _ClojureCode),\n    format('--- Generated JVM Clojure code (note java.io / *command-line-args*) ---~n~w~n', [_ClojureCode])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "compile_to_clojure",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
+      }
+    ]
+  }
+}

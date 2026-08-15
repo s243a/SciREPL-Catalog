@@ -1,0 +1,98 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T15:41:32.664Z",
+  "notebook": {
+    "id": "default",
+    "name": "Prolog Menghasilkan ClojureScript: Demo Kompiler",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "python",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 9,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# Prolog Menghasilkan ClojureScript\n\nBuku kerja ini mendemonstrasikan bagaimana UnifyWeaver mengompilasi predikat Prolog ke dalam **ClojureScript** dan menjalankan hasilnya di peramban (browser) melalui kernel Scittle.\n\nAlur kerja:\n1. Mendefinisikan predikat Prolog (fakta + aturan)\n2. UnifyWeaver mendeteksi pola rekursi (penutupan transitif / transitive closure)\n3. Target ClojureScript menghasilkan CLJS yang dapat dijalankan di peramban (BFS pada peta `atom`, fakta tersemat, tanpa interoperabilitas JVM)\n4. Menulis definisi yang dihasilkan ke dalam sel ClojureScript berpenyorot miliknya sendiri\n5. Menjalankan sel kueri berpenyorot terpisah terhadap konteks Scittle yang persisten\n\nKatalog secara otomatis memasang paket **UnifyWeaver SciREPL** yang diperlukan bersama buku kerja ini.\n\n**Properti Bagus:** Tidak seperti demo TypR, status ClojureScript *tetap persisten di seluruh sel* — Scittle mempertahankan satu konteks SCI per halaman — sehingga definisi yang dihasilkan dan kueri tetap terpisah dengan rapi.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "% Muat modul kompiler UnifyWeaver\n['../init'].\n:- use_module(unifyweaver(targets/clojurescript_target)).\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "type": "code",
+        "language": "prolog",
+        "name": "load_compiler",
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
+      },
+      {
+        "id": 3,
+        "code": "% Definisikan silsilah keluarga sebagai fakta Prolog\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% Penutupan transitif: ancestor(X, Y) jika X adalah leluhur dari Y\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "type": "code",
+        "language": "prolog",
+        "name": "family_tree",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 4,
+        "code": "% Kompilasi ancestor/2 hanya ke definisi ClojureScript\n\\+ \\+ (\n    recursive_compiler:compile_recursive(ancestor/2, [target(clojurescript)], _Code),\n    format('--- Generated ClojureScript code ---~n~w~n', [_Code]),\n    % Akhiri dengan nil agar ekspresi seed yang dihasilkan tidak menjadi keluaran buku catatan\n    format(string(_Definitions), '~w~n~nnil~n', [_Code]),\n    user:nb_write('cljs_output', '.code', _Definitions),\n    writeln('ClojureScript definitions written to cell: cljs_output')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "compile_to_clojurescript",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
+      },
+      {
+        "id": 5,
+        "code": "## Kode ClojureScript yang Dihasilkan\n\nSel di bawah ini hanya berisi definisi ClojureScript yang dihasilkan oleh UnifyWeaver.\nIni mencakup:\n- `(def base-relation (atom {}))` — relasi sebagai peta yang dapat berubah (mutable map)\n- `find-all` / `check-path` — BFS pada relasi\n- Panggilan seed `(add-fact ...)` tersemat dari fakta Prolog\n- Hanya interoperabilitas host JS (tidak ada `java.io`, `System/exit`, atau `*command-line-args*`)\n\nSel berpenyorot berikutnya mengkueri definisi persisten ini.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 6,
+        "code": ";;; Sel ini akan diisi oleh kompiler.\n;;; Jalankan sel 'compile_to_clojurescript' di atas terlebih dahulu.",
+        "type": "code",
+        "language": "clojurescript",
+        "name": "cljs_output",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 7,
+        "code": ";;; Kueri definisi yang dihasilkan dalam konteks persisten Scittle.\n(print (str \"Keturunan dari alice: \" (pr-str (sort (find-all \"alice\"))) \"\\n\"\n            \"alice adalah leluhur dari eve: \" (check-path \"alice\" \"eve\") \"\\n\"\n            \"alice adalah leluhur dari frank: \" (check-path \"alice\" \"frank\") \"\\n\"))",
+        "type": "code",
+        "language": "clojurescript",
+        "name": "cljs_queries",
+        "lastOutput": "Could not resolve symbol: find-all",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Could not resolve symbol: find-all</pre>"
+      },
+      {
+        "id": 8,
+        "code": "## Perbandingan: Predikat yang Sama, Target JVM Clojure\n\nUnifyWeaver juga dapat mengompilasi predikat yang sama untuk JVM Clojure. Output ini membaca fakta dari stdin dan menggunakan `System/exit` — cocok di bawah host JVM/Node tetapi tidak dapat langsung dieksekusi di peramban. Itulah alasan target ClojureScript ada (ia menulis ulang interoperabilitas host JVM ke JS).",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 9,
+        "code": "% Kompilasi predikat yang sama ke JVM Clojure untuk perbandingan (hanya tampilan)\n\\+ \\+ (\n    recursive_compiler:compile_recursive(ancestor/2, [target(clojure)], _ClojureCode),\n    format('--- Generated JVM Clojure code (note java.io / *command-line-args*) ---~n~w~n', [_ClojureCode])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "compile_to_clojure",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
+      }
+    ]
+  }
+}

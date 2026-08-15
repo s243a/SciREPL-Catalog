@@ -1,0 +1,143 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T15:48:41.372Z",
+  "notebook": {
+    "id": "default",
+    "name": "Prolog による Lua の生成: コンパイラデモ",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "python",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 14,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# Prolog による Lua の生成\n\nこのワークブックでは、UnifyWeaver が Prolog の述語を **Lua** コードにコンパイルする様子を実演します。\n\nワークフローでは、各言語を専用の名前付き・構文強調されたセルに保持します:\n1. Prolog の `family_tree` セルで家系図を定義\n2. Lua の `lua_queries` ソースセルで共有クエリプログラムを定義\n3. Notebook VFS 経由でクエリセルを読み込み、生成された各プログラムに追加\n4. 埋め込み事実バリアントと実行時 VFS バリアントを実行\n\n2つの入力モードが示されています:\n- **埋め込み** — 事実が Lua コード内に直接コンパイルされます\n- **VFS** — 実行時に別のノートブックセルから事実を読み込みます\n\nLua はセルへの直接アクセスのために `nb.read()`、`nb.write()`、`nb.list()`、`nb.name()` も提供しています。最後のセクションでは、読み込み／書き込みの往復処理を実演します。\n\nこのワークブックとともに、カタログから必要な **UnifyWeaver SciREPL** パッケージが自動的にインストールされます。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "% UnifyWeaver コンパイラモジュールを読み込み\n['../init'].\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "type": "code",
+        "language": "prolog",
+        "name": "load_compiler",
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
+      },
+      {
+        "id": 3,
+        "code": "% Prolog の事実として家系図を定義\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% 推移閉包: X が Y の先祖である場合 ancestor(X, Y)\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "type": "code",
+        "language": "prolog",
+        "name": "family_tree",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 4,
+        "code": "#!source\n-- この名前付き Lua ソースセルは両方のコンパイラセルによって読み取られます。\n-- 生成された各プログラムに追加され、そこで実行されます。\n\n-- --- クエリ ---\nlocal results = find_all(\"alice\")\nprint(\"alice の子孫: \" .. table.concat(results, \", \"))\nprint(\"alice -> eve: \" .. tostring(check(\"alice\", \"eve\")))\nprint(\"alice -> frank: \" .. tostring(check(\"alice\", \"frank\")))",
+        "type": "code",
+        "language": "lua",
+        "name": "lua_queries",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 5,
+        "code": "## パターン 1: 埋め込み入力\n\n`input(embedded)` を使用すると、Prolog の事実は `add_fact()` 呼び出しとして Lua コード内に直接コンパイルされます。コンパイラセルは構文強調された `lua_queries` セルを読み込んで追加するため、生成されたプログラムは自己完結型になります。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 6,
+        "code": "% 名前付きソースセルから構文強調された Lua クエリプログラムを読み込み\n\\+ \\+ (\n    user:nb_read('lua_queries', '.code', _QuerySource),\n    split_string(_QuerySource, \"\\n\", \"\\r\", [\"#!source\"|_QueryLines]),\n    atomics_to_string(_QueryLines, \"\\n\", _Queries),\n\n    % input(embedded) でコンパイル — 事実がコード内に埋め込まれます\n    recursive_compiler:compile_recursive(ancestor/2, [target(lua), input(embedded)], _Code),\n    format(string(_FullCode), '~w~n~n~w~n', [_Code, _Queries]),\n    user:nb_write('lua_embedded', '.code', _FullCode),\n    writeln('Lua code (embedded) written to cell: lua_embedded')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "compile_embedded",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
+      },
+      {
+        "id": 7,
+        "code": "-- このセルはコンパイラによって生成されたコードで埋められます。\n-- 最初に上の 'compile_embedded' セルを実行してください。",
+        "type": "code",
+        "language": "lua",
+        "name": "lua_embedded",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 8,
+        "code": "## パターン 2: VFS 入力\n\n`input(vfs(facts_data, '.code'))` を使用すると、生成された Lua は実行時に `nb.read()` を介して別のセルのコードから事実を読み取ります。これにより、再コンパイルすることなくデータを変更できます。同じ名前付き `lua_queries` プログラムがこのバリアントにも追加されます。\n\n以下のデータセルには、Lua のコメントブロック内に `from:to` 形式の行として事実が含まれています:",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 9,
+        "code": "-- データセル: from:to 形式の事実（1行に1件）\n-- VFS コンパイルされたセルは nb.read(\"facts_data\", \".code\") 経由でこれを読み取ります\n--[[\nalice:bob\nbob:charlie\nbob:diana\ncharlie:eve\ndiana:frank\n]]",
+        "type": "code",
+        "language": "lua",
+        "name": "facts_data",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 10,
+        "code": "% 同じ構文強調された Lua クエリプログラムを読み込み\n\\+ \\+ (\n    user:nb_read('lua_queries', '.code', _QuerySource),\n    split_string(_QuerySource, \"\\n\", \"\\r\", [\"#!source\"|_QueryLines]),\n    atomics_to_string(_QueryLines, \"\\n\", _Queries),\n\n    % input(vfs(facts_data)) でコンパイル — 上のセルから読み込みます\n    recursive_compiler:compile_recursive(ancestor/2, [target(lua), input(vfs(facts_data, '.code'))], _Code),\n    format(string(_FullCode), '~w~n~n~w~n', [_Code, _Queries]),\n    user:nb_write('lua_vfs', '.code', _FullCode),\n    writeln('Lua code (VFS) written to cell: lua_vfs')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "compile_vfs",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
+      },
+      {
+        "id": 11,
+        "code": "-- このセルはコンパイラによって生成されたコードで埋められます。\n-- 最初に上の 'compile_vfs' セルを実行してください。",
+        "type": "code",
+        "language": "lua",
+        "name": "lua_vfs",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 12,
+        "code": "## Lua によるノートブックセルの読み書き\n\nLua は Notebook VFS を直接使用できます。このセルは名前付きの `lua_queries` ソースを読み取り、続く `lua_written` セルにメモを書き込みます。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 13,
+        "code": "local query_source = nb.read(\"lua_queries\", \".code\")\nassert(query_source ~= nil)\nlocal note = \"-- lua_queries を読み取った後に Lua から書き込み (\" .. tostring(#query_source) .. \" 文字)\"\nassert(nb.write(\"lua_written\", \".code\", note))\nprint(\"Lua が lua_queries を読み取り lua_written を書き込みました\")",
+        "type": "code",
+        "language": "lua",
+        "name": "lua_cell_io",
+        "lastOutput": "Lua が lua_queries を読み取り lua_written を書き込みました\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Lua が lua_queries を読み取り lua_written を書き込みました\n</pre>"
+      },
+      {
+        "id": 14,
+        "code": "-- lua_queries を読み取った後に Lua から書き込み (440 文字)",
+        "type": "code",
+        "language": "lua",
+        "name": "lua_written",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      }
+    ]
+  }
+}

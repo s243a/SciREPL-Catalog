@@ -1,0 +1,18 @@
+{
+  "spans": {
+    "1:1:0": "Variadische Argumente werden unterstützt",
+    "2:0:0": "Funktionskörper erfordern geschweifte Klammern",
+    "3:1:0": "Hallo von TypR!",
+    "4:0:0": "Explizite Parameter- und Rückgabetypen machen Aufrufe statisch prüfbar",
+    "4:2:0": "Variadische Argumente funktionieren direkt",
+    "4:4:0": "7 zum Quadrat =",
+    "5:0:0": "Heterogene benannte Argumente weiterleiten",
+    "5:6:0": "Namen:"
+  },
+  "keeps": [
+    "5:2:0",
+    "5:4:0",
+    "7:0:0"
+  ],
+  "suggestions": []
+}

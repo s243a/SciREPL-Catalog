@@ -1,0 +1,31 @@
+{
+  "spans": {
+    "2:0:0": "Cargar el archivo de inicialización",
+    "4:0:0": "Definir los hechos de parent",
+    "6:0:0": "Consulta: ¿Quiénes son los hijos de Abraham?",
+    "7:0:0": "Consulta: ¿Quiénes son los hijos de Jacob?",
+    "9:0:0": "Definir ancestor como la clausura transitiva de parent",
+    "9:2:0": "Caso base: el progenitor es un ancestro",
+    "9:4:0": "Caso recursivo: si X es progenitor de Y e Y es ancestro de Z, entonces X es ancestro de Z",
+    "11:0:0": "Consulta: ¿Es Abraham un ancestro de Jacob?",
+    "12:0:0": "Consulta: ¿Quiénes son todos los descendientes de Abraham?",
+    "14:0:0": "Cargar el compilador de flujos",
+    "14:2:0": "Compilar los hechos parent a bash",
+    "16:0:0": "Guardar en un archivo",
+    "18:0:0": "Cargar el compilador recursivo",
+    "18:2:0": "Compilar ancestor a bash",
+    "20:0:0": "Guardar en un archivo",
+    "22:1:0": "Cargar el script parent",
+    "22:3:0": "Prueba: ¿Quiénes son los hijos de Abraham?",
+    "22:5:0": "Hijos de Abraham:",
+    "23:1:0": "Cargar ambos scripts",
+    "23:3:0": "Prueba: ¿Quiénes son los descendientes de Abraham?",
+    "23:5:0": "Descendientes de Abraham:",
+    "24:1:0": "Cargar ambos scripts",
+    "24:3:0": "Prueba: ¿Es Abraham ancestro de Judá?",
+    "24:5:0": "✓ Sí, Abraham es ancestro de Judá",
+    "24:7:0": "✗ No",
+    "26:0:0": "Comprobar si ancestor está clasificado como recursivo"
+  },
+  "keeps": []
+}

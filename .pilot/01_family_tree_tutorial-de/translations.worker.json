@@ -1,0 +1,31 @@
+{
+  "spans": {
+    "2:0:0": "Initialisierungsdatei laden",
+    "4:0:0": "Parent-Fakten definieren",
+    "6:0:0": "Abfrage: Wer sind Abrahams Kinder?",
+    "7:0:0": "Abfrage: Wer sind Jakobs Kinder?",
+    "9:0:0": "Ancestor als transitive Hülle von parent definieren",
+    "9:2:0": "Basisfall: Ein Elternteil ist ein Vorfahre",
+    "9:4:0": "Rekursiver Fall: Wenn X Elternteil von Y ist und Y Vorfahre von Z ist, dann ist X Vorfahre von Z",
+    "11:0:0": "Abfrage: Ist Abraham ein Vorfahre von Jakob?",
+    "12:0:0": "Abfrage: Wer sind alle Nachkommen von Abraham?",
+    "14:0:0": "Stream-Compiler laden",
+    "14:2:0": "Parent-Fakten nach Bash kompilieren",
+    "16:0:0": "In Datei speichern",
+    "18:0:0": "Rekursiven Compiler laden",
+    "18:2:0": "Ancestor nach Bash kompilieren",
+    "20:0:0": "In Datei speichern",
+    "22:1:0": "Parent-Skript mit source einbinden",
+    "22:3:0": "Test: Wer sind Abrahams Kinder?",
+    "22:5:0": "Abrahams Kinder:",
+    "23:1:0": "Beide Skripte mit source einbinden",
+    "23:3:0": "Test: Wer sind Abrahams Nachkommen?",
+    "23:5:0": "Abrahams Nachkommen:",
+    "24:1:0": "Beide Skripte mit source einbinden",
+    "24:3:0": "Test: Ist Abraham ein Vorfahre von Juda?",
+    "24:5:0": "✓ Ja, Abraham ist ein Vorfahre von Juda",
+    "24:7:0": "✗ Nein",
+    "26:0:0": "Prüfen, ob ancestor als rekursiv klassifiziert ist"
+  },
+  "keeps": []
+}

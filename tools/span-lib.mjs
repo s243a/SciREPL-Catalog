@@ -254,12 +254,16 @@ export function scanCell(src) {
 export function cellsOf(workbookJson) {
   const isSrwb = workbookJson.format === 'srwb';
   const cells = isSrwb ? workbookJson.notebook.cells : workbookJson.cells;
+  const nbDefault = workbookJson?.metadata?.language_info?.name
+    || workbookJson?.metadata?.kernelspec?.language || null;
   return cells.map((c, index) => {
     const type = isSrwb ? c.type : c.cell_type;
     const raw = isSrwb ? c.code : c.source;
     // nbformat keepends: lines already carry their trailing \n — join with ''.
     const code = Array.isArray(raw) ? raw.join('') : String(raw ?? '');
-    return { index, type, name: c.name || null, code, cell: c };
+    const entry = { index, type, name: c.name || null, code, cell: c };
+    entry.language = type === 'markdown' ? null : cellLanguage(c, type, nbDefault);
+    return entry;
   });
 }
 
@@ -375,4 +379,133 @@ export function microTokens(code, initialStack = []) {
   }
   out.finalStack = stack;
   return out;
+}
+
+/* ---------------- multi-kernel lexing (Stage A for non-Python) ---------- */
+
+/**
+ * Comment/string syntax per kernel. Only what Stage A needs: separating
+ * prose (comments, string literals) from code. No f-string segmentation
+ * outside Python; formatted output uses %-specs (R/Lua) or ~specs (Prolog)
+ * INSIDE plain strings — preserved by span-apply's placeholder check.
+ *
+ * Prolog note: single-quoted tokens are ATOMS (semantics, not prose) —
+ * they stay code. Bash single-quoted strings take no escapes.
+ */
+export const LANG_SYNTAX = {
+  r:             { line: '#',  block: null,          strings: [{ q: '"', esc: true }, { q: "'", esc: true }] },
+  typr:          { line: '#',  block: null,          strings: [{ q: '"', esc: true }, { q: "'", esc: true }] },
+  bash:          { line: '#',  block: null,          strings: [{ q: '"', esc: true }, { q: "'", esc: false }] },
+  lua:           { line: '--', block: ['--[[', ']]'], strings: [{ q: '"', esc: true }, { q: "'", esc: true }] },
+  prolog:        { line: '%',  block: ['/*', '*/'],  strings: [{ q: '"', esc: true }] },
+  javascript:    { line: '//', block: ['/*', '*/'],  strings: [{ q: '"', esc: true }, { q: "'", esc: true }, { q: '`', esc: true }] },
+  clojurescript: { line: ';',  block: null,          strings: [{ q: '"', esc: true }] },
+};
+
+/** Generic comment/string tokenizer for LANG_SYNTAX languages.
+ *  Token shapes match tokenize() (python) so downstream consumers work:
+ *  comments carry .marker; strings carry quote/triple:false/isF:false. */
+export function tokenizeLang(src, lang) {
+  if (lang === 'python') return tokenize(src);
+  const syn = LANG_SYNTAX[lang];
+  if (!syn) return null;   // unsupported: caller must treat cell as opaque
+  const chars = [...src];
+  const toks = [];
+  let i = 0, line = 1, col = 1, codeStart = 0;
+  let codeStartPos = { line: 1, col: 1 };
+  const pos = () => ({ line, col });
+  const advance = (n = 1) => {
+    for (let k = 0; k < n; k++) { if (chars[i] === '\n') { line++; col = 1; } else col++; i++; }
+  };
+  const flushCode = () => {
+    if (i > codeStart) toks.push({ kind: 'code', text: chars.slice(codeStart, i).join(''), start: codeStartPos });
+  };
+  const at = (s) => chars.slice(i, i + s.length).join('') === s;
+
+  while (i < chars.length) {
+    if (syn.block && at(syn.block[0])) {
+      flushCode();
+      const start = pos();
+      const endIdx = src.indexOf(syn.block[1], [...chars.slice(0, i)].join('').length + syn.block[0].length);
+      let j = i + syn.block[0].length;
+      while (j < chars.length && chars.slice(j, j + syn.block[1].length).join('') !== syn.block[1]) j++;
+      const stop = Math.min(j + syn.block[1].length, chars.length);
+      const text = chars.slice(i, stop).join('');
+      advance(stop - i);
+      toks.push({ kind: 'comment', text, marker: syn.block[0], block: true, start, end: pos() });
+      codeStart = i; codeStartPos = pos();
+      continue;
+    }
+    if (at(syn.line)) {
+      flushCode();
+      const start = pos();
+      let j = i;
+      while (j < chars.length && chars[j] !== '\n') j++;
+      const text = chars.slice(i, j).join('');
+      advance(j - i);
+      toks.push({ kind: 'comment', text, marker: syn.line, start, end: pos() });
+      codeStart = i; codeStartPos = pos();
+      continue;
+    }
+    const sd = syn.strings.find(s => chars[i] === s.q);
+    if (sd) {
+      flushCode();
+      const startPos = pos();
+      advance(1);
+      const bodyStart = i, bodyStartPos = pos();
+      while (i < chars.length) {
+        if (sd.esc && chars[i] === '\\') { advance(2); continue; }
+        if (chars[i] === sd.q) break;
+        advance(1);
+      }
+      const body = chars.slice(bodyStart, i).join('');
+      const bodyEndPos = pos();
+      if (i < chars.length) advance(1);
+      toks.push({
+        kind: 'string', prefix: '', quote: sd.q, triple: false, isF: false,
+        text: body, start: startPos, bodyStart: bodyStartPos, bodyEnd: bodyEndPos, end: pos(),
+      });
+      codeStart = i; codeStartPos = pos();
+      continue;
+    }
+    advance(1);
+  }
+  flushCode();
+  return toks;
+}
+
+/** Extract format placeholders that MUST survive translation:
+ *  %-specs (R sprintf / Lua string.format), ~specs (Prolog format),
+ *  ${}/{} left to language-specific handling elsewhere. */
+export function formatSpecsOf(text) {
+  // NOTE: no space in the flag class — the C space-flag ("% d") is unused in
+  // this corpus, while prose percent signs ("95% CI") would false-match.
+  return [...text.matchAll(/%[-+#0-9.*]*[a-zA-Z%]|~[0-9]*[a-zA-Z~]|\$\([^)]*\)|\$\{[^}]*\}|\$[A-Za-z_][A-Za-z0-9_]*/g)].map(m => m[0]);
+}
+
+/** Per-cell language: srwb uses cell.language or a language-valued type;
+ *  nbformat uses metadata.scirepl_language. */
+export function cellLanguage(cell, type, nbDefault = null) {
+  const KNOWN = new Set(['python', 'r', 'lua', 'prolog', 'bash', 'javascript', 'clojurescript', 'typr']);
+  // cell magics override everything: %%bash etc. on the first line
+  const firstLine = (Array.isArray(cell.source) ? (cell.source[0] || '')
+    : String(cell.code ?? cell.source ?? '')).split('\n')[0];
+  const magic = /^%%(\w+)/.exec(firstLine);
+  if (magic && KNOWN.has(magic[1])) return magic[1];
+  if (cell.language && KNOWN.has(cell.language)) return cell.language;
+  if (KNOWN.has(type)) return type;
+  const meta = cell.metadata || {};
+  if (meta.scirepl_language && KNOWN.has(meta.scirepl_language)) return meta.scirepl_language;
+  // nbformat notebook-level default (kernelspec / language_info)
+  if (nbDefault && KNOWN.has(nbDefault)) return nbDefault;
+  return type === 'code' ? 'python' : null;
+}
+
+/** Write new code back into a cell in ITS OWN format: srwb uses .code,
+ *  nbformat uses .source (line array with keepends, or a plain string). */
+export function setCellCode(entry, newCode) {
+  const c = entry.cell;
+  if (Array.isArray(c.source)) c.source = newCode.length ? newCode.split(/(?<=\n)/) : [];
+  else if (typeof c.source === 'string') c.source = newCode;
+  else c.code = newCode;
 }

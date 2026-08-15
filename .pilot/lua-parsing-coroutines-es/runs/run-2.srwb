@@ -1,0 +1,260 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T07:09:49.104Z",
+  "notebook": {
+    "id": "default",
+    "name": "Lua: Análisis sintáctico con corrutinas",
+    "autoNameNumber": null,
+    "description": "Building parsers in Lua using coroutines as lexers, closures as combinators, and tables as ASTs.",
+    "kernelLanguage": "lua",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 30,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# Análisis sintáctico con corrutinas en Lua\n\nLas corrutinas, clausuras y coincidencia de patrones de Lua se combinan en un conjunto de herramientas natural para construir analizadores sintácticos, sin necesidad de bibliotecas externas.\n\nEste cuaderno de trabajo avanza desde los patrones hasta un evaluador de expresiones funcional:\n\n1. **Patrones de Lua** — el sistema integrado de coincidencia de patrones\n2. **Analizador léxico con corrutinas** — tokeniza la entrada de forma perezosa, produciendo un token a la vez\n3. **Analizador sintáctico descendente recursivo** — consume tokens para construir un AST\n4. **Evaluador** — recorre el árbol para calcular resultados\n5. **Biblioteca de combinadores** — analizadores componibles a partir de clausuras",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "## 1. Patrones de Lua\n\nLua no tiene expresiones regulares (regex); tiene *patrones*, un sistema más ligero integrado en `string.find`, `string.match`, `string.gmatch` y `string.gsub`.\n\nClases principales: `%a` (letra), `%d` (dígito), `%w` (alfanumérico), `%s` (espacio), `%p` (puntuación). Las mayúsculas representan el complemento (`%A` = no letra). `.` coincide con cualquier carácter.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 3,
+        "code": "-- string.match: extraer capturas\nlocal year, month, day = string.match(\"2026-03-10\", \"(%d+)-(%d+)-(%d+)\")\nprint(\"Año:\", year, \"Mes:\", month, \"Día:\", day)\n\n-- string.gmatch: iterar sobre todas las coincidencias\nprint(\"\\nPalabras en la oración:\")\nfor word in string.gmatch(\"the quick brown fox\", \"%a+\") do\n  print(\"  \" .. word)\nend",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "Año:\t2026\tMes:\t03\tDía:\t10\n\nPalabras en la oración:\n  the\n  quick\n  brown\n  fox\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Año:\t2026\tMes:\t03\tDía:\t10\n\nPalabras en la oración:\n  the\n  quick\n  brown\n  fox\n</pre>"
+      },
+      {
+        "id": 4,
+        "code": "-- string.gsub: buscar y reemplazar\nlocal result = string.gsub(\"Hello World\", \"%u\", function(c)\n  return \"[\" .. c .. \"]\"\nend)\nprint(result)  -- [H]ello [W]orld\n\n-- Intercambiar pares clave=valor\nlocal swapped = string.gsub(\"name=Alice age=30\", \"(%w+)=(%w+)\", \"%2=%1\")\nprint(swapped)  -- Alice=name 30=age",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "[H]ello [W]orld\nAlice=name 30=age\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">[H]ello [W]orld\nAlice=name 30=age\n</pre>"
+      },
+      {
+        "id": 5,
+        "code": "-- string.find: ubicar la coincidencia completa y capturar el nombre de la función\nlocal s = \"function foo(x, y)\"\nlocal i, j, name = string.find(s, \"function%s+(%w+)\")\nprint(string.format(\"Coincidencia '%s' en las posiciones %d-%d; nombre capturado '%s'\", s:sub(i, j), i, j, name))\n\n-- Patrón de frontera %f[]: coincidir en transiciones de límites\nlocal text = \"camelCaseVariable\"\nlocal parts = {}\nfor word in string.gmatch(text, \"%u?%l+\") do\n  parts[#parts + 1] = word\nend\nprint(\"División de camelCase:\", table.concat(parts, \" | \"))",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "Coincidencia 'function foo' en las posiciones 1-12; nombre capturado 'foo'\nDivisión de camelCase:\tcamel | Case | Variable\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Coincidencia 'function foo' en las posiciones 1-12; nombre capturado 'foo'\nDivisión de camelCase:\tcamel | Case | Variable\n</pre>"
+      },
+      {
+        "id": 6,
+        "code": "## 2. Analizador léxico con corrutinas\n\nUn **analizador léxico** (tokenizador) divide el texto de entrada en tokens. Mediante una corrutina, podemos emitir (`yield`) tokens uno a la vez; el analizador sintáctico los solicita bajo demanda. No se necesita un arreglo intermedio.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 7,
+        "code": "-- Tipos de tokens\nNUM = \"NUM\"\nOP  = \"OP\"\nID  = \"ID\"\nLPAREN = \"LPAREN\"\nRPAREN = \"RPAREN\"\nEOF = \"EOF\"\n\nfunction lexer(input)\n  return coroutine.wrap(function()\n    local pos = 1\n    while pos <= #input do\n      -- Omitir espacios en blanco\n      local ws = string.match(input, \"^%s+\", pos)\n      if ws then pos = pos + #ws end\n      if pos > #input then break end\n\n      -- Números (enteros y decimales)\n      local num = string.match(input, \"^%d+%.?%d*\", pos)\n      if num then\n        coroutine.yield({ type = NUM, value = tonumber(num), pos = pos })\n        pos = pos + #num\n      -- Identificadores / palabras clave\n      elseif string.match(input, \"^%a\", pos) then\n        local id = string.match(input, \"^%a%w*\", pos)\n        coroutine.yield({ type = ID, value = id, pos = pos })\n        pos = pos + #id\n      -- Operadores\n      elseif string.find(\"+-*/^%%\", string.sub(input, pos, pos), 1, true) then\n        coroutine.yield({ type = OP, value = string.sub(input, pos, pos), pos = pos })\n        pos = pos + 1\n      -- Paréntesis\n      elseif string.sub(input, pos, pos) == \"(\" then\n        coroutine.yield({ type = LPAREN, pos = pos })\n        pos = pos + 1\n      elseif string.sub(input, pos, pos) == \")\" then\n        coroutine.yield({ type = RPAREN, pos = pos })\n        pos = pos + 1\n      else\n        error(\"Carácter inesperado en la posición \" .. pos .. \": '\" .. string.sub(input, pos, pos) .. \"'\")\n      end\n    end\n    coroutine.yield({ type = EOF })\n  end)\nend\n\n-- Probar el analizador léxico\nprint(\"Tokens para '3 + 42 * (x - 1)':\")\nfor tok in lexer(\"3 + 42 * (x - 1)\") do\n  if tok.value then\n    print(string.format(\"  %-7s %s\", tok.type, tostring(tok.value)))\n  else\n    print(string.format(\"  %s\", tok.type))\n  end\nend",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "Tokens para '3 + 42 * (x - 1)':\n  NUM     3\n  OP      +\n  NUM     42\n  OP      *\n  LPAREN\n  ID      x\n  OP      -\n  NUM     1\n  RPAREN\n  EOF\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Tokens para '3 + 42 * (x - 1)':\n  NUM     3\n  OP      +\n  NUM     42\n  OP      *\n  LPAREN\n  ID      x\n  OP      -\n  NUM     1\n  RPAREN\n  EOF\n</pre>"
+      },
+      {
+        "id": 8,
+        "code": "## 3. Flujo de tokens\n\nEl analizador sintáctico necesita inspeccionar hacia adelante (*peek*) sin consumir. Envolvemos la corrutina del analizador léxico en un flujo que almacena en búfer un token.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 9,
+        "code": "function TokenStream(input)\n  local next_token = lexer(input)\n  local current = next_token()\n\n  local stream = {}\n\n  function stream.peek()\n    return current\n  end\n\n  function stream.consume()\n    local tok = current\n    current = next_token()\n    return tok\n  end\n\n  function stream.expect(typ)\n    local tok = current\n    if tok.type ~= typ then\n      error(\"Se esperaba \" .. typ .. \" pero se obtuvo \" .. tok.type\n        .. (tok.pos and \" en la posición \" .. tok.pos or \"\"))\n    end\n    return stream.consume()\n  end\n\n  return stream\nend\n\n-- Probar peek/consume\nlocal s = TokenStream(\"10 + 20\")\nprint(\"Inspección (peek):\", s.peek().type, s.peek().value)\nprint(\"Consumir:\", s.consume().value)\nprint(\"Siguiente:\", s.peek().type, s.peek().value)",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "Inspección (peek):\tNUM\t10\nConsumir:\t10\nSiguiente:\tOP\t+\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Inspección (peek):\tNUM\t10\nConsumir:\t10\nSiguiente:\tOP\t+\n</pre>"
+      },
+      {
+        "id": 10,
+        "code": "## 4. Analizador sintáctico descendente recursivo\n\nAnalizamos expresiones aritméticas respetando la precedencia de operadores:\n- `+`, `-` (más baja)\n- `*`, `/` (más alta)\n- `^` (la más alta, asociativa por la derecha)\n- Paréntesis y menos unario\n\nEl analizador sintáctico construye un **AST** (árbol de sintaxis abstracta) a partir de tablas.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 11,
+        "code": "-- Constructores de nodos del AST\nfunction NumNode(value)\n  return { tag = \"num\", value = value }\nend\n\nfunction VarNode(name)\n  return { tag = \"var\", name = name }\nend\n\nfunction BinOp(op, left, right)\n  return { tag = \"binop\", op = op, left = left, right = right }\nend\n\nfunction UnaryOp(op, operand)\n  return { tag = \"unary\", op = op, operand = operand }\nend\n\nfunction CallNode(name, args)\n  return { tag = \"call\", name = name, args = args }\nend",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 12,
+        "code": "-- Analizador sintáctico: descenso recursivo con escalada de precedencia\nfunction parse(input)\n  local tokens = TokenStream(input)\n\n  -- expr = term (('+' | '-') term)*\n  local function expr()\n    local node = term()\n    while tokens.peek().type == OP\n      and (tokens.peek().value == \"+\" or tokens.peek().value == \"-\") do\n      local op = tokens.consume().value\n      node = BinOp(op, node, term())\n    end\n    return node\n  end\n\n  -- term = power (('*' | '/' | '%') power)*\n  function term()\n    local node = power()\n    while tokens.peek().type == OP\n      and (tokens.peek().value == \"*\" or tokens.peek().value == \"/\"\n           or tokens.peek().value == \"%\") do\n      local op = tokens.consume().value\n      node = BinOp(op, node, power())\n    end\n    return node\n  end\n\n  -- power = unary ('^' power)?  (asociativo por la derecha)\n  function power()\n    local node = unary()\n    if tokens.peek().type == OP and tokens.peek().value == \"^\" then\n      tokens.consume()\n      node = BinOp(\"^\", node, power())  -- ¡recursivo por la derecha!\n    end\n    return node\n  end\n\n  -- unary = '-' unary | atom\n  function unary()\n    if tokens.peek().type == OP and tokens.peek().value == \"-\" then\n      tokens.consume()\n      return UnaryOp(\"-\", unary())\n    end\n    return atom()\n  end\n\n  -- atom = NUM | ID | ID '(' args ')' | '(' expr ')'\n  function atom()\n    local tok = tokens.peek()\n\n    if tok.type == NUM then\n      tokens.consume()\n      return NumNode(tok.value)\n    end\n\n    if tok.type == ID then\n      local name = tokens.consume().value\n      -- ¿Llamada a función?\n      if tokens.peek().type == LPAREN then\n        tokens.consume()  -- consumir '('\n        local args = {}\n        if tokens.peek().type ~= RPAREN then\n          args[1] = expr()\n          while tokens.peek().type == OP and tokens.peek().value == \",\" do\n            tokens.consume()\n            args[#args + 1] = expr()\n          end\n        end\n        tokens.expect(RPAREN)\n        return CallNode(name, args)\n      end\n      return VarNode(name)\n    end\n\n    if tok.type == LPAREN then\n      tokens.consume()\n      local node = expr()\n      tokens.expect(RPAREN)\n      return node\n    end\n\n    error(\"Token inesperado: \" .. tok.type\n      .. (tok.pos and \" en la posición \" .. tok.pos or \"\"))\n  end\n\n  local ast = expr()\n  tokens.expect(EOF)\n  return ast\nend\n\nprint(\"Analizador sintáctico cargado.\")",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "Analizador sintáctico cargado.\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Analizador sintáctico cargado.\n</pre>"
+      },
+      {
+        "id": 13,
+        "code": "## 5. Impresión con formato del AST\n\nAntes de evaluar, visualicemos lo que produce el analizador sintáctico.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 14,
+        "code": "function pretty(node, indent)\n  indent = indent or 0\n  local pad = string.rep(\"  \", indent)\n\n  if node.tag == \"num\" then\n    return pad .. tostring(node.value)\n  elseif node.tag == \"var\" then\n    return pad .. node.name\n  elseif node.tag == \"unary\" then\n    return pad .. \"(\" .. node.op .. \"\\n\" .. pretty(node.operand, indent + 1) .. \")\"\n  elseif node.tag == \"binop\" then\n    return pad .. \"(\" .. node.op .. \"\\n\"\n      .. pretty(node.left, indent + 1) .. \"\\n\"\n      .. pretty(node.right, indent + 1) .. \")\"\n  elseif node.tag == \"call\" then\n    local argStrs = {}\n    for _, a in ipairs(node.args) do\n      argStrs[#argStrs + 1] = pretty(a, indent + 1)\n    end\n    return pad .. node.name .. \"(\\n\" .. table.concat(argStrs, \"\\n\") .. \")\"\n  end\n  return pad .. \"??\"\nend\n\n-- Analizar sintácticamente y mostrar\nlocal ast = parse(\"2 ^ 3 ^ 2 + 1\")\nprint(\"AST para '2 ^ 3 ^ 2 + 1':\")\nprint(pretty(ast))\n\nprint(\"\\nAST para '-(3 + 4) * 2':\")\nprint(pretty(parse(\"-(3 + 4) * 2\")))",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "AST para '2 ^ 3 ^ 2 + 1':\n(+\n  (^\n    2\n    (^\n      3\n      2))\n  1)\n\nAST para '-(3 + 4) * 2':\n(*\n  (-\n    (+\n      3\n      4))\n  2)\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">AST para '2 ^ 3 ^ 2 + 1':\n(+\n  (^\n    2\n    (^\n      3\n      2))\n  1)\n\nAST para '-(3 + 4) * 2':\n(*\n  (-\n    (+\n      3\n      4))\n  2)\n</pre>"
+      },
+      {
+        "id": 15,
+        "code": "## 6. Evaluador\n\nRecorre el AST para calcular un resultado. Las variables y funciones se buscan en una tabla de entorno.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 16,
+        "code": "function evaluate(node, env)\n  env = env or {}\n\n  if node.tag == \"num\" then\n    return node.value\n\n  elseif node.tag == \"var\" then\n    local val = env[node.name]\n    if val == nil then error(\"Variable no definida: \" .. node.name) end\n    return val\n\n  elseif node.tag == \"unary\" then\n    if node.op == \"-\" then\n      return -evaluate(node.operand, env)\n    end\n\n  elseif node.tag == \"binop\" then\n    local l = evaluate(node.left, env)\n    local r = evaluate(node.right, env)\n    if     node.op == \"+\" then return l + r\n    elseif node.op == \"-\" then return l - r\n    elseif node.op == \"*\" then return l * r\n    elseif node.op == \"/\" then return l / r\n    elseif node.op == \"%\" then return l % r\n    elseif node.op == \"^\" then return l ^ r\n    end\n\n  elseif node.tag == \"call\" then\n    local fn = env[node.name]\n    if type(fn) ~= \"function\" then\n      error(\"No es una función: \" .. node.name)\n    end\n    local args = {}\n    for _, a in ipairs(node.args) do\n      args[#args + 1] = evaluate(a, env)\n    end\n    return fn(table.unpack(args))\n  end\n\n  error(\"Etiqueta de nodo desconocida: \" .. tostring(node.tag))\nend\n\n-- Utilidad: analizar sintácticamente y evaluar\nfunction calc(expr, env)\n  return evaluate(parse(expr), env)\nend\n\nprint(\"Calculadora cargada.\")",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "Calculadora cargada.\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Calculadora cargada.\n</pre>"
+      },
+      {
+        "id": 17,
+        "code": "-- Aritmética básica\nprint(\"2 + 3 * 4      =\", calc(\"2 + 3 * 4\"))\nprint(\"(2 + 3) * 4    =\", calc(\"(2 + 3) * 4\"))\nprint(\"2 ^ 3 ^ 2      =\", calc(\"2 ^ 3 ^ 2\"))      -- asoc-derecha: 2^(3^2) = 512\nprint(\"-5 + 3         =\", calc(\"-5 + 3\"))\nprint(\"10 % 3         =\", calc(\"10 % 3\"))",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "2 + 3 * 4      =\t14\n(2 + 3) * 4    =\t20\n2 ^ 3 ^ 2      =\t512.0\n-5 + 3         =\t-2\n10 % 3         =\t1\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">2 + 3 * 4      =\t14\n(2 + 3) * 4    =\t20\n2 ^ 3 ^ 2      =\t512.0\n-5 + 3         =\t-2\n10 % 3         =\t1\n</pre>"
+      },
+      {
+        "id": 18,
+        "code": "-- Con variables y funciones\nlocal env = {\n  pi = math.pi,\n  e  = math.exp(1),\n  x  = 10,\n  sqrt = math.sqrt,\n  sin  = math.sin,\n  cos  = math.cos,\n  abs  = math.abs,\n}\n\nprint(\"pi * x ^ 2    =\", calc(\"pi * x ^ 2\", env))\nprint(\"sqrt(144)      =\", calc(\"sqrt(144)\", env))\nprint(\"sin(pi / 2)    =\", calc(\"sin(pi / 2)\", env))\nprint(\"abs(-42) + e   =\", calc(\"abs(-42) + e\", env))",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "pi * x ^ 2    =\t314.15926535898\nsqrt(144)      =\t12.0\nsin(pi / 2)    =\t1.0\nabs(-42) + e   =\t44.718281828459\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">pi * x ^ 2    =\t314.15926535898\nsqrt(144)      =\t12.0\nsin(pi / 2)    =\t1.0\nabs(-42) + e   =\t44.718281828459\n</pre>"
+      },
+      {
+        "id": 19,
+        "code": "## 7. Combinadores de analizadores sintácticos\n\nUn enfoque diferente: construir analizadores sintácticos a partir de piezas pequeñas y componibles mediante clausuras. Cada analizador es una función que toma una entrada (cadena + posición) y devuelve un resultado + nueva posición, o `nil` en caso de fallo.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 20,
+        "code": "-- Un analizador sintáctico es: function(input, pos) -> result, newpos | nil\n\n-- Coincidir con un patrón de Lua, devolver el grupo capturado\nfunction P(pattern)\n  return function(input, pos)\n    local s, e, cap = string.find(input, \"^(\" .. pattern .. \")\", pos)\n    if s then return cap, e + 1 end\n    return nil\n  end\nend\n\n-- Coincidir con una cadena literal\nfunction L(str)\n  return function(input, pos)\n    if string.sub(input, pos, pos + #str - 1) == str then\n      return str, pos + #str\n    end\n    return nil\n  end\nend\n\n-- Omitir espacios en blanco, luego aplicar el analizador sintáctico\nfunction Token(parser)\n  return function(input, pos)\n    local _, p2 = string.find(input, \"^%s*\", pos)\n    return parser(input, (p2 or pos) + 1)\n  end\nend\n\nprint(\"Combinadores cargados.\")",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "Combinadores cargados.\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Combinadores cargados.\n</pre>"
+      },
+      {
+        "id": 21,
+        "code": "-- Secuencia: todos los analizadores deben coincidir en orden\nfunction Seq(...)\n  local parsers = {...}\n  return function(input, pos)\n    local results = {}\n    local p = pos\n    for _, parser in ipairs(parsers) do\n      local r, np = parser(input, p)\n      if r == nil then return nil end\n      results[#results + 1] = r\n      p = np\n    end\n    return results, p\n  end\nend\n\n-- Elección: probar cada analizador, devolver la primera coincidencia\nfunction Choice(...)\n  local parsers = {...}\n  return function(input, pos)\n    for _, parser in ipairs(parsers) do\n      local r, np = parser(input, pos)\n      if r ~= nil then return r, np end\n    end\n    return nil\n  end\nend\n\n-- Cero o más repeticiones\nfunction Many(parser)\n  return function(input, pos)\n    local results = {}\n    local p = pos\n    while true do\n      local r, np = parser(input, p)\n      if r == nil then break end\n      results[#results + 1] = r\n      p = np\n    end\n    return results, p\n  end\nend\n\n-- Transformar el resultado\nfunction Map(parser, fn)\n  return function(input, pos)\n    local r, np = parser(input, pos)\n    if r ~= nil then return fn(r), np end\n    return nil\n  end\nend\n\nprint(\"Seq, Choice, Many, Map cargados.\")",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "Seq, Choice, Many, Map cargados.\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Seq, Choice, Many, Map cargados.\n</pre>"
+      },
+      {
+        "id": 22,
+        "code": "-- Analizar un formato de configuración simple de clave-valor:\n--   host = localhost\n--   port = 8080\n--   debug = true\n\nlocal key   = Token(P(\"%a%w*\"))\nlocal eq    = Token(L(\"=\"))\nlocal value = Token(P(\"%S+\"))\n\nlocal pair  = Map(\n  Seq(key, eq, value),\n  function(r) return { key = r[1], value = r[3] } end\n)\n\nlocal config = Many(pair)\n\nlocal input = \"host = localhost  port = 8080  debug = true\"\nlocal result, pos = config(input, 1)\n\nprint(\"Configuración analizada:\")\nfor _, entry in ipairs(result) do\n  print(string.format(\"  %-8s = %s\", entry.key, entry.value))\nend",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "Configuración analizada:\n  host     = localhost\n  port     = 8080\n  debug    = true\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Configuración analizada:\n  host     = localhost\n  port     = 8080\n  debug    = true\n</pre>"
+      },
+      {
+        "id": 23,
+        "code": "## 8. Analizador de CSV\n\nUn ejemplo más práctico: analizar CSV con campos entre comillas, utilizando el enfoque de combinadores.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 24,
+        "code": "function parseCSV(input)\n  local rows = {}\n\n  -- Usar una corrutina para emitir filas a medida que se analizan\n  local function parseField(line, pos)\n    if string.sub(line, pos, pos) == '\"' then\n      -- Campo entre comillas: buscar comilla de cierre (maneja \"\" escapadas)\n      local field = {}\n      pos = pos + 1\n      while pos <= #line do\n        if string.sub(line, pos, pos + 1) == '\"\"' then\n          field[#field + 1] = '\"'\n          pos = pos + 2\n        elseif string.sub(line, pos, pos) == '\"' then\n          pos = pos + 1\n          break\n        else\n          field[#field + 1] = string.sub(line, pos, pos)\n          pos = pos + 1\n        end\n      end\n      return table.concat(field), pos\n    else\n      -- Campo sin comillas: leer hasta la coma o el final\n      local s, e, val = string.find(line, \"^([^,]*)\", pos)\n      return val or \"\", (e or pos) + 1\n    end\n  end\n\n  for line in string.gmatch(input, \"([^\\n]+)\") do\n    local row = {}\n    local pos = 1\n    while pos <= #line do\n      local field\n      field, pos = parseField(line, pos)\n      row[#row + 1] = field\n      -- Omitir el separador de coma\n      if string.sub(line, pos, pos) == \",\" then\n        pos = pos + 1\n      end\n    end\n    rows[#rows + 1] = row\n  end\n\n  return rows\nend\n\nlocal csv = [[name,age,city\nAlice,30,\"New York\"\nBob,25,\"San Francisco\"\n\"O'Brien, Charlie\",40,\"Boston\"]]\n\nlocal data = parseCSV(csv)\n\n-- Imprimir como tabla con formato\nlocal widths = {}\nfor _, row in ipairs(data) do\n  for i, field in ipairs(row) do\n    widths[i] = math.max(widths[i] or 0, #field)\n  end\nend\n\nfor r, row in ipairs(data) do\n  local parts = {}\n  for i, field in ipairs(row) do\n    parts[i] = field .. string.rep(\" \", widths[i] - #field)\n  end\n  print(table.concat(parts, \"  |  \"))\n  if r == 1 then\n    local sep = {}\n    for i = 1, #widths do sep[i] = string.rep(\"-\", widths[i]) end\n    print(table.concat(sep, \"--+--\"))\n  end\nend",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "name              |  age  |  city         \n------------------+-------+---------------\nAlice             |  30   |  New York     \nBob               |  25   |  San Francisco\nO'Brien, Charlie  |  40   |  Boston       \n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">name              |  age  |  city         \n------------------+-------+---------------\nAlice             |  30   |  New York     \nBob               |  25   |  San Francisco\nO'Brien, Charlie  |  40   |  Boston       \n</pre>"
+      },
+      {
+        "id": 25,
+        "code": "## 9. Tubería de transmisión\n\nCombinación total: una tubería basada en corrutinas que realiza el análisis léxico, sintáctico y la evaluación de una secuencia de expresiones, línea por línea, de forma totalmente perezosa.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 26,
+        "code": "function repl_eval(lines, env)\n  return coroutine.wrap(function()\n    for line in string.gmatch(lines, \"([^\\n]+)\") do\n      -- Omitir comentarios y líneas en blanco\n      local trimmed = string.match(line, \"^%s*(.-)%s*$\")\n      if trimmed ~= \"\" and string.sub(trimmed, 1, 1) ~= \"#\" then\n        local ok, result = pcall(function()\n          return calc(trimmed, env)\n        end)\n        if ok then\n          coroutine.yield(trimmed, result, nil)\n        else\n          coroutine.yield(trimmed, nil, result)\n        end\n      end\n    end\n  end)\nend\n\nlocal program = [[\n# Physics calculations\n9.8 * 2\nsqrt(144) + 1\npi * r ^ 2\n2 ^ 10\nabs(-7) * 3\n5 / 0\n]]\n\nlocal env = {\n  pi = math.pi, r = 5,\n  sqrt = math.sqrt, abs = math.abs,\n}\n\nprint(\"Evaluador de expresiones:\")\nprint(string.rep(\"-\", 40))\nfor expr, result, err in repl_eval(program, env) do\n  if err then\n    print(string.format(\"  %-20s  ERROR DETECTADO: %s\", expr, err))\n  else\n    print(string.format(\"  %-20s  = %g\", expr, result))\n  end\nend",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "Evaluador de expresiones:\n----------------------------------------\n  9.8 * 2               = 19.6\n  sqrt(144) + 1         = 13\n  pi * r ^ 2            = 78.53981633974483\n  2 ^ 10                = 1024\n  abs(-7) * 3           = 21\n  5 / 0                 = Infinity\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Evaluador de expresiones:\n----------------------------------------\n  9.8 * 2               = 19.6\n  sqrt(144) + 1         = 13\n  pi * r ^ 2            = 78.53981633974483\n  2 ^ 10                = 1024\n  abs(-7) * 3           = 21\n  5 / 0                 = Infinity\n</pre>"
+      },
+      {
+        "id": 27,
+        "code": "## Resumen\n\nLo que construimos usando únicamente la biblioteca estándar de Lua:\n\n| Componente | Técnica |\n|---|---|\n| Analizador léxico (Lexer) | Corrutina + patrones con `string.match` |\n| Flujo de tokens | Clausura (peek/consume sobre corrutina) |\n| Analizador sintáctico descendente recursivo | Recursión mutua + tablas como AST |\n| Evaluador | Recorrido de árbol con tabla de entorno |\n| Combinadores | Clausuras de orden superior (Seq, Choice, Many, Map) |\n| Analizador de CSV | Coincidencia de patrones + máquina de estados |\n| Tubería de transmisión | Cadena de corrutinas con manejo de errores mediante `pcall` |\n\nSin bibliotecas externas, sin motor de expresiones regulares, sin generador de analizadores sintácticos: solo patrones, corrutinas, clausuras y tablas.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      }
+    ]
+  }
+}

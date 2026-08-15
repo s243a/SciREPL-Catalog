@@ -1,0 +1,27 @@
+{
+  "spans": {
+    "1:3:0": "ggplot2 cargado — theme_scirepl() aplicado automáticamente\n",
+    "3:5:0": "Tamaño del motor vs. MPG en carretera",
+    "3:7:0": "Cilindrada (L)",
+    "3:9:0": "MPG en carretera",
+    "5:3:0": "Clases de vehículos según el tipo de tracción (1999 vs. 2008)",
+    "5:5:0": "Clase",
+    "5:7:0": "Cantidad",
+    "7:1:0": "Distribución de MPG en carretera según el tipo de tracción",
+    "7:3:0": "MPG en carretera",
+    "7:5:0": "Densidad",
+    "9:1:0": "MPG en carretera por clase de vehículo",
+    "9:3:0": "Clase",
+    "9:5:0": "MPG en carretera",
+    "11:13:0": "Mapa de calor de correlaciones de mtcars"
+  },
+  "keeps": [
+    "1:1:0",
+    "3:1:0",
+    "3:3:0",
+    "5:1:0",
+    "11:5:0",
+    "11:11:0"
+  ],
+  "suggestions": []
+}

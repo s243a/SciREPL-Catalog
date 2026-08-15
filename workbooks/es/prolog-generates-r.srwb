@@ -58,7 +58,7 @@
         "lastOutputHtml": ""
       },
       {
-        "code": "%% Read the Prolog source from the previous cell\nuser:nb_read('prolog_factorial', '.code', _PrologSrc),\nformat('Read from prolog_factorial:~n~w~n~n', [_PrologSrc]),\n\n%% Consult it to assert the clauses\nsetup_call_cleanup(\n    open('/tmp/_nb_src.pl', write, _Out),\n    write(_Out, _PrologSrc),\n    close(_Out)),\nconsult('/tmp/_nb_src.pl'),\n\n%% Compile factorial/2 → R\nr_target:init_r_target,\nlinear_recursion:compile_linear_recursion(factorial/2, [target(r), memo(false)], _Code),\nformat('--- Generated R code ---~n~w~n', [_Code]),\n\n%% Write compiler output to the R cell\nuser:nb_write('r_factorial', '.code', _Code),\nwriteln('\\nR code written to cell: r_factorial').",
+        "code": "%% Leer el código fuente de Prolog de la celda anterior\nuser:nb_read('prolog_factorial', '.code', _PrologSrc),\nformat('Read from prolog_factorial:~n~w~n~n', [_PrologSrc]),\n\n%% Consultarlo para asertar las cláusulas\nsetup_call_cleanup(\n    open('/tmp/_nb_src.pl', write, _Out),\n    write(_Out, _PrologSrc),\n    close(_Out)),\nconsult('/tmp/_nb_src.pl'),\n\n%% Compilar factorial/2 → R\nr_target:init_r_target,\nlinear_recursion:compile_linear_recursion(factorial/2, [target(r), memo(false)], _Code),\nformat('--- Generated R code ---~n~w~n', [_Code]),\n\n%% Escribir la salida del compilador en la celda de R\nuser:nb_write('r_factorial', '.code', _Code),\nwriteln('\\nR code written to cell: r_factorial').",
         "type": "code",
         "language": "prolog",
         "name": "compile_to_r",
@@ -114,7 +114,7 @@
         "lastOutputHtml": ""
       },
       {
-        "code": "# Step 7: Relative addressing — /nb/-1/.output reads the previous cell's output.\n# /nb/./.code reads this cell's own code. Copy-paste to accumulate!\necho \"[accumulate] previous cell output via /nb/-1/.output:\"\necho \"---\"\ncat /nb/-1/.output\necho \"---\"\necho \"\"\necho \"[self] this cell's code via /nb/./.code:\"\ncat /nb/./.code",
+        "code": "# Step 7: Relative addressing — /nb/-1/.output reads the previous cell's output.\n# /nb/./.code reads this cell's own code. Copy-paste to accumulate!\necho \"[acumular] salida de la celda anterior mediante /nb/-1/.output:\"\necho \"---\"\ncat /nb/-1/.output\necho \"---\"\necho \"\"\necho \"[propio] código de esta celda mediante /nb/./.code:\"\ncat /nb/./.code",
         "type": "code",
         "language": "bash",
         "name": "accumulate",
@@ -138,7 +138,7 @@
         "lastOutputHtml": ""
       },
       {
-        "code": ":- dynamic parent/2, ancestor/2.\n\n%% Family tree\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\n\n%% Transitive closure: ancestor(X, Y) if X is an ancestor of Y\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "code": ":- dynamic parent/2, ancestor/2.\n\n%% Árbol genealógico\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\n\n%% Clausura transitiva: ancestor(X, Y) si X es antepasado de Y\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
         "type": "code",
         "language": "prolog",
         "name": "prolog_ancestor",
@@ -154,7 +154,7 @@
         "lastOutputHtml": ""
       },
       {
-        "code": "%% Consult the ancestor definitions\nuser:nb_read('prolog_ancestor', '.code', _AncSrc),\nformat('Read from prolog_ancestor:~n~w~n~n', [_AncSrc]),\nsetup_call_cleanup(\n    open('/tmp/_nb_anc.pl', write, _Out),\n    write(_Out, _AncSrc),\n    close(_Out)),\nconsult('/tmp/_nb_anc.pl'),\n\n%% Compile with default pattern detection → transitive closure\nrecursive_compiler:compile_recursive(ancestor/2, [target(r)], _Code1),\nformat('--- Pattern: transitive_closure ---~n~w~n', [_Code1]),\n\n%% Write to the R cell\nuser:nb_write('r_ancestor_tc', '.code', _Code1),\nwriteln('\\nR code written to cell: r_ancestor_tc').",
+        "code": "%% Consultar las definiciones de ancestor\nuser:nb_read('prolog_ancestor', '.code', _AncSrc),\nformat('Read from prolog_ancestor:~n~w~n~n', [_AncSrc]),\nsetup_call_cleanup(\n    open('/tmp/_nb_anc.pl', write, _Out),\n    write(_Out, _AncSrc),\n    close(_Out)),\nconsult('/tmp/_nb_anc.pl'),\n\n%% Compilar con detección de patrones predeterminada → clausura transitiva\nrecursive_compiler:compile_recursive(ancestor/2, [target(r)], _Code1),\nformat('--- Pattern: transitive_closure ---~n~w~n', [_Code1]),\n\n%% Escribir en la celda de R\nuser:nb_write('r_ancestor_tc', '.code', _Code1),\nwriteln('\\nR code written to cell: r_ancestor_tc').",
         "type": "code",
         "language": "prolog",
         "name": "compile_ancestor_tc",
@@ -186,7 +186,7 @@
         "lastOutputHtml": ""
       },
       {
-        "code": "descendants <- ancestor_all(\"alice\")\ncat(\"Descendants of alice:\", paste(descendants, collapse = \", \"), \"\\n\")\ncat(\"alice is ancestor of eve:\", ancestor_check(\"alice\", \"eve\"), \"\\n\")\ncat(\"alice is ancestor of frank:\", ancestor_check(\"alice\", \"frank\"), \"\\n\")",
+        "code": "descendants <- ancestor_all(\"alice\")\ncat(\"Descendientes de alice:\", paste(descendants, collapse = \", \"), \"\\n\")\ncat(\"alice es antepasado de eve:\", ancestor_check(\"alice\", \"eve\"), \"\\n\")\ncat(\"alice es antepasado de frank:\", ancestor_check(\"alice\", \"frank\"), \"\\n\")",
         "type": "code",
         "language": "r",
         "name": "test_r_ancestor",
@@ -202,7 +202,7 @@
         "lastOutputHtml": ""
       },
       {
-        "code": "%% Compile ancestor/2 again, but skip transitive closure → falls to tail recursion\n%% Also target bash to show cross-language compilation\nrecursive_compiler:compile_recursive(\n    ancestor/2,\n    [target(bash), skip(transitive_closure)],\n    _Code2),\nformat('--- Pattern: tail_recursion (bash) ---~n~w~n', [_Code2]),\n\n%% Write to the bash cell\nuser:nb_write('bash_ancestor_alt', '.code', _Code2),\nwriteln('\\nBash code written to cell: bash_ancestor_alt').",
+        "code": "%% Compilar ancestor/2 de nuevo, pero omitiendo la clausura transitiva → pasa a recursión de cola\n%% También compilar a bash para mostrar la compilación entre lenguajes\nrecursive_compiler:compile_recursive(\n    ancestor/2,\n    [target(bash), skip(transitive_closure)],\n    _Code2),\nformat('--- Pattern: tail_recursion (bash) ---~n~w~n', [_Code2]),\n\n%% Escribir en la celda de bash\nuser:nb_write('bash_ancestor_alt', '.code', _Code2),\nwriteln('\\nBash code written to cell: bash_ancestor_alt').",
         "type": "code",
         "language": "prolog",
         "name": "compile_ancestor_skip",
@@ -226,7 +226,7 @@
         "lastOutputHtml": ""
       },
       {
-        "code": "echo \"=== R (transitive closure / BFS) ===\"\necho \"Language: $(cat /nb/r_ancestor_tc/.language)\"\necho \"---\"\ncat /nb/r_ancestor_tc/.code\necho \"\"\necho \"\"\necho \"=== Bash (tail recursion) ===\"\necho \"Language: $(cat /nb/bash_ancestor_alt/.language)\"\necho \"---\"\ncat /nb/bash_ancestor_alt/.code",
+        "code": "echo \"=== R (clausura transitiva / BFS) ===\"\necho \"Language: $(cat /nb/r_ancestor_tc/.language)\"\necho \"---\"\ncat /nb/r_ancestor_tc/.code\necho \"\"\necho \"\"\necho \"=== Bash (recursión de cola) ===\"\necho \"Language: $(cat /nb/bash_ancestor_alt/.language)\"\necho \"---\"\ncat /nb/bash_ancestor_alt/.code",
         "type": "code",
         "language": "bash",
         "name": "compare_outputs",

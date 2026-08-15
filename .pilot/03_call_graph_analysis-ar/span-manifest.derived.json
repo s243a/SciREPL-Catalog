@@ -1,0 +1,1061 @@
+{
+  "manifest_version": 1,
+  "produced_by": "derived",
+  "generator": "tools/span-derive.mjs",
+  "locale": "ar",
+  "source": {
+    "path": "workbooks/en/03_call_graph_analysis.ipynb",
+    "sha256": "a047d2d8aec42abcf74337656302c7c0d18905ec87d4ad0b73032be0f3b597e8"
+  },
+  "target": {
+    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/jobs/03_call_graph_analysis-ar/translated.ipynb",
+    "sha256": "be13bd0aa47f60fd72f1ed8e918f13ee70d19d3809aa85a27cf1cd5eb5d7bfb0"
+  },
+  "spans": [
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 22
+        },
+        "text": "Load initialization"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 16
+        },
+        "text": "تحميل التهيئة"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 24
+        },
+        "text": "Load analysis modules"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 22
+        },
+        "text": "تحميل وحدات التحليل"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 28
+        },
+        "text": "Define ancestor predicate"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 22
+        },
+        "text": "تعريف محدد ancestor"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 15
+        },
+        "text": "Parent facts"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 15
+        },
+        "text": "حقائق parent"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 9,
+          "col": 1
+        },
+        "end": {
+          "line": 9,
+          "col": 17
+        },
+        "text": "Ancestor rules"
+      },
+      "target_span": {
+        "start": {
+          "line": 9,
+          "col": 1
+        },
+        "end": {
+          "line": 9,
+          "col": 17
+        },
+        "text": "قواعد ancestor"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 32
+        },
+        "text": "Build call graph for ancestor"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 35
+        },
+        "text": "بناء رسم الاستدعاءات لـ ancestor"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 37
+        },
+        "text": "Get all dependencies of ancestor/2"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 39
+        },
+        "text": "الحصول على جميع اعتماديات ancestor/2"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 26
+        },
+        "text": "Check if self-recursive"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 35
+        },
+        "text": "التحقق مما إذا كان عوديًا ذاتيًا"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 10,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 39
+        },
+        "text": "Define mutually recursive predicates"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 33
+        },
+        "text": "تعريف محددات ذات عودية متبادلة"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 12,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 39
+        },
+        "text": "Build call graph for both predicates"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 37
+        },
+        "text": "بناء رسم الاستدعاءات لكلا المحددین"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 76
+        },
+        "text": "Rebuild the graph because variables do not persist between notebook cells"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 67
+        },
+        "text": "إعادة بناء الرسم لأن المتغيرات لا تستمر بين خلايا دفتر الملاحظات"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 1
+        },
+        "end": {
+          "line": 3,
+          "col": 37
+        },
+        "text": "Find SCCs using Tarjan's algorithm"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 1
+        },
+        "end": {
+          "line": 3,
+          "col": 43
+        },
+        "text": "العثور على SCCs باستخدام خوارزمية تارجان"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 66
+        },
+        "text": "Rebuild the derived values so this cell also runs independently"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 64
+        },
+        "text": "إعادة بناء القيم المشتقة حتى تعمل هذه الخلية أيضًا بشكل مستقل"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 17
+        },
+        "text": "Check each SCC"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 13
+        },
+        "text": "فحص كل SCC"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 18,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 50
+        },
+        "text": "Define a small program with multiple predicates"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 44
+        },
+        "text": "تعريف برنامج صغير يحتوي على محددات متعددة"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 18,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 1
+        },
+        "end": {
+          "line": 6,
+          "col": 26
+        },
+        "text": "grandparent uses parent"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 1
+        },
+        "end": {
+          "line": 6,
+          "col": 28
+        },
+        "text": "grandparent يستخدم parent"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 18,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 9,
+          "col": 1
+        },
+        "end": {
+          "line": 9,
+          "col": 43
+        },
+        "text": "sibling: same parent, different children"
+      },
+      "target_span": {
+        "start": {
+          "line": 9,
+          "col": 1
+        },
+        "end": {
+          "line": 9,
+          "col": 37
+        },
+        "text": "sibling: نفس الوالد، أطفال مختلفون"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 18,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 12,
+          "col": 1
+        },
+        "end": {
+          "line": 12,
+          "col": 31
+        },
+        "text": "cousin: parents are siblings"
+      },
+      "target_span": {
+        "start": {
+          "line": 12,
+          "col": 1
+        },
+        "end": {
+          "line": 12,
+          "col": 22
+        },
+        "text": "cousin: الآباء إخوة"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 20,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 38
+        },
+        "text": "Build call graph for all predicates"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 38
+        },
+        "text": "بناء رسم الاستدعاءات لجميع المحددات"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 22,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 56
+        },
+        "text": "Find the mutually recursive group containing cousin/2"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 62
+        },
+        "text": "العثور على مجموعة العودية المتبادلة التي تحتوي على cousin/2"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 36
+        },
+        "text": "Define various recursive patterns"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 27
+        },
+        "text": "تعريف أنماط عودية متنوعة"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 25
+        },
+        "end": {
+          "line": 2,
+          "col": 41
+        },
+        "text": "Tail recursive"
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 25
+        },
+        "end": {
+          "line": 2,
+          "col": 38
+        },
+        "text": "عودية الذيل"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 25
+        },
+        "end": {
+          "line": 3,
+          "col": 43
+        },
+        "text": "Linear recursive"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 25
+        },
+        "end": {
+          "line": 3,
+          "col": 37
+        },
+        "text": "عودية خطية"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 25
+        },
+        "end": {
+          "line": 4,
+          "col": 65
+        },
+        "text": "Tree recursive (or linear if detected)"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 25
+        },
+        "end": {
+          "line": 4,
+          "col": 64
+        },
+        "text": "عودية شجرية (أو خطية إذا تم اكتشافها)"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 1
+        },
+        "end": {
+          "line": 6,
+          "col": 23
+        },
+        "text": "Tail recursive count"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 1
+        },
+        "end": {
+          "line": 6,
+          "col": 20
+        },
+        "text": "العد بعودية الذيل"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 12,
+          "col": 1
+        },
+        "end": {
+          "line": 12,
+          "col": 29
+        },
+        "text": "Linear recursive factorial"
+      },
+      "target_span": {
+        "start": {
+          "line": 12,
+          "col": 1
+        },
+        "end": {
+          "line": 12,
+          "col": 26
+        },
+        "text": "المضروب بالعودية الخطية"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 20,
+          "col": 1
+        },
+        "end": {
+          "line": 20,
+          "col": 48
+        },
+        "text": "Fibonacci (can be detected as linear or tree)"
+      },
+      "target_span": {
+        "start": {
+          "line": 20,
+          "col": 1
+        },
+        "end": {
+          "line": 20,
+          "col": 49
+        },
+        "text": "فيبوناتشي (يمكن اكتشافها كعودية خطية أو شجرية)"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 26,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 37
+        },
+        "text": "Check if count/3 is tail recursive"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 47
+        },
+        "text": "التحقق مما إذا كان count/3 يعتمد عودية الذيل"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 28,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 43
+        },
+        "text": "Check if factorial/2 is linear recursive"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 50
+        },
+        "text": "التحقق مما إذا كان factorial/2 يعتمد عودية خطية"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 30,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 37
+        },
+        "text": "Count recursive calls in fibonacci"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 38
+        },
+        "text": "عد الاستدعاءات العودية في فيبوناتشي"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 32,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 32
+        },
+        "text": "Helper to generate DOT format"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 30
+        },
+        "text": "دالة مساعدة لإنشاء صيغة DOT"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 32,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 11,
+          "col": 1
+        },
+        "end": {
+          "line": 11,
+          "col": 34
+        },
+        "text": "Generate DOT for even/odd graph"
+      },
+      "target_span": {
+        "start": {
+          "line": 11,
+          "col": 1
+        },
+        "end": {
+          "line": 11,
+          "col": 31
+        },
+        "text": "إنشاء DOT لرسم الزوجي/الفردي"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 34,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 72
+        },
+        "text": "Rebuild the DOT source because variables do not persist between cells"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 57
+        },
+        "text": "إعادة بناء مصدر DOT لأن المتغيرات لا تستمر بين الخلايا"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 36,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 30
+        },
+        "text": "Define your predicates here"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 18
+        },
+        "text": "حدد محدداتك هنا"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 36,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 57
+        },
+        "text": "Then build call graphs, find SCCs, and detect patterns"
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 66
+        },
+        "text": "ثم قم ببناء رسوم الاستدعاءات، والعثور على SCCs، واكتشاف الأنماط"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 36,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 11
+        },
+        "text": "Example:"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 8
+        },
+        "text": "مثال:"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    }
+  ],
+  "exclusions": []
+}

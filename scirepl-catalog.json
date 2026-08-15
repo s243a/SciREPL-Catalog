@@ -48,9 +48,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/es/lua-tables-coroutines.srwb",
-      "revision": 1,
-      "sha256": "0550759ba95f99b942124dcaf9bceeab771d36cdf729f7e68cbd41398bffbe8c",
-      "size": 13623
+      "revision": 2,
+      "sha256": "45259109d03e38cfdbf7d1ef9185f1ba3484830d9f9f76b276800b22efa31a5c",
+      "size": 13917
     },
     {
       "id": "lua-parsing-coroutines-es",
@@ -65,9 +65,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/es/lua-parsing-coroutines.srwb",
-      "revision": 1,
-      "sha256": "4d90a12eb9b8411a154ae39a0e8413904ecd8bb5bdd92822ffc330b481ebc660",
-      "size": 21696
+      "revision": 2,
+      "sha256": "cd05710b7419a18f997d35c4b63778f0e48c29b039f5ca10022523d7e31aba25",
+      "size": 22223
     },
     {
       "id": "typr-intro-es",
@@ -82,9 +82,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/es/typr-intro.srwb",
-      "revision": 1,
-      "sha256": "031eca0c30ef18c2ceca9bfcf1e810904be25bb0837217c7db3cf7eaf44937ff",
-      "size": 2943
+      "revision": 2,
+      "sha256": "114e33124dd24a85695f115f182fe680d469f2629e6b9fe3a92a415d1d70a5e5",
+      "size": 3016
     },
     {
       "id": "prolog-generates-r-es",
@@ -100,9 +100,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/es/prolog-generates-r.srwb",
-      "revision": 1,
-      "sha256": "106888cba947bc33791defff2d256ccd9d67db7ecf9f349eefd4b782e85cfa7e",
-      "size": 14110
+      "revision": 2,
+      "sha256": "41b8f6c7cbd6206570b9eae3e8c2f1e65e64d276ac08fa78f9613d16d793c669",
+      "size": 14247
     },
     {
       "id": "prolog-generates-lua-es",
@@ -118,9 +118,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/es/prolog-generates-lua.srwb",
-      "revision": 1,
-      "sha256": "1b62081830fd0447aa93dada95dc91ee12ac8d504b5a70ecf8ad64c83e4c6a88",
-      "size": 6545
+      "revision": 2,
+      "sha256": "1b390f8645c7b194d0812b2f9c02b140527e7390914a2bf44de50372c3f35a9b",
+      "size": 6683
     },
     {
       "id": "prolog-generates-clojurescript-es",
@@ -136,9 +136,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/es/prolog-generates-clojurescript.srwb",
-      "revision": 1,
-      "sha256": "53128573b363edaa7491d4778c26f588363ca20ab40d82e54478ca7816ffb068",
-      "size": 4923
+      "revision": 2,
+      "sha256": "51c87e4fc6fb3af2a9820c1e8e9be307adebbf5a79bb1ce7a725c19368ec5c26",
+      "size": 5020
     },
     {
       "id": "prolog-generates-typr-es",
@@ -154,9 +154,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/es/prolog-generates-typr.srwb",
-      "revision": 1,
-      "sha256": "e95b08629e8214803003616fb25a6139e8244b65689047406ebb2dbf679f9bed",
-      "size": 6654
+      "revision": 2,
+      "sha256": "efd2f063c8248b75a8ff1b99a7ac9662ceb6f6631d2f8757272c5ded4534ac12",
+      "size": 6813
     },
     {
       "id": "r-ggplot2-showcase-es",
@@ -171,9 +171,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/es/r_ggplot2_showcase.ipynb",
-      "revision": 1,
-      "sha256": "d0eab9168034be85bd43d2755c417eee68d40c4160b680a7702f25cde4030571",
-      "size": 4387
+      "revision": 2,
+      "sha256": "29a628173fa7ac451567e03751f8e02d228fb77acb1b0f7891265580615904ec",
+      "size": 5021
     },
     {
       "id": "r-statistics-es",
@@ -188,9 +188,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/es/r_statistics.ipynb",
-      "revision": 1,
-      "sha256": "46ea6f994b9b2f6bcd3849285b0fdb22349f769240ac54a1698e26cee813a7f5",
-      "size": 6043
+      "revision": 2,
+      "sha256": "08ca8485fcd009f62f31407e58015b591f10974de64950915c0bef353f0d36ca",
+      "size": 6864
     },
     {
       "id": "r-tidyverse-wrangling-es",
@@ -205,9 +205,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/es/r_tidyverse_wrangling.ipynb",
-      "revision": 1,
-      "sha256": "7ee8598046a7bef17a942d5f390c31535ed8f02f691a8ae77069558ab437f016",
-      "size": 7926
+      "revision": 2,
+      "sha256": "3aa21b4990b6228f2a1a5db6212cf319903bd5edafbe943466c45e41d700c072",
+      "size": 8866
     },
     {
       "id": "family-tree-tutorial-es",
@@ -223,9 +223,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/es/01_family_tree_tutorial.ipynb",
-      "revision": 1,
-      "sha256": "e7da86940a2f9b154456e440dfa45c705d73147e575b833386345f1dffce4699",
-      "size": 10444
+      "revision": 2,
+      "sha256": "7c7ca2771e2467aa723933fb4d1eb7eaa68a8d08a8a6905f15f41c75c84047f8",
+      "size": 11886
     },
     {
       "id": "recursion-patterns-es",
@@ -241,9 +241,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/es/02_recursion_patterns.ipynb",
-      "revision": 1,
-      "sha256": "f09b6fd4f1bfc006cb283dc5dece7ebdabbc9bc32e6772ced56d6e075b24db64",
-      "size": 16540
+      "revision": 2,
+      "sha256": "057e9caac2389ad201658f7059d083e29f9c78c36ed4389ccd72813c1f28fb02",
+      "size": 18867
     },
     {
       "id": "call-graph-analysis-es",
@@ -259,9 +259,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/es/03_call_graph_analysis.ipynb",
-      "revision": 1,
-      "sha256": "afa53f4ba79504f06acd5316eb50c4243df0bcb62365b3640ebe7e7be7fa3b47",
-      "size": 14186
+      "revision": 2,
+      "sha256": "3e74abfab4596377fa80e84537e95992d9e396b16ffa1058ae60713cc06707c2",
+      "size": 16174
     },
     {
       "id": "life-expectancy-csv-demo-es",
@@ -277,9 +277,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/es/life_expectancy_csv_demo.ipynb",
-      "revision": 1,
-      "sha256": "2b0371f8797051d3599337749f4811428cbc1b9c357665964f8daf441f727a84",
-      "size": 11537
+      "revision": 2,
+      "sha256": "dbf1752a171f83b33b8ab1fb744aa07bb54f4d816a53e94e3e1076d6ed5b0717",
+      "size": 12729
     },
     {
       "id": "compute-pi-workbook-ja",
@@ -311,9 +311,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ja/lua-tables-coroutines.srwb",
-      "revision": 1,
-      "sha256": "4d2693227083583b174e1fcb5d74edfdb8946b5b8da2ddc066bc00186e4ebf23",
-      "size": 14465
+      "revision": 2,
+      "sha256": "9127d6f29f537291e150ee2abafd0cbf6094c1ceabdfa7fc02e6b8d7414a4b57",
+      "size": 14893
     },
     {
       "id": "lua-parsing-coroutines-ja",
@@ -328,9 +328,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ja/lua-parsing-coroutines.srwb",
-      "revision": 1,
-      "sha256": "d1b39274661ef371975f555b3bb3b5860e5a357261947098541c1ec5ee6c8698",
-      "size": 22305
+      "revision": 2,
+      "sha256": "553536ddef4e9b1dece947d9847e70e6b0eca76b11e0bbba90845de03b2cc76b",
+      "size": 22917
     },
     {
       "id": "typr-intro-ja",
@@ -345,9 +345,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ja/typr-intro.srwb",
-      "revision": 1,
-      "sha256": "086199044f18dc335698a5d216679b68eff77841db002376213a7373c6fb18d2",
-      "size": 3185
+      "revision": 2,
+      "sha256": "192d50996b551e52ee4649145a1d0ceb254eb63c8de1548e865c81bac44b4cfd",
+      "size": 3289
     },
     {
       "id": "prolog-generates-r-ja",
@@ -363,9 +363,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ja/prolog-generates-r.srwb",
-      "revision": 1,
-      "sha256": "6c9ec064d4a48cc54ea97c6529fb68ccb42acc336380e30b48b2dcd3214bc127",
-      "size": 15101
+      "revision": 2,
+      "sha256": "c57abf7724b8c473f595222a0b40dbc82ffbf274416cb184284b0d167ba4316b",
+      "size": 15444
     },
     {
       "id": "prolog-generates-lua-ja",
@@ -381,9 +381,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ja/prolog-generates-lua.srwb",
-      "revision": 1,
-      "sha256": "ec0ec9528a7e94bf0a7226735f211595f93f5a04708545cf9e3bdd9b85e20e91",
-      "size": 6896
+      "revision": 2,
+      "sha256": "c64e8f8ffb5752d30156e9d128f03349ba711b23c42abf562e28ec8a5c5c0eb6",
+      "size": 7353
     },
     {
       "id": "prolog-generates-clojurescript-ja",
@@ -399,9 +399,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ja/prolog-generates-clojurescript.srwb",
-      "revision": 1,
-      "sha256": "00fe67db5f052e17a90b4d75cef4fde9f66ed5ec644021eea284a8ca19a5efff",
-      "size": 5336
+      "revision": 2,
+      "sha256": "df9b26a32da132d64908744aa543e75ef9f6091694099180c0c71677a492167e",
+      "size": 5492
     },
     {
       "id": "prolog-generates-typr-ja",
@@ -417,9 +417,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ja/prolog-generates-typr.srwb",
-      "revision": 1,
-      "sha256": "1de7ab7cf778316096d0f6b9d909f2c9517df4079769eea948eb0c9e707508e1",
-      "size": 7173
+      "revision": 2,
+      "sha256": "10b68197244b48d084d2b6d170b5cc78d2b2d8e3aa0c83d82737cd927c8c6bfc",
+      "size": 7555
     },
     {
       "id": "r-ggplot2-showcase-ja",
@@ -434,9 +434,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ja/r_ggplot2_showcase.ipynb",
-      "revision": 1,
-      "sha256": "e94efb832776d30833b55ba89fe31c652c0decb61df91c952fdedb32d16c1383",
-      "size": 4477
+      "revision": 2,
+      "sha256": "b8849dde4fb6a59198086cf02b2edd488f4ccdfb16ddc86a046071d4ccb39431",
+      "size": 5149
     },
     {
       "id": "r-statistics-ja",
@@ -451,9 +451,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ja/r_statistics.ipynb",
-      "revision": 1,
-      "sha256": "435fe12bcae94da6cfaa1ff017c35a9177c49e285dbbb5ff06cae848204095db",
-      "size": 6206
+      "revision": 2,
+      "sha256": "43bcf328545b4623c75d04b80ff0db4190d61bc3995f3c0665b059fe0e3b7c7e",
+      "size": 7027
     },
     {
       "id": "r-tidyverse-wrangling-ja",
@@ -468,9 +468,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ja/r_tidyverse_wrangling.ipynb",
-      "revision": 1,
-      "sha256": "af823c7af50b80bb70dc853ad2f1a5f6863acf133cc3e9aa1d323e1a2ede2e39",
-      "size": 8035
+      "revision": 2,
+      "sha256": "cb1a2790d98de1e646ce0cb0bb0321a91e1084a62f4bbcb08d92bf6d7314786e",
+      "size": 8985
     },
     {
       "id": "1-family-tree-tutorial-ja",
@@ -486,9 +486,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ja/01_family_tree_tutorial.ipynb",
-      "revision": 1,
-      "sha256": "b2673fba5d7e7096c2b83ede0964909dd11602881b9fa53173013b1b5778dce6",
-      "size": 11195
+      "revision": 2,
+      "sha256": "ff2d3c9c9f3fcf63fd7202450808a3156c18c2b166bb8ee2cb70e25d92e4c6e2",
+      "size": 12795
     },
     {
       "id": "2-recursion-patterns-ja",
@@ -504,9 +504,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ja/02_recursion_patterns.ipynb",
-      "revision": 1,
-      "sha256": "862befe26b8fb03ff72183ad0bef477521166644c2b195023153c6c6335f86c8",
-      "size": 17144
+      "revision": 2,
+      "sha256": "eb56ff232f365bedeed3cc465bea91f1496afbc72653d71b22d468a4380b71fd",
+      "size": 19644
     },
     {
       "id": "3-call-graph-analysis-ja",
@@ -522,9 +522,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ja/03_call_graph_analysis.ipynb",
-      "revision": 1,
-      "sha256": "cab2c7cfeb4e38b906f6eb30bec39fd2789fafec9d0d1fee818a32a7cf252a0c",
-      "size": 14352
+      "revision": 2,
+      "sha256": "e2b27893a36e16082841c293a3586f9ebe15fc0856b5b1c5966c286305f60922",
+      "size": 16339
     },
     {
       "id": "life-expectancy-csv-demo-ja",
@@ -540,9 +540,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ja/life_expectancy_csv_demo.ipynb",
-      "revision": 1,
-      "sha256": "beece58dfda5b15d380699e417bbe6a63f36823de66eb00531d44e35fed6241e",
-      "size": 11699
+      "revision": 2,
+      "sha256": "bfe97a6b6937f8de6b2278eba30e7feee7698307d280ff017ace3c7b2dbd62b4",
+      "size": 12762
     },
     {
       "id": "compute-pi-workbook-ar",
@@ -574,9 +574,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ar/lua-tables-coroutines.srwb",
-      "revision": 1,
-      "sha256": "e8b1501f638e91a993cb4b42d646d1805f0123519e8a6768ff33a71d85f92950",
-      "size": 15126
+      "revision": 2,
+      "sha256": "189e0965edb9c1abef47379f4ea2c6da9601c7ed143ad44f556cad7da44278fa",
+      "size": 15808
     },
     {
       "id": "lua-parsing-coroutines-ar",
@@ -591,9 +591,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ar/lua-parsing-coroutines.srwb",
-      "revision": 1,
-      "sha256": "9fd5c597e89f73d368324cacc33bb7db57ec5ad2ad3ecfdf1d159b22accf7114",
-      "size": 23238
+      "revision": 2,
+      "sha256": "d9285ac1461901d60761ca1ace63f46a4f243c068b612a77d72bd6cec84dad35",
+      "size": 24475
     },
     {
       "id": "typr-intro-ar",
@@ -608,9 +608,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ar/typr-intro.srwb",
-      "revision": 1,
-      "sha256": "8ef313e539190b3297b1eba18ab9bfee0707e7f113610d71d8a753c34accdafa",
-      "size": 3341
+      "revision": 2,
+      "sha256": "f4e6c28abb1ee87115444565d21b34a812a0a4debb8f1bf618c296fbb4ea482f",
+      "size": 3580
     },
     {
       "id": "prolog-generates-r-ar",
@@ -626,9 +626,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ar/prolog-generates-r.srwb",
-      "revision": 1,
-      "sha256": "20bb21eafb2f8a63b42da608b3fb9666bbb26d10454c16f3db83238a280f0b21",
-      "size": 15462
+      "revision": 2,
+      "sha256": "5e5aab825d541d446dee4e3c387096d235ddd9d51e49e7c3258c9aaa4f158b7b",
+      "size": 15994
     },
     {
       "id": "prolog-generates-lua-ar",
@@ -644,9 +644,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ar/prolog-generates-lua.srwb",
-      "revision": 1,
-      "sha256": "ce4f28de4fb171b509ef0fc3ab573f6ac3f30e827bbd8c6546827f531fccab7c",
-      "size": 6994
+      "revision": 2,
+      "sha256": "e91e294cdaccc04a113c2846a5a71ff8ee73b77df47f6adeede4a6a2cb41d175",
+      "size": 7466
     },
     {
       "id": "prolog-generates-clojurescript-ar",
@@ -662,9 +662,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ar/prolog-generates-clojurescript.srwb",
-      "revision": 1,
-      "sha256": "ae88e807c85b5acfe07e575d6e6953728960d69cae65eddfd475f7e6290d0c38",
-      "size": 5472
+      "revision": 2,
+      "sha256": "ad0f77ad1c6e53b39b6ea89c6330e29418b5211b050df652a21d06a8f3c77f23",
+      "size": 5675
     },
     {
       "id": "prolog-generates-typr-ar",
@@ -680,9 +680,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ar/prolog-generates-typr.srwb",
-      "revision": 1,
-      "sha256": "9170cc2a145b5ffb2092583790c12c7c5eb772f70194c040da0879e17a551fef",
-      "size": 7270
+      "revision": 2,
+      "sha256": "38fd78f38767d5c9ea1a962374b591468d25483db3a4cb076d8e5ddabf933e14",
+      "size": 7698
     },
     {
       "id": "r-ggplot2-showcase-ar",
@@ -697,9 +697,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ar/r_ggplot2_showcase.ipynb",
-      "revision": 1,
-      "sha256": "37f29da196d6b76d84e42e611fc1735385b86f716f630c5d1b9bd7c0b334d659",
-      "size": 4597
+      "revision": 2,
+      "sha256": "a804d2ca50509c0b09987bd4d6c89e93ec63c1a8b5acb418f1dfc28b69cabeaa",
+      "size": 5597
     },
     {
       "id": "r-statistics-ar",
@@ -714,9 +714,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ar/r_statistics.ipynb",
-      "revision": 1,
-      "sha256": "a3215ca659e1418848ad0f35e0a39181a4e711ae30f28f46d318f992b11bdc66",
-      "size": 6485
+      "revision": 2,
+      "sha256": "e4ef2bf6c7a288051202df2d22e8eb0986a055f532bf23c196a6ae062d3d8964",
+      "size": 7446
     },
     {
       "id": "r-tidyverse-wrangling-ar",
@@ -731,9 +731,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ar/r_tidyverse_wrangling.ipynb",
-      "revision": 1,
-      "sha256": "c6df07df4e842efc148e838323d2fbce76d642b71bb9461bbfe93a0ed45fa41e",
-      "size": 8227
+      "revision": 2,
+      "sha256": "823c7f16ad3fa12cfe06a1ea80585614a6e3171452425034bc011a5a795f66b4",
+      "size": 9433
     },
     {
       "id": "01-family-tree-tutorial-ar",
@@ -749,9 +749,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ar/01_family_tree_tutorial.ipynb",
-      "revision": 1,
-      "sha256": "afe18781de5bee0c775d2990fbd60dcb4eab7310dfdccccb690c67c14727af69",
-      "size": 11276
+      "revision": 2,
+      "sha256": "b41c2cbccc7a09c978b4ae2603ce2ab7ad2a205b14846e18e444c7420aec9552",
+      "size": 13011
     },
     {
       "id": "02-recursion-patterns-ar",
@@ -767,9 +767,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ar/02_recursion_patterns.ipynb",
-      "revision": 1,
-      "sha256": "81f4258659d1041bbf1f4e499bc0c795bcf277087323fbe5f4a14f93c2c682e1",
-      "size": 18081
+      "revision": 2,
+      "sha256": "f7b2fdbefa0946567b03bc7c438a358bb7f15fe7d4d2aff6c0e0dadc35d5c2c2",
+      "size": 21098
     },
     {
       "id": "03-call-graph-analysis-ar",
@@ -785,9 +785,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ar/03_call_graph_analysis.ipynb",
-      "revision": 1,
-      "sha256": "49a4fbf7e3109985f86ffa69940d2ff261c47e6b8011fb046037867818084123",
-      "size": 15233
+      "revision": 2,
+      "sha256": "be13bd0aa47f60fd72f1ed8e918f13ee70d19d3809aa85a27cf1cd5eb5d7bfb0",
+      "size": 17740
     },
     {
       "id": "life-expectancy-csv-demo-ar",
@@ -803,9 +803,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ar/life_expectancy_csv_demo.ipynb",
-      "revision": 1,
-      "sha256": "0ea8b874811c17458288bf8855b05792b963cd6c24df14dc4af3a2d50405a925",
-      "size": 11992
+      "revision": 2,
+      "sha256": "37bfe79aceaf7a0709860647dd160da072645d37386ee87862adc03020ce5bd8",
+      "size": 14113
     },
     {
       "id": "compute-pi-workbook-ko",
@@ -837,9 +837,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ko/lua-tables-coroutines.srwb",
-      "revision": 1,
-      "sha256": "159f32542b529361eb0b783be3f4157899cc8e4e35e62eb2ba84de6e5d6e6b9f",
-      "size": 13906
+      "revision": 2,
+      "sha256": "7c0aadbfea147c981b5ade5b96f4e72fc1476703aff2d8ac5faa2f2c14b5066b",
+      "size": 14149
     },
     {
       "id": "lua-parsing-coroutines-ko",
@@ -854,9 +854,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ko/lua-parsing-coroutines.srwb",
-      "revision": 1,
-      "sha256": "043927af6c52bc81deba6c8b9656e84b44a34bd7255f52aed9e810adb24a735d",
-      "size": 21528
+      "revision": 2,
+      "sha256": "12875540bb87fde267652330cd2487f8d1ee0f34248f410eb82f861a6a4ef5b6",
+      "size": 21806
     },
     {
       "id": "typr-intro-ko",
@@ -871,9 +871,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ko/typr-intro.srwb",
-      "revision": 1,
-      "sha256": "bff4e639e046db1288285b225175a5b6031bd5dc17fd1b9a0ba20caa99cf57ba",
-      "size": 3054
+      "revision": 2,
+      "sha256": "af1c6e23e5ab3173ebfeb39878d409d7710fd3206308ce67064c63eddc6153f0",
+      "size": 3129
     },
     {
       "id": "prolog-generates-r-ko",
@@ -889,9 +889,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ko/prolog-generates-r.srwb",
-      "revision": 1,
-      "sha256": "46e5c1755791badece12fe2ba7c6cfc605a561ef63c8350c2a6f6c38d2e5f5d1",
-      "size": 14291
+      "revision": 2,
+      "sha256": "b27b8256cf3318c82119e7d1251dc0260bd029b5fb47efd30a91e6c80f424620",
+      "size": 14376
     },
     {
       "id": "prolog-generates-lua-ko",
@@ -907,9 +907,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ko/prolog-generates-lua.srwb",
-      "revision": 1,
-      "sha256": "aab112a62aa1bd727ad507923f488261f71d039fae78f2c017a34a8929de36cc",
-      "size": 6554
+      "revision": 2,
+      "sha256": "9a1bf3460ca89942aab27b4bf120d50bb9b3bab6ce88bfd85077410b01bbcf98",
+      "size": 6687
     },
     {
       "id": "prolog-generates-clojurescript-ko",
@@ -925,9 +925,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ko/prolog-generates-clojurescript.srwb",
-      "revision": 1,
-      "sha256": "b934284df869f63e4164489ad53570ef2aa36495955b4edca0847bf221359011",
-      "size": 5000
+      "revision": 2,
+      "sha256": "15d368e83d4e647c5d50e194bcea9562b6d770537cfe9ec29ba61e607e620410",
+      "size": 5031
     },
     {
       "id": "prolog-generates-typr-ko",
@@ -943,9 +943,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ko/prolog-generates-typr.srwb",
-      "revision": 1,
-      "sha256": "dda71bf29bf807cf44d9ebd3086666f353d47980a948d4e9aad022c815c87a9a",
-      "size": 6755
+      "revision": 2,
+      "sha256": "cade4ab9bc704a60ddb52746c0bbdafd018a6a94cb42114ee5d208bb60cd06e9",
+      "size": 6865
     },
     {
       "id": "r-ggplot2-showcase-ko",
@@ -960,9 +960,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ko/r_ggplot2_showcase.ipynb",
-      "revision": 1,
-      "sha256": "6ffd0aa1310fb4b54cb997cbb08abfbc2b2a2ad3812040b2cc16e02061f2fe8a",
-      "size": 4428
+      "revision": 2,
+      "sha256": "eef118d7708a3a6d289e19b7cdf1844a31814a5a3cac1c1403909099c7f0c3c1",
+      "size": 5070
     },
     {
       "id": "r-statistics-ko",
@@ -977,9 +977,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ko/r_statistics.ipynb",
-      "revision": 1,
-      "sha256": "4f3981d8d28155d06a5b0c0a27bea7fe93dc881638e495c6fc52d28d775008da",
-      "size": 6076
+      "revision": 2,
+      "sha256": "98852fa2b2a49e94f2fbd44a9acb5eb465b0de71000b5b414a079ec0d4437d0b",
+      "size": 6899
     },
     {
       "id": "r-tidyverse-wrangling-ko",
@@ -994,9 +994,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ko/r_tidyverse_wrangling.ipynb",
-      "revision": 1,
-      "sha256": "f813fb1c114e8232d1570c37410abd9d2d94e76e9fbf9bc95426a7b7430d275a",
-      "size": 7906
+      "revision": 2,
+      "sha256": "1f78b466d7e0787c556f5fe0053e9f8c28bbca962b9daefcc59c07d425f634d7",
+      "size": 8805
     },
     {
       "id": "01-family-tree-tutorial-ko",
@@ -1012,9 +1012,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ko/01_family_tree_tutorial.ipynb",
-      "revision": 1,
-      "sha256": "b16d10573ba14e0a51cb2d3b3ef4ed1be7e9dcf59bfd9db0f3bb77eb7851a532",
-      "size": 10592
+      "revision": 2,
+      "sha256": "41bf0b4ba4a2e53926048e162978e427ba12b85c534bf562a1203c8f8716771f",
+      "size": 12081
     },
     {
       "id": "02-recursion-patterns-ko",
@@ -1030,9 +1030,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ko/02_recursion_patterns.ipynb",
-      "revision": 1,
-      "sha256": "bfdce741f2c9251770878be2830cb2fd06580957d66e92f61be03acb8af75002",
-      "size": 16595
+      "revision": 2,
+      "sha256": "7f7f03f08167c83606e93b90a9826c743e9482f1424c42e81ab7ea96ae664ab1",
+      "size": 18899
     },
     {
       "id": "03-call-graph-analysis-ko",
@@ -1048,9 +1048,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ko/03_call_graph_analysis.ipynb",
-      "revision": 1,
-      "sha256": "d8707e7841f46bca6547387924250ccece81387763625662c909225e75a878d9",
-      "size": 14013
+      "revision": 2,
+      "sha256": "60c8060e4a5ec4e06854d881546894dd6a5107e1e4caf19fa9f666ea1885e79f",
+      "size": 15942
     },
     {
       "id": "life-expectancy-csv-demo-ko",
@@ -1066,9 +1066,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ko/life_expectancy_csv_demo.ipynb",
-      "revision": 1,
-      "sha256": "8ae47e44a427c8a928ff27eb6b35490d9522ccc5b5935d5a8c29b81dfaf3cbff",
-      "size": 11590
+      "revision": 2,
+      "sha256": "307e3847efc3137f7a6029770b7be1fda1f6c2c5de8165666038a855b13b4e24",
+      "size": 12687
     },
     {
       "id": "compute-pi-workbook-pt-br",
@@ -1100,9 +1100,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/pt-BR/lua-tables-coroutines.srwb",
-      "revision": 1,
-      "sha256": "9df37aa0829c4d6d85c13c3fa408024fe89a94f4642cf368bfc98ab6782c0084",
-      "size": 13619
+      "revision": 2,
+      "sha256": "956f88c2f7a23c18244e4be9d13794bffa586e4680f10310a379d70becb131e1",
+      "size": 13873
     },
     {
       "id": "lua-parsing-coroutines-pt-br",
@@ -1117,9 +1117,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/pt-BR/lua-parsing-coroutines.srwb",
-      "revision": 1,
-      "sha256": "bdf79d8aa35f1768673073fcc4a5044f157084cc9acb56b43f30638e2e329d29",
-      "size": 21521
+      "revision": 2,
+      "sha256": "cc1ca6d1c9a8e134c8e0006d71d8a813a8b03df92c1f22c94be920b3006a76c8",
+      "size": 21917
     },
     {
       "id": "typr-intro-pt-br",
@@ -1134,9 +1134,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/pt-BR/typr-intro.srwb",
-      "revision": 1,
-      "sha256": "873dce339e068fb5b5604e3747d7b2c4545ae7b472908170153c886f62e6c2de",
-      "size": 2927
+      "revision": 2,
+      "sha256": "133eb1414a539565e86cbd5c9c2e46d1fbb0e910ead6979e8349a74ca83542e5",
+      "size": 2978
     },
     {
       "id": "prolog-generates-r-pt-br",
@@ -1152,9 +1152,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/pt-BR/prolog-generates-r.srwb",
-      "revision": 1,
-      "sha256": "badbbeb16eeb9622c36b5d5196be02a14cd389bd7cf9834e40e9b558acdef8ec",
-      "size": 13954
+      "revision": 2,
+      "sha256": "17687a18f51c7dfd7b7144a4d3605651f3d89f8add603b74670a91a48451a294",
+      "size": 14102
     },
     {
       "id": "prolog-generates-lua-pt-br",
@@ -1170,9 +1170,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/pt-BR/prolog-generates-lua.srwb",
-      "revision": 1,
-      "sha256": "74363937c21e037b008d5a65a365b1331700eda50438954ba5287041924f60c5",
-      "size": 6507
+      "revision": 2,
+      "sha256": "83ff3f7cc8fd653e2594619537be7dbbc6665dc97e149501ebc21131959bc0c2",
+      "size": 6669
     },
     {
       "id": "prolog-generates-clojurescript-pt-br",
@@ -1188,9 +1188,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/pt-BR/prolog-generates-clojurescript.srwb",
-      "revision": 1,
-      "sha256": "f1ddd39896a9b6cd88600ded53e08e97bdbc05088f0b0b1f83675bfa8647bc39",
-      "size": 4945
+      "revision": 2,
+      "sha256": "09bdfd430c5a6279885c34612de23a8309ae50305451ed19c5ea5ac52049322c",
+      "size": 5038
     },
     {
       "id": "prolog-generates-typr-pt-br",
@@ -1206,9 +1206,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/pt-BR/prolog-generates-typr.srwb",
-      "revision": 1,
-      "sha256": "9ffe94b9c1dc16a4fae3839b229efaef637c45260b7f2775c8bc1a1b4e958c21",
-      "size": 6572
+      "revision": 2,
+      "sha256": "7af61e64f9cde415567e05475d3cee22fbbe9fa691a5ffd2792bd959493f1ba6",
+      "size": 6740
     },
     {
       "id": "r-ggplot2-showcase-pt-br",
@@ -1223,9 +1223,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/pt-BR/r_ggplot2_showcase.ipynb",
-      "revision": 1,
-      "sha256": "f3ca98b4828bbe85e02e6d03083f0a4ed7f46ffe093c514d14e2cae2926a0424",
-      "size": 4418
+      "revision": 2,
+      "sha256": "56d568c142f64293678743710ebf636c11c1af5144cd4134c47f6f5d22feb0aa",
+      "size": 5024
     },
     {
       "id": "r-statistics-pt-br",
@@ -1240,9 +1240,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/pt-BR/r_statistics.ipynb",
-      "revision": 1,
-      "sha256": "0fd26ad7f68d697e7a608e659d27aad21128f013f8d531e662b90614fa5d196e",
-      "size": 6047
+      "revision": 2,
+      "sha256": "7b73001ae1819d6ccb151b31ee66c8bba01d174119c2fcde1cea7ea19134703b",
+      "size": 6856
     },
     {
       "id": "r-tidyverse-wrangling-pt-br",
@@ -1257,9 +1257,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/pt-BR/r_tidyverse_wrangling.ipynb",
-      "revision": 1,
-      "sha256": "5a8ff0db5fd1841e616d94a3578001cf92d40080fd985a46af31ee3f1702a13a",
-      "size": 7874
+      "revision": 2,
+      "sha256": "87d45c670809ac63083052989dc1f6617ef55bf407846f3daeda576054cf909d",
+      "size": 8795
     },
     {
       "id": "01-family-tree-tutorial-pt-br",
@@ -1275,9 +1275,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/pt-BR/01_family_tree_tutorial.ipynb",
-      "revision": 1,
-      "sha256": "94dac04ea1c552b5684439ade750752a8651ae8c92c632b2047571727c0edc2a",
-      "size": 10390
+      "revision": 2,
+      "sha256": "268866ac2cf072da3a28f8c622a1c141efb702e22b2fe12f53f39c36de62447e",
+      "size": 11838
     },
     {
       "id": "02-recursion-patterns-pt-br",
@@ -1293,9 +1293,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/pt-BR/02_recursion_patterns.ipynb",
-      "revision": 1,
-      "sha256": "b953c086e876c05cc83e552382372395fe038d75c85b5d0c5b3706fa2d89bb0d",
-      "size": 16665
+      "revision": 2,
+      "sha256": "33443479a9c3a3bfbd42868c4630bcf470c676be5f03567d1a36c73758068bb2",
+      "size": 18947
     },
     {
       "id": "03-call-graph-analysis-pt-br",
@@ -1311,9 +1311,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/pt-BR/03_call_graph_analysis.ipynb",
-      "revision": 1,
-      "sha256": "d80ae476f4c2adbaa79b2dd67a36277183903de087071f6032e6e544fb37a9db",
-      "size": 14239
+      "revision": 2,
+      "sha256": "888d80f72e8a81b540733723d43b2bb7957072c0d9e72633a570990a442c72f2",
+      "size": 16204
     },
     {
       "id": "life-expectancy-csv-demo-pt-br",
@@ -1329,9 +1329,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/pt-BR/life_expectancy_csv_demo.ipynb",
-      "revision": 1,
-      "sha256": "0654b8d8dc355b7fbf279c045f36d5b00d8f70b17dd3052fdee4aa2d16b6d61c",
-      "size": 11533
+      "revision": 2,
+      "sha256": "1c7784bee20952f86fc8eec596a3daab37d56d73e9f527cbd23b691b65362126",
+      "size": 12726
     },
     {
       "id": "compute-pi-workbook-de",
@@ -1363,9 +1363,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/de/lua-tables-coroutines.srwb",
-      "revision": 1,
-      "sha256": "5c9f39e912a9579a14b253001b19c834560f340c314cc4664d72b1fdfd3832b4",
-      "size": 13687
+      "revision": 2,
+      "sha256": "78f652e1727b5dbcc12a9b334d9b0945b1d35f6fb160f2b1116d3e36c850b199",
+      "size": 13896
     },
     {
       "id": "lua-parsing-coroutines-de",
@@ -1380,9 +1380,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/de/lua-parsing-coroutines.srwb",
-      "revision": 1,
-      "sha256": "bb82b5b7e94eb0daf6d5a6bad9cd952a8654b2551988b5b142f2502fa8445b7f",
-      "size": 21375
+      "revision": 2,
+      "sha256": "4a72f6fd53e9842c64d85b935cf9b63550467fa18ce0e8d5d820310fd4b2ad03",
+      "size": 21724
     },
     {
       "id": "typr-intro-de",
@@ -1397,9 +1397,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/de/typr-intro.srwb",
-      "revision": 1,
-      "sha256": "870b5f74e44d6213f4a317571be901527e36edd1cb8fc354fab01b93562c296f",
-      "size": 2914
+      "revision": 2,
+      "sha256": "675c66ea8278910104b4b91d7db881630b73fdf292dca7e07d60cb000efc48af",
+      "size": 2963
     },
     {
       "id": "prolog-generates-r-de",
@@ -1415,9 +1415,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/de/prolog-generates-r.srwb",
-      "revision": 1,
-      "sha256": "99e8da39198eaac1c506eaa44acf5408aeebb2231a380fb28d60e5af4d2b0b70",
-      "size": 14084
+      "revision": 2,
+      "sha256": "065f358b4634f7cd519d573fa93601ea8e264e5f756728b705cd922435e24227",
+      "size": 14204
     },
     {
       "id": "prolog-generates-lua-de",
@@ -1433,9 +1433,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/de/prolog-generates-lua.srwb",
-      "revision": 1,
-      "sha256": "ee707f33afa0be73e64437779397abf1e1f80edec6c4965e7d9d661dacd3b73a",
-      "size": 6460
+      "revision": 2,
+      "sha256": "6b3699c86ca126e79a49ac6d5c2a0684c260eafbcc9c0b47224bdfe9e3b8dd3e",
+      "size": 6606
     },
     {
       "id": "prolog-generates-clojurescript-de",
@@ -1451,9 +1451,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/de/prolog-generates-clojurescript.srwb",
-      "revision": 1,
-      "sha256": "42a30c59553819a321360deff41f752e68a6a951e6938619b2a7babdedaa32f5",
-      "size": 4803
+      "revision": 2,
+      "sha256": "6c68766fed6f042b70e717ca32d8515fe4d3047c62a439e02b44e1cac83d6bbc",
+      "size": 4866
     },
     {
       "id": "prolog-generates-typr-de",
@@ -1469,9 +1469,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/de/prolog-generates-typr.srwb",
-      "revision": 1,
-      "sha256": "8932dec4e8996163273d21e4f5fbe2b1b8bca715ff5272c8b0830b0a8f04833b",
-      "size": 6646
+      "revision": 2,
+      "sha256": "9f8a7d17707788bc6db2c2f6d1f2428ee85f39c1dae6188b0261f70b4739f1fc",
+      "size": 6800
     },
     {
       "id": "r-ggplot2-showcase-de",
@@ -1486,9 +1486,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/de/r_ggplot2_showcase.ipynb",
-      "revision": 1,
-      "sha256": "2dbad673c01f7abdc46b248109a6ae33110a922166e77838d7ced7dce73f7f3e",
-      "size": 4336
+      "revision": 2,
+      "sha256": "d022b6310a6663b8bd1c696a17176987fb733ed52877aadf3253ad466d2422da",
+      "size": 4883
     },
     {
       "id": "r-statistics-de",
@@ -1503,9 +1503,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/de/r_statistics.ipynb",
-      "revision": 1,
-      "sha256": "00a82c160f4eadbf119ef2a42927f524beadc3c66f62e4681c3ee918437618e9",
-      "size": 6079
+      "revision": 2,
+      "sha256": "063030af8a9b0280ba4e5254421e411cc9271a54b0d5ecc72c4f4ea94bc1cd12",
+      "size": 6856
     },
     {
       "id": "r-tidyverse-wrangling-de",
@@ -1520,9 +1520,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/de/r_tidyverse_wrangling.ipynb",
-      "revision": 1,
-      "sha256": "82ad0a07d9397d46c0fd1a9a3f7613cbdf5bd720c29b0d9a6284d68daf3eb0e1",
-      "size": 7933
+      "revision": 2,
+      "sha256": "53847808ee5b6dd6e19dbede45ff5c1977a672359929f957eaa4c47b2ffb506f",
+      "size": 8893
     },
     {
       "id": "01-family-tree-tutorial-de",
@@ -1538,9 +1538,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/de/01_family_tree_tutorial.ipynb",
-      "revision": 1,
-      "sha256": "2dc84c297fc8503113ef2ea88fcf9d4be9d9defe0400f48b58c9dc58027f92fb",
-      "size": 10538
+      "revision": 2,
+      "sha256": "f7e60e3a2761b32ef41b8f0ab4c2ebffabfcd80e95bb990c79479c6c6660a0e8",
+      "size": 11932
     },
     {
       "id": "02-recursion-patterns-de",
@@ -1556,9 +1556,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/de/02_recursion_patterns.ipynb",
-      "revision": 1,
-      "sha256": "00b7e55c1f0fd13faad226cd7735c6c34b4fb5f309aae13ae6c08b8844a1cc8f",
-      "size": 16701
+      "revision": 2,
+      "sha256": "9fc7597af8ce260876ec5270eec5c6b275ec44e807d7b3a59decb54d10230091",
+      "size": 19016
     },
     {
       "id": "03-call-graph-analysis-de",
@@ -1574,9 +1574,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/de/03_call_graph_analysis.ipynb",
-      "revision": 1,
-      "sha256": "0fd3f9a6031db29d3e8f5f057aa8ffdd835f2b2bc4cfbed644aadfe25752781a",
-      "size": 14132
+      "revision": 2,
+      "sha256": "5c1be9f07c0c1f535b813231a03518af922321fb3d4cf82185922201fe697d06",
+      "size": 16059
     },
     {
       "id": "life-expectancy-csv-demo-de",
@@ -1592,9 +1592,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/de/life_expectancy_csv_demo.ipynb",
-      "revision": 1,
-      "sha256": "adcff6feaf2b7f0d529e94821838e28fe574fcde6938c43da20fd8fb828bea78",
-      "size": 11537
+      "revision": 2,
+      "sha256": "ce7ee4e10c6fb8f9182db54a714268258175cff67c258c54a0989b33d6b849fb",
+      "size": 12652
     },
     {
       "id": "compute-pi-workbook-fr",
@@ -1626,9 +1626,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/fr/lua-tables-coroutines.srwb",
-      "revision": 1,
-      "sha256": "d711bc73ae4c287164827b150fa31c0972c399f406889ab0098379e042af6c59",
-      "size": 13966
+      "revision": 2,
+      "sha256": "c637ad102459b53d03f4eb342e8ca90e180ca722bdfa7ad54f963bb88cebd04d",
+      "size": 14311
     },
     {
       "id": "lua-parsing-coroutines-fr",
@@ -1643,9 +1643,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/fr/lua-parsing-coroutines.srwb",
-      "revision": 1,
-      "sha256": "1ed05841c4dd532853562ca2a2d9e8dd51192de6ba47785bf2a758507a26ea6a",
-      "size": 21804
+      "revision": 2,
+      "sha256": "abe11786a9cc3943b26cb98332791f0fdceeb56e8540fbeead1cbf7d4d418101",
+      "size": 22324
     },
     {
       "id": "typr-intro-fr",
@@ -1660,9 +1660,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/fr/typr-intro.srwb",
-      "revision": 1,
-      "sha256": "07d6152de09624b7f2ed26ddef70a34a130cbfda79611bbb5f6ab37a81bc0fbc",
-      "size": 2966
+      "revision": 2,
+      "sha256": "af4c9931727528d49eb1ef3b7fdd4d12c934399217743e17465608792f8434f4",
+      "size": 3054
     },
     {
       "id": "prolog-generates-r-fr",
@@ -1678,9 +1678,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/fr/prolog-generates-r.srwb",
-      "revision": 1,
-      "sha256": "8a47aa745dcacc9ef461b583986958df363b5048a7842e9fcd1f8d8b87fa1b7b",
-      "size": 14359
+      "revision": 2,
+      "sha256": "58716250438aa3b72a5a3673a7715cd97403e4e48203041c4cf86124a299f44e",
+      "size": 14558
     },
     {
       "id": "prolog-generates-lua-fr",
@@ -1696,9 +1696,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/fr/prolog-generates-lua.srwb",
-      "revision": 1,
-      "sha256": "a4078548d749c118545a2c235bc509ffe0b0ccc703863fe8aa4d427de87cf9e7",
-      "size": 6529
+      "revision": 2,
+      "sha256": "dba9f1b4f5f914096ba813e5ab1c81441d5e32f65d561097c8b5180dd90a1191",
+      "size": 6718
     },
     {
       "id": "prolog-generates-clojurescript-fr",
@@ -1714,9 +1714,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/fr/prolog-generates-clojurescript.srwb",
-      "revision": 1,
-      "sha256": "0d63fd167fef8b0964e098ec707e617cd580c6ce4fd37d7403e0e00da7384ca8",
-      "size": 5000
+      "revision": 2,
+      "sha256": "a44a59718da9ef1d55df3c614e9b2264f3fbb88f24cf7d8c01f33bc0dc6d6431",
+      "size": 5125
     },
     {
       "id": "prolog-generates-typr-fr",
@@ -1732,9 +1732,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/fr/prolog-generates-typr.srwb",
-      "revision": 1,
-      "sha256": "c0e04da89ed34f93c4c777c78d918b789098ccb167461879a306cbdf16bbfea8",
-      "size": 6705
+      "revision": 2,
+      "sha256": "bc148ee5a782f44a1238083446bbd5ba526ddb9819d10f8ffac83a2d01f393de",
+      "size": 6879
     },
     {
       "id": "r-ggplot2-showcase-fr",
@@ -1749,9 +1749,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/fr/r_ggplot2_showcase.ipynb",
-      "revision": 1,
-      "sha256": "c3302f577f8c2aa2ce2bd915d71ba00d6aa25fa584839238ab59bdcf03c2f944",
-      "size": 4438
+      "revision": 2,
+      "sha256": "a3d0f296f97ac993d3c9e23cf17e98352702bf382c98d52c95c377568e9bd4d2",
+      "size": 5062
     },
     {
       "id": "r-statistics-fr",
@@ -1766,9 +1766,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/fr/r_statistics.ipynb",
-      "revision": 1,
-      "sha256": "23d7e42ffa02874c4f39d78ab8cefcfebea436af5e585eebe5648d9793ad7f41",
-      "size": 6138
+      "revision": 2,
+      "sha256": "f506e28ca0a47869b3f21e514026564024965d2f7e4d2616aac8ba2a17c33fd5",
+      "size": 6959
     },
     {
       "id": "r-tidyverse-wrangling-fr",
@@ -1783,9 +1783,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/fr/r_tidyverse_wrangling.ipynb",
-      "revision": 1,
-      "sha256": "dac6f52add76366e9acfc737de447d1994f63defc18d8a6308a994111a1e8c33",
-      "size": 7921
+      "revision": 2,
+      "sha256": "4ec5e4d1e87728e06d12c6e4afdf9ebc0cc7135ca5fa624d379db0d18c404e2e",
+      "size": 8856
     },
     {
       "id": "01-family-tree-tutorial-fr",
@@ -1801,9 +1801,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/fr/01_family_tree_tutorial.ipynb",
-      "revision": 1,
-      "sha256": "437a4e43410d218bd45798c270f78783c40605fab4476c5e47b1f8e819e595ab",
-      "size": 10563
+      "revision": 2,
+      "sha256": "aaa8833bd306b435efca8d853b8a4547ea80905de02c166e40d804f613d3c6cd",
+      "size": 12051
     },
     {
       "id": "02-recursion-patterns-fr",
@@ -1819,9 +1819,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/fr/02_recursion_patterns.ipynb",
-      "revision": 1,
-      "sha256": "5987390f1490d3b8459577b2de4459b66e970ffa391a768fb2dd973addc7f298",
-      "size": 16811
+      "revision": 2,
+      "sha256": "7d3bcf7d8c367fef1835b173df5410119bb427395d07978c2f3165b6d9219d86",
+      "size": 19217
     },
     {
       "id": "03-call-graph-analysis-fr",
@@ -1837,9 +1837,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/fr/03_call_graph_analysis.ipynb",
-      "revision": 1,
-      "sha256": "0a8278e3bace876df387c96f8b5da87cc86d7efcb35e44deea8cc61e878d54dd",
-      "size": 14335
+      "revision": 2,
+      "sha256": "4e08a5b562c55c56f426a8a636440ad3b9b88e4756bc54861bd438ab0791b4bd",
+      "size": 16433
     },
     {
       "id": "life-expectancy-csv-demo-fr",
@@ -1855,9 +1855,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/fr/life_expectancy_csv_demo.ipynb",
-      "revision": 1,
-      "sha256": "4cecc1f02378d9b3c8823339b7848b3b06826bd4a263826ec3b6b2bcf4cf4ee9",
-      "size": 11581
+      "revision": 2,
+      "sha256": "dfa5cecd0eeba40c29145b68cbb8882cede4a3cf812a494fa6b3aaac674e30fd",
+      "size": 12806
     },
     {
       "id": "compute-pi-workbook-ru",
@@ -1889,9 +1889,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ru/lua-tables-coroutines.srwb",
-      "revision": 1,
-      "sha256": "8fdc2309a9b0d06dba3b1661ce4173e0a6dc452c0d085d04e8989d52aac8219f",
-      "size": 15636
+      "revision": 2,
+      "sha256": "bcca42ded72bb4acc87e2edf9181cbb37a00946f90d65b707c620b1ad4109f01",
+      "size": 16750
     },
     {
       "id": "lua-parsing-coroutines-ru",
@@ -1906,9 +1906,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ru/lua-parsing-coroutines.srwb",
-      "revision": 1,
-      "sha256": "76634d2fbb2cfa9b8730ebb95de67a64359e2d58dcfbd5fc32582574f2a1b573",
-      "size": 23896
+      "revision": 2,
+      "sha256": "beb8f263c0185ca4457932746a7796153b4d0cb6309bbac25ba097da806e7bc7",
+      "size": 25588
     },
     {
       "id": "typr-intro-ru",
@@ -1923,9 +1923,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ru/typr-intro.srwb",
-      "revision": 1,
-      "sha256": "a362b7cc37b71943cba6d4676ef1a4c235e8a3127ab3bf07bee48261d17b7deb",
-      "size": 3653
+      "revision": 2,
+      "sha256": "cfb68db544e72eadf88cb60129fb7432bdd40cb8127fc02b82043868ad8a40fd",
+      "size": 3955
     },
     {
       "id": "prolog-generates-r-ru",
@@ -1941,9 +1941,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ru/prolog-generates-r.srwb",
-      "revision": 1,
-      "sha256": "9cf2891d8803bd64a178c1155954fbabf122da2783dba0519ed5ccccae6d6f4b",
-      "size": 17142
+      "revision": 2,
+      "sha256": "0f2ca7a19d685b26cd812910c6201bd1bba4a08e781f7b5ce4e7d49aa252b9c6",
+      "size": 18032
     },
     {
       "id": "prolog-generates-lua-ru",
@@ -1959,9 +1959,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ru/prolog-generates-lua.srwb",
-      "revision": 1,
-      "sha256": "4a59f3a57d92c0abad68dc9da4d47cb82a11f30facd176bafbf376d907d8dc94",
-      "size": 7783
+      "revision": 2,
+      "sha256": "afe39ea6b21d149da84d5031c4fab11ad816e9eae17b35a6f9647091b605fd81",
+      "size": 8527
     },
     {
       "id": "prolog-generates-clojurescript-ru",
@@ -1977,9 +1977,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ru/prolog-generates-clojurescript.srwb",
-      "revision": 1,
-      "sha256": "d7993db0eca0bdfb2b6421f9b60e731ea7c4fef7f000254a97348586b4b43e63",
-      "size": 6161
+      "revision": 2,
+      "sha256": "998dde01fd2c5e6639115f0feeabd67e149d614cd7c4e8f80c0e32d038d564fe",
+      "size": 6574
     },
     {
       "id": "prolog-generates-typr-ru",
@@ -1995,9 +1995,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ru/prolog-generates-typr.srwb",
-      "revision": 1,
-      "sha256": "cfb2995912ce9431679c92af2526b9a1099d652f71bb88dbfec70b8630e08f12",
-      "size": 7993
+      "revision": 2,
+      "sha256": "eb12f0e049cce71b99babfdf8b20c7a12fffdaffb9f599e4f6886da2d51ffb79",
+      "size": 8749
     },
     {
       "id": "r-ggplot2-showcase-ru",
@@ -2012,9 +2012,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ru/r_ggplot2_showcase.ipynb",
-      "revision": 1,
-      "sha256": "df5ae4df3c96d8b0f1cc67ac540b02a5ea5e5c734fc8dbafe35a7e299518ceb5",
-      "size": 4813
+      "revision": 2,
+      "sha256": "c99347322e415c63f4e321212fb99c0defd673fdae23492ca565fad105cda265",
+      "size": 5636
     },
     {
       "id": "r-statistics-ru",
@@ -2029,9 +2029,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ru/r_statistics.ipynb",
-      "revision": 1,
-      "sha256": "ec6271a6fdc1815574f7d584b0e9ccb6b7e397290adb59872f866cf7f2d99d8d",
-      "size": 7335
+      "revision": 2,
+      "sha256": "58bea834bbc6cc4c30822468e40c52904a5da94d5786df6b230fd67b6c1ff3ad",
+      "size": 8475
     },
     {
       "id": "r-tidyverse-wrangling-ru",
@@ -2046,9 +2046,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ru/r_tidyverse_wrangling.ipynb",
-      "revision": 1,
-      "sha256": "03bc1e27501ea52fca7b28bc65546d670f1418fb21f587d433315e4e848f0182",
-      "size": 8520
+      "revision": 2,
+      "sha256": "20e5356c057aa79b77daeb01bc31113cbf527493517781472a51d8ad2cacd9f7",
+      "size": 9786
     },
     {
       "id": "01-family-tree-tutorial-ru",
@@ -2064,9 +2064,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ru/01_family_tree_tutorial.ipynb",
-      "revision": 1,
-      "sha256": "7e28a3c84f0a72a93eb030526003ca62bc6f670962781d119f6bf0d1e78c0715",
-      "size": 12383
+      "revision": 2,
+      "sha256": "1a5bb29c8b9a9209942074fbf2abea55cb620a23f1c3fec947437099fb31bd58",
+      "size": 14331
     },
     {
       "id": "02-recursion-patterns-ru",
@@ -2082,9 +2082,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ru/02_recursion_patterns.ipynb",
-      "revision": 1,
-      "sha256": "2481c6031b109f3322e73bd69b72a053342cc2901a6d6172729a2a443a6ecf30",
-      "size": 19393
+      "revision": 2,
+      "sha256": "521380e50ccaa490f0e5a69ffcf517fa8a4fa1becc2341d51a91dc037ef13efb",
+      "size": 22872
     },
     {
       "id": "03-call-graph-analysis-ru",
@@ -2100,9 +2100,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ru/03_call_graph_analysis.ipynb",
-      "revision": 1,
-      "sha256": "d603fa337b7a3a7f6c2e05347b2129894953cea24fb9956966019ffe0411d66f",
-      "size": 16074
+      "revision": 2,
+      "sha256": "e0916045601b6b3b5375cafc6cdb359501a0cb54d79658f237de9aec32e1a481",
+      "size": 19193
     },
     {
       "id": "life-expectancy-csv-demo-ru",
@@ -2118,9 +2118,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ru/life_expectancy_csv_demo.ipynb",
-      "revision": 1,
-      "sha256": "0b4fe59538b9087f6dab2976e7e211b64f4df9026c13b3c0ae2cf8e887598581",
-      "size": 12289
+      "revision": 2,
+      "sha256": "4e4b37ebd4163bb93e2e1491161aaf234f961bde7c839f349f5566fc728531f0",
+      "size": 15100
     },
     {
       "id": "compute-pi-workbook-zh",
@@ -2152,9 +2152,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/zh/lua-tables-coroutines.srwb",
-      "revision": 1,
-      "sha256": "0665a6cde09b47046d24630f126375612d4f249bd1a5e1ad492c80458426ba26",
-      "size": 13374
+      "revision": 2,
+      "sha256": "6c811fc72c72a843e8d39ea7597f0f473ab46a7b3217811e884a3d22e3a1c25b",
+      "size": 13456
     },
     {
       "id": "lua-parsing-coroutines-zh",
@@ -2169,9 +2169,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/zh/lua-parsing-coroutines.srwb",
-      "revision": 1,
-      "sha256": "7d40af3d18c460f9e9bcbb8d32a569150e6c75eebcee4c237977ed9222ada427",
-      "size": 21023
+      "revision": 2,
+      "sha256": "b41e48027e26e9d6f65b48aa3214e742c1565e64a8d776d19a6c2ffe9d3e8fb1",
+      "size": 21107
     },
     {
       "id": "typr-intro-zh",
@@ -2186,9 +2186,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/zh/typr-intro.srwb",
-      "revision": 1,
-      "sha256": "4ee5699cbd3fa98d3fdd5a12a0a35f71155c7e5fbe315d6bd5b2390374024005",
-      "size": 2744
+      "revision": 2,
+      "sha256": "933e21e085491baae043fce2a66c6a6c1eb5426e09f12216f80bdaacf7f42393",
+      "size": 2722
     },
     {
       "id": "prolog-generates-r-zh",
@@ -2204,9 +2204,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/zh/prolog-generates-r.srwb",
-      "revision": 1,
-      "sha256": "fae8606bd9b4825d4cdfe062de6bc3b41f777f9aa86ee2e9d33795bc927ed948",
-      "size": 13330
+      "revision": 2,
+      "sha256": "10fab457b7687499e9723e4d2b596af2adf929d43920feb927ea0fbdb9835e7f",
+      "size": 13320
     },
     {
       "id": "prolog-generates-lua-zh",
@@ -2222,9 +2222,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/zh/prolog-generates-lua.srwb",
-      "revision": 1,
-      "sha256": "3f1e36cbe81e3856564d16854f10f009f3b9dfe86c2099bb1d137e358c11143f",
-      "size": 6173
+      "revision": 2,
+      "sha256": "fdc9b6f063bc21d00bef16591a5dfbc5230e30f1d91448acd25a44f41ae4dfe9",
+      "size": 6228
     },
     {
       "id": "prolog-generates-clojurescript-zh",
@@ -2240,9 +2240,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/zh/prolog-generates-clojurescript.srwb",
-      "revision": 1,
-      "sha256": "27e14228ff2a66cdf2a88acdf81f0c0a2044130d9ff35a0d3041becef6e5e0d1",
-      "size": 4626
+      "revision": 2,
+      "sha256": "1c94d3ee52df4fa7dc56358a9bea17df925d14d35e056c38dec4f64f935e42d3",
+      "size": 4595
     },
     {
       "id": "prolog-generates-typr-zh",
@@ -2258,9 +2258,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/zh/prolog-generates-typr.srwb",
-      "revision": 1,
-      "sha256": "4a0546263a895214084d7ad7ec96b8445a08f83f6d24e5ba69483d0a3e6de0b0",
-      "size": 6362
+      "revision": 2,
+      "sha256": "002797af8c0f9ece1da9b5562b93a013387053de841b1162a054ec518ffd75e9",
+      "size": 6406
     },
     {
       "id": "r-ggplot2-showcase-zh",
@@ -2275,9 +2275,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/zh/r_ggplot2_showcase.ipynb",
-      "revision": 1,
-      "sha256": "b15780972310f4957583ac734562c10bb5d32adafd4944c50e552d0d3896d898",
-      "size": 4250
+      "revision": 2,
+      "sha256": "9bd7bff4e9d4303a63f2fd6c5a3c9b709da258feea0437da43142e0dc824e362",
+      "size": 4904
     },
     {
       "id": "r-statistics-zh",
@@ -2292,9 +2292,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/zh/r_statistics.ipynb",
-      "revision": 1,
-      "sha256": "5cfad41c4c0fba9da80ade215e07f874b42f4f9287bbcf8152b76d0e8a0958bc",
-      "size": 5744
+      "revision": 2,
+      "sha256": "2f927d439e7639b9069e9fe1ca236e4cff1fe63148b5a013cfb4912632846fd4",
+      "size": 6475
     },
     {
       "id": "r-tidyverse-wrangling-zh",
@@ -2309,9 +2309,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/zh/r_tidyverse_wrangling.ipynb",
-      "revision": 1,
-      "sha256": "af4ec4b77c247f2adf74bd48f66214597ae9c9f4582418f25384f1c5fbcd1ab4",
-      "size": 7755
+      "revision": 2,
+      "sha256": "064c5d1558066e24872f237362ad42bc83d4e596d1079ae9ec56728a72cd9478",
+      "size": 8622
     },
     {
       "id": "01-family-tree-tutorial-zh",
@@ -2327,9 +2327,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/zh/01_family_tree_tutorial.ipynb",
-      "revision": 1,
-      "sha256": "104b0ed8bf6c5de5bb84080f74189b5ecb9d3c7534c613300167914e34b6fc4a",
-      "size": 9917
+      "revision": 2,
+      "sha256": "f3183301facc1f9bf838391e26ed1a1b189a7da614e836cb2d9e0f2cada3183f",
+      "size": 11280
     },
     {
       "id": "02-recursion-patterns-zh",
@@ -2345,9 +2345,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/zh/02_recursion_patterns.ipynb",
-      "revision": 1,
-      "sha256": "50dcd9300e660e9059250998ad37d08ed7d555f6afc682ccf0f5d649116aa2e4",
-      "size": 16076
+      "revision": 2,
+      "sha256": "04a45c6c338d8591a23e5a7d5715d75c377341184409f0be0e0087bc6266810c",
+      "size": 18171
     },
     {
       "id": "03-call-graph-analysis-zh",
@@ -2363,9 +2363,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/zh/03_call_graph_analysis.ipynb",
-      "revision": 1,
-      "sha256": "ed3677691890a96347e36229046cebcd336b093e1ebc285c33630112bd1788ed",
-      "size": 13388
+      "revision": 2,
+      "sha256": "3b74e4691441da62bb3476ec56ebdf0887ed4b5cddf44796073d202162643334",
+      "size": 15054
     },
     {
       "id": "life-expectancy-csv-demo-zh",
@@ -2381,9 +2381,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/zh/life_expectancy_csv_demo.ipynb",
-      "revision": 1,
-      "sha256": "54ac790516dd80c3b49cdb44e06661339d2a8177875269df263d1fbe2ba5fe34",
-      "size": 11398
+      "revision": 2,
+      "sha256": "34be1acf06acf44c5be93c3da91e876f766b2e4fe030beceaad7866a6cb520e6",
+      "size": 12337
     },
     {
       "id": "compute-pi-workbook-hi",
@@ -2415,9 +2415,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/hi/lua-tables-coroutines.srwb",
-      "revision": 1,
-      "sha256": "db6c56864a271c0fd171966c66d9a7f10ccbfcd52ade5bf076b768a09430c50b",
-      "size": 16716
+      "revision": 2,
+      "sha256": "b3a86749ed2366aa11b0a599f62ab188c0a76db31dc2fbfce4c1018747d8b0d9",
+      "size": 18285
     },
     {
       "id": "lua-parsing-coroutines-hi",
@@ -2432,9 +2432,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/hi/lua-parsing-coroutines.srwb",
-      "revision": 1,
-      "sha256": "ad2d253d37c02d3f5d5394ec07210b4287a5bad7a6ba0e34ef19238d75ea3a2e",
-      "size": 25388
+      "revision": 2,
+      "sha256": "2ad89ca8ae60afe7ae542ace18ea5114f5e744773d2cc64115fdc61d125b9bf6",
+      "size": 28032
     },
     {
       "id": "typr-intro-hi",
@@ -2449,9 +2449,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/hi/typr-intro.srwb",
-      "revision": 1,
-      "sha256": "cc09161b9f739b658bb7f0acbaca515074fbbe11a285c4c07f4e5d42a5f9c98d",
-      "size": 4109
+      "revision": 2,
+      "sha256": "bb8e86ba66ed6ab4ad2822ba60d5bfcb960a857b8898d5d98afbfebe87022bda",
+      "size": 4570
     },
     {
       "id": "prolog-generates-r-hi",
@@ -2467,9 +2467,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/hi/prolog-generates-r.srwb",
-      "revision": 1,
-      "sha256": "2b69785262d85aebe90c19bc3680add746562df7eb66f6f414858d5c618082c3",
-      "size": 19330
+      "revision": 2,
+      "sha256": "f6404ef5676da28f41b5f1074c0ed267884d2c525312f15ff40b977d956d29c3",
+      "size": 20632
     },
     {
       "id": "prolog-generates-lua-hi",
@@ -2485,9 +2485,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/hi/prolog-generates-lua.srwb",
-      "revision": 1,
-      "sha256": "4ea8aa8e8347d938e1aa11dc0771c7202a83a977c6c2bbd9fbf0b1a5b58caff0",
-      "size": 8425
+      "revision": 2,
+      "sha256": "159d27270374b95f6c197b9368b3dd130d5004100e405af68b221a01e1e0061c",
+      "size": 9646
     },
     {
       "id": "prolog-generates-clojurescript-hi",
@@ -2503,9 +2503,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/hi/prolog-generates-clojurescript.srwb",
-      "revision": 1,
-      "sha256": "091d3b467b86985c608dbc9931e84d04152610b317044419aedab981df97f968",
-      "size": 6669
+      "revision": 2,
+      "sha256": "ae1585703955328b89a8f4dff0bac8d3dd8c389b39e43b7b2725e3c784300946",
+      "size": 7375
     },
     {
       "id": "prolog-generates-typr-hi",
@@ -2521,9 +2521,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/hi/prolog-generates-typr.srwb",
-      "revision": 1,
-      "sha256": "426c416b71134ce0972d11bc41ca4b72e925d3f09d6c0086fac5cd767606c7fb",
-      "size": 8766
+      "revision": 2,
+      "sha256": "59b6fce3391574cac36d7605c2b7fff201b261a223c63fec356c8da487ecb1e5",
+      "size": 9926
     },
     {
       "id": "r-ggplot2-showcase-hi",
@@ -2538,9 +2538,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/hi/r_ggplot2_showcase.ipynb",
-      "revision": 1,
-      "sha256": "f5665174f3f70a5d264adf775ff922e3527ea00d8a911b03aea74b666bacdbde",
-      "size": 5010
+      "revision": 2,
+      "sha256": "98652b2df0dbb6d19720649d5dfeef3eae5cdc5fb7edbb694a384fa54eba6fe9",
+      "size": 5982
     },
     {
       "id": "r-statistics-hi",
@@ -2555,9 +2555,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/hi/r_statistics.ipynb",
-      "revision": 1,
-      "sha256": "b5b7b1e7fb1cca21013c50fabbf5118dad57a21deac3653c32ed84d215c4a306",
-      "size": 7626
+      "revision": 2,
+      "sha256": "f547f9eeecbdfb60c981ade0496448b342f1f7ecfc8f14b18c166ca464780f24",
+      "size": 8761
     },
     {
       "id": "r-tidyverse-wrangling-hi",
@@ -2572,9 +2572,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/hi/r_tidyverse_wrangling.ipynb",
-      "revision": 1,
-      "sha256": "a5063d2de10925be2d94bbebdd2252ae5a0d6cbe3f629a0e410535c3cf2b2f70",
-      "size": 8907
+      "revision": 2,
+      "sha256": "429f553646be2c079aff274cf472949bbabc7b29539aa5e8b3a9a36f6dbcaccb",
+      "size": 10323
     },
     {
       "id": "01-family-tree-tutorial-hi",
@@ -2590,9 +2590,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/hi/01_family_tree_tutorial.ipynb",
-      "revision": 1,
-      "sha256": "26ff5bdeab499eb72d3ef653c0e3f6ed251de0b294d93c1e97aa33f881de1659",
-      "size": 14022
+      "revision": 2,
+      "sha256": "62a3ed5b2463d292558ad46af15d5899bb690ed11ff17952334159f5fd364224",
+      "size": 16660
     },
     {
       "id": "02-recursion-patterns-hi",
@@ -2608,9 +2608,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/hi/02_recursion_patterns.ipynb",
-      "revision": 1,
-      "sha256": "14f9deeeaccf080d73059b9b34da0b95a5087ab9add0fe9b8e2bf09b913e5fac",
-      "size": 20723
+      "revision": 2,
+      "sha256": "f60d049243787c5b92d9cf83f26f2fdd08fd86d0b726970b73354b0a59f9b421",
+      "size": 24929
     },
     {
       "id": "03-call-graph-analysis-hi",
@@ -2626,9 +2626,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/hi/03_call_graph_analysis.ipynb",
-      "revision": 1,
-      "sha256": "2aae45b7322b815758db76c5294f48ce590cbdc7c85102185e0f047f4cbccf77",
-      "size": 17281
+      "revision": 2,
+      "sha256": "024bdf5516ae7b30840eee0fb7ad5645f671ac990d839dba4822f4e4c1e52491",
+      "size": 21024
     },
     {
       "id": "life-expectancy-csv-demo-hi",
@@ -2644,9 +2644,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/hi/life_expectancy_csv_demo.ipynb",
-      "revision": 1,
-      "sha256": "a19983bf65490f984ec1a04ad59e51cefbad3a04b633db3c208a44b7bf9a2686",
-      "size": 12486
+      "revision": 2,
+      "sha256": "d67c226ebfd98789f5f53330435fb73b43f330d27760acbdb6ebe64f46ceb9b4",
+      "size": 15228
     },
     {
       "id": "compute-pi-workbook-bn",
@@ -2678,9 +2678,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/bn/lua-tables-coroutines.srwb",
-      "revision": 1,
-      "sha256": "08e6d042795a02ad7d622fbece1578c38cad84e9316f07c993390ef2d7ea1e9f",
-      "size": 16608
+      "revision": 2,
+      "sha256": "13f1111da76f6d3f8ae647caaeefc9b0c90c0fd68843e6125729994dcad55209",
+      "size": 18358
     },
     {
       "id": "lua-parsing-coroutines-bn",
@@ -2695,9 +2695,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/bn/lua-parsing-coroutines.srwb",
-      "revision": 1,
-      "sha256": "1d20cc3efbebe6f8f0918220d60d06be39ee2790f96ed75ac504e40eb6352c52",
-      "size": 25361
+      "revision": 2,
+      "sha256": "ed64cd238c5d6a8e427ad21f803018bc56cf970019b9018841b71f1feeb4b482",
+      "size": 28153
     },
     {
       "id": "typr-intro-bn",
@@ -2712,9 +2712,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/bn/typr-intro.srwb",
-      "revision": 1,
-      "sha256": "7268143a8d4fb6e7e2dc5dd733ef5e8a816a010786c3b91d369d32d9161ab764",
-      "size": 4029
+      "revision": 2,
+      "sha256": "21e5148715897021c59f4bedc85a08586d6bc021532da629938974a677d78789",
+      "size": 4508
     },
     {
       "id": "prolog-generates-r-bn",
@@ -2730,9 +2730,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/bn/prolog-generates-r.srwb",
-      "revision": 1,
-      "sha256": "f7c77b3fa60d57a4035abf5afbdd8a9901dd0346fcc0951b146fab2298004207",
-      "size": 19185
+      "revision": 2,
+      "sha256": "e9a1e88b0b6275b5f55a9fd05f12b050e2e7eb4240cff0c185bdca334323f510",
+      "size": 20651
     },
     {
       "id": "prolog-generates-lua-bn",
@@ -2748,9 +2748,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/bn/prolog-generates-lua.srwb",
-      "revision": 1,
-      "sha256": "b94794668b2ff67f89609f8cc2bdf6c5a13606ab8d529b1da8e113dafcf8ceaf",
-      "size": 8244
+      "revision": 2,
+      "sha256": "580d5f271b9ed67159dbab35634f1fe88274d03d78d0904f3ec3f09e5982b0e9",
+      "size": 9526
     },
     {
       "id": "prolog-generates-clojurescript-bn",
@@ -2766,9 +2766,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/bn/prolog-generates-clojurescript.srwb",
-      "revision": 1,
-      "sha256": "295a6360740b00d4f519a17c5d7383cf184b9b30fe1965b1047462d795c22312",
-      "size": 6727
+      "revision": 2,
+      "sha256": "4b2bdf00e88d2faef9d80db2cc16ec88baa430086e7965b615fbaf819fa04a40",
+      "size": 7518
     },
     {
       "id": "prolog-generates-typr-bn",
@@ -2784,9 +2784,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/bn/prolog-generates-typr.srwb",
-      "revision": 1,
-      "sha256": "6d8c9d7e31c73bf7de053facdd318a041a86e560bd02e1c9849d459dab4861f9",
-      "size": 8706
+      "revision": 2,
+      "sha256": "a169f2e90e9d001d6b8c1613aa836c063dcab2b1be438d403c95534df7f677ac",
+      "size": 10035
     },
     {
       "id": "r-ggplot2-showcase-bn",
@@ -2801,9 +2801,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/bn/r_ggplot2_showcase.ipynb",
-      "revision": 1,
-      "sha256": "d2140bb09ecb68f37443827bd40f47e270522981dc51996a24d07bb83f9329dc",
-      "size": 5043
+      "revision": 2,
+      "sha256": "6bf36b63bb1fd9a2df05a6f1b95dc1c8a87fd6f3b37240c93cacdc67e5880f67",
+      "size": 6145
     },
     {
       "id": "r-statistics-bn",
@@ -2818,9 +2818,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/bn/r_statistics.ipynb",
-      "revision": 1,
-      "sha256": "c578fed4fb912af50132503f567ff7cebe10980e3da8f6e74264c11eee7a88ac",
-      "size": 7597
+      "revision": 2,
+      "sha256": "193d038db868c221dd9ad16672bb46764f171da5e371ea5256edb44c7fc4782d",
+      "size": 8823
     },
     {
       "id": "r-tidyverse-wrangling-bn",
@@ -2835,9 +2835,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/bn/r_tidyverse_wrangling.ipynb",
-      "revision": 1,
-      "sha256": "5b311f218ac1d9a3a414a141bff9c25fab330f7fd0e997db74577e59800cce66",
-      "size": 8869
+      "revision": 2,
+      "sha256": "9e1518da9c07ff457de105984b1e58ba45e0a2123403eedf97f4f44926f7bbf2",
+      "size": 10186
     },
     {
       "id": "01-family-tree-tutorial-bn",
@@ -2853,9 +2853,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/bn/01_family_tree_tutorial.ipynb",
-      "revision": 1,
-      "sha256": "f3865e665d6279c5c0ff9599733f1ac62e10420afe70f2b1c37adcd0c0e7ba14",
-      "size": 14383
+      "revision": 2,
+      "sha256": "ed843229984fcb43ae968aea1f7d0512f66baa5127628e7f1384e6882f15409e",
+      "size": 16992
     },
     {
       "id": "02-recursion-patterns-bn",
@@ -2871,9 +2871,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/bn/02_recursion_patterns.ipynb",
-      "revision": 1,
-      "sha256": "95b0ea42588a755f584f1e485dc489f91a27c4b731617cb8c11ff9c7b49d2a2d",
-      "size": 21006
+      "revision": 2,
+      "sha256": "6ec4e070c13c08396e869bb4a90a91957e50cc97eabb753412422df8f9a113a0",
+      "size": 25318
     },
     {
       "id": "03-call-graph-analysis-bn",
@@ -2889,9 +2889,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/bn/03_call_graph_analysis.ipynb",
-      "revision": 1,
-      "sha256": "9c749d24b003e6d3e753f959e185b2660b6e9f8a02481b6b5cd428002ede1313",
-      "size": 17553
+      "revision": 2,
+      "sha256": "a0c71a3b9876bec859a1a2ce88d22d6d4569f41b420846f1e4856f228370fd81",
+      "size": 21476
     },
     {
       "id": "life-expectancy-csv-demo-bn",
@@ -2907,9 +2907,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/bn/life_expectancy_csv_demo.ipynb",
-      "revision": 1,
-      "sha256": "2f6b1f87b7e3de775cf72172d5493a35ac825b3ac53e5ff87987573e64692ac4",
-      "size": 12420
+      "revision": 2,
+      "sha256": "a2b438476375b7c4a9e2625ad57a4c415a3fa2db8fcfb38c586162eaa3e8cc35",
+      "size": 14670
     },
     {
       "id": "compute-pi-workbook-id",
@@ -2941,9 +2941,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/id/lua-tables-coroutines.srwb",
-      "revision": 1,
-      "sha256": "abd30461fc5d3b76855425103e3a3deeb418a14610a815f9e28f54d8ab6acd19",
-      "size": 13660
+      "revision": 2,
+      "sha256": "c36df62badd45f803f06b555c8286d9ef0ac532d0308ae53ec2a2a4a9e58b3c3",
+      "size": 13911
     },
     {
       "id": "lua-parsing-coroutines-id",
@@ -2958,9 +2958,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/id/lua-parsing-coroutines.srwb",
-      "revision": 1,
-      "sha256": "74f74ef368f79d3ab100ee34318765bf903fccd9b26cbe63b89c77713728785c",
-      "size": 21463
+      "revision": 2,
+      "sha256": "736b52e53ef84d0824dd8775f6862cb64a251ef7acdb61fd8a488fb2a0d632a3",
+      "size": 21661
     },
     {
       "id": "typr-intro-id",
@@ -2975,9 +2975,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/id/typr-intro.srwb",
-      "revision": 1,
-      "sha256": "55779f471a3cd9e443c09e407cb410df50c8e1c752bbe4945c9c5e4c967cb705",
-      "size": 2886
+      "revision": 2,
+      "sha256": "ff767332149ed7115c649b456188f9c6101cb9f2ad7040f4780dd66ef5859bea",
+      "size": 2912
     },
     {
       "id": "prolog-generates-r-id",
@@ -2993,9 +2993,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/id/prolog-generates-r.srwb",
-      "revision": 1,
-      "sha256": "bff7908bd34286b4fb2c69a4b1765c6c60ac7c87a40be4a5d4c335a7584973aa",
-      "size": 14026
+      "revision": 2,
+      "sha256": "932a22a3a0cdfc7aecf1ab208ec74e29c132180992d1a7f50680550d03431d4f",
+      "size": 14050
     },
     {
       "id": "prolog-generates-lua-id",
@@ -3011,9 +3011,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/id/prolog-generates-lua.srwb",
-      "revision": 1,
-      "sha256": "90a732e15bb8c5a3f3bcd4c38ee44eb8741a49eb49482de5267c934011401c73",
-      "size": 6355
+      "revision": 2,
+      "sha256": "e47162e031146aee2f736a9f62568d0f1336046fb455066acab5b3ce8066ca82",
+      "size": 6405
     },
     {
       "id": "prolog-generates-clojurescript-id",
@@ -3029,9 +3029,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/id/prolog-generates-clojurescript.srwb",
-      "revision": 1,
-      "sha256": "057fa1de218aaaf042ab76d916c503ee424c913847a93679685f3f13e5f11488",
-      "size": 4817
+      "revision": 2,
+      "sha256": "47c66e1bdcfad77bbdc44bafe5d392fde51fff3a65a46ea7b6b7c1d20581a0c4",
+      "size": 4871
     },
     {
       "id": "prolog-generates-typr-id",
@@ -3047,9 +3047,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/id/prolog-generates-typr.srwb",
-      "revision": 1,
-      "sha256": "7a23060e50ac90dac7db00cedea68b6f5d8d0adf9c8e25c8b38876fd5dcf1332",
-      "size": 6564
+      "revision": 2,
+      "sha256": "b30bfdf04c4a367b51fbf8c2b2c05d70310bf82f1c7eb1b201a584695695c697",
+      "size": 6637
     },
     {
       "id": "r-ggplot2-showcase-id",
@@ -3064,9 +3064,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/id/r_ggplot2_showcase.ipynb",
-      "revision": 1,
-      "sha256": "56995bb205f48e8fcb0f2fedc6e65348a57bf6a1823051605c2ad3c3fdb17eb5",
-      "size": 4288
+      "revision": 2,
+      "sha256": "d801fb8773c93a96f710d888d0c186f66f8095bfef213e8444affd1c9be15f2b",
+      "size": 4874
     },
     {
       "id": "r-statistics-id",
@@ -3081,9 +3081,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/id/r_statistics.ipynb",
-      "revision": 1,
-      "sha256": "ac2a6bfbde3e81adbdd7869196a093b087033442983bbbe52d870b891dca0548",
-      "size": 5932
+      "revision": 2,
+      "sha256": "9acfe715c2e307ee25f7096848385655e0cf505998b8284fcdfb919228c3d8e1",
+      "size": 6715
     },
     {
       "id": "r-tidyverse-wrangling-id",
@@ -3098,9 +3098,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/id/r_tidyverse_wrangling.ipynb",
-      "revision": 1,
-      "sha256": "42fb9bc2a5d92a73f25d4d96ec348271e51d406c980e4aa49398203680fe0eca",
-      "size": 7810
+      "revision": 2,
+      "sha256": "4f9e29c9ba2e72ce9c7c8c1ac296006f0150e1284fc9289b282fbf4d785092f9",
+      "size": 8744
     },
     {
       "id": "01-family-tree-tutorial-id",
@@ -3116,9 +3116,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/id/01_family_tree_tutorial.ipynb",
-      "revision": 1,
-      "sha256": "45094e50275a85465f4576d75864333323f7e9f4a0ea76e985478670dbf56d40",
-      "size": 10442
+      "revision": 2,
+      "sha256": "369c571a2c2b16361d31dcaa1934c648643b4253c847e19f132b7e52befd9a6e",
+      "size": 11807
     },
     {
       "id": "02-recursion-patterns-id",
@@ -3134,9 +3134,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/id/02_recursion_patterns.ipynb",
-      "revision": 1,
-      "sha256": "11565ac029aed1ff115c803805c6c3aabcf675a0c0752cc28416133cbcbfc68f",
-      "size": 16454
+      "revision": 2,
+      "sha256": "cbe06009bda038a9fcc194aa2b57c8f5fff1e0804729af4c7de01b9c0a077e24",
+      "size": 18767
     },
     {
       "id": "03-call-graph-analysis-id",
@@ -3152,9 +3152,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/id/03_call_graph_analysis.ipynb",
-      "revision": 1,
-      "sha256": "3d372e0d03cdb4365ae7858bef5966d4af0bcf633f8424c9169d604cb0dc5a70",
-      "size": 13995
+      "revision": 2,
+      "sha256": "66414b87eca891ad8bf5f6a130dc1df6e4a38f634547941705f47ca17b5c709c",
+      "size": 15875
     },
     {
       "id": "life-expectancy-csv-demo-id",
@@ -3170,9 +3170,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/id/life_expectancy_csv_demo.ipynb",
-      "revision": 1,
-      "sha256": "7370de647bdc47705e81fec4578949eea1d99993e709ee13f1233e12f59e6871",
-      "size": 11475
+      "revision": 2,
+      "sha256": "669c9e22cebbfd1e3120ff68647ad1abf42e1ee096c58ba96faa6d0fc1d91925",
+      "size": 12609
     }
   ]
 }

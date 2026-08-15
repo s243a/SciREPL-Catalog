@@ -1,0 +1,626 @@
+{
+  "manifest_version": 1,
+  "produced_by": "derived",
+  "generator": "tools/span-derive.mjs",
+  "locale": "bn",
+  "source": {
+    "path": "workbooks/en/prolog-generates-typr.srwb",
+    "sha256": "1f3d8e035eb888566cf7346496c035d90820491a8ea6a644f13f6e5855699daf"
+  },
+  "target": {
+    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/jobs/prolog-generates-typr-bn/translated.srwb",
+    "sha256": "a169f2e90e9d001d6b8c1613aa836c063dcab2b1be438d403c95534df7f677ac"
+  },
+  "spans": [
+    {
+      "cell_index": 1,
+      "cell_name": "load_compiler",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 36
+        },
+        "text": "Load UnifyWeaver compiler modules"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 39
+        },
+        "text": "UnifyWeaver কম্পাইলার মডিউল লোড করুন"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "family_tree",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 39
+        },
+        "text": "Define a family tree as Prolog facts"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 46
+        },
+        "text": "Prolog তথ্য হিসেবে বংশলতিকা সংজ্ঞায়িত করুন"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "family_tree",
+      "source_span": {
+        "start": {
+          "line": 10,
+          "col": 1
+        },
+        "end": {
+          "line": 10,
+          "col": 62
+        },
+        "text": "Transitive closure: ancestor(X, Y) if X is an ancestor of Y"
+      },
+      "target_span": {
+        "start": {
+          "line": 10,
+          "col": 1
+        },
+        "end": {
+          "line": 10,
+          "col": 63
+        },
+        "text": "ট্রানজিটিভ ক্লোজার: ancestor(X, Y) যদি X, Y-এর পূর্বপুরুষ হয়"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "typr_queries",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 58
+        },
+        "text": "This named TypR source cell is read by compile_to_typr."
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 62
+        },
+        "text": "এই নামযুক্ত TypR সোর্স সেলটি compile_to_typr দ্বারা পড়া হয়।"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "typr_queries",
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 1
+        },
+        "end": {
+          "line": 3,
+          "col": 72
+        },
+        "text": "It is appended to the generated code because TypR cells are isolated."
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 1
+        },
+        "end": {
+          "line": 3,
+          "col": 76
+        },
+        "text": "এটি জেনারেট করা কোডের সাথে যুক্ত করা হয় কারণ TypR সেলগুলো বিচ্ছিন্ন থাকে।"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "typr_queries",
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 18
+        },
+        "text": "--- Queries ---"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 21
+        },
+        "text": "--- কোয়েরিসমূহ ---"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "typr_queries",
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 6
+        },
+        "end": {
+          "line": 7,
+          "col": 27
+        },
+        "text": "Descendants of alice:"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 6
+        },
+        "end": {
+          "line": 7,
+          "col": 25
+        },
+        "text": "alice-এর উত্তরসূরী:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "typr_queries",
+      "source_span": {
+        "start": {
+          "line": 9,
+          "col": 6
+        },
+        "end": {
+          "line": 9,
+          "col": 31
+        },
+        "text": "alice is ancestor of eve:"
+      },
+      "target_span": {
+        "start": {
+          "line": 9,
+          "col": 6
+        },
+        "end": {
+          "line": 9,
+          "col": 34
+        },
+        "text": "alice হলো eve-এর পূর্বপুরুষ:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "typr_queries",
+      "source_span": {
+        "start": {
+          "line": 11,
+          "col": 6
+        },
+        "end": {
+          "line": 11,
+          "col": 33
+        },
+        "text": "alice is ancestor of frank:"
+      },
+      "target_span": {
+        "start": {
+          "line": 11,
+          "col": 6
+        },
+        "end": {
+          "line": 11,
+          "col": 36
+        },
+        "text": "alice হলো frank-এর পূর্বপুরুষ:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": "compile_to_typr",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 63
+        },
+        "text": "Read the highlighted Prolog and TypR source from named cells"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 63
+        },
+        "text": "নামযুক্ত সেলগুলো থেকে হাইলাইট করা Prolog এবং TypR সোর্স পড়ুন"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": "compile_to_typr",
+      "source_span": {
+        "start": {
+          "line": 16,
+          "col": 5
+        },
+        "end": {
+          "line": 16,
+          "col": 79
+        },
+        "text": "Compile ancestor/2 to explicitly typed TypR and append the named queries"
+      },
+      "target_span": {
+        "start": {
+          "line": 16,
+          "col": 5
+        },
+        "end": {
+          "line": 16,
+          "col": 88
+        },
+        "text": "ancestor/2-কে স্পষ্ট টাইপযুক্ত TypR-এ কম্পাইল করুন এবং নামযুক্ত কোয়েরি যুক্ত করুন"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": "typr_output",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 47
+        },
+        "text": "This cell will be populated by the compiler."
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 43
+        },
+        "text": "এই সেলটি কম্পাইলার দ্বারা পূর্ণ করা হবে।"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": "typr_output",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 46
+        },
+        "text": "Run the 'compile_to_typr' cell above first."
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 49
+        },
+        "text": "প্রথমে উপরের 'compile_to_typr' সেলটি রান করুন।"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": "compile_to_r",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 70
+        },
+        "text": "Reload the same named Prolog source so this cell runs independently"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 79
+        },
+        "text": "একই নামযুক্ত Prolog সোর্স পুনরায় লোড করুন যাতে এই সেলটি স্বাধীনভাবে রান করে"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": "compile_to_r",
+      "source_span": {
+        "start": {
+          "line": 12,
+          "col": 5
+        },
+        "end": {
+          "line": 12,
+          "col": 81
+        },
+        "text": "Compile to R with embedded facts; the highlighted r_queries cell runs next"
+      },
+      "target_span": {
+        "start": {
+          "line": 12,
+          "col": 5
+        },
+        "end": {
+          "line": 12,
+          "col": 81
+        },
+        "text": "এমবেডেড তথ্যসহ R-এ কম্পাইল করুন; এরপর হাইলাইট করা r_queries সেলটি রান করবে"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 9,
+      "cell_name": "r_output",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 49
+        },
+        "text": "This cell will be populated with plain R code."
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 46
+        },
+        "text": "এই সেলটি সাধারণ R কোড দ্বারা পূর্ণ করা হবে।"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 9,
+      "cell_name": "r_output",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 43
+        },
+        "text": "Run the 'compile_to_r' cell above first."
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 46
+        },
+        "text": "প্রথমে উপরের 'compile_to_r' সেলটি রান করুন।"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 10,
+      "cell_name": "r_queries",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 67
+        },
+        "text": "Query the generated R functions in a separate, highlighted cell."
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 67
+        },
+        "text": "একটি পৃথক, হাইলাইট করা সেলে জেনারেট করা R ফাংশনগুলো কোয়েরি করুন।"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 10,
+      "cell_name": "r_queries",
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 6
+        },
+        "end": {
+          "line": 3,
+          "col": 27
+        },
+        "text": "Descendants of alice:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 6
+        },
+        "end": {
+          "line": 3,
+          "col": 25
+        },
+        "text": "alice-এর উত্তরসূরী:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 10,
+      "cell_name": "r_queries",
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 6
+        },
+        "end": {
+          "line": 4,
+          "col": 31
+        },
+        "text": "alice is ancestor of eve:"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 6
+        },
+        "end": {
+          "line": 4,
+          "col": 34
+        },
+        "text": "alice হলো eve-এর পূর্বপুরুষ:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 10,
+      "cell_name": "r_queries",
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 6
+        },
+        "end": {
+          "line": 5,
+          "col": 33
+        },
+        "text": "alice is ancestor of frank:"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 6
+        },
+        "end": {
+          "line": 5,
+          "col": 36
+        },
+        "text": "alice হলো frank-এর পূর্বপুরুষ:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    }
+  ],
+  "exclusions": []
+}

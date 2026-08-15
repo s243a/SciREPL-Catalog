@@ -1,0 +1,1264 @@
+{
+  "manifest_version": 1,
+  "produced_by": "derived",
+  "generator": "tools/span-derive.mjs",
+  "locale": "bn",
+  "source": {
+    "path": "workbooks/en/lua-tables-coroutines.srwb",
+    "sha256": "52667b62bc8e78f57987aeb0b3df737791f21ab6c4e96eb87b43ce990c863eaa"
+  },
+  "target": {
+    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/jobs/lua-tables-coroutines-bn/translated.srwb",
+    "sha256": "13f1111da76f6d3f8ae647caaeefc9b0c90c0fd68843e6125729994dcad55209"
+  },
+  "spans": [
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 23
+        },
+        "text": "Arrays (1-indexed!)"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 35
+        },
+        "text": "অ্যারে (১ থেকে ইনডেক্সিং শুরু!)"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 8
+        },
+        "end": {
+          "line": 4,
+          "col": 15
+        },
+        "text": "length:"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 8
+        },
+        "end": {
+          "line": 4,
+          "col": 16
+        },
+        "text": "দৈর্ঘ্য:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 16
+        },
+        "text": "Dictionaries"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 20
+        },
+        "text": "ডিকশনারি (ম্যাপ)"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 44
+        },
+        "end": {
+          "line": 7,
+          "col": 53
+        },
+        "text": "km radius"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 44
+        },
+        "end": {
+          "line": 7,
+          "col": 58
+        },
+        "text": "কিমি ব্যাসার্ধ"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 9,
+          "col": 1
+        },
+        "end": {
+          "line": 9,
+          "col": 26
+        },
+        "text": "Add fields dynamically"
+      },
+      "target_span": {
+        "start": {
+          "line": 9,
+          "col": 1
+        },
+        "end": {
+          "line": 9,
+          "col": 29
+        },
+        "text": "গতিশীলভাবে ফিল্ড যোগ করুন"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 11,
+          "col": 8
+        },
+        "end": {
+          "line": 11,
+          "col": 14
+        },
+        "text": "Moons:"
+      },
+      "target_span": {
+        "start": {
+          "line": 11,
+          "col": 8
+        },
+        "end": {
+          "line": 11,
+          "col": 13
+        },
+        "text": "চাঁদ:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 45
+        },
+        "text": "Tables can mix array and dictionary parts"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 57
+        },
+        "text": "টেবিল অ্যারে এবং ডিকশনারি উভয় অংশকে একত্রিত করতে পারে"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 8
+        },
+        "end": {
+          "line": 3,
+          "col": 19
+        },
+        "text": "Array part:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 8
+        },
+        "end": {
+          "line": 3,
+          "col": 19
+        },
+        "text": "অ্যারে অংশ:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 8
+        },
+        "end": {
+          "line": 4,
+          "col": 18
+        },
+        "text": "Dict part:"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 8
+        },
+        "end": {
+          "line": 4,
+          "col": 21
+        },
+        "text": "ডিকশনারি অংশ:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 39
+        },
+        "text": "Nested tables — build any structure"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 43
+        },
+        "text": "নেস্টেড টেবিল — যেকোনো কাঠামো তৈরি করুন"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 7,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 41
+        },
+        "text": "A 2D vector with operator overloading"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 39
+        },
+        "text": "অপারেটর ওভারলোডিং সহ একটি 2D ভেক্টর"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 9,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 68
+        },
+        "text": "A counter factory — each call returns a new, independent counter"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 75
+        },
+        "text": "কাউন্টার ফ্যাক্টরি — প্রতিটি কল একটি নতুন স্বতন্ত্র কাউন্টার প্রদান করে"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 10,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 28
+        },
+        "text": "Memoization via closures"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 31
+        },
+        "text": "ক্লোজারের মাধ্যমে মেমোইজেশন"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 11,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 23
+        },
+        "text": "Partial application"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 38
+        },
+        "text": "আংশিক প্রয়োগ (Partial application)"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 11,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 16,
+          "col": 8
+        },
+        "end": {
+          "line": 16,
+          "col": 18
+        },
+        "text": "add10(5) ="
+      },
+      "target_span": {
+        "start": {
+          "line": 16,
+          "col": 8
+        },
+        "end": {
+          "line": 16,
+          "col": 25
+        },
+        "text": "add10(5) এর মান ="
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 11,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 17,
+          "col": 8
+        },
+        "end": {
+          "line": 17,
+          "col": 19
+        },
+        "text": "add10(32) ="
+      },
+      "target_span": {
+        "start": {
+          "line": 17,
+          "col": 8
+        },
+        "end": {
+          "line": 17,
+          "col": 26
+        },
+        "text": "add10(32) এর মান ="
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 50
+        },
+        "text": "Basic coroutine: a producer that yields values"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 58
+        },
+        "text": "মৌলিক কোরুটিন: একটি প্রোডিউসার যা মান ইল্ড (yield) করে"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 12
+        },
+        "end": {
+          "line": 5,
+          "col": 25
+        },
+        "text": "  producing: "
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 12
+        },
+        "end": {
+          "line": 5,
+          "col": 27
+        },
+        "text": "  উৎপাদন করছে: "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 12,
+          "col": 8
+        },
+        "end": {
+          "line": 12,
+          "col": 22
+        },
+        "text": "Consumer loop:"
+      },
+      "target_span": {
+        "start": {
+          "line": 12,
+          "col": 8
+        },
+        "end": {
+          "line": 12,
+          "col": 21
+        },
+        "text": "কনজিউমার লুপ:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 16,
+          "col": 12
+        },
+        "end": {
+          "line": 16,
+          "col": 25
+        },
+        "text": "  consumed:  "
+      },
+      "target_span": {
+        "start": {
+          "line": 16,
+          "col": 12
+        },
+        "end": {
+          "line": 16,
+          "col": 28
+        },
+        "text": "  গ্রহণ করেছে:  "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 31
+        },
+        "text": "Infinite sequence generator"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 28
+        },
+        "text": "অসীম সিকোয়েন্স জেনারেটর"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 12,
+          "col": 11
+        },
+        "end": {
+          "line": 12,
+          "col": 22
+        },
+        "text": "Fibonacci: "
+      },
+      "target_span": {
+        "start": {
+          "line": 12,
+          "col": 11
+        },
+        "end": {
+          "line": 12,
+          "col": 23
+        },
+        "text": "ফিবোনাচ্চি: "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 15,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 44
+        },
+        "text": "Pipeline: chaining coroutines as filters"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 43
+        },
+        "text": "পাইপলাইন: ফিল্টার হিসেবে কোরুটিন চেইনিং"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 15,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 24,
+          "col": 1
+        },
+        "end": {
+          "line": 24,
+          "col": 45
+        },
+        "text": "Pipeline: 1..20 → keep odds → square them"
+      },
+      "target_span": {
+        "start": {
+          "line": 24,
+          "col": 1
+        },
+        "end": {
+          "line": 24,
+          "col": 56
+        },
+        "text": "পাইপলাইন: ১..২০ → বিজোড় সংখ্যা রাখা → তাদের বর্গ করা"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 15,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 30,
+          "col": 11
+        },
+        "end": {
+          "line": 30,
+          "col": 24
+        },
+        "text": "Odd squares: "
+      },
+      "target_span": {
+        "start": {
+          "line": 30,
+          "col": 11
+        },
+        "end": {
+          "line": 30,
+          "col": 31
+        },
+        "text": "বিজোড় সংখ্যার বর্গ: "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 51
+        },
+        "text": "Cooperative scheduler — round-robin task runner"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 50
+        },
+        "text": "কো-অপারেটিভ শিডিউলার — রাউন্ড-রবিন টাস্ক রানার"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 16,
+          "col": 31
+        },
+        "end": {
+          "line": 16,
+          "col": 38
+        },
+        "text": "Error: "
+      },
+      "target_span": {
+        "start": {
+          "line": 16,
+          "col": 31
+        },
+        "end": {
+          "line": 16,
+          "col": 39
+        },
+        "text": "ত্রুটি: "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 32,
+          "col": 12
+        },
+        "end": {
+          "line": 32,
+          "col": 23
+        },
+        "text": "  [A] step "
+      },
+      "target_span": {
+        "start": {
+          "line": 32,
+          "col": 12
+        },
+        "end": {
+          "line": 32,
+          "col": 22
+        },
+        "text": "  [A] ধাপ "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 39,
+          "col": 12
+        },
+        "end": {
+          "line": 39,
+          "col": 23
+        },
+        "text": "  [B] step "
+      },
+      "target_span": {
+        "start": {
+          "line": 39,
+          "col": 12
+        },
+        "end": {
+          "line": 39,
+          "col": 22
+        },
+        "text": "  [B] ধাপ "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 46,
+          "col": 12
+        },
+        "end": {
+          "line": 46,
+          "col": 23
+        },
+        "text": "  [C] step "
+      },
+      "target_span": {
+        "start": {
+          "line": 46,
+          "col": 12
+        },
+        "end": {
+          "line": 46,
+          "col": 22
+        },
+        "text": "  [C] ধাপ "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 51,
+          "col": 8
+        },
+        "end": {
+          "line": 51,
+          "col": 26
+        },
+        "text": "Running scheduler:"
+      },
+      "target_span": {
+        "start": {
+          "line": 51,
+          "col": 8
+        },
+        "end": {
+          "line": 51,
+          "col": 30
+        },
+        "text": "শিডিউলার চালানো হচ্ছে:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 53,
+          "col": 8
+        },
+        "end": {
+          "line": 53,
+          "col": 27
+        },
+        "text": "All tasks complete."
+      },
+      "target_span": {
+        "start": {
+          "line": 53,
+          "col": 8
+        },
+        "end": {
+          "line": 53,
+          "col": 30
+        },
+        "text": "সব কাজ সম্পন্ন হয়েছে।"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 18,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 63
+        },
+        "text": "Closure-based iterator: iterate a table in sorted key order"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 67
+        },
+        "text": "ক্লোজার-ভিত্তিক ইটারেটর: সাজানো কি (key) অনুসারে টেবিলে ইটারেশন"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 18,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 16,
+          "col": 8
+        },
+        "end": {
+          "line": 16,
+          "col": 27
+        },
+        "text": "Sorted leaderboard:"
+      },
+      "target_span": {
+        "start": {
+          "line": 16,
+          "col": 8
+        },
+        "end": {
+          "line": 16,
+          "col": 26
+        },
+        "text": "সাজানো লিডারবোর্ড:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 19,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 46
+        },
+        "text": "Coroutine iterator: permutations of a list"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 56
+        },
+        "text": "কোরুটিন ইটারেটর: একটি তালিকার বিন্যাস (permutations)"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 19,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 19,
+          "col": 5
+        },
+        "end": {
+          "line": 19,
+          "col": 22
+        },
+        "text": "Work on a copy"
+      },
+      "target_span": {
+        "start": {
+          "line": 19,
+          "col": 5
+        },
+        "end": {
+          "line": 19,
+          "col": 30
+        },
+        "text": "একটি কপির ওপর কাজ করুন"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 19,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 26,
+          "col": 8
+        },
+        "end": {
+          "line": 26,
+          "col": 32
+        },
+        "text": "Permutations of {1,2,3}:"
+      },
+      "target_span": {
+        "start": {
+          "line": 26,
+          "col": 8
+        },
+        "end": {
+          "line": 26,
+          "col": 27
+        },
+        "text": "{1,2,3}-এর বিন্যাস:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 22,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 26
+        },
+        "text": "Use the stream library"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 34
+        },
+        "text": "স্ট্রিম লাইব্রেরি ব্যবহার করুন"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 22,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 47
+        },
+        "end": {
+          "line": 3,
+          "col": 64
+        },
+        "text": "divisible by 3"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 47
+        },
+        "end": {
+          "line": 3,
+          "col": 66
+        },
+        "text": "৩ দ্বারা বিভাজ্য"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 22,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 47
+        },
+        "end": {
+          "line": 4,
+          "col": 56
+        },
+        "text": "square"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 47
+        },
+        "end": {
+          "line": 4,
+          "col": 54
+        },
+        "text": "বর্গ"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 22,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 48
+        },
+        "end": {
+          "line": 5,
+          "col": 58
+        },
+        "text": "first 5"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 48
+        },
+        "end": {
+          "line": 5,
+          "col": 60
+        },
+        "text": "প্রথম ৫টি"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 22,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 8
+        },
+        "end": {
+          "line": 7,
+          "col": 22
+        },
+        "text": "Stream result:"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 8
+        },
+        "end": {
+          "line": 7,
+          "col": 22
+        },
+        "text": "স্ট্রিম ফলাফল:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 22,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 13,
+          "col": 8
+        },
+        "end": {
+          "line": 13,
+          "col": 27
+        },
+        "text": "Sum of values > 10:"
+      },
+      "target_span": {
+        "start": {
+          "line": 13,
+          "col": 8
+        },
+        "end": {
+          "line": 13,
+          "col": 34
+        },
+        "text": "১০-এর চেয়ে বড় মানের যোগফল:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    }
+  ],
+  "exclusions": []
+}

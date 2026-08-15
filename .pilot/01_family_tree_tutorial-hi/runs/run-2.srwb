@@ -1,0 +1,269 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T17:25:57.463Z",
+  "notebook": {
+    "id": "default",
+    "name": "UnifyWeaver वंशावली वृक्ष ट्यूटोरियल",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "prolog",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 28,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# UnifyWeaver वंशावली वृक्ष ट्यूटोरियल\n\nयह इंटरैक्टिव नोटबुक प्रदर्शित करती है कि Prolog प्रेडिकेट्स को Bash स्क्रिप्ट में संकलित करने के लिए UnifyWeaver का उपयोग कैसे करें।\n\n## पूर्वापेक्षाएँ\n\n- SWI-Prolog स्थापित हो\n- UnifyWeaver लाइब्रेरी उपलब्ध हो\n- Prolog Jupyter कर्नेल स्थापित हो (`pip install prolog-jupyter-kernel`)\n\n## सीखने के उद्देश्य\n\nइस नोटबुक के अंत तक, आप निम्न में सक्षम होंगे:\n1. Prolog तथ्य और नियम परिभाषित करना\n2. प्रेडिकेट्स को Bash में संकलित करने के लिए UnifyWeaver का उपयोग करना\n3. जनरेट की गई Bash स्क्रिप्ट का परीक्षण करना\n4. ट्रांजिटिव क्लोजर संकलन को समझना",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "## चरण 1: UnifyWeaver वातावरण प्रारंभ करें\n\nसबसे पहले, हमें UnifyWeaver मॉड्यूल लोड करने होंगे। हम education निर्देशिका से `init.pl` फ़ाइल का उपयोग करेंगे।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 3,
+        "code": "% आरंभीकरण फ़ाइल लोड करें\n['../init'].",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
+      },
+      {
+        "id": 4,
+        "code": "## चरण 2: पारिवारिक संबंध परिभाषित करें\n\nआइए बाइबिल वंशावली वृक्ष से कुछ माता-पिता और बच्चों के संबंध परिभाषित करें।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 5,
+        "code": "% parent तथ्य परिभाषित करें\n:- dynamic parent/2.\n\nparent(abraham, isaac).\nparent(abraham, ishmael).\nparent(isaac, jacob).\nparent(isaac, esau).\nparent(jacob, reuben).\nparent(jacob, simeon).\nparent(jacob, levi).\nparent(jacob, judah).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 6,
+        "code": "## चरण 3: अभिभावक प्रश्नों का परीक्षण करें\n\nसंकलन से पहले, आइए कुछ Prolog प्रश्नों के साथ सत्यापित करें कि हमारा डेटा सही है।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 7,
+        "code": "% प्रश्न: अब्राहम के बच्चे कौन हैं?\nparent(abraham, Child).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Child = isaac\nChild = ishmael",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Child = isaac\nChild = ishmael</pre>"
+      },
+      {
+        "id": 8,
+        "code": "% प्रश्न: याकूब के बच्चे कौन हैं?\nparent(jacob, Child).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Child = reuben\nChild = simeon\nChild = levi\nChild = judah",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Child = reuben\nChild = simeon\nChild = levi\nChild = judah</pre>"
+      },
+      {
+        "id": 9,
+        "code": "## चरण 4: पूर्वज संबंध परिभाषित करें\n\nअब हम ट्रांजिटिव क्लोजर — `ancestor` संबंध — को परिभाषित करते हैं।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 10,
+        "code": "% ancestor को parent के ट्रांजिटिव क्लोजर के रूप में परिभाषित करें\n:- dynamic ancestor/2.\n\n% आधार स्थिति: माता-पिता एक पूर्वज हैं\nancestor(X, Y) :- parent(X, Y).\n\n% पुनरावर्ती स्थिति: यदि X, Y का माता-पिता है और Y, Z का पूर्वज है, तो X, Z का पूर्वज है\nancestor(X, Z) :- parent(X, Y), ancestor(Y, Z).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 11,
+        "code": "## चरण 5: पूर्वज प्रश्नों का परीक्षण करें\n\nआइए सत्यापित करें कि हमारा पूर्वज प्रेडिकेट सही ढंग से काम करता है।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 12,
+        "code": "% प्रश्न: क्या अब्राहम याकूब का पूर्वज है?\n( ancestor(abraham, jacob) ->\n    writeln('Yes: Abraham is an ancestor of Jacob')\n;\n    writeln('No: Abraham is not an ancestor of Jacob')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Yes: Abraham is an ancestor of Jacob",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Yes: Abraham is an ancestor of Jacob</pre>"
+      },
+      {
+        "id": 13,
+        "code": "% प्रश्न: अब्राहम के सभी वंशज कौन हैं?\nancestor(abraham, Descendant).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Descendant = isaac\nDescendant = ishmael\nDescendant = jacob\nDescendant = esau\nDescendant = reuben\nDescendant = simeon\nDescendant = levi\nDescendant = judah",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Descendant = isaac\nDescendant = ishmael\nDescendant = jacob\nDescendant = esau\nDescendant = reuben\nDescendant = simeon\nDescendant = levi\nDescendant = judah</pre>"
+      },
+      {
+        "id": 14,
+        "code": "## चरण 6: Parent को Bash में संकलित करें\n\nअब मजेदार हिस्सा — आइए अपने `parent/2` तथ्यों को एक Bash स्क्रिप्ट में संकलित करें!",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 15,
+        "code": "% स्ट्रीम कंपाइलर लोड करें\n\\+ \\+ (\n    use_module(unifyweaver(core/stream_compiler)),\n\n    % parent तथ्यों को bash में संकलित करें\n    stream_compiler:compile_facts(parent, 2, [], _BashCode),\n    writeln('Generated Bash code for parent/2:'),\n    writeln(_BashCode)\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "source_sink `unifyweaver(core/stream_compiler)' does not exist",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">source_sink `unifyweaver(core/stream_compiler)' does not exist</pre>"
+      },
+      {
+        "id": 16,
+        "code": "## चरण 7: Parent स्क्रिप्ट सहेजें\n\nआइए जनरेट किए गए Bash कोड को एक फ़ाइल में सहेजें।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 17,
+        "code": "% फ़ाइल में सहेजें\n\\+ \\+ (\n    stream_compiler:compile_facts(parent, 2, [], _BashCode),\n    setup_call_cleanup(\n        open('../output/parent.sh', write, _Stream),\n        write(_Stream, _BashCode),\n        close(_Stream)),\n    writeln('Saved to ../output/parent.sh')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: stream_compiler:compile_facts/4",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: stream_compiler:compile_facts/4</pre>"
+      },
+      {
+        "id": 18,
+        "code": "## चरण 8: Ancestor को Bash में संकलित करें\n\nअब `ancestor/2` प्रेडिकेट को संकलित करें, जो रिकर्सन का उपयोग करता है।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 19,
+        "code": "% पुनरावर्ती कंपाइलर लोड करें\n\\+ \\+ (\n    use_module(unifyweaver(core/recursive_compiler)),\n\n    % ancestor को bash में संकलित करें\n    compile_recursive(ancestor/2, [], _BashCode),\n    writeln('Generated Bash code for ancestor/2:'),\n    writeln(_BashCode)\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "source_sink `unifyweaver(core/recursive_compiler)' does not exist",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">source_sink `unifyweaver(core/recursive_compiler)' does not exist</pre>"
+      },
+      {
+        "id": 20,
+        "code": "## चरण 9: Ancestor स्क्रिप्ट सहेजें\n\nपूर्वज स्क्रिप्ट को एक फ़ाइल में सहेजें।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 21,
+        "code": "% फ़ाइल में सहेजें\n\\+ \\+ (\n    compile_recursive(ancestor/2, [], _BashCode),\n    setup_call_cleanup(\n        open('../output/ancestor.sh', write, _Stream),\n        write(_Stream, _BashCode),\n        close(_Stream)),\n    writeln('Saved to ../output/ancestor.sh')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: compile_recursive/3</pre>"
+      },
+      {
+        "id": 22,
+        "code": "## चरण 10: जनरेट की गई स्क्रिप्ट का परीक्षण करें\n\nअब अपनी जनरेट की गई Bash स्क्रिप्ट का परीक्षण करें! हम bash कमांड चलाने के लिए `%%bash` मैजिक का उपयोग करेंगे।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 23,
+        "code": "# parent स्क्रिप्ट को source करें\nsource ../output/parent.sh\n\n# परीक्षण: अब्राहम के बच्चे कौन हैं?\necho \"अब्राहम के बच्चे:\"\nparent abraham",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "अब्राहम के बच्चे:\nerror: source: failed to source file: ../output/parent.sh\nerror: failed to execute command 'parent': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">अब्राहम के बच्चे:\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/parent.sh\nerror: failed to execute command 'parent': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 24,
+        "code": "# दोनों स्क्रिप्ट्स को source करें\nsource ../output/parent.sh\nsource ../output/ancestor.sh\n\n# परीक्षण: अब्राहम के वंशज कौन हैं?\necho \"अब्राहम के वंशज:\"\nancestor abraham",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "अब्राहम के वंशज:\nerror: source: failed to source file: ../output/parent.sh\nerror: source: failed to source file: ../output/ancestor.sh\nerror: failed to execute command 'ancestor': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">अब्राहम के वंशज:\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/parent.sh\nerror: source: failed to source file: ../output/ancestor.sh\nerror: failed to execute command 'ancestor': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 25,
+        "code": "# दोनों स्क्रिप्ट्स को source करें\nsource ../output/parent.sh\nsource ../output/ancestor.sh\n\n# परीक्षण: क्या अब्राहम यहूदा का पूर्वज है?\nif ancestor abraham judah >/dev/null 2>&1; then\n    echo \"✓ हाँ, अब्राहम यहूदा का पूर्वज है\"\nelse\n    echo \"✗ नहीं\"\nfi",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "✗ नहीं\nerror: source: failed to source file: ../output/parent.sh\nerror: source: failed to source file: ../output/ancestor.sh\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">✗ नहीं\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/parent.sh\nerror: source: failed to source file: ../output/ancestor.sh\n</pre>"
+      },
+      {
+        "id": 26,
+        "code": "## चरण 11: संकलन रणनीति को समझना\n\nआइए विश्लेषण करें कि UnifyWeaver ने क्या किया:\n\n1. **Parent संकलन**: सभी माता-पिता-बच्चे जोड़े उत्सर्जित करने वाले एक साधारण स्ट्रीमिंग फ़ंक्शन को बनाने के लिए `stream_compiler` का उपयोग किया\n\n2. **Ancestor संकलन**: ट्रांजिटिव क्लोजर पैटर्न का पता लगाया और सभी सुलभ पूर्वजों की कुशलतापूर्वक गणना करने के लिए BFS (चौड़ाई-प्रथम खोज) अनुकूलन लागू किया\n\nआइए संकलन रणनीति की पुष्टि करें:",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 27,
+        "code": "% जाँचें कि क्या ancestor को पुनरावर्ती के रूप में वर्गीकृत किया गया है\n\\+ \\+ (\n    use_module(unifyweaver(core/recursive_compiler)),\n    recursive_compiler:classify_predicate(ancestor/2, _Classification),\n    format('Ancestor classification: ~w~n', [_Classification])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "source_sink `unifyweaver(core/recursive_compiler)' does not exist",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">source_sink `unifyweaver(core/recursive_compiler)' does not exist</pre>"
+      },
+      {
+        "id": 28,
+        "code": "## सारांश\n\nइस नोटबुक में, आपने सीखा:\n\n✅ Prolog तथ्य और नियम कैसे परिभाषित करें\n\n✅ तथ्यों के लिए UnifyWeaver के `stream_compiler` का उपयोग कैसे करें\n\n✅ पुनरावर्ती प्रेडिकेट्स के लिए UnifyWeaver के `recursive_compiler` का उपयोग कैसे करें\n\n✅ जनरेट की गई Bash स्क्रिप्ट का परीक्षण कैसे करें\n\n✅ UnifyWeaver स्वचालित रूप से ट्रांजिटिव क्लोजर का पता लगाता है और BFS अनुकूलन लागू करता है\n\n## अगले कदम\n\nइन अभ्यासों को आजमाएं:\n\n1. वंशावली वृक्ष में परिवार के और अधिक सदस्य जोड़ें\n2. `grandparent/2` प्रेडिकेट परिभाषित करें और इसे संकलित करें\n3. एक `sibling/2` प्रेडिकेट बनाएं (एक ही माता-पिता वाले दो लोग)\n4. BFS एल्गोरिथ्म को समझने के लिए जनरेट किए गए Bash कोड का अन्वेषण करें\n\nउन्नत रिकर्सन पैटर्न के बारे में जानने के लिए **नोटबुक 2: रिकर्सन पैटर्न तुलना** पर आगे बढ़ें!",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      }
+    ]
+  }
+}

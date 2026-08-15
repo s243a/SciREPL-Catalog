@@ -1,0 +1,1261 @@
+{
+  "manifest_version": 1,
+  "produced_by": "derived",
+  "generator": "tools/span-derive.mjs",
+  "locale": "ko",
+  "source": {
+    "path": "workbooks/en/life_expectancy_csv_demo.ipynb",
+    "sha256": "9cffd27d993bae8a27ae3d1c0b695f97530897b424a7d8ca68dc1aa827658466"
+  },
+  "target": {
+    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/jobs/life_expectancy_csv_demo-ko/translated.ipynb",
+    "sha256": "307e3847efc3137f7a6029770b7be1fda1f6c2c5de8165666038a855b13b4e24"
+  },
+  "spans": [
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 8
+        },
+        "end": {
+          "line": 3,
+          "col": 33
+        },
+        "text": "Installed pandas + plotly"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 8
+        },
+        "end": {
+          "line": 3,
+          "col": 29
+        },
+        "text": "pandas + plotly 설치 완료"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 17,
+          "col": 17
+        },
+        "end": {
+          "line": 17,
+          "col": 39
+        },
+        "text": "Already exists: "
+      },
+      "target_span": {
+        "start": {
+          "line": 17,
+          "col": 17
+        },
+        "end": {
+          "line": 17,
+          "col": 31
+        },
+        "text": "이미 존재함: "
+      },
+      "placeholders": [
+        "{path}"
+      ]
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 24,
+          "col": 17
+        },
+        "end": {
+          "line": 24,
+          "col": 49
+        },
+        "text": "Downloaded "
+      },
+      "target_span": {
+        "start": {
+          "line": 24,
+          "col": 17
+        },
+        "end": {
+          "line": 24,
+          "col": 42
+        },
+        "text": "다운로드 완료 "
+      },
+      "placeholders": [
+        "{name}",
+        "{lines}"
+      ]
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 24,
+          "col": 17
+        },
+        "end": {
+          "line": 24,
+          "col": 49
+        },
+        "text": " lines"
+      },
+      "target_span": {
+        "start": {
+          "line": 24,
+          "col": 17
+        },
+        "end": {
+          "line": 24,
+          "col": 42
+        },
+        "text": " 줄"
+      },
+      "placeholders": [
+        "{name}",
+        "{lines}"
+      ]
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 9
+        },
+        "end": {
+          "line": 4,
+          "col": 27
+        },
+        "text": "Shape: "
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 9
+        },
+        "end": {
+          "line": 4,
+          "col": 31
+        },
+        "text": "형상(Shape): "
+      },
+      "placeholders": [
+        "{gap.shape}"
+      ]
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 9
+        },
+        "end": {
+          "line": 5,
+          "col": 56
+        },
+        "text": "Continents: "
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 9
+        },
+        "end": {
+          "line": 5,
+          "col": 51
+        },
+        "text": "대륙 목록: "
+      },
+      "placeholders": [
+        "{sorted(gap['continent'].unique())}"
+      ]
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 9
+        },
+        "end": {
+          "line": 6,
+          "col": 60
+        },
+        "text": "Year range: "
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 9
+        },
+        "end": {
+          "line": 6,
+          "col": 55
+        },
+        "text": "연도 범위: "
+      },
+      "placeholders": [
+        "{gap['year'].min()}",
+        "{gap['year'].max()}"
+      ]
+    },
+    {
+      "cell_index": 5,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 18,
+          "col": 1
+        },
+        "end": {
+          "line": 18,
+          "col": 41
+        },
+        "text": "Life expectancy over time by continent"
+      },
+      "target_span": {
+        "start": {
+          "line": 18,
+          "col": 1
+        },
+        "end": {
+          "line": 18,
+          "col": 22
+        },
+        "text": "대륙별 시간에 따른 기대 수명 변화"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 21,
+          "col": 22
+        },
+        "end": {
+          "line": 21,
+          "col": 62
+        },
+        "text": "Life Expectancy by Continent (1952-2007)"
+      },
+      "target_span": {
+        "start": {
+          "line": 21,
+          "col": 22
+        },
+        "end": {
+          "line": 21,
+          "col": 43
+        },
+        "text": "대륙별 기대 수명 (1952-2007)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 22,
+          "col": 35
+        },
+        "end": {
+          "line": 22,
+          "col": 58
+        },
+        "text": "Life Expectancy (years)"
+      },
+      "target_span": {
+        "start": {
+          "line": 22,
+          "col": 35
+        },
+        "end": {
+          "line": 22,
+          "col": 44
+        },
+        "text": "기대 수명 (년)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 22,
+          "col": 70
+        },
+        "end": {
+          "line": 22,
+          "col": 74
+        },
+        "text": "Year"
+      },
+      "target_span": {
+        "start": {
+          "line": 22,
+          "col": 56
+        },
+        "end": {
+          "line": 22,
+          "col": 58
+        },
+        "text": "연도"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 58
+        },
+        "text": "GDP vs Life Expectancy (2007), bubble size = population"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 39
+        },
+        "text": "1인당 GDP 대비 기대 수명 (2007), 버블 크기 = 인구수"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 25
+        },
+        "end": {
+          "line": 6,
+          "col": 54
+        },
+        "text": "GDP vs Life Expectancy (2007)"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 25
+        },
+        "end": {
+          "line": 6,
+          "col": 48
+        },
+        "text": "1인당 GDP 대비 기대 수명 (2007)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 40
+        },
+        "end": {
+          "line": 7,
+          "col": 60
+        },
+        "text": "GDP per capita (log)"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 40
+        },
+        "end": {
+          "line": 7,
+          "col": 56
+        },
+        "text": "1인당 GDP (로그 스케일)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 75
+        },
+        "end": {
+          "line": 7,
+          "col": 90
+        },
+        "text": "Life Expectancy"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 71
+        },
+        "end": {
+          "line": 7,
+          "col": 76
+        },
+        "text": "기대 수명"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 9,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 54
+        },
+        "text": "Life expectancy distribution by continent (boxplot)"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 26
+        },
+        "text": "대륙별 기대 수명 분포 (상자 수염 그림)"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 9,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 17
+        },
+        "end": {
+          "line": 5,
+          "col": 45
+        },
+        "text": "Life Expectancy by Continent"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 17
+        },
+        "end": {
+          "line": 5,
+          "col": 26
+        },
+        "text": "대륙별 기대 수명"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 9,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 17
+        },
+        "end": {
+          "line": 6,
+          "col": 26
+        },
+        "text": "Continent"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 17
+        },
+        "end": {
+          "line": 6,
+          "col": 19
+        },
+        "text": "대륙"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 9,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 37
+        },
+        "end": {
+          "line": 6,
+          "col": 60
+        },
+        "text": "Life Expectancy (years)"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 30
+        },
+        "end": {
+          "line": 6,
+          "col": 39
+        },
+        "text": "기대 수명 (년)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 10,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 65
+        },
+        "text": "Top 10 countries by life expectancy improvement (1952 vs 2007)"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 35
+        },
+        "text": "기대 수명 증가폭 상위 10개국 (1952 vs 2007)"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 10,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 12,
+          "col": 17
+        },
+        "end": {
+          "line": 12,
+          "col": 57
+        },
+        "text": "Top 10: Life Expectancy Gain (1952-2007)"
+      },
+      "target_span": {
+        "start": {
+          "line": 12,
+          "col": 17
+        },
+        "end": {
+          "line": 12,
+          "col": 47
+        },
+        "text": "상위 10개국: 기대 수명 증가폭 (1952-2007)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 10,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 13,
+          "col": 17
+        },
+        "end": {
+          "line": 13,
+          "col": 29
+        },
+        "text": "Years gained"
+      },
+      "target_span": {
+        "start": {
+          "line": 13,
+          "col": 17
+        },
+        "end": {
+          "line": 13,
+          "col": 22
+        },
+        "text": "증가 연수"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 12,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 9
+        },
+        "end": {
+          "line": 2,
+          "col": 27
+        },
+        "text": "Shape: "
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 9
+        },
+        "end": {
+          "line": 2,
+          "col": 31
+        },
+        "text": "형상(Shape): "
+      },
+      "placeholders": [
+        "{who.shape}"
+      ]
+    },
+    {
+      "cell_index": 12,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 9
+        },
+        "end": {
+          "line": 3,
+          "col": 37
+        },
+        "text": "Columns: "
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 9
+        },
+        "end": {
+          "line": 3,
+          "col": 34
+        },
+        "text": "열 목록: "
+      },
+      "placeholders": [
+        "{list(who.columns)}"
+      ]
+    },
+    {
+      "cell_index": 12,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 9
+        },
+        "end": {
+          "line": 4,
+          "col": 34
+        },
+        "text": "\\nMissing values (top 5):"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 9
+        },
+        "end": {
+          "line": 4,
+          "col": 23
+        },
+        "text": "\\n결측치 (상위 5개):"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 68
+        },
+        "text": "Developing vs Developed: pre-binned life expectancy distributions"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 33
+        },
+        "text": "개발도상국 vs 선진국: 사전 구간화된 기대 수명 분포"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 82
+        },
+        "text": "Explicit bar coordinates render consistently through the browser Plotly bridge."
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 47
+        },
+        "text": "명시적인 막대 좌표는 브라우저 Plotly 브리지를 통해 일관되게 렌더링됩니다."
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 19,
+          "col": 21
+        },
+        "end": {
+          "line": 19,
+          "col": 61
+        },
+        "text": "Life Expectancy: Developing vs Developed"
+      },
+      "target_span": {
+        "start": {
+          "line": 19,
+          "col": 21
+        },
+        "end": {
+          "line": 19,
+          "col": 40
+        },
+        "text": "기대 수명: 개발도상국 vs 선진국"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 20,
+          "col": 42
+        },
+        "end": {
+          "line": 20,
+          "col": 65
+        },
+        "text": "Life Expectancy (years)"
+      },
+      "target_span": {
+        "start": {
+          "line": 20,
+          "col": 42
+        },
+        "end": {
+          "line": 20,
+          "col": 51
+        },
+        "text": "기대 수명 (년)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 31
+        },
+        "text": "Schooling vs Life Expectancy"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 17
+        },
+        "text": "교육 연수 대비 기대 수명"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 25
+        },
+        "end": {
+          "line": 5,
+          "col": 60
+        },
+        "text": "Schooling vs Life Expectancy (2014)"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 25
+        },
+        "end": {
+          "line": 5,
+          "col": 46
+        },
+        "text": "교육 연수 대비 기대 수명 (2014)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 46
+        },
+        "end": {
+          "line": 6,
+          "col": 69
+        },
+        "text": "Life Expectancy (years)"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 46
+        },
+        "end": {
+          "line": 6,
+          "col": 55
+        },
+        "text": "기대 수명 (년)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 40
+        },
+        "end": {
+          "line": 7,
+          "col": 58
+        },
+        "text": "Years of Schooling"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 40
+        },
+        "end": {
+          "line": 7,
+          "col": 49
+        },
+        "text": "교육 연수 (년)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 6
+        },
+        "end": {
+          "line": 3,
+          "col": 18
+        },
+        "text": "\\nCountries:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 6
+        },
+        "end": {
+          "line": 3,
+          "col": 13
+        },
+        "text": "\\n국가 수:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 6
+        },
+        "end": {
+          "line": 4,
+          "col": 19
+        },
+        "text": "\\nYear range:"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 6
+        },
+        "end": {
+          "line": 4,
+          "col": 14
+        },
+        "text": "\\n연도 범위:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 17,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 50
+        },
+        "text": "Correlation: Adult Mortality vs Life Expectancy"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 24
+        },
+        "text": "상관관계: 성인 사망률 대비 기대 수명"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 17,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 14
+        },
+        "end": {
+          "line": 7,
+          "col": 48
+        },
+        "text": "Adult Mortality vs Life Expectancy"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 14
+        },
+        "end": {
+          "line": 7,
+          "col": 29
+        },
+        "text": "성인 사망률 대비 기대 수명"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 17,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 8,
+          "col": 14
+        },
+        "end": {
+          "line": 8,
+          "col": 40
+        },
+        "text": "Adult Mortality (per 1000)"
+      },
+      "target_span": {
+        "start": {
+          "line": 8,
+          "col": 14
+        },
+        "end": {
+          "line": 8,
+          "col": 30
+        },
+        "text": "성인 사망률 (1,000명당)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 17,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 9,
+          "col": 14
+        },
+        "end": {
+          "line": 9,
+          "col": 37
+        },
+        "text": "Life Expectancy (years)"
+      },
+      "target_span": {
+        "start": {
+          "line": 9,
+          "col": 14
+        },
+        "end": {
+          "line": 9,
+          "col": 23
+        },
+        "text": "기대 수명 (년)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 17,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 10,
+          "col": 32
+        },
+        "end": {
+          "line": 10,
+          "col": 41
+        },
+        "text": "Developed"
+      },
+      "target_span": {
+        "start": {
+          "line": 10,
+          "col": 32
+        },
+        "end": {
+          "line": 10,
+          "col": 35
+        },
+        "text": "선진국"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 17,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 10,
+          "col": 45
+        },
+        "end": {
+          "line": 10,
+          "col": 55
+        },
+        "text": "Developing"
+      },
+      "target_span": {
+        "start": {
+          "line": 10,
+          "col": 39
+        },
+        "end": {
+          "line": 10,
+          "col": 44
+        },
+        "text": "개발도상국"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 18,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 54
+        },
+        "text": "Simple linear model: what predicts life expectancy?"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 34
+        },
+        "text": "단순 선형 모델: 기대 수명을 예측하는 요인은 무엇인가?"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    }
+  ],
+  "exclusions": [
+    {
+      "cell_index": 2,
+      "reason": "unstable across identical English runs — pin (seed/clock) or accept exclusion",
+      "sample_a": "Installed pandas + plotly\nAlready exists: /shared/data/gapminder.csv\nDownloaded who_life_expectancy.csv: 2939 lines\n",
+      "sample_b": "Installed pandas + plotly\nAlready exists: /shared/data/gapminder.csv\nAlready exists: /shared/data/who_life_expectancy.csv\n"
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T15:58:50.579Z",
+  "notebook": {
+    "id": "default",
+    "name": "TypR का परिचय",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "python",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 8,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# TypR — टाइप किया गया R\n\nTypR, R का एक टाइप किया गया सुपरसेट है जो मानक R कोड में संकलित होता है।\nयह R के साथ पूर्ण अनुकूलता बनाए रखते हुए टाइप एनोटेशन, टाइप चेकिंग और जेनेरिक्स जोड़ता है।\n\n**सिंटैक्स संबंधी निर्देश:**\n- कथन अर्धविराम (semicolon) के साथ समाप्त होते हैं: `let x <- 42;`\n- टाइप किए गए फ़ंक्शन `fn(x: int): int { x * x }` का उपयोग करते हैं\n- TypR वैरिएडिक फ़ंक्शन और नामित डॉट्स का समर्थन करता है, इसलिए `cat(\"x =\", x);` सीधे काम करता है।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "let x <- 42;\n# वैरिएडिक तर्कों (variadic arguments) का समर्थन है\ncat(\"x =\", x);",
+        "type": "code",
+        "language": "typr",
+        "name": "basics",
+        "lastOutput": "x = 42",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">x = 42</pre>"
+      },
+      {
+        "id": 3,
+        "code": "# फ़ंक्शन बॉडी के लिए ब्रेसिज़ आवश्यक हैं\nlet add <- function(a, b) { a + b };\nlet result <- add(3, 4);\nprint(result);",
+        "type": "code",
+        "language": "typr",
+        "name": "functions",
+        "lastOutput": "7",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">7</pre>"
+      },
+      {
+        "id": 4,
+        "code": "let greeting: char <- \"TypR की ओर से नमस्ते!\";\nprint(greeting);",
+        "type": "code",
+        "language": "typr",
+        "name": "typed",
+        "lastOutput": "TypR की ओर से नमस्ते!",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">TypR की ओर से नमस्ते!</pre>"
+      },
+      {
+        "id": 5,
+        "code": "# स्पष्ट पैरामीटर और रिटर्न प्रकार कॉल्स को स्थिर रूप से जांचने योग्य बनाते हैं\nlet square <- fn(x: int): int { x * x };\nlet result <- square(7);\n# वैरिएडिक तर्क सीधे काम करते हैं\ncat(\"7 का वर्ग =\", result);",
+        "type": "code",
+        "language": "typr",
+        "name": "square",
+        "lastOutput": "7 का वर्ग = 49",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">7 का वर्ग = 49</pre>"
+      },
+      {
+        "id": 6,
+        "code": "# विषम नामित तर्कों (heterogeneous named arguments) को अग्रेषित करें\nlet collect <- fn(...args: Any): [#N, Any] { args };\nlet forward <- fn(...args: Any): [#N, Any] { collect(...args) };\nlet values <- forward(count = 1, enabled = true);\nprint(values);\n@{ base::cat(\"नाम:\", base::paste(base::names(values$data), collapse = \", \"), \"\\n\") }@;",
+        "type": "code",
+        "language": "typr",
+        "name": "variadic_forwarding",
+        "lastOutput": "typed_vec [2]\n[1] 1\n[2] TRUE\nनाम: count, enabled",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">typed_vec [2]\n[1] 1\n[2] TRUE\nनाम: count, enabled</pre>"
+      },
+      {
+        "id": 7,
+        "code": "## निर्देश (Directives)\n\nTypR सेल की पहली पंक्ति में एक निर्देश दें:\n\n- `#!source` सामग्री को संकलित या निष्पादित किए बिना एक नामित, सिंटैक्स-हाइलाइट किए गए स्रोत स्निपेट को बनाए रखता है। केवल-स्रोत सेल जानबूझकर कोई `Out [n]` उत्पन्न नहीं करती है और Notebook VFS के माध्यम से पढ़ने योग्य रहती है।\n- `#!typecheck` निष्पादित किए बिना निम्नलिखित कोड के प्रकारों की जांच करता है।\n- `#!transpile` रूपांतरित R आउटपुट प्रदर्शित करता है।\n- `#!show-r` बाद के TypR निष्पादनों के लिए जनरेट किए गए R कोड के प्रदर्शन को टॉगल करता है।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 8,
+        "code": "#!transpile\nlet fib <- fn(n: int): int {\n  if (n <= 1) { n }\n  else { fib(n - 1) + fib(n - 2) }\n};\nprint(fib(10));",
+        "type": "code",
+        "language": "typr",
+        "name": "transpile_demo",
+        "lastOutput": "\n`fib.integer` <- (function(n) {\nif(n <= 1L |> as.Integer()) {\nn \n} else {\nfib(n - 1L |> as.Integer()) + fib(n - 2L |> as.Integer())\n}\n} |> as.Integer()) |> as.Generic()\n\nprint(fib(10L |> as.Integer()))",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">\n`fib.integer` &lt;- (function(n) {\nif(n &lt;= 1L |&gt; as.Integer()) {\nn \n} else {\nfib(n - 1L |&gt; as.Integer()) + fib(n - 2L |&gt; as.Integer())\n}\n} |&gt; as.Integer()) |&gt; as.Generic()\n\nprint(fib(10L |&gt; as.Integer()))</pre>"
+      }
+    ]
+  }
+}

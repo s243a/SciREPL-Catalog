@@ -1,0 +1,134 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T15:59:10.858Z",
+  "notebook": {
+    "id": "default",
+    "name": "ggplot2 शोकेस",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "r",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 13,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# ggplot2 शोकेस\n\nSciREPL की डार्क थीम के साथ इंटरैक्टिव ggplot2 चार्ट — स्वचालित रूप से लागू, किसी सेटअप की आवश्यकता नहीं।\n\nR के अंतर्निहित डेटासेट (`mpg`, `mtcars`) का उपयोग करता है। कोई डेटा डाउनलोड करने की आवश्यकता नहीं है।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "install.packages(\"ggplot2\")\nlibrary(ggplot2)\ncat(\"ggplot2 लोड हुआ — theme_scirepl() स्वचालित रूप से लागू किया गया\\n\")",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "ggplot2 लोड हुआ — theme_scirepl() स्वचालित रूप से लागू किया गया",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">ggplot2 लोड हुआ — theme_scirepl() स्वचालित रूप से लागू किया गया</pre>"
+      },
+      {
+        "id": 3,
+        "code": "## 1. ट्रेंड लाइन के साथ स्कैटर प्लॉट",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 4,
+        "code": "ggplot(mpg, aes(displ, hwy, color = class)) +\n  geom_point(size = 2, alpha = 0.7) +\n  geom_smooth(method = \"lm\", se = FALSE, color = \"#58a6ff\") +\n  labs(title = \"इंजन का आकार बनाम हाईवे MPG\",\n       x = \"विस्थापन (L)\", y = \"हाईवे MPG\")",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "`geom_smooth()` using formula = 'y ~ x'",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">`geom_smooth()` using formula = 'y ~ x'</pre><img src=\"blob:http://localhost:8090/c92243fa-3ffe-4b61-8059-a0a0669d7e45\" style=\"max-width: 100%; border-radius: 6px; margin-top: 8px;\">"
+      },
+      {
+        "id": 5,
+        "code": "## 2. पहलूयुक्त (Faceted) बार चार्ट",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 6,
+        "code": "ggplot(mpg, aes(class, fill = drv)) +\n  geom_bar(position = \"dodge\") +\n  facet_wrap(~year) +\n  labs(title = \"ड्राइव प्रकार के अनुसार वाहन श्रेणियां (1999 बनाम 2008)\",\n       x = \"वाहन श्रेणी\", y = \"संख्या\") +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1))",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": "<img src=\"blob:http://localhost:8090/c8bd323e-64df-4296-bdff-974550792f39\" style=\"max-width: 100%; border-radius: 6px; margin-top: 8px;\">"
+      },
+      {
+        "id": 7,
+        "code": "## 3. घनत्व (Density) प्लॉट",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 8,
+        "code": "ggplot(mpg, aes(hwy, fill = drv)) +\n  geom_density(alpha = 0.5) +\n  labs(title = \"ड्राइव प्रकार के अनुसार हाईवे MPG का वितरण\",\n       x = \"हाईवे MPG\", y = \"घनत्व\")",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": "<img src=\"blob:http://localhost:8090/06207338-dfa8-4829-b925-b68c3ef15a99\" style=\"max-width: 100%; border-radius: 6px; margin-top: 8px;\">"
+      },
+      {
+        "id": 9,
+        "code": "## 4. जिटर के साथ बॉक्सप्लॉट (Boxplot with Jitter)",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 10,
+        "code": "ggplot(mpg, aes(class, hwy, fill = class)) +\n  geom_boxplot(alpha = 0.7, show.legend = FALSE) +\n  geom_jitter(width = 0.2, alpha = 0.3, size = 1) +\n  labs(title = \"वाहन श्रेणी के अनुसार हाईवे MPG\",\n       x = \"वाहन श्रेणी\", y = \"हाईवे MPG\") +\n  coord_flip()",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": "<img src=\"blob:http://localhost:8090/ffb259eb-30bd-43b8-b3d1-5b4e13de7ea6\" style=\"max-width: 100%; border-radius: 6px; margin-top: 8px;\">"
+      },
+      {
+        "id": 11,
+        "code": "## 5. सहसंबंध हीटमैप",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 12,
+        "code": "corr <- round(cor(mtcars), 2)\nvars <- colnames(mtcars)\ngrid <- expand.grid(x = vars, y = vars)\ngrid$value <- as.vector(corr)\nggplot(grid, aes(x, y, fill = value)) +\n  geom_tile(color = \"#30363d\") +\n  geom_text(aes(label = ifelse(abs(value) > 0.5, value, \"\")),\n            color = \"#e6edf3\", size = 2.5) +\n  scale_fill_gradient2(low = \"#f85149\", mid = \"#161b22\", high = \"#58a6ff\",\n                       midpoint = 0, limits = c(-1, 1)) +\n  labs(title = \"mtcars सहसंबंध हीटमैप\", fill = \"r\") +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1))",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": "<img src=\"blob:http://localhost:8090/ab9f333d-8c45-4617-b2c4-09dd51296000\" style=\"max-width: 100%; border-radius: 6px; margin-top: 8px;\">"
+      },
+      {
+        "id": 13,
+        "code": "## सारांश\n\nउपरोक्त सभी प्लॉट `theme_scirepl()` का उपयोग करते हैं, जो SciREPL में ggplot2 लोड होने पर स्वचालित रूप से लागू होता है।\n\nमानक ggplot2 `+ theme(...)` ओवरराइड के साथ किसी भी प्लॉट को अनुकूलित करें।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      }
+    ]
+  }
+}

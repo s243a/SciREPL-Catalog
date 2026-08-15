@@ -11,19 +11,19 @@
       },
       {
         "type": "code",
-        "code": "% Load UnifyWeaver compiler modules\n['../init'].\n:- use_module(unifyweaver(targets/clojurescript_target)).\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "code": "% % UnifyWeaver-Compilermodule laden\n['../init'].\n:- use_module(unifyweaver(targets/clojurescript_target)).\n:- use_module(unifyweaver(core/recursive_compiler)).",
         "language": "prolog",
         "name": "load_compiler"
       },
       {
         "type": "code",
-        "code": "% Define a family tree as Prolog facts\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% Transitive closure: ancestor(X, Y) if X is an ancestor of Y\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "code": "% % Einen Stammbaum als Prolog-Fakten definieren\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% % Transitive Hülle: ancestor(X, Y), wenn X ein Vorfahre von Y ist\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
         "language": "prolog",
         "name": "family_tree"
       },
       {
         "type": "code",
-        "code": "% Compile ancestor/2 to ClojureScript definitions only\n\\+ \\+ (\n    recursive_compiler:compile_recursive(ancestor/2, [target(clojurescript)], _Code),\n    format('--- Generated ClojureScript code ---~n~w~n', [_Code]),\n    % End with nil so generated seed expressions do not become notebook output\n    format(string(_Definitions), '~w~n~nnil~n', [_Code]),\n    user:nb_write('cljs_output', '.code', _Definitions),\n    writeln('ClojureScript definitions written to cell: cljs_output')\n).",
+        "code": "% % ancestor/2 nur zu ClojureScript-Definitionen kompilieren\n\\+ \\+ (\n    recursive_compiler:compile_recursive(ancestor/2, [target(clojurescript)], _Code),\n    format('--- Generated ClojureScript code ---~n~w~n', [_Code]),\n    % % Mit nil abschließen, damit generierte Seed-Ausdrücke nicht zur Notebook-Ausgabe werden\n    format(string(_Definitions), '~w~n~nnil~n', [_Code]),\n    user:nb_write('cljs_output', '.code', _Definitions),\n    writeln('ClojureScript definitions written to cell: cljs_output')\n).",
         "language": "prolog",
         "name": "compile_to_clojurescript"
       },
@@ -40,7 +40,7 @@
       },
       {
         "type": "code",
-        "code": ";; Query the generated definitions in Scittle's persistent context.\n(print (str \"Descendants of alice: \" (pr-str (sort (find-all \"alice\"))) \"\\n\"\n            \"alice is ancestor of eve: \" (check-path \"alice\" \"eve\") \"\\n\"\n            \"alice is ancestor of frank: \" (check-path \"alice\" \"frank\") \"\\n\"))",
+        "code": ";;; Die generierten Definitionen im persistenten Kontext von Scittle abfragen.\n(print (str \"Nachkommen von alice: \" (pr-str (sort (find-all \"alice\"))) \"\\n\"\n            \"alice ist Vorfahre von eve: \" (check-path \"alice\" \"eve\") \"\\n\"\n            \"alice ist Vorfahre von frank: \" (check-path \"alice\" \"frank\") \"\\n\"))",
         "language": "clojurescript",
         "name": "cljs_queries"
       },
@@ -51,7 +51,7 @@
       },
       {
         "type": "code",
-        "code": "% Compile the same predicate to JVM Clojure for comparison (display only)\n\\+ \\+ (\n    recursive_compiler:compile_recursive(ancestor/2, [target(clojure)], _ClojureCode),\n    format('--- Generated JVM Clojure code (note java.io / *command-line-args*) ---~n~w~n', [_ClojureCode])\n).",
+        "code": "% % Dasselbe Prädikat zum Vergleich für JVM-Clojure kompilieren (nur Anzeige)\n\\+ \\+ (\n    recursive_compiler:compile_recursive(ancestor/2, [target(clojure)], _ClojureCode),\n    format('--- Generated JVM Clojure code (note java.io / *command-line-args*) ---~n~w~n', [_ClojureCode])\n).",
         "language": "prolog",
         "name": "compile_to_clojure"
       }

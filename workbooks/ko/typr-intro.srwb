@@ -11,31 +11,31 @@
       },
       {
         "type": "code",
-        "code": "let x <- 42;\n# Variadic arguments are supported\ncat(\"x =\", x);",
+        "code": "let x <- 42;\n# 가변 인자를 지원합니다\ncat(\"x =\", x);",
         "language": "typr",
         "name": "basics"
       },
       {
         "type": "code",
-        "code": "# Function bodies require braces\nlet add <- function(a, b) { a + b };\nlet result <- add(3, 4);\nprint(result);",
+        "code": "# 함수 본문에는 중괄호가 필요합니다\nlet add <- function(a, b) { a + b };\nlet result <- add(3, 4);\nprint(result);",
         "language": "typr",
         "name": "functions"
       },
       {
         "type": "code",
-        "code": "let greeting: char <- \"Hello from TypR!\";\nprint(greeting);",
+        "code": "let greeting: char <- \"TypR에서 보내는 인사입니다!\";\nprint(greeting);",
         "language": "typr",
         "name": "typed"
       },
       {
         "type": "code",
-        "code": "# Explicit parameter and return types make calls statically checkable\nlet square <- fn(x: int): int { x * x };\nlet result <- square(7);\n# Variadic arguments work directly\ncat(\"7 squared =\", result);",
+        "code": "# 명시적인 매개변수 및 반환 타입으로 정적 검사가 가능해집니다\nlet square <- fn(x: int): int { x * x };\nlet result <- square(7);\n# 가변 인자가 바로 동작합니다\ncat(\"7의 제곱 =\", result);",
         "language": "typr",
         "name": "square"
       },
       {
         "type": "code",
-        "code": "# Forward heterogeneous named arguments\nlet collect <- fn(...args: Any): [#N, Any] { args };\nlet forward <- fn(...args: Any): [#N, Any] { collect(...args) };\nlet values <- forward(count = 1, enabled = true);\nprint(values);\n@{ base::cat(\"Names:\", base::paste(base::names(values$data), collapse = \", \"), \"\\n\") }@;",
+        "code": "# 이종(heterogeneous) 명명된 인자 전달\nlet collect <- fn(...args: Any): [#N, Any] { args };\nlet forward <- fn(...args: Any): [#N, Any] { collect(...args) };\nlet values <- forward(count = 1, enabled = true);\nprint(values);\n@{ base::cat(\"이름:\", base::paste(base::names(values$data), collapse = \", \"), \"\\n\") }@;",
         "language": "typr",
         "name": "variadic_forwarding"
       },

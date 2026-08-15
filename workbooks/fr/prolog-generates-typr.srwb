@@ -11,25 +11,25 @@
       },
       {
         "type": "code",
-        "code": "% Load UnifyWeaver compiler modules\n['../init'].\n:- use_module(unifyweaver(targets/typr_target)).\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "code": "% % Charger les modules du compilateur UnifyWeaver\n['../init'].\n:- use_module(unifyweaver(targets/typr_target)).\n:- use_module(unifyweaver(core/recursive_compiler)).",
         "language": "prolog",
         "name": "load_compiler"
       },
       {
         "type": "code",
-        "code": "% Define a family tree as Prolog facts\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% Transitive closure: ancestor(X, Y) if X is an ancestor of Y\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "code": "% % Définir un arbre généalogique sous forme de faits Prolog\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% % Clôture transitive : ancestor(X, Y) si X est un ancêtre de Y\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
         "language": "prolog",
         "name": "family_tree"
       },
       {
         "type": "code",
-        "code": "#!source\n# This named TypR source cell is read by compile_to_typr.\n# It is appended to the generated code because TypR cells are isolated.\n\n# --- Queries ---\nlet results <- ancestor_all(\"alice\");\ncat(\"Descendants of alice:\", paste(sep = \", \", ...results), fill = TRUE);\nlet is_anc <- ancestor_check(\"alice\", \"eve\");\ncat(\"alice is ancestor of eve:\", is_anc, fill = TRUE);\nlet is_anc2 <- ancestor_check(\"alice\", \"frank\");\ncat(\"alice is ancestor of frank:\", is_anc2, fill = TRUE);",
+        "code": "#!source\n# # Cette cellule source TypR nommée est lue par compile_to_typr.\n# # Elle est ajoutée au code généré car les cellules TypR sont isolées.\n\n# # --- Requêtes ---\nlet results <- ancestor_all(\"alice\");\ncat(\"Descendants d'alice :\", paste(sep = \", \", ...results), fill = TRUE);\nlet is_anc <- ancestor_check(\"alice\", \"eve\");\ncat(\"alice est ancêtre d'eve :\", is_anc, fill = TRUE);\nlet is_anc2 <- ancestor_check(\"alice\", \"frank\");\ncat(\"alice est ancêtre de frank :\", is_anc2, fill = TRUE);",
         "language": "typr",
         "name": "typr_queries"
       },
       {
         "type": "code",
-        "code": "% Read the highlighted Prolog and TypR source from named cells\n\\+ \\+ (\n    user:nb_read('family_tree', '.code', _PrologSrc),\n    setup_call_cleanup(\n        open('/tmp/_nb_typr_family.pl', write, _Out),\n        write(_Out, _PrologSrc),\n        close(_Out)),\n    catch(abolish(parent/2), _, true),\n    catch(abolish(ancestor/2), _, true),\n    consult('/tmp/_nb_typr_family.pl'),\n\n    user:nb_read('typr_queries', '.code', _QuerySource),\n    split_string(_QuerySource, \"\\n\", \"\\r\", [\"#!source\"|_QueryLines]),\n    atomics_to_string(_QueryLines, \"\\n\", _Queries),\n\n    % Compile ancestor/2 to explicitly typed TypR and append the named queries\n    recursive_compiler:compile_recursive(ancestor/2, [target(typr), typed_mode(explicit)], _Code),\n    format('--- Generated TypR code ---~n~w~n', [_Code]),\n    format(string(_FullCode), '~w~n~n~w~n', [_Code, _Queries]),\n    user:nb_write('typr_output', '.code', _FullCode),\n    writeln('TypR code written to cell: typr_output')\n).",
+        "code": "% % Lire les sources Prolog et TypR mises en évidence depuis les cellules nommées\n\\+ \\+ (\n    user:nb_read('family_tree', '.code', _PrologSrc),\n    setup_call_cleanup(\n        open('/tmp/_nb_typr_family.pl', write, _Out),\n        write(_Out, _PrologSrc),\n        close(_Out)),\n    catch(abolish(parent/2), _, true),\n    catch(abolish(ancestor/2), _, true),\n    consult('/tmp/_nb_typr_family.pl'),\n\n    user:nb_read('typr_queries', '.code', _QuerySource),\n    split_string(_QuerySource, \"\\n\", \"\\r\", [\"#!source\"|_QueryLines]),\n    atomics_to_string(_QueryLines, \"\\n\", _Queries),\n\n    % % Compiler ancestor/2 en TypR explicitement typé et ajouter les requêtes nommées\n    recursive_compiler:compile_recursive(ancestor/2, [target(typr), typed_mode(explicit)], _Code),\n    format('--- Generated TypR code ---~n~w~n', [_Code]),\n    format(string(_FullCode), '~w~n~n~w~n', [_Code, _Queries]),\n    user:nb_write('typr_output', '.code', _FullCode),\n    writeln('TypR code written to cell: typr_output')\n).",
         "language": "prolog",
         "name": "compile_to_typr"
       },
@@ -51,7 +51,7 @@
       },
       {
         "type": "code",
-        "code": "% Reload the same named Prolog source so this cell runs independently\n\\+ \\+ (\n    user:nb_read('family_tree', '.code', _PrologSrc),\n    setup_call_cleanup(\n        open('/tmp/_nb_r_family.pl', write, _Out),\n        write(_Out, _PrologSrc),\n        close(_Out)),\n    catch(abolish(parent/2), _, true),\n    catch(abolish(ancestor/2), _, true),\n    consult('/tmp/_nb_r_family.pl'),\n\n    % Compile to R with embedded facts; the highlighted r_queries cell runs next\n    recursive_compiler:compile_recursive(ancestor/2, [target(r), input(embedded)], _RCode),\n    format('--- Generated R code ---~n~w~n', [_RCode]),\n    user:nb_write('r_output', '.code', _RCode),\n    writeln('R code written to cell: r_output')\n).",
+        "code": "% % Recharger la même source Prolog nommée afin que cette cellule s'exécute de façon autonome\n\\+ \\+ (\n    user:nb_read('family_tree', '.code', _PrologSrc),\n    setup_call_cleanup(\n        open('/tmp/_nb_r_family.pl', write, _Out),\n        write(_Out, _PrologSrc),\n        close(_Out)),\n    catch(abolish(parent/2), _, true),\n    catch(abolish(ancestor/2), _, true),\n    consult('/tmp/_nb_r_family.pl'),\n\n    % % Compiler en R avec faits intégrés ; la cellule mise en évidence r_queries s'exécute ensuite\n    recursive_compiler:compile_recursive(ancestor/2, [target(r), input(embedded)], _RCode),\n    format('--- Generated R code ---~n~w~n', [_RCode]),\n    user:nb_write('r_output', '.code', _RCode),\n    writeln('R code written to cell: r_output')\n).",
         "language": "prolog",
         "name": "compile_to_r"
       },
@@ -63,7 +63,7 @@
       },
       {
         "type": "code",
-        "code": "# Query the generated R functions in a separate, highlighted cell.\nresults <- ancestor_all(\"alice\")\ncat(\"Descendants of alice:\", paste(results, collapse=\", \"), \"\\n\")\ncat(\"alice is ancestor of eve:\", ancestor_check(\"alice\", \"eve\"), \"\\n\")\ncat(\"alice is ancestor of frank:\", ancestor_check(\"alice\", \"frank\"), \"\\n\")",
+        "code": "# # Interroger les fonctions R générées dans une cellule distincte mise en évidence.\nresults <- ancestor_all(\"alice\")\ncat(\"Descendants d'alice :\", paste(results, collapse=\", \"), \"\\n\")\ncat(\"alice est ancêtre d'eve :\", ancestor_check(\"alice\", \"eve\"), \"\\n\")\ncat(\"alice est ancêtre de frank :\", ancestor_check(\"alice\", \"frank\"), \"\\n\")",
         "language": "r",
         "name": "r_queries"
       }

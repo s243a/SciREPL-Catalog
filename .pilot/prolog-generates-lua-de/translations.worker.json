@@ -1,0 +1,42 @@
+{
+  "spans": {
+    "1:0:0": "% UnifyWeaver-Compilermodule laden",
+    "2:0:0": "% Einen Stammbaum als Prolog-Fakten definieren",
+    "2:2:0": "% Transitive Hülle: ancestor(X, Y), wenn X ein Vorfahre von Y ist",
+    "3:1:0": "-- Diese benannte Lua-Quellzelle wird von beiden Compiler-Zellen gelesen.",
+    "3:3:0": "-- Sie wird an jedes generierte Programm angehängt und dort ausgeführt.",
+    "3:5:0": "-- --- Abfragen ---",
+    "3:9:0": "Nachkommen von alice: ",
+    "3:13:0": "alice -> eve (Vorfahr?): ",
+    "3:19:0": "alice -> frank (Vorfahr?): ",
+    "5:0:0": "% Das hervorgehobene Lua-Abfrageprogramm aus seiner benannten Quellzelle lesen",
+    "5:10:0": "% Mit input(embedded) kompilieren — Fakten direkt im Code eingebettet",
+    "8:0:0": "-- Datenzelle: Fakten im from:to-Format (eine pro Zeile)",
+    "8:2:0": "-- Die VFS-kompilierte Zelle liest dies über nb.read(\"facts_data\", \".code\")",
+    "9:0:0": "% Dasselbe hervorgehobene Lua-Abfrageprogramm lesen",
+    "9:10:0": "% Mit input(vfs(facts_data)) kompilieren — liest aus der obigen Zelle",
+    "12:5:0": "-- Geschrieben aus Lua nach dem Lesen von lua_queries (",
+    "12:7:0": " Zeichen)",
+    "12:13:0": "Lua hat lua_queries gelesen und lua_written geschrieben"
+  },
+  "keeps": [
+    "3:7:0",
+    "3:15:0",
+    "3:17:0",
+    "3:21:0",
+    "3:23:0",
+    "5:6:0",
+    "6:0:0",
+    "6:2:0",
+    "8:4:0",
+    "9:6:0",
+    "10:0:0",
+    "10:2:0",
+    "12:1:0",
+    "12:3:0",
+    "12:9:0",
+    "12:11:0",
+    "13:0:0"
+  ],
+  "suggestions": []
+}

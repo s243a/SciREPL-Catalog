@@ -1,0 +1,1960 @@
+{
+  "manifest_version": 1,
+  "produced_by": "derived",
+  "generator": "tools/span-derive.mjs",
+  "locale": "hi",
+  "source": {
+    "path": "workbooks/en/lua-parsing-coroutines.srwb",
+    "sha256": "cb7f874ca2748c056c020cc5dda8d6621422e02b8b73da84d34f156509cbcb62"
+  },
+  "target": {
+    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/jobs/lua-parsing-coroutines-hi/translated.srwb",
+    "sha256": "2ad89ca8ae60afe7ae542ace18ea5114f5e744773d2cc64115fdc61d125b9bf6"
+  },
+  "spans": [
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 34
+        },
+        "text": "string.match: extract captures"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 43
+        },
+        "text": "string.match: कैप्चर किए गए मान निकालें"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 8
+        },
+        "end": {
+          "line": 3,
+          "col": 13
+        },
+        "text": "Year:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 8
+        },
+        "end": {
+          "line": 3,
+          "col": 13
+        },
+        "text": "वर्ष:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 23
+        },
+        "end": {
+          "line": 3,
+          "col": 29
+        },
+        "text": "Month:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 23
+        },
+        "end": {
+          "line": 3,
+          "col": 27
+        },
+        "text": "माह:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 40
+        },
+        "end": {
+          "line": 3,
+          "col": 44
+        },
+        "text": "Day:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 38
+        },
+        "end": {
+          "line": 3,
+          "col": 42
+        },
+        "text": "दिन:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 43
+        },
+        "text": "string.gmatch: iterate over all matches"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 48
+        },
+        "text": "string.gmatch: सभी मेलों पर पुनरावृत्ति करें"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 8
+        },
+        "end": {
+          "line": 6,
+          "col": 28
+        },
+        "text": "\\nWords in sentence:"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 8
+        },
+        "end": {
+          "line": 6,
+          "col": 25
+        },
+        "text": "\\nवाक्य में शब्द:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 35
+        },
+        "text": "string.gsub: search and replace"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 31
+        },
+        "text": "string.gsub: खोजें और बदलें"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 1
+        },
+        "end": {
+          "line": 7,
+          "col": 24
+        },
+        "text": "Swap key=value pairs"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 1
+        },
+        "end": {
+          "line": 7,
+          "col": 39
+        },
+        "text": "key=value जोड़ियों को आपस में बदलें"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 72
+        },
+        "text": "string.find: locate the complete match and capture the function name"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 70
+        },
+        "text": "string.find: संपूर्ण मिलान का पता लगाएं और फ़ंक्शन नाम कैप्चर करें"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 22
+        },
+        "end": {
+          "line": 4,
+          "col": 73
+        },
+        "text": "Matched '%s' at positions %d-%d; captured name '%s'"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 22
+        },
+        "end": {
+          "line": 4,
+          "col": 72
+        },
+        "text": "मिलान '%s', स्थिति %d-%d; कैप्चर किया गया नाम '%s'"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 1
+        },
+        "end": {
+          "line": 6,
+          "col": 56
+        },
+        "text": "Frontier pattern %f[]: match at boundary transitions"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 1
+        },
+        "end": {
+          "line": 6,
+          "col": 47
+        },
+        "text": "Frontier पैटर्न %f[]: सीमा संक्रमण पर मिलान"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 12,
+          "col": 8
+        },
+        "end": {
+          "line": 12,
+          "col": 24
+        },
+        "text": "Split camelCase:"
+      },
+      "target_span": {
+        "start": {
+          "line": 12,
+          "col": 8
+        },
+        "end": {
+          "line": 12,
+          "col": 26
+        },
+        "text": "विभाजित camelCase:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 15
+        },
+        "text": "Token types"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 15
+        },
+        "text": "टोकन प्रकार"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 13,
+          "col": 7
+        },
+        "end": {
+          "line": 13,
+          "col": 25
+        },
+        "text": "Skip whitespace"
+      },
+      "target_span": {
+        "start": {
+          "line": 13,
+          "col": 7
+        },
+        "end": {
+          "line": 13,
+          "col": 28
+        },
+        "text": "व्हाइटस्पेस छोड़ें"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 18,
+          "col": 7
+        },
+        "end": {
+          "line": 18,
+          "col": 41
+        },
+        "text": "Numbers (integers and decimals)"
+      },
+      "target_span": {
+        "start": {
+          "line": 18,
+          "col": 7
+        },
+        "end": {
+          "line": 18,
+          "col": 38
+        },
+        "text": "संख्याएं (पूर्णांक और दशमलव)"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 23,
+          "col": 7
+        },
+        "end": {
+          "line": 23,
+          "col": 32
+        },
+        "text": "Identifiers / keywords"
+      },
+      "target_span": {
+        "start": {
+          "line": 23,
+          "col": 7
+        },
+        "end": {
+          "line": 23,
+          "col": 29
+        },
+        "text": "पहचानकर्ता / कीवर्ड"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 28,
+          "col": 7
+        },
+        "end": {
+          "line": 28,
+          "col": 19
+        },
+        "text": "Operators"
+      },
+      "target_span": {
+        "start": {
+          "line": 28,
+          "col": 7
+        },
+        "end": {
+          "line": 28,
+          "col": 16
+        },
+        "text": "ऑपरेटर"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 32,
+          "col": 7
+        },
+        "end": {
+          "line": 32,
+          "col": 21
+        },
+        "text": "Parentheses"
+      },
+      "target_span": {
+        "start": {
+          "line": 32,
+          "col": 7
+        },
+        "end": {
+          "line": 32,
+          "col": 16
+        },
+        "text": "कोष्ठक"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 40,
+          "col": 16
+        },
+        "end": {
+          "line": 40,
+          "col": 49
+        },
+        "text": "Unexpected character at position "
+      },
+      "target_span": {
+        "start": {
+          "line": 40,
+          "col": 16
+        },
+        "end": {
+          "line": 40,
+          "col": 43
+        },
+        "text": "स्थिति पर अप्रत्याशित वर्ण "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 47,
+          "col": 1
+        },
+        "end": {
+          "line": 47,
+          "col": 18
+        },
+        "text": "Test the lexer"
+      },
+      "target_span": {
+        "start": {
+          "line": 47,
+          "col": 1
+        },
+        "end": {
+          "line": 47,
+          "col": 26
+        },
+        "text": "लेक्सर का परीक्षण करें"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 48,
+          "col": 8
+        },
+        "end": {
+          "line": 48,
+          "col": 38
+        },
+        "text": "Tokens for '3 + 42 * (x - 1)':"
+      },
+      "target_span": {
+        "start": {
+          "line": 48,
+          "col": 8
+        },
+        "end": {
+          "line": 48,
+          "col": 39
+        },
+        "text": "'3 + 42 * (x - 1)' के लिए टोकन:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 20,
+          "col": 14
+        },
+        "end": {
+          "line": 20,
+          "col": 23
+        },
+        "text": "Expected "
+      },
+      "target_span": {
+        "start": {
+          "line": 20,
+          "col": 14
+        },
+        "end": {
+          "line": 20,
+          "col": 26
+        },
+        "text": "अपेक्षित था "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 20,
+          "col": 36
+        },
+        "end": {
+          "line": 20,
+          "col": 45
+        },
+        "text": " but got "
+      },
+      "target_span": {
+        "start": {
+          "line": 20,
+          "col": 39
+        },
+        "end": {
+          "line": 20,
+          "col": 58
+        },
+        "text": " लेकिन प्राप्त हुआ "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 21,
+          "col": 26
+        },
+        "end": {
+          "line": 21,
+          "col": 39
+        },
+        "text": " at position "
+      },
+      "target_span": {
+        "start": {
+          "line": 21,
+          "col": 26
+        },
+        "end": {
+          "line": 21,
+          "col": 37
+        },
+        "text": " स्थिति पर "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 29,
+          "col": 1
+        },
+        "end": {
+          "line": 29,
+          "col": 21
+        },
+        "text": "Test peek/consume"
+      },
+      "target_span": {
+        "start": {
+          "line": 29,
+          "col": 1
+        },
+        "end": {
+          "line": 29,
+          "col": 32
+        },
+        "text": "peek/consume का परीक्षण करें"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 31,
+          "col": 8
+        },
+        "end": {
+          "line": 31,
+          "col": 13
+        },
+        "text": "Peek:"
+      },
+      "target_span": {
+        "start": {
+          "line": 31,
+          "col": 8
+        },
+        "end": {
+          "line": 31,
+          "col": 22
+        },
+        "text": "Peek (झांकें):"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 32,
+          "col": 8
+        },
+        "end": {
+          "line": 32,
+          "col": 16
+        },
+        "text": "Consume:"
+      },
+      "target_span": {
+        "start": {
+          "line": 32,
+          "col": 8
+        },
+        "end": {
+          "line": 32,
+          "col": 24
+        },
+        "text": "Consume (उपभोग):"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 33,
+          "col": 8
+        },
+        "end": {
+          "line": 33,
+          "col": 13
+        },
+        "text": "Next:"
+      },
+      "target_span": {
+        "start": {
+          "line": 33,
+          "col": 8
+        },
+        "end": {
+          "line": 33,
+          "col": 13
+        },
+        "text": "अगला:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 10,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 25
+        },
+        "text": "AST node constructors"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 25
+        },
+        "text": "AST नो드 कंस्ट्रक्टर्स"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 11,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 54
+        },
+        "text": "Parser: recursive descent with precedence climbing"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 51
+        },
+        "text": "पार्सर: प्राथमिकता आरोहण के साथ रिकर्सिव डिसेंट"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 11,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 33,
+          "col": 41
+        },
+        "end": {
+          "line": 33,
+          "col": 60
+        },
+        "text": "right-recursive!"
+      },
+      "target_span": {
+        "start": {
+          "line": 33,
+          "col": 41
+        },
+        "end": {
+          "line": 33,
+          "col": 58
+        },
+        "text": "दाएं-रिकर्सिव!"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 11,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 58,
+          "col": 7
+        },
+        "end": {
+          "line": 58,
+          "col": 24
+        },
+        "text": "Function call?"
+      },
+      "target_span": {
+        "start": {
+          "line": 58,
+          "col": 7
+        },
+        "end": {
+          "line": 58,
+          "col": 22
+        },
+        "text": "फ़ंक्शन कॉल?"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 11,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 60,
+          "col": 27
+        },
+        "end": {
+          "line": 60,
+          "col": 37
+        },
+        "text": "eat '('"
+      },
+      "target_span": {
+        "start": {
+          "line": 60,
+          "col": 27
+        },
+        "end": {
+          "line": 60,
+          "col": 47
+        },
+        "text": "'(' का उपभोग करें"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 11,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 82,
+          "col": 12
+        },
+        "end": {
+          "line": 82,
+          "col": 30
+        },
+        "text": "Unexpected token: "
+      },
+      "target_span": {
+        "start": {
+          "line": 82,
+          "col": 12
+        },
+        "end": {
+          "line": 82,
+          "col": 30
+        },
+        "text": "अप्रत्याशित टोकन: "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 11,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 83,
+          "col": 24
+        },
+        "end": {
+          "line": 83,
+          "col": 37
+        },
+        "text": " at position "
+      },
+      "target_span": {
+        "start": {
+          "line": 83,
+          "col": 24
+        },
+        "end": {
+          "line": 83,
+          "col": 35
+        },
+        "text": " स्थिति पर "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 11,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 91,
+          "col": 8
+        },
+        "end": {
+          "line": 91,
+          "col": 22
+        },
+        "text": "Parser loaded."
+      },
+      "target_span": {
+        "start": {
+          "line": 91,
+          "col": 8
+        },
+        "end": {
+          "line": 91,
+          "col": 26
+        },
+        "text": "पार्सर लोड हो गया।"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 25,
+          "col": 1
+        },
+        "end": {
+          "line": 25,
+          "col": 21
+        },
+        "text": "Parse and display"
+      },
+      "target_span": {
+        "start": {
+          "line": 25,
+          "col": 1
+        },
+        "end": {
+          "line": 25,
+          "col": 32
+        },
+        "text": "पार्स करें और प्रदर्शित करें"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 27,
+          "col": 8
+        },
+        "end": {
+          "line": 27,
+          "col": 32
+        },
+        "text": "AST for '2 ^ 3 ^ 2 + 1':"
+      },
+      "target_span": {
+        "start": {
+          "line": 27,
+          "col": 8
+        },
+        "end": {
+          "line": 27,
+          "col": 35
+        },
+        "text": "'2 ^ 3 ^ 2 + 1' के लिए AST:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 30,
+          "col": 8
+        },
+        "end": {
+          "line": 30,
+          "col": 33
+        },
+        "text": "\\nAST for '-(3 + 4) * 2':"
+      },
+      "target_span": {
+        "start": {
+          "line": 30,
+          "col": 8
+        },
+        "end": {
+          "line": 30,
+          "col": 36
+        },
+        "text": "\\n'-(3 + 4) * 2' के लिए AST:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 15,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 9,
+          "col": 31
+        },
+        "end": {
+          "line": 9,
+          "col": 51
+        },
+        "text": "Undefined variable: "
+      },
+      "target_span": {
+        "start": {
+          "line": 9,
+          "col": 31
+        },
+        "end": {
+          "line": 9,
+          "col": 50
+        },
+        "text": "अपरिभाषित वेरिएबल: "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 15,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 31,
+          "col": 14
+        },
+        "end": {
+          "line": 31,
+          "col": 30
+        },
+        "text": "Not a function: "
+      },
+      "target_span": {
+        "start": {
+          "line": 31,
+          "col": 14
+        },
+        "end": {
+          "line": 31,
+          "col": 31
+        },
+        "text": "फ़ंक्शन नहीं है: "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 15,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 40,
+          "col": 10
+        },
+        "end": {
+          "line": 40,
+          "col": 28
+        },
+        "text": "Unknown node tag: "
+      },
+      "target_span": {
+        "start": {
+          "line": 40,
+          "col": 10
+        },
+        "end": {
+          "line": 40,
+          "col": 26
+        },
+        "text": "अज्ञात नोड टैग: "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 15,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 43,
+          "col": 1
+        },
+        "end": {
+          "line": 43,
+          "col": 33
+        },
+        "text": "Convenience: parse + evaluate"
+      },
+      "target_span": {
+        "start": {
+          "line": 43,
+          "col": 1
+        },
+        "end": {
+          "line": 43,
+          "col": 34
+        },
+        "text": "सुविधा: पार्स + मूल्यांकन करें"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 15,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 48,
+          "col": 8
+        },
+        "end": {
+          "line": 48,
+          "col": 26
+        },
+        "text": "Calculator loaded."
+      },
+      "target_span": {
+        "start": {
+          "line": 48,
+          "col": 8
+        },
+        "end": {
+          "line": 48,
+          "col": 29
+        },
+        "text": "कैलकुलेटर लोड हो गया।"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 20
+        },
+        "text": "Basic arithmetic"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 20
+        },
+        "text": "बुनियादी अंकगणित"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 51
+        },
+        "end": {
+          "line": 4,
+          "col": 80
+        },
+        "text": "right-assoc: 2^(3^2) = 512"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 51
+        },
+        "end": {
+          "line": 4,
+          "col": 80
+        },
+        "text": "दाएं-संबद्ध: 2^(3^2) = 512"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 17,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 32
+        },
+        "text": "With variables and functions"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 32
+        },
+        "text": "वेरिएबल्स और फ़ंक्शंस के साथ"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 19,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 61
+        },
+        "text": "A parser is: function(input, pos) -> result, newpos | nil"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 62
+        },
+        "text": "एक पार्सर है: function(input, pos) -> result, newpos | nil"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 19,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 1
+        },
+        "end": {
+          "line": 3,
+          "col": 46
+        },
+        "text": "Match a Lua pattern, return captured group"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 1
+        },
+        "end": {
+          "line": 3,
+          "col": 57
+        },
+        "text": "Lua पैटर्न का मिलान करें, कैप्चर किया गया समूह लौटाएं"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 19,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 12,
+          "col": 1
+        },
+        "end": {
+          "line": 12,
+          "col": 24
+        },
+        "text": "Match literal string"
+      },
+      "target_span": {
+        "start": {
+          "line": 12,
+          "col": 1
+        },
+        "end": {
+          "line": 12,
+          "col": 34
+        },
+        "text": "शाब्दिक स्ट्रिंग का मिलान करें"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 19,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 22,
+          "col": 1
+        },
+        "end": {
+          "line": 22,
+          "col": 38
+        },
+        "text": "Skip whitespace, then apply parser"
+      },
+      "target_span": {
+        "start": {
+          "line": 22,
+          "col": 1
+        },
+        "end": {
+          "line": 22,
+          "col": 44
+        },
+        "text": "व्हाइटस्पेस छोड़ें, फिर पार्सर लागू करें"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 19,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 30,
+          "col": 8
+        },
+        "end": {
+          "line": 30,
+          "col": 27
+        },
+        "text": "Combinators loaded."
+      },
+      "target_span": {
+        "start": {
+          "line": 30,
+          "col": 8
+        },
+        "end": {
+          "line": 30,
+          "col": 31
+        },
+        "text": "कॉम्बिनेटर्स लोड हो गए।"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 20,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 45
+        },
+        "text": "Sequence: all parsers must match in order"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 48
+        },
+        "text": "Sequence: सभी पार्सर क्रम में मेल खाने चाहिए"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 20,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 17,
+          "col": 1
+        },
+        "end": {
+          "line": 17,
+          "col": 47
+        },
+        "text": "Choice: try each parser, return first match"
+      },
+      "target_span": {
+        "start": {
+          "line": 17,
+          "col": 1
+        },
+        "end": {
+          "line": 17,
+          "col": 57
+        },
+        "text": "Choice: प्रत्येक पार्सर को आज़माएं, पहला मिलान लौटाएं"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 20,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 29,
+          "col": 1
+        },
+        "end": {
+          "line": 29,
+          "col": 28
+        },
+        "text": "Zero or more repetitions"
+      },
+      "target_span": {
+        "start": {
+          "line": 29,
+          "col": 1
+        },
+        "end": {
+          "line": 29,
+          "col": 24
+        },
+        "text": "शून्य या अधिक दोहराव"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 20,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 44,
+          "col": 1
+        },
+        "end": {
+          "line": 44,
+          "col": 20
+        },
+        "text": "Transform result"
+      },
+      "target_span": {
+        "start": {
+          "line": 44,
+          "col": 1
+        },
+        "end": {
+          "line": 44,
+          "col": 25
+        },
+        "text": "परिणाम रूपांतरित करें"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 20,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 53,
+          "col": 8
+        },
+        "end": {
+          "line": 53,
+          "col": 38
+        },
+        "text": "Seq, Choice, Many, Map loaded."
+      },
+      "target_span": {
+        "start": {
+          "line": 53,
+          "col": 8
+        },
+        "end": {
+          "line": 53,
+          "col": 41
+        },
+        "text": "Seq, Choice, Many, Map लोड हो गए।"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 21,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 43
+        },
+        "text": "Parse a simple key-value config format:"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 52
+        },
+        "text": "एक सरल key-value कॉन्फ़िग प्रारूप को पार्स करें:"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 21,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 20,
+          "col": 8
+        },
+        "end": {
+          "line": 20,
+          "col": 22
+        },
+        "text": "Parsed config:"
+      },
+      "target_span": {
+        "start": {
+          "line": 20,
+          "col": 8
+        },
+        "end": {
+          "line": 20,
+          "col": 32
+        },
+        "text": "पार्स किया गया कॉन्फ़िग:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 23,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 3
+        },
+        "end": {
+          "line": 4,
+          "col": 53
+        },
+        "text": "Use a coroutine to yield rows as they're parsed"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 3
+        },
+        "end": {
+          "line": 4,
+          "col": 72
+        },
+        "text": "पंक्तियों को पार्स होते ही yield करने के लिए कोरूटीन का उपयोग करें"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 23,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 7
+        },
+        "end": {
+          "line": 7,
+          "col": 63
+        },
+        "text": "Quoted field: find closing quote (handles escaped \"\")"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 7
+        },
+        "end": {
+          "line": 7,
+          "col": 76
+        },
+        "text": "उद्धृत फ़ील्ड: समापन उद्धरण खोजें (एस्केप किए गए \"\" को संभालता है)"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 23,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 24,
+          "col": 7
+        },
+        "end": {
+          "line": 24,
+          "col": 49
+        },
+        "text": "Unquoted field: read until comma or end"
+      },
+      "target_span": {
+        "start": {
+          "line": 24,
+          "col": 7
+        },
+        "end": {
+          "line": 24,
+          "col": 54
+        },
+        "text": "गैर-उद्धृत फ़ील्ड: अल्पविराम या अंत तक पढ़ें"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 23,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 37,
+          "col": 7
+        },
+        "end": {
+          "line": 37,
+          "col": 30
+        },
+        "text": "Skip comma separator"
+      },
+      "target_span": {
+        "start": {
+          "line": 37,
+          "col": 7
+        },
+        "end": {
+          "line": 37,
+          "col": 33
+        },
+        "text": "अल्पविराम विभाजक छोड़ें"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 23,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 55,
+          "col": 1
+        },
+        "end": {
+          "line": 55,
+          "col": 30
+        },
+        "text": "Print as a formatted table"
+      },
+      "target_span": {
+        "start": {
+          "line": 55,
+          "col": 1
+        },
+        "end": {
+          "line": 55,
+          "col": 45
+        },
+        "text": "एक स्वरूपित तालिका के रूप में प्रिंट करें"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 25,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 7
+        },
+        "end": {
+          "line": 4,
+          "col": 39
+        },
+        "text": "Skip comments and blank lines"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 7
+        },
+        "end": {
+          "line": 4,
+          "col": 45
+        },
+        "text": "टिप्पणियाँ और खाली पंक्तियाँ छोड़ें"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 25,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 35,
+          "col": 8
+        },
+        "end": {
+          "line": 35,
+          "col": 29
+        },
+        "text": "Expression evaluator:"
+      },
+      "target_span": {
+        "start": {
+          "line": 35,
+          "col": 8
+        },
+        "end": {
+          "line": 35,
+          "col": 30
+        },
+        "text": "एक्सप्रेशन इवैल्यूएटर:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 25,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 39,
+          "col": 26
+        },
+        "end": {
+          "line": 39,
+          "col": 44
+        },
+        "text": "  %-20s  ERROR: %s"
+      },
+      "target_span": {
+        "start": {
+          "line": 39,
+          "col": 26
+        },
+        "end": {
+          "line": 39,
+          "col": 45
+        },
+        "text": "  %-20s  त्रुटि: %s"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    }
+  ],
+  "exclusions": []
+}

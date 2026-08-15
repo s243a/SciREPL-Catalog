@@ -1,0 +1,233 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T16:09:07.038Z",
+  "notebook": {
+    "id": "default",
+    "name": "Lua: テーブル、コルーチン、クロージャ",
+    "autoNameNumber": null,
+    "description": "A tour of Lua's most distinctive features — tables as the universal data structure, coroutines for cooperative multitasking, closures for encapsulation, and custom iterators.",
+    "kernelLanguage": "lua",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 24,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# Lua: テーブル、コルーチン、クロージャ\n\nLua は、いくつかの強力なアイデアを中心に構築された軽量スクリプト言語です。このワークブックでは、Lua を独自たらしめている特徴を探求します:\n\n- **テーブル** — 唯一のデータ構造でありながら、あらゆる用途に対応\n- **コルーチン** — 言語に組み込まれた協調的マルチタスク\n- **クロージャ** — 自身を囲む環境をキャプチャする関数\n- **イテレータ** — コルーチンとクロージャによるカスタム反復処理\n\nSciREPL は、純粋な JavaScript による Lua 5.3 仮想マシンである [Fengari](https://fengari.io) を介して Lua を実行します。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "## 1. テーブルがすべて\n\nLua には複合データ構造が1つしかありません。それが**テーブル**です。テーブルは配列、辞書、オブジェクト、モジュール、名前空間の役割を — 同時にすべて果たします。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 3,
+        "code": "-- 配列（1始まり！）\nfruits = {\"apple\", \"banana\", \"cherry\"}\nprint(fruits[1], fruits[2], fruits[3])\nprint(\"長さ:\", #fruits)",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "apple\tbanana\tcherry\n長さ:\t3\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">apple\tbanana\tcherry\n長さ:\t3\n</pre>"
+      },
+      {
+        "id": 4,
+        "code": "-- 辞書\nplanet = {\n  name = \"Earth\",\n  radius_km = 6371,\n  has_life = true\n}\nprint(planet.name, \"—\", planet.radius_km, \"km 半径\")\n\n-- フィールドを動的に追加\nplanet.moons = 1\nprint(\"衛星数:\", planet.moons)",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "Earth\t—\t6371\tkm 半径\n衛星数:\t1\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Earth\t—\t6371\tkm 半径\n衛星数:\t1\n</pre>"
+      },
+      {
+        "id": 5,
+        "code": "-- テーブルは配列部分と辞書部分を混在可能\nmixed = {10, 20, 30, label = \"scores\", unit = \"pts\"}\nprint(\"配列部分:\", mixed[1], mixed[2], mixed[3])\nprint(\"辞書部分:\", mixed.label, mixed.unit)",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "配列部分:\t10\t20\t30\n辞書部分:\tscores\tpts\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">配列部分:\t10\t20\t30\n辞書部分:\tscores\tpts\n</pre>"
+      },
+      {
+        "id": 6,
+        "code": "-- ネストしたテーブル — 任意の構造を構築\ntree = {\n  value = \"root\",\n  children = {\n    { value = \"left\",  children = {} },\n    { value = \"right\", children = {\n      { value = \"right-left\", children = {} }\n    }}\n  }\n}\n\nfunction walk(node, depth)\n  depth = depth or 0\n  print(string.rep(\"  \", depth) .. node.value)\n  for _, child in ipairs(node.children) do\n    walk(child, depth + 1)\n  end\nend\n\nwalk(tree)",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "root\n  left\n  right\n    right-left\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">root\n  left\n  right\n    right-left\n</pre>"
+      },
+      {
+        "id": 7,
+        "code": "## 2. メタテーブル — テーブルに新しい芸当を教える\n\nメタテーブルを使用すると、演算子をオーバーライドしたりカスタムの振る舞いを定義したりできます。これが Lua におけるオブジェクト指向プログラミング（OOP）や演算子オーバーロードなどの実現方法です。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 8,
+        "code": "-- 演算子オーバーロードを持つ2Dベクトル\nVec2 = {}\nVec2.__index = Vec2\n\nfunction Vec2.new(x, y)\n  return setmetatable({x = x, y = y}, Vec2)\nend\n\nfunction Vec2:__add(other)\n  return Vec2.new(self.x + other.x, self.y + other.y)\nend\n\nfunction Vec2:__mul(scalar)\n  return Vec2.new(self.x * scalar, self.y * scalar)\nend\n\nfunction Vec2:length()\n  return math.sqrt(self.x^2 + self.y^2)\nend\n\nfunction Vec2:__tostring()\n  return string.format(\"(%g, %g)\", self.x, self.y)\nend\n\na = Vec2.new(3, 4)\nb = Vec2.new(1, 2)\nprint(\"a =\", a)\nprint(\"b =\", b)\nprint(\"a + b =\", a + b)\nprint(\"a * 3 =\", a * 3)\nprint(\"|a| =\", a:length())",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "a =\t(3, 4)\nb =\t(1, 2)\na + b =\t(4, 6)\na * 3 =\t(9, 12)\n|a| =\t5.0\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">a =\t(3, 4)\nb =\t(1, 2)\na + b =\t(4, 6)\na * 3 =\t(9, 12)\n|a| =\t5.0\n</pre>"
+      },
+      {
+        "id": 9,
+        "code": "## 3. クロージャ\n\nLua の関数は第一級の値であり、自身を囲むスコープから変数をキャプチャします。これにより、クロージャが自然かつ強力に機能します。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 10,
+        "code": "-- カウンターファクトリ — 呼び出しごとに新しい独立したカウンターを返す\nfunction make_counter(start)\n  local n = start or 0\n  return {\n    inc = function() n = n + 1; return n end,\n    dec = function() n = n - 1; return n end,\n    get = function() return n end\n  }\nend\n\nc1 = make_counter(0)\nc2 = make_counter(100)\n\nc1.inc(); c1.inc(); c1.inc()\nc2.dec()\n\nprint(\"c1:\", c1.get())  -- 3\nprint(\"c2:\", c2.get())  -- 99",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "c1:\t3\nc2:\t99\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">c1:\t3\nc2:\t99\n</pre>"
+      },
+      {
+        "id": 11,
+        "code": "-- クロージャによるメモ化\nfunction memoize(fn)\n  local cache = {}\n  return function(n)\n    if cache[n] == nil then\n      cache[n] = fn(n)\n    end\n    return cache[n]\n  end\nend\n\nfib = memoize(function(n)\n  if n < 2 then return n end\n  return fib(n - 1) + fib(n - 2)\nend)\n\nfor i = 0, 15 do\n  io.write(fib(i) .. \" \")\nend\nprint()",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 \n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 \n</pre>"
+      },
+      {
+        "id": 12,
+        "code": "-- 部分適用\nfunction partial(fn, ...)\n  local outer_args = table.pack(...)\n  return function(...)\n    local args = {}\n    for i = 1, outer_args.n do args[i] = outer_args[i] end\n    local inner = table.pack(...)\n    for i = 1, inner.n do args[outer_args.n + i] = inner[i] end\n    return fn(table.unpack(args, 1, outer_args.n + inner.n))\n  end\nend\n\nfunction add(a, b) return a + b end\n\nadd10 = partial(add, 10)\nprint(\"add10(5) の結果 =\", add10(5))\nprint(\"add10(32) の結果 =\", add10(32))",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "add10(5) の結果 =\t15\nadd10(32) の結果 =\t42\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">add10(5) の結果 =\t15\nadd10(32) の結果 =\t42\n</pre>"
+      },
+      {
+        "id": 13,
+        "code": "## 4. コルーチン\n\nコルーチンは、Lua における協調的マルチタスクの仕組みです。スレッドとは異なり、明示的に制御を譲渡（yield）します — ロックも競合も想定外の挙動もありません。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 14,
+        "code": "-- 基本コルーチン: 値を生成（yield）するプロデューサー\nfunction producer()\n  local items = {\"alpha\", \"beta\", \"gamma\", \"delta\"}\n  for _, item in ipairs(items) do\n    print(\"  生成中: \" .. item)\n    coroutine.yield(item)\n  end\nend\n\nco = coroutine.create(producer)\n\nprint(\"コンシューマーループ:\")\nwhile coroutine.status(co) ~= \"dead\" do\n  local ok, value = coroutine.resume(co)\n  if ok and value then\n    print(\"  消費:  \" .. value)\n  end\nend",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "コンシューマーループ:\n  生成中: alpha\n  消費:  alpha\n  生成中: beta\n  消費:  beta\n  生成中: gamma\n  消費:  gamma\n  生成中: delta\n  消費:  delta\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">コンシューマーループ:\n  生成中: alpha\n  消費:  alpha\n  生成中: beta\n  消費:  beta\n  生成中: gamma\n  消費:  gamma\n  生成中: delta\n  消費:  delta\n</pre>"
+      },
+      {
+        "id": 15,
+        "code": "-- 無限シーケンスジェネレータ\nfunction fibonacci()\n  local a, b = 0, 1\n  while true do\n    coroutine.yield(a)\n    a, b = b, a + b\n  end\nend\n\nfib_co = coroutine.wrap(fibonacci)\n\nio.write(\"フィボナッチ: \")\nfor i = 1, 12 do\n  io.write(fib_co() .. \" \")\nend\nprint()",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "フィボナッチ: 0 1 1 2 3 5 8 13 21 34 55 89 \n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">フィボナッチ: 0 1 1 2 3 5 8 13 21 34 55 89 \n</pre>"
+      },
+      {
+        "id": 16,
+        "code": "-- パイプライン: フィルタとしてコルーチンを連結\nfunction range(n)\n  return coroutine.wrap(function()\n    for i = 1, n do coroutine.yield(i) end\n  end)\nend\n\nfunction filter(source, pred)\n  return coroutine.wrap(function()\n    for val in source do\n      if pred(val) then coroutine.yield(val) end\n    end\n  end)\nend\n\nfunction map(source, fn)\n  return coroutine.wrap(function()\n    for val in source do\n      coroutine.yield(fn(val))\n    end\n  end)\nend\n\n-- パイプライン: 1..20 → 奇数を保持 → 2乗\npipeline = map(\n  filter(range(20), function(x) return x % 2 == 1 end),\n  function(x) return x * x end\n)\n\nio.write(\"奇数の2乗: \")\nfor val in pipeline do\n  io.write(val .. \" \")\nend\nprint()",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "奇数の2乗: 1 9 25 49 81 121 169 225 289 361 \n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">奇数の2乗: 1 9 25 49 81 121 169 225 289 361 \n</pre>"
+      },
+      {
+        "id": 17,
+        "code": "-- 協調的スケジューラ — ラウンドロビンタスクランナー\nfunction scheduler()\n  local tasks = {}\n\n  local sched = {}\n\n  function sched.spawn(fn)\n    tasks[#tasks + 1] = coroutine.create(fn)\n  end\n\n  function sched.run()\n    while #tasks > 0 do\n      local next_tasks = {}\n      for _, co in ipairs(tasks) do\n        local ok, err = coroutine.resume(co)\n        if not ok then print(\"エラー: \" .. err) end\n        if coroutine.status(co) ~= \"dead\" then\n          next_tasks[#next_tasks + 1] = co\n        end\n      end\n      tasks = next_tasks\n    end\n  end\n\n  return sched\nend\n\nS = scheduler()\n\nS.spawn(function()\n  for i = 1, 4 do\n    print(\"  [A] ステップ \" .. i)\n    coroutine.yield()\n  end\nend)\n\nS.spawn(function()\n  for i = 1, 3 do\n    print(\"  [B] ステップ \" .. i)\n    coroutine.yield()\n  end\nend)\n\nS.spawn(function()\n  for i = 1, 2 do\n    print(\"  [C] ステップ \" .. i)\n    coroutine.yield()\n  end\nend)\n\nprint(\"スケジューラ実行中:\")\nS.run()\nprint(\"すべてのタスクが完了しました。\")",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "スケジューラ実行中:\n  [A] ステップ 1\n  [B] ステップ 1\n  [C] ステップ 1\n  [A] ステップ 2\n  [B] ステップ 2\n  [C] ステップ 2\n  [A] ステップ 3\n  [B] ステップ 3\n  [A] ステップ 4\nすべてのタスクが完了しました。\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">スケジューラ実行中:\n  [A] ステップ 1\n  [B] ステップ 1\n  [C] ステップ 1\n  [A] ステップ 2\n  [B] ステップ 2\n  [C] ステップ 2\n  [A] ステップ 3\n  [B] ステップ 3\n  [A] ステップ 4\nすべてのタスクが完了しました。\n</pre>"
+      },
+      {
+        "id": 18,
+        "code": "## 5. カスタムイテレータ\n\nLua の `for ... in` ループは、値を返す任意の関数と連動します。クロージャやコルーチンと組み合わせることで、表現力豊かなイテレータを構築できます。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 19,
+        "code": "-- クロージャベースのイテレータ: ソートされたキー順にテーブルを反復\nfunction sorted_pairs(t)\n  local keys = {}\n  for k in pairs(t) do keys[#keys + 1] = k end\n  table.sort(keys)\n  local i = 0\n  return function()\n    i = i + 1\n    local k = keys[i]\n    if k then return k, t[k] end\n  end\nend\n\nscores = { alice = 92, bob = 87, carol = 95, dave = 78 }\n\nprint(\"ソートされたリーダーボード:\")\nfor name, score in sorted_pairs(scores) do\n  print(string.format(\"  %-8s %d\", name, score))\nend",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "ソートされたリーダーボード:\n  alice    92\n  bob      87\n  carol    95\n  dave     78\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">ソートされたリーダーボード:\n  alice    92\n  bob      87\n  carol    95\n  dave     78\n</pre>"
+      },
+      {
+        "id": 20,
+        "code": "-- コルーチンイテレータ: リストの順列\nfunction permutations(t)\n  local function generate(a, k)\n    if k == 1 then\n      coroutine.yield(a)\n    else\n      for i = 1, k do\n        generate(a, k - 1)\n        if k % 2 == 0 then\n          a[i], a[k] = a[k], a[i]\n        else\n          a[1], a[k] = a[k], a[1]\n        end\n      end\n    end\n  end\n\n  return coroutine.wrap(function()\n    -- コピーに対して処理を行う\n    local copy = {}\n    for i, v in ipairs(t) do copy[i] = v end\n    generate(copy, #copy)\n  end)\nend\n\nprint(\"{1,2,3} の順列:\")\nfor perm in permutations({1, 2, 3}) do\n  print(\"  \" .. table.concat(perm, \", \"))\nend",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "{1,2,3} の順列:\n  1, 2, 3\n  2, 1, 3\n  3, 1, 2\n  1, 3, 2\n  2, 3, 1\n  3, 2, 1\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">{1,2,3} の順列:\n  1, 2, 3\n  2, 1, 3\n  3, 1, 2\n  1, 3, 2\n  2, 3, 1\n  3, 2, 1\n</pre>"
+      },
+      {
+        "id": 21,
+        "code": "## 6. すべてを統合する — 遅延ストリームライブラリ\n\nテーブル、クロージャ、コルーチン、メタテーブルを組み合わせて、メソッドチェーンが可能な遅延ストリームを作成します。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 22,
+        "code": "Stream = {}\nStream.__index = Stream\n\nfunction Stream.from(t)\n  return setmetatable({ _gen = function()\n    for _, v in ipairs(t) do coroutine.yield(v) end\n  end }, Stream)\nend\n\nfunction Stream.range(a, b)\n  return setmetatable({ _gen = function()\n    for i = a, b do coroutine.yield(i) end\n  end }, Stream)\nend\n\nfunction Stream:filter(pred)\n  local parent = self._gen\n  return setmetatable({ _gen = function()\n    for val in coroutine.wrap(parent) do\n      if pred(val) then coroutine.yield(val) end\n    end\n  end }, Stream)\nend\n\nfunction Stream:map(fn)\n  local parent = self._gen\n  return setmetatable({ _gen = function()\n    for val in coroutine.wrap(parent) do\n      coroutine.yield(fn(val))\n    end\n  end }, Stream)\nend\n\nfunction Stream:take(n)\n  local parent = self._gen\n  return setmetatable({ _gen = function()\n    local count = 0\n    for val in coroutine.wrap(parent) do\n      count = count + 1\n      coroutine.yield(val)\n      if count >= n then return end\n    end\n  end }, Stream)\nend\n\nfunction Stream:reduce(fn, init)\n  local acc = init\n  for val in coroutine.wrap(self._gen) do\n    acc = fn(acc, val)\n  end\n  return acc\nend\n\nfunction Stream:collect()\n  local result = {}\n  for val in coroutine.wrap(self._gen) do\n    result[#result + 1] = val\n  end\n  return result\nend\n\nfunction Stream:__tostring()\n  return \"{\" .. table.concat(self:collect(), \", \") .. \"}\"\nend",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 23,
+        "code": "-- Stream ライブラリを使用\nresult = Stream.range(1, 50)\n  :filter(function(x) return x % 3 == 0 end)  -- 3で割り切れる\n  :map(function(x) return x * x end)          -- 2乗\n  :take(5)                                     -- 先頭5個\n\nprint(\"ストリーム結果:\", result)\n\nsum = Stream.from({4, 8, 15, 16, 23, 42})\n  :filter(function(x) return x > 10 end)\n  :reduce(function(a, b) return a + b end, 0)\n\nprint(\"10を超える値の合計:\", sum)",
+        "type": "code",
+        "language": "lua",
+        "name": "",
+        "lastOutput": "ストリーム結果:\t{9, 36, 81, 144, 225}\n10を超える値の合計:\t96\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">ストリーム結果:\t{9, 36, 81, 144, 225}\n10を超える値の合計:\t96\n</pre>"
+      },
+      {
+        "id": 24,
+        "code": "## まとめ\n\nLua は小さな言語の中に多くのパワーを凝縮しています:\n\n| 機能 | 代替するもの |\n|---|---|\n| テーブル | 配列、辞書、オブジェクト、モジュール、名前空間 |\n| メタテーブル | 演算子オーバーロード、継承、プロキシ |\n| クロージャ | カプセル化、ファクトリ、コールバック |\n| コルーチン | ジェネレータ、async/await、グリーンスレッド |\n| イテレータ | 遅延シーケンス、パイプライン |\n\nセクション 6 の Stream ライブラリは、これら**5つすべて**を使用しています — 格納用のテーブル、メソッドチェーン用のメタテーブル、ジェネレータ状態をキャプチャするクロージャ、遅延評価用のコルーチン、そして消費用のイテレータです。\n\nLua はゲームエンジン（Love2D、Roblox、WoW）、組み込みシステム、および設定言語（Neovim、nginx、Redis）として広く使用されています。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      }
+    ]
+  }
+}

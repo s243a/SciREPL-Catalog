@@ -1,0 +1,431 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T17:25:31.072Z",
+  "notebook": {
+    "id": "default",
+    "name": "UnifyWeaver의 고급 재귀 패턴",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "prolog",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 46,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# UnifyWeaver의 고급 재귀 패턴\n\n이 노트북은 UnifyWeaver가 감지하고 최적화할 수 있는 4가지 주요 재귀 패턴을 보여줍니다:\n\n1. **꼬리 재귀 (Tail Recursion)** - 누산기를 사용한 반복 루프\n2. **선형 재귀 (Linear Recursion)** - 메모화가 적용된 단일 재귀 호출\n3. **트리 재귀 (Tree Recursion)** - 구조의 여러 부분에 대한 다중 재귀 호출\n4. **상호 재귀 (Mutual Recursion)** - 서술어들이 순환 구조로 서로를 호출\n\n## 학습 목표\n\n- 다양한 재귀 패턴 이해\n- UnifyWeaver가 각 패턴을 감지하고 최적화하는 방법 확인\n- 성능 특성 비교\n- 각 패턴을 언제 사용해야 하는지 학습",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "## 설정\n\nUnifyWeaver 환경을 초기화합니다.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 3,
+        "code": "% 초기화 로드\n['../init'].\n\n% 필요한 모듈 로드\nuse_module(unifyweaver(core/recursive_compiler)).\nuse_module(unifyweaver(core/advanced/pattern_matchers)).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
+      },
+      {
+        "id": 4,
+        "code": "## 패턴 1: 꼬리 재귀 (Tail Recursion)\n\n꼬리 재귀는 누산기(accumulator)를 사용하여 중간 결과를 전달하며, 재귀 호출이 함수의 **마지막 동작**입니다.\n\n### 예제: 리스트의 항목 수 세기",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 5,
+        "code": "% 꼬리 재귀 count_items 정의\n:- dynamic count_items/3.\n\n% 기저 사례: 빈 리스트, 누산기 반환\ncount_items([], Acc, Acc).\n\n% 재귀 사례: 누산기 증가 후 꼬리에 대해 재귀 호출\ncount_items([_|T], Acc, N) :-\n    Acc1 is Acc + 1,\n    count_items(T, Acc1, N).  % ← 꼬리 위치!",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 6,
+        "code": "### Prolog에서 테스트",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 7,
+        "code": "% 테스트: [a,b,c,d,e]의 항목 수 세기\n\\+ \\+ (\n    count_items([a,b,c,d,e], 0, _N),\n    format('Count: ~w~n', [_N])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Count: 5",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Count: 5</pre>"
+      },
+      {
+        "id": 8,
+        "code": "### 패턴 감지 확인",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 9,
+        "code": "% 꼬리 재귀로 감지되었는지 확인\n\\+ \\+ (\n    is_tail_recursive_accumulator(count_items/3, _AccInfo),\n    format('Tail recursive: ~w~n', [_AccInfo])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: is_tail_recursive_accumulator/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: is_tail_recursive_accumulator/2</pre>"
+      },
+      {
+        "id": 10,
+        "code": "### Bash로 컴파일",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 11,
+        "code": "% 컴파일 및 저장\n\\+ \\+ (\n    compile_recursive(count_items/3, [], _BashCode),\n    setup_call_cleanup(\n        open('../output/count_items_demo.sh', write, _Stream),\n        write(_Stream, _BashCode),\n        close(_Stream)),\n    writeln('✓ Compiled count_items to Bash with tail recursion optimization')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: compile_recursive/3</pre>"
+      },
+      {
+        "id": 12,
+        "code": "### 생성된 Bash 테스트",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 13,
+        "code": "source ../output/count_items_demo.sh\necho \"[a,b,c,d,e]의 항목 수 세는 중:\"\ncount_items \"[a,b,c,d,e]\" 0 \"\"",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "[a,b,c,d,e]의 항목 수 세는 중:\nerror: source: failed to source file: ../output/count_items_demo.sh\nerror: failed to execute command 'count_items': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">[a,b,c,d,e]의 항목 수 세는 중:\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/count_items_demo.sh\nerror: failed to execute command 'count_items': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 14,
+        "code": "## 패턴 2: 선형 재귀 (Linear Recursion)\n\n선형 재귀는 절당 **정확히 하나의** 재귀 호출을 가지며, 재귀 호출이 반환된 후에 추가 계산이 수행됩니다.\n\n### 예제: 팩토리얼 (Factorial)",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 15,
+        "code": "% 팩토리얼 정의\n:- dynamic factorial/2.\n\n% 기저 사례\nfactorial(0, 1).\n\n% 재귀 사례: 정확히 하나의 재귀 호출\nfactorial(N, F) :-\n    N > 0,\n    N1 is N - 1,\n    factorial(N1, F1),  % ← 하나의 재귀 호출\n    F is N * F1.        % ← 호출 후 계산",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 16,
+        "code": "### Prolog에서 테스트",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 17,
+        "code": "% 테스트: 5의 팩토리얼\n\\+ \\+ (\n    factorial(5, _F),\n    format('5! = ~w~n', [_F])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "5! = 120",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">5! = 120</pre>"
+      },
+      {
+        "id": 18,
+        "code": "### 패턴 감지 확인",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 19,
+        "code": "% 선형 재귀로 감지되었는지 확인\nis_linear_recursive_streamable(factorial/2),\nwriteln('✓ Detected as linear recursion').",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: is_linear_recursive_streamable/1",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: is_linear_recursive_streamable/1</pre>"
+      },
+      {
+        "id": 20,
+        "code": "### Bash로 컴파일",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 21,
+        "code": "% 컴파일 및 저장\n\\+ \\+ (\n    compile_recursive(factorial/2, [], _BashCode),\n    % 함수 정의만 유지 (Brush는 source된 스크립트를 직접 실행으로 처리함)\n    split_string(_BashCode, \"\\n\", \"\\r\", _BashLines),\n    append(_LibraryLines, [\"# Auto-execute when run directly (not when sourced)\"|_], _BashLines),\n    atomics_to_string(_LibraryLines, \"\\n\", _LibraryCode),\n    setup_call_cleanup(\n        open('../output/factorial_demo.sh', write, _Stream),\n        write(_Stream, _LibraryCode),\n        close(_Stream)),\n    writeln('✓ Compiled factorial to Bash with fold-based linear recursion')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: compile_recursive/3</pre>"
+      },
+      {
+        "id": 22,
+        "code": "### 생성된 Bash 테스트",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 23,
+        "code": "source ../output/factorial_demo.sh\necho \"5의 팩토리얼:\"\nfactorial 5 \"\"\necho \"\"\necho \"10의 팩토리얼:\"\nfactorial 10 \"\"",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "5의 팩토리얼:\n\n10의 팩토리얼:\nerror: source: failed to source file: ../output/factorial_demo.sh\nerror: failed to execute command 'factorial': operation not supported on this platform\nerror: failed to execute command 'factorial': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">5의 팩토리얼:\n\n10의 팩토리얼:\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/factorial_demo.sh\nerror: failed to execute command 'factorial': operation not supported on this platform\nerror: failed to execute command 'factorial': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 24,
+        "code": "## 패턴 3: 트리 재귀 (Tree Recursion)\n\n트리 재귀는 구조의 서로 다른 부분을 처리하기 위해 **여러 번의** 재귀 호출을 수행합니다.\n\n### 예제: 트리 합계 (Tree Sum)",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 25,
+        "code": "% 이진 트리를 위한 tree_sum 정의\n% 트리 형식: [값, 왼쪽서브트리, 오른쪽서브트리] 또는 []\n:- dynamic tree_sum/2.\n\n% 기저 사례: 빈 트리의 합은 0\ntree_sum([], 0).\n\n% 재귀 사례: 합계 = 값 + 왼쪽합 + 오른쪽합\ntree_sum([V, L, R], Sum) :-\n    tree_sum(L, LS),   % ← 첫 번째 재귀 호출\n    tree_sum(R, RS),   % ← 두 번째 재귀 호출\n    Sum is V + LS + RS.",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 26,
+        "code": "### Prolog에서 테스트",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 27,
+        "code": "% 테스트: [5, [3, [1, [], []], []], [2, [], []]]의 tree_sum\n%       5\n%      / \\\n%     3   2\n%    /\n%   1\n\\+ \\+ (\n    tree_sum([5, [3, [1, [], []], []], [2, [], []]], _Sum),\n    format('Tree sum: ~w (expected 11)~n', [_Sum])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Tree sum: 11 (expected 11)",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Tree sum: 11 (expected 11)</pre>"
+      },
+      {
+        "id": 28,
+        "code": "### Bash로 컴파일",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 29,
+        "code": "% 컴파일 및 저장\n\\+ \\+ (\n    compile_recursive(tree_sum/2, [], _BashCode),\n    setup_call_cleanup(\n        open('../output/tree_sum_demo.sh', write, _Stream),\n        write(_Stream, _BashCode),\n        close(_Stream)),\n    writeln('✓ Compiled tree_sum to Bash with tree recursion')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: compile_recursive/3</pre>"
+      },
+      {
+        "id": 30,
+        "code": "### 생성된 Bash 테스트",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 31,
+        "code": "source ../output/tree_sum_demo.sh\necho \"[5,[3,[1,[],[]],[]],[2,[],[]]]의 트리 합계:\"\ntree_sum \"[5,[3,[1,[],[]],[]],[2,[],[]]]\"",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "[5,[3,[1,[],[]],[]],[2,[],[]]]의 트리 합계:\nerror: source: failed to source file: ../output/tree_sum_demo.sh\nerror: failed to execute command 'tree_sum': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">[5,[3,[1,[],[]],[]],[2,[],[]]]의 트리 합계:\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/tree_sum_demo.sh\nerror: failed to execute command 'tree_sum': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 32,
+        "code": "## 패턴 4: 상호 재귀 (Mutual Recursion)\n\n상호 재귀는 둘 이상의 서술어가 순환하여 서로를 호출할 때 발생합니다.\n\n### 예제: 짝수(Even)와 홀수(Odd)",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 33,
+        "code": "% 상호 재귀 is_even 및 is_odd 정의\n:- dynamic is_even/1.\n:- dynamic is_odd/1.\n\n% is_even 기저 사례\nis_even(0).\n\n% is_even 재귀: N-1이 홀수이면 N은 짝수\nis_even(N) :-\n    N > 0,\n    N1 is N - 1,\n    is_odd(N1).  % ← is_odd 호출\n\n% is_odd 기저 사례\nis_odd(1).\n\n% is_odd 재귀: N-1이 짝수이면 N은 홀수\nis_odd(N) :-\n    N > 1,\n    N1 is N - 1,\n    is_even(N1).  % ← is_even 호출",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 34,
+        "code": "### Prolog에서 테스트",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 35,
+        "code": "% 짝수/홀수 테스트\nis_even(0), writeln('✓ 0 is even').\nis_even(4), writeln('✓ 4 is even').\nis_odd(3), writeln('✓ 3 is odd').\nis_odd(7), writeln('✓ 7 is odd').",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "✓ 0 is even\n✓ 4 is even\n✓ 3 is odd\n✓ 7 is odd",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">✓ 0 is even\n✓ 4 is even\n✓ 3 is odd\n✓ 7 is odd</pre>"
+      },
+      {
+        "id": 36,
+        "code": "### 상호 재귀 확인",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 37,
+        "code": "% 호출 그래프 작성 및 SCC 검색\n\\+ \\+ (\n    use_module(unifyweaver(core/advanced/call_graph)),\n    use_module(unifyweaver(core/advanced/scc_detection)),\n\n    build_call_graph([is_even/1, is_odd/1], _Graph),\n    format('Call graph: ~w~n', [_Graph]),\n\n    find_sccs(_Graph, _SCCs),\n    format('SCCs (mutual recursion groups): ~w~n', [_SCCs])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "source_sink `unifyweaver(core/advanced/call_graph)' does not exist",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">source_sink `unifyweaver(core/advanced/call_graph)' does not exist</pre>"
+      },
+      {
+        "id": 38,
+        "code": "### Bash로 컴파일",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 39,
+        "code": "% 상호 재귀 그룹 컴파일\n\\+ \\+ (\n    use_module(unifyweaver(core/advanced/mutual_recursion)),\n\n    compile_mutual_recursion([is_even/1, is_odd/1], [], _BashCode),\n    split_string(_BashCode, \"\\n\", \"\\r\", _BashLines),\n    append(_LibraryLines, [\"# Main dispatch: route command line calls to functions\"|_], _BashLines),\n    atomics_to_string(_LibraryLines, \"\\n\", _LibraryCode),\n    setup_call_cleanup(\n        open('../output/even_odd_demo.sh', write, _Stream),\n        write(_Stream, _LibraryCode),\n        close(_Stream)),\n    writeln('✓ Compiled is_even/is_odd to Bash with shared memoization')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 40,
+        "code": "### 생성된 Bash 테스트",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 41,
+        "code": "source ../output/even_odd_demo.sh\necho \"is_even 및 is_odd 테스트 중:\"\nis_even 0 >/dev/null && echo \"✓ 0은 짝수\"\nis_even 4 >/dev/null && echo \"✓ 4는 짝수\"\nis_odd 3 >/dev/null && echo \"✓ 3은 홀수\"\nis_odd 7 >/dev/null && echo \"✓ 7은 홀수\"\nis_even 5 >/dev/null 2>&1 || echo \"✓ 5는 짝수가 아님\"",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "is_even 및 is_odd 테스트 중:\n✓ 5는 짝수가 아님\nerror: source: failed to source file: ../output/even_odd_demo.sh\nerror: failed to execute command 'is_even': operation not supported on this platform\nerror: failed to execute command 'is_even': operation not supported on this platform\nerror: failed to execute command 'is_odd': operation not supported on this platform\nerror: failed to execute command 'is_odd': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">is_even 및 is_odd 테스트 중:\n✓ 5는 짝수가 아님\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/even_odd_demo.sh\nerror: failed to execute command 'is_even': operation not supported on this platform\nerror: failed to execute command 'is_even': operation not supported on this platform\nerror: failed to execute command 'is_odd': operation not supported on this platform\nerror: failed to execute command 'is_odd': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 42,
+        "code": "## 패턴 비교\n\n각 패턴의 특성을 비교해 보겠습니다:\n\n| 패턴 | 재귀 호출 | 최적화 방식 | 공간 복잡도 | 적합한 용도 |\n|:--------|:----------------|:-------------|:-----------------|:---------|\n| **꼬리 재귀** | 1회 (꼬리 위치) | 반복 루프 | O(1) | 누산기, 선형 스캔 |\n| **선형 재귀** | 1회 (임의 위치) | Fold + 메모화 | O(n) 메모 테이블 | 피보나치, 팩토리얼 |\n| **트리 재귀** | 2회 이상 (구조 각 부분) | 구조적 분해 | O(depth) 스택 | 트리/그래프 연산 |\n| **상호 재귀** | 1회 이상 (서술어 간) | 공유 메모화 | O(n) 공유 테이블 | 짝수/홀수, 상호 정의 |",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 43,
+        "code": "## 패턴 감지 순서\n\nUnifyWeaver는 다음 순서로 패턴 일치를 시도합니다:\n\n1. **꼬리 재귀** (가장 효율적)\n2. **선형 재귀** (금지되지 않은 경우)\n3. **트리 재귀** (구조적)\n4. **상호 재귀** (강결합 컴포넌트 SCC 감지)\n5. **기본 재귀** (대체 폴백)\n\n`forbid_linear_recursion/1`을 사용하여 감지 동작을 제어할 수 있습니다.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 44,
+        "code": "## 연습 과제: 직접 해보세요!\n\n다음 서술어를 정의하고 컴파일해 보세요:\n\n### 1. 꼬리 재귀 합계\n```prolog\nsum_list([], Acc, Acc).\nsum_list([H|T], Acc, Sum) :-\n    Acc1 is Acc + H,\n    sum_list(T, Acc1, Sum).\n```\n\n### 2. 선형 재귀 피보나치\n```prolog\nfib(0, 0).\nfib(1, 1).\nfib(N, F) :-\n    N > 1,\n    N1 is N - 1,\n    N2 is N - 2,\n    fib(N1, F1),\n    fib(N2, F2),\n    F is F1 + F2.\n```\n\n### 3. 트리 높이\n```prolog\ntree_height([], 0).\ntree_height([_, L, R], H) :-\n    tree_height(L, HL),\n    tree_height(R, HR),\n    H is max(HL, HR) + 1.\n```",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 45,
+        "code": "% 여기에 코드를 작성하세요!\n",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 46,
+        "code": "## 요약\n\n이 노트북에서 배운 내용:\n\n✅ UnifyWeaver의 4가지 주요 재귀 패턴\n\n✅ Prolog에서 각 패턴을 정의하는 방법\n\n✅ UnifyWeaver가 각 패턴을 감지하고 최적화하는 방법\n\n✅ 각 패턴의 성능 특성\n\n✅ 각 패턴을 언제 사용해야 하는지\n\n## 다음 단계\n\n고급 코드 분석 및 시각화에 대해 배우려면 **노트북 3: 호출 그래프 시각화**로 이동하세요!",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      }
+    ]
+  }
+}

@@ -11,31 +11,31 @@
       },
       {
         "type": "code",
-        "code": "let x <- 42;\n# Variadic arguments are supported\ncat(\"x =\", x);",
+        "code": "let x <- 42;\n# 可変長引数がサポートされています\ncat(\"x =\", x);",
         "language": "typr",
         "name": "basics"
       },
       {
         "type": "code",
-        "code": "# Function bodies require braces\nlet add <- function(a, b) { a + b };\nlet result <- add(3, 4);\nprint(result);",
+        "code": "# 関数本体には波括弧が必要です\nlet add <- function(a, b) { a + b };\nlet result <- add(3, 4);\nprint(result);",
         "language": "typr",
         "name": "functions"
       },
       {
         "type": "code",
-        "code": "let greeting: char <- \"Hello from TypR!\";\nprint(greeting);",
+        "code": "let greeting: char <- \"TypR からこんにちは！\";\nprint(greeting);",
         "language": "typr",
         "name": "typed"
       },
       {
         "type": "code",
-        "code": "# Explicit parameter and return types make calls statically checkable\nlet square <- fn(x: int): int { x * x };\nlet result <- square(7);\n# Variadic arguments work directly\ncat(\"7 squared =\", result);",
+        "code": "# パラメータと戻り値の型を明示することで呼び出しを静的にチェック可能にします\nlet square <- fn(x: int): int { x * x };\nlet result <- square(7);\n# 可変長引数が直接動作します\ncat(\"7 の2乗 =\", result);",
         "language": "typr",
         "name": "square"
       },
       {
         "type": "code",
-        "code": "# Forward heterogeneous named arguments\nlet collect <- fn(...args: Any): [#N, Any] { args };\nlet forward <- fn(...args: Any): [#N, Any] { collect(...args) };\nlet values <- forward(count = 1, enabled = true);\nprint(values);\n@{ base::cat(\"Names:\", base::paste(base::names(values$data), collapse = \", \"), \"\\n\") }@;",
+        "code": "# 異種の型を含む名前付き引数を転送\nlet collect <- fn(...args: Any): [#N, Any] { args };\nlet forward <- fn(...args: Any): [#N, Any] { collect(...args) };\nlet values <- forward(count = 1, enabled = true);\nprint(values);\n@{ base::cat(\"名前:\", base::paste(base::names(values$data), collapse = \", \"), \"\\n\") }@;",
         "language": "typr",
         "name": "variadic_forwarding"
       },

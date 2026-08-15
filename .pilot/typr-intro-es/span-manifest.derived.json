@@ -1,0 +1,249 @@
+{
+  "manifest_version": 1,
+  "produced_by": "derived",
+  "generator": "tools/span-derive.mjs",
+  "locale": "es",
+  "source": {
+    "path": "workbooks/en/typr-intro.srwb",
+    "sha256": "b1c7e205ffa7ba7e665ea179a5312106688417709d8a56f98f13cf8521db98fc"
+  },
+  "target": {
+    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/jobs/typr-intro-es/translated.srwb",
+    "sha256": "114e33124dd24a85695f115f182fe680d469f2629e6b9fe3a92a415d1d70a5e5"
+  },
+  "spans": [
+    {
+      "cell_index": 1,
+      "cell_name": "basics",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 35
+        },
+        "text": "Variadic arguments are supported"
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 35
+        },
+        "text": "Se admiten argumentos variádicos"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "functions",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 33
+        },
+        "text": "Function bodies require braces"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 48
+        },
+        "text": "Los cuerpos de las funciones requieren llaves"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "typed",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 24
+        },
+        "end": {
+          "line": 1,
+          "col": 40
+        },
+        "text": "Hello from TypR!"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 24
+        },
+        "end": {
+          "line": 1,
+          "col": 41
+        },
+        "text": "¡Hola desde TypR!"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": "square",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 70
+        },
+        "text": "Explicit parameter and return types make calls statically checkable"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 93
+        },
+        "text": "Los tipos explícitos de parámetros y retorno permiten comprobar las llamadas estáticamente"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": "square",
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 35
+        },
+        "text": "Variadic arguments work directly"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 51
+        },
+        "text": "Los argumentos variádicos funcionan directamente"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": "square",
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 6
+        },
+        "end": {
+          "line": 5,
+          "col": 17
+        },
+        "text": "7 squared ="
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 6
+        },
+        "end": {
+          "line": 5,
+          "col": 21
+        },
+        "text": "7 al cuadrado ="
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "variadic_forwarding",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 40
+        },
+        "text": "Forward heterogeneous named arguments"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 45
+        },
+        "text": "Reenviar argumentos nombrados heterogéneos"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "variadic_forwarding",
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 15
+        },
+        "end": {
+          "line": 6,
+          "col": 21
+        },
+        "text": "Names:"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 15
+        },
+        "end": {
+          "line": 6,
+          "col": 23
+        },
+        "text": "Nombres:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    }
+  ],
+  "exclusions": []
+}

@@ -1,0 +1,430 @@
+{
+  "manifest_version": 1,
+  "produced_by": "derived",
+  "generator": "tools/span-derive.mjs",
+  "locale": "ar",
+  "source": {
+    "path": "workbooks/en/r_ggplot2_showcase.ipynb",
+    "sha256": "a8a13339bc1c6c172db8091b4b59a72a8d6f8c4638006a58486391982de7301e"
+  },
+  "target": {
+    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/jobs/r_ggplot2_showcase-ar/translated.ipynb",
+    "sha256": "a804d2ca50509c0b09987bd4d6c89e93ec63c1a8b5acb418f1dfc28b69cabeaa"
+  },
+  "spans": [
+    {
+      "cell_index": 1,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 6
+        },
+        "end": {
+          "line": 3,
+          "col": 53
+        },
+        "text": "ggplot2 loaded — theme_scirepl() auto-applied\\n"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 6
+        },
+        "end": {
+          "line": 3,
+          "col": 60
+        },
+        "text": "تم تحميل ggplot2 — تم تطبيق theme_scirepl() تلقائيًا\\n"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 17
+        },
+        "end": {
+          "line": 4,
+          "col": 43
+        },
+        "text": "Engine Size vs Highway MPG"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 17
+        },
+        "end": {
+          "line": 4,
+          "col": 72
+        },
+        "text": "حجم المحرك مقابل استهلاك الوقود على الطريق السريع (MPG)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 13
+        },
+        "end": {
+          "line": 5,
+          "col": 29
+        },
+        "text": "Displacement (L)"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 13
+        },
+        "end": {
+          "line": 5,
+          "col": 29
+        },
+        "text": "سعة المحرك (لتر)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 37
+        },
+        "end": {
+          "line": 5,
+          "col": 48
+        },
+        "text": "Highway MPG"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 37
+        },
+        "end": {
+          "line": 5,
+          "col": 75
+        },
+        "text": "استهلاك الوقود على الطريق السريع (MPG)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 17
+        },
+        "end": {
+          "line": 4,
+          "col": 61
+        },
+        "text": "Vehicle Classes by Drive Type (1999 vs 2008)"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 17
+        },
+        "end": {
+          "line": 4,
+          "col": 62
+        },
+        "text": "فئات المركبات حسب نوع الدفع (1999 مقابل 2008)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 13
+        },
+        "end": {
+          "line": 5,
+          "col": 18
+        },
+        "text": "Class"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 13
+        },
+        "end": {
+          "line": 5,
+          "col": 18
+        },
+        "text": "الفئة"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 26
+        },
+        "end": {
+          "line": 5,
+          "col": 31
+        },
+        "text": "Count"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 26
+        },
+        "end": {
+          "line": 5,
+          "col": 31
+        },
+        "text": "العدد"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 7,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 17
+        },
+        "end": {
+          "line": 3,
+          "col": 55
+        },
+        "text": "Highway MPG Distribution by Drive Type"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 17
+        },
+        "end": {
+          "line": 3,
+          "col": 69
+        },
+        "text": "توزيع استهلاك الوقود على الطريق السريع حسب نوع الدفع"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 7,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 13
+        },
+        "end": {
+          "line": 4,
+          "col": 24
+        },
+        "text": "Highway MPG"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 13
+        },
+        "end": {
+          "line": 4,
+          "col": 51
+        },
+        "text": "استهلاك الوقود على الطريق السريع (MPG)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 7,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 32
+        },
+        "end": {
+          "line": 4,
+          "col": 39
+        },
+        "text": "Density"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 59
+        },
+        "end": {
+          "line": 4,
+          "col": 66
+        },
+        "text": "الكثافة"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 9,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 17
+        },
+        "end": {
+          "line": 4,
+          "col": 45
+        },
+        "text": "Highway MPG by Vehicle Class"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 17
+        },
+        "end": {
+          "line": 4,
+          "col": 65
+        },
+        "text": "استهلاك الوقود على الطريق السريع حسب فئة المركبة"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 9,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 13
+        },
+        "end": {
+          "line": 5,
+          "col": 18
+        },
+        "text": "Class"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 13
+        },
+        "end": {
+          "line": 5,
+          "col": 18
+        },
+        "text": "الفئة"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 9,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 26
+        },
+        "end": {
+          "line": 5,
+          "col": 37
+        },
+        "text": "Highway MPG"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 26
+        },
+        "end": {
+          "line": 5,
+          "col": 64
+        },
+        "text": "استهلاك الوقود على الطريق السريع (MPG)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 11,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 11,
+          "col": 17
+        },
+        "end": {
+          "line": 11,
+          "col": 43
+        },
+        "text": "mtcars Correlation Heatmap"
+      },
+      "target_span": {
+        "start": {
+          "line": 11,
+          "col": 17
+        },
+        "end": {
+          "line": 11,
+          "col": 50
+        },
+        "text": "خريطة الارتباط الحرارية لـ mtcars"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    }
+  ],
+  "exclusions": [
+    {
+      "cell_index": 1,
+      "reason": "unstable across identical English runs — pin (seed/clock) or accept exclusion",
+      "sample_a": "Downloading webR package: cli\nDownloading webR package: glue\nDownloading webR package: rlang\nDownloading webR package: lifecycle\nDownloading webR package: gtabl",
+      "sample_b": "ggplot2 loaded — theme_scirepl() auto-applied"
+    }
+  ]
+}

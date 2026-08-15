@@ -1,0 +1,1061 @@
+{
+  "manifest_version": 1,
+  "produced_by": "derived",
+  "generator": "tools/span-derive.mjs",
+  "locale": "es",
+  "source": {
+    "path": "workbooks/en/03_call_graph_analysis.ipynb",
+    "sha256": "a047d2d8aec42abcf74337656302c7c0d18905ec87d4ad0b73032be0f3b597e8"
+  },
+  "target": {
+    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/jobs/03_call_graph_analysis-es/translated.ipynb",
+    "sha256": "3e74abfab4596377fa80e84537e95992d9e396b16ffa1058ae60713cc06707c2"
+  },
+  "spans": [
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 22
+        },
+        "text": "Load initialization"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 24
+        },
+        "text": "Cargar inicialización"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 24
+        },
+        "text": "Load analysis modules"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 33
+        },
+        "text": "Cargar los módulos de análisis"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 28
+        },
+        "text": "Define ancestor predicate"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 32
+        },
+        "text": "Definir el predicado ancestor"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 15
+        },
+        "text": "Parent facts"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 19
+        },
+        "text": "Hechos de parent"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 9,
+          "col": 1
+        },
+        "end": {
+          "line": 9,
+          "col": 17
+        },
+        "text": "Ancestor rules"
+      },
+      "target_span": {
+        "start": {
+          "line": 9,
+          "col": 1
+        },
+        "end": {
+          "line": 9,
+          "col": 21
+        },
+        "text": "Reglas de ancestor"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 32
+        },
+        "text": "Build call graph for ancestor"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 44
+        },
+        "text": "Construir grafo de llamadas para ancestor"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 37
+        },
+        "text": "Get all dependencies of ancestor/2"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 47
+        },
+        "text": "Obtener todas las dependencias de ancestor/2"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 26
+        },
+        "text": "Check if self-recursive"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 33
+        },
+        "text": "Comprobar si es autorrecursivo"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 10,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 39
+        },
+        "text": "Define mutually recursive predicates"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 43
+        },
+        "text": "Definir predicados mutuamente recursivos"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 12,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 39
+        },
+        "text": "Build call graph for both predicates"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 52
+        },
+        "text": "Construir grafo de llamadas para ambos predicados"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 76
+        },
+        "text": "Rebuild the graph because variables do not persist between notebook cells"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 83
+        },
+        "text": "Reconstruir el grafo porque las variables no persisten entre celdas del cuaderno"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 1
+        },
+        "end": {
+          "line": 3,
+          "col": 37
+        },
+        "text": "Find SCCs using Tarjan's algorithm"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 1
+        },
+        "end": {
+          "line": 3,
+          "col": 47
+        },
+        "text": "Encontrar SCCs usando el algoritmo de Tarjan"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 66
+        },
+        "text": "Rebuild the derived values so this cell also runs independently"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 98
+        },
+        "text": "Reconstruir los valores derivados para que esta celda también se ejecute de forma independiente"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 17
+        },
+        "text": "Check each SCC"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 21
+        },
+        "text": "Comprobar cada SCC"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 18,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 50
+        },
+        "text": "Define a small program with multiple predicates"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 55
+        },
+        "text": "Definir un programa pequeño con múltiples predicados"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 18,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 1
+        },
+        "end": {
+          "line": 6,
+          "col": 26
+        },
+        "text": "grandparent uses parent"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 1
+        },
+        "end": {
+          "line": 6,
+          "col": 25
+        },
+        "text": "grandparent usa parent"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 18,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 9,
+          "col": 1
+        },
+        "end": {
+          "line": 9,
+          "col": 43
+        },
+        "text": "sibling: same parent, different children"
+      },
+      "target_span": {
+        "start": {
+          "line": 9,
+          "col": 1
+        },
+        "end": {
+          "line": 9,
+          "col": 46
+        },
+        "text": "sibling: mismo progenitor, diferentes hijos"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 18,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 12,
+          "col": 1
+        },
+        "end": {
+          "line": 12,
+          "col": 31
+        },
+        "text": "cousin: parents are siblings"
+      },
+      "target_span": {
+        "start": {
+          "line": 12,
+          "col": 1
+        },
+        "end": {
+          "line": 12,
+          "col": 40
+        },
+        "text": "cousin: los progenitores son hermanos"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 20,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 38
+        },
+        "text": "Build call graph for all predicates"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 56
+        },
+        "text": "Construir grafo de llamadas para todos los predicados"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 22,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 56
+        },
+        "text": "Find the mutually recursive group containing cousin/2"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 64
+        },
+        "text": "Encontrar el grupo mutuamente recursivo que contiene cousin/2"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 36
+        },
+        "text": "Define various recursive patterns"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 37
+        },
+        "text": "Definir varios patrones recursivos"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 25
+        },
+        "end": {
+          "line": 2,
+          "col": 41
+        },
+        "text": "Tail recursive"
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 25
+        },
+        "end": {
+          "line": 2,
+          "col": 44
+        },
+        "text": "Recursivo de cola"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 25
+        },
+        "end": {
+          "line": 3,
+          "col": 43
+        },
+        "text": "Linear recursive"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 25
+        },
+        "end": {
+          "line": 3,
+          "col": 43
+        },
+        "text": "Recursivo lineal"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 25
+        },
+        "end": {
+          "line": 4,
+          "col": 65
+        },
+        "text": "Tree recursive (or linear if detected)"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 25
+        },
+        "end": {
+          "line": 4,
+          "col": 70
+        },
+        "text": "Recursivo de árbol (o lineal si se detecta)"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 1
+        },
+        "end": {
+          "line": 6,
+          "col": 23
+        },
+        "text": "Tail recursive count"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 1
+        },
+        "end": {
+          "line": 6,
+          "col": 31
+        },
+        "text": "Conteo con recursión de cola"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 12,
+          "col": 1
+        },
+        "end": {
+          "line": 12,
+          "col": 29
+        },
+        "text": "Linear recursive factorial"
+      },
+      "target_span": {
+        "start": {
+          "line": 12,
+          "col": 1
+        },
+        "end": {
+          "line": 12,
+          "col": 33
+        },
+        "text": "Factorial con recursión lineal"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 20,
+          "col": 1
+        },
+        "end": {
+          "line": 20,
+          "col": 48
+        },
+        "text": "Fibonacci (can be detected as linear or tree)"
+      },
+      "target_span": {
+        "start": {
+          "line": 20,
+          "col": 1
+        },
+        "end": {
+          "line": 20,
+          "col": 54
+        },
+        "text": "Fibonacci (puede detectarse como lineal o de árbol)"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 26,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 37
+        },
+        "text": "Check if count/3 is tail recursive"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 44
+        },
+        "text": "Comprobar si count/3 es recursivo de cola"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 28,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 43
+        },
+        "text": "Check if factorial/2 is linear recursive"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 47
+        },
+        "text": "Comprobar si factorial/2 es recursivo lineal"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 30,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 37
+        },
+        "text": "Count recursive calls in fibonacci"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 42
+        },
+        "text": "Contar llamadas recursivas en fibonacci"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 32,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 32
+        },
+        "text": "Helper to generate DOT format"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 44
+        },
+        "text": "Función auxiliar para generar formato DOT"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 32,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 11,
+          "col": 1
+        },
+        "end": {
+          "line": 11,
+          "col": 34
+        },
+        "text": "Generate DOT for even/odd graph"
+      },
+      "target_span": {
+        "start": {
+          "line": 11,
+          "col": 1
+        },
+        "end": {
+          "line": 11,
+          "col": 38
+        },
+        "text": "Generar DOT para el grafo par/impar"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 34,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 72
+        },
+        "text": "Rebuild the DOT source because variables do not persist between cells"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 85
+        },
+        "text": "Reconstruir el código fuente de DOT porque las variables no persisten entre celdas"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 36,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 30
+        },
+        "text": "Define your predicates here"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 29
+        },
+        "text": "Define tus predicados aquí"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 36,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 57
+        },
+        "text": "Then build call graphs, find SCCs, and detect patterns"
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 72
+        },
+        "text": "Luego construye grafos de llamadas, encuentra SCCs y detecta patrones"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 36,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 11
+        },
+        "text": "Example:"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 11
+        },
+        "text": "Ejemplo:"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    }
+  ],
+  "exclusions": []
+}

@@ -1,0 +1,89 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T16:03:52.352Z",
+  "notebook": {
+    "id": "default",
+    "name": "TypR পরিচিতি",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "python",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 8,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# TypR — টাইপড R\n\nTypR হলো R-এর একটি টাইপড সুপারসেট যা স্ট্যান্ডার্ড R কোডে কম্পাইল হয়।\nএটি R-এর সাথে সম্পূর্ণ সামঞ্জস্য বজায় রেখে টাইপ অ্যানোটেশন, টাইপ চেকিং এবং জেনেরিক্স যুক্ত করে।\n\n**সিনট্যাক্স সংক্রান্ত নির্দেশাবলী:**\n- স্টেটমেন্টগুলো সেমিকোলন দিয়ে শেষ হয়: `let x <- 42;`\n- টাইপড ফাংশনে `fn(x: int): int { x * x }` ব্যবহার করা হয়\n- TypR ভ্যারিয়াডিক ফাংশন এবং নামযুক্ত ডটস সমর্থন করে, তাই `cat(\"x =\", x);` সরাসরি কাজ করে।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "let x <- 42;\n# ভ্যারিয়াডিক আর্গুমেন্ট সমর্থিত\ncat(\"x =\", x);",
+        "type": "code",
+        "language": "typr",
+        "name": "basics",
+        "lastOutput": "x = 42",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">x = 42</pre>"
+      },
+      {
+        "id": 3,
+        "code": "# ফাংশন বডিতে বন্ধনী (braces) প্রয়োজন\nlet add <- function(a, b) { a + b };\nlet result <- add(3, 4);\nprint(result);",
+        "type": "code",
+        "language": "typr",
+        "name": "functions",
+        "lastOutput": "7",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">7</pre>"
+      },
+      {
+        "id": 4,
+        "code": "let greeting: char <- \"TypR থেকে হ্যালো!\";\nprint(greeting);",
+        "type": "code",
+        "language": "typr",
+        "name": "typed",
+        "lastOutput": "TypR থেকে হ্যালো!",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">TypR থেকে হ্যালো!</pre>"
+      },
+      {
+        "id": 5,
+        "code": "# স্পষ্ট প্যারামিটার এবং রিটার্ন টাইপ কলগুলোকে স্ট্যাটিকভাবে পরীক্ষাযোগ্য করে তোলে\nlet square <- fn(x: int): int { x * x };\nlet result <- square(7);\n# ভ্যারিয়াডিক আর্গুমেন্ট সরাসরি কাজ করে\ncat(\"7 এর বর্গ =\", result);",
+        "type": "code",
+        "language": "typr",
+        "name": "square",
+        "lastOutput": "7 এর বর্গ = 49",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">7 এর বর্গ = 49</pre>"
+      },
+      {
+        "id": 6,
+        "code": "# ভিন্নধর্মী নামযুক্ত আর্গুমেন্ট ফরোয়ার্ড করুন\nlet collect <- fn(...args: Any): [#N, Any] { args };\nlet forward <- fn(...args: Any): [#N, Any] { collect(...args) };\nlet values <- forward(count = 1, enabled = true);\nprint(values);\n@{ base::cat(\"নামসমূহ:\", base::paste(base::names(values$data), collapse = \", \"), \"\\n\") }@;",
+        "type": "code",
+        "language": "typr",
+        "name": "variadic_forwarding",
+        "lastOutput": "typed_vec [2]\n[1] 1\n[2] TRUE\nনামসমূহ: count, enabled",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">typed_vec [2]\n[1] 1\n[2] TRUE\nনামসমূহ: count, enabled</pre>"
+      },
+      {
+        "id": 7,
+        "code": "## নির্দেশাবলী (Directives)\n\nএকটি TypR সেলের প্রথম লাইনে একটি নির্দেশিকা রাখুন:\n\n- `#!source` বিষয়বস্তু কম্পাইল বা কার্যকর না করেই একটি নামযুক্ত, সিনট্যাক্স-হাইলাইট করা সোর্স কোড স্নিপেট বজায় রাখে। শুধুমাত্র-সোর্স সেল ইচ্ছাকৃতভাবেই কোনো `Out [n]` তৈরি করে না এবং Notebook VFS-এর মাধ্যমে পাঠযোগ্য থাকে।\n- `#!typecheck` কোড রান না করেই পরবর্তী কোডের টাইপ পরীক্ষা করে।\n- `#!transpile` রূপান্তরিত R আউটপুট দেখায়।\n- `#!show-r` পরবর্তী TypR এক্সিকিউশনের জন্য জেনারেট করা R কোডের প্রদর্শন টগল করে।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 8,
+        "code": "#!transpile\nlet fib <- fn(n: int): int {\n  if (n <= 1) { n }\n  else { fib(n - 1) + fib(n - 2) }\n};\nprint(fib(10));",
+        "type": "code",
+        "language": "typr",
+        "name": "transpile_demo",
+        "lastOutput": "\n`fib.integer` <- (function(n) {\nif(n <= 1L |> as.Integer()) {\nn \n} else {\nfib(n - 1L |> as.Integer()) + fib(n - 2L |> as.Integer())\n}\n} |> as.Integer()) |> as.Generic()\n\nprint(fib(10L |> as.Integer()))",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">\n`fib.integer` &lt;- (function(n) {\nif(n &lt;= 1L |&gt; as.Integer()) {\nn \n} else {\nfib(n - 1L |&gt; as.Integer()) + fib(n - 2L |&gt; as.Integer())\n}\n} |&gt; as.Integer()) |&gt; as.Generic()\n\nprint(fib(10L |&gt; as.Integer()))</pre>"
+      }
+    ]
+  }
+}

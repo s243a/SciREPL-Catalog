@@ -1,0 +1,568 @@
+{
+  "manifest_version": 1,
+  "produced_by": "derived",
+  "generator": "tools/span-derive.mjs",
+  "locale": "hi",
+  "source": {
+    "path": "workbooks/en/r_statistics.ipynb",
+    "sha256": "b2f4d3c7f33294e012a467591a8ed62b8308916e13249e6220ad2715febbeafc"
+  },
+  "target": {
+    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/jobs/r_statistics-hi/translated.ipynb",
+    "sha256": "f547f9eeecbdfb60c981ade0496448b342f1f7ecfc8f14b18c166ca464780f24"
+  },
+  "spans": [
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 6
+        },
+        "end": {
+          "line": 2,
+          "col": 23
+        },
+        "text": "Dataset: mtcars ("
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 6
+        },
+        "end": {
+          "line": 2,
+          "col": 23
+        },
+        "text": "डेटासेट: mtcars ("
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 41
+        },
+        "end": {
+          "line": 2,
+          "col": 47
+        },
+        "text": "cars, "
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 41
+        },
+        "end": {
+          "line": 2,
+          "col": 49
+        },
+        "text": " कारें, "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 65
+        },
+        "end": {
+          "line": 2,
+          "col": 79
+        },
+        "text": "variables)\\n\\n"
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 67
+        },
+        "end": {
+          "line": 2,
+          "col": 75
+        },
+        "text": " चर)\\n\\n"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 6
+        },
+        "end": {
+          "line": 4,
+          "col": 16
+        },
+        "text": "Automatic:"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 6
+        },
+        "end": {
+          "line": 4,
+          "col": 15
+        },
+        "text": "स्वचालित:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 42
+        },
+        "end": {
+          "line": 4,
+          "col": 50
+        },
+        "text": "mpg (n ="
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 41
+        },
+        "end": {
+          "line": 4,
+          "col": 49
+        },
+        "text": "MPG (n ="
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 6
+        },
+        "end": {
+          "line": 5,
+          "col": 16
+        },
+        "text": "Manual:   "
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 6
+        },
+        "end": {
+          "line": 5,
+          "col": 18
+        },
+        "text": "मैन्युअल:   "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 44
+        },
+        "end": {
+          "line": 5,
+          "col": 52
+        },
+        "text": "mpg (n ="
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 46
+        },
+        "end": {
+          "line": 5,
+          "col": 54
+        },
+        "text": "MPG (n ="
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 10,
+          "col": 6
+        },
+        "end": {
+          "line": 10,
+          "col": 19
+        },
+        "text": "\\nConclusion:"
+      },
+      "target_span": {
+        "start": {
+          "line": 10,
+          "col": 6
+        },
+        "end": {
+          "line": 10,
+          "col": 17
+        },
+        "text": "\\nनिष्कर्ष:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 12,
+          "col": 13
+        },
+        "end": {
+          "line": 12,
+          "col": 66
+        },
+        "text": "Reject H0 — manual cars have significantly higher MPG"
+      },
+      "target_span": {
+        "start": {
+          "line": 12,
+          "col": 13
+        },
+        "end": {
+          "line": 12,
+          "col": 67
+        },
+        "text": "H0 को अस्वीकार करें — मैनुअल कारों का MPG काफी अधिक है"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 13,
+          "col": 13
+        },
+        "end": {
+          "line": 13,
+          "col": 30
+        },
+        "text": "Fail to reject H0"
+      },
+      "target_span": {
+        "start": {
+          "line": 13,
+          "col": 13
+        },
+        "end": {
+          "line": 13,
+          "col": 41
+        },
+        "text": "H0 को अस्वीकार करने में विफल"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 21
+        },
+        "end": {
+          "line": 2,
+          "col": 30
+        },
+        "text": "Automatic"
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 21
+        },
+        "end": {
+          "line": 2,
+          "col": 29
+        },
+        "text": "स्वचालित"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 34
+        },
+        "end": {
+          "line": 2,
+          "col": 40
+        },
+        "text": "Manual"
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 33
+        },
+        "end": {
+          "line": 2,
+          "col": 41
+        },
+        "text": "मैन्युअल"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 12,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 6
+        },
+        "end": {
+          "line": 2,
+          "col": 33
+        },
+        "text": "95% Confidence Intervals:\\n"
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 6
+        },
+        "end": {
+          "line": 2,
+          "col": 27
+        },
+        "text": "95% विश्वास अंतराल:\\n"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 8,
+          "col": 26
+        },
+        "end": {
+          "line": 8,
+          "col": 34
+        },
+        "text": "Estimate"
+      },
+      "target_span": {
+        "start": {
+          "line": 8,
+          "col": 26
+        },
+        "end": {
+          "line": 8,
+          "col": 32
+        },
+        "text": "अनुमान"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 9,
+          "col": 14
+        },
+        "end": {
+          "line": 9,
+          "col": 55
+        },
+        "text": "95% Confidence Intervals for Coefficients"
+      },
+      "target_span": {
+        "start": {
+          "line": 9,
+          "col": 14
+        },
+        "end": {
+          "line": 9,
+          "col": 48
+        },
+        "text": "गुणांकों के लिए 95% विश्वास अंतराल"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 15,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 6
+        },
+        "end": {
+          "line": 3,
+          "col": 41
+        },
+        "text": "\\nTukey HSD Post-hoc Comparisons:\\n"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 6
+        },
+        "end": {
+          "line": 3,
+          "col": 36
+        },
+        "text": "\\nTukey HSD पोस्ट-हॉक तुलना:\\n"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 17
+        },
+        "end": {
+          "line": 2,
+          "col": 38
+        },
+        "text": "MPG by Cylinder Count"
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 17
+        },
+        "end": {
+          "line": 2,
+          "col": 43
+        },
+        "text": "सिलेंडर गणना के अनुसार MPG"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 17
+        },
+        "end": {
+          "line": 3,
+          "col": 26
+        },
+        "text": "Cylinders"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 17
+        },
+        "end": {
+          "line": 3,
+          "col": 24
+        },
+        "text": "सिलेंडर"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 37
+        },
+        "end": {
+          "line": 3,
+          "col": 53
+        },
+        "text": "Miles per Gallon"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 35
+        },
+        "end": {
+          "line": 3,
+          "col": 49
+        },
+        "text": "मील प्रति गैलन"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    }
+  ],
+  "exclusions": []
+}

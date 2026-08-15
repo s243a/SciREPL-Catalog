@@ -1,0 +1,431 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T17:21:08.037Z",
+  "notebook": {
+    "id": "default",
+    "name": "Padrões Avançados de Recursão no UnifyWeaver",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "prolog",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 46,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# Padrões Avançados de Recursão no UnifyWeaver\n\nEste caderno demonstra os quatro principais padrões de recursão que o UnifyWeaver pode detectar e otimizar:\n\n1. **Recursão em Cauda (Tail Recursion)** - Laços iterativos com acumuladores\n2. **Recursão Linear (Linear Recursion)** - Chamada recursiva única com memoização\n3. **Recursão em Árvore (Tree Recursion)** - Múltiplas chamadas recursivas sobre partes da estrutura\n4. **Recursão Mútua (Mutual Recursion)** - Predicados que chamam uns aos outros em ciclos\n\n## Objetivos de Aprendizagem\n\n- Compreender diferentes padrões de recursão\n- Ver como o UnifyWeaver detecta e otimiza cada padrão\n- Comparar características de desempenho\n- Aprender quando usar cada padrão",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "## Configuração\n\nInicializar o ambiente UnifyWeaver.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 3,
+        "code": "% Carregar inicialização\n['../init'].\n\n% Carregar módulos necessários\nuse_module(unifyweaver(core/recursive_compiler)).\nuse_module(unifyweaver(core/advanced/pattern_matchers)).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
+      },
+      {
+        "id": 4,
+        "code": "## Padrão 1: Recursão em Cauda (Tail Recursion)\n\nA recursão em cauda utiliza um acumulador para transportar resultados intermediários, e a chamada recursiva é a **última ação** na função.\n\n### Exemplo: Contar Itens em uma Lista",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 5,
+        "code": "% Definir count_items com recursão em cauda\n:- dynamic count_items/3.\n\n% Caso base: lista vazia, retornar o acumulador\ncount_items([], Acc, Acc).\n\n% Caso recursivo: incrementar o acumulador, aplicar recursão na cauda\ncount_items([_|T], Acc, N) :-\n    Acc1 is Acc + 1,\n    count_items(T, Acc1, N).  % ← Posição de cauda!",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 6,
+        "code": "### Testar em Prolog",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 7,
+        "code": "% Teste: contar itens em [a,b,c,d,e]\n\\+ \\+ (\n    count_items([a,b,c,d,e], 0, _N),\n    format('Count: ~w~n', [_N])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Count: 5",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Count: 5</pre>"
+      },
+      {
+        "id": 8,
+        "code": "### Verificar a Detecção de Padrão",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 9,
+        "code": "% Verificar se detectado como recursivo em cauda\n\\+ \\+ (\n    is_tail_recursive_accumulator(count_items/3, _AccInfo),\n    format('Tail recursive: ~w~n', [_AccInfo])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: is_tail_recursive_accumulator/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: is_tail_recursive_accumulator/2</pre>"
+      },
+      {
+        "id": 10,
+        "code": "### Compilar para Bash",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 11,
+        "code": "% Compilar e salvar\n\\+ \\+ (\n    compile_recursive(count_items/3, [], _BashCode),\n    setup_call_cleanup(\n        open('../output/count_items_demo.sh', write, _Stream),\n        write(_Stream, _BashCode),\n        close(_Stream)),\n    writeln('✓ Compiled count_items to Bash with tail recursion optimization')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: compile_recursive/3</pre>"
+      },
+      {
+        "id": 12,
+        "code": "### Testar o Bash Gerado",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 13,
+        "code": "source ../output/count_items_demo.sh\necho \"Contando itens em [a,b,c,d,e]:\"\ncount_items \"[a,b,c,d,e]\" 0 \"\"",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "Contando itens em [a,b,c,d,e]:\nerror: source: failed to source file: ../output/count_items_demo.sh\nerror: failed to execute command 'count_items': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Contando itens em [a,b,c,d,e]:\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/count_items_demo.sh\nerror: failed to execute command 'count_items': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 14,
+        "code": "## Padrão 2: Recursão Linear (Linear Recursion)\n\nA recursão linear possui **exatamente uma** chamada recursiva por cláusula, com computação ocorrendo após o retorno da chamada recursiva.\n\n### Exemplo: Fatorial (Factorial)",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 15,
+        "code": "% Definir fatorial\n:- dynamic factorial/2.\n\n% Caso base\nfactorial(0, 1).\n\n% Caso recursivo: exatamente UMA chamada recursiva\nfactorial(N, F) :-\n    N > 0,\n    N1 is N - 1,\n    factorial(N1, F1),  % ← Uma chamada recursiva\n    F is N * F1.        % ← Computação após a chamada",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 16,
+        "code": "### Testar em Prolog",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 17,
+        "code": "% Teste: fatorial de 5\n\\+ \\+ (\n    factorial(5, _F),\n    format('5! = ~w~n', [_F])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "5! = 120",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">5! = 120</pre>"
+      },
+      {
+        "id": 18,
+        "code": "### Verificar a Detecção de Padrão",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 19,
+        "code": "% Verificar se detectado como recursivo linear\nis_linear_recursive_streamable(factorial/2),\nwriteln('✓ Detected as linear recursion').",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: is_linear_recursive_streamable/1",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: is_linear_recursive_streamable/1</pre>"
+      },
+      {
+        "id": 20,
+        "code": "### Compilar para Bash",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 21,
+        "code": "% Compilar e salvar\n\\+ \\+ (\n    compile_recursive(factorial/2, [], _BashCode),\n    % Manter apenas as definições de função; Brush trata scripts executados com source como execução direta\n    split_string(_BashCode, \"\\n\", \"\\r\", _BashLines),\n    append(_LibraryLines, [\"# Auto-execute when run directly (not when sourced)\"|_], _BashLines),\n    atomics_to_string(_LibraryLines, \"\\n\", _LibraryCode),\n    setup_call_cleanup(\n        open('../output/factorial_demo.sh', write, _Stream),\n        write(_Stream, _LibraryCode),\n        close(_Stream)),\n    writeln('✓ Compiled factorial to Bash with fold-based linear recursion')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: compile_recursive/3</pre>"
+      },
+      {
+        "id": 22,
+        "code": "### Testar o Bash Gerado",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 23,
+        "code": "source ../output/factorial_demo.sh\necho \"Fatorial de 5:\"\nfactorial 5 \"\"\necho \"\"\necho \"Fatorial de 10:\"\nfactorial 10 \"\"",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "Fatorial de 5:\n\nFatorial de 10:\nerror: source: failed to source file: ../output/factorial_demo.sh\nerror: failed to execute command 'factorial': operation not supported on this platform\nerror: failed to execute command 'factorial': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Fatorial de 5:\n\nFatorial de 10:\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/factorial_demo.sh\nerror: failed to execute command 'factorial': operation not supported on this platform\nerror: failed to execute command 'factorial': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 24,
+        "code": "## Padrão 3: Recursão em Árvore (Tree Recursion)\n\nA recursão em árvore realiza **múltiplas** chamadas recursivas para processar diferentes partes de uma estrutura.\n\n### Exemplo: Soma de Árvore (Tree Sum)",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 25,
+        "code": "% Definir tree_sum para árvores binárias\n% Formato da árvore: [Valor, SubárvoreEsquerda, SubárvoreDireita] ou []\n:- dynamic tree_sum/2.\n\n% Caso base: árvore vazia tem soma 0\ntree_sum([], 0).\n\n% Caso recursivo: soma = valor + soma_esquerda + soma_direita\ntree_sum([V, L, R], Sum) :-\n    tree_sum(L, LS),   % ← Primeira chamada recursiva\n    tree_sum(R, RS),   % ← Segunda chamada recursiva\n    Sum is V + LS + RS.",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 26,
+        "code": "### Testar em Prolog",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 27,
+        "code": "% Teste: tree_sum de [5, [3, [1, [], []], []], [2, [], []]]\n%       5\n%      / \\\n%     3   2\n%    /\n%   1\n\\+ \\+ (\n    tree_sum([5, [3, [1, [], []], []], [2, [], []]], _Sum),\n    format('Tree sum: ~w (expected 11)~n', [_Sum])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Tree sum: 11 (expected 11)",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Tree sum: 11 (expected 11)</pre>"
+      },
+      {
+        "id": 28,
+        "code": "### Compilar para Bash",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 29,
+        "code": "% Compilar e salvar\n\\+ \\+ (\n    compile_recursive(tree_sum/2, [], _BashCode),\n    setup_call_cleanup(\n        open('../output/tree_sum_demo.sh', write, _Stream),\n        write(_Stream, _BashCode),\n        close(_Stream)),\n    writeln('✓ Compiled tree_sum to Bash with tree recursion')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: compile_recursive/3</pre>"
+      },
+      {
+        "id": 30,
+        "code": "### Testar o Bash Gerado",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 31,
+        "code": "source ../output/tree_sum_demo.sh\necho \"Soma da árvore [5,[3,[1,[],[]],[]],[2,[],[]]]:\"\ntree_sum \"[5,[3,[1,[],[]],[]],[2,[],[]]]\"",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "Soma da árvore [5,[3,[1,[],[]],[]],[2,[],[]]]:\nerror: source: failed to source file: ../output/tree_sum_demo.sh\nerror: failed to execute command 'tree_sum': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Soma da árvore [5,[3,[1,[],[]],[]],[2,[],[]]]:\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/tree_sum_demo.sh\nerror: failed to execute command 'tree_sum': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 32,
+        "code": "## Padrão 4: Recursão Mútua (Mutual Recursion)\n\nA recursão mútua ocorre quando dois ou mais predicados chamam uns aos outros em um ciclo.\n\n### Exemplo: Par (Even) e Ímpar (Odd)",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 33,
+        "code": "% Definir is_even e is_odd com recursão mútua\n:- dynamic is_even/1.\n:- dynamic is_odd/1.\n\n% Caso base de is_even\nis_even(0).\n\n% is_even recursivo: N é par se N-1 é ímpar\nis_even(N) :-\n    N > 0,\n    N1 is N - 1,\n    is_odd(N1).  % ← Chama is_odd\n\n% Caso base de is_odd\nis_odd(1).\n\n% is_odd recursivo: N é ímpar se N-1 é par\nis_odd(N) :-\n    N > 1,\n    N1 is N - 1,\n    is_even(N1).  % ← Chama is_even",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 34,
+        "code": "### Testar em Prolog",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 35,
+        "code": "% Testar par/ímpar\nis_even(0), writeln('✓ 0 is even').\nis_even(4), writeln('✓ 4 is even').\nis_odd(3), writeln('✓ 3 is odd').\nis_odd(7), writeln('✓ 7 is odd').",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "✓ 0 is even\n✓ 4 is even\n✓ 3 is odd\n✓ 7 is odd",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">✓ 0 is even\n✓ 4 is even\n✓ 3 is odd\n✓ 7 is odd</pre>"
+      },
+      {
+        "id": 36,
+        "code": "### Verificar Recursão Mútua",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 37,
+        "code": "% Construir grafo de chamadas e encontrar SCCs\n\\+ \\+ (\n    use_module(unifyweaver(core/advanced/call_graph)),\n    use_module(unifyweaver(core/advanced/scc_detection)),\n\n    build_call_graph([is_even/1, is_odd/1], _Graph),\n    format('Call graph: ~w~n', [_Graph]),\n\n    find_sccs(_Graph, _SCCs),\n    format('SCCs (mutual recursion groups): ~w~n', [_SCCs])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "source_sink `unifyweaver(core/advanced/call_graph)' does not exist",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">source_sink `unifyweaver(core/advanced/call_graph)' does not exist</pre>"
+      },
+      {
+        "id": 38,
+        "code": "### Compilar para Bash",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 39,
+        "code": "% Compilar o grupo de recursão mútua\n\\+ \\+ (\n    use_module(unifyweaver(core/advanced/mutual_recursion)),\n\n    compile_mutual_recursion([is_even/1, is_odd/1], [], _BashCode),\n    split_string(_BashCode, \"\\n\", \"\\r\", _BashLines),\n    append(_LibraryLines, [\"# Main dispatch: route command line calls to functions\"|_], _BashLines),\n    atomics_to_string(_LibraryLines, \"\\n\", _LibraryCode),\n    setup_call_cleanup(\n        open('../output/even_odd_demo.sh', write, _Stream),\n        write(_Stream, _LibraryCode),\n        close(_Stream)),\n    writeln('✓ Compiled is_even/is_odd to Bash with shared memoization')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 40,
+        "code": "### Testar o Bash Gerado",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 41,
+        "code": "source ../output/even_odd_demo.sh\necho \"Testando is_even e is_odd:\"\nis_even 0 >/dev/null && echo \"✓ 0 é par\"\nis_even 4 >/dev/null && echo \"✓ 4 é par\"\nis_odd 3 >/dev/null && echo \"✓ 3 é ímpar\"\nis_odd 7 >/dev/null && echo \"✓ 7 é ímpar\"\nis_even 5 >/dev/null 2>&1 || echo \"✓ 5 não é par\"",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "Testando is_even e is_odd:\n✓ 5 não é par\nerror: source: failed to source file: ../output/even_odd_demo.sh\nerror: failed to execute command 'is_even': operation not supported on this platform\nerror: failed to execute command 'is_even': operation not supported on this platform\nerror: failed to execute command 'is_odd': operation not supported on this platform\nerror: failed to execute command 'is_odd': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Testando is_even e is_odd:\n✓ 5 não é par\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/even_odd_demo.sh\nerror: failed to execute command 'is_even': operation not supported on this platform\nerror: failed to execute command 'is_even': operation not supported on this platform\nerror: failed to execute command 'is_odd': operation not supported on this platform\nerror: failed to execute command 'is_odd': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 42,
+        "code": "## Comparação de Padrões\n\nVamos comparar as características de cada padrão:\n\n| Padrão | Chamadas Recursivas | Otimização | Complexidade Espacial | Mais Indicado Para |\n|:--------|:----------------|:-------------|:-----------------|:---------|\n| **Cauda** | 1 (na posição de cauda) | Laço iterativo | O(1) | Acumuladores, varreduras lineares |\n| **Linear** | 1 (em qualquer posição) | Fold + memoização | Tabela memo O(n) | Fibonacci, fatorial |\n| **Árvore** | 2+ (partes da estrutura) | Decomposição estrutural | Pilha O(profundidade) | Operações em árvores/grafos |\n| **Mútua** | 1+ (entre predicados) | Memoização compartilhada | Tabela compartilhada O(n) | Par/ímpar, definições mútuas |",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 43,
+        "code": "## Ordem de Detecção de Padrões\n\nO UnifyWeaver tenta casar os padrões na seguinte ordem:\n\n1. **Recursão em Cauda** (mais eficiente)\n2. **Recursão Linear** (a menos que proibida)\n3. **Recursão em Árvore** (estrutural)\n4. **Recursão Mútua** (detecção de Componentes Fortemente Conexos - SCC)\n5. **Recursão Básica** (fallback padrão)\n\nVocê pode influenciar a detecção com `forbid_linear_recursion/1`.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 44,
+        "code": "## Exercício: Sua Vez!\n\nTente definir e compilar estes predicados:\n\n### 1. Soma com Recursão em Cauda\n```prolog\nsum_list([], Acc, Acc).\nsum_list([H|T], Acc, Sum) :-\n    Acc1 is Acc + H,\n    sum_list(T, Acc1, Sum).\n```\n\n### 2. Fibonacci com Recursão Linear\n```prolog\nfib(0, 0).\nfib(1, 1).\nfib(N, F) :-\n    N > 1,\n    N1 is N - 1,\n    N2 is N - 2,\n    fib(N1, F1),\n    fib(N2, F2),\n    F is F1 + F2.\n```\n\n### 3. Altura de Árvore\n```prolog\ntree_height([], 0).\ntree_height([_, L, R], H) :-\n    tree_height(L, HL),\n    tree_height(R, HR),\n    H is max(HL, HR) + 1.\n```",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 45,
+        "code": "% Seu código aqui!\n",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 46,
+        "code": "## Resumo\n\nNeste caderno, você aprendeu:\n\n✅ Os quatro principais padrões de recursão no UnifyWeaver\n\n✅ Como definir cada padrão em Prolog\n\n✅ Como o UnifyWeaver detecta e otimiza cada padrão\n\n✅ As características de desempenho de cada padrão\n\n✅ Quando usar cada padrão\n\n## Próximos Passos\n\nContinue para o **Caderno 3: Visualização do Grafo de Chamadas** para aprender sobre análise avançada de código e visualização!",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      }
+    ]
+  }
+}

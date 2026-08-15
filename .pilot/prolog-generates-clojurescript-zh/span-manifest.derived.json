@@ -1,0 +1,365 @@
+{
+  "manifest_version": 1,
+  "produced_by": "derived",
+  "generator": "tools/span-derive.mjs",
+  "locale": "zh",
+  "source": {
+    "path": "workbooks/en/prolog-generates-clojurescript.srwb",
+    "sha256": "dfb9c91b0e977c12d38e4090695fad62ce2c14178cee509b8bb8e0bcd3ff8dd6"
+  },
+  "target": {
+    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/jobs/prolog-generates-clojurescript-zh/translated.srwb",
+    "sha256": "1c94d3ee52df4fa7dc56358a9bea17df925d14d35e056c38dec4f64f935e42d3"
+  },
+  "spans": [
+    {
+      "cell_index": 1,
+      "cell_name": "load_compiler",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 36
+        },
+        "text": "Load UnifyWeaver compiler modules"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 23
+        },
+        "text": "加载 UnifyWeaver 编译器模块"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "family_tree",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 39
+        },
+        "text": "Define a family tree as Prolog facts"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 19
+        },
+        "text": "将家谱定义为 Prolog 事实"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "family_tree",
+      "source_span": {
+        "start": {
+          "line": 10,
+          "col": 1
+        },
+        "end": {
+          "line": 10,
+          "col": 62
+        },
+        "text": "Transitive closure: ancestor(X, Y) if X is an ancestor of Y"
+      },
+      "target_span": {
+        "start": {
+          "line": 10,
+          "col": 1
+        },
+        "end": {
+          "line": 10,
+          "col": 38
+        },
+        "text": "传递闭包: 如果 X 是 Y 的祖先，则 ancestor(X, Y)"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "compile_to_clojurescript",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 55
+        },
+        "text": "Compile ancestor/2 to ClojureScript definitions only"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 37
+        },
+        "text": "将 ancestor/2 仅编译为 ClojureScript 定义"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "compile_to_clojurescript",
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 5
+        },
+        "end": {
+          "line": 5,
+          "col": 79
+        },
+        "text": "End with nil so generated seed expressions do not become notebook output"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 5
+        },
+        "end": {
+          "line": 5,
+          "col": 33
+        },
+        "text": "以 nil 结尾，避免生成的种子表达式成为笔记本输出"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "cljs_output",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 48
+        },
+        "text": "; This cell will be populated by the compiler."
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 16
+        },
+        "text": "; 此单元格将由编译器填充。"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "cljs_output",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 56
+        },
+        "text": "; Run the 'compile_to_clojurescript' cell above first."
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 43
+        },
+        "text": "; 请先运行上方的 'compile_to_clojurescript' 单元格。"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": "cljs_queries",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 68
+        },
+        "text": "; Query the generated definitions in Scittle's persistent context."
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 29
+        },
+        "text": "; 在 Scittle 的持久上下文中查询生成的定义。"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": "cljs_queries",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 14
+        },
+        "end": {
+          "line": 2,
+          "col": 36
+        },
+        "text": "Descendants of alice: "
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 14
+        },
+        "end": {
+          "line": 2,
+          "col": 25
+        },
+        "text": "alice 的后代: "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": "cljs_queries",
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 14
+        },
+        "end": {
+          "line": 3,
+          "col": 40
+        },
+        "text": "alice is ancestor of eve: "
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 14
+        },
+        "end": {
+          "line": 3,
+          "col": 31
+        },
+        "text": "alice 是 eve 的祖先: "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": "cljs_queries",
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 14
+        },
+        "end": {
+          "line": 4,
+          "col": 42
+        },
+        "text": "alice is ancestor of frank: "
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 14
+        },
+        "end": {
+          "line": 4,
+          "col": 33
+        },
+        "text": "alice 是 frank 的祖先: "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": "compile_to_clojure",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 74
+        },
+        "text": "Compile the same predicate to JVM Clojure for comparison (display only)"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 33
+        },
+        "text": "将相同谓词编译为 JVM Clojure 进行对比（仅显示）"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    }
+  ],
+  "exclusions": []
+}

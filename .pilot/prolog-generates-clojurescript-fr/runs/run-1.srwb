@@ -1,0 +1,98 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T15:21:43.996Z",
+  "notebook": {
+    "id": "default",
+    "name": "Prolog génère ClojureScript : Démonstration du compilateur",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "python",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 9,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# Prolog génère ClojureScript\n\nCe classeur montre comment UnifyWeaver compile des prédicats Prolog en **ClojureScript**, puis exécute le résultat dans le navigateur via le noyau Scittle.\n\nLe flux de travail :\n1. Définir des prédicats Prolog (faits + règles)\n2. UnifyWeaver détecte le motif de récursion (fermeture transitive)\n3. La cible ClojureScript génère du code CLJS exécutable dans le navigateur (BFS sur une map `atom`, faits intégrés, sans interopérabilité JVM)\n4. Écrire les définitions générées dans leur propre cellule ClojureScript mise en évidence\n5. Exécuter la cellule de requête séparée et mise en évidence contre le contexte Scittle persistant\n\nLe catalogue installe automatiquement le paquet requis **UnifyWeaver SciREPL** avec ce classeur.\n\n**Propriété intéressante :** contrairement à la démonstration de TypR, l'état de ClojureScript *persiste d'une cellule à l'autre* — Scittle conserve un contexte SCI par page — ce qui permet de maintenir les définitions générées et les requêtes nettement séparées.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "% % Charger les modules du compilateur UnifyWeaver\n['../init'].\n:- use_module(unifyweaver(targets/clojurescript_target)).\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "type": "code",
+        "language": "prolog",
+        "name": "load_compiler",
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
+      },
+      {
+        "id": 3,
+        "code": "% % Définir un arbre généalogique sous forme de faits Prolog\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% % Clôture transitive : ancestor(X, Y) si X est un ancêtre de Y\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "type": "code",
+        "language": "prolog",
+        "name": "family_tree",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 4,
+        "code": "% % Compiler ancestor/2 uniquement en définitions ClojureScript\n\\+ \\+ (\n    recursive_compiler:compile_recursive(ancestor/2, [target(clojurescript)], _Code),\n    format('--- Generated ClojureScript code ---~n~w~n', [_Code]),\n    % % Terminer par nil pour que les expressions initiales générées ne deviennent pas une sortie de carnet\n    format(string(_Definitions), '~w~n~nnil~n', [_Code]),\n    user:nb_write('cljs_output', '.code', _Definitions),\n    writeln('ClojureScript definitions written to cell: cljs_output')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "compile_to_clojurescript",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
+      },
+      {
+        "id": 5,
+        "code": "## Code ClojureScript généré\n\nLa cellule ci-dessous contient uniquement les définitions ClojureScript générées par UnifyWeaver.\nElle comprend :\n- `(def base-relation (atom {}))` — la relation sous forme de map mutable\n- `find-all` / `check-path` — parcours en largeur (BFS) sur la relation\n- Appels de départ `(add-fact ...)` intégrés à partir des faits Prolog\n- Interopérabilité avec l'hôte JS uniquement (pas de `java.io`, `System/exit` ou `*command-line-args*`)\n\nLa cellule mise en évidence suivante interroge ces définitions persistantes.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 6,
+        "code": ";; This cell will be populated by the compiler.\n;; Run the 'compile_to_clojurescript' cell above first.",
+        "type": "code",
+        "language": "clojurescript",
+        "name": "cljs_output",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 7,
+        "code": ";;; Interroger les définitions générées dans le contexte persistant de Scittle.\n(print (str \"Descendants d'alice : \" (pr-str (sort (find-all \"alice\"))) \"\\n\"\n            \"alice est ancêtre d'eve : \" (check-path \"alice\" \"eve\") \"\\n\"\n            \"alice est ancêtre de frank : \" (check-path \"alice\" \"frank\") \"\\n\"))",
+        "type": "code",
+        "language": "clojurescript",
+        "name": "cljs_queries",
+        "lastOutput": "Could not resolve symbol: find-all",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Could not resolve symbol: find-all</pre>"
+      },
+      {
+        "id": 8,
+        "code": "## Comparaison : Même prédicat, cible JVM Clojure\n\nUnifyWeaver peut compiler le même prédicat pour JVM Clojure. Cette sortie lit les faits depuis l'entrée standard (stdin) et utilise `System/exit` — ce qui convient parfaitement sous un hôte JVM/Node, mais n'est pas directement exécutable dans le navigateur, raison précise pour laquelle la cible ClojureScript existe (elle réécrit l'interopérabilité hôte JVM vers JS).",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 9,
+        "code": "% % Compiler le même prédicat pour JVM Clojure à des fins de comparaison (affichage seul)\n\\+ \\+ (\n    recursive_compiler:compile_recursive(ancestor/2, [target(clojure)], _ClojureCode),\n    format('--- Generated JVM Clojure code (note java.io / *command-line-args*) ---~n~w~n', [_ClojureCode])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "compile_to_clojure",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
+      }
+    ]
+  }
+}

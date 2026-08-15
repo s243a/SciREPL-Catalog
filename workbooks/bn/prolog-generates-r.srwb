@@ -58,7 +58,7 @@
         "lastOutputHtml": ""
       },
       {
-        "code": "%% Read the Prolog source from the previous cell\nuser:nb_read('prolog_factorial', '.code', _PrologSrc),\nformat('Read from prolog_factorial:~n~w~n~n', [_PrologSrc]),\n\n%% Consult it to assert the clauses\nsetup_call_cleanup(\n    open('/tmp/_nb_src.pl', write, _Out),\n    write(_Out, _PrologSrc),\n    close(_Out)),\nconsult('/tmp/_nb_src.pl'),\n\n%% Compile factorial/2 → R\nr_target:init_r_target,\nlinear_recursion:compile_linear_recursion(factorial/2, [target(r), memo(false)], _Code),\nformat('--- Generated R code ---~n~w~n', [_Code]),\n\n%% Write compiler output to the R cell\nuser:nb_write('r_factorial', '.code', _Code),\nwriteln('\\nR code written to cell: r_factorial').",
+        "code": "%পূর্ববর্তী সেল থেকে Prolog সোর্স পড়ুন\nuser:nb_read('prolog_factorial', '.code', _PrologSrc),\nformat('Read from prolog_factorial:~n~w~n~n', [_PrologSrc]),\n\n%ক্লজগুলো যুক্ত করতে এটি consult করুন\nsetup_call_cleanup(\n    open('/tmp/_nb_src.pl', write, _Out),\n    write(_Out, _PrologSrc),\n    close(_Out)),\nconsult('/tmp/_nb_src.pl'),\n\n%factorial/2 → R কম্পাইল করুন\nr_target:init_r_target,\nlinear_recursion:compile_linear_recursion(factorial/2, [target(r), memo(false)], _Code),\nformat('--- Generated R code ---~n~w~n', [_Code]),\n\n%কম্পাইলার আউটপুট R সেলে লিখুন\nuser:nb_write('r_factorial', '.code', _Code),\nwriteln('\\nR code written to cell: r_factorial').",
         "type": "code",
         "language": "prolog",
         "name": "compile_to_r",
@@ -74,7 +74,7 @@
         "lastOutputHtml": ""
       },
       {
-        "code": "# This cell will be overwritten by the compiler.\n# Run the 'compile_to_r' cell above first.",
+        "code": "# এই সেলটি কম্পাইলার দ্বারা ওভাররাইট করা হবে।\n# প্রথমে উপরের 'compile_to_r' সেলটি রান করুন।",
         "type": "code",
         "language": "r",
         "name": "r_factorial",
@@ -106,7 +106,7 @@
         "lastOutputHtml": ""
       },
       {
-        "code": "echo \"=== Cells ===\"\nls /nb/\necho \"\"\necho \"=== r_factorial code ===\"\ncat /nb/r_factorial/.code\necho \"\"\necho \"=== r_factorial language ===\"\ncat /nb/r_factorial/.language",
+        "code": "echo \"=== সেলসমূহ ===\"\nls /nb/\necho \"\"\necho \"=== r_factorial কোড ===\"\ncat /nb/r_factorial/.code\necho \"\"\necho \"=== r_factorial ভাষা ===\"\ncat /nb/r_factorial/.language",
         "type": "code",
         "language": "bash",
         "name": "inspect",
@@ -114,7 +114,7 @@
         "lastOutputHtml": ""
       },
       {
-        "code": "# Step 7: Relative addressing — /nb/-1/.output reads the previous cell's output.\n# /nb/./.code reads this cell's own code. Copy-paste to accumulate!\necho \"[accumulate] previous cell output via /nb/-1/.output:\"\necho \"---\"\ncat /nb/-1/.output\necho \"---\"\necho \"\"\necho \"[self] this cell's code via /nb/./.code:\"\ncat /nb/./.code",
+        "code": "# ধাপ ৭: আপেক্ষিক অ্যাড্রেসিং — /nb/-1/.output পূর্ববর্তী সেলের আউটপুট পড়ে।\n# /nb/./.code এই সেলের নিজস্ব কোড পড়ে। সঞ্চয় করতে কপি-পেস্ট করুন!\necho \"[accumulate] /nb/-1/.output-এর মাধ্যমে পূর্ববর্তী সেলের আউটপুট:\"\necho \"---\"\ncat /nb/-1/.output\necho \"---\"\necho \"\"\necho \"[self] /nb/./.code-এর মাধ্যমে এই সেলের কোড:\"\ncat /nb/./.code",
         "type": "code",
         "language": "bash",
         "name": "accumulate",
@@ -138,7 +138,7 @@
         "lastOutputHtml": ""
       },
       {
-        "code": ":- dynamic parent/2, ancestor/2.\n\n%% Family tree\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\n\n%% Transitive closure: ancestor(X, Y) if X is an ancestor of Y\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "code": ":- dynamic parent/2, ancestor/2.\n\n%বংশলতিকা\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\n\n%ট্রানজিটিভ ক্লোজার: ancestor(X, Y) যদি X, Y-এর পূর্বপুরুষ হয়\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
         "type": "code",
         "language": "prolog",
         "name": "prolog_ancestor",
@@ -154,7 +154,7 @@
         "lastOutputHtml": ""
       },
       {
-        "code": "%% Consult the ancestor definitions\nuser:nb_read('prolog_ancestor', '.code', _AncSrc),\nformat('Read from prolog_ancestor:~n~w~n~n', [_AncSrc]),\nsetup_call_cleanup(\n    open('/tmp/_nb_anc.pl', write, _Out),\n    write(_Out, _AncSrc),\n    close(_Out)),\nconsult('/tmp/_nb_anc.pl'),\n\n%% Compile with default pattern detection → transitive closure\nrecursive_compiler:compile_recursive(ancestor/2, [target(r)], _Code1),\nformat('--- Pattern: transitive_closure ---~n~w~n', [_Code1]),\n\n%% Write to the R cell\nuser:nb_write('r_ancestor_tc', '.code', _Code1),\nwriteln('\\nR code written to cell: r_ancestor_tc').",
+        "code": "%ancestor-এর সংজ্ঞাগুলো consult করুন\nuser:nb_read('prolog_ancestor', '.code', _AncSrc),\nformat('Read from prolog_ancestor:~n~w~n~n', [_AncSrc]),\nsetup_call_cleanup(\n    open('/tmp/_nb_anc.pl', write, _Out),\n    write(_Out, _AncSrc),\n    close(_Out)),\nconsult('/tmp/_nb_anc.pl'),\n\n%ডিফল্ট প্যাটার্ন সনাক্তকরণ দিয়ে কম্পাইল করুন → ট্রানজিটিভ ক্লোজার\nrecursive_compiler:compile_recursive(ancestor/2, [target(r)], _Code1),\nformat('--- Pattern: transitive_closure ---~n~w~n', [_Code1]),\n\n%R সেলে লিখুন\nuser:nb_write('r_ancestor_tc', '.code', _Code1),\nwriteln('\\nR code written to cell: r_ancestor_tc').",
         "type": "code",
         "language": "prolog",
         "name": "compile_ancestor_tc",
@@ -170,7 +170,7 @@
         "lastOutputHtml": ""
       },
       {
-        "code": "# This cell will be overwritten by the compiler.\n# Run 'compile_ancestor_tc' above first.",
+        "code": "# এই সেলটি কম্পাইলার দ্বারা ওভাররাইট করা হবে।\n# প্রথমে উপরের 'compile_ancestor_tc' রান করুন।",
         "type": "code",
         "language": "r",
         "name": "r_ancestor_tc",
@@ -186,7 +186,7 @@
         "lastOutputHtml": ""
       },
       {
-        "code": "descendants <- ancestor_all(\"alice\")\ncat(\"Descendants of alice:\", paste(descendants, collapse = \", \"), \"\\n\")\ncat(\"alice is ancestor of eve:\", ancestor_check(\"alice\", \"eve\"), \"\\n\")\ncat(\"alice is ancestor of frank:\", ancestor_check(\"alice\", \"frank\"), \"\\n\")",
+        "code": "descendants <- ancestor_all(\"alice\")\ncat(\"alice-এর উত্তরসূরী:\", paste(descendants, collapse = \", \"), \"\\n\")\ncat(\"alice হলো eve-এর পূর্বপুরুষ:\", ancestor_check(\"alice\", \"eve\"), \"\\n\")\ncat(\"alice হলো frank-এর পূর্বপুরুষ:\", ancestor_check(\"alice\", \"frank\"), \"\\n\")",
         "type": "code",
         "language": "r",
         "name": "test_r_ancestor",
@@ -202,7 +202,7 @@
         "lastOutputHtml": ""
       },
       {
-        "code": "%% Compile ancestor/2 again, but skip transitive closure → falls to tail recursion\n%% Also target bash to show cross-language compilation\nrecursive_compiler:compile_recursive(\n    ancestor/2,\n    [target(bash), skip(transitive_closure)],\n    _Code2),\nformat('--- Pattern: tail_recursion (bash) ---~n~w~n', [_Code2]),\n\n%% Write to the bash cell\nuser:nb_write('bash_ancestor_alt', '.code', _Code2),\nwriteln('\\nBash code written to cell: bash_ancestor_alt').",
+        "code": "%ancestor/2 পুনরায় কম্পাইল করুন, কিন্তু ট্রানজিটিভ ক্লোজার এড়িয়ে যান → টেইল রিকার্শনে চলে যায়\n%ক্রস-ল্যাঙ্গুয়েজ কম্পাইলেশন দেখানোর জন্য bash-কেও টার্গেট করুন\nrecursive_compiler:compile_recursive(\n    ancestor/2,\n    [target(bash), skip(transitive_closure)],\n    _Code2),\nformat('--- Pattern: tail_recursion (bash) ---~n~w~n', [_Code2]),\n\n%bash সেলে লিখুন\nuser:nb_write('bash_ancestor_alt', '.code', _Code2),\nwriteln('\\nBash code written to cell: bash_ancestor_alt').",
         "type": "code",
         "language": "prolog",
         "name": "compile_ancestor_skip",
@@ -210,7 +210,7 @@
         "lastOutputHtml": ""
       },
       {
-        "code": "# This cell will be overwritten by the compiler.\n# Run 'compile_ancestor_skip' above first.",
+        "code": "# এই সেলটি কম্পাইলার দ্বারা ওভাররাইট করা হবে।\n# প্রথমে উপরের 'compile_ancestor_skip' রান করুন।",
         "type": "code",
         "language": "bash",
         "name": "bash_ancestor_alt",
@@ -226,7 +226,7 @@
         "lastOutputHtml": ""
       },
       {
-        "code": "echo \"=== R (transitive closure / BFS) ===\"\necho \"Language: $(cat /nb/r_ancestor_tc/.language)\"\necho \"---\"\ncat /nb/r_ancestor_tc/.code\necho \"\"\necho \"\"\necho \"=== Bash (tail recursion) ===\"\necho \"Language: $(cat /nb/bash_ancestor_alt/.language)\"\necho \"---\"\ncat /nb/bash_ancestor_alt/.code",
+        "code": "echo \"=== R (ট্রানজিটিভ ক্লোজার / BFS) ===\"\necho \"ভাষা: $(cat /nb/r_ancestor_tc/.language)\"\necho \"---\"\ncat /nb/r_ancestor_tc/.code\necho \"\"\necho \"\"\necho \"=== Bash (টেইল রিকার্শন) ===\"\necho \"ভাষা: $(cat /nb/bash_ancestor_alt/.language)\"\necho \"---\"\ncat /nb/bash_ancestor_alt/.code",
         "type": "code",
         "language": "bash",
         "name": "compare_outputs",
