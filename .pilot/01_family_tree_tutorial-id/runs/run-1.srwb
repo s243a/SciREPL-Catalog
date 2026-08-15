@@ -1,0 +1,269 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T17:21:35.323Z",
+  "notebook": {
+    "id": "default",
+    "name": "Tutorial Silsilah Keluarga UnifyWeaver",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "prolog",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 28,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# Tutorial Silsilah Keluarga UnifyWeaver\n\nBuku catatan interaktif ini mendemonstrasikan cara menggunakan UnifyWeaver untuk mengompilasi predikat Prolog ke dalam skrip Bash.\n\n## Prasyarat\n\n- SWI-Prolog terpasang\n- Pustaka UnifyWeaver tersedia\n- Kernel Jupyter Prolog terpasang (`pip install prolog-jupyter-kernel`)\n\n## Tujuan Pembelajaran\n\nDi akhir buku catatan ini, Anda akan mampu:\n1. Mendefinisikan fakta dan aturan Prolog\n2. Menggunakan UnifyWeaver untuk mengompilasi predikat ke Bash\n3. Menguji skrip Bash yang dihasilkan\n4. Memahami kompilasi penutupan transitif (transitive closure)",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "## Langkah 1: Inisialisasi Lingkungan UnifyWeaver\n\nPertama, kita perlu memuat modul UnifyWeaver. Kita akan menggunakan file `init.pl` dari direktori education.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 3,
+        "code": "% Muat file inisialisasi\n['../init'].",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
+      },
+      {
+        "id": 4,
+        "code": "## Langkah 2: Mendefinisikan Hubungan Keluarga\n\nMari kita definisikan beberapa hubungan orang tua-anak dari silsilah keluarga alkitabiah.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 5,
+        "code": "% Definisikan fakta-fakta parent\n:- dynamic parent/2.\n\nparent(abraham, isaac).\nparent(abraham, ishmael).\nparent(isaac, jacob).\nparent(isaac, esau).\nparent(jacob, reuben).\nparent(jacob, simeon).\nparent(jacob, levi).\nparent(jacob, judah).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 6,
+        "code": "## Langkah 3: Menguji Kueri Orang Tua\n\nSebelum mengompilasi, mari kita verifikasi bahwa data kita benar dengan beberapa kueri Prolog.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 7,
+        "code": "% Kueri: Siapa anak-anak Abraham?\nparent(abraham, Child).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Child = isaac\nChild = ishmael",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Child = isaac\nChild = ishmael</pre>"
+      },
+      {
+        "id": 8,
+        "code": "% Kueri: Siapa anak-anak Yakub?\nparent(jacob, Child).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Child = reuben\nChild = simeon\nChild = levi\nChild = judah",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Child = reuben\nChild = simeon\nChild = levi\nChild = judah</pre>"
+      },
+      {
+        "id": 9,
+        "code": "## Langkah 4: Mendefinisikan Hubungan Leluhur\n\nSekarang kita definisikan penutupan transitif — relasi `ancestor`.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 10,
+        "code": "% Definisikan ancestor sebagai penutupan transitif dari parent\n:- dynamic ancestor/2.\n\n% Kasus dasar: orang tua adalah leluhur\nancestor(X, Y) :- parent(X, Y).\n\n% Kasus rekursif: jika X adalah orang tua dari Y dan Y adalah leluhur dari Z, maka X adalah leluhur dari Z\nancestor(X, Z) :- parent(X, Y), ancestor(Y, Z).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 11,
+        "code": "## Langkah 5: Menguji Kueri Leluhur\n\nMari kita verifikasi bahwa predikat leluhur kita berfungsi dengan benar.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 12,
+        "code": "% Kueri: Apakah Abraham adalah leluhur Yakub?\n( ancestor(abraham, jacob) ->\n    writeln('Yes: Abraham is an ancestor of Jacob')\n;\n    writeln('No: Abraham is not an ancestor of Jacob')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Yes: Abraham is an ancestor of Jacob",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Yes: Abraham is an ancestor of Jacob</pre>"
+      },
+      {
+        "id": 13,
+        "code": "% Kueri: Siapa semua keturunan Abraham?\nancestor(abraham, Descendant).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Descendant = isaac\nDescendant = ishmael\nDescendant = jacob\nDescendant = esau\nDescendant = reuben\nDescendant = simeon\nDescendant = levi\nDescendant = judah",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Descendant = isaac\nDescendant = ishmael\nDescendant = jacob\nDescendant = esau\nDescendant = reuben\nDescendant = simeon\nDescendant = levi\nDescendant = judah</pre>"
+      },
+      {
+        "id": 14,
+        "code": "## Langkah 6: Mengompilasi Parent ke Bash\n\nSekarang bagian yang menyenangkan — mari kita kompilasi fakta `parent/2` kita ke dalam skrip Bash!",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 15,
+        "code": "% Muat kompilator stream\n\\+ \\+ (\n    use_module(unifyweaver(core/stream_compiler)),\n\n    % Kompilasi fakta-fakta parent ke bash\n    stream_compiler:compile_facts(parent, 2, [], _BashCode),\n    writeln('Generated Bash code for parent/2:'),\n    writeln(_BashCode)\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "source_sink `unifyweaver(core/stream_compiler)' does not exist",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">source_sink `unifyweaver(core/stream_compiler)' does not exist</pre>"
+      },
+      {
+        "id": 16,
+        "code": "## Langkah 7: Menyimpan Skrip Parent\n\nMari kita simpan kode Bash yang dihasilkan ke dalam file.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 17,
+        "code": "% Simpan ke file\n\\+ \\+ (\n    stream_compiler:compile_facts(parent, 2, [], _BashCode),\n    setup_call_cleanup(\n        open('../output/parent.sh', write, _Stream),\n        write(_Stream, _BashCode),\n        close(_Stream)),\n    writeln('Saved to ../output/parent.sh')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: stream_compiler:compile_facts/4",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: stream_compiler:compile_facts/4</pre>"
+      },
+      {
+        "id": 18,
+        "code": "## Langkah 8: Mengompilasi Ancestor ke Bash\n\nSekarang kompilasi predikat `ancestor/2`, yang menggunakan rekursi.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 19,
+        "code": "% Muat kompilator rekursif\n\\+ \\+ (\n    use_module(unifyweaver(core/recursive_compiler)),\n\n    % Kompilasi ancestor ke bash\n    compile_recursive(ancestor/2, [], _BashCode),\n    writeln('Generated Bash code for ancestor/2:'),\n    writeln(_BashCode)\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "source_sink `unifyweaver(core/recursive_compiler)' does not exist",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">source_sink `unifyweaver(core/recursive_compiler)' does not exist</pre>"
+      },
+      {
+        "id": 20,
+        "code": "## Langkah 9: Menyimpan Skrip Ancestor\n\nSimpan skrip leluhur ke dalam file.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 21,
+        "code": "% Simpan ke file\n\\+ \\+ (\n    compile_recursive(ancestor/2, [], _BashCode),\n    setup_call_cleanup(\n        open('../output/ancestor.sh', write, _Stream),\n        write(_Stream, _BashCode),\n        close(_Stream)),\n    writeln('Saved to ../output/ancestor.sh')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: compile_recursive/3</pre>"
+      },
+      {
+        "id": 22,
+        "code": "## Langkah 10: Menguji Skrip yang Dihasilkan\n\nSekarang uji skrip Bash yang dihasilkan! Kita akan menggunakan sihir `%%bash` untuk menjalankan perintah bash.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 23,
+        "code": "# Muat skrip parent dengan source\nsource ../output/parent.sh\n\n# Uji: Siapa anak-anak Abraham?\necho \"Anak-anak Abraham:\"\nparent abraham",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "Anak-anak Abraham:\nerror: source: failed to source file: ../output/parent.sh\nerror: failed to execute command 'parent': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Anak-anak Abraham:\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/parent.sh\nerror: failed to execute command 'parent': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 24,
+        "code": "# Muat kedua skrip dengan source\nsource ../output/parent.sh\nsource ../output/ancestor.sh\n\n# Uji: Siapa keturunan Abraham?\necho \"Keturunan Abraham:\"\nancestor abraham",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "Keturunan Abraham:\nerror: source: failed to source file: ../output/parent.sh\nerror: source: failed to source file: ../output/ancestor.sh\nerror: failed to execute command 'ancestor': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Keturunan Abraham:\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/parent.sh\nerror: source: failed to source file: ../output/ancestor.sh\nerror: failed to execute command 'ancestor': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 25,
+        "code": "# Muat kedua skrip dengan source\nsource ../output/parent.sh\nsource ../output/ancestor.sh\n\n# Uji: Apakah Abraham adalah leluhur Yehuda?\nif ancestor abraham judah >/dev/null 2>&1; then\n    echo \"✓ Ya, Abraham adalah leluhur Yehuda\"\nelse\n    echo \"✗ Tidak\"\nfi",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "✗ Tidak\nerror: source: failed to source file: ../output/parent.sh\nerror: source: failed to source file: ../output/ancestor.sh\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">✗ Tidak\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/parent.sh\nerror: source: failed to source file: ../output/ancestor.sh\n</pre>"
+      },
+      {
+        "id": 26,
+        "code": "## Langkah 11: Memahami Strategi Kompilasi\n\nMari kita analisis apa yang dilakukan UnifyWeaver:\n\n1. **Kompilasi parent**: Menggunakan `stream_compiler` untuk membuat fungsi streaming sederhana yang memancarkan semua pasangan orang tua-anak\n\n2. **Kompilasi ancestor**: Mendeteksi pola penutupan transitif dan menerapkan optimasi BFS (pencarian melebar) untuk menghitung secara efisien semua leluhur yang dapat dijangkau\n\nMari kita verifikasi strategi kompilasi:",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 27,
+        "code": "% Periksa apakah ancestor diklasifikasikan sebagai rekursif\n\\+ \\+ (\n    use_module(unifyweaver(core/recursive_compiler)),\n    recursive_compiler:classify_predicate(ancestor/2, _Classification),\n    format('Ancestor classification: ~w~n', [_Classification])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "source_sink `unifyweaver(core/recursive_compiler)' does not exist",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">source_sink `unifyweaver(core/recursive_compiler)' does not exist</pre>"
+      },
+      {
+        "id": 28,
+        "code": "## Ringkasan\n\nDalam buku catatan ini, Anda telah mempelajari:\n\n✅ Cara mendefinisikan fakta dan aturan Prolog\n\n✅ Cara menggunakan `stream_compiler` UnifyWeaver untuk fakta\n\n✅ Cara menggunakan `recursive_compiler` UnifyWeaver untuk predikat rekursif\n\n✅ Cara menguji skrip Bash yang dihasilkan\n\n✅ Bahwa UnifyWeaver secara otomatis mendeteksi penutupan transitif dan menerapkan optimasi BFS\n\n## Langkah Selanjutnya\n\nCobalah latihan-latihan ini:\n\n1. Tambahkan lebih banyak anggota keluarga ke silsilah\n2. Definisikan predikat `grandparent/2` dan kompilasikan\n3. Buat predikat `sibling/2` (dua orang dengan orang tua yang sama)\n4. Jelajahi kode Bash yang dihasilkan untuk memahami algoritma BFS\n\nLanjutkan ke **Buku Catatan 2: Perbandingan Pola Rekursi** untuk mempelajari pola rekursi tingkat lanjut!",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      }
+    ]
+  }
+}

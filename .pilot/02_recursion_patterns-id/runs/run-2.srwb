@@ -1,0 +1,431 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T17:21:50.651Z",
+  "notebook": {
+    "id": "default",
+    "name": "Pola Rekursi Tingkat Lanjut di UnifyWeaver",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "prolog",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 46,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# Pola Rekursi Tingkat Lanjut di UnifyWeaver\n\nBuku catatan ini mendemonstrasikan empat pola rekursi utama yang dapat dideteksi dan dioptimalkan oleh UnifyWeaver:\n\n1. **Rekursi Ekor (Tail Recursion)** - Perulangan iteratif dengan akumulator\n2. **Rekursi Linier (Linear Recursion)** - Panggilan rekursif tunggal dengan memoisasi\n3. **Rekursi Pohon (Tree Recursion)** - Beberapa panggilan rekursif pada bagian-bagian struktur\n4. **Rekursi Timbal Balik (Mutual Recursion)** - Predikat yang saling memanggil dalam siklus\n\n## Tujuan Pembelajaran\n\n- Memahami berbagai pola rekursi\n- Melihat bagaimana UnifyWeaver mendeteksi dan mengoptimalkan setiap pola\n- Membandingkan karakteristik kinerja\n- Mempelajari kapan harus menggunakan setiap pola",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "## Pengaturan\n\nInisialisasi lingkungan UnifyWeaver.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 3,
+        "code": "% Muat inisialisasi\n['../init'].\n\n% Muat modul yang diperlukan\nuse_module(unifyweaver(core/recursive_compiler)).\nuse_module(unifyweaver(core/advanced/pattern_matchers)).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
+      },
+      {
+        "id": 4,
+        "code": "## Pola 1: Rekursi Ekor (Tail Recursion)\n\nRekursi ekor menggunakan akumulator untuk meneruskan hasil perantara, dan panggilan rekursif adalah **tindakan terakhir** dalam fungsi.\n\n### Contoh: Menghitung Item dalam Daftar",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 5,
+        "code": "% Definisikan count_items dengan rekursi ekor\n:- dynamic count_items/3.\n\n% Kasus dasar: daftar kosong, kembalikan akumulator\ncount_items([], Acc, Acc).\n\n% Kasus rekursif: tingkatkan akumulator, lakukan rekursi pada ekor\ncount_items([_|T], Acc, N) :-\n    Acc1 is Acc + 1,\n    count_items(T, Acc1, N).  % ← Posisi ekor!",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 6,
+        "code": "### Uji di Prolog",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 7,
+        "code": "% Uji: hitung item dalam [a,b,c,d,e]\n\\+ \\+ (\n    count_items([a,b,c,d,e], 0, _N),\n    format('Count: ~w~n', [_N])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Count: 5",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Count: 5</pre>"
+      },
+      {
+        "id": 8,
+        "code": "### Periksa Deteksi Pola",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 9,
+        "code": "% Periksa apakah terdeteksi sebagai rekursi ekor\n\\+ \\+ (\n    is_tail_recursive_accumulator(count_items/3, _AccInfo),\n    format('Tail recursive: ~w~n', [_AccInfo])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: is_tail_recursive_accumulator/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: is_tail_recursive_accumulator/2</pre>"
+      },
+      {
+        "id": 10,
+        "code": "### Kompilasi ke Bash",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 11,
+        "code": "% Kompilasi dan simpan\n\\+ \\+ (\n    compile_recursive(count_items/3, [], _BashCode),\n    setup_call_cleanup(\n        open('../output/count_items_demo.sh', write, _Stream),\n        write(_Stream, _BashCode),\n        close(_Stream)),\n    writeln('✓ Compiled count_items to Bash with tail recursion optimization')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: compile_recursive/3</pre>"
+      },
+      {
+        "id": 12,
+        "code": "### Uji Bash yang Dihasilkan",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 13,
+        "code": "source ../output/count_items_demo.sh\necho \"Menghitung item dalam [a,b,c,d,e]:\"\ncount_items \"[a,b,c,d,e]\" 0 \"\"",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "Menghitung item dalam [a,b,c,d,e]:\nerror: source: failed to source file: ../output/count_items_demo.sh\nerror: failed to execute command 'count_items': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Menghitung item dalam [a,b,c,d,e]:\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/count_items_demo.sh\nerror: failed to execute command 'count_items': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 14,
+        "code": "## Pola 2: Rekursi Linier (Linear Recursion)\n\nRekursi linier memiliki **tepat satu** panggilan rekursif per klausa, dengan komputasi terjadi setelah panggilan rekursif kembali.\n\n### Contoh: Faktorial (Factorial)",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 15,
+        "code": "% Definisikan faktorial\n:- dynamic factorial/2.\n\n% Kasus dasar\nfactorial(0, 1).\n\n% Kasus rekursif: tepat SATU panggilan rekursif\nfactorial(N, F) :-\n    N > 0,\n    N1 is N - 1,\n    factorial(N1, F1),  % ← Satu panggilan rekursif\n    F is N * F1.        % ← Komputasi setelah panggilan",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 16,
+        "code": "### Uji di Prolog",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 17,
+        "code": "% Uji: faktorial dari 5\n\\+ \\+ (\n    factorial(5, _F),\n    format('5! = ~w~n', [_F])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "5! = 120",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">5! = 120</pre>"
+      },
+      {
+        "id": 18,
+        "code": "### Periksa Deteksi Pola",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 19,
+        "code": "% Periksa apakah terdeteksi sebagai rekursi linier\nis_linear_recursive_streamable(factorial/2),\nwriteln('✓ Detected as linear recursion').",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: is_linear_recursive_streamable/1",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: is_linear_recursive_streamable/1</pre>"
+      },
+      {
+        "id": 20,
+        "code": "### Kompilasi ke Bash",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 21,
+        "code": "% Kompilasi dan simpan\n\\+ \\+ (\n    compile_recursive(factorial/2, [], _BashCode),\n    % Hanya simpan definisi fungsi; Brush memperlakukan skrip yang dimuat dengan source sebagai eksekusi langsung\n    split_string(_BashCode, \"\\n\", \"\\r\", _BashLines),\n    append(_LibraryLines, [\"# Auto-execute when run directly (not when sourced)\"|_], _BashLines),\n    atomics_to_string(_LibraryLines, \"\\n\", _LibraryCode),\n    setup_call_cleanup(\n        open('../output/factorial_demo.sh', write, _Stream),\n        write(_Stream, _LibraryCode),\n        close(_Stream)),\n    writeln('✓ Compiled factorial to Bash with fold-based linear recursion')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: compile_recursive/3</pre>"
+      },
+      {
+        "id": 22,
+        "code": "### Uji Bash yang Dihasilkan",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 23,
+        "code": "source ../output/factorial_demo.sh\necho \"Faktorial dari 5:\"\nfactorial 5 \"\"\necho \"\"\necho \"Faktorial dari 10:\"\nfactorial 10 \"\"",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "Faktorial dari 5:\n\nFaktorial dari 10:\nerror: source: failed to source file: ../output/factorial_demo.sh\nerror: failed to execute command 'factorial': operation not supported on this platform\nerror: failed to execute command 'factorial': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Faktorial dari 5:\n\nFaktorial dari 10:\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/factorial_demo.sh\nerror: failed to execute command 'factorial': operation not supported on this platform\nerror: failed to execute command 'factorial': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 24,
+        "code": "## Pola 3: Rekursi Pohon (Tree Recursion)\n\nRekursi pohon membuat **beberapa** panggilan rekursif untuk memproses berbagai bagian struktur.\n\n### Contoh: Penjumlahan Pohon (Tree Sum)",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 25,
+        "code": "% Definisikan tree_sum untuk pohon biner\n% Format pohon: [Nilai, SubPohonKiri, SubPohonKanan] atau []\n:- dynamic tree_sum/2.\n\n% Kasus dasar: pohon kosong memiliki jumlah 0\ntree_sum([], 0).\n\n% Kasus rekursif: jumlah = nilai + jumlah_kiri + jumlah_kanan\ntree_sum([V, L, R], Sum) :-\n    tree_sum(L, LS),   % ← Panggilan rekursif pertama\n    tree_sum(R, RS),   % ← Panggilan rekursif kedua\n    Sum is V + LS + RS.",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 26,
+        "code": "### Uji di Prolog",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 27,
+        "code": "% Uji: tree_sum dari [5, [3, [1, [], []], []], [2, [], []]]\n%       5\n%      / \\\n%     3   2\n%    /\n%   1\n\\+ \\+ (\n    tree_sum([5, [3, [1, [], []], []], [2, [], []]], _Sum),\n    format('Tree sum: ~w (expected 11)~n', [_Sum])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Tree sum: 11 (expected 11)",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Tree sum: 11 (expected 11)</pre>"
+      },
+      {
+        "id": 28,
+        "code": "### Kompilasi ke Bash",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 29,
+        "code": "% Kompilasi dan simpan\n\\+ \\+ (\n    compile_recursive(tree_sum/2, [], _BashCode),\n    setup_call_cleanup(\n        open('../output/tree_sum_demo.sh', write, _Stream),\n        write(_Stream, _BashCode),\n        close(_Stream)),\n    writeln('✓ Compiled tree_sum to Bash with tree recursion')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: compile_recursive/3</pre>"
+      },
+      {
+        "id": 30,
+        "code": "### Uji Bash yang Dihasilkan",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 31,
+        "code": "source ../output/tree_sum_demo.sh\necho \"Jumlah pohon dari [5,[3,[1,[],[]],[]],[2,[],[]]]:\"\ntree_sum \"[5,[3,[1,[],[]],[]],[2,[],[]]]\"",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "Jumlah pohon dari [5,[3,[1,[],[]],[]],[2,[],[]]]:\nerror: source: failed to source file: ../output/tree_sum_demo.sh\nerror: failed to execute command 'tree_sum': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Jumlah pohon dari [5,[3,[1,[],[]],[]],[2,[],[]]]:\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/tree_sum_demo.sh\nerror: failed to execute command 'tree_sum': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 32,
+        "code": "## Pola 4: Rekursi Timbal Balik (Mutual Recursion)\n\nRekursi timbal balik terjadi ketika dua atau lebih predikat saling memanggil dalam sebuah siklus.\n\n### Contoh: Genap (Even) dan Ganjil (Odd)",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 33,
+        "code": "% Definisikan is_even dan is_odd dengan rekursi timbal balik\n:- dynamic is_even/1.\n:- dynamic is_odd/1.\n\n% Kasus dasar is_even\nis_even(0).\n\n% is_even rekursif: N genap jika N-1 ganjil\nis_even(N) :-\n    N > 0,\n    N1 is N - 1,\n    is_odd(N1).  % ← Memanggil is_odd\n\n% Kasus dasar is_odd\nis_odd(1).\n\n% is_odd rekursif: N ganjil jika N-1 genap\nis_odd(N) :-\n    N > 1,\n    N1 is N - 1,\n    is_even(N1).  % ← Memanggil is_even",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 34,
+        "code": "### Uji di Prolog",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 35,
+        "code": "% Uji genap/ganjil\nis_even(0), writeln('✓ 0 is even').\nis_even(4), writeln('✓ 4 is even').\nis_odd(3), writeln('✓ 3 is odd').\nis_odd(7), writeln('✓ 7 is odd').",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "✓ 0 is even\n✓ 4 is even\n✓ 3 is odd\n✓ 7 is odd",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">✓ 0 is even\n✓ 4 is even\n✓ 3 is odd\n✓ 7 is odd</pre>"
+      },
+      {
+        "id": 36,
+        "code": "### Periksa Rekursi Timbal Balik",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 37,
+        "code": "% Bangun graf panggilan dan temukan SCC\n\\+ \\+ (\n    use_module(unifyweaver(core/advanced/call_graph)),\n    use_module(unifyweaver(core/advanced/scc_detection)),\n\n    build_call_graph([is_even/1, is_odd/1], _Graph),\n    format('Call graph: ~w~n', [_Graph]),\n\n    find_sccs(_Graph, _SCCs),\n    format('SCCs (mutual recursion groups): ~w~n', [_SCCs])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "source_sink `unifyweaver(core/advanced/call_graph)' does not exist",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">source_sink `unifyweaver(core/advanced/call_graph)' does not exist</pre>"
+      },
+      {
+        "id": 38,
+        "code": "### Kompilasi ke Bash",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 39,
+        "code": "% Kompilasi grup rekursi timbal balik\n\\+ \\+ (\n    use_module(unifyweaver(core/advanced/mutual_recursion)),\n\n    compile_mutual_recursion([is_even/1, is_odd/1], [], _BashCode),\n    split_string(_BashCode, \"\\n\", \"\\r\", _BashLines),\n    append(_LibraryLines, [\"# Main dispatch: route command line calls to functions\"|_], _BashLines),\n    atomics_to_string(_LibraryLines, \"\\n\", _LibraryCode),\n    setup_call_cleanup(\n        open('../output/even_odd_demo.sh', write, _Stream),\n        write(_Stream, _LibraryCode),\n        close(_Stream)),\n    writeln('✓ Compiled is_even/is_odd to Bash with shared memoization')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 40,
+        "code": "### Uji Bash yang Dihasilkan",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 41,
+        "code": "source ../output/even_odd_demo.sh\necho \"Menguji is_even dan is_odd:\"\nis_even 0 >/dev/null && echo \"✓ 0 adalah genap\"\nis_even 4 >/dev/null && echo \"✓ 4 adalah genap\"\nis_odd 3 >/dev/null && echo \"✓ 3 adalah ganjil\"\nis_odd 7 >/dev/null && echo \"✓ 7 adalah ganjil\"\nis_even 5 >/dev/null 2>&1 || echo \"✓ 5 bukan genap\"",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "Menguji is_even dan is_odd:\n✓ 5 bukan genap\nerror: source: failed to source file: ../output/even_odd_demo.sh\nerror: failed to execute command 'is_even': operation not supported on this platform\nerror: failed to execute command 'is_even': operation not supported on this platform\nerror: failed to execute command 'is_odd': operation not supported on this platform\nerror: failed to execute command 'is_odd': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Menguji is_even dan is_odd:\n✓ 5 bukan genap\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/even_odd_demo.sh\nerror: failed to execute command 'is_even': operation not supported on this platform\nerror: failed to execute command 'is_even': operation not supported on this platform\nerror: failed to execute command 'is_odd': operation not supported on this platform\nerror: failed to execute command 'is_odd': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 42,
+        "code": "## Perbandingan Pola\n\nMari kita bandingkan karakteristik setiap pola:\n\n| Pola | Panggilan Rekursif | Optimasi | Kompleksitas Ruang | Paling Cocok Untuk |\n|:--------|:----------------|:-------------|:-----------------|:---------|\n| **Ekor** | 1 (pada posisi ekor) | Perulangan iteratif | O(1) | Akumulator, pemindaian linier |\n| **Linier** | 1 (posisi mana saja) | Fold + memoisasi | Tabel memo O(n) | Fibonacci, faktorial |\n| **Pohon** | 2+ (bagian struktur) | Dekomposisi struktural | Tumpukan O(kedalaman) | Operasi pohon/graf |\n| **Timbal Balik** | 1+ (lintas predikat) | Memoisasi bersama | Tabel bersama O(n) | Genap/ganjil, definisi bersama |",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 43,
+        "code": "## Urutan Deteksi Pola\n\nUnifyWeaver mencoba mencocokkan pola dalam urutan ini:\n\n1. **Rekursi Ekor** (paling efisien)\n2. **Rekursi Linier** (kecuali dilarang)\n3. **Rekursi Pohon** (struktural)\n4. **Rekursi Timbal Balik** (deteksi SCC)\n5. **Rekursi Dasar** (cadangan default)\n\nAnda dapat memengaruhi deteksi dengan `forbid_linear_recursion/1`.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 44,
+        "code": "## Latihan: Giliran Anda!\n\nCobalah mendefinisikan dan mengompilasi predikat-predikat berikut:\n\n### 1. Penjumlahan Rekursi Ekor\n```prolog\nsum_list([], Acc, Acc).\nsum_list([H|T], Acc, Sum) :-\n    Acc1 is Acc + H,\n    sum_list(T, Acc1, Sum).\n```\n\n### 2. Fibonacci Rekursi Linier\n```prolog\nfib(0, 0).\nfib(1, 1).\nfib(N, F) :-\n    N > 1,\n    N1 is N - 1,\n    N2 is N - 2,\n    fib(N1, F1),\n    fib(N2, F2),\n    F is F1 + F2.\n```\n\n### 3. Tinggi Pohon\n```prolog\ntree_height([], 0).\ntree_height([_, L, R], H) :-\n    tree_height(L, HL),\n    tree_height(R, HR),\n    H is max(HL, HR) + 1.\n```",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 45,
+        "code": "% Kode Anda di sini!\n",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 46,
+        "code": "## Ringkasan\n\nDalam buku catatan ini, Anda telah mempelajari:\n\n✅ Empat pola rekursi utama di UnifyWeaver\n\n✅ Cara mendefinisikan setiap pola di Prolog\n\n✅ Cara UnifyWeaver mendeteksi dan mengoptimalkan setiap pola\n\n✅ Karakteristik kinerja setiap pola\n\n✅ Kapan harus menggunakan setiap pola\n\n## Langkah Selanjutnya\n\nLanjutkan ke **Buku Catatan 3: Visualisasi Graf Panggilan** untuk mempelajari analisis dan visualisasi kode tingkat lanjut!",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      }
+    ]
+  }
+}
