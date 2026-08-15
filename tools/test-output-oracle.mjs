@@ -97,6 +97,15 @@ check('width-16 header masks with padding', judge(enP, xxP, mP).pass,
 const xxP2 = run([null, '   cota inferior|   2']);
 check('padded masking still catches a changed number', !judge(enP, xxP2, mP).pass);
 
+console.log('8b. cell_name spans exempt from checked-claim');
+const mCN = manifest([
+  { cell_index: 1, kind: 'cell_name', reaches_output: 'none',
+    source_span: { text: 'accuracy' }, target_span: { text: 'precisión' }, placeholders: [] },
+  span(1, 'accuracy of', 'precisión de'),
+]);
+const jCN = judge(run([null, 'the accuracy of pi']), run([null, 'the precisión de pi']), mCN);
+check('cell name coinciding with output prose passes', jCN.pass, jCN.failures.join(' | '));
+
 console.log('9. Sentinel collision resistance');
 // translated word 'términos' coincidentally equals another legit span's text —
 // symmetric sentinels keep them distinct because masking is per-span-index

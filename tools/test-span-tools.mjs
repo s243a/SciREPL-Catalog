@@ -159,6 +159,91 @@ try {
   const lint = run(['tools/span-scan.mjs', EN, '--lint', pb3, '--strict']);
   check('trap violation caught by lint', lint.code === 1 && /TRAP VIOLATED/.test(lint.out), lint.out.split('\n').find(l => /TRAP/.test(l)) || '');
 
+  console.log('5b. Stage B: apply-renames + derive --allow-renames');
+
+  const gloss = (obj) => {
+    const gp = path.join(tmp, `gloss-${Math.random().toString(36).slice(2, 8)}.json`);
+    writeFileSync(gp, JSON.stringify(obj));
+    return gp;
+  };
+  const apply = (glossObj, out) => {
+    const o = path.join(tmp, out);
+    const r = run(['tools/apply-renames.mjs', EN, gloss(glossObj), o]);
+    return { ...r, out: o, log: r.out };
+  };
+
+  // clean full-ish glossary: variables + a cell name
+  const good = apply({
+    renames: { lower: 'cota_inf', upper: 'cota_sup', step: 'paso' },
+    cell_names: { bounds: 'cotas', geometry: 'geometría' },
+  }, 'stageb-good.srwb');
+  check('apply-renames succeeds on clean glossary', good.code === 0, good.log.slice(0, 120));
+  const db = run(['tools/span-derive.mjs', EN, good.out, 'es', '--allow-renames']);
+  check('derive --allow-renames passes', db.code === 0, db.code ? db.out.slice(0, 200) : '');
+  if (db.code === 0) {
+    const mb = JSON.parse(db.out);
+    check('manifest carries stage b + renames',
+      mb.stage === 'b' && mb.renames.some(r => r.from === 'lower' && r.to === 'cota_inf'));
+    check('cell_name spans derived', mb.spans.filter(s => s.kind === 'cell_name').length === 2);
+    check('rename occurrences counted', mb.renames.every(r => r.occurrences > 0));
+  }
+  check('default mode still rejects the same file', run(['tools/span-derive.mjs', EN, good.out, 'es']).code === 1);
+
+  // adversarial: one occurrence left unrenamed (inconsistency)
+  const incons = JSON.parse(readFileSync(good.out, 'utf8'));
+  incons.notebook.cells[2].code = incons.notebook.cells[2].code.replace('cota_inf,', 'lower,');
+  const pi1 = path.join(tmp, 'stageb-incons.srwb');
+  writeFileSync(pi1, JSON.stringify(incons, null, 2));
+  const di = run(['tools/span-derive.mjs', EN, pi1, 'es', '--allow-renames']);
+  check('a missed occurrence fails', di.code === 1 && /incomplete rename|inconsistent/.test(di.out), di.out.split('\n').find(l => /rename/.test(l)) || '');
+
+  // adversarial: rename captures an existing identifier
+  const cap = apply({ renames: { lower: 'upper' }, cell_names: {} }, 'stageb-capture.srwb');
+  const dc = run(['tools/span-derive.mjs', EN, cap.out, 'es', '--allow-renames']);
+  check('capturing rename fails', dc.code === 1 && /captures existing identifier/.test(dc.out));
+
+  // glossary-level rejections (never touch the file)
+  check('keyword target rejected by apply',
+    run(['tools/apply-renames.mjs', EN, gloss({ renames: { lower: 'lambda' } }), path.join(tmp, 'x1.srwb')]).code === 1);
+  check('invalid identifier target rejected by apply',
+    run(['tools/apply-renames.mjs', EN, gloss({ renames: { lower: 'cota-inf' } }), path.join(tmp, 'x2.srwb')]).code === 1);
+  check('colliding targets rejected by apply',
+    run(['tools/apply-renames.mjs', EN, gloss({ renames: { lower: 'cota', upper: 'cota' } }), path.join(tmp, 'x3.srwb')]).code === 1);
+  check('In[N]-shaped cell name rejected by apply',
+    run(['tools/apply-renames.mjs', EN, gloss({ cell_names: { bounds: 'In[3]' } }), path.join(tmp, 'x4.srwb')]).code === 1);
+
+  // adversarial: attribute renamed by hand (apply never does this)
+  const attr = JSON.parse(readFileSync(EN, 'utf8'));
+  attr.notebook.cells[1].code = attr.notebook.cells[1].code.replace('np.linspace', 'np.linespacio');
+  const pa2 = path.join(tmp, 'stageb-attr.srwb');
+  writeFileSync(pa2, JSON.stringify(attr, null, 2));
+  const da = run(['tools/span-derive.mjs', EN, pa2, 'es', '--allow-renames']);
+  check('attribute rename fails even with --allow-renames', da.code === 1 && /attribute/.test(da.out));
+
+  // unicode identifiers accepted
+  const uni = apply({ renames: { lower: 'cota_inferior_área' }, cell_names: {} }, 'stageb-uni.srwb');
+  check('unicode rename target applies + derives', uni.code === 0 &&
+    run(['tools/span-derive.mjs', EN, uni.out, 'es', '--allow-renames']).code === 0);
+
+  console.log('5c. Stage B: kwarg immunity and def-parameter renames');
+
+  const kwg = apply({ renames: { layout: 'disposición', doublings: 'duplicaciones' } }, 'stageb-kwarg.srwb');
+  check('apply succeeds with kwarg-colliding glossary', kwg.code === 0);
+  if (kwg.code === 0) {
+    const txt = readFileSync(kwg.out, 'utf8');
+    check('call kwarg name NOT renamed', txt.includes('layout=disposición') && !txt.includes('disposición=disposición'));
+    check('def default parameter IS renamed', /def [^(]+\(duplicaciones=/.test(txt));
+    check('derive passes the kwarg-safe result',
+      run(['tools/span-derive.mjs', EN, kwg.out, 'es', '--allow-renames']).code === 0);
+  }
+  // hand-forged kwarg rename must fail derive
+  const kwBad = JSON.parse(readFileSync(EN, 'utf8'));
+  kwBad.notebook.cells[1].code = kwBad.notebook.cells[1].code.replace('layout=layout', 'disposición=layout');
+  const pkw = path.join(tmp, 'stageb-kwbad.srwb');
+  writeFileSync(pkw, JSON.stringify(kwBad, null, 2));
+  const dkw = run(['tools/span-derive.mjs', EN, pkw, 'es', '--allow-renames']);
+  check('renamed call kwarg fails derive', dkw.code === 1 && /keyword-argument name/.test(dkw.out), dkw.out.split('\n').find(l=>/keyword/.test(l))||'');
+
   console.log('6. Lint: completeness');
 
   const lintSame = run(['tools/span-scan.mjs', EN, '--lint', EN, '--strict']);

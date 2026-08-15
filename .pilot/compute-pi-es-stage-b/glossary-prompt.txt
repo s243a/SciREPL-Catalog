@@ -1,0 +1,18 @@
+You are translating Python identifiers in a SciREPL workbook (compute-pi) from English to Spanish, for Spanish-speaking learners. Reply with STRICT JSON only — no markdown fences, no commentary.
+
+Output shape:
+{"renames": {"english_name": "nombre_español", ...}, "cell_names": {"english": "español", ...}}
+
+Rules:
+- Python 3 allows accented identifiers: use natural Spanish with accents (e.g. "área", "términos"). NFC form. Valid Python identifiers only (letters/digits/underscore, no leading digit, no hyphens/spaces).
+- snake_case, matching the original style.
+- Reuse this round-one glossary vocabulary where it fits: paso (step), lados (sides), cota inferior/superior (lower/upper bound), ancho (width), términos (terms), precisión (accuracy), cuerda (chord).
+- No two English names may map to the same Spanish name, and no target may equal any name in the KEEP list.
+
+Translate exactly these identifiers (variables/functions defined in the workbook):
+rows, chord, lower, upper, angles, step, half_chord, width, first_for_digits, terms, layout, archimedes_rows, inscribed_area, limit_value, arctan_series, x_hex, y_hex, circle, hexagon, doublings, machin_pi, leibniz_terms_for_error, machin_terms, polygon_sides, polygon_width
+
+KEEP (do not rename, do not collide with): n, d, x, k, theta, print, np, sp, math, range, numpy, sympy, endpoint, positive, sum, next, abs, mplot
+
+Also translate these five cell names (short, natural Spanish; accents allowed; no slashes, no leading dot):
+geometry, bounds, accuracy, symbolic_limit, comparison
