@@ -1,0 +1,771 @@
+{
+  "manifest_version": 1,
+  "produced_by": "derived",
+  "generator": "tools/span-derive.mjs",
+  "locale": "ja",
+  "source": {
+    "path": "workbooks/en/01_family_tree_tutorial.ipynb",
+    "sha256": "3385a62df01964fcb1ecdafd13d3f5eeeabda55aafe261148e62c75ef5629902"
+  },
+  "target": {
+    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/jobs/01_family_tree_tutorial-ja/translated.ipynb",
+    "sha256": "ff2d3c9c9f3fcf63fd7202450808a3156c18c2b166bb8ee2cb70e25d92e4c6e2"
+  },
+  "spans": [
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 31
+        },
+        "text": "Load the initialization file"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 14
+        },
+        "text": "初期化ファイルをロード"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 22
+        },
+        "text": "Define parent facts"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 16
+        },
+        "text": "parent の事実を定義"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 37
+        },
+        "text": "Query: Who are Abraham's children?"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 20
+        },
+        "text": "クエリ: アブラハムの子供は誰か？"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 7,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 35
+        },
+        "text": "Query: Who are Jacob's children?"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 18
+        },
+        "text": "クエリ: ヤコブの子供は誰か？"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 9,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 50
+        },
+        "text": "Define ancestor as transitive closure of parent"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 31
+        },
+        "text": "parent の推移閉包として ancestor を定義"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 9,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 35
+        },
+        "text": "Base case: parent is an ancestor"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 17
+        },
+        "text": "基底ケース: 親は祖先である"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 9,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 1
+        },
+        "end": {
+          "line": 7,
+          "col": 86
+        },
+        "text": "Recursive case: if X is parent of Y and Y is ancestor of Z, then X is ancestor of Z"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 1
+        },
+        "end": {
+          "line": 7,
+          "col": 48
+        },
+        "text": "再帰ケース: X が Y の親であり、Y が Z の祖先であれば、X は Z の祖先である"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 11,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 42
+        },
+        "text": "Query: Is Abraham an ancestor of Jacob?"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 22
+        },
+        "text": "クエリ: アブラハムはヤコブの祖先か？"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 12,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 47
+        },
+        "text": "Query: Who are all of Abraham's descendants?"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 24
+        },
+        "text": "クエリ: アブラハムのすべての子孫は誰か？"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 27
+        },
+        "text": "Load the stream compiler"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 23
+        },
+        "text": "stream_compiler をロード"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 5
+        },
+        "end": {
+          "line": 5,
+          "col": 35
+        },
+        "text": "Compile parent facts to bash"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 5
+        },
+        "end": {
+          "line": 5,
+          "col": 30
+        },
+        "text": "parent の事実を Bash にコンパイル"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 15
+        },
+        "text": "Save to file"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 10
+        },
+        "text": "ファイルに保存"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 18,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 30
+        },
+        "text": "Load the recursive compiler"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 26
+        },
+        "text": "recursive_compiler をロード"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 18,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 5
+        },
+        "end": {
+          "line": 5,
+          "col": 31
+        },
+        "text": "Compile ancestor to bash"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 5
+        },
+        "end": {
+          "line": 5,
+          "col": 29
+        },
+        "text": "ancestor を Bash にコンパイル"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 20,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 15
+        },
+        "text": "Save to file"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 10
+        },
+        "text": "ファイルに保存"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 22,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 27
+        },
+        "text": "Source the parent script"
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 29
+        },
+        "text": "parent スクリプトを source で読み込む"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 22,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 36
+        },
+        "text": "Test: Who are Abraham's children?"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 20
+        },
+        "text": "テスト: アブラハムの子供は誰か？"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 22,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 7
+        },
+        "end": {
+          "line": 6,
+          "col": 26
+        },
+        "text": "Abraham's children:"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 7
+        },
+        "end": {
+          "line": 6,
+          "col": 16
+        },
+        "text": "アブラハムの子供:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 23,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 22
+        },
+        "text": "Source both scripts"
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 25
+        },
+        "text": "両方のスクリプトを source で読み込む"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 23,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 1
+        },
+        "end": {
+          "line": 6,
+          "col": 39
+        },
+        "text": "Test: Who are Abraham's descendants?"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 1
+        },
+        "end": {
+          "line": 6,
+          "col": 20
+        },
+        "text": "テスト: アブラハムの子孫は誰か？"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 23,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 7
+        },
+        "end": {
+          "line": 7,
+          "col": 29
+        },
+        "text": "Abraham's descendants:"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 7
+        },
+        "end": {
+          "line": 7,
+          "col": 16
+        },
+        "text": "アブラハムの子孫:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 22
+        },
+        "text": "Source both scripts"
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 25
+        },
+        "text": "両方のスクリプトを source で読み込む"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 1
+        },
+        "end": {
+          "line": 6,
+          "col": 41
+        },
+        "text": "Test: Is Abraham an ancestor of Judah?"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 1
+        },
+        "end": {
+          "line": 6,
+          "col": 21
+        },
+        "text": "テスト: アブラハムはユダの祖先か？"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 8,
+          "col": 11
+        },
+        "end": {
+          "line": 8,
+          "col": 49
+        },
+        "text": "✓ Yes, Abraham is an ancestor of Judah"
+      },
+      "target_span": {
+        "start": {
+          "line": 8,
+          "col": 11
+        },
+        "end": {
+          "line": 8,
+          "col": 29
+        },
+        "text": "✓ はい、アブラハムはユダの祖先です"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 10,
+          "col": 11
+        },
+        "end": {
+          "line": 10,
+          "col": 15
+        },
+        "text": "✗ No"
+      },
+      "target_span": {
+        "start": {
+          "line": 10,
+          "col": 11
+        },
+        "end": {
+          "line": 10,
+          "col": 16
+        },
+        "text": "✗ いいえ"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 26,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 47
+        },
+        "text": "Check if ancestor is classified as recursive"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 29
+        },
+        "text": "ancestor が再帰的として分類されているか確認"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    }
+  ],
+  "exclusions": []
+}

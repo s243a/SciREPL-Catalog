@@ -1,0 +1,269 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T17:23:27.625Z",
+  "notebook": {
+    "id": "default",
+    "name": "UnifyWeaver による家系図チュートリアル",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "prolog",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 28,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# UnifyWeaver による家系図チュートリアル\n\nこの対話型ノートブックでは、UnifyWeaver を使用して Prolog の述語を Bash スクリプトへとコンパイルする方法を実演します。\n\n## 前提条件\n\n- SWI-Prolog がインストールされていること\n- UnifyWeaver ライブラリが利用可能であること\n- Prolog Jupyter カーネルがインストールされていること（`pip install prolog-jupyter-kernel`）\n\n## 学習目標\n\nこのノートブックを完了すると、以下のことができるようになります:\n1. Prolog の事実と規則を定義する\n2. UnifyWeaver を使用して述語を Bash にコンパイルする\n3. 生成された Bash スクリプトをテストする\n4. 推移閉包のコンパイルの仕組みを理解する",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "## ステップ 1: UnifyWeaver 環境の初期化\n\nまず、UnifyWeaver モジュールをロードする必要があります。education ディレクトリの `init.pl` ファイルを使用します。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 3,
+        "code": "% 初期化ファイルをロード\n['../init'].",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
+      },
+      {
+        "id": 4,
+        "code": "## ステップ 2: 家族関係の定義\n\n聖書の家系図から、いくつかの親子関係（parent-child）を定義してみましょう。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 5,
+        "code": "% parent の事実を定義\n:- dynamic parent/2.\n\nparent(abraham, isaac).\nparent(abraham, ishmael).\nparent(isaac, jacob).\nparent(isaac, esau).\nparent(jacob, reuben).\nparent(jacob, simeon).\nparent(jacob, levi).\nparent(jacob, judah).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 6,
+        "code": "## ステップ 3: parent クエリのテスト\n\nコンパイルを行う前に、いくつかの Prolog クエリを実行してデータが正しいことを確認します。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 7,
+        "code": "% クエリ: アブラハムの子供は誰か？\nparent(abraham, Child).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Child = isaac\nChild = ishmael",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Child = isaac\nChild = ishmael</pre>"
+      },
+      {
+        "id": 8,
+        "code": "% クエリ: ヤコブの子供は誰か？\nparent(jacob, Child).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Child = reuben\nChild = simeon\nChild = levi\nChild = judah",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Child = reuben\nChild = simeon\nChild = levi\nChild = judah</pre>"
+      },
+      {
+        "id": 9,
+        "code": "## ステップ 4: ancestor（祖先）関係の定義\n\n次に、推移閉包である `ancestor` 関係を定義します。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 10,
+        "code": "% parent の推移閉包として ancestor を定義\n:- dynamic ancestor/2.\n\n% 基底ケース: 親は祖先である\nancestor(X, Y) :- parent(X, Y).\n\n% 再帰ケース: X が Y の親であり、Y が Z の祖先であれば、X は Z の祖先である\nancestor(X, Z) :- parent(X, Y), ancestor(Y, Z).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 11,
+        "code": "## ステップ 5: ancestor クエリのテスト\n\nancestor 述語が正しく動作することを確認します。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 12,
+        "code": "% クエリ: アブラハムはヤコブの祖先か？\n( ancestor(abraham, jacob) ->\n    writeln('Yes: Abraham is an ancestor of Jacob')\n;\n    writeln('No: Abraham is not an ancestor of Jacob')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Yes: Abraham is an ancestor of Jacob",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Yes: Abraham is an ancestor of Jacob</pre>"
+      },
+      {
+        "id": 13,
+        "code": "% クエリ: アブラハムのすべての子孫は誰か？\nancestor(abraham, Descendant).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Descendant = isaac\nDescendant = ishmael\nDescendant = jacob\nDescendant = esau\nDescendant = reuben\nDescendant = simeon\nDescendant = levi\nDescendant = judah",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Descendant = isaac\nDescendant = ishmael\nDescendant = jacob\nDescendant = esau\nDescendant = reuben\nDescendant = simeon\nDescendant = levi\nDescendant = judah</pre>"
+      },
+      {
+        "id": 14,
+        "code": "## ステップ 6: parent を Bash にコンパイル\n\nいよいよ本題です — `parent/2` 事実を Bash スクリプトへとコンパイルしてみましょう！",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 15,
+        "code": "% stream_compiler をロード\n\\+ \\+ (\n    use_module(unifyweaver(core/stream_compiler)),\n\n    % parent の事実を Bash にコンパイル\n    stream_compiler:compile_facts(parent, 2, [], _BashCode),\n    writeln('Generated Bash code for parent/2:'),\n    writeln(_BashCode)\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "source_sink `unifyweaver(core/stream_compiler)' does not exist",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">source_sink `unifyweaver(core/stream_compiler)' does not exist</pre>"
+      },
+      {
+        "id": 16,
+        "code": "## ステップ 7: parent スクリプトの保存\n\n生成された Bash コードをファイルに保存します。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 17,
+        "code": "% ファイルに保存\n\\+ \\+ (\n    stream_compiler:compile_facts(parent, 2, [], _BashCode),\n    setup_call_cleanup(\n        open('../output/parent.sh', write, _Stream),\n        write(_Stream, _BashCode),\n        close(_Stream)),\n    writeln('Saved to ../output/parent.sh')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: stream_compiler:compile_facts/4",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: stream_compiler:compile_facts/4</pre>"
+      },
+      {
+        "id": 18,
+        "code": "## ステップ 8: ancestor を Bash にコンパイル\n\n次に、再帰を使用している `ancestor/2` 述語をコンパイルします。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 19,
+        "code": "% recursive_compiler をロード\n\\+ \\+ (\n    use_module(unifyweaver(core/recursive_compiler)),\n\n    % ancestor を Bash にコンパイル\n    compile_recursive(ancestor/2, [], _BashCode),\n    writeln('Generated Bash code for ancestor/2:'),\n    writeln(_BashCode)\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "source_sink `unifyweaver(core/recursive_compiler)' does not exist",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">source_sink `unifyweaver(core/recursive_compiler)' does not exist</pre>"
+      },
+      {
+        "id": 20,
+        "code": "## ステップ 9: ancestor スクリプトの保存\n\nancestor スクリプトをファイルに保存します。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 21,
+        "code": "% ファイルに保存\n\\+ \\+ (\n    compile_recursive(ancestor/2, [], _BashCode),\n    setup_call_cleanup(\n        open('../output/ancestor.sh', write, _Stream),\n        write(_Stream, _BashCode),\n        close(_Stream)),\n    writeln('Saved to ../output/ancestor.sh')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: compile_recursive/3</pre>"
+      },
+      {
+        "id": 22,
+        "code": "## ステップ 10: 生成されたスクリプトのテスト\n\n生成された Bash スクリプトをテストしてみましょう！`%%bash` マジックコマンドを使用して Bash コマンドを実行します。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 23,
+        "code": "# parent スクリプトを source で読み込む\nsource ../output/parent.sh\n\n# テスト: アブラハムの子供は誰か？\necho \"アブラハムの子供:\"\nparent abraham",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "アブラハムの子供:\nerror: source: failed to source file: ../output/parent.sh\nerror: failed to execute command 'parent': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">アブラハムの子供:\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/parent.sh\nerror: failed to execute command 'parent': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 24,
+        "code": "# 両方のスクリプトを source で読み込む\nsource ../output/parent.sh\nsource ../output/ancestor.sh\n\n# テスト: アブラハムの子孫は誰か？\necho \"アブラハムの子孫:\"\nancestor abraham",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "アブラハムの子孫:\nerror: source: failed to source file: ../output/parent.sh\nerror: source: failed to source file: ../output/ancestor.sh\nerror: failed to execute command 'ancestor': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">アブラハムの子孫:\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/parent.sh\nerror: source: failed to source file: ../output/ancestor.sh\nerror: failed to execute command 'ancestor': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 25,
+        "code": "# 両方のスクリプトを source で読み込む\nsource ../output/parent.sh\nsource ../output/ancestor.sh\n\n# テスト: アブラハムはユダの祖先か？\nif ancestor abraham judah >/dev/null 2>&1; then\n    echo \"✓ はい、アブラハムはユダの祖先です\"\nelse\n    echo \"✗ いいえ\"\nfi",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "✗ いいえ\nerror: source: failed to source file: ../output/parent.sh\nerror: source: failed to source file: ../output/ancestor.sh\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">✗ いいえ\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/parent.sh\nerror: source: failed to source file: ../output/ancestor.sh\n</pre>"
+      },
+      {
+        "id": 26,
+        "code": "## ステップ 11: コンパイル戦略の理解\n\nUnifyWeaver が行った処理を分析してみましょう:\n\n1. **parent のコンパイル**: `stream_compiler` を使用して、すべての親子ペアを出力するシンプルなストリーミング関数を作成しました\n\n2. **ancestor のコンパイル**: 推移閉包パターンを検出し、幅優先探索（BFS）による最適化を適用して、到達可能なすべての祖先を効率的に計算しました\n\nコンパイル戦略を確認してみましょう:",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 27,
+        "code": "% ancestor が再帰的として分類されているか確認\n\\+ \\+ (\n    use_module(unifyweaver(core/recursive_compiler)),\n    recursive_compiler:classify_predicate(ancestor/2, _Classification),\n    format('Ancestor classification: ~w~n', [_Classification])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "source_sink `unifyweaver(core/recursive_compiler)' does not exist",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">source_sink `unifyweaver(core/recursive_compiler)' does not exist</pre>"
+      },
+      {
+        "id": 28,
+        "code": "## まとめ\n\nこのノートブックで学んだこと:\n\n✅ Prolog の事実と規則を定義する方法\n\n✅ 事実に対して UnifyWeaver の `stream_compiler` を使用する方法\n\n✅ 再帰的述語に対して UnifyWeaver の `recursive_compiler` を使用する方法\n\n✅ 生成された Bash スクリプトをテストする方法\n\n✅ UnifyWeaver が推移閉包を自動検出し、BFS 最適化を適用すること\n\n## 次のステップ\n\n以下の演習に挑戦してみましょう:\n\n1. 家系図にさらに家族メンバーを追加する\n2. `grandparent/2`（祖父母）述語を定義してコンパイルする\n3. `sibling/2`（兄弟姉妹: 親が同じ2人）述語を作成する\n4. 生成された Bash コードを調べて、BFS アルゴリズムの動作を理解する\n\n高度な再帰パターンについて学ぶために、**ノートブック 2: 再帰パターンの比較** へ進みましょう！",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      }
+    ]
+  }
+}
