@@ -1,0 +1,16 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T00:47:42.643Z",
+  "notebook": {
+    "id": "default",
+    "name": "Notebook 1",
+    "autoNameNumber": 1,
+    "description": "",
+    "kernelLanguage": null,
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 0,
+    "cells": []
+  }
+}

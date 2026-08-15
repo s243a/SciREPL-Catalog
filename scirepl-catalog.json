@@ -19,9 +19,9 @@
       ],
       "format": "srwb",
       "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/es/compute-pi-workbook.srwb",
-      "revision": 1,
-      "sha256": "eb9a05c57fd34320392485e2b56474c1445f3b90020d0d83199211fc247ef1a2",
-      "size": 5697
+      "revision": 2,
+      "sha256": "4a78da71304431d23a31b7bc0b72642159b39c212f37975077f9960b7f156411",
+      "size": 5931
     },
     {
       "id": "lua-tables-coroutines-es",
