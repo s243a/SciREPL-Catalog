@@ -47,6 +47,18 @@ exposed three latent tool bugs, each now fixed **with a regression fixture**:
    different padding. `judge` now masks the RENDERED span text (escapes
    decoded, field padding applied per `format_spec`).
 
+## Reviewer note: cell names stay English — by design, not omission
+
+`"name": "geometry"` (and `bounds`, `accuracy`, `symbolic_limit`,
+`comparison`) look like untranslated strings but are **identifiers**: the
+notebook VFS mounts each cell at `/nb/<name>` for reading and writing cell
+properties (`/nb/geometry/.output`), and the MCP tools (`read_cell`,
+`write_cell`, `execute_cell`) address cells by the same name. Translating
+them would fork the addressing scheme per locale — any script, tutorial, or
+agent task referencing a cell by name would break on translated editions.
+They follow the same rule as function and variable names: stable across all
+locales. `span-derive` enforces this (a changed cell name is a hard error).
+
 ## Supervision record
 
 Worker: agy (Gemini) over the PTY broker; supervisor: Claude Sonnet subagent
