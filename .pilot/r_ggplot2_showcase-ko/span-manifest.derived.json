@@ -1,0 +1,430 @@
+{
+  "manifest_version": 1,
+  "produced_by": "derived",
+  "generator": "tools/span-derive.mjs",
+  "locale": "ko",
+  "source": {
+    "path": "workbooks/en/r_ggplot2_showcase.ipynb",
+    "sha256": "a8a13339bc1c6c172db8091b4b59a72a8d6f8c4638006a58486391982de7301e"
+  },
+  "target": {
+    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/jobs/r_ggplot2_showcase-ko/translated.ipynb",
+    "sha256": "eef118d7708a3a6d289e19b7cdf1844a31814a5a3cac1c1403909099c7f0c3c1"
+  },
+  "spans": [
+    {
+      "cell_index": 1,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 6
+        },
+        "end": {
+          "line": 3,
+          "col": 53
+        },
+        "text": "ggplot2 loaded — theme_scirepl() auto-applied\\n"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 6
+        },
+        "end": {
+          "line": 3,
+          "col": 46
+        },
+        "text": "ggplot2 로드 완료 — theme_scirepl() 자동 적용됨\\n"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 17
+        },
+        "end": {
+          "line": 4,
+          "col": 43
+        },
+        "text": "Engine Size vs Highway MPG"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 17
+        },
+        "end": {
+          "line": 4,
+          "col": 39
+        },
+        "text": "엔진 배기량 대비 고속도로 연비(MPG)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 13
+        },
+        "end": {
+          "line": 5,
+          "col": 29
+        },
+        "text": "Displacement (L)"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 13
+        },
+        "end": {
+          "line": 5,
+          "col": 20
+        },
+        "text": "배기량 (L)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 37
+        },
+        "end": {
+          "line": 5,
+          "col": 48
+        },
+        "text": "Highway MPG"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 28
+        },
+        "end": {
+          "line": 5,
+          "col": 41
+        },
+        "text": "고속도로 연비 (MPG)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 17
+        },
+        "end": {
+          "line": 4,
+          "col": 61
+        },
+        "text": "Vehicle Classes by Drive Type (1999 vs 2008)"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 17
+        },
+        "end": {
+          "line": 4,
+          "col": 44
+        },
+        "text": "구동 방식별 차량 등급 (1999 vs 2008)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 13
+        },
+        "end": {
+          "line": 5,
+          "col": 18
+        },
+        "text": "Class"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 13
+        },
+        "end": {
+          "line": 5,
+          "col": 18
+        },
+        "text": "차량 등급"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 26
+        },
+        "end": {
+          "line": 5,
+          "col": 31
+        },
+        "text": "Count"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 26
+        },
+        "end": {
+          "line": 5,
+          "col": 30
+        },
+        "text": "차량 수"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 7,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 17
+        },
+        "end": {
+          "line": 3,
+          "col": 55
+        },
+        "text": "Highway MPG Distribution by Drive Type"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 17
+        },
+        "end": {
+          "line": 3,
+          "col": 39
+        },
+        "text": "구동 방식별 고속도로 연비(MPG) 분포"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 7,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 13
+        },
+        "end": {
+          "line": 4,
+          "col": 24
+        },
+        "text": "Highway MPG"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 13
+        },
+        "end": {
+          "line": 4,
+          "col": 26
+        },
+        "text": "고속도로 연비 (MPG)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 7,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 32
+        },
+        "end": {
+          "line": 4,
+          "col": 39
+        },
+        "text": "Density"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 34
+        },
+        "end": {
+          "line": 4,
+          "col": 36
+        },
+        "text": "밀도"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 9,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 17
+        },
+        "end": {
+          "line": 4,
+          "col": 45
+        },
+        "text": "Highway MPG by Vehicle Class"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 17
+        },
+        "end": {
+          "line": 4,
+          "col": 36
+        },
+        "text": "차량 등급별 고속도로 연비(MPG)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 9,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 13
+        },
+        "end": {
+          "line": 5,
+          "col": 18
+        },
+        "text": "Class"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 13
+        },
+        "end": {
+          "line": 5,
+          "col": 18
+        },
+        "text": "차량 등급"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 9,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 26
+        },
+        "end": {
+          "line": 5,
+          "col": 37
+        },
+        "text": "Highway MPG"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 26
+        },
+        "end": {
+          "line": 5,
+          "col": 39
+        },
+        "text": "고속도로 연비 (MPG)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 11,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 11,
+          "col": 17
+        },
+        "end": {
+          "line": 11,
+          "col": 43
+        },
+        "text": "mtcars Correlation Heatmap"
+      },
+      "target_span": {
+        "start": {
+          "line": 11,
+          "col": 17
+        },
+        "end": {
+          "line": 11,
+          "col": 32
+        },
+        "text": "mtcars 상관관계 히트맵"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    }
+  ],
+  "exclusions": [
+    {
+      "cell_index": 1,
+      "reason": "unstable across identical English runs — pin (seed/clock) or accept exclusion",
+      "sample_a": "Downloading webR package: cli\nDownloading webR package: glue\nDownloading webR package: rlang\nDownloading webR package: lifecycle\nDownloading webR package: gtabl",
+      "sample_b": "ggplot2 loaded — theme_scirepl() auto-applied"
+    }
+  ]
+}

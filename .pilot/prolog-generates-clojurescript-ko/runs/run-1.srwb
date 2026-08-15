@@ -1,59 +1,97 @@
 {
   "format": "srwb",
-  "version": "1.0",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T15:57:56.833Z",
   "notebook": {
+    "id": "default",
     "name": "Prolog로 ClojureScript 생성: 컴파일러 데모",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "python",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 9,
     "cells": [
       {
-        "type": "markdown",
+        "id": 1,
         "code": "# Prolog로 ClojureScript 생성\n\n이 워크북은 UnifyWeaver가 Prolog 서술어(predicate)를 **ClojureScript**로 컴파일한 뒤, Scittle 커널을 통해 브라우저에서 그 결과를 실행하는 과정을 보여줍니다.\n\n작업 흐름:\n1. Prolog 서술어 정의 (사실 + 규칙)\n2. UnifyWeaver가 재귀 패턴(이행 폐포) 감지\n3. ClojureScript 대상이 브라우저에서 실행 가능한 CLJS 생성 (`atom` 맵 기반 너비 우선 탐색(BFS), 임베디드 사실, JVM 상호운용성 없음)\n4. 생성된 정의를 전용 구문 강조 ClojureScript 셀에 작성\n5. 영구 Scittle 컨텍스트를 대상으로 별도의 구문 강조 쿼리 셀 실행\n\n이 워크북을 사용할 때 카탈로그에서 필요한 **UnifyWeaver SciREPL** 패키지가 자동으로 설치됩니다.\n\n**주요 장점:** TypR 데모와 달리, ClojureScript 상태는 *셀 간에 유지됩니다* (Scittle은 페이지당 하나의 SCI 컨텍스트를 유지함). 따라서 생성된 정의와 쿼리를 깔끔하게 분리하여 관리할 수 있습니다.",
-        "language": "markdown"
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
-        "type": "code",
+        "id": 2,
         "code": "% UnifyWeaver 컴파일러 모듈 로드\n['../init'].\n:- use_module(unifyweaver(targets/clojurescript_target)).\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "type": "code",
         "language": "prolog",
-        "name": "load_compiler"
+        "name": "load_compiler",
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
       },
       {
-        "type": "code",
+        "id": 3,
         "code": "% 가계도를 Prolog 사실로 정의\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% 이행 폐포: X가 Y의 조상이면 ancestor(X, Y)\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "type": "code",
         "language": "prolog",
-        "name": "family_tree"
+        "name": "family_tree",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
       },
       {
-        "type": "code",
+        "id": 4,
         "code": "% ancestor/2를 ClojureScript 정의로만 컴파일\n\\+ \\+ (\n    recursive_compiler:compile_recursive(ancestor/2, [target(clojurescript)], _Code),\n    format('--- Generated ClojureScript code ---~n~w~n', [_Code]),\n    % 생성된 시드 표현식이 노트북 출력이 되지 않도록 nil로 종료\n    format(string(_Definitions), '~w~n~nnil~n', [_Code]),\n    user:nb_write('cljs_output', '.code', _Definitions),\n    writeln('ClojureScript definitions written to cell: cljs_output')\n).",
+        "type": "code",
         "language": "prolog",
-        "name": "compile_to_clojurescript"
+        "name": "compile_to_clojurescript",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
       },
       {
-        "type": "markdown",
+        "id": 5,
         "code": "## 생성된 ClojureScript 코드\n\n아래 셀에는 UnifyWeaver가 생성한 ClojureScript 정의만 포함되어 있습니다.\n포함 내용:\n- `(def base-relation (atom {}))` — 가변 맵 형태의 관계\n- `find-all` / `check-path` — 관계에 대한 너비 우선 탐색 (BFS)\n- Prolog 사실로부터 임베드된 `(add-fact ...)` 시드 호출\n- JS 호스트 전용 상호운용성 (`java.io`, `System/exit`, `*command-line-args*` 없음)\n\n이어지는 구문 강조 셀에서 이 영구 정의들을 조회(쿼리)합니다.",
-        "language": "markdown"
-      },
-      {
-        "type": "code",
-        "code": ";; 이 셀은 컴파일러에 의해 채워집니다.\n;; 위의 'compile_to_clojurescript' 셀을 먼저 실행하세요.",
-        "language": "clojurescript",
-        "name": "cljs_output"
-      },
-      {
-        "type": "code",
-        "code": ";; Scittle의 영구 컨텍스트에서 생성된 정의를 쿼리합니다.\n(print (str \"alice의 후손: \" (pr-str (sort (find-all \"alice\"))) \"\\n\"\n            \"alice는 eve의 조상: \" (check-path \"alice\" \"eve\") \"\\n\"\n            \"alice는 frank의 조상: \" (check-path \"alice\" \"frank\") \"\\n\"))",
-        "language": "clojurescript",
-        "name": "cljs_queries"
-      },
-      {
         "type": "markdown",
-        "code": "## 비교: 동일한 서술어, JVM Clojure 대상\n\nUnifyWeaver는 동일한 서술어를 JVM Clojure로도 컴파일할 수 있습니다. 해당 출력은 표준 입력(stdin)에서 사실을 읽고 `System/exit`을 사용합니다. 이는 JVM/Node 호스트 환경에서는 문제없지만 브라우저에서 직접 실행할 수는 없으며, 이것이 바로 ClojureScript 대상이 존재하는 이유입니다 (JVM 호스트 상호운용성을 JS용으로 재작성함).",
-        "language": "markdown"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 6,
+        "code": ";; 이 셀은 컴파일러에 의해 채워집니다.\n;; 위의 'compile_to_clojurescript' 셀을 먼저 실행하세요.",
         "type": "code",
+        "language": "clojurescript",
+        "name": "cljs_output",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 7,
+        "code": ";; Scittle의 영구 컨텍스트에서 생성된 정의를 쿼리합니다.\n(print (str \"alice의 후손: \" (pr-str (sort (find-all \"alice\"))) \"\\n\"\n            \"alice는 eve의 조상: \" (check-path \"alice\" \"eve\") \"\\n\"\n            \"alice는 frank의 조상: \" (check-path \"alice\" \"frank\") \"\\n\"))",
+        "type": "code",
+        "language": "clojurescript",
+        "name": "cljs_queries",
+        "lastOutput": "Could not resolve symbol: find-all",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Could not resolve symbol: find-all</pre>"
+      },
+      {
+        "id": 8,
+        "code": "## 비교: 동일한 서술어, JVM Clojure 대상\n\nUnifyWeaver는 동일한 서술어를 JVM Clojure로도 컴파일할 수 있습니다. 해당 출력은 표준 입력(stdin)에서 사실을 읽고 `System/exit`을 사용합니다. 이는 JVM/Node 호스트 환경에서는 문제없지만 브라우저에서 직접 실행할 수는 없으며, 이것이 바로 ClojureScript 대상이 존재하는 이유입니다 (JVM 호스트 상호운용성을 JS용으로 재작성함).",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 9,
         "code": "% 비교를 위해 동일한 서술어를 JVM Clojure로 컴파일 (표시 전용)\n\\+ \\+ (\n    recursive_compiler:compile_recursive(ancestor/2, [target(clojure)], _ClojureCode),\n    format('--- Generated JVM Clojure code (note java.io / *command-line-args*) ---~n~w~n', [_ClojureCode])\n).",
+        "type": "code",
         "language": "prolog",
-        "name": "compile_to_clojure"
+        "name": "compile_to_clojure",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
       }
     ]
   }

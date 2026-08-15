@@ -1,133 +1,232 @@
 {
   "format": "srwb",
   "format_version": "1.0",
-  "exported_at": "2026-03-10T00:00:00.000Z",
+  "exported_at": "2026-08-15T15:53:41.625Z",
   "notebook": {
-    "id": "nb-lua-demo-001",
+    "id": "default",
     "name": "Lua: 테이블, 코루틴 및 클로저",
+    "autoNameNumber": null,
     "description": "A tour of Lua's most distinctive features — tables as the universal data structure, coroutines for cooperative multitasking, closures for encapsulation, and custom iterators.",
     "kernelLanguage": "lua",
+    "catalogId": null,
+    "catalogRevision": null,
     "cellCounter": 24,
     "cells": [
       {
+        "id": 1,
         "code": "# Lua: 테이블, 코루틴 및 클로저\n\nLua는 몇 가지 강력한 개념을 중심으로 구축된 경량 스크립팅 언어입니다. 이 워크북은 Lua를 독특하게 만드는 핵심 기능들을 탐구합니다:\n\n- **테이블** — 유일한 데이터 구조이지만 모든 용도로 사용됨\n- **코루틴** — 언어 자체에 내장된 협동적 멀티태스킹\n- **클로저** — 주변 환경을 캡처하는 함수\n- **반복자 (Iterator)** — 코루틴과 클로저를 활용한 사용자 정의 반복\n\nSciREPL은 순수 JavaScript 기반 Lua 5.3 가상 머신인 [Fengari](https://fengari.io)를 통해 Lua를 실행합니다.",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 2,
         "code": "## 1. 테이블이 모든 것의 중심\n\nLua에는 단 하나의 복합 데이터 구조인 **테이블**이 있습니다. 테이블은 배열, 딕셔너리, 객체, 모듈, 네임스페이스 역할을 동시에 수행합니다.",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 3,
         "code": "-- 배열 (1부터 인덱싱!)\nfruits = {\"apple\", \"banana\", \"cherry\"}\nprint(fruits[1], fruits[2], fruits[3])\nprint(\"길이:\", #fruits)",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "apple\tbanana\tcherry\n길이:\t3\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">apple\tbanana\tcherry\n길이:\t3\n</pre>"
       },
       {
+        "id": 4,
         "code": "-- 딕셔너리 (사전)\nplanet = {\n  name = \"Earth\",\n  radius_km = 6371,\n  has_life = true\n}\nprint(planet.name, \"—\", planet.radius_km, \"km 반지름\")\n\n-- 동적으로 필드 추가\nplanet.moons = 1\nprint(\"위성 수:\", planet.moons)",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "Earth\t—\t6371\tkm 반지름\n위성 수:\t1\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Earth\t—\t6371\tkm 반지름\n위성 수:\t1\n</pre>"
       },
       {
+        "id": 5,
         "code": "-- 테이블은 배열과 딕셔너리 부분을 함께 가질 수 있음\nmixed = {10, 20, 30, label = \"scores\", unit = \"pts\"}\nprint(\"배열 부분:\", mixed[1], mixed[2], mixed[3])\nprint(\"딕셔너리 부분:\", mixed.label, mixed.unit)",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "배열 부분:\t10\t20\t30\n딕셔너리 부분:\tscores\tpts\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">배열 부분:\t10\t20\t30\n딕셔너리 부분:\tscores\tpts\n</pre>"
       },
       {
+        "id": 6,
         "code": "-- 중첩 테이블 — 모든 구조 구축 가능\ntree = {\n  value = \"root\",\n  children = {\n    { value = \"left\",  children = {} },\n    { value = \"right\", children = {\n      { value = \"right-left\", children = {} }\n    }}\n  }\n}\n\nfunction walk(node, depth)\n  depth = depth or 0\n  print(string.rep(\"  \", depth) .. node.value)\n  for _, child in ipairs(node.children) do\n    walk(child, depth + 1)\n  end\nend\n\nwalk(tree)",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "root\n  left\n  right\n    right-left\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">root\n  left\n  right\n    right-left\n</pre>"
       },
       {
+        "id": 7,
         "code": "## 2. 메타테이블 — 테이블에 새로운 기능 가르치기\n\n메타테이블을 사용하면 연산자를 재정의하고 사용자 정의 동작을 지정할 수 있습니다. 이것이 Lua에서 객체 지향 프로그래밍(OOP), 연산자 오버로딩 등을 구현하는 방식입니다.",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 8,
         "code": "-- 연산자 오버로딩을 지원하는 2D 벡터\nVec2 = {}\nVec2.__index = Vec2\n\nfunction Vec2.new(x, y)\n  return setmetatable({x = x, y = y}, Vec2)\nend\n\nfunction Vec2:__add(other)\n  return Vec2.new(self.x + other.x, self.y + other.y)\nend\n\nfunction Vec2:__mul(scalar)\n  return Vec2.new(self.x * scalar, self.y * scalar)\nend\n\nfunction Vec2:length()\n  return math.sqrt(self.x^2 + self.y^2)\nend\n\nfunction Vec2:__tostring()\n  return string.format(\"(%g, %g)\", self.x, self.y)\nend\n\na = Vec2.new(3, 4)\nb = Vec2.new(1, 2)\nprint(\"a =\", a)\nprint(\"b =\", b)\nprint(\"a + b =\", a + b)\nprint(\"a * 3 =\", a * 3)\nprint(\"|a| =\", a:length())",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "a =\t(3, 4)\nb =\t(1, 2)\na + b =\t(4, 6)\na * 3 =\t(9, 12)\n|a| =\t5.0\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">a =\t(3, 4)\nb =\t(1, 2)\na + b =\t(4, 6)\na * 3 =\t(9, 12)\n|a| =\t5.0\n</pre>"
       },
       {
+        "id": 9,
         "code": "## 3. 클로저\n\nLua의 함수는 외부 스코프의 변수를 캡처하는 일급 값입니다. 이를 통해 클로저를 자연스럽고 강력하게 활용할 수 있습니다.\n",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 10,
         "code": "-- 카운터 팩토리 — 호출할 때마다 새로운 독립 카운터를 반환\nfunction make_counter(start)\n  local n = start or 0\n  return {\n    inc = function() n = n + 1; return n end,\n    dec = function() n = n - 1; return n end,\n    get = function() return n end\n  }\nend\n\nc1 = make_counter(0)\nc2 = make_counter(100)\n\nc1.inc(); c1.inc(); c1.inc()\nc2.dec()\n\nprint(\"c1:\", c1.get())  -- 3\nprint(\"c2:\", c2.get())  -- 99",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "c1:\t3\nc2:\t99\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">c1:\t3\nc2:\t99\n</pre>"
       },
       {
+        "id": 11,
         "code": "-- 클로저를 통한 메모이제이션\nfunction memoize(fn)\n  local cache = {}\n  return function(n)\n    if cache[n] == nil then\n      cache[n] = fn(n)\n    end\n    return cache[n]\n  end\nend\n\nfib = memoize(function(n)\n  if n < 2 then return n end\n  return fib(n - 1) + fib(n - 2)\nend)\n\nfor i = 0, 15 do\n  io.write(fib(i) .. \" \")\nend\nprint()",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 \n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 \n</pre>"
       },
       {
+        "id": 12,
         "code": "-- 부분 적용\nfunction partial(fn, ...)\n  local outer_args = table.pack(...)\n  return function(...)\n    local args = {}\n    for i = 1, outer_args.n do args[i] = outer_args[i] end\n    local inner = table.pack(...)\n    for i = 1, inner.n do args[outer_args.n + i] = inner[i] end\n    return fn(table.unpack(args, 1, outer_args.n + inner.n))\n  end\nend\n\nfunction add(a, b) return a + b end\n\nadd10 = partial(add, 10)\nprint(\"add10(5) 결과 =\", add10(5))\nprint(\"add10(32) 결과 =\", add10(32))",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "add10(5) 결과 =\t15\nadd10(32) 결과 =\t42\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">add10(5) 결과 =\t15\nadd10(32) 결과 =\t42\n</pre>"
       },
       {
+        "id": 13,
         "code": "## 4. 코루틴\n\n코루틴은 Lua의 협동적 멀티태스킹 메커니즘입니다. 스레드와 달리 명시적으로 제어권을 양보(`yield`)하므로 락이나 경쟁 상태, 예기치 않은 오류가 없습니다.",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 14,
         "code": "-- 기본 코루틴: 값을 yield(양보)하는 생산자\nfunction producer()\n  local items = {\"alpha\", \"beta\", \"gamma\", \"delta\"}\n  for _, item in ipairs(items) do\n    print(\"  생산: \" .. item)\n    coroutine.yield(item)\n  end\nend\n\nco = coroutine.create(producer)\n\nprint(\"소비자 루프:\")\nwhile coroutine.status(co) ~= \"dead\" do\n  local ok, value = coroutine.resume(co)\n  if ok and value then\n    print(\"  소비:  \" .. value)\n  end\nend",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "소비자 루프:\n  생산: alpha\n  소비:  alpha\n  생산: beta\n  소비:  beta\n  생산: gamma\n  소비:  gamma\n  생산: delta\n  소비:  delta\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">소비자 루프:\n  생산: alpha\n  소비:  alpha\n  생산: beta\n  소비:  beta\n  생산: gamma\n  소비:  gamma\n  생산: delta\n  소비:  delta\n</pre>"
       },
       {
+        "id": 15,
         "code": "-- 무한 시퀀스 제너레이터\nfunction fibonacci()\n  local a, b = 0, 1\n  while true do\n    coroutine.yield(a)\n    a, b = b, a + b\n  end\nend\n\nfib_co = coroutine.wrap(fibonacci)\n\nio.write(\"피보나치 수열: \")\nfor i = 1, 12 do\n  io.write(fib_co() .. \" \")\nend\nprint()",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "피보나치 수열: 0 1 1 2 3 5 8 13 21 34 55 89 \n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">피보나치 수열: 0 1 1 2 3 5 8 13 21 34 55 89 \n</pre>"
       },
       {
+        "id": 16,
         "code": "-- 파이프라인: 코루틴을 필터로 연결\nfunction range(n)\n  return coroutine.wrap(function()\n    for i = 1, n do coroutine.yield(i) end\n  end)\nend\n\nfunction filter(source, pred)\n  return coroutine.wrap(function()\n    for val in source do\n      if pred(val) then coroutine.yield(val) end\n    end\n  end)\nend\n\nfunction map(source, fn)\n  return coroutine.wrap(function()\n    for val in source do\n      coroutine.yield(fn(val))\n    end\n  end)\nend\n\n-- 파이프라인: 1..20 → 홀수 유지 → 제곱\npipeline = map(\n  filter(range(20), function(x) return x % 2 == 1 end),\n  function(x) return x * x end\n)\n\nio.write(\"홀수 제곱: \")\nfor val in pipeline do\n  io.write(val .. \" \")\nend\nprint()",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "홀수 제곱: 1 9 25 49 81 121 169 225 289 361 \n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">홀수 제곱: 1 9 25 49 81 121 169 225 289 361 \n</pre>"
       },
       {
+        "id": 17,
         "code": "-- 협동적 스케줄러 — 라운드로宾 태스크 러너\nfunction scheduler()\n  local tasks = {}\n\n  local sched = {}\n\n  function sched.spawn(fn)\n    tasks[#tasks + 1] = coroutine.create(fn)\n  end\n\n  function sched.run()\n    while #tasks > 0 do\n      local next_tasks = {}\n      for _, co in ipairs(tasks) do\n        local ok, err = coroutine.resume(co)\n        if not ok then print(\"오류: \" .. err) end\n        if coroutine.status(co) ~= \"dead\" then\n          next_tasks[#next_tasks + 1] = co\n        end\n      end\n      tasks = next_tasks\n    end\n  end\n\n  return sched\nend\n\nS = scheduler()\n\nS.spawn(function()\n  for i = 1, 4 do\n    print(\"  [A] 단계 \" .. i)\n    coroutine.yield()\n  end\nend)\n\nS.spawn(function()\n  for i = 1, 3 do\n    print(\"  [B] 단계 \" .. i)\n    coroutine.yield()\n  end\nend)\n\nS.spawn(function()\n  for i = 1, 2 do\n    print(\"  [C] 단계 \" .. i)\n    coroutine.yield()\n  end\nend)\n\nprint(\"스케줄러 실행 중:\")\nS.run()\nprint(\"모든 태스크 완료.\")",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "스케줄러 실행 중:\n  [A] 단계 1\n  [B] 단계 1\n  [C] 단계 1\n  [A] 단계 2\n  [B] 단계 2\n  [C] 단계 2\n  [A] 단계 3\n  [B] 단계 3\n  [A] 단계 4\n모든 태스크 완료.\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">스케줄러 실행 중:\n  [A] 단계 1\n  [B] 단계 1\n  [C] 단계 1\n  [A] 단계 2\n  [B] 단계 2\n  [C] 단계 2\n  [A] 단계 3\n  [B] 단계 3\n  [A] 단계 4\n모든 태스크 완료.\n</pre>"
       },
       {
+        "id": 18,
         "code": "## 5. 사용자 정의 반복자\n\nLua의 `for ... in` 루프는 값을 반환하는 모든 함수와 함께 동작합니다. 클로저 및 코루틴과 결합하여 표현력이 뛰어난 반복자를 구축할 수 있습니다.",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 19,
         "code": "-- 클로저 기반 반복자: 키 정렬 순서로 테이블 순회\nfunction sorted_pairs(t)\n  local keys = {}\n  for k in pairs(t) do keys[#keys + 1] = k end\n  table.sort(keys)\n  local i = 0\n  return function()\n    i = i + 1\n    local k = keys[i]\n    if k then return k, t[k] end\n  end\nend\n\nscores = { alice = 92, bob = 87, carol = 95, dave = 78 }\n\nprint(\"정렬된 순위표:\")\nfor name, score in sorted_pairs(scores) do\n  print(string.format(\"  %-8s %d\", name, score))\nend",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "정렬된 순위표:\n  alice    92\n  bob      87\n  carol    95\n  dave     78\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">정렬된 순위표:\n  alice    92\n  bob      87\n  carol    95\n  dave     78\n</pre>"
       },
       {
+        "id": 20,
         "code": "-- 코루틴 반복자: 리스트의 순열\nfunction permutations(t)\n  local function generate(a, k)\n    if k == 1 then\n      coroutine.yield(a)\n    else\n      for i = 1, k do\n        generate(a, k - 1)\n        if k % 2 == 0 then\n          a[i], a[k] = a[k], a[i]\n        else\n          a[1], a[k] = a[k], a[1]\n        end\n      end\n    end\n  end\n\n  return coroutine.wrap(function()\n    -- 복사본에서 작업\n    local copy = {}\n    for i, v in ipairs(t) do copy[i] = v end\n    generate(copy, #copy)\n  end)\nend\n\nprint(\"{1,2,3}의 순열:\")\nfor perm in permutations({1, 2, 3}) do\n  print(\"  \" .. table.concat(perm, \", \"))\nend",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "{1,2,3}의 순열:\n  1, 2, 3\n  2, 1, 3\n  3, 1, 2\n  1, 3, 2\n  2, 3, 1\n  3, 2, 1\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">{1,2,3}의 순열:\n  1, 2, 3\n  2, 1, 3\n  3, 1, 2\n  1, 3, 2\n  2, 3, 1\n  3, 2, 1\n</pre>"
       },
       {
+        "id": 21,
         "code": "## 6. 종합 예제 — 지연 스트림 라이브러리\n\n테이블, 클로저, 코루틴, 메타테이블을 결합하여 메서드 체이닝이 가능한 지연 스트림을 만듭니다.",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 22,
         "code": "Stream = {}\nStream.__index = Stream\n\nfunction Stream.from(t)\n  return setmetatable({ _gen = function()\n    for _, v in ipairs(t) do coroutine.yield(v) end\n  end }, Stream)\nend\n\nfunction Stream.range(a, b)\n  return setmetatable({ _gen = function()\n    for i = a, b do coroutine.yield(i) end\n  end }, Stream)\nend\n\nfunction Stream:filter(pred)\n  local parent = self._gen\n  return setmetatable({ _gen = function()\n    for val in coroutine.wrap(parent) do\n      if pred(val) then coroutine.yield(val) end\n    end\n  end }, Stream)\nend\n\nfunction Stream:map(fn)\n  local parent = self._gen\n  return setmetatable({ _gen = function()\n    for val in coroutine.wrap(parent) do\n      coroutine.yield(fn(val))\n    end\n  end }, Stream)\nend\n\nfunction Stream:take(n)\n  local parent = self._gen\n  return setmetatable({ _gen = function()\n    local count = 0\n    for val in coroutine.wrap(parent) do\n      count = count + 1\n      coroutine.yield(val)\n      if count >= n then return end\n    end\n  end }, Stream)\nend\n\nfunction Stream:reduce(fn, init)\n  local acc = init\n  for val in coroutine.wrap(self._gen) do\n    acc = fn(acc, val)\n  end\n  return acc\nend\n\nfunction Stream:collect()\n  local result = {}\n  for val in coroutine.wrap(self._gen) do\n    result[#result + 1] = val\n  end\n  return result\nend\n\nfunction Stream:__tostring()\n  return \"{\" .. table.concat(self:collect(), \", \") .. \"}\"\nend",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 23,
         "code": "-- 스트림 라이브러리 사용\nresult = Stream.range(1, 50)\n  :filter(function(x) return x % 3 == 0 end)  -- 3으로 나누어떨어짐\n  :map(function(x) return x * x end)          -- 제곱 계산\n  :take(5)                                     -- 처음 5개\n\nprint(\"스트림 결과:\", result)\n\nsum = Stream.from({4, 8, 15, 16, 23, 42})\n  :filter(function(x) return x > 10 end)\n  :reduce(function(a, b) return a + b end, 0)\n\nprint(\"10보다 큰 값의 합계:\", sum)",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "스트림 결과:\t{9, 36, 81, 144, 225}\n10보다 큰 값의 합계:\t96\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">스트림 결과:\t{9, 36, 81, 144, 225}\n10보다 큰 값의 합계:\t96\n</pre>"
       },
       {
+        "id": 24,
         "code": "## 요약\n\nLua는 작은 언어 안에 매우 강력한 기능을 담고 있습니다:\n\n| 기능 | 대체하는 개념 |\n|---|---|\n| 테이블 | 배열, 딕셔너리, 객체, 모듈, 네임스페이스 |\n| 메타테이블 | 연산자 오버로딩, 상속, 프록시 |\n| 클로저 | 캡슐화, 팩토리, 콜백 |\n| 코루틴 | 제너레이터, async/await, 그린 스레드 |\n| 반복자 | 지연 시퀀스, 파이프라인 |\n\n섹션 6의 Stream 라이브러리는 이 **5가지 기능을 모두** 사용합니다 — 저장용 테이블, 메서드 체이닝용 메타테이블, 제너레이터 상태 캡처용 클로저, 지연 평가용 코루틴, 소비용 반복자.\n\nLua는 게임 엔진(Love2D, Roblox, WoW), 임베디드 시스템, 설정 언어(Neovim, nginx, Redis)로 널리 사용됩니다.",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       }
     ]
   }

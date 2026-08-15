@@ -1,79 +1,91 @@
 {
   "format": "srwb",
   "format_version": "1.0",
-  "exported_at": "2026-03-12T00:00:00.000Z",
+  "exported_at": "2026-08-15T15:57:20.960Z",
   "notebook": {
-    "id": "nb-prolog-gen-r-001",
+    "id": "default",
     "name": "Prolog로 R 생성: 컴파일러 데모",
+    "autoNameNumber": null,
     "description": "Demonstrates UnifyWeaver compiling Prolog predicates into R code. Part 1: factorial (linear→tail transformation). Part 2: ancestor (transitive closure vs skip/pattern).",
-    "kernelLanguage": null,
-    "cellCounter": 26,
+    "kernelLanguage": "python",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 28,
     "cells": [
       {
+        "id": 1,
         "code": "# Prolog로 R 생성 — UnifyWeaver 컴파일러 데모\n\n이 워크북은 **UnifyWeaver**가 Prolog 로직을 실행 가능한 R 코드로 컴파일하는 과정을 노트북 내에서 실시간으로 보여줍니다.\n\n## 파트 1: 팩토리얼 (선형 재귀)\n1. UnifyWeaver 컴파일러 환경 로드\n2. Prolog에서 재귀적 `factorial/2` 정의\n3. 컴파일러가 재귀 패턴을 감지하고 이에 상응하는 R 루프 생성\n4. 생성된 R 코드를 `nb_write/3`를 통해 다른 셀에 작성\n5. R 셀을 실행하여 정확성 검증\n\n## 파트 2: 조상 관계 (이행 폐포 및 패턴 제어)\n8. Prolog에서 `parent/2` 사실과 `ancestor/2` 정의\n9. 기본 패턴으로 컴파일 → 이행 폐포 (BFS 그래프 순회)\n10. `skip(transitive_closure)` 옵션으로 다시 컴파일 → 다른 생성 코드 확인\n11. 두 가지 접근 방식 비교",
         "type": "markdown",
-        "language": "python",
+        "language": "markdown",
         "name": "",
         "lastOutput": "",
         "lastOutputHtml": ""
       },
       {
+        "id": 2,
         "code": "## 1단계: UnifyWeaver 로드\n\nUnifyWeaver 환경과 R 대상 컴파일러를 로드합니다.\n\n**참고:** swipl-wasm에서는 `use_module(library(...))` 대신 `use_module(unifyweaver(...))` (검색 경로 별칭)을 사용합니다. `['../init'].` 호출은 모듈이 올바르게 해석되도록 `unifyweaver` 검색 경로를 설정합니다.",
         "type": "markdown",
-        "language": "prolog",
+        "language": "markdown",
         "name": "",
         "lastOutput": "",
         "lastOutputHtml": ""
       },
       {
+        "id": 3,
         "code": "['../init'].\n:- use_module(unifyweaver(targets/r_target)).\n:- use_module(unifyweaver(core/advanced/linear_recursion)).\n:- use_module(unifyweaver(core/recursive_compiler)).",
         "type": "code",
         "language": "prolog",
         "name": "load_uw",
-        "lastOutput": "",
-        "lastOutputHtml": ""
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
       },
       {
+        "id": 4,
         "code": "## 2단계: Prolog에서 팩토리얼 정의\n\n간단한 재귀적 팩토리얼입니다. 기저 사례는 N이 0일 때 1을 반환합니다. 재귀 사례는 `N * factorial(N-1)`을 계산합니다.",
         "type": "markdown",
-        "language": "prolog",
+        "language": "markdown",
         "name": "",
         "lastOutput": "",
         "lastOutputHtml": ""
       },
       {
+        "id": 5,
         "code": ":- dynamic factorial/2.\n\nfactorial(0, 1).\nfactorial(N, F) :-\n    N > 0,\n    N1 is N - 1,\n    factorial(N1, F1),\n    F is N * F1.",
         "type": "code",
         "language": "prolog",
         "name": "prolog_factorial",
-        "lastOutput": "",
-        "lastOutputHtml": ""
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
       },
       {
+        "id": 6,
         "code": "## 3단계: Prolog → R 컴파일\n\n컴파일러 동작:\n1. `nb_read/3`를 통해 **prolog_factorial** 셀에서 Prolog 소스를 읽음\n2. 이를 consult하여 데이터베이스에 절(clause)을 어서트(assert)함\n3. `compile_linear_recursion/3`를 호출하여 재귀 패턴을 감지하고, 스텝(`N1 is N - 1` → step=1, down)을 추출하여 R의 `for` 루프를 생성함\n4. `nb_write/3`를 통해 생성된 R 코드를 **r_factorial** 셀에 작성함\n\n`memo(false)` 옵션은 메모화된 reduce 대신 루프 기반 컴파일을 요청합니다.",
         "type": "markdown",
-        "language": "prolog",
+        "language": "markdown",
         "name": "",
         "lastOutput": "",
         "lastOutputHtml": ""
       },
       {
+        "id": 7,
         "code": "%이전 셀에서 Prolog 소스 읽기\nuser:nb_read('prolog_factorial', '.code', _PrologSrc),\nformat('Read from prolog_factorial:~n~w~n~n', [_PrologSrc]),\n\n%consult하여 절(clause) 어서트\nsetup_call_cleanup(\n    open('/tmp/_nb_src.pl', write, _Out),\n    write(_Out, _PrologSrc),\n    close(_Out)),\nconsult('/tmp/_nb_src.pl'),\n\n%factorial/2 → R 컴파일\nr_target:init_r_target,\nlinear_recursion:compile_linear_recursion(factorial/2, [target(r), memo(false)], _Code),\nformat('--- Generated R code ---~n~w~n', [_Code]),\n\n%컴파일러 출력을 R 셀에 작성\nuser:nb_write('r_factorial', '.code', _Code),\nwriteln('\\nR code written to cell: r_factorial').",
         "type": "code",
         "language": "prolog",
         "name": "compile_to_r",
-        "lastOutput": "",
-        "lastOutputHtml": ""
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: r_target:init_r_target/0",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: r_target:init_r_target/0</pre>"
       },
       {
+        "id": 8,
         "code": "## 4단계: 생성된 R 코드 실행\n\n아래 셀에는 컴파일러가 생성한 `factorial` 함수가 포함됩니다. 셀을 실행하여 함수를 정의한 다음, 5단계를 실행하여 테스트합니다.",
         "type": "markdown",
-        "language": "python",
+        "language": "markdown",
         "name": "",
         "lastOutput": "",
         "lastOutputHtml": ""
       },
       {
+        "id": 9,
         "code": "# 이 셀은 컴파일러에 의해 덮어쓰기됩니다.\n# 위의 'compile_to_r' 셀을 먼저 실행하세요.",
         "type": "code",
         "language": "r",
@@ -82,94 +94,106 @@
         "lastOutputHtml": ""
       },
       {
+        "id": 10,
         "code": "## 5단계: 생성된 R 코드 테스트\n\n컴파일러가 생성한 `factorial` 함수를 호출하여 올바른 결과가 도출되는지 검증합니다.",
         "type": "markdown",
-        "language": "python",
+        "language": "markdown",
         "name": "",
         "lastOutput": "",
         "lastOutputHtml": ""
       },
       {
+        "id": 11,
         "code": "cat(\"6! =\", factorial(6), \"\\n\")\ncat(\"20! =\", factorial(20), \"\\n\")\ncat(\"0! =\", factorial(0), \"\\n\")",
         "type": "code",
         "language": "r",
         "name": "test_r",
-        "lastOutput": "",
-        "lastOutputHtml": ""
+        "lastOutput": "6! = 720 \n20! = 2.432902e+18 \n0! = 1",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">6! = 720 \n20! = 2.432902e+18 \n0! = 1</pre>"
       },
       {
+        "id": 12,
         "code": "## 6단계: Bash를 통한 검사\n\nNotebook VFS를 사용하면 어떤 커널에서든 셀을 검사할 수 있습니다. 여기서는 Bash를 사용하여 컴파일러가 생성한 코드를 읽습니다:",
         "type": "markdown",
-        "language": "python",
+        "language": "markdown",
         "name": "",
         "lastOutput": "",
         "lastOutputHtml": ""
       },
       {
+        "id": 13,
         "code": "echo \"=== 셀 목록 ===\"\nls /nb/\necho \"\"\necho \"=== r_factorial 코드 ===\"\ncat /nb/r_factorial/.code\necho \"\"\necho \"=== r_factorial 언어 ===\"\ncat /nb/r_factorial/.language",
         "type": "code",
         "language": "bash",
         "name": "inspect",
-        "lastOutput": "",
-        "lastOutputHtml": ""
+        "lastOutput": "=== 셀 목록 ===\nIn[1]  In[2]  In[3]  load_uw  In[4]  In[5]  prolog_factorial  In[6]  In[7]  compile_to_r  In[8]  In[9]  r_factorial  In[10]  In[11]  test_r  In[12]  In[13]  inspect  In[14]  accumulate  In[15]  In[16]  In[17]  prolog_ancestor  In[18]  In[19]  compile_ancestor_tc  In[20]  In[21]  r_ancestor_tc  In[22]  In[23]  test_r_ancestor  In[24]  In[25]  compile_ancestor_skip  In[26]  bash_ancestor_alt  In[27]  In[28]  compare_outputs  \n\n=== r_factorial 코드 ===\n# 이 셀은 컴파일러에 의해 덮어쓰기됩니다.\n# 위의 'compile_to_r' 셀을 먼저 실행하세요.\n=== r_factorial 언어 ===\nr",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">=== 셀 목록 ===\nIn[1]  In[2]  In[3]  load_uw  In[4]  In[5]  prolog_factorial  In[6]  In[7]  compile_to_r  In[8]  In[9]  r_factorial  In[10]  In[11]  test_r  In[12]  In[13]  inspect  In[14]  accumulate  In[15]  In[16]  In[17]  prolog_ancestor  In[18]  In[19]  compile_ancestor_tc  In[20]  In[21]  r_ancestor_tc  In[22]  In[23]  test_r_ancestor  In[24]  In[25]  compile_ancestor_skip  In[26]  bash_ancestor_alt  In[27]  In[28]  compare_outputs  \n\n=== r_factorial 코드 ===\n# 이 셀은 컴파일러에 의해 덮어쓰기됩니다.\n# 위의 'compile_to_r' 셀을 먼저 실행하세요.\n=== r_factorial 언어 ===\nr</pre>"
       },
       {
+        "id": 14,
         "code": "# 7단계: 상대 주소 지정 — /nb/-1/.output은 이전 셀의 출력을 읽습니다.\n# /nb/./.code는 이 셀 자체의 코드를 읽습니다. 복사하여 붙여넣고 누적하세요!\necho \"[accumulate] /nb/-1/.output을 통한 이전 셀 출력:\"\necho \"---\"\ncat /nb/-1/.output\necho \"---\"\necho \"\"\necho \"[self] /nb/./.code를 통한 이 셀의 코드:\"\ncat /nb/./.code",
         "type": "code",
         "language": "bash",
         "name": "accumulate",
-        "lastOutput": "",
-        "lastOutputHtml": ""
+        "lastOutput": "[accumulate] /nb/-1/.output을 통한 이전 셀 출력:\n---\n=== 셀 목록 ===\nIn[1]  In[2]  In[3]  load_uw  In[4]  In[5]  prolog_factorial  In[6]  In[7]  compile_to_r  In[8]  In[9]  r_factorial  In[10]  In[11]  test_r  In[12]  In[13]  inspect  In[14]  accumulate  In[15]  In[16]  In[17]  prolog_ancestor  In[18]  In[19]  compile_ancestor_tc  In[20]  In[21]  r_ancestor_tc  In[22]  In[23]  test_r_ancestor  In[24]  In[25]  compile_ancestor_skip  In[26]  bash_ancestor_alt  In[27]  In[28]  compare_outputs  \n\n=== r_factorial 코드 ===\n# 이 셀은 컴파일러에 의해 덮어쓰기됩니다.\n# 위의 'compile_to_r' 셀을 먼저 실행하세요.\n=== r_factorial 언어 ===\nr---\n\n[self] /nb/./.code를 통한 이 셀의 코드:\n# 7단계: 상대 주소 지정 — /nb/-1/.output은 이전 셀의 출력을 읽습니다.\n# /nb/./.code는 이 셀 자체의 코드를 읽습니다. 복사하여 붙여넣고 누적하세요!\necho \"[accumulate] /nb/-1/.output을 통한 이전 셀 출력:\"\necho \"---\"\ncat /nb/-1/.output\necho \"---\"\necho \"\"\necho \"[self] /nb/./.code를 통한 이 셀의 코드:\"\ncat /nb/./.code",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">[accumulate] /nb/-1/.output을 통한 이전 셀 출력:\n---\n=== 셀 목록 ===\nIn[1]  In[2]  In[3]  load_uw  In[4]  In[5]  prolog_factorial  In[6]  In[7]  compile_to_r  In[8]  In[9]  r_factorial  In[10]  In[11]  test_r  In[12]  In[13]  inspect  In[14]  accumulate  In[15]  In[16]  In[17]  prolog_ancestor  In[18]  In[19]  compile_ancestor_tc  In[20]  In[21]  r_ancestor_tc  In[22]  In[23]  test_r_ancestor  In[24]  In[25]  compile_ancestor_skip  In[26]  bash_ancestor_alt  In[27]  In[28]  compare_outputs  \n\n=== r_factorial 코드 ===\n# 이 셀은 컴파일러에 의해 덮어쓰기됩니다.\n# 위의 'compile_to_r' 셀을 먼저 실행하세요.\n=== r_factorial 언어 ===\nr---\n\n[self] /nb/./.code를 통한 이 셀의 코드:\n# 7단계: 상대 주소 지정 — /nb/-1/.output은 이전 셀의 출력을 읽습니다.\n# /nb/./.code는 이 셀 자체의 코드를 읽습니다. 복사하여 붙여넣고 누적하세요!\necho \"[accumulate] /nb/-1/.output을 통한 이전 셀 출력:\"\necho \"---\"\ncat /nb/-1/.output\necho \"---\"\necho \"\"\necho \"[self] /nb/./.code를 통한 이 셀의 코드:\"\ncat /nb/./.code</pre>"
       },
       {
+        "id": 15,
         "code": "---\n\n# 파트 2: 조상 관계 — 이행 폐포 및 패턴 제어\n\n동일한 컴파일러로 관계형 서술어도 처리할 수 있습니다. 여기서는 `parent/2` 사실에 대한 이행 폐포로서 `ancestor/2`를 정의합니다.\n\n컴파일러는 패턴을 인식하고 R에서 **너비 우선 탐색 (BFS) 그래프 순회** 코드를 생성합니다. 그러나 `skip(transitive_closure)`를 지정하여 다른 컴파일 전략을 강제할 수도 있습니다. 이를 통해 `skip` 및 `pattern` 옵션이 컴파일러의 출력 코드를 어떻게 제어하는지 보여줍니다.",
         "type": "markdown",
-        "language": "prolog",
+        "language": "markdown",
         "name": "",
         "lastOutput": "",
         "lastOutputHtml": ""
       },
       {
+        "id": 16,
         "code": "## 8단계: Prolog에서 가계도 정의\n\n`parent/2` 사실을 사용한 작은 가계도와 이행 폐포로 정의된 `ancestor/2`입니다.\n\nProlog가 얼마나 간결한지 확인해 보세요 — `ancestor/2`에는 단 2개의 절만 필요합니다. 그래프 순회에 필요한 모든 메커니즘은 컴파일러가 자동으로 생성합니다.",
         "type": "markdown",
-        "language": "prolog",
+        "language": "markdown",
         "name": "",
         "lastOutput": "",
         "lastOutputHtml": ""
       },
       {
+        "id": 17,
         "code": ":- dynamic parent/2, ancestor/2.\n\n%가계도\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\n\n%이행 폐포: X가 Y의 조상이면 ancestor(X, Y)\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
         "type": "code",
         "language": "prolog",
         "name": "prolog_ancestor",
-        "lastOutput": "",
-        "lastOutputHtml": ""
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
       },
       {
+        "id": 18,
         "code": "## 9단계: ancestor/2 → R 컴파일 (기본값: 이행 폐포)\n\n컴파일러는 `ancestor/2`를 `parent/2`에 대한 **이행 폐포**로 분류하고 다음을 포함하는 R 코드를 생성합니다:\n- 인접 리스트 (환경 해시 맵)\n- BFS 순회 함수 (`ancestor_all`, `ancestor_check`)\n- 그래프에 데이터를 채우는 `add_parent` 함수\n\n이는 그래프 도달 가능성 쿼리에 대한 최적의 컴파일 결과입니다.",
         "type": "markdown",
-        "language": "prolog",
+        "language": "markdown",
         "name": "",
         "lastOutput": "",
         "lastOutputHtml": ""
       },
       {
+        "id": 19,
         "code": "%ancestor 정의 consult\nuser:nb_read('prolog_ancestor', '.code', _AncSrc),\nformat('Read from prolog_ancestor:~n~w~n~n', [_AncSrc]),\nsetup_call_cleanup(\n    open('/tmp/_nb_anc.pl', write, _Out),\n    write(_Out, _AncSrc),\n    close(_Out)),\nconsult('/tmp/_nb_anc.pl'),\n\n%기본 패턴 감지로 컴파일 → 이행 폐포\nrecursive_compiler:compile_recursive(ancestor/2, [target(r)], _Code1),\nformat('--- Pattern: transitive_closure ---~n~w~n', [_Code1]),\n\n%R 셀에 작성\nuser:nb_write('r_ancestor_tc', '.code', _Code1),\nwriteln('\\nR code written to cell: r_ancestor_tc').",
         "type": "code",
         "language": "prolog",
         "name": "compile_ancestor_tc",
-        "lastOutput": "",
-        "lastOutputHtml": ""
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
       },
       {
+        "id": 20,
         "code": "## 10단계: 생성된 R 코드 (이행 폐포)\n\n이 셀은 컴파일러에 의해 BFS 그래프 순회 코드로 덮어써집니다.\n먼저 위의 `compile_ancestor_tc` 셀을 실행하세요.",
         "type": "markdown",
-        "language": "r",
+        "language": "markdown",
         "name": "",
         "lastOutput": "",
         "lastOutputHtml": ""
       },
       {
+        "id": 21,
         "code": "# 이 셀은 컴파일러에 의해 덮어쓰기됩니다.\n# 위의 'compile_ancestor_tc'를 먼저 실행하세요.",
         "type": "code",
         "language": "r",
@@ -178,38 +202,43 @@
         "lastOutputHtml": ""
       },
       {
+        "id": 22,
         "code": "## 11단계: 생성된 R 프로그램 쿼리\n\n생성된 정의와 임베디드 부모 사실은 R 커널 내에 유지되므로, 이 셀에서 두 가지 도달 가능성 API를 모두 검증합니다.",
         "type": "markdown",
-        "language": "r",
+        "language": "markdown",
         "name": "",
         "lastOutput": "",
         "lastOutputHtml": ""
       },
       {
+        "id": 23,
         "code": "descendants <- ancestor_all(\"alice\")\ncat(\"alice의 후손:\", paste(descendants, collapse = \", \"), \"\\n\")\ncat(\"alice는 eve의 조상:\", ancestor_check(\"alice\", \"eve\"), \"\\n\")\ncat(\"alice는 frank의 조상:\", ancestor_check(\"alice\", \"frank\"), \"\\n\")",
         "type": "code",
         "language": "r",
         "name": "test_r_ancestor",
-        "lastOutput": "",
-        "lastOutputHtml": ""
+        "lastOutput": "Error: could not find function \"ancestor_all\"",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Error: could not find function \"ancestor_all\"</pre>"
       },
       {
+        "id": 24,
         "code": "## 12단계: 실험적 Bash 대체 코드 검사\n\n이제 이행 폐포 패턴을 건너뛰면서 **동일한 서술어**를 컴파일합니다. 컴파일러는 일반적인 꼬리 재귀 Bash 스캐폴드로 대체됩니다.\n\n이는 대상 선택 및 skip 옵션 연결 메커니즘을 보여주지만, 생성된 Bash에는 명시적인 TODO가 포함되어 있으며 **ancestor/2의 동작을 완전히 보존하는 구현체가 아닙니다**. 동등한 프로그램이 아닌 컴파일러 개발용 출력물로 취급하세요.",
         "type": "markdown",
-        "language": "prolog",
+        "language": "markdown",
         "name": "",
         "lastOutput": "",
         "lastOutputHtml": ""
       },
       {
+        "id": 25,
         "code": "%ancestor/2를 다시 컴파일하되 이행 폐포를 건너뜀 → 꼬리 재귀로 대체\n%언어 간 컴파일을 보여주기 위해 bash도 대상으로 설정\nrecursive_compiler:compile_recursive(\n    ancestor/2,\n    [target(bash), skip(transitive_closure)],\n    _Code2),\nformat('--- Pattern: tail_recursion (bash) ---~n~w~n', [_Code2]),\n\n%bash 셀에 작성\nuser:nb_write('bash_ancestor_alt', '.code', _Code2),\nwriteln('\\nBash code written to cell: bash_ancestor_alt').",
         "type": "code",
         "language": "prolog",
         "name": "compile_ancestor_skip",
-        "lastOutput": "",
-        "lastOutputHtml": ""
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
       },
       {
+        "id": 26,
         "code": "# 이 셀은 컴파일러에 의해 덮어쓰기됩니다.\n# 위의 'compile_ancestor_skip'을 먼저 실행하세요.",
         "type": "code",
         "language": "bash",
@@ -218,20 +247,22 @@
         "lastOutputHtml": ""
       },
       {
+        "id": 27,
         "code": "## 13단계: 생성된 출력 비교\n\nNotebook VFS를 사용하여 완전한 R 구현체와 명시적으로 실험적인 Bash 스캐폴드를 나란히 검사합니다:",
         "type": "markdown",
-        "language": "bash",
+        "language": "markdown",
         "name": "",
         "lastOutput": "",
         "lastOutputHtml": ""
       },
       {
+        "id": 28,
         "code": "echo \"=== R (이행 폐포 / BFS) ===\"\necho \"언어: $(cat /nb/r_ancestor_tc/.language)\"\necho \"---\"\ncat /nb/r_ancestor_tc/.code\necho \"\"\necho \"\"\necho \"=== Bash (꼬리 재귀) ===\"\necho \"언어: $(cat /nb/bash_ancestor_alt/.language)\"\necho \"---\"\ncat /nb/bash_ancestor_alt/.code",
         "type": "code",
         "language": "bash",
         "name": "compare_outputs",
-        "lastOutput": "",
-        "lastOutputHtml": ""
+        "lastOutput": "=== R (이행 폐포 / BFS) ===\n언어: r\n---\n# 이 셀은 컴파일러에 의해 덮어쓰기됩니다.\n# 위의 'compile_ancestor_tc'를 먼저 실행하세요.\n\n=== Bash (꼬리 재귀) ===\n언어: bash\n---\n# 이 셀은 컴파일러에 의해 덮어쓰기됩니다.\n# 위의 'compile_ancestor_skip'을 먼저 실행하세요.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">=== R (이행 폐포 / BFS) ===\n언어: r\n---\n# 이 셀은 컴파일러에 의해 덮어쓰기됩니다.\n# 위의 'compile_ancestor_tc'를 먼저 실행하세요.\n\n=== Bash (꼬리 재귀) ===\n언어: bash\n---\n# 이 셀은 컴파일러에 의해 덮어쓰기됩니다.\n# 위의 'compile_ancestor_skip'을 먼저 실행하세요.</pre>"
       }
     ]
   }
