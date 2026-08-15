@@ -244,6 +244,42 @@ try {
   const dkw = run(['tools/span-derive.mjs', EN, pkw, 'es', '--allow-renames']);
   check('renamed call kwarg fails derive', dkw.code === 1 && /keyword-argument name/.test(dkw.out), dkw.out.split('\n').find(l=>/keyword/.test(l))||'');
 
+  console.log('5d. span-apply: candidates + mechanical application');
+
+  const candOut = run(['tools/span-apply.mjs', 'candidates', EN]);
+  check('candidates generation succeeds', candOut.code === 0);
+  const cands = candOut.code === 0 ? JSON.parse(candOut.out).candidates : [];
+  check('candidates cover comments, strings, headers',
+    ['comment', 'display_string', 'docstring', 'header_literal']
+      .every(k => cands.some(c => c.kind === k)), String(cands.length));
+  check('trap not offered', !cands.some(c => c.kind === 'trap'));
+  const hdr16 = cands.find(c => c.kind === 'header_literal' && c.text === 'lower bound');
+  check('header candidate carries width', hdr16?.width === 16, String(hdr16?.width));
+
+  const applyMap = (map, out) => {
+    const mp = path.join(tmp, `map-${out}.json`);
+    writeFileSync(mp, JSON.stringify(map));
+    return run(['tools/span-apply.mjs', 'apply', EN, mp, path.join(tmp, out), '--en', EN]);
+  };
+  const cmt = cands.find(c => c.kind === 'comment' && /Visualize the starting/.test(c.text));
+  const okA = applyMap({ [cmt.id]: 'Visualisiere das Sechseck.' }, 'sa-ok.srwb');
+  check('apply succeeds and rewrites the comment', okA.code === 0 &&
+    /Visualisiere das Sechseck\./.test(readFileSync(path.join(tmp, 'sa-ok.srwb'), 'utf8')));
+  check('identity apply is byte-stable', (() => {
+    const r = applyMap({}, 'sa-id.srwb');
+    return r.code === 0 && JSON.stringify(JSON.parse(readFileSync(path.join(tmp, 'sa-id.srwb'), 'utf8')))
+      === JSON.stringify(JSON.parse(readFileSync(EN, 'utf8')));
+  })());
+  check('width violation rejected',
+    applyMap({ [hdr16.id]: 'viel zu langer Spaltentitel' }, 'sa-w.srwb').code === 1);
+  check('unknown id rejected', applyMap({ '9:99:0': 'x' }, 'sa-u.srwb').code === 1);
+  const ds = cands.find(c => c.kind === 'display_string' && c.tok === undefined && c.text.length > 3);
+  check('quote char in translation rejected', (() => {
+    const any = cands.find(c => c.kind === 'display_string');
+    return applyMap({ [any.id]: 'kaputt " kaputt' }, 'sa-q.srwb').code === 1
+        || applyMap({ [any.id]: "kaputt ' kaputt" }, 'sa-q2.srwb').code === 1;
+  })());
+
   console.log('6. Lint: completeness');
 
   const lintSame = run(['tools/span-scan.mjs', EN, '--lint', EN, '--strict']);

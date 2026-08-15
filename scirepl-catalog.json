@@ -1346,9 +1346,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/de/compute-pi-workbook.srwb",
-      "revision": 1,
-      "sha256": "01604ab188b2763309bd2f3f3cad6f727c0cc911825a4674aacbc4e8e9359472",
-      "size": 5790
+      "revision": 2,
+      "sha256": "b45116b2078ef016b2bfee87f26bf042ec6bd215f401598d67d0a0dd9911cb16",
+      "size": 6332
     },
     {
       "id": "lua-tables-coroutines-de",

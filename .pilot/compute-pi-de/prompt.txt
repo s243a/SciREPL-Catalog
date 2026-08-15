@@ -1,0 +1,78 @@
+You are translating a SciREPL Python workbook (compute-pi) from English to GERMAN for German-speaking learners. Reply with STRICT JSON only — no markdown fences, no commentary.
+
+Output shape:
+{"spans": {"<id>": "<German text>", ...},
+ "keeps": ["<id>", ...],
+ "renames": {"english_identifier": "deutscher_name", ...},
+ "cell_names": {"english": "deutsch", ...}}
+
+== PART 1: prose spans ==
+Translate each span below into natural German; put the id in "spans". Preserve leading/trailing spaces and punctuation shape EXACTLY (e.g. " terms" -> " Terme" keeps the leading space). Widths marked [MAX n CHARS] are hard limits — abbreviate naturally if needed. If a span is best left as-is (e.g. " < pi < ", the standalone symbol "d"), list its id in "keeps" instead. No backslashes except \n where the original has one; no braces; do not translate placeholder syntax.
+
+1:1:0  (comment)  "Visualize the starting hexagon inside a unit circle."
+1:7:0  (display_string)  "mode"
+1:9:0  (display_string)  "lines"
+1:11:0  (display_string)  "name"
+1:13:0  (display_string)  "Unit circle"
+1:19:0  (display_string)  "mode"
+1:21:0  (display_string)  "lines+markers"
+1:23:0  (display_string)  "name"
+1:25:0  (display_string)  "Inscribed hexagon"
+1:27:0  (display_string)  "title"
+1:29:0  (display_string)  "Archimedes starts with a hexagon"
+1:31:0  (display_string)  "xaxis"
+1:33:0  (display_string)  "scaleanchor"
+1:37:0  (display_string)  "yaxis"
+1:39:0  (display_string)  "scaleanchor"
+2:1:0  (docstring)  "Return rigorous polygon bounds for a unit circle.\n\n    chord is the side length of the inscribed n-gon. The stable half-angle\n    recurrence doubles n without requiring pi.\n    "
+2:3:0  (header_literal  [MAX 4 CHARS])  "step"
+2:3:2  (header_literal  [MAX 9 CHARS])  "sides"
+2:3:4  (header_literal  [MAX 16 CHARS])  "lower bound"
+2:3:6  (header_literal  [MAX 16 CHARS])  "upper bound"
+2:3:8  (header_literal  [MAX 12 CHARS])  "width"
+2:7:0  (display_string)  "\\nFinal enclosure: "
+2:7:2  (display_string)  " < pi < "
+3:0:0  (comment)  "How many sides are needed before the complete enclosure is narrower"
+3:2:0  (comment)  "than 10^-d? Values are for repeated doubling from the hexagon."
+3:4:0  (header_literal  [MAX 3 CHARS])  "d"
+3:4:2  (header_literal  [MAX 18 CHARS])  "first doubled n"
+3:4:4  (header_literal  [MAX 14 CHARS])  "bound width"
+3:8:0  (display_string)  "\\nA narrower enclosure certifies more absolute accuracy; it is stronger"
+3:10:0  (display_string)  "than merely counting matching digits in one floating-point approximation."
+4:3:0  (display_string)  "Symbolic check of the familiar inscribed-area formula:"
+4:5:0  (display_string)  "limit as n approaches infinity ="
+5:1:0  (comment)  "Alternating-series remainder for pi is at most 4/(2N+1)."
+5:3:0  (display_string)  "Work needed for about 1e-10 absolute accuracy:"
+5:5:0  (display_string)  "  Leibniz guarantee:       "
+5:5:2  (display_string)  " terms"
+5:7:0  (display_string)  "  Polygon bound width:     "
+5:7:2  (display_string)  " sides (width "
+5:9:0  (display_string)  "  Machin formula in float: "
+5:9:2  (display_string)  " terms per arctangent"
+5:11:0  (display_string)  "\\nThe methods have very different convergence rates; the polygon method's"
+5:13:0  (display_string)  "historical importance is its rigorous geometric squeeze, not raw speed."
+
+== PART 2: identifiers ==
+Python 3 accepts umlauts/ß in identifiers — use natural German, snake_case. No two targets may collide, and none may equal a KEEP name.
+
+Translate: rows, chord, lower, upper, angles, step, half_chord, width, first_for_digits, terms, layout, archimedes_rows, inscribed_area, limit_value, arctan_series, x_hex, y_hex, circle, hexagon, doublings, machin_pi, leibniz_terms_for_error, machin_terms, polygon_sides, polygon_width
+
+KEEP (do not rename, do not collide with): n, d, x, k, theta, print, np, sp, math, range, numpy, sympy, endpoint, positive, sum, next, abs, mplot
+
+== PART 3: cell names ==
+Short natural German, no slashes, no leading dot: geometry, bounds, accuracy, symbolic_limit, comparison
+
+== Terminology reference (this workbook's German introduction, already translated) ==
+# Pi mit archimedischen Schranken berechnen
+
+Archimedes grenzte Pi zwischen den Umfängen von Polygonen ein, die innerhalb und außerhalb eines Kreises gezeichnet wurden. Diese Arbeitsmappe nutzt dieselbe Idee, ohne Pi in die numerische Rekursion einzusetzen: Wir beginnen mit einem Sechseck im Einheitskreis, verdoppeln dessen Seiten wiederholt und schließen Pi zwischen einer unteren und einer oberen Schranke ein.
+
+Der erste Plot verwendet Trigonometrie ausschließlich zur Veranschaulichung der Geometrie. Die darauffolgende Schrankenberechnung verwendet Quadratwurzeln und die Seitenlänge des vorherigen Polygons.
+---
+## Wichtigste Erkenntnisse
+
+- Die numerische Rekursion beginnt mit einer bekannten Sechseckseite und setzt keinen numerischen Wert für Pi voraus.
+- Jede Iteration liefert sowohl eine untere als auch eine obere Schranke.
+- Das Verdoppeln der Seitenzahl verringert die Intervallbreite um etwa den Faktor vier.
+- Symbolische Grenzwerte erklären die Konvergenz; sie sind nicht selbst der numerische Algorithmus.
+- Eine rigorose Fehlerschranke ist etwas anderes als das bloße Zählen von Ziffern, die zufällig mit einer Gleitkomma-Referenz übereinstimmen.
