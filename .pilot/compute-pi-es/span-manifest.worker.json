@@ -1,0 +1,875 @@
+{
+  "manifest_version": 1,
+  "produced_by": "worker",
+  "generator": "agy-gemini-flash",
+  "locale": "es",
+  "source": {
+    "path": "workbooks/en/compute-pi-workbook.srwb",
+    "sha256": "390396a85df660459b2ae6df25e19fde05c525d4c1a8cea17727fd547a258e4f"
+  },
+  "target": {
+    "path": "workbooks/es/compute-pi-workbook.srwb",
+    "sha256": "4a78da71304431d23a31b7bc0b72642159b39c212f37975077f9960b7f156411"
+  },
+  "spans": [
+    {
+      "cell_index": 1,
+      "cell_name": "geometry",
+      "kind": "comment",
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 3
+        },
+        "end": {
+          "line": 3,
+          "col": 55
+        },
+        "text": "Visualize the starting hexagon inside a unit circle."
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 3
+        },
+        "end": {
+          "line": 3,
+          "col": 63
+        },
+        "text": "Visualiza el hexágono inicial dentro de un círculo unitario."
+      },
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 1,
+      "cell_name": "geometry",
+      "kind": "plot_label",
+      "source_span": {
+        "start": {
+          "line": 9,
+          "col": 77
+        },
+        "end": {
+          "line": 9,
+          "col": 88
+        },
+        "text": "Unit circle"
+      },
+      "target_span": {
+        "start": {
+          "line": 9,
+          "col": 77
+        },
+        "end": {
+          "line": 9,
+          "col": 93
+        },
+        "text": "Círculo unitario"
+      },
+      "reaches_output": "plot",
+      "placeholders": []
+    },
+    {
+      "cell_index": 1,
+      "cell_name": "geometry",
+      "kind": "plot_label",
+      "source_span": {
+        "start": {
+          "line": 10,
+          "col": 70
+        },
+        "end": {
+          "line": 10,
+          "col": 87
+        },
+        "text": "Inscribed hexagon"
+      },
+      "target_span": {
+        "start": {
+          "line": 10,
+          "col": 70
+        },
+        "end": {
+          "line": 10,
+          "col": 87
+        },
+        "text": "Hexágono inscrito"
+      },
+      "reaches_output": "plot",
+      "placeholders": []
+    },
+    {
+      "cell_index": 1,
+      "cell_name": "geometry",
+      "kind": "plot_label",
+      "source_span": {
+        "start": {
+          "line": 11,
+          "col": 21
+        },
+        "end": {
+          "line": 11,
+          "col": 53
+        },
+        "text": "Archimedes starts with a hexagon"
+      },
+      "target_span": {
+        "start": {
+          "line": 11,
+          "col": 21
+        },
+        "end": {
+          "line": 11,
+          "col": 56
+        },
+        "text": "Arquímedes comienza con un hexágono"
+      },
+      "reaches_output": "plot",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "bounds",
+      "kind": "docstring",
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 8
+        },
+        "end": {
+          "line": 8,
+          "col": 5
+        },
+        "text": "Return rigorous polygon bounds for a unit circle.\n\n    chord is the side length of the inscribed n-gon. The stable half-angle\n    recurrence doubles n without requiring pi.\n    "
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 8
+        },
+        "end": {
+          "line": 8,
+          "col": 5
+        },
+        "text": "Devuelve cotas poligonales rigurosas para un círculo unitario.\n\n    chord es la longitud del lado del n-ágono inscrito. La recurrencia estable\n    de ángulo mitad duplica n sin requerir pi.\n    "
+      },
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "bounds",
+      "kind": "display_string",
+      "source_span": {
+        "start": {
+          "line": 12,
+          "col": 9
+        },
+        "end": {
+          "line": 12,
+          "col": 13
+        },
+        "text": "step"
+      },
+      "target_span": {
+        "start": {
+          "line": 22,
+          "col": 11
+        },
+        "end": {
+          "line": 22,
+          "col": 15
+        },
+        "text": "paso"
+      },
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "bounds",
+      "kind": "display_string",
+      "source_span": {
+        "start": {
+          "line": 22,
+          "col": 23
+        },
+        "end": {
+          "line": 22,
+          "col": 28
+        },
+        "text": "sides"
+      },
+      "target_span": {
+        "start": {
+          "line": 22,
+          "col": 23
+        },
+        "end": {
+          "line": 22,
+          "col": 28
+        },
+        "text": "lados"
+      },
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "bounds",
+      "kind": "display_string",
+      "source_span": {
+        "start": {
+          "line": 22,
+          "col": 36
+        },
+        "end": {
+          "line": 22,
+          "col": 47
+        },
+        "text": "lower bound"
+      },
+      "target_span": {
+        "start": {
+          "line": 22,
+          "col": 36
+        },
+        "end": {
+          "line": 22,
+          "col": 49
+        },
+        "text": "cota inferior"
+      },
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "bounds",
+      "kind": "display_string",
+      "source_span": {
+        "start": {
+          "line": 22,
+          "col": 56
+        },
+        "end": {
+          "line": 22,
+          "col": 67
+        },
+        "text": "upper bound"
+      },
+      "target_span": {
+        "start": {
+          "line": 22,
+          "col": 58
+        },
+        "end": {
+          "line": 22,
+          "col": 71
+        },
+        "text": "cota superior"
+      },
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "bounds",
+      "kind": "display_string",
+      "source_span": {
+        "start": {
+          "line": 22,
+          "col": 76
+        },
+        "end": {
+          "line": 22,
+          "col": 81
+        },
+        "text": "width"
+      },
+      "target_span": {
+        "start": {
+          "line": 22,
+          "col": 80
+        },
+        "end": {
+          "line": 22,
+          "col": 85
+        },
+        "text": "ancho"
+      },
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "bounds",
+      "kind": "display_string",
+      "source_span": {
+        "start": {
+          "line": 28,
+          "col": 9
+        },
+        "end": {
+          "line": 28,
+          "col": 28
+        },
+        "text": "\\nFinal enclosure: "
+      },
+      "target_span": {
+        "start": {
+          "line": 28,
+          "col": 9
+        },
+        "end": {
+          "line": 28,
+          "col": 36
+        },
+        "text": "\\nIntervalo acotado final: "
+      },
+      "reaches_output": "stdout",
+      "placeholders": [
+        "{lower:.12f}",
+        "{upper:.12f}"
+      ]
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "accuracy",
+      "kind": "comment",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 3
+        },
+        "end": {
+          "line": 1,
+          "col": 70
+        },
+        "text": "How many sides are needed before the complete enclosure is narrower"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 3
+        },
+        "end": {
+          "line": 1,
+          "col": 90
+        },
+        "text": "¿Cuántos lados se necesitan antes de que el intervalo acotado completo sea más estrecho"
+      },
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "accuracy",
+      "kind": "comment",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 3
+        },
+        "end": {
+          "line": 2,
+          "col": 65
+        },
+        "text": "than 10^-d? Values are for repeated doubling from the hexagon."
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 3
+        },
+        "end": {
+          "line": 2,
+          "col": 83
+        },
+        "text": "que 10^-d? Los valores corresponden a duplicaciones repetidas desde el hexágono."
+      },
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "accuracy",
+      "kind": "display_string",
+      "source_span": {
+        "start": {
+          "line": 9,
+          "col": 20
+        },
+        "end": {
+          "line": 9,
+          "col": 35
+        },
+        "text": "first doubled n"
+      },
+      "target_span": {
+        "start": {
+          "line": 9,
+          "col": 20
+        },
+        "end": {
+          "line": 9,
+          "col": 38
+        },
+        "text": "primer n duplicada"
+      },
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "accuracy",
+      "kind": "display_string",
+      "source_span": {
+        "start": {
+          "line": 9,
+          "col": 44
+        },
+        "end": {
+          "line": 9,
+          "col": 55
+        },
+        "text": "bound width"
+      },
+      "target_span": {
+        "start": {
+          "line": 9,
+          "col": 47
+        },
+        "end": {
+          "line": 9,
+          "col": 60
+        },
+        "text": "ancho de cota"
+      },
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "accuracy",
+      "kind": "display_string",
+      "source_span": {
+        "start": {
+          "line": 14,
+          "col": 8
+        },
+        "end": {
+          "line": 14,
+          "col": 79
+        },
+        "text": "\\nA narrower enclosure certifies more absolute accuracy; it is stronger"
+      },
+      "target_span": {
+        "start": {
+          "line": 14,
+          "col": 8
+        },
+        "end": {
+          "line": 14,
+          "col": 93
+        },
+        "text": "\\nUn intervalo acotado más estrecho certifica mayor precisión absoluta; es más sólido"
+      },
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "accuracy",
+      "kind": "display_string",
+      "source_span": {
+        "start": {
+          "line": 15,
+          "col": 8
+        },
+        "end": {
+          "line": 15,
+          "col": 81
+        },
+        "text": "than merely counting matching digits in one floating-point approximation."
+      },
+      "target_span": {
+        "start": {
+          "line": 15,
+          "col": 8
+        },
+        "end": {
+          "line": 15,
+          "col": 90
+        },
+        "text": "que simplemente contar dígitos coincidentes en una aproximación de punto flotante."
+      },
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": "symbolic_limit",
+      "kind": "display_string",
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 8
+        },
+        "end": {
+          "line": 7,
+          "col": 62
+        },
+        "text": "Symbolic check of the familiar inscribed-area formula:"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 8
+        },
+        "end": {
+          "line": 7,
+          "col": 72
+        },
+        "text": "Comprobación simbólica de la conocida fórmula del área inscrita:"
+      },
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": "symbolic_limit",
+      "kind": "display_string",
+      "source_span": {
+        "start": {
+          "line": 8,
+          "col": 8
+        },
+        "end": {
+          "line": 8,
+          "col": 40
+        },
+        "text": "limit as n approaches infinity ="
+      },
+      "target_span": {
+        "start": {
+          "line": 8,
+          "col": 8
+        },
+        "end": {
+          "line": 8,
+          "col": 43
+        },
+        "text": "límite cuando n tiende a infinito ="
+      },
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "kind": "comment",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 7
+        },
+        "end": {
+          "line": 2,
+          "col": 63
+        },
+        "text": "Alternating-series remainder for pi is at most 4/(2N+1)."
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 7
+        },
+        "end": {
+          "line": 2,
+          "col": 70
+        },
+        "text": "El resto de la serie alternada para pi es como máximo 4/(2N+1)."
+      },
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "kind": "display_string",
+      "source_span": {
+        "start": {
+          "line": 14,
+          "col": 8
+        },
+        "end": {
+          "line": 14,
+          "col": 54
+        },
+        "text": "Work needed for about 1e-10 absolute accuracy:"
+      },
+      "target_span": {
+        "start": {
+          "line": 14,
+          "col": 8
+        },
+        "end": {
+          "line": 14,
+          "col": 79
+        },
+        "text": "Trabajo necesario para una precisión absoluta de aproximadamente 1e-10:"
+      },
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "kind": "display_string",
+      "source_span": {
+        "start": {
+          "line": 15,
+          "col": 9
+        },
+        "end": {
+          "line": 15,
+          "col": 36
+        },
+        "text": "  Leibniz guarantee:       "
+      },
+      "target_span": {
+        "start": {
+          "line": 15,
+          "col": 9
+        },
+        "end": {
+          "line": 15,
+          "col": 38
+        },
+        "text": "  Garantía de Leibniz:       "
+      },
+      "reaches_output": "stdout",
+      "placeholders": [
+        "{leibniz_terms_for_error(10):,}"
+      ]
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "kind": "display_string",
+      "source_span": {
+        "start": {
+          "line": 15,
+          "col": 67
+        },
+        "end": {
+          "line": 15,
+          "col": 73
+        },
+        "text": " terms"
+      },
+      "target_span": {
+        "start": {
+          "line": 15,
+          "col": 69
+        },
+        "end": {
+          "line": 15,
+          "col": 78
+        },
+        "text": " términos"
+      },
+      "reaches_output": "stdout",
+      "placeholders": [
+        "{leibniz_terms_for_error(10):,}"
+      ]
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "kind": "display_string",
+      "source_span": {
+        "start": {
+          "line": 16,
+          "col": 9
+        },
+        "end": {
+          "line": 16,
+          "col": 36
+        },
+        "text": "  Polygon bound width:     "
+      },
+      "target_span": {
+        "start": {
+          "line": 16,
+          "col": 9
+        },
+        "end": {
+          "line": 16,
+          "col": 38
+        },
+        "text": "  Ancho de cota poligonal:   "
+      },
+      "reaches_output": "stdout",
+      "placeholders": [
+        "{polygon_sides:,}",
+        "{polygon_width:.2e}"
+      ]
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "kind": "display_string",
+      "source_span": {
+        "start": {
+          "line": 16,
+          "col": 53
+        },
+        "end": {
+          "line": 16,
+          "col": 67
+        },
+        "text": " sides (width "
+      },
+      "target_span": {
+        "start": {
+          "line": 16,
+          "col": 55
+        },
+        "end": {
+          "line": 16,
+          "col": 69
+        },
+        "text": " lados (ancho "
+      },
+      "reaches_output": "stdout",
+      "placeholders": [
+        "{polygon_sides:,}",
+        "{polygon_width:.2e}"
+      ]
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "kind": "display_string",
+      "source_span": {
+        "start": {
+          "line": 17,
+          "col": 9
+        },
+        "end": {
+          "line": 17,
+          "col": 36
+        },
+        "text": "  Machin formula in float: "
+      },
+      "target_span": {
+        "start": {
+          "line": 17,
+          "col": 9
+        },
+        "end": {
+          "line": 17,
+          "col": 39
+        },
+        "text": "  Fórmula de Machin en float: "
+      },
+      "reaches_output": "stdout",
+      "placeholders": [
+        "{machin_terms}"
+      ]
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "kind": "display_string",
+      "source_span": {
+        "start": {
+          "line": 17,
+          "col": 50
+        },
+        "end": {
+          "line": 17,
+          "col": 71
+        },
+        "text": " terms per arctangent"
+      },
+      "target_span": {
+        "start": {
+          "line": 17,
+          "col": 53
+        },
+        "end": {
+          "line": 17,
+          "col": 79
+        },
+        "text": " términos por arcotangente"
+      },
+      "reaches_output": "stdout",
+      "placeholders": [
+        "{machin_terms}"
+      ]
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "kind": "display_string",
+      "source_span": {
+        "start": {
+          "line": 18,
+          "col": 8
+        },
+        "end": {
+          "line": 18,
+          "col": 81
+        },
+        "text": "\\nThe methods have very different convergence rates; the polygon method's"
+      },
+      "target_span": {
+        "start": {
+          "line": 18,
+          "col": 8
+        },
+        "end": {
+          "line": 18,
+          "col": 81
+        },
+        "text": "\\nLos métodos tienen tasas de convergencia muy diferentes; la importancia"
+      },
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "kind": "display_string",
+      "source_span": {
+        "start": {
+          "line": 19,
+          "col": 8
+        },
+        "end": {
+          "line": 19,
+          "col": 79
+        },
+        "text": "historical importance is its rigorous geometric squeeze, not raw speed."
+      },
+      "target_span": {
+        "start": {
+          "line": 19,
+          "col": 8
+        },
+        "end": {
+          "line": 19,
+          "col": 107
+        },
+        "text": "histórica del método de los polígonos es su riguroso acotamiento geométrico, no la velocidad bruta."
+      },
+      "reaches_output": "stdout",
+      "placeholders": []
+    }
+  ],
+  "exclusions": []
+}

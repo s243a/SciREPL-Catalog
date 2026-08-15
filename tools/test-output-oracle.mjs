@@ -81,7 +81,23 @@ const j7 = judge(run([null, 'same']), run([null, 'same']), m4);
 check('plot spans reported for the plot check, not text-diffed',
   j7.pass && j7.plotCells.includes(1), JSON.stringify(j7.plotCells));
 
-console.log('8. Sentinel collision resistance');
+console.log('8. Rendered-text masking (pilot regression: escapes and field padding)');
+// \n stored raw in the manifest must match the real newline in output
+const enE = run([null, 'x\nThe methods differ.']);
+const xxE = run([null, 'x\nLos métodos difieren.']);
+const mE = manifest([span(1, '\\nThe methods differ.', '\\nLos métodos difieren.')]);
+check('escaped \\n span masks rendered newline', judge(enE, xxE, mE).pass,
+  judge(enE, xxE, mE).failures.join(' | '));
+// same width, different text length → different padding; padded-field masking
+const enP = run([null, '     lower bound|   1']);
+const xxP = run([null, '   cota inferior|   1']);
+const mP = manifest([{ ...span(1, 'lower bound', 'cota inferior'), format_spec: '>16' }]);
+check('width-16 header masks with padding', judge(enP, xxP, mP).pass,
+  judge(enP, xxP, mP).failures.join(' | '));
+const xxP2 = run([null, '   cota inferior|   2']);
+check('padded masking still catches a changed number', !judge(enP, xxP2, mP).pass);
+
+console.log('9. Sentinel collision resistance');
 // translated word 'términos' coincidentally equals another legit span's text —
 // symmetric sentinels keep them distinct because masking is per-span-index
 const enC = run([null, 'terms and terms again']);

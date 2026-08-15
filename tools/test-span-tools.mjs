@@ -113,6 +113,29 @@ try {
         && s.placeholders.length > 0));
   }
 
+  console.log('4b. Derive: quoted-literal header placeholders are translatable');
+
+  const hdr = JSON.parse(readFileSync(EN, 'utf8'));
+  hdr.notebook.cells[2].code = hdr.notebook.cells[2].code
+    .replace("{'step':>4}", "{'paso':>4}")
+    .replace("{'lower bound':>16}", "{'cota inferior':>16}");
+  const ph = path.join(tmp, 'hdr.srwb');
+  writeFileSync(ph, JSON.stringify(hdr, null, 2));
+  const dh = run(['tools/span-derive.mjs', EN, ph, 'es']);
+  check('header literal translation accepted', dh.code === 0, dh.code ? dh.out.slice(0, 200) : '');
+  if (dh.code === 0) {
+    const mh = JSON.parse(dh.out);
+    check('both header spans derived', mh.spans.length === 2, String(mh.spans.length));
+    check('header span carries source/target literals',
+      mh.spans.some(s => s.source_span.text === 'step' && s.target_span.text === 'paso') &&
+      mh.spans.some(s => s.source_span.text === 'lower bound' && s.target_span.text === 'cota inferior'));
+  }
+  const hdrBad = JSON.parse(readFileSync(EN, 'utf8'));
+  hdrBad.notebook.cells[2].code = hdrBad.notebook.cells[2].code.replace("{'step':>4}", "{'paso':>6}");
+  const phb = path.join(tmp, 'hdr-bad.srwb');
+  writeFileSync(phb, JSON.stringify(hdrBad, null, 2));
+  check('header spec change still rejected', run(['tools/span-derive.mjs', EN, phb, 'es']).code === 1);
+
   console.log('5. Derive: executable-surface changes are hard errors');
 
   const bad1 = JSON.parse(readFileSync(EN, 'utf8'));

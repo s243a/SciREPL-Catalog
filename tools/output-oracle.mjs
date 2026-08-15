@@ -90,6 +90,27 @@ export function envelope(run1, run2) {
 
 /* ------------------------------ the oracle ------------------------------ */
 
+/**
+ * Rendered form of a span's text as it appears in program OUTPUT:
+ * - Python escape sequences in the source literal (\n, \t, ...) are decoded,
+ *   because the manifest stores the raw string body, not the printed bytes.
+ * - A format_spec like '>16' pads the text to its field width (the reason
+ *   equal-width headers with different text lengths still align).
+ */
+export function renderedText(text, formatSpec) {
+  let t = text.replace(/\\(n|t|r|\\|'|")/g, (_, c) =>
+    c === 'n' ? '\n' : c === 't' ? '\t' : c === 'r' ? '\r' : c);
+  const m = /^([<>^])(\d+)$/.exec(formatSpec || '');
+  if (m) {
+    const w = Number(m[2]);
+    const pad = Math.max(0, w - [...t].length);
+    if (m[1] === '>') t = ' '.repeat(pad) + t;
+    else if (m[1] === '<') t = t + ' '.repeat(pad);
+    else t = ' '.repeat(Math.floor(pad / 2)) + t + ' '.repeat(Math.ceil(pad / 2));
+  }
+  return t;
+}
+
 export function judge(enRun, xxRun, manifest) {
   const failures = [];
   const en = extractTextOutputs(enRun);
@@ -115,19 +136,24 @@ export function judge(enRun, xxRun, manifest) {
 
     // checked-claim rule: 'none' spans must not surface in outputs
     for (const s of noneSpans) {
-      if (s.cell_index === i && s.target_span?.text && b.includes(s.target_span.text)) {
+      if (s.cell_index === i && s.target_span?.text && b.includes(renderedText(s.target_span.text, s.format_spec))) {
         failures.push(`cell ${i}: reaches_output:none span surfaced in output — misclassified: ${JSON.stringify(s.target_span.text.slice(0, 60))}`);
       }
     }
 
-    // symmetric sentinel masking, longest-first to avoid substring shadowing
+    // symmetric sentinel masking, longest-first to avoid substring shadowing;
+    // masks the RENDERED text (escapes decoded, field padding applied)
     const spansHere = stdoutSpans
       .filter(s => s.cell_index === i)
-      .sort((x, y) => y.source_span.text.length - x.source_span.text.length);
+      .map(s => ({
+        src: renderedText(s.source_span.text, s.format_spec),
+        dst: renderedText(s.target_span.text, s.format_spec),
+      }))
+      .sort((x, y) => y.src.length - x.src.length);
     spansHere.forEach((s, k) => {
       const sentinel = `⟦S${i}_${k}⟧`;
-      a = a.split(s.source_span.text).join(sentinel);
-      b = b.split(s.target_span.text).join(sentinel);
+      a = a.split(s.src).join(sentinel);
+      b = b.split(s.dst).join(sentinel);
     });
 
     if (a !== b) {

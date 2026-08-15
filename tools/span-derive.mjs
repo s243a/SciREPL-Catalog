@@ -87,7 +87,32 @@ for (let i = 0; i < Math.min(enCells.length, xxCells.length); i++) {
       const sa = segmentFString(x.text), sb = segmentFString(y.text);
       const pa = sa.filter(s => s.type === 'ph').map(s => s.text);
       const pb = sb.filter(s => s.type === 'ph').map(s => s.text);
-      if (JSON.stringify(pa) !== JSON.stringify(pb)) {
+      // Placeholders whose expression is a pure quoted string literal are
+      // translatable header content (span-scan extracts them as candidates
+      // with widths): the format spec must be identical, only the inner
+      // literal may differ. Everything else must match exactly.
+      const LIT = /^\{\s*'([^']*)'\s*(:[^}]*)?\}$/;
+      let phError = false;
+      if (pa.length !== pb.length) phError = true;
+      else for (let k = 0; k < pa.length; k++) {
+        if (pa[k] === pb[k]) continue;
+        const ma = LIT.exec(pa[k]), mb = LIT.exec(pb[k]);
+        if (ma && mb && (ma[2] || '') === (mb[2] || '')) {
+          spans.push({
+            cell_index: i, cell_name: a.name,
+            kind: 'display_string', reaches_output: 'stdout',
+            // e.g. '>16' — the oracle masks the PADDED field, because equal
+            // widths with different text lengths render different padding
+            format_spec: (ma[2] || '').replace(/^:/, ''),
+            source_span: { start: x.bodyStart, end: x.bodyEnd, text: ma[1] },
+            target_span: { start: y.bodyStart, end: y.bodyEnd, text: mb[1] },
+            placeholders: [],
+          });
+          continue;
+        }
+        phError = true; break;
+      }
+      if (phError) {
         errors.push(`cell ${i} tok ${t}: placeholder set/order changed: [${pa}] vs [${pb}]`);
         continue;
       }
