@@ -1,88 +1,142 @@
 {
   "format": "srwb",
-  "version": "1.0",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T15:33:04.934Z",
   "notebook": {
+    "id": "default",
     "name": "Prolog জেনারেট করে Lua: কম্পাইলার ডেমো",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "python",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 14,
     "cells": [
       {
-        "type": "markdown",
+        "id": 1,
         "code": "# Prolog জেনারেট করে Lua\n\nএই ওয়ার্কবুকটি দেখায় কীভাবে UnifyWeaver Prolog প্রেডিকেটকে **Lua** কোডে কম্পাইল করে।\n\nকাজের ধারা প্রতিটি প্রোগ্রামিং ভাষাকে নিজস্ব নামযুক্ত হাইলাইট করা সেলে রাখে:\n1. Prolog সেল `family_tree`-তে বংশলতিকা সংজ্ঞায়িত করুন\n2. Lua সোর্স সেল `lua_queries`-তে শেয়ার করা কোয়েরি প্রোগ্রাম সংজ্ঞায়িত করুন\n3. Notebook VFS-এর মাধ্যমে কোয়েরি সেল পড়ুন এবং প্রতিটি জেনারেট করা প্রোগ্রামের সাথে যুক্ত করুন\n4. এমবেডেড তথ্য এবং রানটাইম VFS উভয় রূপই রান করুন\n\nদুটি ইনপুট মোড প্রদর্শিত হয়েছে:\n- **এমবেডেড** — তথ্য সরাসরি Lua কোডে কম্পাইল করা হয়\n- **VFS** — রানটাইমে অন্য একটি নোটবুক সেল থেকে তথ্য পড়া হয়\n\nLua সরাসরি সেল অ্যাক্সেসের জন্য `nb.read()`, `nb.write()`, `nb.list()`, এবং `nb.name()` প্রদান করে; শেষ অংশটি একটি সম্পূর্ণ রিড/রাইট চক্র প্রদর্শন করে।\n\nক্যাটালগ এই ওয়ার্কবুকের সাথে প্রয়োজনীয় **UnifyWeaver SciREPL** প্যাকেজটি স্বয়ংক্রিয়ভাবে ইনস্টল করে।",
-        "language": "markdown"
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
-        "type": "code",
+        "id": 2,
         "code": "% UnifyWeaver কম্পাইলার মডিউল লোড করুন\n['../init'].\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "type": "code",
         "language": "prolog",
-        "name": "load_compiler"
+        "name": "load_compiler",
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
       },
       {
-        "type": "code",
+        "id": 3,
         "code": "% Prolog তথ্য হিসেবে বংশলতিকা সংজ্ঞায়িত করুন\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% ট্রানজিটিভ ক্লোজার: ancestor(X, Y) যদি X, Y-এর পূর্বপুরুষ হয়\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "type": "code",
         "language": "prolog",
-        "name": "family_tree"
+        "name": "family_tree",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
       },
       {
-        "type": "code",
+        "id": 4,
         "code": "#!source\n-- এই নামযুক্ত Lua সোর্স সেলটি উভয় কম্পাইলার সেল দ্বারা পঠিত হয়।\n-- এটি প্রতিটি জেনারেট করা প্রোগ্রামের শেষে যুক্ত হয় এবং সেখানে এক্সিকিউট হয়।\n\n-- --- কোয়েরিসমূহ ---\nlocal results = find_all(\"alice\")\nprint(\"alice-এর উত্তরসূরী: \" .. table.concat(results, \", \"))\nprint(\"alice -> eve: \" .. tostring(check(\"alice\", \"eve\")))\nprint(\"alice -> frank: \" .. tostring(check(\"alice\", \"frank\")))",
+        "type": "code",
         "language": "lua",
-        "name": "lua_queries"
+        "name": "lua_queries",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
-        "type": "markdown",
+        "id": 5,
         "code": "## প্যাটার্ন ১: এমবেডেড ইনপুট\n\n`input(embedded)` ব্যবহার করার সময়, Prolog তথ্য সরাসরি Lua কোডে `add_fact()` কল হিসেবে কম্পাইল হয়। কম্পাইলার সেল হাইলাইট করা সেল `lua_queries` পড়ে এবং এটি যুক্ত করে, ফলে জেনারেট করা প্রোগ্রামটি স্বয়ংসম্পूर्ण হয়।",
-        "language": "markdown"
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
-        "type": "code",
+        "id": 6,
         "code": "% নামযুক্ত সোর্স সেল থেকে হাইলাইট করা Lua কোয়েরি প্রোগ্রাম পড়ুন\n\\+ \\+ (\n    user:nb_read('lua_queries', '.code', _QuerySource),\n    split_string(_QuerySource, \"\\n\", \"\\r\", [\"#!source\"|_QueryLines]),\n    atomics_to_string(_QueryLines, \"\\n\", _Queries),\n\n    % input(embedded) দিয়ে কম্পাইল করুন — তথ্য সরাসরি কোডে অন্তর্ভুক্ত\n    recursive_compiler:compile_recursive(ancestor/2, [target(lua), input(embedded)], _Code),\n    format(string(_FullCode), '~w~n~n~w~n', [_Code, _Queries]),\n    user:nb_write('lua_embedded', '.code', _FullCode),\n    writeln('Lua code (embedded) written to cell: lua_embedded')\n).",
+        "type": "code",
         "language": "prolog",
-        "name": "compile_embedded"
+        "name": "compile_embedded",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
       },
       {
-        "type": "code",
+        "id": 7,
         "code": "-- এই সেলটি কম্পাইলার দ্বারা পূর্ণ করা হবে।\n-- প্রথমে উপরের 'compile_embedded' সেলটি রান করুন।",
+        "type": "code",
         "language": "lua",
-        "name": "lua_embedded"
+        "name": "lua_embedded",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
-        "type": "markdown",
+        "id": 8,
         "code": "## প্যাটার্ন ২: VFS ইনপুট\n\n`input(vfs(facts_data, '.code'))` ব্যবহার করার সময়, জেনারেট করা Lua কোড রানটাইমে `nb.read()`-এর মাধ্যমে অন্য একটি সেলের কোড থেকে তথ্য পড়ে। এটি পুনরায় কম্পাইল না করেই ডেটা পরিবর্তনের সুবিধা দেয়। একই নামযুক্ত `lua_queries` প্রোগ্রামটি এই সংস্করণেও যুক্ত করা হয়।\n\nনিচের ডেটা সেলে Lua কমেন্ট ব্লকের ভেতরে `from:to` লাইনে তথ্য রয়েছে:",
-        "language": "markdown"
-      },
-      {
-        "type": "code",
-        "code": "-- ডেটা সেল: from:to ফরম্যাটে তথ্য (প্রতি লাইনে একটি করে)\n-- VFS-কম্পাইলকৃত সেলটি nb.read(\"facts_data\", \".code\")-এর মাধ্যমে এটি পড়ে\n--[[\nalice:bob\nbob:charlie\nbob:diana\ncharlie:eve\ndiana:frank\n]]",
-        "language": "lua",
-        "name": "facts_data"
-      },
-      {
-        "type": "code",
-        "code": "% একই হাইলাইট করা Lua কোয়েরি প্রোগ্রাম পড়ুন\n\\+ \\+ (\n    user:nb_read('lua_queries', '.code', _QuerySource),\n    split_string(_QuerySource, \"\\n\", \"\\r\", [\"#!source\"|_QueryLines]),\n    atomics_to_string(_QueryLines, \"\\n\", _Queries),\n\n    % input(vfs(facts_data)) দিয়ে কম্পাইল করুন — উপরের সেল থেকে তথ্য পড়ে\n    recursive_compiler:compile_recursive(ancestor/2, [target(lua), input(vfs(facts_data, '.code'))], _Code),\n    format(string(_FullCode), '~w~n~n~w~n', [_Code, _Queries]),\n    user:nb_write('lua_vfs', '.code', _FullCode),\n    writeln('Lua code (VFS) written to cell: lua_vfs')\n).",
-        "language": "prolog",
-        "name": "compile_vfs"
-      },
-      {
-        "type": "code",
-        "code": "-- এই সেলটি কম্পাইলার দ্বারা পূর্ণ করা হবে।\n-- প্রথমে উপরের 'compile_vfs' সেলটি রান করুন।",
-        "language": "lua",
-        "name": "lua_vfs"
-      },
-      {
         "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 9,
+        "code": "-- ডেটা সেল: from:to ফরম্যাটে তথ্য (প্রতি লাইনে একটি করে)\n-- VFS-কম্পাইলকৃত সেলটি nb.read(\"facts_data\", \".code\")-এর মাধ্যমে এটি পড়ে\n--[[\nalice:bob\nbob:charlie\nbob:diana\ncharlie:eve\ndiana:frank\n]]",
+        "type": "code",
+        "language": "lua",
+        "name": "facts_data",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 10,
+        "code": "% একই হাইলাইট করা Lua কোয়েরি প্রোগ্রাম পড়ুন\n\\+ \\+ (\n    user:nb_read('lua_queries', '.code', _QuerySource),\n    split_string(_QuerySource, \"\\n\", \"\\r\", [\"#!source\"|_QueryLines]),\n    atomics_to_string(_QueryLines, \"\\n\", _Queries),\n\n    % input(vfs(facts_data)) দিয়ে কম্পাইল করুন — উপরের সেল থেকে তথ্য পড়ে\n    recursive_compiler:compile_recursive(ancestor/2, [target(lua), input(vfs(facts_data, '.code'))], _Code),\n    format(string(_FullCode), '~w~n~n~w~n', [_Code, _Queries]),\n    user:nb_write('lua_vfs', '.code', _FullCode),\n    writeln('Lua code (VFS) written to cell: lua_vfs')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "compile_vfs",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
+      },
+      {
+        "id": 11,
+        "code": "-- এই সেলটি কম্পাইলার দ্বারা পূর্ণ করা হবে।\n-- প্রথমে উপরের 'compile_vfs' সেলটি রান করুন।",
+        "type": "code",
+        "language": "lua",
+        "name": "lua_vfs",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 12,
         "code": "## Lua নোটবুক সেল পড়ে এবং লেখে\n\nLua সরাসরি Notebook VFS ব্যবহার করতে পারে। এই সেলটি নামযুক্ত সোর্স `lua_queries` পড়ে এবং পরবর্তী সেল `lua_written`-এ একটি নোট লেখে।",
-        "language": "markdown"
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
-        "type": "code",
+        "id": 13,
         "code": "local query_source = nb.read(\"lua_queries\", \".code\")\nassert(query_source ~= nil)\nlocal note = \"-- lua_queries পড়ার পর Lua থেকে লেখা হয়েছে (\" .. tostring(#query_source) .. \" টি অক্ষর)\"\nassert(nb.write(\"lua_written\", \".code\", note))\nprint(\"Lua lua_queries পড়েছে এবং lua_written-এ লিখেছে\")",
+        "type": "code",
         "language": "lua",
-        "name": "lua_cell_io"
+        "name": "lua_cell_io",
+        "lastOutput": "Lua lua_queries পড়েছে এবং lua_written-এ লিখেছে\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Lua lua_queries পড়েছে এবং lua_written-এ লিখেছে\n</pre>"
       },
       {
+        "id": 14,
+        "code": "-- lua_queries পড়ার পর Lua থেকে লেখা হয়েছে (655 টি অক্ষর)",
         "type": "code",
-        "code": "-- এই সেলটি lua_cell_io দ্বারা পূর্ণ করা হবে।",
         "language": "lua",
-        "name": "lua_written"
+        "name": "lua_written",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       }
     ]
   }
