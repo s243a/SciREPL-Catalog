@@ -1,0 +1,179 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T15:40:32.008Z",
+  "notebook": {
+    "id": "default",
+    "name": "Statistik dengan R",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "r",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 18,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# Statistik dengan R\n\nPengujian hipotesis, regresi, dan interval kepercayaan menggunakan kumpulan data bawaan R.\n\nTidak perlu mengunduh data atau memasang paket — hanya menggunakan R dasar (Base R).",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "## 1. Statistik Deskriptif",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 3,
+        "code": "data(mtcars)\ncat(\"Kumpulan data: mtcars (\", nrow(mtcars), \" mobil, \", ncol(mtcars), \" variabel)\\n\\n\")\nsummary(mtcars[, c(\"mpg\", \"hp\", \"wt\", \"disp\")])",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "Kumpulan data: mtcars ( 32  mobil,  11  variabel)\n\n      mpg              hp              wt             disp      \n Min.   :10.40   Min.   : 52.0   Min.   :1.513   Min.   : 71.1  \n 1st Qu.:15.43   1st Qu.: 96.5   1st Qu.:2.581   1st Qu.:120.8  \n Median :19.20   Median :123.0   Median :3.325   Median :196.3  \n Mean   :20.09   Mean   :146.7   Mean   :3.217   Mean   :230.7  \n 3rd Qu.:22.80   3rd Qu.:180.0   3rd Qu.:3.610   3rd Qu.:326.0  \n Max.   :33.90   Max.   :335.0   Max.   :5.424   Max.   :472.0",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Kumpulan data: mtcars ( 32  mobil,  11  variabel)\n\n      mpg              hp              wt             disp      \n Min.   :10.40   Min.   : 52.0   Min.   :1.513   Min.   : 71.1  \n 1st Qu.:15.43   1st Qu.: 96.5   1st Qu.:2.581   1st Qu.:120.8  \n Median :19.20   Median :123.0   Median :3.325   Median :196.3  \n Mean   :20.09   Mean   :146.7   Mean   :3.217   Mean   :230.7  \n 3rd Qu.:22.80   3rd Qu.:180.0   3rd Qu.:3.610   3rd Qu.:326.0  \n Max.   :33.90   Max.   :335.0   Max.   :5.424   Max.   :472.0</pre>"
+      },
+      {
+        "id": 4,
+        "code": "## 2. Uji-t Dua Sampel\n\nApakah mobil transmisi manual memiliki efisiensi bahan bakar (MPG) yang lebih baik daripada otomatis?",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 5,
+        "code": "auto <- mtcars$mpg[mtcars$am == 0]\nmanual <- mtcars$mpg[mtcars$am == 1]\n\ncat(\"Otomatis:\", round(mean(auto), 1), \"mil per galon (n =\", length(auto), \")\\n\")\ncat(\"Transmisi manual:   \", round(mean(manual), 1), \"mil per galon (n =\", length(manual), \")\\n\\n\")\n\nt_result <- t.test(manual, auto, alternative = \"greater\")\nprint(t_result)\n\ncat(\"\\nKesimpulan:\",\n    ifelse(t_result$p.value < 0.05,\n           \"Tolak H0 — mobil manual memiliki MPG yang signifikan lebih tinggi\",\n           \"Gagal menolak H0\"))",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "Otomatis: 17.1 mil per galon (n = 19 )\nTransmisi manual:    24.4 mil per galon (n = 13 )\n\n\n\tWelch Two Sample t-test\n\ndata:  manual and auto\nt = 3.7671, df = 18.332, p-value = 0.0006868\nalternative hypothesis: true difference in means is greater than 0\n95 percent confidence interval:\n 3.913256      Inf\nsample estimates:\nmean of x mean of y \n 24.39231  17.14737 \n\n\nKesimpulan: Tolak H0 — mobil manual memiliki MPG yang signifikan lebih tinggi",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Otomatis: 17.1 mil per galon (n = 19 )\nTransmisi manual:    24.4 mil per galon (n = 13 )\n\n\n\tWelch Two Sample t-test\n\ndata:  manual and auto\nt = 3.7671, df = 18.332, p-value = 0.0006868\nalternative hypothesis: true difference in means is greater than 0\n95 percent confidence interval:\n 3.913256      Inf\nsample estimates:\nmean of x mean of y \n 24.39231  17.14737 \n\n\nKesimpulan: Tolak H0 — mobil manual memiliki MPG yang signifikan lebih tinggi</pre>"
+      },
+      {
+        "id": 6,
+        "code": "## 3. Uji Chi-Kuadrat\n\nApakah jumlah silinder dan jenis transmisi saling independen?",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 7,
+        "code": "tab <- table(Cylinders = mtcars$cyl, Transmission = mtcars$am)\ncolnames(tab) <- c(\"Otomatis\", \"Manual\")\nprint(tab)\ncat(\"\\n\")\nchisq.test(tab)",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "         Transmission\nCylinders Otomatis Manual\n        4        3      8\n        6        4      3\n        8       12      2\n\nWarning in chisq.test(tab) : Chi-squared approximation may be incorrect\n\n\tPearson's Chi-squared test\n\ndata:  tab\nX-squared = 8.7407, df = 2, p-value = 0.01265",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">         Transmission\nCylinders Otomatis Manual\n        4        3      8\n        6        4      3\n        8       12      2\n\nWarning in chisq.test(tab) : Chi-squared approximation may be incorrect\n\n\tPearson's Chi-squared test\n\ndata:  tab\nX-squared = 8.7407, df = 2, p-value = 0.01265</pre>"
+      },
+      {
+        "id": 8,
+        "code": "## 4. Regresi Linier Berganda",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 9,
+        "code": "model <- lm(mpg ~ wt + hp + am, data = mtcars)\nsummary(model)",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "\nCall:\nlm(formula = mpg ~ wt + hp + am, data = mtcars)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-3.4221 -1.7924 -0.3788  1.2249  5.5317 \n\nCoefficients:\n             Estimate Std. Error t value Pr(>|t|)    \n(Intercept) 34.002875   2.642659  12.867 2.82e-13 ***\nwt          -2.878575   0.904971  -3.181 0.003574 ** \nhp          -0.037479   0.009605  -3.902 0.000546 ***\nam           2.083710   1.376420   1.514 0.141268    \n---\nSignif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1\n\nResidual standard error: 2.538 on 28 degrees of freedom\nMultiple R-squared:  0.8399,\tAdjusted R-squared:  0.8227 \nF-statistic: 48.96 on 3 and 28 DF,  p-value: 2.908e-11",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">\nCall:\nlm(formula = mpg ~ wt + hp + am, data = mtcars)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-3.4221 -1.7924 -0.3788  1.2249  5.5317 \n\nCoefficients:\n             Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept) 34.002875   2.642659  12.867 2.82e-13 ***\nwt          -2.878575   0.904971  -3.181 0.003574 ** \nhp          -0.037479   0.009605  -3.902 0.000546 ***\nam           2.083710   1.376420   1.514 0.141268    \n---\nSignif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1\n\nResidual standard error: 2.538 on 28 degrees of freedom\nMultiple R-squared:  0.8399,\tAdjusted R-squared:  0.8227 \nF-statistic: 48.96 on 3 and 28 DF,  p-value: 2.908e-11</pre>"
+      },
+      {
+        "id": 10,
+        "code": "## 5. Diagnostik Regresi",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 11,
+        "code": "par(mfrow = c(2, 2))\nplot(model)",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": "<img src=\"blob:http://localhost:8090/9a012988-e654-4b96-bd8f-48bd1e906cfb\" style=\"max-width: 100%; border-radius: 6px; margin-top: 8px;\">"
+      },
+      {
+        "id": 12,
+        "code": "## 6. Interval Kepercayaan",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 13,
+        "code": "ci <- confint(model, level = 0.95)\ncat(\"Interval Kepercayaan 95%:\\n\")\nprint(round(ci, 4))",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "Interval Kepercayaan 95%:\n              2.5 %  97.5 %\n(Intercept) 28.5896 39.4161\nwt          -4.7323 -1.0248\nhp          -0.0572 -0.0178\nam          -0.7358  4.9032",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Interval Kepercayaan 95%:\n              2.5 %  97.5 %\n(Intercept) 28.5896 39.4161\nwt          -4.7323 -1.0248\nhp          -0.0572 -0.0178\nam          -0.7358  4.9032</pre>"
+      },
+      {
+        "id": 14,
+        "code": "coefs <- coef(model)[-1]\nci_vals <- ci[-1, ]\nn <- length(coefs)\n\npar(mfrow = c(1, 1), mar = c(5, 8, 4, 2))\nplot(coefs, 1:n, xlim = range(ci_vals),\n     pch = 19, col = \"#58a6ff\", cex = 1.5,\n     yaxt = \"n\", xlab = \"Estimasi\", ylab = \"\",\n     main = \"Interval Kepercayaan 95% untuk Koefisien\")\naxis(2, at = 1:n, labels = names(coefs), las = 1)\nsegments(ci_vals[, 1], 1:n, ci_vals[, 2], 1:n,\n         lwd = 3, col = \"#58a6ff\")\nabline(v = 0, lty = 2, col = \"#f85149\", lwd = 1.5)",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": "<img src=\"blob:http://localhost:8090/05e79190-f0fe-45d6-b987-5e5f7e0d5977\" style=\"max-width: 100%; border-radius: 6px; margin-top: 8px;\">"
+      },
+      {
+        "id": 15,
+        "code": "## 7. ANOVA Satu Arah (One-Way ANOVA)\n\nApakah efisiensi bahan bakar (MPG) berbeda secara signifikan antar jumlah silinder?",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 16,
+        "code": "anova_model <- aov(mpg ~ factor(cyl), data = mtcars)\nsummary(anova_model)\ncat(\"\\nPerbandingan Post-hoc Tukey HSD:\\n\")\nTukeyHSD(anova_model)",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "            Df Sum Sq Mean Sq F value   Pr(>F)    \nfactor(cyl)  2  824.8   412.4    39.7 4.98e-09 ***\nResiduals   29  301.3    10.4                     \n---\nSignif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1\n\nPerbandingan Post-hoc Tukey HSD:\n  Tukey multiple comparisons of means\n    95% family-wise confidence level\n\nFit: aov(formula = mpg ~ factor(cyl), data = mtcars)\n\n$`factor(cyl)`\n          diff        lwr        upr     p adj\n6-4  -6.920779 -10.769350 -3.0722086 0.0003424\n8-4 -11.563636 -14.770779 -8.3564942 0.0000000\n8-6  -4.642857  -8.327583 -0.9581313 0.0112287",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">            Df Sum Sq Mean Sq F value   Pr(&gt;F)    \nfactor(cyl)  2  824.8   412.4    39.7 4.98e-09 ***\nResiduals   29  301.3    10.4                     \n---\nSignif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1\n\nPerbandingan Post-hoc Tukey HSD:\n  Tukey multiple comparisons of means\n    95% family-wise confidence level\n\nFit: aov(formula = mpg ~ factor(cyl), data = mtcars)\n\n$`factor(cyl)`\n          diff        lwr        upr     p adj\n6-4  -6.920779 -10.769350 -3.0722086 0.0003424\n8-4 -11.563636 -14.770779 -8.3564942 0.0000000\n8-6  -4.642857  -8.327583 -0.9581313 0.0112287</pre>"
+      },
+      {
+        "id": 17,
+        "code": "boxplot(mpg ~ cyl, data = mtcars,\n        main = \"MPG Berdasarkan Jumlah Silinder\",\n        xlab = \"Silinder\", ylab = \"Mil per Galon\",\n        col = c(\"#58a6ff\", \"#a371f7\", \"#f85149\"))",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": "<img src=\"blob:http://localhost:8090/e4db58dc-7705-4a50-87ff-e2739c5732f5\" style=\"max-width: 100%; border-radius: 6px; margin-top: 8px;\">"
+      },
+      {
+        "id": 18,
+        "code": "## Ringkasan\n\n- **Uji-t Welch**: Dalam perbandingan satu sisi yang belum disesuaikan, mobil manual memiliki rata-rata MPG lebih tinggi\n- **Chi-kuadrat**: Tabel kontingensi menunjukkan adanya hubungan tetapi jumlah ekspektasi yang rendah memicu peringatan perkiraan, jadi tafsirkan hasil ini dengan hati-hati\n- **Regresi**: Berat dan tenaga kuda (horsepower) adalah prediktor negatif yang signifikan setelah penyesuaian; jenis transmisi tidak signifikan dalam model ini\n- **ANOVA**: MPG berbeda secara signifikan antara kelompok 4, 6, dan 8 silinder; hasil Tukey mengidentifikasi perbedaan berpasangan",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      }
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "spans": {
+    "1:0:0": "Muat modul kompiler UnifyWeaver",
+    "2:0:0": "Definisikan silsilah keluarga sebagai fakta Prolog",
+    "2:2:0": "Penutupan transitif: ancestor(X, Y) jika X adalah leluhur dari Y",
+    "3:0:0": "Kompilasi ancestor/2 hanya ke definisi ClojureScript",
+    "3:2:0": "Akhiri dengan nil agar ekspresi seed yang dihasilkan tidak menjadi keluaran buku catatan",
+    "5:0:0": ";; Sel ini akan diisi oleh kompiler.",
+    "5:2:0": ";; Jalankan sel 'compile_to_clojurescript' di atas terlebih dahulu.",
+    "6:0:0": ";; Kueri definisi yang dihasilkan dalam konteks persisten Scittle.",
+    "6:2:0": "Keturunan dari alice: ",
+    "6:8:0": "alice adalah leluhur dari eve: ",
+    "6:16:0": "alice adalah leluhur dari frank: ",
+    "8:0:0": "Kompilasi predikat yang sama ke JVM Clojure untuk perbandingan (hanya tampilan)"
+  },
+  "keeps": [
+    "6:4:0",
+    "6:10:0",
+    "6:12:0",
+    "6:18:0",
+    "6:20:0"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "spans": {
+    "1:0:0": "Muat modul kompiler UnifyWeaver",
+    "2:0:0": "Definisikan silsilah keluarga sebagai fakta Prolog",
+    "2:2:0": "Penutupan transitif: ancestor(X, Y) jika X adalah leluhur dari Y",
+    "3:2:0": "Sel sumber TypR bernama ini dibaca oleh compile_to_typr.",
+    "3:4:0": "Ini ditambahkan ke kode yang dihasilkan karena sel TypR terisolasi.",
+    "3:6:0": "--- Kueri ---",
+    "3:10:0": "Keturunan dari alice:",
+    "3:18:0": "alice adalah leluhur dari eve:",
+    "3:24:0": "alice adalah leluhur dari frank:",
+    "4:0:0": "Baca sumber Prolog dan TypR berpenyorot dari sel bernama",
+    "4:10:0": "Kompilasi ancestor/2 ke TypR bertipe secara eksplisit dan tambahkan kueri bernama",
+    "6:0:0": "Sel ini akan diisi oleh kompiler.",
+    "6:2:0": "Jalankan sel 'compile_to_typr' di atas terlebih dahulu.",
+    "8:0:0": "Muat ulang sumber Prolog bernama yang sama agar sel ini berjalan secara independen",
+    "8:2:0": "Kompilasi ke R dengan fakta tersemat; sel r_queries berpenyorot dijalankan berikutnya",
+    "9:0:0": "Sel ini akan diisi dengan kode R biasa.",
+    "9:2:0": "Jalankan sel 'compile_to_r' di atas terlebih dahulu.",
+    "10:0:0": "Kueri fungsi R yang dihasilkan dalam sel terpisah dan berpenyorot.",
+    "10:4:0": "Keturunan dari alice:",
+    "10:10:0": "alice adalah leluhur dari eve:",
+    "10:18:0": "alice adalah leluhur dari frank:"
+  },
+  "keeps": [
+    "3:0:0",
+    "3:8:0",
+    "3:14:0",
+    "3:16:0",
+    "3:20:0",
+    "3:22:0",
+    "4:6:0",
+    "10:2:0",
+    "10:12:0",
+    "10:14:0",
+    "10:20:0",
+    "10:22:0"
+  ]
+}

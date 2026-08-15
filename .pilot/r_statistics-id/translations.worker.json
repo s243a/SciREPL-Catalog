@@ -1,0 +1,33 @@
+{
+  "spans": {
+    "2:1:0": "Kumpulan data: mtcars (",
+    "2:3:0": " mobil, ",
+    "2:5:0": " variabel)\n\n",
+    "4:1:0": "Otomatis:",
+    "4:3:0": "mil per galon (n =",
+    "4:7:0": "Transmisi manual:   ",
+    "4:9:0": "mil per galon (n =",
+    "4:15:0": "\nKesimpulan:",
+    "4:17:0": "Tolak H0 — mobil manual memiliki MPG yang signifikan lebih tinggi",
+    "4:19:0": "Gagal menolak H0",
+    "6:1:0": "Otomatis",
+    "6:3:0": "Manual",
+    "12:1:0": "Interval Kepercayaan 95%:\n",
+    "13:5:0": "Estimasi",
+    "13:9:0": "Interval Kepercayaan 95% untuk Koefisien",
+    "15:1:0": "\nPerbandingan Post-hoc Tukey HSD:\n",
+    "16:1:0": "MPG Berdasarkan Jumlah Silinder",
+    "16:3:0": "Silinder",
+    "16:5:0": "Mil per Galon"
+  },
+  "keeps": [
+    "2:7:0",
+    "2:9:0",
+    "2:11:0",
+    "2:13:0",
+    "4:13:0",
+    "13:1:0",
+    "13:11:0",
+    "16:7:0"
+  ]
+}

@@ -2993,9 +2993,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/id/prolog-generates-r.srwb",
-      "revision": 1,
-      "sha256": "bff7908bd34286b4fb2c69a4b1765c6c60ac7c87a40be4a5d4c335a7584973aa",
-      "size": 14026
+      "revision": 2,
+      "sha256": "932a22a3a0cdfc7aecf1ab208ec74e29c132180992d1a7f50680550d03431d4f",
+      "size": 14050
     },
     {
       "id": "prolog-generates-lua-id",
@@ -3011,9 +3011,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/id/prolog-generates-lua.srwb",
-      "revision": 1,
-      "sha256": "90a732e15bb8c5a3f3bcd4c38ee44eb8741a49eb49482de5267c934011401c73",
-      "size": 6355
+      "revision": 2,
+      "sha256": "e47162e031146aee2f736a9f62568d0f1336046fb455066acab5b3ce8066ca82",
+      "size": 6405
     },
     {
       "id": "prolog-generates-clojurescript-id",
@@ -3029,9 +3029,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/id/prolog-generates-clojurescript.srwb",
-      "revision": 1,
-      "sha256": "057fa1de218aaaf042ab76d916c503ee424c913847a93679685f3f13e5f11488",
-      "size": 4817
+      "revision": 2,
+      "sha256": "47c66e1bdcfad77bbdc44bafe5d392fde51fff3a65a46ea7b6b7c1d20581a0c4",
+      "size": 4871
     },
     {
       "id": "prolog-generates-typr-id",
@@ -3047,9 +3047,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/id/prolog-generates-typr.srwb",
-      "revision": 1,
-      "sha256": "7a23060e50ac90dac7db00cedea68b6f5d8d0adf9c8e25c8b38876fd5dcf1332",
-      "size": 6564
+      "revision": 2,
+      "sha256": "b30bfdf04c4a367b51fbf8c2b2c05d70310bf82f1c7eb1b201a584695695c697",
+      "size": 6637
     },
     {
       "id": "r-ggplot2-showcase-id",
@@ -3081,9 +3081,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/id/r_statistics.ipynb",
-      "revision": 1,
-      "sha256": "ac2a6bfbde3e81adbdd7869196a093b087033442983bbbe52d870b891dca0548",
-      "size": 5932
+      "revision": 2,
+      "sha256": "9acfe715c2e307ee25f7096848385655e0cf505998b8284fcdfb919228c3d8e1",
+      "size": 6715
     },
     {
       "id": "r-tidyverse-wrangling-id",
@@ -3170,9 +3170,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/id/life_expectancy_csv_demo.ipynb",
-      "revision": 1,
-      "sha256": "7370de647bdc47705e81fec4578949eea1d99993e709ee13f1233e12f59e6871",
-      "size": 11475
+      "revision": 2,
+      "sha256": "669c9e22cebbfd1e3120ff68647ad1abf42e1ee096c58ba96faa6d0fc1d91925",
+      "size": 12609
     }
   ]
 }
