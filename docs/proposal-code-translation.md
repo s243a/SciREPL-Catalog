@@ -114,6 +114,16 @@ The current tool surface (`list_cells`, `read_cell(s)`, `write_cell`,
 `inspect_namespace`, read-only VFS: `list_dir`, `read_file`, `grep`) has no
 first-class workbook import/export. Observations:
 
+- **Resolved by experiment (Pro PR #38):** readback is NOT export. The
+  canonical `.srwb` serialization measured 13,810 bytes against a
+  4,570-byte best-effort `read_cells` reconstruction, first divergence at
+  byte 401 — notebook identity, metadata, and output encoding are simply
+  absent from the cell-level view. `export_workbook`/`import_workbook`
+  are implemented app-side behind an independent default-Off permission
+  (refusable per call; cell-edit permission does not grant it; Review
+  always applies); the broker direct-to-file tier is specified
+  (SciREPL-MCP `docs/workbook-file-transfer.md`) and awaits
+  implementation. The original hypothesis, kept for the record:
 - **Readback ≈ export already.** `read_cells` after `run_cells` returns
   full notebook state including fresh outputs; the agent can serialize that
   to `.srwb`/`.ipynb` in its own workspace. What is missing is only a
@@ -282,6 +292,24 @@ workbook in the Free PWA mutates only a browser profile, and a small blast
 radius justifies a light control. Multi-app brokering (one broker, several
 paired apps) is not currently supported and is not needed for any of these
 paths; a Pro user wanting two paired apps runs two brokers on two ports.
+
+## Generalization economics
+
+The pilot's hand-built artifacts (the exhaustive span list, width
+constraints, no-translate traps) are **specifications for generators, not
+the working form** — the same trajectory as round one, where a bespoke
+pilot prompt became `gen-task.mjs` and eleven locales then ran at ~7
+minutes each. Concretely: the completeness linter run in reverse *is* the
+span-list generator (every comment/docstring/prose-like string, classified
+by destination); width constraints are read out of the format specs
+mechanically (`{'step':>4}` contains the 4); traps become scanner
+heuristics seeded by the pilot's cases. Per-workbook human/model effort
+drops from authoring a list to reviewing a generated one — and the list is
+per-workbook, not per-locale, so 15 reviews serve all 180 artifacts.
+
+**Success criterion (testable):** workbook #2's task file must be ≥90%
+generated. If it still needs hand-authoring at pilot fidelity, the design
+does not generalize and gets rethought before scaling.
 
 ## Pilot deliverables (beyond the artifact)
 
