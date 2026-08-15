@@ -1,0 +1,431 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T17:27:11.314Z",
+  "notebook": {
+    "id": "default",
+    "name": "UnifyWeaver-এ উন্নত রিকার্শন প্যাটার্ন",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "prolog",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 46,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# UnifyWeaver-এ উন্নত রিকার্শন প্যাটার্ন\n\nএই নোটবুকটি চারটি প্রধান রিকার্শন প্যাটার্ন প্রদর্শন করে যা UnifyWeaver শনাক্ত এবং অপ্টিমাইজ করতে পারে:\n\n1. **টেইল রিকার্শন (Tail Recursion)** - অ্যাকুমুলেটর সহ পুনরাবৃত্তিমূলক লুপ\n2. **লিনিয়ার রিকার্শন (Linear Recursion)** - মেমোজাইজেশন সহ একক রিকার্সিভ কল\n3. **ট্রি রিকার্শন (Tree Recursion)** - কাঠামোর বিভিন্ন অংশের ওপর একাধিক রিকার্সিভ কল\n4. **মিউচুয়াল রিকার্শন (Mutual Recursion)** - চক্রাকারে একে অপরকে কল করা প্রেডিকেটসমূহ\n\n## শেখার উদ্দেশ্য\n\n- বিভিন্ন রিকার্শন প্যাটার্ন বোঝা\n- দেখা কীভাবে UnifyWeaver প্রতিটি প্যাটার্ন শনাক্ত ও অপ্টিমাইজ করে\n- কর্মক্ষমতার বৈশিষ্ট্য তুলনা করা\n- কখন কোন প্যাটার্ন ব্যবহার করতে হবে তা শেখা",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "## সেটআপ\n\nUnifyWeaver পরিবেশ শুরু করুন।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 3,
+        "code": "% সূচনাকরণ লোড করুন\n['../init'].\n\n% প্রয়োজনীয় মডিউলগুলো লোড করুন\nuse_module(unifyweaver(core/recursive_compiler)).\nuse_module(unifyweaver(core/advanced/pattern_matchers)).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
+      },
+      {
+        "id": 4,
+        "code": "## প্যাটার্ন ১: টেইল রিকার্শন (Tail Recursion)\n\nটেইল রিকার্শন মধ্যবর্তী ফলাফল এগিয়ে নিতে একটি অ্যাকুমুলেটর ব্যবহার করে এবং রিকার্সিভ কলটি ফাংশনের **শেষ ক্রিয়া** হিসেবে থাকে।\n\n### উদাহরণ: তালিকার উপাদান গণনা করা",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 5,
+        "code": "% টেইল-রিকার্সিভ count_items সংজ্ঞায়িত করুন\n:- dynamic count_items/3.\n\n% বেস কেস: খালি তালিকা, অ্যাকুমুলেটর ফেরত দিন\ncount_items([], Acc, Acc).\n\n% রিকার্সিভ কেস: অ্যাকুমুলেটর বৃদ্ধি করুন, টেইলে রিকার্স করুন\ncount_items([_|T], Acc, N) :-\n    Acc1 is Acc + 1,\n    count_items(T, Acc1, N).  % ← টেইল পজিশন!",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 6,
+        "code": "### Prolog-এ পরীক্ষা করুন",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 7,
+        "code": "% পরীক্ষা: [a,b,c,d,e]-এর উপাদান সংখ্যা গণনা করুন\n\\+ \\+ (\n    count_items([a,b,c,d,e], 0, _N),\n    format('Count: ~w~n', [_N])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Count: 5",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Count: 5</pre>"
+      },
+      {
+        "id": 8,
+        "code": "### প্যাটার্ন সনাক্তকরণ পরীক্ষা করুন",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 9,
+        "code": "% টেইল রিকার্সিভ হিসেবে শনাক্ত হয়েছে কিনা পরীক্ষা করুন\n\\+ \\+ (\n    is_tail_recursive_accumulator(count_items/3, _AccInfo),\n    format('Tail recursive: ~w~n', [_AccInfo])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: is_tail_recursive_accumulator/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: is_tail_recursive_accumulator/2</pre>"
+      },
+      {
+        "id": 10,
+        "code": "### Bash-এ কম্পাইল করুন",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 11,
+        "code": "% কম্পাইল করুন এবং সংরক্ষণ করুন\n\\+ \\+ (\n    compile_recursive(count_items/3, [], _BashCode),\n    setup_call_cleanup(\n        open('../output/count_items_demo.sh', write, _Stream),\n        write(_Stream, _BashCode),\n        close(_Stream)),\n    writeln('✓ Compiled count_items to Bash with tail recursion optimization')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: compile_recursive/3</pre>"
+      },
+      {
+        "id": 12,
+        "code": "### জেনারেট করা Bash পরীক্ষা করুন",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 13,
+        "code": "source ../output/count_items_demo.sh\necho \"[a,b,c,d,e]-এর উপাদান গণনা করা হচ্ছে:\"\ncount_items \"[a,b,c,d,e]\" 0 \"\"",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "[a,b,c,d,e]-এর উপাদান গণনা করা হচ্ছে:\nerror: source: failed to source file: ../output/count_items_demo.sh\nerror: failed to execute command 'count_items': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">[a,b,c,d,e]-এর উপাদান গণনা করা হচ্ছে:\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/count_items_demo.sh\nerror: failed to execute command 'count_items': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 14,
+        "code": "## প্যাটার্ন ২: লিনিয়ার রিকার্শন (Linear Recursion)\n\nলিনিয়ার রিকার্শনে প্রতি ক্লজে **ঠিক একটি** রিকার্সিভ কল থাকে, এবং রিকার্সিভ কল ফিরে আসার পরে গণনা সম্পন্ন হয়।\n\n### উদাহরণ: ফ্যাক্টোরিয়াল (Factorial)",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 15,
+        "code": "% ফ্যাক্টোরিয়াল সংজ্ঞায়িত করুন\n:- dynamic factorial/2.\n\n% বেস কেস\nfactorial(0, 1).\n\n% রিকার্সিভ কেস: ঠিক একটি রিকার্সিভ কল\nfactorial(N, F) :-\n    N > 0,\n    N1 is N - 1,\n    factorial(N1, F1),  % ← একটি রিকার্সিভ কল\n    F is N * F1.        % ← কলের পরে গণনা",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 16,
+        "code": "### Prolog-এ পরীক্ষা করুন",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 17,
+        "code": "% পরীক্ষা: 5-এর ফ্যাক্টোরিয়াল\n\\+ \\+ (\n    factorial(5, _F),\n    format('5! = ~w~n', [_F])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "5! = 120",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">5! = 120</pre>"
+      },
+      {
+        "id": 18,
+        "code": "### প্যাটার্ন সনাক্তকরণ পরীক্ষা করুন",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 19,
+        "code": "% লিনিয়ার রিকার্সিভ হিসেবে শনাক্ত হয়েছে কিনা পরীক্ষা করুন\nis_linear_recursive_streamable(factorial/2),\nwriteln('✓ Detected as linear recursion').",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: is_linear_recursive_streamable/1",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: is_linear_recursive_streamable/1</pre>"
+      },
+      {
+        "id": 20,
+        "code": "### Bash-এ কম্পাইল করুন",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 21,
+        "code": "% কম্পাইল করুন এবং সংরক্ষণ করুন\n\\+ \\+ (\n    compile_recursive(factorial/2, [], _BashCode),\n    % শুধুমাত্র ফাংশন সংজ্ঞা রাখুন; Brush সোর্স করা স্ক্রিপ্টকে সরাসরি এক্সিকিউশন হিসেবে বিবেচনা করে\n    split_string(_BashCode, \"\\n\", \"\\r\", _BashLines),\n    append(_LibraryLines, [\"# Auto-execute when run directly (not when sourced)\"|_], _BashLines),\n    atomics_to_string(_LibraryLines, \"\\n\", _LibraryCode),\n    setup_call_cleanup(\n        open('../output/factorial_demo.sh', write, _Stream),\n        write(_Stream, _LibraryCode),\n        close(_Stream)),\n    writeln('✓ Compiled factorial to Bash with fold-based linear recursion')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: compile_recursive/3</pre>"
+      },
+      {
+        "id": 22,
+        "code": "### জেনারেট করা Bash পরীক্ষা করুন",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 23,
+        "code": "source ../output/factorial_demo.sh\necho \"5-এর ফ্যাক্টোরিয়াল:\"\nfactorial 5 \"\"\necho \"\"\necho \"10-এর ফ্যাক্টোরিয়াল:\"\nfactorial 10 \"\"",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "5-এর ফ্যাক্টোরিয়াল:\n\n10-এর ফ্যাক্টোরিয়াল:\nerror: source: failed to source file: ../output/factorial_demo.sh\nerror: failed to execute command 'factorial': operation not supported on this platform\nerror: failed to execute command 'factorial': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">5-এর ফ্যাক্টোরিয়াল:\n\n10-এর ফ্যাক্টোরিয়াল:\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/factorial_demo.sh\nerror: failed to execute command 'factorial': operation not supported on this platform\nerror: failed to execute command 'factorial': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 24,
+        "code": "## প্যাটার্ন ৩: ট্রি রিকার্শন (Tree Recursion)\n\nকাঠামোর বিভিন্ন অংশ প্রসেস করার জন্য ট্রি রিকার্শন **একাধিক** রিকার্সিভ কল সম্পাদন করে।\n\n### উদাহরণ: ট্রি যোগফল (Tree Sum)",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 25,
+        "code": "% বাইনারি ট্রির জন্য tree_sum সংজ্ঞায়িত করুন\n% ট্রি ফরম্যাট: [Value, LeftSubtree, RightSubtree] অথবা []\n:- dynamic tree_sum/2.\n\n% বেস কেস: খালি ট্রির যোগফল 0\ntree_sum([], 0).\n\n% রিকার্সিভ কেস: যোগফল = মান + বাম_যোগফল + ডান_যোগফল\ntree_sum([V, L, R], Sum) :-\n    tree_sum(L, LS),   % ← প্রথম রিকার্সিভ কল\n    tree_sum(R, RS),   % ← দ্বিতীয় রিকার্সিভ কল\n    Sum is V + LS + RS.",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 26,
+        "code": "### Prolog-এ পরীক্ষা করুন",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 27,
+        "code": "% পরীক্ষা: [5, [3, [1, [], []], []], [2, [], []]]-এর tree_sum\n%       5\n%      / \\\n%     3   2\n%    /\n%   1\n\\+ \\+ (\n    tree_sum([5, [3, [1, [], []], []], [2, [], []]], _Sum),\n    format('Tree sum: ~w (expected 11)~n', [_Sum])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Tree sum: 11 (expected 11)",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Tree sum: 11 (expected 11)</pre>"
+      },
+      {
+        "id": 28,
+        "code": "### Bash-এ কম্পাইল করুন",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 29,
+        "code": "% কম্পাইল করুন এবং সংরক্ষণ করুন\n\\+ \\+ (\n    compile_recursive(tree_sum/2, [], _BashCode),\n    setup_call_cleanup(\n        open('../output/tree_sum_demo.sh', write, _Stream),\n        write(_Stream, _BashCode),\n        close(_Stream)),\n    writeln('✓ Compiled tree_sum to Bash with tree recursion')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: compile_recursive/3</pre>"
+      },
+      {
+        "id": 30,
+        "code": "### জেনারেট করা Bash পরীক্ষা করুন",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 31,
+        "code": "source ../output/tree_sum_demo.sh\necho \"[5,[3,[1,[],[]],[]],[2,[],[]]]-এর ট্রি যোগফল:\"\ntree_sum \"[5,[3,[1,[],[]],[]],[2,[],[]]]\"",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "[5,[3,[1,[],[]],[]],[2,[],[]]]-এর ট্রি যোগফল:\nerror: source: failed to source file: ../output/tree_sum_demo.sh\nerror: failed to execute command 'tree_sum': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">[5,[3,[1,[],[]],[]],[2,[],[]]]-এর ট্রি যোগফল:\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/tree_sum_demo.sh\nerror: failed to execute command 'tree_sum': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 32,
+        "code": "## প্যাটার্ন ৪: মিউচুয়াল রিকার্শন (Mutual Recursion)\n\nমিউচুয়াল রিকার্শন তখনই ঘটে যখন দুই বা ততোধিক প্রেডিকেট একটি চক্রের মধ্যে একে অপরকে কল করে।\n\n### উদাহরণ: জোড় (Even) এবং বিজোড় (Odd)",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 33,
+        "code": "% মিউচুয়াল রিকার্সিভ is_even এবং is_odd সংজ্ঞায়িত করুন\n:- dynamic is_even/1.\n:- dynamic is_odd/1.\n\n% is_even বেস কেস\nis_even(0).\n\n% is_even রিকার্সিভ: N জোড় যদি N-1 বিজোড় হয়\nis_even(N) :-\n    N > 0,\n    N1 is N - 1,\n    is_odd(N1).  % ← is_odd-কে কল করে\n\n% is_odd বেস কেস\nis_odd(1).\n\n% is_odd রিকার্সিভ: N বিজোড় যদি N-1 জোড় হয়\nis_odd(N) :-\n    N > 1,\n    N1 is N - 1,\n    is_even(N1).  % ← is_even-কে কল করে",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 34,
+        "code": "### Prolog-এ পরীক্ষা করুন",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 35,
+        "code": "% জোড়/বিজোড় পরীক্ষা করুন\nis_even(0), writeln('✓ 0 is even').\nis_even(4), writeln('✓ 4 is even').\nis_odd(3), writeln('✓ 3 is odd').\nis_odd(7), writeln('✓ 7 is odd').",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "✓ 0 is even\n✓ 4 is even\n✓ 3 is odd\n✓ 7 is odd",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">✓ 0 is even\n✓ 4 is even\n✓ 3 is odd\n✓ 7 is odd</pre>"
+      },
+      {
+        "id": 36,
+        "code": "### মিউচুয়াল রিকার্শন পরীক্ষা করুন",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 37,
+        "code": "% কল গ্রাফ তৈরি করুন এবং SCC খুঁজুন\n\\+ \\+ (\n    use_module(unifyweaver(core/advanced/call_graph)),\n    use_module(unifyweaver(core/advanced/scc_detection)),\n\n    build_call_graph([is_even/1, is_odd/1], _Graph),\n    format('Call graph: ~w~n', [_Graph]),\n\n    find_sccs(_Graph, _SCCs),\n    format('SCCs (mutual recursion groups): ~w~n', [_SCCs])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "source_sink `unifyweaver(core/advanced/call_graph)' does not exist",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">source_sink `unifyweaver(core/advanced/call_graph)' does not exist</pre>"
+      },
+      {
+        "id": 38,
+        "code": "### Bash-এ কম্পাইল করুন",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 39,
+        "code": "% মিউচুয়াল রিকার্শন গ্রুপটি কম্পাইল করুন\n\\+ \\+ (\n    use_module(unifyweaver(core/advanced/mutual_recursion)),\n\n    compile_mutual_recursion([is_even/1, is_odd/1], [], _BashCode),\n    split_string(_BashCode, \"\\n\", \"\\r\", _BashLines),\n    append(_LibraryLines, [\"# Main dispatch: route command line calls to functions\"|_], _BashLines),\n    atomics_to_string(_LibraryLines, \"\\n\", _LibraryCode),\n    setup_call_cleanup(\n        open('../output/even_odd_demo.sh', write, _Stream),\n        write(_Stream, _LibraryCode),\n        close(_Stream)),\n    writeln('✓ Compiled is_even/is_odd to Bash with shared memoization')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 40,
+        "code": "### জেনারেট করা Bash পরীক্ষা করুন",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 41,
+        "code": "source ../output/even_odd_demo.sh\necho \"is_even এবং is_odd পরীক্ষা করা হচ্ছে:\"\nis_even 0 >/dev/null && echo \"✓ 0 জোড়\"\nis_even 4 >/dev/null && echo \"✓ 4 জোড়\"\nis_odd 3 >/dev/null && echo \"✓ 3 বিজোড়\"\nis_odd 7 >/dev/null && echo \"✓ 7 বিজোড়\"\nis_even 5 >/dev/null 2>&1 || echo \"✓ 5 জোড় নয়\"",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "is_even এবং is_odd পরীক্ষা করা হচ্ছে:\n✓ 5 জোড় নয়\nerror: source: failed to source file: ../output/even_odd_demo.sh\nerror: failed to execute command 'is_even': operation not supported on this platform\nerror: failed to execute command 'is_even': operation not supported on this platform\nerror: failed to execute command 'is_odd': operation not supported on this platform\nerror: failed to execute command 'is_odd': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">is_even এবং is_odd পরীক্ষা করা হচ্ছে:\n✓ 5 জোড় নয়\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/even_odd_demo.sh\nerror: failed to execute command 'is_even': operation not supported on this platform\nerror: failed to execute command 'is_even': operation not supported on this platform\nerror: failed to execute command 'is_odd': operation not supported on this platform\nerror: failed to execute command 'is_odd': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 42,
+        "code": "## প্যাটার্ন তুলনা\n\nআসুন প্রতিটি প্যাটার্নের বৈশিষ্ট্য তুলনা করি:\n\n| প্যাটার্ন | রিকার্সিভ কল | অপ্টিমাইজেশন | স্পেস জটিলতা | যার জন্য সবচেয়ে উপযুক্ত |\n|:--------|:----------------|:-------------|:-----------------|:---------|\n| **টেইল** | ১টি (টেইল অবস্থানে) | পুনরাবৃত্তিমূলক লুপ | O(1) | অ্যাকুমুলেটর, লিনিয়ার স্ক্যান |\n| **লিনিয়ার** | ১টি (যেকোনো অবস্থানে) | ফোল্ড + মেমোজাইজেশন | O(n) মেমো টেবিল | ফিবোনাচ্চি, ফ্যাক্টোরিয়াল |\n| **ট্রি** | ২+ (কাঠামোর অংশ) | কাঠামোগত বিভাজন | O(গভীরতা) স্ট্যাক | ট্রি/গ্রাফ অপারেশন |\n| **মিউচুয়াল** | ১+ (প্রেডিকেটের মধ্যে) | শেয়ার্ড মেমোজাইজেশন | O(n) শেয়ার্ড টেবিল | জোড়/বিজোড়, পারস্পরিক সংজ্ঞা |",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 43,
+        "code": "## প্যাটার্ন সনাক্তকরণের ক্রম\n\nUnifyWeaver এই ক্রমে প্যাটার্ন মেলানোর চেষ্টা করে:\n\n1. **টেইল রিকার্শন** (সবচেয়ে কার্যকর)\n2. **লিনিয়ার রিকার্শন** (যদি নিষিদ্ধ না হয়)\n3. **ট্রি রিকার্শন** (কাঠামোগত)\n4. **মিউচুয়াল রিকার্শন** (SCC সনাক্তকরণ)\n5. **বেসিক রিকার্শন** (ডিফল্ট ফলব্যাক)\n\nআপনি `forbid_linear_recursion/1` দিয়ে সনাক্তকরণ প্রক্রিয়া প্রভাবিত করতে পারেন।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 44,
+        "code": "## অনুশীলন: আপনার পালা!\n\nএই প্রেডিকেটগুলো সংজ্ঞায়িত এবং কম্পাইল করার চেষ্টা করুন:\n\n### ১. টেইল রিকার্সিভ যোগফল\n```prolog\nsum_list([], Acc, Acc).\nsum_list([H|T], Acc, Sum) :-\n    Acc1 is Acc + H,\n    sum_list(T, Acc1, Sum).\n```\n\n### ২. লিনিয়ার রিকার্সিভ ফিবোনাচ্চি\n```prolog\nfib(0, 0).\nfib(1, 1).\nfib(N, F) :-\n    N > 1,\n    N1 is N - 1,\n    N2 is N - 2,\n    fib(N1, F1),\n    fib(N2, F2),\n    F is F1 + F2.\n```\n\n### ৩. ট্রির উচ্চতা\n```prolog\ntree_height([], 0).\ntree_height([_, L, R], H) :-\n    tree_height(L, HL),\n    tree_height(R, HR),\n    H is max(HL, HR) + 1.\n```",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 45,
+        "code": "% আপনার কোড এখানে লিখুন!\n",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 46,
+        "code": "## সারসংক্ষেপ\n\nএই নোটবুকে আপনি শিখেছেন:\n\n✅ UnifyWeaver-এর চারটি প্রধান রিকার্শন প্যাটার্ন\n\n✅ Prolog-এ প্রতিটি প্যাটার্ন কীভাবে সংজ্ঞায়িত করতে হয়\n\n✅ UnifyWeaver কীভাবে প্রতিটি প্যাটার্ন শনাক্ত ও অপ্টিমাইজ করে\n\n✅ প্রতিটি প্যাটার্নের কর্মক্ষমতার বৈশিষ্ট্য\n\n✅ কখন কোন প্যাটার্ন ব্যবহার করতে হবে\n\n## পরবর্তী পদক্ষেপ\n\nউন্নত কোড বিশ্লেষণ এবং ভিজ্যুয়ালাইজেশন সম্পর্কে জানতে **নোটবুক ৩: কল গ্রাফ ভিজ্যুয়ালাইজেশন**-এ এগিয়ে যান!",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      }
+    ]
+  }
+}

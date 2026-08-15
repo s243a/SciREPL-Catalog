@@ -1,0 +1,359 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T17:27:28.233Z",
+  "notebook": {
+    "id": "default",
+    "name": "কল গ্রাফ বিশ্লেষণ এবং স্ট্রংলি কানেক্টেড কম্পোনেন্টস (SCC) সনাক্তকরণ",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "prolog",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 38,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# কল গ্রাফ বিশ্লেষণ এবং স্ট্রংলি কানেক্টেড কম্পোনেন্টস (SCC) সনাক্তকরণ\n\nএই নোটবুকটি UnifyWeaver-এর উন্নত কোড বিশ্লেষণ ক্ষমতাগুলো অন্বেষণ করে:\n\n- **কল গ্রাফ গঠন** — Prolog কোড থেকে নির্ভরতা গ্রাফ তৈরি\n- **SCC সনাক্তকরণ** — দৃঢ়ভাবে সংযুক্ত উপাদান খুঁজে বের করা (মিউচুয়াল রিকার্শন)\n- **প্যাটার্ন বিশ্লেষণ** — রিকার্শন প্যাটার্ন বোঝা\n- **নির্ভরতা ভিজ্যুয়ালাইজেশন** — প্রেডিকেটের সম্পর্কের দৃশ্যরূপ\n\n## শেখার উদ্দেশ্য\n\n- UnifyWeaver কীভাবে কোড কাঠামো বিশ্লেষণ করে তা বোঝা\n- কল গ্রাফ তৈরি ও পরীক্ষা করা\n- টারজান (Tarjan) অ্যালগরিদম ব্যবহার করে মিউচুয়াল রিকার্শন সনাক্ত করা\n- কোড নির্ভরতা ভিজ্যুয়ালাইজ করা",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "## সেটআপ\n\nUnifyWeaver এবং বিশ্লেষণ মডিউল লোড করুন।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 3,
+        "code": "% সূচনাকরণ লোড করুন\n['../init'].\n\n% বিশ্লেষণ মডিউল লোড করুন\nuse_module(unifyweaver(core/advanced/call_graph)).\nuse_module(unifyweaver(core/advanced/scc_detection)).\nuse_module(unifyweaver(core/advanced/pattern_matchers)).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
+      },
+      {
+        "id": 4,
+        "code": "## উদাহরণ ১: সহজ কল গ্রাফ\n\nএকটি সাধারণ প্রেডিকেট দিয়ে শুরু করে তার কল গ্রাফ তৈরি করি।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 5,
+        "code": "% ancestor প্রেডিকেট সংজ্ঞায়িত করুন\n:- dynamic ancestor/2.\n:- dynamic parent/2.\n\n% parent তথ্য\nparent(abraham, isaac).\nparent(isaac, jacob).\n\n% ancestor নিয়মাবলী\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Z) :- parent(X, Y), ancestor(Y, Z).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 6,
+        "code": "### কল গ্রাফ তৈরি করুন",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 7,
+        "code": "% ancestor-এর জন্য কল গ্রাফ তৈরি করুন\nbuild_call_graph([ancestor/2], _Graph),\nformat('Call Graph for ancestor/2:~n'),\nforall(member(_Edge, _Graph),\n    format('  ~w~n', [_Edge])).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: build_call_graph/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: build_call_graph/2</pre>"
+      },
+      {
+        "id": 8,
+        "code": "### নির্ভরতা বিশ্লেষণ করুন",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 9,
+        "code": "% ancestor/2-এর সমস্ত নির্ভরতা পান\nget_dependencies(ancestor/2, _Deps),\nformat('Dependencies of ancestor/2: ~w~n', [_Deps]).\n\n% স্বয়ং-রিকার্সিভ কিনা তা পরীক্ষা করুন\n(is_self_recursive(ancestor/2) ->\n    writeln('✓ ancestor/2 is self-recursive')\n;\n    writeln('✗ ancestor/2 is not self-recursive')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: get_dependencies/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: get_dependencies/2</pre>"
+      },
+      {
+        "id": 10,
+        "code": "## উদাহরণ ২: মিউচুয়াল রিকার্শন সনাক্তকরণ\n\nএখন জোড়/বিজোড় উদাহরণ দিয়ে মিউচুয়াল রিকার্শন সনাক্ত করি।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 11,
+        "code": "% মিউচুয়াল রিকার্সিভ প্রেডিকেট সংজ্ঞায়িত করুন\n:- dynamic is_even/1.\n:- dynamic is_odd/1.\n\nis_even(0).\nis_even(N) :- N > 0, N1 is N - 1, is_odd(N1).\n\nis_odd(1).\nis_odd(N) :- N > 1, N1 is N - 1, is_even(N1).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 12,
+        "code": "### উভয় প্রেডিকেটের জন্য কল গ্রাফ তৈরি করুন",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 13,
+        "code": "% উভয় প্রেডিকেটের জন্য কল গ্রাফ তৈরি করুন\nbuild_call_graph([is_even/1, is_odd/1], _Graph),\nformat('Call Graph for is_even/1 and is_odd/1:~n'),\nforall(member(_Edge, _Graph),\n    format('  ~w~n', [_Edge])).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: build_call_graph/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: build_call_graph/2</pre>"
+      },
+      {
+        "id": 14,
+        "code": "### স্ট্রংলি কানেক্টেড কম্পোনেন্টস (SCC) খুঁজুন",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 15,
+        "code": "% নোটবুক সেলগুলোর মধ্যে ভেরিয়েবল বজায় থাকে না বলে গ্রাফটি পুনরায় তৈরি করুন\nbuild_call_graph([is_even/1, is_odd/1], _Graph),\n% টারজান অ্যালগরিদম ব্যবহার করে SCC খুঁজুন\nfind_sccs(_Graph, _SCCs),\nformat('Strongly Connected Components:~n'),\nforall(member(_SCC, _SCCs),\n    format('  ~w~n', [_SCC])).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: build_call_graph/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: build_call_graph/2</pre>"
+      },
+      {
+        "id": 16,
+        "code": "### SCC তুচ্ছ (Trivial) কিনা তা পরীক্ষা করুন",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 17,
+        "code": "% উদ্ভূত মানগুলো পুনরায় গণনা করুন যাতে এই সেলটিও স্বাধীনভাবে চলে\nbuild_call_graph([is_even/1, is_odd/1], _Graph),\nfind_sccs(_Graph, _SCCs),\n% প্রতিটি SCC পরীক্ষা করুন\nforall(member(_SCC, _SCCs),\n    (   is_trivial_scc(_SCC) ->\n        format('  ~w is trivial (single predicate)~n', [_SCC])\n    ;\n        format('  ~w is NON-TRIVIAL (mutual recursion!)~n', [_SCC])\n    )\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: build_call_graph/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: build_call_graph/2</pre>"
+      },
+      {
+        "id": 18,
+        "code": "## উদাহরণ ৩: জটিল কল গ্রাফ\n\nএকাধিক প্রেডিকেট সহ একটি জটিল সিস্টেম বিশ্লেষণ করি।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 19,
+        "code": "% একাধিক প্রেডিকেট সহ একটি ছোট প্রোগ্রাম সংজ্ঞায়িত করুন\n:- dynamic grandparent/2.\n:- dynamic sibling/2.\n:- dynamic cousin/2.\n\n% grandparent, parent ব্যবহার করে\ngrandparent(X, Z) :- parent(X, Y), parent(Y, Z).\n\n% sibling: একই পিতা-মাতা, ভিন্ন সন্তান\nsibling(X, Y) :- parent(P, X), parent(P, Y), X \\= Y.\n\n% cousin: পিতা-মাতা ভাই-বোন\ncousin(X, Y) :- parent(P1, X), parent(P2, Y), sibling(P1, P2).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 20,
+        "code": "### সম্পূর্ণ কল গ্রাফ তৈরি করুন",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 21,
+        "code": "% সমস্ত প্রেডিকেটের জন্য কল গ্রাফ তৈরি করুন\nbuild_call_graph([grandparent/2, sibling/2, cousin/2], _Graph),\nformat('Complete Call Graph:~n'),\nforall(member(_Edge, _Graph),\n    format('  ~w~n', [_Edge])).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: build_call_graph/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: build_call_graph/2</pre>"
+      },
+      {
+        "id": 22,
+        "code": "### প্রেডিকেট গ্রুপ খুঁজুন\n\nএকটি শুরুর প্রেডিকেট ধারণকারী পারস্পরিক রিকার্সিভ প্রেডিকেট গ্রুপটি সন্ধান করুন।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 23,
+        "code": "% cousin/2 ধারণকারী মিউচুয়াল রিকার্সিভ গ্রুপ খুঁজুন\npredicates_in_group(cousin/2, _Group),\nformat('Mutually recursive group containing cousin/2: ~w~n', [_Group]).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: predicates_in_group/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: predicates_in_group/2</pre>"
+      },
+      {
+        "id": 24,
+        "code": "## উদাহরণ ৪: প্যাটার্ন সনাক্তকরণ\n\nরিকার্শনের ধরন বিশ্লেষণ করতে প্যাটার্ন ম্যাচার ব্যবহার করুন।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 25,
+        "code": "% বিভিন্ন রিকার্সিভ প্যাটার্ন সংজ্ঞায়িত করুন\n:- dynamic count/3.     % টেইল রিকার্সিভ\n:- dynamic factorial/2. % লিনিয়ার রিকার্সিভ\n:- dynamic fib/2.       % ট্রি রিকার্সিভ (বা শনাক্ত হলে লিনিয়ার)\n\n% টেইল রিকার্সিভ count\ncount([], Acc, Acc).\ncount([_|T], Acc, N) :-\n    Acc1 is Acc + 1,\n    count(T, Acc1, N).\n\n% লিনিয়ার রিকার্সিভ factorial\nfactorial(0, 1).\nfactorial(N, F) :-\n    N > 0,\n    N1 is N - 1,\n    factorial(N1, F1),\n    F is N * F1.\n\n% ফিবোনাচ্চি (লিনিয়ার বা ট্রি হিসেবে শনাক্ত করা যেতে পারে)\nfib(0, 0).\nfib(1, 1).\nfib(N, F) :-\n    N > 1,\n    N1 is N - 1,\n    N2 is N - 2,\n    fib(N1, F1),\n    fib(N2, F2),\n    F is F1 + F2.",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 26,
+        "code": "### টেইল রিকার্শন সনাক্ত করুন",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 27,
+        "code": "% count/3 টেইল রিকার্সিভ কিনা পরীক্ষা করুন\n(is_tail_recursive_accumulator(count/3, _AccInfo) ->\n    format('✓ count/3 is tail recursive: ~w~n', [_AccInfo])\n;\n    writeln('✗ count/3 is not tail recursive')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: is_tail_recursive_accumulator/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: is_tail_recursive_accumulator/2</pre>"
+      },
+      {
+        "id": 28,
+        "code": "### লিনিয়ার রিকার্শন সনাক্ত করুন",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 29,
+        "code": "% factorial/2 লিনিয়ার রিকার্সিভ কিনা পরীক্ষা করুন\n(is_linear_recursive_streamable(factorial/2) ->\n    writeln('✓ factorial/2 is linear recursive')\n;\n    writeln('✗ factorial/2 is not linear recursive')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: is_linear_recursive_streamable/1",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: is_linear_recursive_streamable/1</pre>"
+      },
+      {
+        "id": 30,
+        "code": "### রিকার্সিভ কলের সংখ্যা গণনা করুন",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 31,
+        "code": "% ফিবোনাচ্চিতে রিকার্সিভ কলের সংখ্যা গণনা করুন\nfunctor(_FibHead, fib, 2),\nuser:clause(_FibHead, _FibBody),\nonce(contains_call_to(_FibBody, fib)),\ncount_recursive_calls(_FibBody, fib, _Count),\nformat('Fibonacci body has ~w recursive calls~n', [_Count]).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "once/1: Unknown procedure: contains_call_to/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">once/1: Unknown procedure: contains_call_to/2</pre>"
+      },
+      {
+        "id": 32,
+        "code": "## DOT ফরম্যাটের মাধ্যমে ভিজ্যুয়ালাইজেশন\n\nআমাদের কল গ্রাফের একটি Graphviz DOT উপস্থাপন তৈরি করি।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 33,
+        "code": "% DOT ফরম্যাট তৈরি করার জন্য সহায়ক ফাংশন\ngenerate_dot(Graph, DotCode) :-\n    findall(Line,\n        (   member(From -> To, Graph),\n            format(atom(Line), '  \"~w\" -> \"~w\";', [From, To])\n        ),\n        Lines),\n    atomic_list_concat(['digraph CallGraph {', '  rankdir=LR;' | Lines], '\\n', Body),\n    format(atom(DotCode), '~w~n}~n', [Body]).\n\n% জোড়/বিজোড় গ্রাফের জন্য DOT তৈরি করুন\nbuild_call_graph([is_even/1, is_odd/1], _Graph),\ngenerate_dot(_Graph, _DotCode),\nwriteln('DOT Code for even/odd call graph:'),\nwriteln(_DotCode).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: build_call_graph/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: build_call_graph/2</pre>"
+      },
+      {
+        "id": 34,
+        "code": "### DOT ফাইল সংরক্ষণ করুন",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 35,
+        "code": "% সেলগুলোর মধ্যে ভেরিয়েবল বজায় থাকে না বলে DOT সোর্স পুনরায় তৈরি করুন\nbuild_call_graph([is_even/1, is_odd/1], _Graph),\ngenerate_dot(_Graph, _DotCode),\nsetup_call_cleanup(\n    open('/shared/data/even_odd_graph.dot', write, _Stream),\n    write(_Stream, _DotCode),\n    close(_Stream)),\nwriteln('✓ Saved to /shared/data/even_odd_graph.dot').\n\nwriteln('To visualize, run:'),\nwriteln('  dot -Tpng /shared/data/even_odd_graph.dot -o even_odd_graph.png').",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: build_call_graph/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: build_call_graph/2</pre>"
+      },
+      {
+        "id": 36,
+        "code": "## অনুশীলন: আপনার নিজস্ব কোড বিশ্লেষণ করুন\n\nআপনার নিজস্ব প্রেডিকেট সংজ্ঞায়িত এবং বিশ্লেষণ করার চেষ্টা করুন!",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 37,
+        "code": "% আপনার প্রেডিকেট এখানে সংজ্ঞায়িত করুন\n% তারপর কল গ্রাফ তৈরি করুন, SCC খুঁজুন এবং প্যাটার্ন শনাক্ত করুন\n\n% উদাহরণ:\n% :- dynamic my_predicate/2.\n% my_predicate(...) :- ...\n\n% build_call_graph([my_predicate/2], Graph).\n",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 38,
+        "code": "## সারসংক্ষেপ\n\nএই নোটবুকে আপনি শিখেছেন:\n\n✅ কীভাবে Prolog কোড থেকে কল গ্রাফ তৈরি করতে হয়\n\n✅ মিউচুয়াল রিকার্শনের জন্য কীভাবে স্ট্রংলি কানেক্টেড কম্পোনেন্টস (SCC) সনাক্ত করতে হয়\n\n✅ রিকার্শনের ধরন শ্রেণীবদ্ধ করতে কীভাবে প্যাটার্ন ম্যাচার ব্যবহার করতে হয়\n\n✅ কীভাবে প্রেডিকেটের নির্ভরতা বিশ্লেষণ করতে হয়\n\n✅ DOT ফরম্যাট ব্যবহার করে কীভাবে কল গ্রাফ ভিজ্যুয়ালাইজ করতে হয়\n\n## উন্নত বিষয়সমূহ\n\nআরও গভীর বিশ্লেষণের জন্য:\n\n- **টপোলজিক্যাল সর্টিং**: নির্ভরতার ভিত্তিতে SCC সাজাতে `topological_order/2` ব্যবহার করুন\n- **কাস্টম প্যাটার্ন ম্যাচার**: নিজস্ব প্যাটার্ন সনাক্তকরণ প্রেডিকেট লিখুন\n- **অ্যাকুমুলেটর প্যাটার্ন নিষ্কাশন**: বিস্তারিত বিশ্লেষণের জন্য `extract_accumulator_pattern/2` ব্যবহার করুন\n- **লিনিয়ার রিকার্শন নিষিদ্ধ করা**: ভিন্ন সংকলন কৌশল প্রয়োগের জন্য `forbid_linear_recursion/1` ব্যবহার করুন\n\n## রেফারেন্স এবং সম্পর্কিত ফাইল\n\n- অধ্যায় ১০: Prolog ইন্ট্রোস্পেকশন এবং তত্ত্ব\n- `src/unifyweaver/core/advanced/call_graph.pl`\n- `src/unifyweaver/core/advanced/scc_detection.pl`\n- `src/unifyweaver/core/advanced/pattern_matchers.pl`",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      }
+    ]
+  }
+}
