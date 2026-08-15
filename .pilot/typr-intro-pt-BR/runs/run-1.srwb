@@ -1,54 +1,88 @@
 {
   "format": "srwb",
-  "version": "1.0",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T15:23:16.293Z",
   "notebook": {
+    "id": "default",
     "name": "Introdução ao TypR",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "python",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 8,
     "cells": [
       {
-        "type": "markdown",
+        "id": 1,
         "code": "# TypR — R Tipado\n\nO TypR é um superconjunto tipado de R que compila para código R padrão.\nEle adiciona anotações de tipo, verificação de tipos e genéricos,\nmantendo total compatibilidade com o R.\n\n**Observações sobre a sintaxe:**\n- As instruções terminam com ponto e vírgula: `let x <- 42;`\n- Funções tipadas utilizam `fn(x: int): int { x * x }`\n- O TypR suporta funções variádicas e pontos nomeados, portanto `cat(\"x =\", x);` funciona diretamente.",
-        "language": "markdown"
-      },
-      {
-        "type": "code",
-        "code": "let x <- 42;\n# Argumentos variádicos são suportados\ncat(\"x =\", x);",
-        "language": "typr",
-        "name": "basics"
-      },
-      {
-        "type": "code",
-        "code": "# Corpos de função requerem chaves\nlet add <- function(a, b) { a + b };\nlet result <- add(3, 4);\nprint(result);",
-        "language": "typr",
-        "name": "functions"
-      },
-      {
-        "type": "code",
-        "code": "let greeting: char <- \"Olá do TypR!\";\nprint(greeting);",
-        "language": "typr",
-        "name": "typed"
-      },
-      {
-        "type": "code",
-        "code": "# Tipos explícitos de parâmetro e retorno tornam as chamadas verificáveis estaticamente\nlet square <- fn(x: int): int { x * x };\nlet result <- square(7);\n# Argumentos variádicos funcionam diretamente\ncat(\"7 ao quadrado =\", result);",
-        "language": "typr",
-        "name": "square"
-      },
-      {
-        "type": "code",
-        "code": "# Encaminhar argumentos nomeados heterogêneos\nlet collect <- fn(...args: Any): [#N, Any] { args };\nlet forward <- fn(...args: Any): [#N, Any] { collect(...args) };\nlet values <- forward(count = 1, enabled = true);\nprint(values);\n@{ base::cat(\"Nomes:\", base::paste(base::names(values$data), collapse = \", \"), \"\\n\") }@;",
-        "language": "typr",
-        "name": "variadic_forwarding"
-      },
-      {
         "type": "markdown",
-        "code": "## Diretivas\n\nInsira uma diretiva na primeira linha de uma célula TypR:\n\n- `#!source` mantém um fragmento de código-fonte nomeado e com destaque de sintaxe sem compilar ou executar seu conteúdo. Uma célula apenas de código-fonte intencionalmente não produz `Out [n]` e permanece legível através do Notebook VFS.\n- `#!typecheck` verifica os tipos do código a seguir sem executá-lo.\n- `#!transpile` exibe a saída transcompilada em R.\n- `#!show-r` alterna a exibição do código R gerado para execuções subsequentes do TypR.",
-        "language": "markdown"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 2,
+        "code": "let x <- 42;\n# Argumentos variádicos são suportados\ncat(\"x =\", x);",
         "type": "code",
-        "code": "#!transpile\nlet fib <- fn(n: int): int {\n  if (n <= 1) { n }\n  else { fib(n - 1) + fib(n - 2) }\n};\nprint(fib(10));",
         "language": "typr",
-        "name": "transpile_demo"
+        "name": "basics",
+        "lastOutput": "x = 42",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">x = 42</pre>"
+      },
+      {
+        "id": 3,
+        "code": "# Corpos de função requerem chaves\nlet add <- function(a, b) { a + b };\nlet result <- add(3, 4);\nprint(result);",
+        "type": "code",
+        "language": "typr",
+        "name": "functions",
+        "lastOutput": "7",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">7</pre>"
+      },
+      {
+        "id": 4,
+        "code": "let greeting: char <- \"Olá do TypR!\";\nprint(greeting);",
+        "type": "code",
+        "language": "typr",
+        "name": "typed",
+        "lastOutput": "Olá do TypR!",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Olá do TypR!</pre>"
+      },
+      {
+        "id": 5,
+        "code": "# Tipos explícitos de parâmetro e retorno tornam as chamadas verificáveis estaticamente\nlet square <- fn(x: int): int { x * x };\nlet result <- square(7);\n# Argumentos variádicos funcionam diretamente\ncat(\"7 ao quadrado =\", result);",
+        "type": "code",
+        "language": "typr",
+        "name": "square",
+        "lastOutput": "7 ao quadrado = 49",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">7 ao quadrado = 49</pre>"
+      },
+      {
+        "id": 6,
+        "code": "# Encaminhar argumentos nomeados heterogêneos\nlet collect <- fn(...args: Any): [#N, Any] { args };\nlet forward <- fn(...args: Any): [#N, Any] { collect(...args) };\nlet values <- forward(count = 1, enabled = true);\nprint(values);\n@{ base::cat(\"Nomes:\", base::paste(base::names(values$data), collapse = \", \"), \"\\n\") }@;",
+        "type": "code",
+        "language": "typr",
+        "name": "variadic_forwarding",
+        "lastOutput": "typed_vec [2]\n[1] 1\n[2] TRUE\nNomes: count, enabled",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">typed_vec [2]\n[1] 1\n[2] TRUE\nNomes: count, enabled</pre>"
+      },
+      {
+        "id": 7,
+        "code": "## Diretivas\n\nInsira uma diretiva na primeira linha de uma célula TypR:\n\n- `#!source` mantém um fragmento de código-fonte nomeado e com destaque de sintaxe sem compilar ou executar seu conteúdo. Uma célula apenas de código-fonte intencionalmente não produz `Out [n]` e permanece legível através do Notebook VFS.\n- `#!typecheck` verifica os tipos do código a seguir sem executá-lo.\n- `#!transpile` exibe a saída transcompilada em R.\n- `#!show-r` alterna a exibição do código R gerado para execuções subsequentes do TypR.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 8,
+        "code": "#!transpile\nlet fib <- fn(n: int): int {\n  if (n <= 1) { n }\n  else { fib(n - 1) + fib(n - 2) }\n};\nprint(fib(10));",
+        "type": "code",
+        "language": "typr",
+        "name": "transpile_demo",
+        "lastOutput": "\n`fib.integer` <- (function(n) {\nif(n <= 1L |> as.Integer()) {\nn \n} else {\nfib(n - 1L |> as.Integer()) + fib(n - 2L |> as.Integer())\n}\n} |> as.Integer()) |> as.Generic()\n\nprint(fib(10L |> as.Integer()))",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">\n`fib.integer` &lt;- (function(n) {\nif(n &lt;= 1L |&gt; as.Integer()) {\nn \n} else {\nfib(n - 1L |&gt; as.Integer()) + fib(n - 2L |&gt; as.Integer())\n}\n} |&gt; as.Integer()) |&gt; as.Generic()\n\nprint(fib(10L |&gt; as.Integer()))</pre>"
       }
     ]
   }

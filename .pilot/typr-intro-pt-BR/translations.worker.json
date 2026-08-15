@@ -1,0 +1,18 @@
+{
+  "spans": {
+    "1:1:0": "Argumentos variádicos são suportados",
+    "2:0:0": "Corpos de função requerem chaves",
+    "3:1:0": "Olá do TypR!",
+    "4:0:0": "Tipos explícitos de parâmetro e retorno tornam as chamadas verificáveis estaticamente",
+    "4:2:0": "Argumentos variádicos funcionam diretamente",
+    "4:4:0": "7 ao quadrado =",
+    "5:0:0": "Encaminhar argumentos nomeados heterogêneos",
+    "5:6:0": "Nomes:"
+  },
+  "keeps": [
+    "5:2:0",
+    "5:4:0",
+    "7:0:0"
+  ],
+  "suggestions": []
+}

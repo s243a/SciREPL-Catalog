@@ -1,88 +1,142 @@
 {
   "format": "srwb",
-  "version": "1.0",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T15:25:18.394Z",
   "notebook": {
+    "id": "default",
     "name": "Prolog Gera Lua: Demonstração do Compilador",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "python",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 14,
     "cells": [
       {
-        "type": "markdown",
+        "id": 1,
         "code": "# Prolog Gera Lua\n\nEsta pasta de trabalho demonstra o UnifyWeaver compilando predicados Prolog em código **Lua**.\n\nO fluxo de trabalho mantém cada linguagem de programação em sua própria célula nomeada e com destaque de sintaxe:\n1. Definir a árvore genealógica na célula Prolog `family_tree`\n2. Definir o programa de consulta compartilhado na célula de código-fonte Lua `lua_queries`\n3. Ler a célula de consulta através do Notebook VFS e anexá-la a cada programa gerado\n4. Executar as variantes com fatos embutidos e com VFS em tempo de execução\n\nDois modos de entrada são apresentados:\n- **Embutido** — fatos compilados diretamente no código Lua\n- **VFS** — fatos lidos de outra célula do caderno em tempo de execução\n\nO Lua também fornece `nb.read()`, `nb.write()`, `nb.list()` e `nb.name()` para acesso direto às células; a seção final demonstra um ciclo completo de leitura e escrita.\n\nO catálogo instala o pacote necessário **UnifyWeaver SciREPL** automaticamente com esta pasta de trabalho.",
-        "language": "markdown"
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
-        "type": "code",
+        "id": 2,
         "code": "% % Carregar módulos do compilador UnifyWeaver\n['../init'].\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "type": "code",
         "language": "prolog",
-        "name": "load_compiler"
+        "name": "load_compiler",
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
       },
       {
-        "type": "code",
+        "id": 3,
         "code": "% % Definir uma árvore genealógica como fatos Prolog\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% % Fecho transitivo: ancestor(X, Y) se X for ancestral de Y\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "type": "code",
         "language": "prolog",
-        "name": "family_tree"
+        "name": "family_tree",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
       },
       {
-        "type": "code",
+        "id": 4,
         "code": "#!source\n-- -- Esta célula de código-fonte Lua nomeada é lida por ambas as células do compilador.\n-- -- Ela é anexada a cada programa gerado e executada lá.\n\n-- -- --- Consultas ---\nlocal results = find_all(\"alice\")\nprint(\"Descendentes de alice: \" .. table.concat(results, \", \"))\nprint(\"alice -> eve : \" .. tostring(check(\"alice\", \"eve\")))\nprint(\"alice -> frank : \" .. tostring(check(\"alice\", \"frank\")))",
+        "type": "code",
         "language": "lua",
-        "name": "lua_queries"
+        "name": "lua_queries",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
-        "type": "markdown",
+        "id": 5,
         "code": "## Padrão 1: Entrada Embutida\n\nUsando `input(embedded)`, os fatos do Prolog são compilados diretamente no código Lua como chamadas a `add_fact()`. A célula do compilador lê a célula com destaque de sintaxe `lua_queries` e a anexa, de modo que o programa gerado seja autossuficiente.",
-        "language": "markdown"
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
-        "type": "code",
+        "id": 6,
         "code": "% % Ler o programa de consulta Lua destacado a partir de sua célula de código-fonte nomeada\n\\+ \\+ (\n    user:nb_read('lua_queries', '.code', _QuerySource),\n    split_string(_QuerySource, \"\\n\", \"\\r\", [\"#!source\"|_QueryLines]),\n    atomics_to_string(_QueryLines, \"\\n\", _Queries),\n\n    % % Compilar com input(embedded) — fatos embutidos no código\n    recursive_compiler:compile_recursive(ancestor/2, [target(lua), input(embedded)], _Code),\n    format(string(_FullCode), '~w~n~n~w~n', [_Code, _Queries]),\n    user:nb_write('lua_embedded', '.code', _FullCode),\n    writeln('Lua code (embedded) written to cell: lua_embedded')\n).",
+        "type": "code",
         "language": "prolog",
-        "name": "compile_embedded"
+        "name": "compile_embedded",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
       },
       {
-        "type": "code",
+        "id": 7,
         "code": "-- -- Esta célula será preenchida pelo compilador.\n-- -- Execute a célula 'compile_embedded' acima primeiro.",
+        "type": "code",
         "language": "lua",
-        "name": "lua_embedded"
+        "name": "lua_embedded",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
-        "type": "markdown",
+        "id": 8,
         "code": "## Padrão 2: Entrada via VFS\n\nUsando `input(vfs(facts_data, '.code'))`, o código Lua gerado lê fatos do código de outra célula em tempo de execução via `nb.read()`. Isso permite que os dados sejam alterados sem a necessidade de recompilação. O mesmo programa nomeado `lua_queries` também é anexado a esta variante.\n\nA célula de dados abaixo contém fatos como linhas no formato `from:to` dentro de um bloco de comentários Lua:",
-        "language": "markdown"
-      },
-      {
-        "type": "code",
-        "code": "-- -- Célula de dados: fatos no formato from:to (um por linha)\n-- -- A célula compilada via VFS lê isto através de nb.read(\"facts_data\", \".code\")\n--[[\nalice:bob\nbob:charlie\nbob:diana\ncharlie:eve\ndiana:frank\n]]",
-        "language": "lua",
-        "name": "facts_data"
-      },
-      {
-        "type": "code",
-        "code": "% % Ler o mesmo programa de consulta Lua destacado\n\\+ \\+ (\n    user:nb_read('lua_queries', '.code', _QuerySource),\n    split_string(_QuerySource, \"\\n\", \"\\r\", [\"#!source\"|_QueryLines]),\n    atomics_to_string(_QueryLines, \"\\n\", _Queries),\n\n    % % Compilar com input(vfs(facts_data)) — lê da célula acima\n    recursive_compiler:compile_recursive(ancestor/2, [target(lua), input(vfs(facts_data, '.code'))], _Code),\n    format(string(_FullCode), '~w~n~n~w~n', [_Code, _Queries]),\n    user:nb_write('lua_vfs', '.code', _FullCode),\n    writeln('Lua code (VFS) written to cell: lua_vfs')\n).",
-        "language": "prolog",
-        "name": "compile_vfs"
-      },
-      {
-        "type": "code",
-        "code": "-- -- Esta célula será preenchida pelo compilador.\n-- -- Execute a célula 'compile_vfs' acima primeiro.",
-        "language": "lua",
-        "name": "lua_vfs"
-      },
-      {
         "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 9,
+        "code": "-- -- Célula de dados: fatos no formato from:to (um por linha)\n-- -- A célula compilada via VFS lê isto através de nb.read(\"facts_data\", \".code\")\n--[[\nalice:bob\nbob:charlie\nbob:diana\ncharlie:eve\ndiana:frank\n]]",
+        "type": "code",
+        "language": "lua",
+        "name": "facts_data",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 10,
+        "code": "% % Ler o mesmo programa de consulta Lua destacado\n\\+ \\+ (\n    user:nb_read('lua_queries', '.code', _QuerySource),\n    split_string(_QuerySource, \"\\n\", \"\\r\", [\"#!source\"|_QueryLines]),\n    atomics_to_string(_QueryLines, \"\\n\", _Queries),\n\n    % % Compilar com input(vfs(facts_data)) — lê da célula acima\n    recursive_compiler:compile_recursive(ancestor/2, [target(lua), input(vfs(facts_data, '.code'))], _Code),\n    format(string(_FullCode), '~w~n~n~w~n', [_Code, _Queries]),\n    user:nb_write('lua_vfs', '.code', _FullCode),\n    writeln('Lua code (VFS) written to cell: lua_vfs')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "compile_vfs",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
+      },
+      {
+        "id": 11,
+        "code": "-- -- Esta célula será preenchida pelo compilador.\n-- -- Execute a célula 'compile_vfs' acima primeiro.",
+        "type": "code",
+        "language": "lua",
+        "name": "lua_vfs",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 12,
         "code": "## Lua Lê e Escreve em Células do Caderno\n\nO Lua pode usar o Notebook VFS diretamente. Esta célula lê o código-fonte nomeado `lua_queries` e grava uma anotação na célula seguinte `lua_written`.",
-        "language": "markdown"
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
-        "type": "code",
+        "id": 13,
         "code": "local query_source = nb.read(\"lua_queries\", \".code\")\nassert(query_source ~= nil)\nlocal note = \"-- Gravado a partir de Lua após ler lua_queries (\" .. tostring(#query_source) .. \" caracteres)\"\nassert(nb.write(\"lua_written\", \".code\", note))\nprint(\"Lua leu lua_queries e gravou em lua_written\")",
+        "type": "code",
         "language": "lua",
-        "name": "lua_cell_io"
+        "name": "lua_cell_io",
+        "lastOutput": "Lua leu lua_queries e gravou em lua_written\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Lua leu lua_queries e gravou em lua_written\n</pre>"
       },
       {
+        "id": 14,
+        "code": "-- Gravado a partir de Lua após ler lua_queries (409 caracteres)",
         "type": "code",
-        "code": "-- -- Esta célula será preenchida por lua_cell_io.",
         "language": "lua",
-        "name": "lua_written"
+        "name": "lua_written",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       }
     ]
   }

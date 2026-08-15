@@ -1,0 +1,40 @@
+{
+  "spans": {
+    "1:0:0": "% Carregar módulos do compilador UnifyWeaver",
+    "2:0:0": "% Definir uma árvore genealógica como fatos Prolog",
+    "2:2:0": "% Fecho transitivo: ancestor(X, Y) se X for ancestral de Y",
+    "3:2:0": "# Esta célula de código-fonte TypR nomeada é lida por compile_to_typr.",
+    "3:4:0": "# Ela é anexada ao código gerado porque as células TypR são isoladas.",
+    "3:6:0": "# --- Consultas ---",
+    "3:10:0": "Descendentes de alice:",
+    "3:18:0": "alice é ancestral de eve:",
+    "3:24:0": "alice é ancestral de frank:",
+    "4:0:0": "% Ler o código-fonte Prolog e TypR destacado a partir das células nomeadas",
+    "4:10:0": "% Compilar ancestor/2 para TypR explicitamente tipado e anexar as consultas nomeadas",
+    "6:0:0": "# Esta célula será preenchida pelo compilador.",
+    "6:2:0": "# Execute a célula 'compile_to_typr' acima primeiro.",
+    "8:0:0": "% Recarregar o mesmo código-fonte Prolog nomeado para que esta célula execute de forma independente",
+    "8:2:0": "% Compilar para R com fatos embutidos; a célula destacada r_queries executa em seguida",
+    "9:0:0": "# Esta célula será preenchida com código R puro.",
+    "9:2:0": "# Execute a célula 'compile_to_r' acima primeiro.",
+    "10:0:0": "# Consultar as funções R geradas em uma célula destacada separada.",
+    "10:4:0": "Descendentes de alice:",
+    "10:10:0": "alice é ancestral de eve:",
+    "10:18:0": "alice é ancestral de frank:"
+  },
+  "keeps": [
+    "3:0:0",
+    "3:8:0",
+    "3:14:0",
+    "3:16:0",
+    "3:20:0",
+    "3:22:0",
+    "4:6:0",
+    "10:2:0",
+    "10:12:0",
+    "10:14:0",
+    "10:20:0",
+    "10:22:0"
+  ],
+  "suggestions": []
+}
