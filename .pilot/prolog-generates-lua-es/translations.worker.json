@@ -1,0 +1,42 @@
+{
+  "spans": {
+    "1:0:0": "Cargar los módulos del compilador UnifyWeaver",
+    "2:0:0": "Definir un árbol genealógico como hechos de Prolog",
+    "2:2:0": "Clausura transitiva: ancestor(X, Y) si X es antepasado de Y",
+    "3:1:0": "Ambas celdas del compilador leen esta celda de código fuente nombrada de Lua.",
+    "3:3:0": "Se anexa a cada programa generado y se ejecuta allí.",
+    "3:5:0": "--- Consultas ---",
+    "3:9:0": "Descendientes de alice: ",
+    "3:13:0": "¿es alice antepasado de eve?: ",
+    "3:19:0": "¿es alice antepasado de frank?: ",
+    "5:0:0": "Leer el programa de consulta de Lua resaltado desde su celda de código fuente nombrada",
+    "5:10:0": "Compilar con input(embedded) — hechos integrados en el código",
+    "6:0:0": "El compilador rellenará esta celda.",
+    "6:2:0": "Ejecuta primero la celda 'compile_embedded' de arriba.",
+    "8:0:0": "Celda de datos: hechos en formato origen:destino (uno por línea)",
+    "8:2:0": "La celda compilada con VFS lee esto mediante nb.read(\"facts_data\", \".code\")",
+    "9:0:0": "Leer el mismo programa de consulta de Lua resaltado",
+    "9:10:0": "Compilar con input(vfs(facts_data)) — lee desde la celda de arriba",
+    "10:0:0": "El compilador rellenará esta celda.",
+    "10:2:0": "Ejecuta primero la celda 'compile_vfs' de arriba.",
+    "12:5:0": "-- Escrito desde Lua tras leer lua_queries (",
+    "12:7:0": " caracteres)",
+    "12:13:0": "Lua leyó lua_queries y escribió lua_written",
+    "13:0:0": "lua_cell_io rellenará esta celda."
+  },
+  "keeps": [
+    "3:7:0",
+    "3:15:0",
+    "3:17:0",
+    "3:21:0",
+    "3:23:0",
+    "5:6:0",
+    "8:4:0",
+    "9:6:0",
+    "12:1:0",
+    "12:3:0",
+    "12:9:0",
+    "12:11:0"
+  ],
+  "suggestions": []
+}

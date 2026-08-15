@@ -1,54 +1,88 @@
 {
   "format": "srwb",
-  "version": "1.0",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T06:58:04.734Z",
   "notebook": {
+    "id": "default",
     "name": "Introducción a TypR",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "python",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 8,
     "cells": [
       {
-        "type": "markdown",
+        "id": 1,
         "code": "# TypR — R con tipos\n\nTypR es un superconjunto tipado de R que compila a código R estándar.\nAñade anotaciones de tipos, comprobación de tipos y tipos genéricos mientras\nmantiene total compatibilidad con R.\n\n**Notas de sintaxis:**\n- Las sentencias terminan con punto y coma: `let x <- 42;`\n- Las funciones tipadas utilizan `fn(x: int): int { x * x }`\n- TypR admite funciones variádicas y puntos con nombre, por lo que `cat(\"x =\", x);` funciona directamente.",
-        "language": "markdown"
-      },
-      {
-        "type": "code",
-        "code": "let x <- 42;\n# Se admiten argumentos variádicos\ncat(\"x =\", x);",
-        "language": "typr",
-        "name": "basics"
-      },
-      {
-        "type": "code",
-        "code": "# Los cuerpos de las funciones requieren llaves\nlet add <- function(a, b) { a + b };\nlet result <- add(3, 4);\nprint(result);",
-        "language": "typr",
-        "name": "functions"
-      },
-      {
-        "type": "code",
-        "code": "let greeting: char <- \"¡Hola desde TypR!\";\nprint(greeting);",
-        "language": "typr",
-        "name": "typed"
-      },
-      {
-        "type": "code",
-        "code": "# Los tipos explícitos de parámetros y retorno permiten comprobar las llamadas estáticamente\nlet square <- fn(x: int): int { x * x };\nlet result <- square(7);\n# Los argumentos variádicos funcionan directamente\ncat(\"7 al cuadrado =\", result);",
-        "language": "typr",
-        "name": "square"
-      },
-      {
-        "type": "code",
-        "code": "# Reenviar argumentos nombrados heterogéneos\nlet collect <- fn(...args: Any): [#N, Any] { args };\nlet forward <- fn(...args: Any): [#N, Any] { collect(...args) };\nlet values <- forward(count = 1, enabled = true);\nprint(values);\n@{ base::cat(\"Nombres:\", base::paste(base::names(values$data), collapse = \", \"), \"\\n\") }@;",
-        "language": "typr",
-        "name": "variadic_forwarding"
-      },
-      {
         "type": "markdown",
-        "code": "## Directivas\n\nColoca una directiva en la primera línea de una celda de TypR:\n\n- `#!source` mantiene un fragmento de código fuente nombrado y resaltado sin compilar ni ejecutar su contenido. Una celda de solo fuente no produce intencionadamente ningún `Out [n]` y permanece legible a través del VFS del cuaderno de trabajo.\n- `#!typecheck` comprueba los tipos del código siguiente sin ejecutarlo.\n- `#!transpile` muestra la salida de R transpilada.\n- `#!show-r` alterna la visualización del código R generado para las ejecuciones posteriores de TypR.",
-        "language": "markdown"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 2,
+        "code": "let x <- 42;\n# Se admiten argumentos variádicos\ncat(\"x =\", x);",
         "type": "code",
-        "code": "#!transpile\nlet fib <- fn(n: int): int {\n  if (n <= 1) { n }\n  else { fib(n - 1) + fib(n - 2) }\n};\nprint(fib(10));",
         "language": "typr",
-        "name": "transpile_demo"
+        "name": "basics",
+        "lastOutput": "x = 42",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">x = 42</pre>"
+      },
+      {
+        "id": 3,
+        "code": "# Los cuerpos de las funciones requieren llaves\nlet add <- function(a, b) { a + b };\nlet result <- add(3, 4);\nprint(result);",
+        "type": "code",
+        "language": "typr",
+        "name": "functions",
+        "lastOutput": "7",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">7</pre>"
+      },
+      {
+        "id": 4,
+        "code": "let greeting: char <- \"¡Hola desde TypR!\";\nprint(greeting);",
+        "type": "code",
+        "language": "typr",
+        "name": "typed",
+        "lastOutput": "¡Hola desde TypR!",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">¡Hola desde TypR!</pre>"
+      },
+      {
+        "id": 5,
+        "code": "# Los tipos explícitos de parámetros y retorno permiten comprobar las llamadas estáticamente\nlet square <- fn(x: int): int { x * x };\nlet result <- square(7);\n# Los argumentos variádicos funcionan directamente\ncat(\"7 al cuadrado =\", result);",
+        "type": "code",
+        "language": "typr",
+        "name": "square",
+        "lastOutput": "7 al cuadrado = 49",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">7 al cuadrado = 49</pre>"
+      },
+      {
+        "id": 6,
+        "code": "# Reenviar argumentos nombrados heterogéneos\nlet collect <- fn(...args: Any): [#N, Any] { args };\nlet forward <- fn(...args: Any): [#N, Any] { collect(...args) };\nlet values <- forward(count = 1, enabled = true);\nprint(values);\n@{ base::cat(\"Nombres:\", base::paste(base::names(values$data), collapse = \", \"), \"\\n\") }@;",
+        "type": "code",
+        "language": "typr",
+        "name": "variadic_forwarding",
+        "lastOutput": "typed_vec [2]\n[1] 1\n[2] TRUE\nNombres: count, enabled",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">typed_vec [2]\n[1] 1\n[2] TRUE\nNombres: count, enabled</pre>"
+      },
+      {
+        "id": 7,
+        "code": "## Directivas\n\nColoca una directiva en la primera línea de una celda de TypR:\n\n- `#!source` mantiene un fragmento de código fuente nombrado y resaltado sin compilar ni ejecutar su contenido. Una celda de solo fuente no produce intencionadamente ningún `Out [n]` y permanece legible a través del VFS del cuaderno de trabajo.\n- `#!typecheck` comprueba los tipos del código siguiente sin ejecutarlo.\n- `#!transpile` muestra la salida de R transpilada.\n- `#!show-r` alterna la visualización del código R generado para las ejecuciones posteriores de TypR.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 8,
+        "code": "#!transpile\nlet fib <- fn(n: int): int {\n  if (n <= 1) { n }\n  else { fib(n - 1) + fib(n - 2) }\n};\nprint(fib(10));",
+        "type": "code",
+        "language": "typr",
+        "name": "transpile_demo",
+        "lastOutput": "\n`fib.integer` <- (function(n) {\nif(n <= 1L |> as.Integer()) {\nn \n} else {\nfib(n - 1L |> as.Integer()) + fib(n - 2L |> as.Integer())\n}\n} |> as.Integer()) |> as.Generic()\n\nprint(fib(10L |> as.Integer()))",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">\n`fib.integer` &lt;- (function(n) {\nif(n &lt;= 1L |&gt; as.Integer()) {\nn \n} else {\nfib(n - 1L |&gt; as.Integer()) + fib(n - 2L |&gt; as.Integer())\n}\n} |&gt; as.Integer()) |&gt; as.Generic()\n\nprint(fib(10L |&gt; as.Integer()))</pre>"
       }
     ]
   }

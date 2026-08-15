@@ -68,8 +68,8 @@ console.log('6. Checked-claim rule');
 const m2 = manifest([...m1.spans, span(2, 'a comment', 'un comentario', 'none')]);
 const xx5 = run([null, 'Cerco final: 3.14 < pi < 3.15', 'un comentario\nTrabajo necesario para la precisión:\n  Garantía de Leibniz: 5 términos']);
 const j5 = judge(en1, xx5, m2);
-check('reaches_output:none span surfacing in output fails',
-  !j5.pass && /misclassified/.test(j5.failures[0]));
+check('reaches_output:none span surfacing in output warns (demoted 2026-08-15)',
+  j5.warnings.length >= 1 && /appears in output/.test(j5.warnings[0]));
 
 console.log('7. Exclusions and plot routing');
 const en3 = run([null, 'ts=100', 'stable']);
@@ -132,6 +132,23 @@ const jL2 = judge(run([null, 'gear\n  4    3   8']), run([null, 'marchas\n  4   
 check('value change still fails through reflow', !jL2.pass);
 const jL3 = judge(run([null, 'x\n  4    3']), run([null, 'x\n  4     3']), manifest([]));
 check('span-less cell does NOT get reflow tolerance', !jL3.pass);
+
+console.log('8e. Format-spec literal-run masking (prolog/lua/R formatted output)');
+const mF = manifest([span(1, 'Count: ~w~n', 'Conteo: ~w~n')]);
+const jF = judge(run([null, 'Count: 5\n']), run([null, 'Conteo: 5\n']), mF);
+check('~w-formatted output masks by literal runs', jF.pass, jF.failures.join('|'));
+const jF2 = judge(run([null, 'Count: 5\n']), run([null, 'Conteo: 7\n']), mF);
+check('value change through format string still fails', !jF2.pass);
+
+console.log('8f. Checked-claim demoted to warning');
+const mW = manifest([span(1, 'expected: yes', 'esperado: sí', 'none'), span(1, 'Result: ', 'Resultado: ')]);
+const jW = judge(run([null, 'Result: expected: yes']), run([null, 'Resultado: esperado: sí']), mW);
+check('comment echoed in output warns but passes', jW.pass && jW.warnings.length === 1, jW.failures.join('|'));
+
+console.log('8g. Cross-cell surfacing (meta-workbooks print other cells)');
+const mX = manifest([span(2, 'Total: ', 'Total generales: ')]);
+const jX = judge(run([null, 'Total: 5', 'x']), run([null, 'Total generales: 5', 'x']), mX);
+check('span from cell 2 masks when surfacing in cell 1', jX.pass, jX.failures.join('|'));
 
 console.log('9. Sentinel collision resistance');
 // translated word 'términos' coincidentally equals another legit span's text —

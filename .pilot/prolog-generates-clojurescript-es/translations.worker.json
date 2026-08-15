@@ -1,0 +1,24 @@
+{
+  "spans": {
+    "1:0:0": "Cargar los módulos del compilador UnifyWeaver",
+    "2:0:0": "Definir un árbol genealógico como hechos de Prolog",
+    "2:2:0": "Clausura transitiva: ancestor(X, Y) si X es antepasado de Y",
+    "3:0:0": "Compilar ancestor/2 únicamente a definiciones de ClojureScript",
+    "3:2:0": "Terminar con nil para que las expresiones semilla generadas no se conviertan en salida del cuaderno",
+    "5:0:0": "; El compilador rellenará esta celda.",
+    "5:2:0": "; Ejecuta primero la celda 'compile_to_clojurescript' de arriba.",
+    "6:0:0": "; Consultar las definiciones generadas en el contexto persistente de Scittle.",
+    "6:2:0": "Descendientes de alice: ",
+    "6:8:0": "alice es antepasado de eve: ",
+    "6:16:0": "alice es antepasado de frank: ",
+    "8:0:0": "Compilar el mismo predicado a Clojure para JVM para comparar (solo visualización)"
+  },
+  "keeps": [
+    "6:4:0",
+    "6:10:0",
+    "6:12:0",
+    "6:18:0",
+    "6:20:0"
+  ],
+  "suggestions": []
+}

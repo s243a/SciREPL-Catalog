@@ -478,7 +478,7 @@ export function tokenizeLang(src, lang) {
 export function formatSpecsOf(text) {
   // NOTE: no space in the flag class — the C space-flag ("% d") is unused in
   // this corpus, while prose percent signs ("95% CI") would false-match.
-  return [...text.matchAll(/%[-+#0-9.*]*[a-zA-Z%]|~[0-9]*[a-zA-Z~]/g)].map(m => m[0]);
+  return [...text.matchAll(/%[-+#0-9.*]*[a-zA-Z%]|~[0-9]*[a-zA-Z~]|\$\([^)]*\)|\$\{[^}]*\}|\$[A-Za-z_][A-Za-z0-9_]*/g)].map(m => m[0]);
 }
 
 /** Per-cell language: srwb uses cell.language or a language-valued type;
