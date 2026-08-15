@@ -1,0 +1,365 @@
+{
+  "manifest_version": 1,
+  "produced_by": "derived",
+  "generator": "tools/span-derive.mjs",
+  "locale": "ru",
+  "source": {
+    "path": "workbooks/en/prolog-generates-clojurescript.srwb",
+    "sha256": "dfb9c91b0e977c12d38e4090695fad62ce2c14178cee509b8bb8e0bcd3ff8dd6"
+  },
+  "target": {
+    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/jobs/prolog-generates-clojurescript-ru/translated.srwb",
+    "sha256": "998dde01fd2c5e6639115f0feeabd67e149d614cd7c4e8f80c0e32d038d564fe"
+  },
+  "spans": [
+    {
+      "cell_index": 1,
+      "cell_name": "load_compiler",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 36
+        },
+        "text": "Load UnifyWeaver compiler modules"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 43
+        },
+        "text": "Загрузка модулей компилятора UnifyWeaver"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "family_tree",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 39
+        },
+        "text": "Define a family tree as Prolog facts"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 58
+        },
+        "text": "Определение генеалогического древа в виде фактов Prolog"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "family_tree",
+      "source_span": {
+        "start": {
+          "line": 10,
+          "col": 1
+        },
+        "end": {
+          "line": 10,
+          "col": 62
+        },
+        "text": "Transitive closure: ancestor(X, Y) if X is an ancestor of Y"
+      },
+      "target_span": {
+        "start": {
+          "line": 10,
+          "col": 1
+        },
+        "end": {
+          "line": 10,
+          "col": 60
+        },
+        "text": "Транзитивное замыкание: ancestor(X, Y), если X — предок Y"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "compile_to_clojurescript",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 55
+        },
+        "text": "Compile ancestor/2 to ClojureScript definitions only"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 59
+        },
+        "text": "Компиляция ancestor/2 только в определения ClojureScript"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "compile_to_clojurescript",
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 5
+        },
+        "end": {
+          "line": 5,
+          "col": 79
+        },
+        "text": "End with nil so generated seed expressions do not become notebook output"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 5
+        },
+        "end": {
+          "line": 5,
+          "col": 85
+        },
+        "text": "Завершение с nil, чтобы сгенерированные выражения seed не выводились в блокнот"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "cljs_output",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 48
+        },
+        "text": "; This cell will be populated by the compiler."
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 45
+        },
+        "text": ";; Эта ячейка будет заполнена компилятором."
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "cljs_output",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 56
+        },
+        "text": "; Run the 'compile_to_clojurescript' cell above first."
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 62
+        },
+        "text": ";; Сначала запустите ячейку 'compile_to_clojurescript' выше."
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": "cljs_queries",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 68
+        },
+        "text": "; Query the generated definitions in Scittle's persistent context."
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 74
+        },
+        "text": ";; Запрос к сгенерированным определениям в постоянном контексте Scittle."
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": "cljs_queries",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 14
+        },
+        "end": {
+          "line": 2,
+          "col": 36
+        },
+        "text": "Descendants of alice: "
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 14
+        },
+        "end": {
+          "line": 2,
+          "col": 29
+        },
+        "text": "Потомки alice: "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": "cljs_queries",
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 14
+        },
+        "end": {
+          "line": 3,
+          "col": 40
+        },
+        "text": "alice is ancestor of eve: "
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 14
+        },
+        "end": {
+          "line": 3,
+          "col": 34
+        },
+        "text": "alice — предок eve: "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": "cljs_queries",
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 14
+        },
+        "end": {
+          "line": 4,
+          "col": 42
+        },
+        "text": "alice is ancestor of frank: "
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 14
+        },
+        "end": {
+          "line": 4,
+          "col": 36
+        },
+        "text": "alice — предок frank: "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": "compile_to_clojure",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 74
+        },
+        "text": "Compile the same predicate to JVM Clojure for comparison (display only)"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 80
+        },
+        "text": "Компиляция того же предиката в JVM Clojure для сравнения (только отображение)"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    }
+  ],
+  "exclusions": []
+}

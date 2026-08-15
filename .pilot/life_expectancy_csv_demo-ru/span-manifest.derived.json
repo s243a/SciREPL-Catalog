@@ -1,0 +1,1261 @@
+{
+  "manifest_version": 1,
+  "produced_by": "derived",
+  "generator": "tools/span-derive.mjs",
+  "locale": "ru",
+  "source": {
+    "path": "workbooks/en/life_expectancy_csv_demo.ipynb",
+    "sha256": "9cffd27d993bae8a27ae3d1c0b695f97530897b424a7d8ca68dc1aa827658466"
+  },
+  "target": {
+    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/jobs/life_expectancy_csv_demo-ru/translated.ipynb",
+    "sha256": "4e4b37ebd4163bb93e2e1491161aaf234f961bde7c839f349f5566fc728531f0"
+  },
+  "spans": [
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 8
+        },
+        "end": {
+          "line": 3,
+          "col": 33
+        },
+        "text": "Installed pandas + plotly"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 8
+        },
+        "end": {
+          "line": 3,
+          "col": 35
+        },
+        "text": "Установлены pandas + plotly"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 17,
+          "col": 17
+        },
+        "end": {
+          "line": 17,
+          "col": 39
+        },
+        "text": "Already exists: "
+      },
+      "target_span": {
+        "start": {
+          "line": 17,
+          "col": 17
+        },
+        "end": {
+          "line": 17,
+          "col": 39
+        },
+        "text": "Уже существует: "
+      },
+      "placeholders": [
+        "{path}"
+      ]
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 24,
+          "col": 17
+        },
+        "end": {
+          "line": 24,
+          "col": 49
+        },
+        "text": "Downloaded "
+      },
+      "target_span": {
+        "start": {
+          "line": 24,
+          "col": 17
+        },
+        "end": {
+          "line": 24,
+          "col": 48
+        },
+        "text": "Загружено "
+      },
+      "placeholders": [
+        "{name}",
+        "{lines}"
+      ]
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 24,
+          "col": 17
+        },
+        "end": {
+          "line": 24,
+          "col": 49
+        },
+        "text": " lines"
+      },
+      "target_span": {
+        "start": {
+          "line": 24,
+          "col": 17
+        },
+        "end": {
+          "line": 24,
+          "col": 48
+        },
+        "text": " строк"
+      },
+      "placeholders": [
+        "{name}",
+        "{lines}"
+      ]
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 9
+        },
+        "end": {
+          "line": 4,
+          "col": 27
+        },
+        "text": "Shape: "
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 9
+        },
+        "end": {
+          "line": 4,
+          "col": 33
+        },
+        "text": "Размерность: "
+      },
+      "placeholders": [
+        "{gap.shape}"
+      ]
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 9
+        },
+        "end": {
+          "line": 5,
+          "col": 56
+        },
+        "text": "Continents: "
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 9
+        },
+        "end": {
+          "line": 5,
+          "col": 56
+        },
+        "text": "Континенты: "
+      },
+      "placeholders": [
+        "{sorted(gap['continent'].unique())}"
+      ]
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 9
+        },
+        "end": {
+          "line": 6,
+          "col": 60
+        },
+        "text": "Year range: "
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 9
+        },
+        "end": {
+          "line": 6,
+          "col": 62
+        },
+        "text": "Диапазон лет: "
+      },
+      "placeholders": [
+        "{gap['year'].min()}",
+        "{gap['year'].max()}"
+      ]
+    },
+    {
+      "cell_index": 5,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 18,
+          "col": 1
+        },
+        "end": {
+          "line": 18,
+          "col": 41
+        },
+        "text": "Life expectancy over time by continent"
+      },
+      "target_span": {
+        "start": {
+          "line": 18,
+          "col": 1
+        },
+        "end": {
+          "line": 18,
+          "col": 62
+        },
+        "text": "Ожидаемая продолжительность жизни во времени по континентам"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 21,
+          "col": 22
+        },
+        "end": {
+          "line": 21,
+          "col": 62
+        },
+        "text": "Life Expectancy by Continent (1952-2007)"
+      },
+      "target_span": {
+        "start": {
+          "line": 21,
+          "col": 22
+        },
+        "end": {
+          "line": 21,
+          "col": 82
+        },
+        "text": "Ожидаемая продолжительность жизни по континентам (1952-2007)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 22,
+          "col": 35
+        },
+        "end": {
+          "line": 22,
+          "col": 58
+        },
+        "text": "Life Expectancy (years)"
+      },
+      "target_span": {
+        "start": {
+          "line": 22,
+          "col": 35
+        },
+        "end": {
+          "line": 22,
+          "col": 74
+        },
+        "text": "Ожидаемая продолжительность жизни (лет)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 22,
+          "col": 70
+        },
+        "end": {
+          "line": 22,
+          "col": 74
+        },
+        "text": "Year"
+      },
+      "target_span": {
+        "start": {
+          "line": 22,
+          "col": 86
+        },
+        "end": {
+          "line": 22,
+          "col": 89
+        },
+        "text": "Год"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 58
+        },
+        "text": "GDP vs Life Expectancy (2007), bubble size = population"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 83
+        },
+        "text": "ВВП против ожидаемой продолжительности жизни (2007), размер пузырька = население"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 25
+        },
+        "end": {
+          "line": 6,
+          "col": 54
+        },
+        "text": "GDP vs Life Expectancy (2007)"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 25
+        },
+        "end": {
+          "line": 6,
+          "col": 76
+        },
+        "text": "ВВП против ожидаемой продолжительности жизни (2007)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 40
+        },
+        "end": {
+          "line": 7,
+          "col": 60
+        },
+        "text": "GDP per capita (log)"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 40
+        },
+        "end": {
+          "line": 7,
+          "col": 68
+        },
+        "text": "ВВП на душу населения (лог.)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 75
+        },
+        "end": {
+          "line": 7,
+          "col": 90
+        },
+        "text": "Life Expectancy"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 83
+        },
+        "end": {
+          "line": 7,
+          "col": 116
+        },
+        "text": "Ожидаемая продолжительность жизни"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 9,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 54
+        },
+        "text": "Life expectancy distribution by continent (boxplot)"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 65
+        },
+        "text": "Распределение продолжительности жизни по континентам (boxplot)"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 9,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 17
+        },
+        "end": {
+          "line": 5,
+          "col": 45
+        },
+        "text": "Life Expectancy by Continent"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 17
+        },
+        "end": {
+          "line": 5,
+          "col": 65
+        },
+        "text": "Ожидаемая продолжительность жизни по континентам"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 9,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 17
+        },
+        "end": {
+          "line": 6,
+          "col": 26
+        },
+        "text": "Continent"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 17
+        },
+        "end": {
+          "line": 6,
+          "col": 26
+        },
+        "text": "Континент"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 9,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 37
+        },
+        "end": {
+          "line": 6,
+          "col": 60
+        },
+        "text": "Life Expectancy (years)"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 37
+        },
+        "end": {
+          "line": 6,
+          "col": 76
+        },
+        "text": "Ожидаемая продолжительность жизни (лет)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 10,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 65
+        },
+        "text": "Top 10 countries by life expectancy improvement (1952 vs 2007)"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 80
+        },
+        "text": "Топ-10 стран по приросту ожидаемой продолжительности жизни (1952 против 2007)"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 10,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 12,
+          "col": 17
+        },
+        "end": {
+          "line": 12,
+          "col": 57
+        },
+        "text": "Top 10: Life Expectancy Gain (1952-2007)"
+      },
+      "target_span": {
+        "start": {
+          "line": 12,
+          "col": 17
+        },
+        "end": {
+          "line": 12,
+          "col": 78
+        },
+        "text": "Топ-10: Прирост ожидаемой продолжительности жизни (1952-2007)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 10,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 13,
+          "col": 17
+        },
+        "end": {
+          "line": 13,
+          "col": 29
+        },
+        "text": "Years gained"
+      },
+      "target_span": {
+        "start": {
+          "line": 13,
+          "col": 17
+        },
+        "end": {
+          "line": 13,
+          "col": 30
+        },
+        "text": "Прирост (лет)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 12,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 9
+        },
+        "end": {
+          "line": 2,
+          "col": 27
+        },
+        "text": "Shape: "
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 9
+        },
+        "end": {
+          "line": 2,
+          "col": 33
+        },
+        "text": "Размерность: "
+      },
+      "placeholders": [
+        "{who.shape}"
+      ]
+    },
+    {
+      "cell_index": 12,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 9
+        },
+        "end": {
+          "line": 3,
+          "col": 37
+        },
+        "text": "Columns: "
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 9
+        },
+        "end": {
+          "line": 3,
+          "col": 37
+        },
+        "text": "Колонки: "
+      },
+      "placeholders": [
+        "{list(who.columns)}"
+      ]
+    },
+    {
+      "cell_index": 12,
+      "cell_name": null,
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 9
+        },
+        "end": {
+          "line": 4,
+          "col": 34
+        },
+        "text": "\\nMissing values (top 5):"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 9
+        },
+        "end": {
+          "line": 4,
+          "col": 40
+        },
+        "text": "\\nПропущенные значения (топ-5):"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 68
+        },
+        "text": "Developing vs Developed: pre-binned life expectancy distributions"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 104
+        },
+        "text": "Развивающиеся и развитые страны: предварительно сгруппированное распределение продолжительности жизни"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 82
+        },
+        "text": "Explicit bar coordinates render consistently through the browser Plotly bridge."
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 83
+        },
+        "text": "Явные координаты столбцов стабильно отрисовываются через браузерный мост Plotly."
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 19,
+          "col": 21
+        },
+        "end": {
+          "line": 19,
+          "col": 61
+        },
+        "text": "Life Expectancy: Developing vs Developed"
+      },
+      "target_span": {
+        "start": {
+          "line": 19,
+          "col": 21
+        },
+        "end": {
+          "line": 19,
+          "col": 85
+        },
+        "text": "Ожидаемая продолжительность жизни: развивающиеся против развитых"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 20,
+          "col": 42
+        },
+        "end": {
+          "line": 20,
+          "col": 65
+        },
+        "text": "Life Expectancy (years)"
+      },
+      "target_span": {
+        "start": {
+          "line": 20,
+          "col": 42
+        },
+        "end": {
+          "line": 20,
+          "col": 81
+        },
+        "text": "Ожидаемая продолжительность жизни (лет)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 31
+        },
+        "text": "Schooling vs Life Expectancy"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 55
+        },
+        "text": "Образование против ожидаемой продолжительности жизни"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 25
+        },
+        "end": {
+          "line": 5,
+          "col": 60
+        },
+        "text": "Schooling vs Life Expectancy (2014)"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 25
+        },
+        "end": {
+          "line": 5,
+          "col": 84
+        },
+        "text": "Образование против ожидаемой продолжительности жизни (2014)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 46
+        },
+        "end": {
+          "line": 6,
+          "col": 69
+        },
+        "text": "Life Expectancy (years)"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 46
+        },
+        "end": {
+          "line": 6,
+          "col": 85
+        },
+        "text": "Ожидаемая продолжительность жизни (лет)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 40
+        },
+        "end": {
+          "line": 7,
+          "col": 58
+        },
+        "text": "Years of Schooling"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 40
+        },
+        "end": {
+          "line": 7,
+          "col": 72
+        },
+        "text": "Продолжительность обучения (лет)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 6
+        },
+        "end": {
+          "line": 3,
+          "col": 18
+        },
+        "text": "\\nCountries:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 6
+        },
+        "end": {
+          "line": 3,
+          "col": 15
+        },
+        "text": "\\nСтраны:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 6
+        },
+        "end": {
+          "line": 4,
+          "col": 19
+        },
+        "text": "\\nYear range:"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 6
+        },
+        "end": {
+          "line": 4,
+          "col": 21
+        },
+        "text": "\\nДиапазон лет:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 17,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 50
+        },
+        "text": "Correlation: Adult Mortality vs Life Expectancy"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 86
+        },
+        "text": "Корреляция: смертность взрослого населения против ожидаемой продолжительности жизни"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 17,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 14
+        },
+        "end": {
+          "line": 7,
+          "col": 48
+        },
+        "text": "Adult Mortality vs Life Expectancy"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 14
+        },
+        "end": {
+          "line": 7,
+          "col": 74
+        },
+        "text": "Смертность взрослых против ожидаемой продолжительности жизни"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 17,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 8,
+          "col": 14
+        },
+        "end": {
+          "line": 8,
+          "col": 40
+        },
+        "text": "Adult Mortality (per 1000)"
+      },
+      "target_span": {
+        "start": {
+          "line": 8,
+          "col": 14
+        },
+        "end": {
+          "line": 8,
+          "col": 54
+        },
+        "text": "Смертность взрослого населения (на 1000)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 17,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 9,
+          "col": 14
+        },
+        "end": {
+          "line": 9,
+          "col": 37
+        },
+        "text": "Life Expectancy (years)"
+      },
+      "target_span": {
+        "start": {
+          "line": 9,
+          "col": 14
+        },
+        "end": {
+          "line": 9,
+          "col": 53
+        },
+        "text": "Ожидаемая продолжительность жизни (лет)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 17,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 10,
+          "col": 32
+        },
+        "end": {
+          "line": 10,
+          "col": 41
+        },
+        "text": "Developed"
+      },
+      "target_span": {
+        "start": {
+          "line": 10,
+          "col": 32
+        },
+        "end": {
+          "line": 10,
+          "col": 40
+        },
+        "text": "Развитые"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 17,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 10,
+          "col": 45
+        },
+        "end": {
+          "line": 10,
+          "col": 55
+        },
+        "text": "Developing"
+      },
+      "target_span": {
+        "start": {
+          "line": 10,
+          "col": 44
+        },
+        "end": {
+          "line": 10,
+          "col": 57
+        },
+        "text": "Развивающиеся"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 18,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 54
+        },
+        "text": "Simple linear model: what predicts life expectancy?"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 80
+        },
+        "text": "Простая линейная модель: что предсказывает ожидаемую продолжительность жизни?"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    }
+  ],
+  "exclusions": [
+    {
+      "cell_index": 2,
+      "reason": "unstable across identical English runs — pin (seed/clock) or accept exclusion",
+      "sample_a": "Installed pandas + plotly\nAlready exists: /shared/data/gapminder.csv\nDownloaded who_life_expectancy.csv: 2939 lines\n",
+      "sample_b": "Installed pandas + plotly\nAlready exists: /shared/data/gapminder.csv\nAlready exists: /shared/data/who_life_expectancy.csv\n"
+    }
+  ]
+}

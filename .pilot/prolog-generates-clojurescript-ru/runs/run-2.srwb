@@ -1,59 +1,97 @@
 {
   "format": "srwb",
-  "version": "1.0",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T15:45:11.816Z",
   "notebook": {
+    "id": "default",
     "name": "Prolog генерирует ClojureScript: Демонстрация компилятора",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "python",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 9,
     "cells": [
       {
-        "type": "markdown",
+        "id": 1,
         "code": "# Prolog генерирует ClojureScript\n\nВ этой книге демонстрируется, как UnifyWeaver компилирует предикаты Prolog в **ClojureScript**, а затем выполняет результат прямо в браузере с помощью ядра Scittle.\n\nРабочий процесс:\n1. Определение предикатов Prolog (факты + правила)\n2. UnifyWeaver обнаруживает паттерн рекурсии (транзитивное замыкание)\n3. Целевой генератор ClojureScript создает исполняемый в браузере код CLJS (поиск в ширину BFS по структуре `atom`-map, встроенные факты, без взаимодействия с JVM)\n4. Запись сгенерированных определений в отдельную подсвеченную ячейку ClojureScript\n5. Выполнение отдельной подсвеченной ячейки с запросом в постоянном контексте Scittle\n\nКаталог автоматически устанавливает необходимый пакет **UnifyWeaver SciREPL** вместе с этой книгой.\n\n**Отличное свойство:** в отличие от демо TypR, состояние ClojureScript *сохраняется между ячейками* — Scittle поддерживает единый контекст SCI на странице — благодаря чему сгенерированные определения и запросы остаются четко разделенными.",
-        "language": "markdown"
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
-        "type": "code",
+        "id": 2,
         "code": "% Загрузка модулей компилятора UnifyWeaver\n['../init'].\n:- use_module(unifyweaver(targets/clojurescript_target)).\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "type": "code",
         "language": "prolog",
-        "name": "load_compiler"
+        "name": "load_compiler",
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
       },
       {
-        "type": "code",
+        "id": 3,
         "code": "% Определение генеалогического древа в виде фактов Prolog\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% Транзитивное замыкание: ancestor(X, Y), если X — предок Y\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "type": "code",
         "language": "prolog",
-        "name": "family_tree"
+        "name": "family_tree",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
       },
       {
-        "type": "code",
+        "id": 4,
         "code": "% Компиляция ancestor/2 только в определения ClojureScript\n\\+ \\+ (\n    recursive_compiler:compile_recursive(ancestor/2, [target(clojurescript)], _Code),\n    format('--- Generated ClojureScript code ---~n~w~n', [_Code]),\n    % Завершение с nil, чтобы сгенерированные выражения seed не выводились в блокнот\n    format(string(_Definitions), '~w~n~nnil~n', [_Code]),\n    user:nb_write('cljs_output', '.code', _Definitions),\n    writeln('ClojureScript definitions written to cell: cljs_output')\n).",
+        "type": "code",
         "language": "prolog",
-        "name": "compile_to_clojurescript"
+        "name": "compile_to_clojurescript",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
       },
       {
-        "type": "markdown",
+        "id": 5,
         "code": "## Сгенерированный код ClojureScript\n\nПриведенная ниже ячейка содержит только определения ClojureScript, сгенерированные UnifyWeaver.\nОна включает:\n- `(def base-relation (atom {}))` — отношение в виде изменяемой карты (mutable map)\n- `find-all` / `check-path` — поиск в ширину (BFS) по отношению\n- Вызовы `(add-fact ...)` для начального заполнения, сформированные из фактов Prolog\n- Взаимодействие только с хост-средой JS (без `java.io`, `System/exit` или `*command-line-args*`)\n\nСледующая подсвеченная ячейка выполняет запросы к этим сохраненным определениям.",
-        "language": "markdown"
-      },
-      {
-        "type": "code",
-        "code": ";;; Эта ячейка будет заполнена компилятором.\n;;; Сначала запустите ячейку 'compile_to_clojurescript' выше.",
-        "language": "clojurescript",
-        "name": "cljs_output"
-      },
-      {
-        "type": "code",
-        "code": ";;; Запрос к сгенерированным определениям в постоянном контексте Scittle.\n(print (str \"Потомки alice: \" (pr-str (sort (find-all \"alice\"))) \"\\n\"\n            \"alice — предок eve: \" (check-path \"alice\" \"eve\") \"\\n\"\n            \"alice — предок frank: \" (check-path \"alice\" \"frank\") \"\\n\"))",
-        "language": "clojurescript",
-        "name": "cljs_queries"
-      },
-      {
         "type": "markdown",
-        "code": "## Сравнение: тот же предикат, цель JVM Clojure\n\nUnifyWeaver может скомпилировать тот же предикат для JVM Clojure. Этот вариант считывает факты из стандартного ввода (stdin) и использует `System/exit`, что отлично подходит для хоста JVM/Node, но не может быть запущено напрямую в браузере. Именно поэтому существует цель ClojureScript (она переписывает вызовы взаимодействия с хостом JVM на JS).",
-        "language": "markdown"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 6,
+        "code": ";;; Эта ячейка будет заполнена компилятором.\n;;; Сначала запустите ячейку 'compile_to_clojurescript' выше.",
         "type": "code",
+        "language": "clojurescript",
+        "name": "cljs_output",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 7,
+        "code": ";;; Запрос к сгенерированным определениям в постоянном контексте Scittle.\n(print (str \"Потомки alice: \" (pr-str (sort (find-all \"alice\"))) \"\\n\"\n            \"alice — предок eve: \" (check-path \"alice\" \"eve\") \"\\n\"\n            \"alice — предок frank: \" (check-path \"alice\" \"frank\") \"\\n\"))",
+        "type": "code",
+        "language": "clojurescript",
+        "name": "cljs_queries",
+        "lastOutput": "Could not resolve symbol: find-all",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Could not resolve symbol: find-all</pre>"
+      },
+      {
+        "id": 8,
+        "code": "## Сравнение: тот же предикат, цель JVM Clojure\n\nUnifyWeaver может скомпилировать тот же предикат для JVM Clojure. Этот вариант считывает факты из стандартного ввода (stdin) и использует `System/exit`, что отлично подходит для хоста JVM/Node, но не может быть запущено напрямую в браузере. Именно поэтому существует цель ClojureScript (она переписывает вызовы взаимодействия с хостом JVM на JS).",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 9,
         "code": "% Компиляция того же предиката в JVM Clojure для сравнения (только отображение)\n\\+ \\+ (\n    recursive_compiler:compile_recursive(ancestor/2, [target(clojure)], _ClojureCode),\n    format('--- Generated JVM Clojure code (note java.io / *command-line-args*) ---~n~w~n', [_ClojureCode])\n).",
+        "type": "code",
         "language": "prolog",
-        "name": "compile_to_clojure"
+        "name": "compile_to_clojure",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
       }
     ]
   }
