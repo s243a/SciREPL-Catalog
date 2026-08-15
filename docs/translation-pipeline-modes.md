@@ -67,3 +67,22 @@ broker's file-scope permissions (allowlisted roots, deny rules,
 content-size caps), and the app's own permission gate on workbook
 transfer. Least authority argues for the default; the alternative is a
 policy choice, not a design violation.
+
+## Improvement suggestions (escalation channel)
+
+Translators read workbooks more closely than anyone; they will spot real
+improvements (unclear explanations, pedagogy, outright bugs). These are OUT
+OF SCOPE for translation edits — a locale that "fixes" content diverges
+from the English source and fails the derive gate by design. The
+legitimate path is escalation:
+
+- **Mode A**: the worker's JSON may include an optional
+  `"suggestions": [{"cell": n, "note": "..."}]` field. The controller
+  stores it in the locale's evidence dir and surfaces it in reports.
+  Suggestions never gate and never modify any file.
+- **Mode B**: the worker's final report includes an observations section;
+  the supervisor relays it verbatim.
+- The controller aggregates suggestions across locales (the same issue
+  spotted by three translators is a strong signal) and raises them to the
+  owner. Accepted ones change the ENGLISH source, then re-translate to all
+  locales — improvements propagate everywhere or nowhere.
