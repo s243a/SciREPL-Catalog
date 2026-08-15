@@ -254,13 +254,15 @@ export function scanCell(src) {
 export function cellsOf(workbookJson) {
   const isSrwb = workbookJson.format === 'srwb';
   const cells = isSrwb ? workbookJson.notebook.cells : workbookJson.cells;
+  const nbDefault = workbookJson?.metadata?.language_info?.name
+    || workbookJson?.metadata?.kernelspec?.language || null;
   return cells.map((c, index) => {
     const type = isSrwb ? c.type : c.cell_type;
     const raw = isSrwb ? c.code : c.source;
     // nbformat keepends: lines already carry their trailing \n — join with ''.
     const code = Array.isArray(raw) ? raw.join('') : String(raw ?? '');
     const entry = { index, type, name: c.name || null, code, cell: c };
-    entry.language = type === 'markdown' ? null : cellLanguage(c, type);
+    entry.language = type === 'markdown' ? null : cellLanguage(c, type, nbDefault);
     return entry;
   });
 }
@@ -483,12 +485,19 @@ export function formatSpecsOf(text) {
 
 /** Per-cell language: srwb uses cell.language or a language-valued type;
  *  nbformat uses metadata.scirepl_language. */
-export function cellLanguage(cell, type) {
+export function cellLanguage(cell, type, nbDefault = null) {
   const KNOWN = new Set(['python', 'r', 'lua', 'prolog', 'bash', 'javascript', 'clojurescript', 'typr']);
+  // cell magics override everything: %%bash etc. on the first line
+  const firstLine = (Array.isArray(cell.source) ? (cell.source[0] || '')
+    : String(cell.code ?? cell.source ?? '')).split('\n')[0];
+  const magic = /^%%(\w+)/.exec(firstLine);
+  if (magic && KNOWN.has(magic[1])) return magic[1];
   if (cell.language && KNOWN.has(cell.language)) return cell.language;
   if (KNOWN.has(type)) return type;
   const meta = cell.metadata || {};
   if (meta.scirepl_language && KNOWN.has(meta.scirepl_language)) return meta.scirepl_language;
+  // nbformat notebook-level default (kernelspec / language_info)
+  if (nbDefault && KNOWN.has(nbDefault)) return nbDefault;
   return type === 'code' ? 'python' : null;
 }
 

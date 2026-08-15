@@ -1,0 +1,1380 @@
+{
+  "manifest_version": 1,
+  "produced_by": "derived",
+  "generator": "tools/span-derive.mjs",
+  "locale": "es",
+  "source": {
+    "path": "workbooks/en/02_recursion_patterns.ipynb",
+    "sha256": "6c8e6bff87fe57d5fb79605a216926b5c48b4e263d2208823228dfe6676c6a80"
+  },
+  "target": {
+    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/jobs/02_recursion_patterns-es/translated.ipynb",
+    "sha256": "057e9caac2389ad201658f7059d083e29f9c78c36ed4389ccd72813c1f28fb02"
+  },
+  "spans": [
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 22
+        },
+        "text": "Load initialization"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 24
+        },
+        "text": "Cargar inicialización"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 25
+        },
+        "text": "Load necessary modules"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 32
+        },
+        "text": "Cargar los módulos necesarios"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 36
+        },
+        "text": "Define tail-recursive count_items"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 44
+        },
+        "text": "Definir count_items con recursión de cola"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 44
+        },
+        "text": "Base case: empty list, return accumulator"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 49
+        },
+        "text": "Caso base: lista vacía, retornar el acumulador"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 1
+        },
+        "end": {
+          "line": 7,
+          "col": 57
+        },
+        "text": "Recursive case: increment accumulator, recurse on tail"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 1
+        },
+        "end": {
+          "line": 7,
+          "col": 77
+        },
+        "text": "Caso recursivo: incrementar el acumulador, aplicar recursión sobre la cola"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 10,
+          "col": 31
+        },
+        "end": {
+          "line": 10,
+          "col": 49
+        },
+        "text": "← Tail position!"
+      },
+      "target_span": {
+        "start": {
+          "line": 10,
+          "col": 31
+        },
+        "end": {
+          "line": 10,
+          "col": 53
+        },
+        "text": "← ¡Posición de cola!"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 35
+        },
+        "text": "Test: count items in [a,b,c,d,e]"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 42
+        },
+        "text": "Prueba: contar elementos en [a,b,c,d,e]"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 38
+        },
+        "text": "Check if detected as tail recursive"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 49
+        },
+        "text": "Comprobar si se detecta como recursión de cola"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 10,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 19
+        },
+        "text": "Compile and save"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 21
+        },
+        "text": "Compilar y guardar"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 12,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 37
+        },
+        "text": "Counting items in [a,b,c,d,e]:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 41
+        },
+        "text": "Contando elementos en [a,b,c,d,e]:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 19
+        },
+        "text": "Define factorial"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 20
+        },
+        "text": "Definir factorial"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 12
+        },
+        "text": "Base case"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 12
+        },
+        "text": "Caso base"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 1
+        },
+        "end": {
+          "line": 7,
+          "col": 45
+        },
+        "text": "Recursive case: exactly ONE recursive call"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 1
+        },
+        "end": {
+          "line": 7,
+          "col": 52
+        },
+        "text": "Caso recursivo: exactamente UNA llamada recursiva"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 11,
+          "col": 25
+        },
+        "end": {
+          "line": 11,
+          "col": 47
+        },
+        "text": "← One recursive call"
+      },
+      "target_span": {
+        "start": {
+          "line": 11,
+          "col": 25
+        },
+        "end": {
+          "line": 11,
+          "col": 50
+        },
+        "text": "← Una llamada recursiva"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 12,
+          "col": 25
+        },
+        "end": {
+          "line": 12,
+          "col": 51
+        },
+        "text": "← Computation after call"
+      },
+      "target_span": {
+        "start": {
+          "line": 12,
+          "col": 25
+        },
+        "end": {
+          "line": 12,
+          "col": 58
+        },
+        "text": "← Cálculo después de la llamada"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 23
+        },
+        "text": "Test: factorial of 5"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 25
+        },
+        "text": "Prueba: factorial de 5"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 18,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 40
+        },
+        "text": "Check if detected as linear recursive"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 48
+        },
+        "text": "Comprobar si se detecta como recursión lineal"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 20,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 19
+        },
+        "text": "Compile and save"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 21
+        },
+        "text": "Compilar y guardar"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 20,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 5
+        },
+        "end": {
+          "line": 4,
+          "col": 87
+        },
+        "text": "Keep function definitions only; Brush treats sourced scripts as direct execution"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 5
+        },
+        "end": {
+          "line": 4,
+          "col": 118
+        },
+        "text": "Mantener solo las definiciones de funciones; Brush trata los scripts cargados con source como ejecución directa"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 22,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 22
+        },
+        "text": "Factorial of 5:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 22
+        },
+        "text": "Factorial de 5:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 22,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 7
+        },
+        "end": {
+          "line": 6,
+          "col": 23
+        },
+        "text": "Factorial of 10:"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 7
+        },
+        "end": {
+          "line": 6,
+          "col": 23
+        },
+        "text": "Factorial de 10:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 35
+        },
+        "text": "Define tree_sum for binary trees"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 41
+        },
+        "text": "Definir tree_sum para árboles binarios"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 56
+        },
+        "text": "Tree format: [Value, LeftSubtree, RightSubtree] or []"
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 69
+        },
+        "text": "Formato de árbol: [Valor, SubárbolIzquierdo, SubárbolDerecho] o []"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 34
+        },
+        "text": "Base case: empty tree has sum 0"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 41
+        },
+        "text": "Caso base: el árbol vacío tiene suma 0"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 8,
+          "col": 1
+        },
+        "end": {
+          "line": 8,
+          "col": 53
+        },
+        "text": "Recursive case: sum = value + left_sum + right_sum"
+      },
+      "target_span": {
+        "start": {
+          "line": 8,
+          "col": 1
+        },
+        "end": {
+          "line": 8,
+          "col": 63
+        },
+        "text": "Caso recursivo: suma = valor + suma_izquierda + suma_derecha"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 10,
+          "col": 24
+        },
+        "end": {
+          "line": 10,
+          "col": 48
+        },
+        "text": "← First recursive call"
+      },
+      "target_span": {
+        "start": {
+          "line": 10,
+          "col": 24
+        },
+        "end": {
+          "line": 10,
+          "col": 53
+        },
+        "text": "← Primera llamada recursiva"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 11,
+          "col": 24
+        },
+        "end": {
+          "line": 11,
+          "col": 49
+        },
+        "text": "← Second recursive call"
+      },
+      "target_span": {
+        "start": {
+          "line": 11,
+          "col": 24
+        },
+        "end": {
+          "line": 11,
+          "col": 53
+        },
+        "text": "← Segunda llamada recursiva"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 26,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 59
+        },
+        "text": "Test: tree_sum of [5, [3, [1, [], []], []], [2, [], []]]"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 61
+        },
+        "text": "Prueba: tree_sum de [5, [3, [1, [], []], []], [2, [], []]]"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 28,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 19
+        },
+        "text": "Compile and save"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 21
+        },
+        "text": "Compilar y guardar"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 30,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 50
+        },
+        "text": "Tree sum of [5,[3,[1,[],[]],[]],[2,[],[]]]:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 53
+        },
+        "text": "Suma del árbol [5,[3,[1,[],[]],[]],[2,[],[]]]:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 32,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 47
+        },
+        "text": "Define mutually recursive is_even and is_odd"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 47
+        },
+        "text": "Definir is_even e is_odd con recursión mutua"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 32,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 20
+        },
+        "text": "is_even base case"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 23
+        },
+        "text": "Caso base de is_even"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 32,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 8,
+          "col": 1
+        },
+        "end": {
+          "line": 8,
+          "col": 45
+        },
+        "text": "is_even recursive: N is even if N-1 is odd"
+      },
+      "target_span": {
+        "start": {
+          "line": 8,
+          "col": 1
+        },
+        "end": {
+          "line": 8,
+          "col": 49
+        },
+        "text": "Recursivo de is_even: N es par si N-1 es impar"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 32,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 12,
+          "col": 18
+        },
+        "end": {
+          "line": 12,
+          "col": 34
+        },
+        "text": "← Calls is_odd"
+      },
+      "target_span": {
+        "start": {
+          "line": 12,
+          "col": 18
+        },
+        "end": {
+          "line": 12,
+          "col": 36
+        },
+        "text": "← Llama a is_odd"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 32,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 14,
+          "col": 1
+        },
+        "end": {
+          "line": 14,
+          "col": 19
+        },
+        "text": "is_odd base case"
+      },
+      "target_span": {
+        "start": {
+          "line": 14,
+          "col": 1
+        },
+        "end": {
+          "line": 14,
+          "col": 22
+        },
+        "text": "Caso base de is_odd"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 32,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 17,
+          "col": 1
+        },
+        "end": {
+          "line": 17,
+          "col": 44
+        },
+        "text": "is_odd recursive: N is odd if N-1 is even"
+      },
+      "target_span": {
+        "start": {
+          "line": 17,
+          "col": 1
+        },
+        "end": {
+          "line": 17,
+          "col": 48
+        },
+        "text": "Recursivo de is_odd: N es impar si N-1 es par"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 32,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 21,
+          "col": 19
+        },
+        "end": {
+          "line": 21,
+          "col": 36
+        },
+        "text": "← Calls is_even"
+      },
+      "target_span": {
+        "start": {
+          "line": 21,
+          "col": 19
+        },
+        "end": {
+          "line": 21,
+          "col": 38
+        },
+        "text": "← Llama a is_even"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 34,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 16
+        },
+        "text": "Test even/odd"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 19
+        },
+        "text": "Probar par/impar"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 36,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 33
+        },
+        "text": "Build call graph and find SCCs"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 47
+        },
+        "text": "Construir grafo de llamadas y encontrar SCCs"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 38,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 37
+        },
+        "text": "Compile the mutual recursion group"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 39
+        },
+        "text": "Compilar el grupo de recursión mutua"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 40,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 34
+        },
+        "text": "Testing is_even and is_odd:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 33
+        },
+        "text": "Probando is_even e is_odd:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 40,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 31
+        },
+        "end": {
+          "line": 4,
+          "col": 42
+        },
+        "text": "✓ 0 is even"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 31
+        },
+        "end": {
+          "line": 4,
+          "col": 41
+        },
+        "text": "✓ 0 es par"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 40,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 31
+        },
+        "end": {
+          "line": 5,
+          "col": 42
+        },
+        "text": "✓ 4 is even"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 31
+        },
+        "end": {
+          "line": 5,
+          "col": 41
+        },
+        "text": "✓ 4 es par"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 40,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 30
+        },
+        "end": {
+          "line": 6,
+          "col": 40
+        },
+        "text": "✓ 3 is odd"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 30
+        },
+        "end": {
+          "line": 6,
+          "col": 42
+        },
+        "text": "✓ 3 es impar"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 40,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 30
+        },
+        "end": {
+          "line": 7,
+          "col": 40
+        },
+        "text": "✓ 7 is odd"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 30
+        },
+        "end": {
+          "line": 7,
+          "col": 42
+        },
+        "text": "✓ 7 es impar"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 40,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 8,
+          "col": 36
+        },
+        "end": {
+          "line": 8,
+          "col": 51
+        },
+        "text": "✓ 5 is not even"
+      },
+      "target_span": {
+        "start": {
+          "line": 8,
+          "col": 36
+        },
+        "end": {
+          "line": 8,
+          "col": 49
+        },
+        "text": "✓ 5 no es par"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 44,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 18
+        },
+        "text": "Your code here!"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 19
+        },
+        "text": "¡Tu código aquí!"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    }
+  ],
+  "exclusions": []
+}
