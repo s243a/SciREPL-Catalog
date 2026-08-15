@@ -1,79 +1,91 @@
 {
   "format": "srwb",
   "format_version": "1.0",
-  "exported_at": "2026-03-12T00:00:00.000Z",
+  "exported_at": "2026-08-15T15:49:00.717Z",
   "notebook": {
-    "id": "nb-prolog-gen-r-001",
+    "id": "default",
     "name": "Prolog による R の生成: コンパイラデモ",
+    "autoNameNumber": null,
     "description": "Demonstrates UnifyWeaver compiling Prolog predicates into R code. Part 1: factorial (linear→tail transformation). Part 2: ancestor (transitive closure vs skip/pattern).",
-    "kernelLanguage": null,
-    "cellCounter": 26,
+    "kernelLanguage": "python",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 28,
     "cells": [
       {
+        "id": 1,
         "code": "# Prolog による R の生成 — UnifyWeaver コンパイラデモ\n\nこのワークブックでは、**UnifyWeaver** が Prolog の論理記述を実行可能な R コードへとコンパイルする様子を、ノートブック内でライブ実演します。\n\n## パート 1: 階乗（線形再帰）\n1. UnifyWeaver コンパイラ環境をロード\n2. Prolog で再帰的な `factorial/2` を定義\n3. コンパイラが再帰パターンを検出し、同等の R のループを生成\n4. 生成された R コードを `nb_write/3` 経由で別のセルに書き込み\n5. R セルを実行して正確性を検証\n\n## パート 2: 祖先関係（推移閉包とパターンの制御）\n8. `parent/2` 事実と `ancestor/2` を Prolog で定義\n9. デフォルトパターン（推移閉包: BFS グラフ探索）でコンパイル\n10. `skip(transitive_closure)` を指定して再コンパイル → 異なるコードを生成\n11. 2つのアプローチを並べて比較",
         "type": "markdown",
-        "language": "python",
+        "language": "markdown",
         "name": "",
         "lastOutput": "",
         "lastOutputHtml": ""
       },
       {
+        "id": 2,
         "code": "## ステップ 1: UnifyWeaver のロード\n\nUnifyWeaver 環境と R ターゲットコンパイラをロードします。\n\n**注意:** swipl-wasm では、`use_module(library(...))` ではなく `use_module(unifyweaver(...))`（検索パスのエイリアス）を使用します。`['../init'].` の呼び出しにより `unifyweaver` 検索パスが設定され、モジュールが正しく解決されます。",
         "type": "markdown",
-        "language": "prolog",
+        "language": "markdown",
         "name": "",
         "lastOutput": "",
         "lastOutputHtml": ""
       },
       {
+        "id": 3,
         "code": "['../init'].\n:- use_module(unifyweaver(targets/r_target)).\n:- use_module(unifyweaver(core/advanced/linear_recursion)).\n:- use_module(unifyweaver(core/recursive_compiler)).",
         "type": "code",
         "language": "prolog",
         "name": "load_uw",
-        "lastOutput": "",
-        "lastOutputHtml": ""
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
       },
       {
+        "id": 4,
         "code": "## ステップ 2: Prolog での階乗の定義\n\nシンプルな再帰的階乗です。基本ケース（基底条件）では N が 0 のときに 1 を返します。再帰ケースでは `N * factorial(N-1)` を計算します。",
         "type": "markdown",
-        "language": "prolog",
+        "language": "markdown",
         "name": "",
         "lastOutput": "",
         "lastOutputHtml": ""
       },
       {
+        "id": 5,
         "code": ":- dynamic factorial/2.\n\nfactorial(0, 1).\nfactorial(N, F) :-\n    N > 0,\n    N1 is N - 1,\n    factorial(N1, F1),\n    F is N * F1.",
         "type": "code",
         "language": "prolog",
         "name": "prolog_factorial",
-        "lastOutput": "",
-        "lastOutputHtml": ""
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
       },
       {
+        "id": 6,
         "code": "## ステップ 3: Prolog → R のコンパイル\n\nコンパイラの動作:\n1. `nb_read/3` 経由で **prolog_factorial** セルから Prolog ソースを読み込み\n2. それを consult して節（clause）をデータベースにアサート\n3. `compile_linear_recursion/3` を呼び出して再帰パターンを検出し、ステップ（`N1 is N - 1` → step=1, down）を抽出して R の `for` ループを生成\n4. `nb_write/3` 経由で生成された R コードを **r_factorial** セルに書き込み\n\n`memo(false)` オプションは、メモ化された reduce ではなくループベースのコンパイルを要求します。",
         "type": "markdown",
-        "language": "prolog",
+        "language": "markdown",
         "name": "",
         "lastOutput": "",
         "lastOutputHtml": ""
       },
       {
+        "id": 7,
         "code": "%前のセルから Prolog ソースを読み込み\nuser:nb_read('prolog_factorial', '.code', _PrologSrc),\nformat('Read from prolog_factorial:~n~w~n~n', [_PrologSrc]),\n\n%それを consult して節をアサート\nsetup_call_cleanup(\n    open('/tmp/_nb_src.pl', write, _Out),\n    write(_Out, _PrologSrc),\n    close(_Out)),\nconsult('/tmp/_nb_src.pl'),\n\n%factorial/2 を R へコンパイル\nr_target:init_r_target,\nlinear_recursion:compile_linear_recursion(factorial/2, [target(r), memo(false)], _Code),\nformat('--- Generated R code ---~n~w~n', [_Code]),\n\n%コンパイラの出力を R セルに書き込み\nuser:nb_write('r_factorial', '.code', _Code),\nwriteln('\\nR code written to cell: r_factorial').",
         "type": "code",
         "language": "prolog",
         "name": "compile_to_r",
-        "lastOutput": "",
-        "lastOutputHtml": ""
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: r_target:init_r_target/0",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: r_target:init_r_target/0</pre>"
       },
       {
+        "id": 8,
         "code": "## ステップ 4: 生成された R コードの実行\n\n以下のセルには、コンパイラによって生成された `factorial` 関数が含まれます。セルを実行して関数を定義し、その後にステップ 5 を実行してテストします。",
         "type": "markdown",
-        "language": "python",
+        "language": "markdown",
         "name": "",
         "lastOutput": "",
         "lastOutputHtml": ""
       },
       {
+        "id": 9,
         "code": "# このセルはコンパイラによって上書きされます。\n# 最初に上の 'compile_to_r' セルを実行してください。",
         "type": "code",
         "language": "r",
@@ -82,94 +94,106 @@
         "lastOutputHtml": ""
       },
       {
+        "id": 10,
         "code": "## ステップ 5: 生成された R コードのテスト\n\nコンパイラによって生成された `factorial` 関数を呼び出し、正しい結果が得られることを検証します。",
         "type": "markdown",
-        "language": "python",
+        "language": "markdown",
         "name": "",
         "lastOutput": "",
         "lastOutputHtml": ""
       },
       {
+        "id": 11,
         "code": "cat(\"6! =\", factorial(6), \"\\n\")\ncat(\"20! =\", factorial(20), \"\\n\")\ncat(\"0! =\", factorial(0), \"\\n\")",
         "type": "code",
         "language": "r",
         "name": "test_r",
-        "lastOutput": "",
-        "lastOutputHtml": ""
+        "lastOutput": "6! = 720 \n20! = 2.432902e+18 \n0! = 1",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">6! = 720 \n20! = 2.432902e+18 \n0! = 1</pre>"
       },
       {
+        "id": 12,
         "code": "## ステップ 6: Bash による検査\n\nNotebook VFS を使用すると、任意のカーネルからセルを検査できます。ここでは Bash を使用してコンパイラが生成したコードを読み取ります:",
         "type": "markdown",
-        "language": "python",
+        "language": "markdown",
         "name": "",
         "lastOutput": "",
         "lastOutputHtml": ""
       },
       {
+        "id": 13,
         "code": "echo \"=== セル一覧 ===\"\nls /nb/\necho \"\"\necho \"=== r_factorial のコード ===\"\ncat /nb/r_factorial/.code\necho \"\"\necho \"=== r_factorial の言語 ===\"\ncat /nb/r_factorial/.language",
         "type": "code",
         "language": "bash",
         "name": "inspect",
-        "lastOutput": "",
-        "lastOutputHtml": ""
+        "lastOutput": "=== セル一覧 ===\nIn[1]  In[2]  In[3]  load_uw  In[4]  In[5]  prolog_factorial  In[6]  In[7]  compile_to_r  In[8]  In[9]  r_factorial  In[10]  In[11]  test_r  In[12]  In[13]  inspect  In[14]  accumulate  In[15]  In[16]  In[17]  prolog_ancestor  In[18]  In[19]  compile_ancestor_tc  In[20]  In[21]  r_ancestor_tc  In[22]  In[23]  test_r_ancestor  In[24]  In[25]  compile_ancestor_skip  In[26]  bash_ancestor_alt  In[27]  In[28]  compare_outputs  \n\n=== r_factorial のコード ===\n# このセルはコンパイラによって上書きされます。\n# 最初に上の 'compile_to_r' セルを実行してください。\n=== r_factorial の言語 ===\nr",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">=== セル一覧 ===\nIn[1]  In[2]  In[3]  load_uw  In[4]  In[5]  prolog_factorial  In[6]  In[7]  compile_to_r  In[8]  In[9]  r_factorial  In[10]  In[11]  test_r  In[12]  In[13]  inspect  In[14]  accumulate  In[15]  In[16]  In[17]  prolog_ancestor  In[18]  In[19]  compile_ancestor_tc  In[20]  In[21]  r_ancestor_tc  In[22]  In[23]  test_r_ancestor  In[24]  In[25]  compile_ancestor_skip  In[26]  bash_ancestor_alt  In[27]  In[28]  compare_outputs  \n\n=== r_factorial のコード ===\n# このセルはコンパイラによって上書きされます。\n# 最初に上の 'compile_to_r' セルを実行してください。\n=== r_factorial の言語 ===\nr</pre>"
       },
       {
+        "id": 14,
         "code": "# ステップ 7: 相対アドレッシング — /nb/-1/.output は前のセルの出力を読み取ります。\n# /nb/./.code はこのセル自身のコードを読み取ります。コピー＆ペーストして蓄積してください！\necho \"[accumulate] /nb/-1/.output 経由の前のセルの出力:\"\necho \"---\"\ncat /nb/-1/.output\necho \"---\"\necho \"\"\necho \"[self] /nb/./.code 経由のこのセルのコード:\"\ncat /nb/./.code",
         "type": "code",
         "language": "bash",
         "name": "accumulate",
-        "lastOutput": "",
-        "lastOutputHtml": ""
+        "lastOutput": "[accumulate] /nb/-1/.output 経由の前のセルの出力:\n---\n=== セル一覧 ===\nIn[1]  In[2]  In[3]  load_uw  In[4]  In[5]  prolog_factorial  In[6]  In[7]  compile_to_r  In[8]  In[9]  r_factorial  In[10]  In[11]  test_r  In[12]  In[13]  inspect  In[14]  accumulate  In[15]  In[16]  In[17]  prolog_ancestor  In[18]  In[19]  compile_ancestor_tc  In[20]  In[21]  r_ancestor_tc  In[22]  In[23]  test_r_ancestor  In[24]  In[25]  compile_ancestor_skip  In[26]  bash_ancestor_alt  In[27]  In[28]  compare_outputs  \n\n=== r_factorial のコード ===\n# このセルはコンパイラによって上書きされます。\n# 最初に上の 'compile_to_r' セルを実行してください。\n=== r_factorial の言語 ===\nr---\n\n[self] /nb/./.code 経由のこのセルのコード:\n# ステップ 7: 相対アドレッシング — /nb/-1/.output は前のセルの出力を読み取ります。\n# /nb/./.code はこのセル自身のコードを読み取ります。コピー＆ペーストして蓄積してください！\necho \"[accumulate] /nb/-1/.output 経由の前のセルの出力:\"\necho \"---\"\ncat /nb/-1/.output\necho \"---\"\necho \"\"\necho \"[self] /nb/./.code 経由のこのセルのコード:\"\ncat /nb/./.code",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">[accumulate] /nb/-1/.output 経由の前のセルの出力:\n---\n=== セル一覧 ===\nIn[1]  In[2]  In[3]  load_uw  In[4]  In[5]  prolog_factorial  In[6]  In[7]  compile_to_r  In[8]  In[9]  r_factorial  In[10]  In[11]  test_r  In[12]  In[13]  inspect  In[14]  accumulate  In[15]  In[16]  In[17]  prolog_ancestor  In[18]  In[19]  compile_ancestor_tc  In[20]  In[21]  r_ancestor_tc  In[22]  In[23]  test_r_ancestor  In[24]  In[25]  compile_ancestor_skip  In[26]  bash_ancestor_alt  In[27]  In[28]  compare_outputs  \n\n=== r_factorial のコード ===\n# このセルはコンパイラによって上書きされます。\n# 最初に上の 'compile_to_r' セルを実行してください。\n=== r_factorial の言語 ===\nr---\n\n[self] /nb/./.code 経由のこのセルのコード:\n# ステップ 7: 相対アドレッシング — /nb/-1/.output は前のセルの出力を読み取ります。\n# /nb/./.code はこのセル自身のコードを読み取ります。コピー＆ペーストして蓄積してください！\necho \"[accumulate] /nb/-1/.output 経由の前のセルの出力:\"\necho \"---\"\ncat /nb/-1/.output\necho \"---\"\necho \"\"\necho \"[self] /nb/./.code 経由のこのセルのコード:\"\ncat /nb/./.code</pre>"
       },
       {
+        "id": 15,
         "code": "---\n\n# パート 2: 祖先関係 — 推移閉包とパターンの制御\n\n同じコンパイラで関係述語も処理できます。ここでは `parent/2` 事実に対する推移閉包として `ancestor/2` を定義します。\n\nコンパイラはこのパターンを認識し、R での **幅優先探索 (BFS) グラフ探索** コードを生成します。ただし、`skip(transitive_closure)` を指定して異なるコンパイル戦略を強制することもできます。これにより、`skip` や `pattern` オプションがコンパイラの出力コードをどのように制御するかを実演します。",
         "type": "markdown",
-        "language": "prolog",
+        "language": "markdown",
         "name": "",
         "lastOutput": "",
         "lastOutputHtml": ""
       },
       {
+        "id": 16,
         "code": "## ステップ 8: Prolog での家系図の定義\n\n`parent/2` 事実を使用した小さな家系図と、推移閉包として定義された `ancestor/2` です。\n\nProlog の記述がどれほど簡潔であるかに注目してください — `ancestor/2` に必要なのはわずか2つの節だけです。グラフ探索に必要な処理はすべてコンパイラが自動生成します。",
         "type": "markdown",
-        "language": "prolog",
+        "language": "markdown",
         "name": "",
         "lastOutput": "",
         "lastOutputHtml": ""
       },
       {
+        "id": 17,
         "code": ":- dynamic parent/2, ancestor/2.\n\n%家系図\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\n\n%推移閉包: X が Y の先祖である場合 ancestor(X, Y)\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
         "type": "code",
         "language": "prolog",
         "name": "prolog_ancestor",
-        "lastOutput": "",
-        "lastOutputHtml": ""
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
       },
       {
+        "id": 18,
         "code": "## ステップ 9: ancestor/2 → R のコンパイル（デフォルト: 推移閉包）\n\nコンパイラは `ancestor/2` を `parent/2` に対する**推移閉包**として分類し、以下の R コードを生成します:\n- 隣接リスト（環境ハッシュマップ）\n- BFS 探索関数（`ancestor_all`、`ancestor_check`）\n- グラフにデータを投入するための `add_parent` 関数\n\nこれはグラフの到達可能性クエリに対して最適なコンパイル結果です。",
         "type": "markdown",
-        "language": "prolog",
+        "language": "markdown",
         "name": "",
         "lastOutput": "",
         "lastOutputHtml": ""
       },
       {
+        "id": 19,
         "code": "%ancestor の定義を consult\nuser:nb_read('prolog_ancestor', '.code', _AncSrc),\nformat('Read from prolog_ancestor:~n~w~n~n', [_AncSrc]),\nsetup_call_cleanup(\n    open('/tmp/_nb_anc.pl', write, _Out),\n    write(_Out, _AncSrc),\n    close(_Out)),\nconsult('/tmp/_nb_anc.pl'),\n\n%デフォルトのパターン検出でコンパイル → 推移閉包\nrecursive_compiler:compile_recursive(ancestor/2, [target(r)], _Code1),\nformat('--- Pattern: transitive_closure ---~n~w~n', [_Code1]),\n\n%R セルに書き込み\nuser:nb_write('r_ancestor_tc', '.code', _Code1),\nwriteln('\\nR code written to cell: r_ancestor_tc').",
         "type": "code",
         "language": "prolog",
         "name": "compile_ancestor_tc",
-        "lastOutput": "",
-        "lastOutputHtml": ""
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
       },
       {
+        "id": 20,
         "code": "## ステップ 10: 生成された R コード（推移閉包）\n\nこのセルは、コンパイラによって BFS グラフ探索コードで上書きされます。\n先に上記の `compile_ancestor_tc` セルを実行してください。",
         "type": "markdown",
-        "language": "r",
+        "language": "markdown",
         "name": "",
         "lastOutput": "",
         "lastOutputHtml": ""
       },
       {
+        "id": 21,
         "code": "# このセルはコンパイラによって上書きされます。\n# 最初に上の 'compile_ancestor_tc' を実行してください。",
         "type": "code",
         "language": "r",
@@ -178,38 +202,43 @@
         "lastOutputHtml": ""
       },
       {
+        "id": 22,
         "code": "## ステップ 11: 生成された R プログラムへのクエリ\n\n生成された定義と埋め込まれた親の事実は R カーネル内に保持されるため、このセルで両方の到達可能性 API を検証します。",
         "type": "markdown",
-        "language": "r",
+        "language": "markdown",
         "name": "",
         "lastOutput": "",
         "lastOutputHtml": ""
       },
       {
+        "id": 23,
         "code": "descendants <- ancestor_all(\"alice\")\ncat(\"alice の子孫:\", paste(descendants, collapse = \", \"), \"\\n\")\ncat(\"alice は eve の先祖:\", ancestor_check(\"alice\", \"eve\"), \"\\n\")\ncat(\"alice は frank の先祖:\", ancestor_check(\"alice\", \"frank\"), \"\\n\")",
         "type": "code",
         "language": "r",
         "name": "test_r_ancestor",
-        "lastOutput": "",
-        "lastOutputHtml": ""
+        "lastOutput": "Error: could not find function \"ancestor_all\"",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Error: could not find function \"ancestor_all\"</pre>"
       },
       {
+        "id": 24,
         "code": "## ステップ 12: 実験的な Bash フォールバックの検査\n\n次に、推移閉包パターンをスキップしながら**同じ述語**をコンパイルします。コンパイラは汎用的な末尾再帰 Bash スキャフォールドへとフォールスルーします。\n\nこれはターゲット選択と skip オプションの仕組みを実演するものですが、生成された Bash には明示的な TODO が含まれており、**ancestor/2 の振る舞いを完全に保持した実装ではありません**。同等のプログラムとしてではなく、コンパイラ開発用の出力として扱ってください。",
         "type": "markdown",
-        "language": "prolog",
+        "language": "markdown",
         "name": "",
         "lastOutput": "",
         "lastOutputHtml": ""
       },
       {
+        "id": 25,
         "code": "%ancestor/2 を再コンパイル（推移閉包をスキップ → 末尾再帰へフォールバック）\n%言語横断コンパイルを示すため Bash もターゲットに指定\nrecursive_compiler:compile_recursive(\n    ancestor/2,\n    [target(bash), skip(transitive_closure)],\n    _Code2),\nformat('--- Pattern: tail_recursion (bash) ---~n~w~n', [_Code2]),\n\n%Bash セルに書き込み\nuser:nb_write('bash_ancestor_alt', '.code', _Code2),\nwriteln('\\nBash code written to cell: bash_ancestor_alt').",
         "type": "code",
         "language": "prolog",
         "name": "compile_ancestor_skip",
-        "lastOutput": "",
-        "lastOutputHtml": ""
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
       },
       {
+        "id": 26,
         "code": "# このセルはコンパイラによって上書きされます。\n# 最初に上の 'compile_ancestor_skip' を実行してください。",
         "type": "code",
         "language": "bash",
@@ -218,20 +247,22 @@
         "lastOutputHtml": ""
       },
       {
+        "id": 27,
         "code": "## ステップ 13: 生成された出力の比較\n\nNotebook VFS を使用して、完全な R 実装と明示的に実験的な Bash スキャフォールドを並べて検査します:",
         "type": "markdown",
-        "language": "bash",
+        "language": "markdown",
         "name": "",
         "lastOutput": "",
         "lastOutputHtml": ""
       },
       {
+        "id": 28,
         "code": "echo \"=== R（推移閉包 / BFS） ===\"\necho \"言語: $(cat /nb/r_ancestor_tc/.language)\"\necho \"---\"\ncat /nb/r_ancestor_tc/.code\necho \"\"\necho \"\"\necho \"=== Bash（末尾再帰） ===\"\necho \"言語: $(cat /nb/bash_ancestor_alt/.language)\"\necho \"---\"\ncat /nb/bash_ancestor_alt/.code",
         "type": "code",
         "language": "bash",
         "name": "compare_outputs",
-        "lastOutput": "",
-        "lastOutputHtml": ""
+        "lastOutput": "=== R（推移閉包 / BFS） ===\n言語: r\n---\n# このセルはコンパイラによって上書きされます。\n# 最初に上の 'compile_ancestor_tc' を実行してください。\n\n=== Bash（末尾再帰） ===\n言語: bash\n---\n# このセルはコンパイラによって上書きされます。\n# 最初に上の 'compile_ancestor_skip' を実行してください。",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">=== R（推移閉包 / BFS） ===\n言語: r\n---\n# このセルはコンパイラによって上書きされます。\n# 最初に上の 'compile_ancestor_tc' を実行してください。\n\n=== Bash（末尾再帰） ===\n言語: bash\n---\n# このセルはコンパイラによって上書きされます。\n# 最初に上の 'compile_ancestor_skip' を実行してください。</pre>"
       }
     ]
   }

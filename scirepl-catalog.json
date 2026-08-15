@@ -345,9 +345,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ja/typr-intro.srwb",
-      "revision": 1,
-      "sha256": "086199044f18dc335698a5d216679b68eff77841db002376213a7373c6fb18d2",
-      "size": 3185
+      "revision": 2,
+      "sha256": "192d50996b551e52ee4649145a1d0ceb254eb63c8de1548e865c81bac44b4cfd",
+      "size": 3289
     },
     {
       "id": "prolog-generates-r-ja",
@@ -363,9 +363,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ja/prolog-generates-r.srwb",
-      "revision": 1,
-      "sha256": "6c9ec064d4a48cc54ea97c6529fb68ccb42acc336380e30b48b2dcd3214bc127",
-      "size": 15101
+      "revision": 2,
+      "sha256": "c57abf7724b8c473f595222a0b40dbc82ffbf274416cb184284b0d167ba4316b",
+      "size": 15444
     },
     {
       "id": "prolog-generates-lua-ja",
@@ -381,9 +381,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ja/prolog-generates-lua.srwb",
-      "revision": 1,
-      "sha256": "ec0ec9528a7e94bf0a7226735f211595f93f5a04708545cf9e3bdd9b85e20e91",
-      "size": 6896
+      "revision": 2,
+      "sha256": "c64e8f8ffb5752d30156e9d128f03349ba711b23c42abf562e28ec8a5c5c0eb6",
+      "size": 7353
     },
     {
       "id": "prolog-generates-clojurescript-ja",
@@ -399,9 +399,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ja/prolog-generates-clojurescript.srwb",
-      "revision": 1,
-      "sha256": "00fe67db5f052e17a90b4d75cef4fde9f66ed5ec644021eea284a8ca19a5efff",
-      "size": 5336
+      "revision": 2,
+      "sha256": "df9b26a32da132d64908744aa543e75ef9f6091694099180c0c71677a492167e",
+      "size": 5492
     },
     {
       "id": "prolog-generates-typr-ja",
@@ -417,9 +417,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ja/prolog-generates-typr.srwb",
-      "revision": 1,
-      "sha256": "1de7ab7cf778316096d0f6b9d909f2c9517df4079769eea948eb0c9e707508e1",
-      "size": 7173
+      "revision": 2,
+      "sha256": "10b68197244b48d084d2b6d170b5cc78d2b2d8e3aa0c83d82737cd927c8c6bfc",
+      "size": 7555
     },
     {
       "id": "r-ggplot2-showcase-ja",
@@ -434,9 +434,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ja/r_ggplot2_showcase.ipynb",
-      "revision": 1,
-      "sha256": "e94efb832776d30833b55ba89fe31c652c0decb61df91c952fdedb32d16c1383",
-      "size": 4477
+      "revision": 2,
+      "sha256": "b8849dde4fb6a59198086cf02b2edd488f4ccdfb16ddc86a046071d4ccb39431",
+      "size": 5149
     },
     {
       "id": "r-statistics-ja",
@@ -451,9 +451,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ja/r_statistics.ipynb",
-      "revision": 1,
-      "sha256": "435fe12bcae94da6cfaa1ff017c35a9177c49e285dbbb5ff06cae848204095db",
-      "size": 6206
+      "revision": 2,
+      "sha256": "43bcf328545b4623c75d04b80ff0db4190d61bc3995f3c0665b059fe0e3b7c7e",
+      "size": 7027
     },
     {
       "id": "r-tidyverse-wrangling-ja",
@@ -468,9 +468,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ja/r_tidyverse_wrangling.ipynb",
-      "revision": 1,
-      "sha256": "af823c7af50b80bb70dc853ad2f1a5f6863acf133cc3e9aa1d323e1a2ede2e39",
-      "size": 8035
+      "revision": 2,
+      "sha256": "cb1a2790d98de1e646ce0cb0bb0321a91e1084a62f4bbcb08d92bf6d7314786e",
+      "size": 8985
     },
     {
       "id": "1-family-tree-tutorial-ja",
@@ -540,9 +540,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ja/life_expectancy_csv_demo.ipynb",
-      "revision": 1,
-      "sha256": "beece58dfda5b15d380699e417bbe6a63f36823de66eb00531d44e35fed6241e",
-      "size": 11699
+      "revision": 2,
+      "sha256": "bfe97a6b6937f8de6b2278eba30e7feee7698307d280ff017ace3c7b2dbd62b4",
+      "size": 12762
     },
     {
       "id": "compute-pi-workbook-ar",

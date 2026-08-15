@@ -1,54 +1,88 @@
 {
   "format": "srwb",
-  "version": "1.0",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T15:46:58.105Z",
   "notebook": {
+    "id": "default",
     "name": "TypR 入門",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "python",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 8,
     "cells": [
       {
-        "type": "markdown",
+        "id": 1,
         "code": "# TypR — 型付きR\n\nTypR は、標準の R コードへとコンパイルされる、R の型付きスーパーセット（拡張言語）です。\nR との完全な互換性を維持しながら、型アノテーション、型チェック、ジェネリクスを追加します。\n\n**構文に関する注意:**\n- 文末にはセミコロンを付けます: `let x <- 42;`\n- 型付き関数は `fn(x: int): int { x * x }` のように定義します\n- TypR は可変長引数と名前付きドットをサポートしているため、`cat(\"x =\", x);` がそのまま動作します。",
-        "language": "markdown"
-      },
-      {
-        "type": "code",
-        "code": "let x <- 42;\n# 可変長引数がサポートされています\ncat(\"x =\", x);",
-        "language": "typr",
-        "name": "basics"
-      },
-      {
-        "type": "code",
-        "code": "# 関数本体には波括弧が必要です\nlet add <- function(a, b) { a + b };\nlet result <- add(3, 4);\nprint(result);",
-        "language": "typr",
-        "name": "functions"
-      },
-      {
-        "type": "code",
-        "code": "let greeting: char <- \"TypR からこんにちは！\";\nprint(greeting);",
-        "language": "typr",
-        "name": "typed"
-      },
-      {
-        "type": "code",
-        "code": "# パラメータと戻り値の型を明示することで呼び出しを静的にチェック可能にします\nlet square <- fn(x: int): int { x * x };\nlet result <- square(7);\n# 可変長引数が直接動作します\ncat(\"7 の2乗 =\", result);",
-        "language": "typr",
-        "name": "square"
-      },
-      {
-        "type": "code",
-        "code": "# 異種の型を含む名前付き引数を転送\nlet collect <- fn(...args: Any): [#N, Any] { args };\nlet forward <- fn(...args: Any): [#N, Any] { collect(...args) };\nlet values <- forward(count = 1, enabled = true);\nprint(values);\n@{ base::cat(\"名前:\", base::paste(base::names(values$data), collapse = \", \"), \"\\n\") }@;",
-        "language": "typr",
-        "name": "variadic_forwarding"
-      },
-      {
         "type": "markdown",
-        "code": "## ディレクティブ\n\nTypR セルの先頭行にディレクティブを記述できます:\n\n- `#!source` は、内容をコンパイルまたは実行することなく、名前付きの構文強調されたソースフラグメントとして保持します。ソース専用セルは意図的に `Out [n]` を生成せず、Notebook VFS 経由で読み取り可能な状態を維持します。\n- `#!typecheck` は、コードを実行せずに型チェックのみを行います。\n- `#!transpile` は、トランスパイルされた R の出力を表示します。\n- `#!show-r` は、以降の TypR 実行時に生成された R コードの表示を切り替えます。",
-        "language": "markdown"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 2,
+        "code": "let x <- 42;\n# 可変長引数がサポートされています\ncat(\"x =\", x);",
         "type": "code",
-        "code": "#!transpile\nlet fib <- fn(n: int): int {\n  if (n <= 1) { n }\n  else { fib(n - 1) + fib(n - 2) }\n};\nprint(fib(10));",
         "language": "typr",
-        "name": "transpile_demo"
+        "name": "basics",
+        "lastOutput": "x = 42",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">x = 42</pre>"
+      },
+      {
+        "id": 3,
+        "code": "# 関数本体には波括弧が必要です\nlet add <- function(a, b) { a + b };\nlet result <- add(3, 4);\nprint(result);",
+        "type": "code",
+        "language": "typr",
+        "name": "functions",
+        "lastOutput": "7",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">7</pre>"
+      },
+      {
+        "id": 4,
+        "code": "let greeting: char <- \"TypR からこんにちは！\";\nprint(greeting);",
+        "type": "code",
+        "language": "typr",
+        "name": "typed",
+        "lastOutput": "TypR からこんにちは！",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">TypR からこんにちは！</pre>"
+      },
+      {
+        "id": 5,
+        "code": "# パラメータと戻り値の型を明示することで呼び出しを静的にチェック可能にします\nlet square <- fn(x: int): int { x * x };\nlet result <- square(7);\n# 可変長引数が直接動作します\ncat(\"7 の2乗 =\", result);",
+        "type": "code",
+        "language": "typr",
+        "name": "square",
+        "lastOutput": "7 の2乗 = 49",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">7 の2乗 = 49</pre>"
+      },
+      {
+        "id": 6,
+        "code": "# 異種の型を含む名前付き引数を転送\nlet collect <- fn(...args: Any): [#N, Any] { args };\nlet forward <- fn(...args: Any): [#N, Any] { collect(...args) };\nlet values <- forward(count = 1, enabled = true);\nprint(values);\n@{ base::cat(\"名前:\", base::paste(base::names(values$data), collapse = \", \"), \"\\n\") }@;",
+        "type": "code",
+        "language": "typr",
+        "name": "variadic_forwarding",
+        "lastOutput": "typed_vec [2]\n[1] 1\n[2] TRUE\n名前: count, enabled",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">typed_vec [2]\n[1] 1\n[2] TRUE\n名前: count, enabled</pre>"
+      },
+      {
+        "id": 7,
+        "code": "## ディレクティブ\n\nTypR セルの先頭行にディレクティブを記述できます:\n\n- `#!source` は、内容をコンパイルまたは実行することなく、名前付きの構文強調されたソースフラグメントとして保持します。ソース専用セルは意図的に `Out [n]` を生成せず、Notebook VFS 経由で読み取り可能な状態を維持します。\n- `#!typecheck` は、コードを実行せずに型チェックのみを行います。\n- `#!transpile` は、トランスパイルされた R の出力を表示します。\n- `#!show-r` は、以降の TypR 実行時に生成された R コードの表示を切り替えます。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 8,
+        "code": "#!transpile\nlet fib <- fn(n: int): int {\n  if (n <= 1) { n }\n  else { fib(n - 1) + fib(n - 2) }\n};\nprint(fib(10));",
+        "type": "code",
+        "language": "typr",
+        "name": "transpile_demo",
+        "lastOutput": "\n`fib.integer` <- (function(n) {\nif(n <= 1L |> as.Integer()) {\nn \n} else {\nfib(n - 1L |> as.Integer()) + fib(n - 2L |> as.Integer())\n}\n} |> as.Integer()) |> as.Generic()\n\nprint(fib(10L |> as.Integer()))",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">\n`fib.integer` &lt;- (function(n) {\nif(n &lt;= 1L |&gt; as.Integer()) {\nn \n} else {\nfib(n - 1L |&gt; as.Integer()) + fib(n - 2L |&gt; as.Integer())\n}\n} |&gt; as.Integer()) |&gt; as.Generic()\n\nprint(fib(10L |&gt; as.Integer()))</pre>"
       }
     ]
   }

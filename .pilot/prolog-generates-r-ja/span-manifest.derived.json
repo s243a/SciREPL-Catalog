@@ -1,0 +1,945 @@
+{
+  "manifest_version": 1,
+  "produced_by": "derived",
+  "generator": "tools/span-derive.mjs",
+  "locale": "ja",
+  "source": {
+    "path": "workbooks/en/prolog-generates-r.srwb",
+    "sha256": "e31f536491362efacd7c9ff1ee69cab7947ff5b42e260446001d3ee1e468d930"
+  },
+  "target": {
+    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/jobs/prolog-generates-r-ja/translated.srwb",
+    "sha256": "c57abf7724b8c473f595222a0b40dbc82ffbf274416cb184284b0d167ba4316b"
+  },
+  "spans": [
+    {
+      "cell_index": 6,
+      "cell_name": "compile_to_r",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 49
+        },
+        "text": "% Read the Prolog source from the previous cell"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 24
+        },
+        "text": "前のセルから Prolog ソースを読み込み"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": "compile_to_r",
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 36
+        },
+        "text": "% Consult it to assert the clauses"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 22
+        },
+        "text": "それを consult して節をアサート"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": "compile_to_r",
+      "source_span": {
+        "start": {
+          "line": 12,
+          "col": 1
+        },
+        "end": {
+          "line": 12,
+          "col": 27
+        },
+        "text": "% Compile factorial/2 → R"
+      },
+      "target_span": {
+        "start": {
+          "line": 12,
+          "col": 1
+        },
+        "end": {
+          "line": 12,
+          "col": 24
+        },
+        "text": "factorial/2 を R へコンパイル"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": "compile_to_r",
+      "source_span": {
+        "start": {
+          "line": 17,
+          "col": 1
+        },
+        "end": {
+          "line": 17,
+          "col": 39
+        },
+        "text": "% Write compiler output to the R cell"
+      },
+      "target_span": {
+        "start": {
+          "line": 17,
+          "col": 1
+        },
+        "end": {
+          "line": 17,
+          "col": 21
+        },
+        "text": "コンパイラの出力を R セルに書き込み"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": "r_factorial",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 49
+        },
+        "text": "This cell will be overwritten by the compiler."
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 25
+        },
+        "text": "このセルはコンパイラによって上書きされます。"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": "r_factorial",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 43
+        },
+        "text": "Run the 'compile_to_r' cell above first."
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 36
+        },
+        "text": "最初に上の 'compile_to_r' セルを実行してください。"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 12,
+      "cell_name": "inspect",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 7
+        },
+        "end": {
+          "line": 1,
+          "col": 20
+        },
+        "text": "=== Cells ==="
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 7
+        },
+        "end": {
+          "line": 1,
+          "col": 19
+        },
+        "text": "=== セル一覧 ==="
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 12,
+      "cell_name": "inspect",
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 7
+        },
+        "end": {
+          "line": 4,
+          "col": 31
+        },
+        "text": "=== r_factorial code ==="
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 7
+        },
+        "end": {
+          "line": 4,
+          "col": 31
+        },
+        "text": "=== r_factorial のコード ==="
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 12,
+      "cell_name": "inspect",
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 7
+        },
+        "end": {
+          "line": 7,
+          "col": 35
+        },
+        "text": "=== r_factorial language ==="
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 7
+        },
+        "end": {
+          "line": 7,
+          "col": 30
+        },
+        "text": "=== r_factorial の言語 ==="
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": "accumulate",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 81
+        },
+        "text": "Step 7: Relative addressing — /nb/-1/.output reads the previous cell's output."
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 54
+        },
+        "text": "ステップ 7: 相対アドレッシング — /nb/-1/.output は前のセルの出力を読み取ります。"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": "accumulate",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 68
+        },
+        "text": "/nb/./.code reads this cell's own code. Copy-paste to accumulate!"
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 53
+        },
+        "text": "/nb/./.code はこのセル自身のコードを読み取ります。コピー＆ペーストして蓄積してください！"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": "accumulate",
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 60
+        },
+        "text": "[accumulate] previous cell output via /nb/-1/.output:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 46
+        },
+        "text": "[accumulate] /nb/-1/.output 経由の前のセルの出力:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": "accumulate",
+      "source_span": {
+        "start": {
+          "line": 8,
+          "col": 7
+        },
+        "end": {
+          "line": 8,
+          "col": 47
+        },
+        "text": "[self] this cell's code via /nb/./.code:"
+      },
+      "target_span": {
+        "start": {
+          "line": 8,
+          "col": 7
+        },
+        "end": {
+          "line": 8,
+          "col": 38
+        },
+        "text": "[self] /nb/./.code 経由のこのセルのコード:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": "prolog_ancestor",
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 1
+        },
+        "end": {
+          "line": 3,
+          "col": 15
+        },
+        "text": "% Family tree"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 1
+        },
+        "end": {
+          "line": 3,
+          "col": 5
+        },
+        "text": "家系図"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": "prolog_ancestor",
+      "source_span": {
+        "start": {
+          "line": 9,
+          "col": 1
+        },
+        "end": {
+          "line": 9,
+          "col": 63
+        },
+        "text": "% Transitive closure: ancestor(X, Y) if X is an ancestor of Y"
+      },
+      "target_span": {
+        "start": {
+          "line": 9,
+          "col": 1
+        },
+        "end": {
+          "line": 9,
+          "col": 37
+        },
+        "text": "推移閉包: X が Y の先祖である場合 ancestor(X, Y)"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 18,
+      "cell_name": "compile_ancestor_tc",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 36
+        },
+        "text": "% Consult the ancestor definitions"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 23
+        },
+        "text": "ancestor の定義を consult"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 18,
+      "cell_name": "compile_ancestor_tc",
+      "source_span": {
+        "start": {
+          "line": 10,
+          "col": 1
+        },
+        "end": {
+          "line": 10,
+          "col": 63
+        },
+        "text": "% Compile with default pattern detection → transitive closure"
+      },
+      "target_span": {
+        "start": {
+          "line": 10,
+          "col": 1
+        },
+        "end": {
+          "line": 10,
+          "col": 27
+        },
+        "text": "デフォルトのパターン検出でコンパイル → 推移閉包"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 18,
+      "cell_name": "compile_ancestor_tc",
+      "source_span": {
+        "start": {
+          "line": 14,
+          "col": 1
+        },
+        "end": {
+          "line": 14,
+          "col": 23
+        },
+        "text": "% Write to the R cell"
+      },
+      "target_span": {
+        "start": {
+          "line": 14,
+          "col": 1
+        },
+        "end": {
+          "line": 14,
+          "col": 11
+        },
+        "text": "R セルに書き込み"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 20,
+      "cell_name": "r_ancestor_tc",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 49
+        },
+        "text": "This cell will be overwritten by the compiler."
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 25
+        },
+        "text": "このセルはコンパイラによって上書きされます。"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 20,
+      "cell_name": "r_ancestor_tc",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 41
+        },
+        "text": "Run 'compile_ancestor_tc' above first."
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 41
+        },
+        "text": "最初に上の 'compile_ancestor_tc' を実行してください。"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 22,
+      "cell_name": "test_r_ancestor",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 6
+        },
+        "end": {
+          "line": 2,
+          "col": 27
+        },
+        "text": "Descendants of alice:"
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 6
+        },
+        "end": {
+          "line": 2,
+          "col": 16
+        },
+        "text": "alice の子孫:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 22,
+      "cell_name": "test_r_ancestor",
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 6
+        },
+        "end": {
+          "line": 3,
+          "col": 31
+        },
+        "text": "alice is ancestor of eve:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 6
+        },
+        "end": {
+          "line": 3,
+          "col": 22
+        },
+        "text": "alice は eve の先祖:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 22,
+      "cell_name": "test_r_ancestor",
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 6
+        },
+        "end": {
+          "line": 4,
+          "col": 33
+        },
+        "text": "alice is ancestor of frank:"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 6
+        },
+        "end": {
+          "line": 4,
+          "col": 24
+        },
+        "text": "alice は frank の先祖:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": "compile_ancestor_skip",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 83
+        },
+        "text": "% Compile ancestor/2 again, but skip transitive closure → falls to tail recursion"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 46
+        },
+        "text": "ancestor/2 を再コンパイル（推移閉包をスキップ → 末尾再帰へフォールバック）"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": "compile_ancestor_skip",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 55
+        },
+        "text": "% Also target bash to show cross-language compilation"
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 31
+        },
+        "text": "言語横断コンパイルを示すため Bash もターゲットに指定"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": "compile_ancestor_skip",
+      "source_span": {
+        "start": {
+          "line": 9,
+          "col": 1
+        },
+        "end": {
+          "line": 9,
+          "col": 26
+        },
+        "text": "% Write to the bash cell"
+      },
+      "target_span": {
+        "start": {
+          "line": 9,
+          "col": 1
+        },
+        "end": {
+          "line": 9,
+          "col": 14
+        },
+        "text": "Bash セルに書き込み"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 25,
+      "cell_name": "bash_ancestor_alt",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 49
+        },
+        "text": "This cell will be overwritten by the compiler."
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 25
+        },
+        "text": "このセルはコンパイラによって上書きされます。"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 25,
+      "cell_name": "bash_ancestor_alt",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 43
+        },
+        "text": "Run 'compile_ancestor_skip' above first."
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 43
+        },
+        "text": "最初に上の 'compile_ancestor_skip' を実行してください。"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 27,
+      "cell_name": "compare_outputs",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 7
+        },
+        "end": {
+          "line": 1,
+          "col": 43
+        },
+        "text": "=== R (transitive closure / BFS) ==="
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 7
+        },
+        "end": {
+          "line": 1,
+          "col": 28
+        },
+        "text": "=== R（推移閉包 / BFS） ==="
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 27,
+      "cell_name": "compare_outputs",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 7
+        },
+        "end": {
+          "line": 2,
+          "col": 51
+        },
+        "text": "Language: $(cat /nb/r_ancestor_tc/.language)"
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 7
+        },
+        "end": {
+          "line": 2,
+          "col": 45
+        },
+        "text": "言語: $(cat /nb/r_ancestor_tc/.language)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 27,
+      "cell_name": "compare_outputs",
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 7
+        },
+        "end": {
+          "line": 7,
+          "col": 36
+        },
+        "text": "=== Bash (tail recursion) ==="
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 7
+        },
+        "end": {
+          "line": 7,
+          "col": 25
+        },
+        "text": "=== Bash（末尾再帰） ==="
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 27,
+      "cell_name": "compare_outputs",
+      "source_span": {
+        "start": {
+          "line": 8,
+          "col": 7
+        },
+        "end": {
+          "line": 8,
+          "col": 55
+        },
+        "text": "Language: $(cat /nb/bash_ancestor_alt/.language)"
+      },
+      "target_span": {
+        "start": {
+          "line": 8,
+          "col": 7
+        },
+        "end": {
+          "line": 8,
+          "col": 49
+        },
+        "text": "言語: $(cat /nb/bash_ancestor_alt/.language)"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    }
+  ],
+  "exclusions": []
+}

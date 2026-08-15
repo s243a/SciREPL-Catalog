@@ -1,71 +1,115 @@
 {
   "format": "srwb",
-  "version": "1.0",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T15:49:16.179Z",
   "notebook": {
+    "id": "default",
     "name": "Prolog による TypR の生成: コンパイラデモ",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "python",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 11,
     "cells": [
       {
-        "type": "markdown",
+        "id": 1,
         "code": "# Prolog による TypR の生成\n\nこのワークブックでは、UnifyWeaver が Prolog の述語を **TypR**（R の型付きスーパーセット）にコンパイルする様子を実演します。\n\nワークフロー:\n1. 名前付き `family_tree` セルで Prolog の述語（事実 + 規則）を定義\n2. 名前付きの構文強調された `typr_queries` ソースセルでクエリプログラムを定義\n3. Notebook VFS 経由で両方のセルを読み込み\n4. UnifyWeaver が再帰パターン（推移閉包）を検出\n5. コンパイラが `let`、`fn`、および型アノテーションを含む型付き TypR コードを生成\n6. 名前付きクエリを追加し、TypR カーネルで完全なプログラムを実行\n\n名前付きセルにソースプログラムを保持することで、構文強調が維持され、Prolog 文字列内にプログラムを埋め込む必要がなくなります。\n\nこのワークブックとともに、カタログから必要な **UnifyWeaver SciREPL** パッケージが自動的にインストールされます。\n\n**制約事項:** TypR セルは互いに分離されています。`#!source` ディレクティブは、**すべて実行**（Run All）時に `typr_queries` を実行されないソースフラグメントとして保持します。`compile_to_typr` は `typr_output` を書き込む前に、生成された定義にこのクエリを追加します。",
-        "language": "markdown"
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
-        "type": "code",
+        "id": 2,
         "code": "% UnifyWeaver コンパイラモジュールを読み込み\n['../init'].\n:- use_module(unifyweaver(targets/typr_target)).\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "type": "code",
         "language": "prolog",
-        "name": "load_compiler"
+        "name": "load_compiler",
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
       },
       {
-        "type": "code",
+        "id": 3,
         "code": "% Prolog の事実として家系図を定義\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% 推移閉包: X が Y の先祖である場合 ancestor(X, Y)\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "type": "code",
         "language": "prolog",
-        "name": "family_tree"
+        "name": "family_tree",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
       },
       {
-        "type": "code",
+        "id": 4,
         "code": "#!source\n# この名前付き TypR ソースセルは compile_to_typr によって読み取られます。\n# TypR セルは互いに分離されているため、生成されたコードの末尾に追加されます。\n\n# --- クエリ ---\nlet results <- ancestor_all(\"alice\");\ncat(\"alice の子孫:\", paste(sep = \", \", ...results), fill = TRUE);\nlet is_anc <- ancestor_check(\"alice\", \"eve\");\ncat(\"alice は eve の先祖:\", is_anc, fill = TRUE);\nlet is_anc2 <- ancestor_check(\"alice\", \"frank\");\ncat(\"alice は frank の先祖:\", is_anc2, fill = TRUE);",
+        "type": "code",
         "language": "typr",
-        "name": "typr_queries"
+        "name": "typr_queries",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
-        "type": "code",
+        "id": 5,
         "code": "% 名前付きセルから構文強調された Prolog および TypR ソースを読み込み\n\\+ \\+ (\n    user:nb_read('family_tree', '.code', _PrologSrc),\n    setup_call_cleanup(\n        open('/tmp/_nb_typr_family.pl', write, _Out),\n        write(_Out, _PrologSrc),\n        close(_Out)),\n    catch(abolish(parent/2), _, true),\n    catch(abolish(ancestor/2), _, true),\n    consult('/tmp/_nb_typr_family.pl'),\n\n    user:nb_read('typr_queries', '.code', _QuerySource),\n    split_string(_QuerySource, \"\\n\", \"\\r\", [\"#!source\"|_QueryLines]),\n    atomics_to_string(_QueryLines, \"\\n\", _Queries),\n\n    % ancestor/2 を明示的に型付けされた TypR にコンパイルし、名前付きクエリを追加\n    recursive_compiler:compile_recursive(ancestor/2, [target(typr), typed_mode(explicit)], _Code),\n    format('--- Generated TypR code ---~n~w~n', [_Code]),\n    format(string(_FullCode), '~w~n~n~w~n', [_Code, _Queries]),\n    user:nb_write('typr_output', '.code', _FullCode),\n    writeln('TypR code written to cell: typr_output')\n).",
+        "type": "code",
         "language": "prolog",
-        "name": "compile_to_typr"
+        "name": "compile_to_typr",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
       },
       {
-        "type": "markdown",
+        "id": 6,
         "code": "## 生成された TypR コード\n\n以下のセルには、UnifyWeaver によって生成された TypR コードにクエリが追加されたものが含まれています。\n以下が含まれます:\n- `fn(start: char): [#N, char]` などの型付き関数シグネチャ\n- 型付きベクトルバインディングとネイティブな `while` および `if` による走査\n- ネイティブな動的インデックス付け、ベクトル追加、代入\n- Prolog のアサーションからシードされた親（parent）の事実\n- 生成されたクロージャ内には `@{ ... }@` の生 R エスケープブロックは含まれません\n\n**注意:** TypR の変数はセルをまたいで永続化されないため、すべてのコードは単一のセル内で実行する必要があります。",
-        "language": "markdown"
-      },
-      {
-        "type": "code",
-        "code": "# このセルはコンパイラによって生成されたコードで埋められます。\n# 最初に上の 'compile_to_typr' セルを実行してください。",
-        "language": "typr",
-        "name": "typr_output"
-      },
-      {
         "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 7,
+        "code": "# このセルはコンパイラによって生成されたコードで埋められます。\n# 最初に上の 'compile_to_typr' セルを実行してください。",
+        "type": "code",
+        "language": "typr",
+        "name": "typr_output",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 8,
         "code": "## 比較: 同じ述語、R ターゲット\n\nUnifyWeaver は同じ Prolog 述語をプレーンな R にコンパイルすることもできます。\n以下のセルは、同じ `ancestor/2` から型のない R コードを生成します。",
-        "language": "markdown"
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
-        "type": "code",
+        "id": 9,
         "code": "% このセルが独立して実行できるように同じ名前付き Prolog ソースを再読み込み\n\\+ \\+ (\n    user:nb_read('family_tree', '.code', _PrologSrc),\n    setup_call_cleanup(\n        open('/tmp/_nb_r_family.pl', write, _Out),\n        write(_Out, _PrologSrc),\n        close(_Out)),\n    catch(abolish(parent/2), _, true),\n    catch(abolish(ancestor/2), _, true),\n    consult('/tmp/_nb_r_family.pl'),\n\n    % 事実を埋め込んで R にコンパイル。次に構文強調された r_queries セルが実行されます\n    recursive_compiler:compile_recursive(ancestor/2, [target(r), input(embedded)], _RCode),\n    format('--- Generated R code ---~n~w~n', [_RCode]),\n    user:nb_write('r_output', '.code', _RCode),\n    writeln('R code written to cell: r_output')\n).",
+        "type": "code",
         "language": "prolog",
-        "name": "compile_to_r"
+        "name": "compile_to_r",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
       },
       {
-        "type": "code",
+        "id": 10,
         "code": "# このセルはプレーンな R コードで埋められます。\n# 最初に上の 'compile_to_r' セルを実行してください。",
+        "type": "code",
         "language": "r",
-        "name": "r_output"
+        "name": "r_output",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
-        "type": "code",
+        "id": 11,
         "code": "# 別の構文強調されたセルで生成された R 関数にクエリを実行。\nresults <- ancestor_all(\"alice\")\ncat(\"alice の子孫:\", paste(results, collapse=\", \"), \"\\n\")\ncat(\"alice は eve の先祖:\", ancestor_check(\"alice\", \"eve\"), \"\\n\")\ncat(\"alice は frank の先祖:\", ancestor_check(\"alice\", \"frank\"), \"\\n\")",
+        "type": "code",
         "language": "r",
-        "name": "r_queries"
+        "name": "r_queries",
+        "lastOutput": "Error: could not find function \"ancestor_all\"",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Error: could not find function \"ancestor_all\"</pre>"
       }
     ]
   }
