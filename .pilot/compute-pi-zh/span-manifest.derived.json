@@ -8,8 +8,8 @@
     "sha256": "390396a85df660459b2ae6df25e19fde05c525d4c1a8cea17727fd547a258e4f"
   },
   "target": {
-    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/locales/zh/full.srwb",
-    "sha256": "953a888e2d575f9f616d8efdacf40c8b27db3ac4883b6b99d47b42d8c691160b"
+    "path": "workbooks/zh/compute-pi-workbook.srwb",
+    "sha256": "92e312cd7abb39a1c9f2ae558b3a4a60c70a0ad6cb3841cc690a1bfc4287d6c5"
   },
   "spans": [
     {
@@ -46,9 +46,9 @@
         },
         "end": {
           "line": 3,
-          "col": 19
+          "col": 17
         },
-        "text": "在单位圆内可视���初始六边形。"
+        "text": "在单位圆内可视化初始六边形。"
       },
       "kind": "comment",
       "reaches_output": "none",
@@ -177,7 +177,7 @@
           "line": 8,
           "col": 5
         },
-        "text": "返回单位圆的严格多边形界限。\n\n    弦长是内接n边形的边长。数���稳定的半角\n    递推公式在不需要pi的情况下使n翻倍。\n    "
+        "text": "返回单位圆的严格多边形界限。\n\n    弦长是内接n边形的边长。数值稳定的半角\n    递推公式在不需要pi的情况下使n翻倍。\n    "
       },
       "kind": "docstring",
       "reaches_output": "none",
@@ -934,9 +934,9 @@
         },
         "end": {
           "line": 19,
-          "col": 35
+          "col": 33
         },
-        "text": "历史上的重要性在于其���格的几何夹逼，而非计算速度。"
+        "text": "历史上的重要性在于其严格的几何夹逼，而非计算速度。"
       },
       "kind": "display_string",
       "reaches_output": "stdout",

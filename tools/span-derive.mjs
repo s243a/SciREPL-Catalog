@@ -260,6 +260,12 @@ if (allowRenames) {
   }
 }
 
+for (const s2 of spans) {
+  if ((s2.target_span?.text || '').includes('\uFFFD')) {
+    errors.push(`cell ${s2.cell_index}: span target contains U+FFFD replacement character (mojibake): ${JSON.stringify(s2.target_span.text.slice(0, 50))}`);
+  }
+}
+
 if (errors.length) {
   console.error('DERIVE FAILED — translation touched the executable surface:');
   for (const e of errors) console.error('  ' + e);

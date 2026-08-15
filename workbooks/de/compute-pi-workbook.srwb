@@ -23,7 +23,7 @@
       },
       {
         "type": "code",
-        "code": "# Wie viele Seiten werden benötigt, bevor die vollständige Einschließung schmaler ist\n# als 10^-d? Die Werte gelten für wiederholte Verdopplung ab dem Sechseck.\nerste_für_ziffern = {}\nfor schritt, n, untere_schranke, obere_schranke, breite in archimedes_zeilen(22):\n    for d in range(1, 11):\n        if d not in erste_für_ziffern and breite < 10 ** (-d):\n            erste_für_ziffern[d] = (n, breite)\n\nprint(f\"{'d':>3} {'erstes verdopp. n':>18} {'Schrankenbr.':>14}\")\nfor d in range(1, 11):\n    n, breite = erste_für_ziffern[d]\n    print(f\"{d:>3} {n:>18,} {breite:>14.2e}\")\n\nprint(\"\\nEine engere Einschließung garantiert mehr absolute Genauigkeit; sie ist aussagekräftiger\")\nprint(\"als das bloße Zählen ��bereinstimmender Ziffern in einer Gleitkomma-Näherung.\")",
+        "code": "# Wie viele Seiten werden benötigt, bevor die vollständige Einschließung schmaler ist\n# als 10^-d? Die Werte gelten für wiederholte Verdopplung ab dem Sechseck.\nerste_für_ziffern = {}\nfor schritt, n, untere_schranke, obere_schranke, breite in archimedes_zeilen(22):\n    for d in range(1, 11):\n        if d not in erste_für_ziffern and breite < 10 ** (-d):\n            erste_für_ziffern[d] = (n, breite)\n\nprint(f\"{'d':>3} {'erstes verdopp. n':>18} {'Schrankenbr.':>14}\")\nfor d in range(1, 11):\n    n, breite = erste_für_ziffern[d]\n    print(f\"{d:>3} {n:>18,} {breite:>14.2e}\")\n\nprint(\"\\nEine engere Einschließung garantiert mehr absolute Genauigkeit; sie ist aussagekräftiger\")\nprint(\"als das bloße Zählen übereinstimmender Ziffern in einer Gleitkomma-Näherung.\")",
         "language": "python",
         "name": "genauigkeit"
       },

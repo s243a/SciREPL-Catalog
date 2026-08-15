@@ -11,13 +11,13 @@
       },
       {
         "type": "code",
-        "code": "import numpy as np\n\n# 在单位圆内可视���初始六边形。\ntheta = np.linspace(0, 2 * np.pi, 200)\n角度 = np.linspace(0, 2 * np.pi, 6, endpoint=False)\nx_六边形 = np.r_[np.cos(角度), np.cos(角度[0])]\ny_六边形 = np.r_[np.sin(角度), np.sin(角度[0])]\n\n圆 = {\"x\": np.cos(theta), \"y\": np.sin(theta), \"mode\": \"lines\", \"name\": \"单位圆\"}\n六边形 = {\"x\": x_六边形, \"y\": y_六边形, \"mode\": \"lines+markers\", \"name\": \"内接正六边形\"}\n布局 = {\"title\": \"阿基米德从六边形开始\", \"xaxis\": {\"scaleanchor\": \"y\"}, \"yaxis\": {\"scaleanchor\": \"x\"}}\nmplot([圆, 六边形], layout=布局)",
+        "code": "import numpy as np\n\n# 在单位圆内可视化初始六边形。\ntheta = np.linspace(0, 2 * np.pi, 200)\n角度 = np.linspace(0, 2 * np.pi, 6, endpoint=False)\nx_六边形 = np.r_[np.cos(角度), np.cos(角度[0])]\ny_六边形 = np.r_[np.sin(角度), np.sin(角度[0])]\n\n圆 = {\"x\": np.cos(theta), \"y\": np.sin(theta), \"mode\": \"lines\", \"name\": \"单位圆\"}\n六边形 = {\"x\": x_六边形, \"y\": y_六边形, \"mode\": \"lines+markers\", \"name\": \"内接正六边形\"}\n布局 = {\"title\": \"阿基米德从六边形开始\", \"xaxis\": {\"scaleanchor\": \"y\"}, \"yaxis\": {\"scaleanchor\": \"x\"}}\nmplot([圆, 六边形], layout=布局)",
         "language": "python",
         "name": "几何"
       },
       {
         "type": "code",
-        "code": "import math\n\ndef 阿基米德行(翻倍次数=16):\n    \"\"\"返回单位圆的严格多边形界限。\n\n    弦长是内接n边形的边长。数���稳定的半角\n    递推公式在不需要pi的情况下使n翻倍。\n    \"\"\"\n    n = 6\n    弦长 = 1.0\n    行列表 = []\n    for 步骤 in range(翻倍次数 + 1):\n        半弦长 = 弦长 / 2\n        下界 = n * 半弦长\n        上界 = n * 半弦长 / math.sqrt(1 - 半弦长 * 半弦长)\n        行列表.append((步骤, n, 下界, 上界, 上界 - 下界))\n        弦长 = 弦长 / math.sqrt(2 + math.sqrt(4 - 弦长 * 弦长))\n        n *= 2\n    return 行列表\n\n行列表 = 阿基米德行()\nprint(f\"{'步骤':>4} {'边数':>9} {'下界':>16} {'上界':>16} {'区间宽度':>12}\")\nfor 步骤, n, 下界, 上界, 宽度 in 行列表:\n    if 步骤 in {0, 1, 2, 4, 7, 10, 13, 16}:\n        print(f\"{步骤:>4} {n:>9,} {下界:>16.12f} {上界:>16.12f} {宽度:>12.2e}\")\n\n下界, 上界 = 行列表[-1][2], 行列表[-1][3]\nprint(f\"\\n最终夹逼区间: {下界:.12f} < pi < {上界:.12f}\")",
+        "code": "import math\n\ndef 阿基米德行(翻倍次数=16):\n    \"\"\"返回单位圆的严格多边形界限。\n\n    弦长是内接n边形的边长。数值稳定的半角\n    递推公式在不需要pi的情况下使n翻倍。\n    \"\"\"\n    n = 6\n    弦长 = 1.0\n    行列表 = []\n    for 步骤 in range(翻倍次数 + 1):\n        半弦长 = 弦长 / 2\n        下界 = n * 半弦长\n        上界 = n * 半弦长 / math.sqrt(1 - 半弦长 * 半弦长)\n        行列表.append((步骤, n, 下界, 上界, 上界 - 下界))\n        弦长 = 弦长 / math.sqrt(2 + math.sqrt(4 - 弦长 * 弦长))\n        n *= 2\n    return 行列表\n\n行列表 = 阿基米德行()\nprint(f\"{'步骤':>4} {'边数':>9} {'下界':>16} {'上界':>16} {'区间宽度':>12}\")\nfor 步骤, n, 下界, 上界, 宽度 in 行列表:\n    if 步骤 in {0, 1, 2, 4, 7, 10, 13, 16}:\n        print(f\"{步骤:>4} {n:>9,} {下界:>16.12f} {上界:>16.12f} {宽度:>12.2e}\")\n\n下界, 上界 = 行列表[-1][2], 行列表[-1][3]\nprint(f\"\\n最终夹逼区间: {下界:.12f} < pi < {上界:.12f}\")",
         "language": "python",
         "name": "界限"
       },
@@ -35,7 +35,7 @@
       },
       {
         "type": "code",
-        "code": "def 莱布尼茨误差项数(d):\n    # 圆周率交错级数的余项至多为 4/(2N+1)。\n    return math.ceil((4 * 10**d - 1) / 2)\n\ndef 反正切级数(x, 项数):\n    return sum((-1)**k * x**(2*k + 1) / (2*k + 1) for k in range(项数))\n\ndef 梅钦_圆周率(项数):\n    return 4 * (4 * 反正切级数(1/5, 项数) - 反正切级数(1/239, 项数))\n\n梅钦项数 = next(n for n in range(1, 30) if abs(梅钦_圆周率(n) - math.pi) < 1e-10)\n多边形_边数, 多边形_宽度 = 按位数首个n[10]\n\nprint(\"达到约 1e-10 绝对精度所需的计算量：\")\nprint(f\"  莱布尼茨公式保证:        {莱布尼茨误差项数(10):,} 项\")\nprint(f\"  多边形界限宽度:          {多边形_边数:,} 边 (宽度 {多边形_宽度:.2e})\")\nprint(f\"  浮点梅钦公式:            {梅钦项数} 项 (每个反正切)\")\nprint(\"\\n这些方法的收敛速度差异很大；多边形法在\")\nprint(\"历史上的重要性在于其���格的几何夹逼，而非计算速度。\")",
+        "code": "def 莱布尼茨误差项数(d):\n    # 圆周率交错级数的余项至多为 4/(2N+1)。\n    return math.ceil((4 * 10**d - 1) / 2)\n\ndef 反正切级数(x, 项数):\n    return sum((-1)**k * x**(2*k + 1) / (2*k + 1) for k in range(项数))\n\ndef 梅钦_圆周率(项数):\n    return 4 * (4 * 反正切级数(1/5, 项数) - 反正切级数(1/239, 项数))\n\n梅钦项数 = next(n for n in range(1, 30) if abs(梅钦_圆周率(n) - math.pi) < 1e-10)\n多边形_边数, 多边形_宽度 = 按位数首个n[10]\n\nprint(\"达到约 1e-10 绝对精度所需的计算量：\")\nprint(f\"  莱布尼茨公式保证:        {莱布尼茨误差项数(10):,} 项\")\nprint(f\"  多边形界限宽度:          {多边形_边数:,} 边 (宽度 {多边形_宽度:.2e})\")\nprint(f\"  浮点梅钦公式:            {梅钦项数} 项 (每个反正切)\")\nprint(\"\\n这些方法的收敛速度差异很大；多边形法在\")\nprint(\"历史上的重要性在于其严格的几何夹逼，而非计算速度。\")",
         "language": "python",
         "name": "比较"
       },

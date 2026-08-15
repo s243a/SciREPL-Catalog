@@ -8,8 +8,8 @@
     "sha256": "390396a85df660459b2ae6df25e19fde05c525d4c1a8cea17727fd547a258e4f"
   },
   "target": {
-    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/locales/hi/full.srwb",
-    "sha256": "d289787f5ebd48c5b99d323d5e5de84b428ce8fad2bea3a57d00bd6129068c7c"
+    "path": "workbooks/hi/compute-pi-workbook.srwb",
+    "sha256": "bbd808a24ee422a9bd78ef7d7d9906760fa2c52036d071e4b2c01c7959c28f54"
   },
   "spans": [
     {
@@ -104,9 +104,9 @@
         },
         "end": {
           "line": 10,
-          "col": 93
+          "col": 92
         },
-        "text": "अंतर्निहित षट्भ��ज"
+        "text": "अंतर्निहित षट्भुज"
       },
       "kind": "display_string",
       "reaches_output": "stdout",
@@ -177,7 +177,7 @@
           "line": 8,
           "col": 5
         },
-        "text": "इकाई वृत्त के लिए सटीक बहुभुज सीमाए�� लौटाएं।\n\n    जीवा आंतरिक n-भुज की भुजा लंबाई है। स्थिर अर्ध-कोण\n    पुनरावृत्ति pi की आव���्यकता के बिना n को दोगुना करती है।\n    "
+        "text": "इकाई वृत्त के लिए सटीक बहुभुज सीमाएं लौटाएं।\n\n    जीवा आंतरिक n-भुज की भुजा लंबाई है। स्थिर अर्ध-कोण\n    पुनरावृत्ति pi की आवश्यकता के बिना n को दोगुना करती है।\n    "
       },
       "kind": "docstring",
       "reaches_output": "none",
@@ -207,7 +207,7 @@
         },
         "end": {
           "line": 22,
-          "col": 87
+          "col": 85
         },
         "text": "चरण"
       },
@@ -237,7 +237,7 @@
         },
         "end": {
           "line": 22,
-          "col": 87
+          "col": 85
         },
         "text": "भुजाएं"
       },
@@ -267,9 +267,9 @@
         },
         "end": {
           "line": 22,
-          "col": 87
+          "col": 85
         },
-        "text": "निचली सीम���"
+        "text": "निचली सीमा"
       },
       "placeholders": []
     },
@@ -297,7 +297,7 @@
         },
         "end": {
           "line": 22,
-          "col": 87
+          "col": 85
         },
         "text": "ऊपरी सीमा"
       },
@@ -327,7 +327,7 @@
         },
         "end": {
           "line": 22,
-          "col": 87
+          "col": 85
         },
         "text": "चौड़ाई"
       },
@@ -428,9 +428,9 @@
         },
         "end": {
           "line": 2,
-          "col": 60
+          "col": 58
         },
-        "text": "10^-d से? मान षट्भुज ���े बार-बार दोगुना करने के लिए हैं।"
+        "text": "10^-d से? मान षट्भुज के बार-बार दोगुना करने के लिए हैं।"
       },
       "kind": "comment",
       "reaches_output": "none",
@@ -517,9 +517,9 @@
         },
         "end": {
           "line": 14,
-          "col": 72
+          "col": 70
         },
-        "text": "\\nएक संकीर्ण ���ीमांकन अधिक पूर्ण सटीकता को प्रमाणित करता है; यह"
+        "text": "\\nएक संकीर्ण सीमांकन अधिक पूर्ण सटीकता को प्रमाणित करता है; यह"
       },
       "kind": "display_string",
       "reaches_output": "stdout",

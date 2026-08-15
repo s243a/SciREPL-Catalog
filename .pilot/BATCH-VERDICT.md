@@ -37,3 +37,17 @@ Nothing committed until every gate passed. Evidence per locale under
 Two-pass worker (draft + review) per locale, plus gate-failure repair rounds
 fed back to the worker with exact error text. Identifier policy per script;
 ar keeps English identifiers/cell names (RTL/bidi; Arabic developer custom).
+
+## Addendum 2026-08-15: mojibake incident (found by Mode B, repaired, guarded)
+
+The first Mode B polish pass (fr) exposed U+FFFD mojibake that the entire
+mechanical gate chain had passed: 24 corrupted characters across 10 locales
+(all but es/id), caused by multi-byte UTF-8 split across chunk boundaries
+in the broker's agent-output streaming. Self-consistent corruption is
+invisible to the differential oracle BY DESIGN (manifest and output carry
+the same bytes). Repairs: 21 linguistically-certain mechanical fixes, 2
+worker-confirmed (ar/hi), fr via its Mode B polished export (which also
+fixed output column alignment). All 10 locales re-verified through the full
+gate chain. New guards reject U+FFFD at four layers: span-apply,
+apply-renames, span-derive, and build-pages (release channel). Upstream
+broker fix proposed to Sol (.pilot/escalations.md).

@@ -295,8 +295,8 @@
       "format": "srwb",
       "path": "workbooks/ja/compute-pi-workbook.srwb",
       "revision": 2,
-      "sha256": "db9666e8a32aa7bbd1abe0da4ffa4ad30bd6825eb3057ee0c3e889586054ba1f",
-      "size": 6420
+      "sha256": "8e5fc651fada419fa3a2a96bcb5c4993687372d7ceeeac91658477e4e281a509",
+      "size": 6408
     },
     {
       "id": "lua-tables-coroutines-ja",
@@ -558,8 +558,8 @@
       "format": "srwb",
       "path": "workbooks/ar/compute-pi-workbook.srwb",
       "revision": 2,
-      "sha256": "5a06bfbcfe9fd7a494d345fc35d51d156f4d895a002f89c6bcbf45b8e3a56f63",
-      "size": 6669
+      "sha256": "3c400545325db67ea09cf5bc852f66aa4047f1c517a7498b543e93b9ff4aa3b8",
+      "size": 6661
     },
     {
       "id": "lua-tables-coroutines-ar",
@@ -821,8 +821,8 @@
       "format": "srwb",
       "path": "workbooks/ko/compute-pi-workbook.srwb",
       "revision": 2,
-      "sha256": "87b6e4bad1de4c3385c55c3cfa383a38dd6ffefd95495251dae1bc82706c1cf5",
-      "size": 6473
+      "sha256": "b3a3400cefe75edb2abe0ad7edb1f87792667cbab906bb58d0ad01a03ff07586",
+      "size": 6464
     },
     {
       "id": "lua-tables-coroutines-ko",
@@ -1084,8 +1084,8 @@
       "format": "srwb",
       "path": "workbooks/pt-BR/compute-pi-workbook.srwb",
       "revision": 2,
-      "sha256": "36504aab0b4d4793861779fbf99e6d9e0191be26eeaf5f95a349b9dfea53e52c",
-      "size": 6300
+      "sha256": "17fb99e9d0083e85ea65f848a514313fc20845092d92c77c91a1db404f6b83f9",
+      "size": 6296
     },
     {
       "id": "lua-tables-coroutines-pt-br",
@@ -1347,8 +1347,8 @@
       "format": "srwb",
       "path": "workbooks/de/compute-pi-workbook.srwb",
       "revision": 2,
-      "sha256": "b45116b2078ef016b2bfee87f26bf042ec6bd215f401598d67d0a0dd9911cb16",
-      "size": 6332
+      "sha256": "95add8415d8594be6331c9ce3ab7b1a9f6eb66e372b800090a0db032282a5612",
+      "size": 6328
     },
     {
       "id": "lua-tables-coroutines-de",
@@ -1610,8 +1610,8 @@
       "format": "srwb",
       "path": "workbooks/fr/compute-pi-workbook.srwb",
       "revision": 2,
-      "sha256": "532acd3cc026f367ca901f8be8a5aef13d48dd854d77252fa1c99d0818f6b0b8",
-      "size": 6429
+      "sha256": "c9729eee5a8ec92027dd3d6974d8a6c261270062af60fa3480316287067900c2",
+      "size": 31259
     },
     {
       "id": "lua-tables-coroutines-fr",
@@ -1873,8 +1873,8 @@
       "format": "srwb",
       "path": "workbooks/ru/compute-pi-workbook.srwb",
       "revision": 2,
-      "sha256": "93d89ef7c04fe69b246a41a2390c3184592f6bf227aa15c400b72cfd936b531c",
-      "size": 9266
+      "sha256": "56b147cb801b49018d0f41a05aedd1d39cc11000647342309bdfe9152401b2ae",
+      "size": 9246
     },
     {
       "id": "lua-tables-coroutines-ru",
@@ -2136,8 +2136,8 @@
       "format": "srwb",
       "path": "workbooks/zh/compute-pi-workbook.srwb",
       "revision": 2,
-      "sha256": "953a888e2d575f9f616d8efdacf40c8b27db3ac4883b6b99d47b42d8c691160b",
-      "size": 5565
+      "sha256": "92e312cd7abb39a1c9f2ae558b3a4a60c70a0ad6cb3841cc690a1bfc4287d6c5",
+      "size": 5547
     },
     {
       "id": "lua-tables-coroutines-zh",
@@ -2399,8 +2399,8 @@
       "format": "srwb",
       "path": "workbooks/hi/compute-pi-workbook.srwb",
       "revision": 2,
-      "sha256": "d289787f5ebd48c5b99d323d5e5de84b428ce8fad2bea3a57d00bd6129068c7c",
-      "size": 10676
+      "sha256": "bbd808a24ee422a9bd78ef7d7d9906760fa2c52036d071e4b2c01c7959c28f54",
+      "size": 10646
     },
     {
       "id": "lua-tables-coroutines-hi",
@@ -2662,8 +2662,8 @@
       "format": "srwb",
       "path": "workbooks/bn/compute-pi-workbook.srwb",
       "revision": 2,
-      "sha256": "325755eee4dcdc7cc8181ee44a2aca5b183e1e869dd326859c07dbdfe1d87f83",
-      "size": 10559
+      "sha256": "855f1b5bf5fb097c8c61a63b208accc28c3784601ad242acd73373762acadd8d",
+      "size": 10550
     },
     {
       "id": "lua-tables-coroutines-bn",

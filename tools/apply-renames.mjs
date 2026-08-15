@@ -42,6 +42,7 @@ const cellNames = new Map(Object.entries(gloss.cell_names || {}).map(([k, v]) =>
 // glossary sanity before touching anything
 const bad = [];
 for (const [from, to] of renames) {
+  if (to.includes('\uFFFD')) bad.push(`target '${to}' contains U+FFFD — transport mojibake`);
   if (PY_KEYWORDS.has(from)) bad.push(`'${from}' is a keyword`);
   if (!isValidPyIdentifier(to)) bad.push(`target '${to}' is not a valid identifier`);
   if (to !== to.normalize('NFC')) bad.push(`target '${to}' is not NFC`);
@@ -50,6 +51,7 @@ for (const [from, to] of renames) {
 const targets = [...renames.values()];
 if (new Set(targets).size !== targets.length) bad.push('rename targets collide');
 for (const [, to] of cellNames) {
+  if (to.includes('\uFFFD')) bad.push(`cell name '${to}' contains U+FFFD — transport mojibake`);
   if (!to || to.includes('/') || to.startsWith('.') || /^In\[\d+\]$/.test(to)) {
     bad.push(`cell name '${to}' is invalid`);
   }

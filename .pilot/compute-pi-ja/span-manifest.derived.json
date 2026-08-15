@@ -8,8 +8,8 @@
     "sha256": "390396a85df660459b2ae6df25e19fde05c525d4c1a8cea17727fd547a258e4f"
   },
   "target": {
-    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/locales/ja/full.srwb",
-    "sha256": "db9666e8a32aa7bbd1abe0da4ffa4ad30bd6825eb3057ee0c3e889586054ba1f"
+    "path": "workbooks/ja/compute-pi-workbook.srwb",
+    "sha256": "8e5fc651fada419fa3a2a96bcb5c4993687372d7ceeeac91658477e4e281a509"
   },
   "spans": [
     {
@@ -546,9 +546,9 @@
         },
         "end": {
           "line": 15,
-          "col": 42
+          "col": 40
         },
-        "text": "単一の浮動小数点近似値と一致する桁数を単に���えるよりも強力です。"
+        "text": "単一の浮動小数点近似値と一致する桁数を単に数えるよりも強力です。"
       },
       "kind": "display_string",
       "reaches_output": "stdout",
@@ -934,9 +934,9 @@
         },
         "end": {
           "line": 19,
-          "col": 44
+          "col": 42
         },
-        "text": "歴史的な重要性は、計算速度ではなく厳密な幾何学的挟み込みにあり���す。"
+        "text": "歴史的な重要性は、計算速度ではなく厳密な幾何学的挟み込みにあります。"
       },
       "kind": "display_string",
       "reaches_output": "stdout",

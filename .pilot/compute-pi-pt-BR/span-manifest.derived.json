@@ -8,8 +8,8 @@
     "sha256": "390396a85df660459b2ae6df25e19fde05c525d4c1a8cea17727fd547a258e4f"
   },
   "target": {
-    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/locales/pt-BR/full.srwb",
-    "sha256": "36504aab0b4d4793861779fbf99e6d9e0191be26eeaf5f95a349b9dfea53e52c"
+    "path": "workbooks/pt-BR/compute-pi-workbook.srwb",
+    "sha256": "17fb99e9d0083e85ea65f848a514313fc20845092d92c77c91a1db404f6b83f9"
   },
   "spans": [
     {
@@ -688,9 +688,9 @@
         },
         "end": {
           "line": 14,
-          "col": 70
+          "col": 69
         },
-        "text": "Trabalho necess��rio para precisão absoluta de cerca de 1e-10:"
+        "text": "Trabalho necessário para precisão absoluta de cerca de 1e-10:"
       },
       "kind": "display_string",
       "reaches_output": "stdout",

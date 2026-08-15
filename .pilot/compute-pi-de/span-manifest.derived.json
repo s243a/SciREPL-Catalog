@@ -8,8 +8,8 @@
     "sha256": "390396a85df660459b2ae6df25e19fde05c525d4c1a8cea17727fd547a258e4f"
   },
   "target": {
-    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/de-full.srwb",
-    "sha256": "b45116b2078ef016b2bfee87f26bf042ec6bd215f401598d67d0a0dd9911cb16"
+    "path": "workbooks/de/compute-pi-workbook.srwb",
+    "sha256": "95add8415d8594be6331c9ce3ab7b1a9f6eb66e372b800090a0db032282a5612"
   },
   "spans": [
     {
@@ -546,9 +546,9 @@
         },
         "end": {
           "line": 15,
-          "col": 85
+          "col": 84
         },
-        "text": "als das bloße Zählen ��bereinstimmender Ziffern in einer Gleitkomma-Näherung."
+        "text": "als das bloße Zählen übereinstimmender Ziffern in einer Gleitkomma-Näherung."
       },
       "kind": "display_string",
       "reaches_output": "stdout",

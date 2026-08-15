@@ -8,8 +8,8 @@
     "sha256": "390396a85df660459b2ae6df25e19fde05c525d4c1a8cea17727fd547a258e4f"
   },
   "target": {
-    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/locales/ko/full.srwb",
-    "sha256": "87b6e4bad1de4c3385c55c3cfa383a38dd6ffefd95495251dae1bc82706c1cf5"
+    "path": "workbooks/ko/compute-pi-workbook.srwb",
+    "sha256": "b3a3400cefe75edb2abe0ad7edb1f87792667cbab906bb58d0ad01a03ff07586"
   },
   "spans": [
     {
@@ -460,7 +460,7 @@
         },
         "end": {
           "line": 9,
-          "col": 51
+          "col": 50
         },
         "text": "최초 배가 n"
       },
@@ -490,9 +490,9 @@
         },
         "end": {
           "line": 9,
-          "col": 51
+          "col": 50
         },
-        "text": "포위 구�� 너비"
+        "text": "포위 구간 너비"
       },
       "placeholders": []
     },
@@ -546,9 +546,9 @@
         },
         "end": {
           "line": 15,
-          "col": 53
+          "col": 51
         },
-        "text": "하나의 부동소수점 근사치에서 일치하는 자릿수를 ���순히 세는 것보다 강력합니다."
+        "text": "하나의 부동소수점 근사치에서 일치하는 자릿수를 단순히 세는 것보다 강력합니다."
       },
       "kind": "display_string",
       "reaches_output": "stdout",

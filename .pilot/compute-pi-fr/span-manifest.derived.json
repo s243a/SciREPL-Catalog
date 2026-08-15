@@ -8,8 +8,8 @@
     "sha256": "390396a85df660459b2ae6df25e19fde05c525d4c1a8cea17727fd547a258e4f"
   },
   "target": {
-    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/locales/fr/full.srwb",
-    "sha256": "532acd3cc026f367ca901f8be8a5aef13d48dd854d77252fa1c99d0818f6b0b8"
+    "path": "workbooks/fr/compute-pi-workbook.srwb",
+    "sha256": "c9729eee5a8ec92027dd3d6974d8a6c261270062af60fa3480316287067900c2"
   },
   "spans": [
     {
@@ -207,7 +207,7 @@
         },
         "end": {
           "line": 22,
-          "col": 99
+          "col": 98
         },
         "text": "pas"
       },
@@ -237,9 +237,9 @@
         },
         "end": {
           "line": 22,
-          "col": 99
+          "col": 98
         },
-        "text": "côt��s"
+        "text": "côtés"
       },
       "placeholders": []
     },
@@ -267,7 +267,7 @@
         },
         "end": {
           "line": 22,
-          "col": 99
+          "col": 98
         },
         "text": "borne inférieure"
       },
@@ -297,7 +297,7 @@
         },
         "end": {
           "line": 22,
-          "col": 99
+          "col": 98
         },
         "text": "borne supérieure"
       },
@@ -327,7 +327,7 @@
         },
         "end": {
           "line": 22,
-          "col": 99
+          "col": 98
         },
         "text": "largeur"
       },
@@ -719,9 +719,9 @@
         },
         "end": {
           "line": 15,
-          "col": 77
+          "col": 78
         },
-        "text": "  Garantie de Leibniz :    "
+        "text": "  Garantie de Leibniz     : "
       },
       "placeholders": [
         "{leibniz_terms_for_error(10):,}"
@@ -750,7 +750,7 @@
         },
         "end": {
           "line": 15,
-          "col": 77
+          "col": 78
         },
         "text": " termes"
       },
@@ -781,9 +781,9 @@
         },
         "end": {
           "line": 16,
-          "col": 93
+          "col": 94
         },
-        "text": "  Largeur bornes polygone :"
+        "text": "  Largeur bornes polygone : "
       },
       "placeholders": [
         "{polygon_sides:,}",
@@ -813,7 +813,7 @@
         },
         "end": {
           "line": 16,
-          "col": 93
+          "col": 94
         },
         "text": " côtés (largeur "
       },
@@ -845,9 +845,9 @@
         },
         "end": {
           "line": 17,
-          "col": 74
+          "col": 75
         },
-        "text": "  Formule Machin en float :"
+        "text": "  Formule Machin en float : "
       },
       "placeholders": [
         "{machin_terms}"
@@ -876,7 +876,7 @@
         },
         "end": {
           "line": 17,
-          "col": 74
+          "col": 75
         },
         "text": " termes par arctangente"
       },

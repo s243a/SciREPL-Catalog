@@ -8,8 +8,8 @@
     "sha256": "390396a85df660459b2ae6df25e19fde05c525d4c1a8cea17727fd547a258e4f"
   },
   "target": {
-    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/locales/bn/full.srwb",
-    "sha256": "325755eee4dcdc7cc8181ee44a2aca5b183e1e869dd326859c07dbdfe1d87f83"
+    "path": "workbooks/bn/compute-pi-workbook.srwb",
+    "sha256": "855f1b5bf5fb097c8c61a63b208accc28c3784601ad242acd73373762acadd8d"
   },
   "spans": [
     {
@@ -177,7 +177,7 @@
           "line": 8,
           "col": 5
         },
-        "text": "একটি একক বৃত্তের জন্য সুনির্দিষ্ট বহুভুজ সীমা প্রদান করে।\n\n    জ্যা হলো অন্তর্লিখিত n-ভুজের বা���ুর দৈর্ঘ্য। স্থিতিশীল অর্ধ-কোণ\n    পুনরাবৃত্তি pi ছাড়াই n-কে দ্বিগুণ করে।\n    "
+        "text": "একটি একক বৃত্তের জন্য সুনির্দিষ্ট বহুভুজ সীমা প্রদান করে।\n\n    জ্যা হলো অন্তর্লিখিত n-ভুজের বাহুর দৈর্ঘ্য। স্থিতিশীল অর্ধ-কোণ\n    পুনরাবৃত্তি pi ছাড়াই n-কে দ্বিগুণ করে।\n    "
       },
       "kind": "docstring",
       "reaches_output": "none",
@@ -356,9 +356,9 @@
         },
         "end": {
           "line": 28,
-          "col": 67
+          "col": 66
         },
-        "text": "\\nচ��ড়ান্ত সীমা: "
+        "text": "\\nচূড়ান্ত সীমা: "
       },
       "placeholders": [
         "{lower:.12f}",

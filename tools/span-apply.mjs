@@ -145,6 +145,7 @@ for (const c of cellsOf(target)) {
     if (!e) { bad.push(`${id}: unknown candidate id`); continue; }
     if (e.kind === 'trap') { bad.push(`${id}: is a no-translate trap (${JSON.stringify(e.text)})`); continue; }
     if (typeof t !== 'string' || !t.length) { bad.push(`${id}: translation must be a non-empty string`); continue; }
+    if (t.includes('\uFFFD')) { bad.push(`${id}: contains U+FFFD replacement character — transport mojibake, refuse`); continue; }
     // workers reasonably return REAL newlines where the source uses the \n
     // escape — normalize to the source convention for string bodies
     if (e.kind === 'display_string') { t = t.replace(/\n/g, '\\n'); translations[id] = t; }

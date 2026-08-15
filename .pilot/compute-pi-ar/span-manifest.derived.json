@@ -8,8 +8,8 @@
     "sha256": "390396a85df660459b2ae6df25e19fde05c525d4c1a8cea17727fd547a258e4f"
   },
   "target": {
-    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/locales/ar/full.srwb",
-    "sha256": "5a06bfbcfe9fd7a494d345fc35d51d156f4d895a002f89c6bcbf45b8e3a56f63"
+    "path": "workbooks/ar/compute-pi-workbook.srwb",
+    "sha256": "3c400545325db67ea09cf5bc852f66aa4047f1c517a7498b543e93b9ff4aa3b8"
   },
   "spans": [
     {
@@ -151,7 +151,7 @@
           "line": 8,
           "col": 5
         },
-        "text": "إرجاع حدود مضلع دقيقة لدائرة الوحدة.\n\n    chord هو طول ضلع المضلع الداخلي ذي n ضلعًا. تكرار نصف الزاوية\n    المستق�� يضاعف n دون الحاجة إلى pi.\n    "
+        "text": "إرجاع حدود مضلع دقيقة لدائرة الوحدة.\n\n    chord هو طول ضلع المضلع الداخلي ذي n ضلعًا. تكرار نصف الزاوية\n    المستقر يضاعف n دون الحاجة إلى pi.\n    "
       },
       "kind": "docstring",
       "reaches_output": "none",
@@ -389,9 +389,9 @@
         },
         "end": {
           "line": 2,
-          "col": 66
+          "col": 65
         },
-        "text": "من 10^-d؟ القيم ناتجة عن المض��عفة المتكررة انطلاقًا من المسدس."
+        "text": "من 10^-d؟ القيم ناتجة عن المضاعفة المتكررة انطلاقًا من المسدس."
       },
       "kind": "comment",
       "reaches_output": "none",
