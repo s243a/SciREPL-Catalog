@@ -124,7 +124,11 @@ export function judge(enRun, xxRun, manifest) {
   // spans that legitimately reach stdout, indexed for sentinels
   const stdoutSpans = (manifest.spans || []).filter(s =>
     s.reaches_output === 'stdout' || s.reaches_output === 'both');
-  const noneSpans = (manifest.spans || []).filter(s => s.reaches_output === 'none');
+  // checked-claim applies to content spans (comments/docstrings) only:
+  // cell_name spans are METADATA whose translation may legitimately
+  // coincide with translated prose in the same cell's output
+  const noneSpans = (manifest.spans || []).filter(s =>
+    s.reaches_output === 'none' && s.kind !== 'cell_name');
   const plotCells = new Set((manifest.spans || [])
     .filter(s => s.reaches_output === 'plot' || s.reaches_output === 'both')
     .map(s => s.cell_index));

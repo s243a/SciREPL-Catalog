@@ -262,3 +262,117 @@ export function cellsOf(workbookJson) {
     return { index, type, name: c.name || null, code, cell: c };
   });
 }
+
+/* ------------------- Stage B: code micro-tokenization ------------------- */
+
+/**
+ * Python keywords — an EN identifier on this list must never be renamed.
+ * (Soft keywords match/case/type are omitted: renaming them is caught by
+ * the runtime gate if it matters, and they are legal identifiers.)
+ */
+export const PY_KEYWORDS = new Set([
+  'False', 'None', 'True', 'and', 'as', 'assert', 'async', 'await', 'break',
+  'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'finally',
+  'for', 'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'nonlocal',
+  'not', 'or', 'pass', 'raise', 'return', 'try', 'while', 'with', 'yield',
+]);
+
+const ID_START = /[\p{L}\p{Nl}_]/u;
+const ID_CONT = /[\p{L}\p{Nl}\p{Mn}\p{Mc}\p{Nd}\p{Pc}]/u;
+
+/** Approximates Python identifier validity (XID via unicode categories). */
+export function isValidPyIdentifier(name) {
+  const cs = [...name];
+  if (!cs.length || !ID_START.test(cs[0])) return false;
+  return cs.slice(1).every(c => ID_CONT.test(c));
+}
+
+/**
+ * Split a CODE token's text into micro-tokens for α-rename comparison:
+ *   {kind:'id', text, afterDot, kwargPos} — identifier. afterDot: attribute
+ *       position. kwargPos: keyword-argument NAME inside a call — f(x=1) —
+ *       which is API surface, never renamed. (Also matches def-default
+ *       parameter names: a documented conservative over-approximation.)
+ *   {kind:'num', text}           — numeric literal (incl. 1e-10, 0x1f, 2j)
+ *   {kind:'op', text}            — everything else, run of non-id/num chars
+ * Concatenating texts reproduces the input exactly.
+ *
+ * `initialStack` threads bracket context across a cell's token stream: a
+ * call like mplot("x", layout=v) is split around the string token, so the
+ * second code chunk starts inside the parens. Pass the previous chunk's
+ * `finalStack` (attached as a property on the returned array).
+ */
+export function microTokens(code, initialStack = []) {
+  const cs = [...code];
+  const out = [];
+  // open brackets among ( [ { — '(d' marks a def-signature paren, where
+  // name=default is a PARAMETER DEFINITION (renameable), not a call kwarg
+  const stack = [...initialStack];
+  let i = 0;
+  let lastNonSpace = '';
+  let prevSigText = '', lastSigText = '', lastSigWasId = false;
+  let defParenPending = false;
+  while (i < cs.length) {
+    const c = cs[i];
+    if (/[0-9]/.test(c) || (c === '.' && /[0-9]/.test(cs[i + 1] || ''))) {
+      let j = i;
+      while (j < cs.length && /[0-9a-fA-FoOxXbB_.]/.test(cs[j])) {
+        // exponent: e/E followed by optional sign — but only inside a
+        // decimal literal (hex digits also match e/E, harmless: sign
+        // consumption below requires the e to be last-consumed)
+        j++;
+        if ((cs[j - 1] === 'e' || cs[j - 1] === 'E') && /[+-]/.test(cs[j] || '')
+            && /[0-9]/.test(cs[j + 1] || '')) j++;
+      }
+      if (/[jJ]/.test(cs[j] || '')) j++;
+      const text = cs.slice(i, j).join('');
+      out.push({ kind: 'num', text });
+      prevSigText = lastSigText; lastSigText = text; lastSigWasId = false;
+      defParenPending = false;
+      lastNonSpace = text[text.length - 1];
+      i = j;
+      continue;
+    }
+    if (ID_START.test(c)) {
+      let j = i + 1;
+      while (j < cs.length && ID_CONT.test(cs[j])) j++;
+      const text = cs.slice(i, j).join('');
+      out.push({
+        kind: 'id', text,
+        afterDot: lastNonSpace === '.',
+        parenTop: stack[stack.length - 1],
+      });
+      defParenPending = lastSigText === 'def' && lastSigWasId;
+      prevSigText = lastSigText; lastSigText = text; lastSigWasId = true;
+      lastNonSpace = text[text.length - 1];
+      i = j;
+      continue;
+    }
+    let j = i;
+    while (j < cs.length && !ID_START.test(cs[j]) && !/[0-9]/.test(cs[j])
+           && !(cs[j] === '.' && /[0-9]/.test(cs[j + 1] || ''))) j++;
+    const text = cs.slice(i, j).join('');
+    out.push({ kind: 'op', text });
+    for (const ch of text) {
+      if (ch === '(') { stack.push(defParenPending ? '(d' : '('); defParenPending = false; }
+      else if (ch === '[' || ch === '{') { stack.push(ch); defParenPending = false; }
+      else if (ch === ')' || ch === ']' || ch === '}') { stack.pop(); defParenPending = false; }
+      else if (!/\s/.test(ch)) defParenPending = false;
+    }
+    const trimmed = text.replace(/\s+/g, '');
+    if (trimmed) lastNonSpace = trimmed[trimmed.length - 1];
+    i = j;
+  }
+  // kwargPos: id directly inside CALL parens whose next token is `=` (not
+  // ==). Ids inside def-signature parens ('(d') are parameter definitions.
+  for (let k = 0; k < out.length; k++) {
+    const t = out[k];
+    if (t.kind !== 'id') continue;
+    const next = out[k + 1];
+    t.kwargPos = !!(t.parenTop === '(' && !t.afterDot && next && next.kind === 'op'
+      && /^\s*=(?!=)/.test(next.text));
+    delete t.parenTop;
+  }
+  out.finalStack = stack;
+  return out;
+}

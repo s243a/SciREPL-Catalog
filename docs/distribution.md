@@ -64,3 +64,13 @@ Pages limits: 1 GB site, ~100 GB/month soft bandwidth. Current corpus is
 ~1 MB per release — years of headroom. The descriptor's `raw_base` and the
 schema's relative paths keep mirrors interchangeable: any static host that
 serves the same layout is a valid mirror.
+
+## One-time repo settings (already applied 2026-08-14)
+
+Recorded here because both are invisible in the repo itself:
+
+1. Pages source set to **GitHub Actions** (`build_type: workflow`, via
+   `gh api -X POST repos/{repo}/pages`).
+2. The auto-created `github-pages` environment's deployment policy extended
+   to allow **`v*` tags** (default only allows `main`, which rejects
+   release-tag deploys with a zero-step failed job).
