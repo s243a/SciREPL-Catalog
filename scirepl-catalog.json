@@ -2678,9 +2678,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/bn/lua-tables-coroutines.srwb",
-      "revision": 1,
-      "sha256": "08e6d042795a02ad7d622fbece1578c38cad84e9316f07c993390ef2d7ea1e9f",
-      "size": 16608
+      "revision": 2,
+      "sha256": "13f1111da76f6d3f8ae647caaeefc9b0c90c0fd68843e6125729994dcad55209",
+      "size": 18358
     },
     {
       "id": "lua-parsing-coroutines-bn",
