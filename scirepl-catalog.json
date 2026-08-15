@@ -854,9 +854,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ko/lua-parsing-coroutines.srwb",
-      "revision": 1,
-      "sha256": "043927af6c52bc81deba6c8b9656e84b44a34bd7255f52aed9e810adb24a735d",
-      "size": 21528
+      "revision": 2,
+      "sha256": "12875540bb87fde267652330cd2487f8d1ee0f34248f410eb82f861a6a4ef5b6",
+      "size": 21806
     },
     {
       "id": "typr-intro-ko",
