@@ -1,0 +1,47 @@
+# Publish the catalog distribution site to GitHub Pages.
+#
+# Release-triggered by design (docs/distribution.md): the official Pages
+# endpoint carries only tagged releases — never main-branch churn. The site
+# is rebuilt from ALL vX.Y.Z tags each run, so history persists and a
+# re-run heals the site from git alone.
+name: pages
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0          # every release tag is a build input
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Build site from release tags (verifies every artifact hash)
+        run: node tools/build-pages.mjs site
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
