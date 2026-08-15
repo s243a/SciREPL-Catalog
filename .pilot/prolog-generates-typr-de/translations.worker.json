@@ -1,0 +1,40 @@
+{
+  "spans": {
+    "1:0:0": "% UnifyWeaver-Compilermodule laden",
+    "2:0:0": "% Einen Stammbaum als Prolog-Fakten definieren",
+    "2:2:0": "% Transitive Hülle: ancestor(X, Y), wenn X ein Vorfahre von Y ist",
+    "3:2:0": "# Diese benannte TypR-Quellzelle wird von compile_to_typr gelesen.",
+    "3:4:0": "# Sie wird an den generierten Code angehängt, da TypR-Zellen isoliert sind.",
+    "3:6:0": "# --- Abfragen ---",
+    "3:10:0": "Nachkommen von alice:",
+    "3:18:0": "alice ist Vorfahre von eve:",
+    "3:24:0": "alice ist Vorfahre von frank:",
+    "4:0:0": "% Den hervorgehobenen Prolog- und TypR-Quellcode aus den benannten Zellen lesen",
+    "4:10:0": "% ancestor/2 zu explizit typisiertem TypR kompilieren und die benannten Abfragen anhängen",
+    "8:0:0": "% Dieselbe benannte Prolog-Quelle neu laden, damit diese Zelle unabhängig läuft",
+    "8:2:0": "% Nach R mit eingebetteten Fakten kompilieren; die hervorgehobene Zelle r_queries wird als Nächstes ausgeführt",
+    "10:0:0": "# Die generierten R-Funktionen in einer separaten, hervorgehobenen Zelle abfragen.",
+    "10:4:0": "Nachkommen von alice:",
+    "10:10:0": "alice ist Vorfahre von eve:",
+    "10:18:0": "alice ist Vorfahre von frank:"
+  },
+  "keeps": [
+    "3:0:0",
+    "3:8:0",
+    "3:14:0",
+    "3:16:0",
+    "3:20:0",
+    "3:22:0",
+    "4:6:0",
+    "6:0:0",
+    "6:2:0",
+    "9:0:0",
+    "9:2:0",
+    "10:2:0",
+    "10:12:0",
+    "10:14:0",
+    "10:20:0",
+    "10:22:0"
+  ],
+  "suggestions": []
+}

@@ -1,0 +1,24 @@
+{
+  "spans": {
+    "1:0:0": "% UnifyWeaver-Compilermodule laden",
+    "2:0:0": "% Einen Stammbaum als Prolog-Fakten definieren",
+    "2:2:0": "% Transitive Hülle: ancestor(X, Y), wenn X ein Vorfahre von Y ist",
+    "3:0:0": "% ancestor/2 nur zu ClojureScript-Definitionen kompilieren",
+    "3:2:0": "% Mit nil abschließen, damit generierte Seed-Ausdrücke nicht zur Notebook-Ausgabe werden",
+    "6:0:0": ";; Die generierten Definitionen im persistenten Kontext von Scittle abfragen.",
+    "6:2:0": "Nachkommen von alice: ",
+    "6:8:0": "alice ist Vorfahre von eve: ",
+    "6:16:0": "alice ist Vorfahre von frank: ",
+    "8:0:0": "% Dasselbe Prädikat zum Vergleich für JVM-Clojure kompilieren (nur Anzeige)"
+  },
+  "keeps": [
+    "5:0:0",
+    "5:2:0",
+    "6:4:0",
+    "6:10:0",
+    "6:12:0",
+    "6:18:0",
+    "6:20:0"
+  ],
+  "suggestions": []
+}

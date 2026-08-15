@@ -1,0 +1,34 @@
+{
+  "spans": {
+    "2:1:0": "Datensatz: mtcars (",
+    "2:3:0": " Autos, ",
+    "2:5:0": " Variablen)\n\n",
+    "4:1:0": "Automatik:",
+    "4:3:0": "MPG (N =",
+    "4:7:0": "Manuell:  ",
+    "4:9:0": "MPG (N =",
+    "4:15:0": "\nSchlussfolgerung:",
+    "4:17:0": "H0 ablehnen — Autos mit Schaltgetriebe haben einen signifikant höheren MPG-Wert",
+    "4:19:0": "H0 nicht ablehnen",
+    "6:1:0": "Automatik",
+    "6:3:0": "Manuell",
+    "12:1:0": "95% Konfidenzintervalle:\n",
+    "13:5:0": "Schätzung",
+    "13:9:0": "95% Konfidenzintervalle für Koeffizienten",
+    "15:1:0": "\nTukey-HSD-Post-hoc-Vergleiche:\n",
+    "16:1:0": "MPG nach Zylinderzahl",
+    "16:3:0": "Zylinder",
+    "16:5:0": "Meilen pro Gallone (MPG)"
+  },
+  "keeps": [
+    "2:7:0",
+    "2:9:0",
+    "2:11:0",
+    "2:13:0",
+    "4:13:0",
+    "13:1:0",
+    "13:11:0",
+    "16:7:0"
+  ],
+  "suggestions": []
+}

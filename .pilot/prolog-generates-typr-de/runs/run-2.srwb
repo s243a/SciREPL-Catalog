@@ -1,71 +1,115 @@
 {
   "format": "srwb",
-  "version": "1.0",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T15:17:38.556Z",
   "notebook": {
+    "id": "default",
     "name": "Prolog generiert TypR: Compiler-Demo",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "python",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 11,
     "cells": [
       {
-        "type": "markdown",
+        "id": 1,
         "code": "# Prolog generiert TypR\n\nDiese Arbeitsmappe demonstriert, wie UnifyWeaver Prolog-Prädikate in **TypR** — eine typisierte Obermenge von R — kompiliert.\n\nDer Workflow:\n1. Prolog-Prädikate (Fakten + Regeln) in der benannten Zelle `family_tree` definieren\n2. Das Abfrageprogramm in der benannten, hervorgehobenen Quellzelle `typr_queries` definieren\n3. Beide Zellen über das Notebook VFS einlesen\n4. UnifyWeaver erkennt das Rekursionsmuster (transitive Hülle)\n5. Der Compiler generiert typisierten TypR-Code mit `let`, `fn` und Typannotationen\n6. Anhängen der benannten Abfragen und Ausführen des vollständigen Programms im TypR-Kernel\n\nDas Beibehalten von Quellprogrammen in benannten Zellen bewahrt die Syntaxhervorhebung und verhindert, dass sie in Prolog-Strings eingebettet werden müssen.\n\nDer Katalog installiert das erforderliche Paket **UnifyWeaver SciREPL** automatisch mit dieser Arbeitsmappe.\n\n**Einschränkung:** TypR-Zellen sind isoliert. Die Direktive `#!source` behält `typr_queries` während **Alle ausführen** (Run All) als nicht ausführendes Quellfragment bei; `compile_to_typr` hängt es an die generierten Definitionen an, bevor `typr_output` geschrieben wird.",
-        "language": "markdown"
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
-        "type": "code",
+        "id": 2,
         "code": "% % UnifyWeaver-Compilermodule laden\n['../init'].\n:- use_module(unifyweaver(targets/typr_target)).\n:- use_module(unifyweaver(core/recursive_compiler)).",
+        "type": "code",
         "language": "prolog",
-        "name": "load_compiler"
+        "name": "load_compiler",
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
       },
       {
-        "type": "code",
+        "id": 3,
         "code": "% % Einen Stammbaum als Prolog-Fakten definieren\n:- dynamic parent/2, ancestor/2.\n\nparent(alice, bob).\nparent(bob, charlie).\nparent(bob, diana).\nparent(charlie, eve).\nparent(diana, frank).\n\n% % Transitive Hülle: ancestor(X, Y), wenn X ein Vorfahre von Y ist\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).",
+        "type": "code",
         "language": "prolog",
-        "name": "family_tree"
+        "name": "family_tree",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
       },
       {
-        "type": "code",
+        "id": 4,
         "code": "#!source\n# # Diese benannte TypR-Quellzelle wird von compile_to_typr gelesen.\n# # Sie wird an den generierten Code angehängt, da TypR-Zellen isoliert sind.\n\n# # --- Abfragen ---\nlet results <- ancestor_all(\"alice\");\ncat(\"Nachkommen von alice:\", paste(sep = \", \", ...results), fill = TRUE);\nlet is_anc <- ancestor_check(\"alice\", \"eve\");\ncat(\"alice ist Vorfahre von eve:\", is_anc, fill = TRUE);\nlet is_anc2 <- ancestor_check(\"alice\", \"frank\");\ncat(\"alice ist Vorfahre von frank:\", is_anc2, fill = TRUE);",
+        "type": "code",
         "language": "typr",
-        "name": "typr_queries"
+        "name": "typr_queries",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
-        "type": "code",
+        "id": 5,
         "code": "% % Den hervorgehobenen Prolog- und TypR-Quellcode aus den benannten Zellen lesen\n\\+ \\+ (\n    user:nb_read('family_tree', '.code', _PrologSrc),\n    setup_call_cleanup(\n        open('/tmp/_nb_typr_family.pl', write, _Out),\n        write(_Out, _PrologSrc),\n        close(_Out)),\n    catch(abolish(parent/2), _, true),\n    catch(abolish(ancestor/2), _, true),\n    consult('/tmp/_nb_typr_family.pl'),\n\n    user:nb_read('typr_queries', '.code', _QuerySource),\n    split_string(_QuerySource, \"\\n\", \"\\r\", [\"#!source\"|_QueryLines]),\n    atomics_to_string(_QueryLines, \"\\n\", _Queries),\n\n    % % ancestor/2 zu explizit typisiertem TypR kompilieren und die benannten Abfragen anhängen\n    recursive_compiler:compile_recursive(ancestor/2, [target(typr), typed_mode(explicit)], _Code),\n    format('--- Generated TypR code ---~n~w~n', [_Code]),\n    format(string(_FullCode), '~w~n~n~w~n', [_Code, _Queries]),\n    user:nb_write('typr_output', '.code', _FullCode),\n    writeln('TypR code written to cell: typr_output')\n).",
+        "type": "code",
         "language": "prolog",
-        "name": "compile_to_typr"
+        "name": "compile_to_typr",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
       },
       {
-        "type": "markdown",
+        "id": 6,
         "code": "## Generierter TypR-Code\n\nDie folgende Zelle enthält den von UnifyWeaver generierten TypR-Code mit angehängten Abfragen.\nSie enthält:\n- Typisierte Funktionssignaturen wie `fn(start: char): [#N, char]`\n- Typisierte Vektorbindungen und native `while`- und `if`-Traversierung\n- Natives dynamisches Indizieren, Vektor-Anhänge und Zuweisungen\n- Aus den Prolog-Assertionen eingespeiste Elternfakten\n- Keine rohen R-Escape-Blöcke `@{ ... }@` im generierten Abschluss\n\n**Hinweis:** Der gesamte Code muss in einer einzigen Zelle ausgeführt werden, da TypR-Variablen nicht über Zellen hinweg persistent sind.",
-        "language": "markdown"
-      },
-      {
-        "type": "code",
-        "code": "# This cell will be populated by the compiler.\n# Run the 'compile_to_typr' cell above first.",
-        "language": "typr",
-        "name": "typr_output"
-      },
-      {
         "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 7,
+        "code": "# This cell will be populated by the compiler.\n# Run the 'compile_to_typr' cell above first.",
+        "type": "code",
+        "language": "typr",
+        "name": "typr_output",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 8,
         "code": "## Vergleich: Dasselbe Prädikat, R-Ziel\n\nUnifyWeaver kann dasselbe Prolog-Prädikat auch in einfaches R kompilieren.\nDie folgende Zelle generiert untypisierten R-Code aus demselben `ancestor/2`.",
-        "language": "markdown"
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
-        "type": "code",
+        "id": 9,
         "code": "% % Dieselbe benannte Prolog-Quelle neu laden, damit diese Zelle unabhängig läuft\n\\+ \\+ (\n    user:nb_read('family_tree', '.code', _PrologSrc),\n    setup_call_cleanup(\n        open('/tmp/_nb_r_family.pl', write, _Out),\n        write(_Out, _PrologSrc),\n        close(_Out)),\n    catch(abolish(parent/2), _, true),\n    catch(abolish(ancestor/2), _, true),\n    consult('/tmp/_nb_r_family.pl'),\n\n    % % Nach R mit eingebetteten Fakten kompilieren; die hervorgehobene Zelle r_queries wird als Nächstes ausgeführt\n    recursive_compiler:compile_recursive(ancestor/2, [target(r), input(embedded)], _RCode),\n    format('--- Generated R code ---~n~w~n', [_RCode]),\n    user:nb_write('r_output', '.code', _RCode),\n    writeln('R code written to cell: r_output')\n).",
+        "type": "code",
         "language": "prolog",
-        "name": "compile_to_r"
+        "name": "compile_to_r",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: recursive_compiler:compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: recursive_compiler:compile_recursive/3</pre>"
       },
       {
-        "type": "code",
+        "id": 10,
         "code": "# This cell will be populated with plain R code.\n# Run the 'compile_to_r' cell above first.",
+        "type": "code",
         "language": "r",
-        "name": "r_output"
+        "name": "r_output",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
-        "type": "code",
+        "id": 11,
         "code": "# # Die generierten R-Funktionen in einer separaten, hervorgehobenen Zelle abfragen.\nresults <- ancestor_all(\"alice\")\ncat(\"Nachkommen von alice:\", paste(results, collapse=\", \"), \"\\n\")\ncat(\"alice ist Vorfahre von eve:\", ancestor_check(\"alice\", \"eve\"), \"\\n\")\ncat(\"alice ist Vorfahre von frank:\", ancestor_check(\"alice\", \"frank\"), \"\\n\")",
+        "type": "code",
         "language": "r",
-        "name": "r_queries"
+        "name": "r_queries",
+        "lastOutput": "Error: could not find function \"ancestor_all\"",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Error: could not find function \"ancestor_all\"</pre>"
       }
     ]
   }

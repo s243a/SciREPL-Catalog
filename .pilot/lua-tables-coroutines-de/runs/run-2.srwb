@@ -1,133 +1,232 @@
 {
   "format": "srwb",
   "format_version": "1.0",
-  "exported_at": "2026-03-10T00:00:00.000Z",
+  "exported_at": "2026-08-15T15:14:38.240Z",
   "notebook": {
-    "id": "nb-lua-demo-001",
+    "id": "default",
     "name": "Lua: Tabellen, Coroutinen und Closures",
+    "autoNameNumber": null,
     "description": "A tour of Lua's most distinctive features — tables as the universal data structure, coroutines for cooperative multitasking, closures for encapsulation, and custom iterators.",
     "kernelLanguage": "lua",
+    "catalogId": null,
+    "catalogRevision": null,
     "cellCounter": 24,
     "cells": [
       {
+        "id": 1,
         "code": "# Lua: Tabellen, Coroutinen und Closures\n\nLua ist eine leichtgewichtige Skriptsprache, die auf wenigen, aber mächtigen Konzepten basiert. Diese Arbeitsmappe untersucht die Eigenschaften, die Lua einzigartig machen:\n\n- **Tabellen** — die einzige Datenstruktur, die jedoch für alle Zwecke dient\n- **Coroutinen** — kooperatives Multitasking, direkt in die Sprache integriert\n- **Closures** — Funktionen, die ihre umgebende Umgebung erfassen\n- **Iteratoren** — benutzerdefinierte Iteration mit Coroutinen und Closures\n\nSciREPL führt Lua über [Fengari](https://fengari.io) aus, eine reine JavaScript-VM für Lua 5.3.",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 2,
         "code": "## 1. Tabellen sind alles\n\nLua besitzt nur eine einzige zusammengesetzte Datenstruktur: die **Tabelle (Table)**. Sie dient gleichzeitig als Array, Dictionary, Objekt, Modul und Namensraum.",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 3,
         "code": "-- Arrays (1-basiert!)\nfruits = {\"apple\", \"banana\", \"cherry\"}\nprint(fruits[1], fruits[2], fruits[3])\nprint(\"Länge:\", #fruits)",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "apple\tbanana\tcherry\nLänge:\t3\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">apple\tbanana\tcherry\nLänge:\t3\n</pre>"
       },
       {
+        "id": 4,
         "code": "-- Wörterbücher\nplanet = {\n  name = \"Earth\",\n  radius_km = 6371,\n  has_life = true\n}\nprint(planet.name, \"—\", planet.radius_km, \"km Radius\")\n\n-- Felder dynamisch hinzufügen\nplanet.moons = 1\nprint(\"Monde:\", planet.moons)",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "Earth\t—\t6371\tkm Radius\nMonde:\t1\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Earth\t—\t6371\tkm Radius\nMonde:\t1\n</pre>"
       },
       {
+        "id": 5,
         "code": "-- Tabellen können Array- und Dictionary-Anteile mischen\nmixed = {10, 20, 30, label = \"scores\", unit = \"pts\"}\nprint(\"Array-Teil:\", mixed[1], mixed[2], mixed[3])\nprint(\"Dict-Teil:\", mixed.label, mixed.unit)",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "Array-Teil:\t10\t20\t30\nDict-Teil:\tscores\tpts\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Array-Teil:\t10\t20\t30\nDict-Teil:\tscores\tpts\n</pre>"
       },
       {
+        "id": 6,
         "code": "-- Verschachtelte Tabellen — beliebige Strukturen aufbauen\ntree = {\n  value = \"root\",\n  children = {\n    { value = \"left\",  children = {} },\n    { value = \"right\", children = {\n      { value = \"right-left\", children = {} }\n    }}\n  }\n}\n\nfunction walk(node, depth)\n  depth = depth or 0\n  print(string.rep(\"  \", depth) .. node.value)\n  for _, child in ipairs(node.children) do\n    walk(child, depth + 1)\n  end\nend\n\nwalk(tree)",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "root\n  left\n  right\n    right-left\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">root\n  left\n  right\n    right-left\n</pre>"
       },
       {
+        "id": 7,
         "code": "## 2. Metatabellen — Tabellen neue Kunststücke beibringen\n\nMit Metatabellen können Sie Operatoren überschreiben und benutzerdefiniertes Verhalten festlegen. Auf diese Weise realisiert Lua OOP, Operatorüberladung und mehr.",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 8,
         "code": "-- Ein 2D-Vektor mit Operatorüberladung\nVec2 = {}\nVec2.__index = Vec2\n\nfunction Vec2.new(x, y)\n  return setmetatable({x = x, y = y}, Vec2)\nend\n\nfunction Vec2:__add(other)\n  return Vec2.new(self.x + other.x, self.y + other.y)\nend\n\nfunction Vec2:__mul(scalar)\n  return Vec2.new(self.x * scalar, self.y * scalar)\nend\n\nfunction Vec2:length()\n  return math.sqrt(self.x^2 + self.y^2)\nend\n\nfunction Vec2:__tostring()\n  return string.format(\"(%g, %g)\", self.x, self.y)\nend\n\na = Vec2.new(3, 4)\nb = Vec2.new(1, 2)\nprint(\"a =\", a)\nprint(\"b =\", b)\nprint(\"a + b =\", a + b)\nprint(\"a * 3 =\", a * 3)\nprint(\"|a| =\", a:length())",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "a =\t(3, 4)\nb =\t(1, 2)\na + b =\t(4, 6)\na * 3 =\t(9, 12)\n|a| =\t5.0\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">a =\t(3, 4)\nb =\t(1, 2)\na + b =\t(4, 6)\na * 3 =\t(9, 12)\n|a| =\t5.0\n</pre>"
       },
       {
+        "id": 9,
         "code": "## 3. Closures\n\nFunktionen in Lua sind First-Class-Werte, die Variablen aus ihrem umschließenden Gültigkeitsbereich erfassen. Dies macht Closures natürlich und mächtig.",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 10,
         "code": "-- Eine Zähler-Fabrik — jeder Aufruf gibt einen neuen, unabhängigen Zähler zurück\nfunction make_counter(start)\n  local n = start or 0\n  return {\n    inc = function() n = n + 1; return n end,\n    dec = function() n = n - 1; return n end,\n    get = function() return n end\n  }\nend\n\nc1 = make_counter(0)\nc2 = make_counter(100)\n\nc1.inc(); c1.inc(); c1.inc()\nc2.dec()\n\nprint(\"c1:\", c1.get())  -- 3\nprint(\"c2:\", c2.get())  -- 99",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "c1:\t3\nc2:\t99\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">c1:\t3\nc2:\t99\n</pre>"
       },
       {
+        "id": 11,
         "code": "-- Memoisierung über Closures\nfunction memoize(fn)\n  local cache = {}\n  return function(n)\n    if cache[n] == nil then\n      cache[n] = fn(n)\n    end\n    return cache[n]\n  end\nend\n\nfib = memoize(function(n)\n  if n < 2 then return n end\n  return fib(n - 1) + fib(n - 2)\nend)\n\nfor i = 0, 15 do\n  io.write(fib(i) .. \" \")\nend\nprint()",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 \n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 \n</pre>"
       },
       {
+        "id": 12,
         "code": "-- Partielle Anwendung\nfunction partial(fn, ...)\n  local outer_args = table.pack(...)\n  return function(...)\n    local args = {}\n    for i = 1, outer_args.n do args[i] = outer_args[i] end\n    local inner = table.pack(...)\n    for i = 1, inner.n do args[outer_args.n + i] = inner[i] end\n    return fn(table.unpack(args, 1, outer_args.n + inner.n))\n  end\nend\n\nfunction add(a, b) return a + b end\n\nadd10 = partial(add, 10)\nprint(\"add10(5) =\", add10(5))\nprint(\"add10(32) =\", add10(32))",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "add10(5) =\t15\nadd10(32) =\t42\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">add10(5) =\t15\nadd10(32) =\t42\n</pre>"
       },
       {
+        "id": 13,
         "code": "## 4. Coroutinen\n\nCoroutinen sind Luas Mechanismus für kooperatives Multitasking. Im Gegensatz zu Threads geben sie die Kontrolle explizit ab (`yield`) — keine Sperren (Locks), keine Race Conditions, keine Überraschungen.",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 14,
         "code": "-- Einfache Coroutine: Ein Erzeuger (Producer), der Werte liefert\nfunction producer()\n  local items = {\"alpha\", \"beta\", \"gamma\", \"delta\"}\n  for _, item in ipairs(items) do\n    print(\"  erzeuge:   \" .. item)\n    coroutine.yield(item)\n  end\nend\n\nco = coroutine.create(producer)\n\nprint(\"Verbraucher-Schleife:\")\nwhile coroutine.status(co) ~= \"dead\" do\n  local ok, value = coroutine.resume(co)\n  if ok and value then\n    print(\"  verbraucht: \" .. value)\n  end\nend",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "Verbraucher-Schleife:\n  erzeuge:   alpha\n  verbraucht: alpha\n  erzeuge:   beta\n  verbraucht: beta\n  erzeuge:   gamma\n  verbraucht: gamma\n  erzeuge:   delta\n  verbraucht: delta\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Verbraucher-Schleife:\n  erzeuge:   alpha\n  verbraucht: alpha\n  erzeuge:   beta\n  verbraucht: beta\n  erzeuge:   gamma\n  verbraucht: gamma\n  erzeuge:   delta\n  verbraucht: delta\n</pre>"
       },
       {
+        "id": 15,
         "code": "-- Generator für unendliche Sequenzen\nfunction fibonacci()\n  local a, b = 0, 1\n  while true do\n    coroutine.yield(a)\n    a, b = b, a + b\n  end\nend\n\nfib_co = coroutine.wrap(fibonacci)\n\nio.write(\"Fibonacci-Zahlen: \")\nfor i = 1, 12 do\n  io.write(fib_co() .. \" \")\nend\nprint()",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "Fibonacci-Zahlen: 0 1 1 2 3 5 8 13 21 34 55 89 \n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Fibonacci-Zahlen: 0 1 1 2 3 5 8 13 21 34 55 89 \n</pre>"
       },
       {
+        "id": 16,
         "code": "-- Pipeline: Verketten von Coroutinen als Filter\nfunction range(n)\n  return coroutine.wrap(function()\n    for i = 1, n do coroutine.yield(i) end\n  end)\nend\n\nfunction filter(source, pred)\n  return coroutine.wrap(function()\n    for val in source do\n      if pred(val) then coroutine.yield(val) end\n    end\n  end)\nend\n\nfunction map(source, fn)\n  return coroutine.wrap(function()\n    for val in source do\n      coroutine.yield(fn(val))\n    end\n  end)\nend\n\n-- Pipeline: 1..20 → ungerade Zahlen behalten → quadrieren\npipeline = map(\n  filter(range(20), function(x) return x % 2 == 1 end),\n  function(x) return x * x end\n)\n\nio.write(\"Ungerade Quadrate: \")\nfor val in pipeline do\n  io.write(val .. \" \")\nend\nprint()",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "Ungerade Quadrate: 1 9 25 49 81 121 169 225 289 361 \n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Ungerade Quadrate: 1 9 25 49 81 121 169 225 289 361 \n</pre>"
       },
       {
+        "id": 17,
         "code": "-- Kooperativer Scheduler — Round-Robin-Task-Runner\nfunction scheduler()\n  local tasks = {}\n\n  local sched = {}\n\n  function sched.spawn(fn)\n    tasks[#tasks + 1] = coroutine.create(fn)\n  end\n\n  function sched.run()\n    while #tasks > 0 do\n      local next_tasks = {}\n      for _, co in ipairs(tasks) do\n        local ok, err = coroutine.resume(co)\n        if not ok then print(\"Fehler: \" .. err) end\n        if coroutine.status(co) ~= \"dead\" then\n          next_tasks[#next_tasks + 1] = co\n        end\n      end\n      tasks = next_tasks\n    end\n  end\n\n  return sched\nend\n\nS = scheduler()\n\nS.spawn(function()\n  for i = 1, 4 do\n    print(\"  [A] Schritt \" .. i)\n    coroutine.yield()\n  end\nend)\n\nS.spawn(function()\n  for i = 1, 3 do\n    print(\"  [B] Schritt \" .. i)\n    coroutine.yield()\n  end\nend)\n\nS.spawn(function()\n  for i = 1, 2 do\n    print(\"  [C] Schritt \" .. i)\n    coroutine.yield()\n  end\nend)\n\nprint(\"Scheduler wird ausgeführt:\")\nS.run()\nprint(\"Alle Tasks abgeschlossen.\")",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "Scheduler wird ausgeführt:\n  [A] Schritt 1\n  [B] Schritt 1\n  [C] Schritt 1\n  [A] Schritt 2\n  [B] Schritt 2\n  [C] Schritt 2\n  [A] Schritt 3\n  [B] Schritt 3\n  [A] Schritt 4\nAlle Tasks abgeschlossen.\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Scheduler wird ausgeführt:\n  [A] Schritt 1\n  [B] Schritt 1\n  [C] Schritt 1\n  [A] Schritt 2\n  [B] Schritt 2\n  [C] Schritt 2\n  [A] Schritt 3\n  [B] Schritt 3\n  [A] Schritt 4\nAlle Tasks abgeschlossen.\n</pre>"
       },
       {
+        "id": 18,
         "code": "## 5. Benutzerdefinierte Iteratoren\n\nDie `for ... in`-Schleife in Lua funktioniert mit jeder Funktion, die Werte zurückgibt. In Kombination mit Closures und Coroutinen können Sie ausdrucksstarke Iteratoren erstellen.",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 19,
         "code": "-- Closure-basierter Iterator: Tabelle in sortierter Schlüssel-Reihenfolge durchlaufen\nfunction sorted_pairs(t)\n  local keys = {}\n  for k in pairs(t) do keys[#keys + 1] = k end\n  table.sort(keys)\n  local i = 0\n  return function()\n    i = i + 1\n    local k = keys[i]\n    if k then return k, t[k] end\n  end\nend\n\nscores = { alice = 92, bob = 87, carol = 95, dave = 78 }\n\nprint(\"Sortierte Bestenliste:\")\nfor name, score in sorted_pairs(scores) do\n  print(string.format(\"  %-8s %d\", name, score))\nend",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "Sortierte Bestenliste:\n  alice    92\n  bob      87\n  carol    95\n  dave     78\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Sortierte Bestenliste:\n  alice    92\n  bob      87\n  carol    95\n  dave     78\n</pre>"
       },
       {
+        "id": 20,
         "code": "-- Coroutine-Iterator: Permutationen einer Liste\nfunction permutations(t)\n  local function generate(a, k)\n    if k == 1 then\n      coroutine.yield(a)\n    else\n      for i = 1, k do\n        generate(a, k - 1)\n        if k % 2 == 0 then\n          a[i], a[k] = a[k], a[i]\n        else\n          a[1], a[k] = a[k], a[1]\n        end\n      end\n    end\n  end\n\n  return coroutine.wrap(function()\n    -- Auf einer Kopie arbeiten\n    local copy = {}\n    for i, v in ipairs(t) do copy[i] = v end\n    generate(copy, #copy)\n  end)\nend\n\nprint(\"Permutationen von {1,2,3}:\")\nfor perm in permutations({1, 2, 3}) do\n  print(\"  \" .. table.concat(perm, \", \"))\nend",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "Permutationen von {1,2,3}:\n  1, 2, 3\n  2, 1, 3\n  3, 1, 2\n  1, 3, 2\n  2, 3, 1\n  3, 2, 1\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Permutationen von {1,2,3}:\n  1, 2, 3\n  2, 1, 3\n  3, 1, 2\n  1, 3, 2\n  2, 3, 1\n  3, 2, 1\n</pre>"
       },
       {
+        "id": 21,
         "code": "## 6. Alles zusammenfügen — Eine Lazy-Stream-Bibliothek\n\nKombinieren von Tabellen, Closures, Coroutinen und Metatabellen zu einem verkettbaren Lazy-Stream.",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 22,
         "code": "Stream = {}\nStream.__index = Stream\n\nfunction Stream.from(t)\n  return setmetatable({ _gen = function()\n    for _, v in ipairs(t) do coroutine.yield(v) end\n  end }, Stream)\nend\n\nfunction Stream.range(a, b)\n  return setmetatable({ _gen = function()\n    for i = a, b do coroutine.yield(i) end\n  end }, Stream)\nend\n\nfunction Stream:filter(pred)\n  local parent = self._gen\n  return setmetatable({ _gen = function()\n    for val in coroutine.wrap(parent) do\n      if pred(val) then coroutine.yield(val) end\n    end\n  end }, Stream)\nend\n\nfunction Stream:map(fn)\n  local parent = self._gen\n  return setmetatable({ _gen = function()\n    for val in coroutine.wrap(parent) do\n      coroutine.yield(fn(val))\n    end\n  end }, Stream)\nend\n\nfunction Stream:take(n)\n  local parent = self._gen\n  return setmetatable({ _gen = function()\n    local count = 0\n    for val in coroutine.wrap(parent) do\n      count = count + 1\n      coroutine.yield(val)\n      if count >= n then return end\n    end\n  end }, Stream)\nend\n\nfunction Stream:reduce(fn, init)\n  local acc = init\n  for val in coroutine.wrap(self._gen) do\n    acc = fn(acc, val)\n  end\n  return acc\nend\n\nfunction Stream:collect()\n  local result = {}\n  for val in coroutine.wrap(self._gen) do\n    result[#result + 1] = val\n  end\n  return result\nend\n\nfunction Stream:__tostring()\n  return \"{\" .. table.concat(self:collect(), \", \") .. \"}\"\nend",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 23,
         "code": "-- Stream-Bibliothek verwenden\nresult = Stream.range(1, 50)\n  :filter(function(x) return x % 3 == 0 end)  -- teilbar durch 3\n  :map(function(x) return x * x end)          -- quadrieren\n  :take(5)                                     -- erste 5\n\nprint(\"Stream-Ergebnis:\", result)\n\nsum = Stream.from({4, 8, 15, 16, 23, 42})\n  :filter(function(x) return x > 10 end)\n  :reduce(function(a, b) return a + b end, 0)\n\nprint(\"Summe der Werte > 10:\", sum)",
         "type": "code",
-        "language": "lua"
+        "language": "lua",
+        "name": "",
+        "lastOutput": "Stream-Ergebnis:\t{9, 36, 81, 144, 225}\nSumme der Werte > 10:\t96\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Stream-Ergebnis:\t{9, 36, 81, 144, 225}\nSumme der Werte &gt; 10:\t96\n</pre>"
       },
       {
+        "id": 24,
         "code": "## Zusammenfassung\n\nLua vereint enorme Leistungsfähigkeit in einer kompakten Sprache:\n\n| Eigenschaft | Was sie ersetzt |\n|---|---|\n| Tabellen | Arrays, Dicts, Objekte, Module, Namensräume |\n| Metatabellen | Operatorüberladung, Vererbung, Proxys |\n| Closures | Kapselung, Fabriken, Callbacks |\n| Coroutinen | Generatoren, async/await, Green Threads |\n| Iteratoren | Lazy Sequences, Pipelines |\n\nDie Stream-Bibliothek in Abschnitt 6 nutzt **alle fünf** — Tabellen zur Speicherung, Metatabellen zur Methodenverkettung, Closures zur Erfassung des Generatorzustands, Coroutinen zur verzögerten Auswertung und Iteratoren zum Konsumieren.\n\nLua wird häufig in Game-Engines (Love2D, Roblox, WoW), eingebetteten Systemen und als Konfigurationssprache (Neovim, nginx, Redis) eingesetzt.",
         "type": "markdown",
-        "language": "lua"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       }
     ]
   }
