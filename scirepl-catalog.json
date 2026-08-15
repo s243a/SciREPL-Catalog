@@ -2695,9 +2695,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/bn/lua-parsing-coroutines.srwb",
-      "revision": 1,
-      "sha256": "1d20cc3efbebe6f8f0918220d60d06be39ee2790f96ed75ac504e40eb6352c52",
-      "size": 25361
+      "revision": 2,
+      "sha256": "ed64cd238c5d6a8e427ad21f803018bc56cf970019b9018841b71f1feeb4b482",
+      "size": 28153
     },
     {
       "id": "typr-intro-bn",
@@ -2712,9 +2712,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/bn/typr-intro.srwb",
-      "revision": 1,
-      "sha256": "7268143a8d4fb6e7e2dc5dd733ef5e8a816a010786c3b91d369d32d9161ab764",
-      "size": 4029
+      "revision": 2,
+      "sha256": "21e5148715897021c59f4bedc85a08586d6bc021532da629938974a677d78789",
+      "size": 4508
     },
     {
       "id": "prolog-generates-r-bn",
@@ -2801,9 +2801,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/bn/r_ggplot2_showcase.ipynb",
-      "revision": 1,
-      "sha256": "d2140bb09ecb68f37443827bd40f47e270522981dc51996a24d07bb83f9329dc",
-      "size": 5043
+      "revision": 2,
+      "sha256": "6bf36b63bb1fd9a2df05a6f1b95dc1c8a87fd6f3b37240c93cacdc67e5880f67",
+      "size": 6145
     },
     {
       "id": "r-statistics-bn",
@@ -2835,9 +2835,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/bn/r_tidyverse_wrangling.ipynb",
-      "revision": 1,
-      "sha256": "5b311f218ac1d9a3a414a141bff9c25fab330f7fd0e997db74577e59800cce66",
-      "size": 8869
+      "revision": 2,
+      "sha256": "9e1518da9c07ff457de105984b1e58ba45e0a2123403eedf97f4f44926f7bbf2",
+      "size": 10186
     },
     {
       "id": "01-family-tree-tutorial-bn",
