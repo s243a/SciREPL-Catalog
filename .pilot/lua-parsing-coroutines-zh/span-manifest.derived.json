@@ -1,0 +1,1960 @@
+{
+  "manifest_version": 1,
+  "produced_by": "derived",
+  "generator": "tools/span-derive.mjs",
+  "locale": "zh",
+  "source": {
+    "path": "workbooks/en/lua-parsing-coroutines.srwb",
+    "sha256": "cb7f874ca2748c056c020cc5dda8d6621422e02b8b73da84d34f156509cbcb62"
+  },
+  "target": {
+    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/jobs/lua-parsing-coroutines-zh/translated.srwb",
+    "sha256": "b41e48027e26e9d6f65b48aa3214e742c1565e64a8d776d19a6c2ffe9d3e8fb1"
+  },
+  "spans": [
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 34
+        },
+        "text": "string.match: extract captures"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 23
+        },
+        "text": "string.match: 提取捕获项"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 8
+        },
+        "end": {
+          "line": 3,
+          "col": 13
+        },
+        "text": "Year:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 8
+        },
+        "end": {
+          "line": 3,
+          "col": 10
+        },
+        "text": "年:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 23
+        },
+        "end": {
+          "line": 3,
+          "col": 29
+        },
+        "text": "Month:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 20
+        },
+        "end": {
+          "line": 3,
+          "col": 22
+        },
+        "text": "月:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 40
+        },
+        "end": {
+          "line": 3,
+          "col": 44
+        },
+        "text": "Day:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 33
+        },
+        "end": {
+          "line": 3,
+          "col": 35
+        },
+        "text": "日:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 43
+        },
+        "text": "string.gmatch: iterate over all matches"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 26
+        },
+        "text": "string.gmatch: 迭代所有匹配项"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 8
+        },
+        "end": {
+          "line": 6,
+          "col": 28
+        },
+        "text": "\\nWords in sentence:"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 8
+        },
+        "end": {
+          "line": 6,
+          "col": 17
+        },
+        "text": "\\n句子中的单词:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 35
+        },
+        "text": "string.gsub: search and replace"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 22
+        },
+        "text": "string.gsub: 搜索与替换"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 1
+        },
+        "end": {
+          "line": 7,
+          "col": 24
+        },
+        "text": "Swap key=value pairs"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 1
+        },
+        "end": {
+          "line": 7,
+          "col": 20
+        },
+        "text": "交换 key=value 键值对"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 72
+        },
+        "text": "string.find: locate the complete match and capture the function name"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 30
+        },
+        "text": "string.find: 定位完整匹配项并捕获函数名"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 22
+        },
+        "end": {
+          "line": 4,
+          "col": 73
+        },
+        "text": "Matched '%s' at positions %d-%d; captured name '%s'"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 22
+        },
+        "end": {
+          "line": 4,
+          "col": 50
+        },
+        "text": "匹配到 '%s'，位置 %d-%d；捕获的名称 '%s'"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 1
+        },
+        "end": {
+          "line": 6,
+          "col": 56
+        },
+        "text": "Frontier pattern %f[]: match at boundary transitions"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 1
+        },
+        "end": {
+          "line": 6,
+          "col": 23
+        },
+        "text": "前沿模式 %f[]: 在边界转换处匹配"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 12,
+          "col": 8
+        },
+        "end": {
+          "line": 12,
+          "col": 24
+        },
+        "text": "Split camelCase:"
+      },
+      "target_span": {
+        "start": {
+          "line": 12,
+          "col": 8
+        },
+        "end": {
+          "line": 12,
+          "col": 21
+        },
+        "text": "拆分 camelCase:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 15
+        },
+        "text": "Token types"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 15
+        },
+        "text": "Token（标记）类型"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 13,
+          "col": 7
+        },
+        "end": {
+          "line": 13,
+          "col": 25
+        },
+        "text": "Skip whitespace"
+      },
+      "target_span": {
+        "start": {
+          "line": 13,
+          "col": 7
+        },
+        "end": {
+          "line": 13,
+          "col": 16
+        },
+        "text": "跳过空白字符"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 18,
+          "col": 7
+        },
+        "end": {
+          "line": 18,
+          "col": 41
+        },
+        "text": "Numbers (integers and decimals)"
+      },
+      "target_span": {
+        "start": {
+          "line": 18,
+          "col": 7
+        },
+        "end": {
+          "line": 18,
+          "col": 19
+        },
+        "text": "数字（整数和小数）"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 23,
+          "col": 7
+        },
+        "end": {
+          "line": 23,
+          "col": 32
+        },
+        "text": "Identifiers / keywords"
+      },
+      "target_span": {
+        "start": {
+          "line": 23,
+          "col": 7
+        },
+        "end": {
+          "line": 23,
+          "col": 19
+        },
+        "text": "标识符 / 关键字"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 28,
+          "col": 7
+        },
+        "end": {
+          "line": 28,
+          "col": 19
+        },
+        "text": "Operators"
+      },
+      "target_span": {
+        "start": {
+          "line": 28,
+          "col": 7
+        },
+        "end": {
+          "line": 28,
+          "col": 13
+        },
+        "text": "运算符"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 32,
+          "col": 7
+        },
+        "end": {
+          "line": 32,
+          "col": 21
+        },
+        "text": "Parentheses"
+      },
+      "target_span": {
+        "start": {
+          "line": 32,
+          "col": 7
+        },
+        "end": {
+          "line": 32,
+          "col": 12
+        },
+        "text": "括号"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 40,
+          "col": 16
+        },
+        "end": {
+          "line": 40,
+          "col": 49
+        },
+        "text": "Unexpected character at position "
+      },
+      "target_span": {
+        "start": {
+          "line": 40,
+          "col": 16
+        },
+        "end": {
+          "line": 40,
+          "col": 28
+        },
+        "text": "出现意外字符，位于位置 "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 47,
+          "col": 1
+        },
+        "end": {
+          "line": 47,
+          "col": 18
+        },
+        "text": "Test the lexer"
+      },
+      "target_span": {
+        "start": {
+          "line": 47,
+          "col": 1
+        },
+        "end": {
+          "line": 47,
+          "col": 11
+        },
+        "text": "测试词法分析器"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 48,
+          "col": 8
+        },
+        "end": {
+          "line": 48,
+          "col": 38
+        },
+        "text": "Tokens for '3 + 42 * (x - 1)':"
+      },
+      "target_span": {
+        "start": {
+          "line": 48,
+          "col": 8
+        },
+        "end": {
+          "line": 48,
+          "col": 35
+        },
+        "text": "'3 + 42 * (x - 1)' 的 Token:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 20,
+          "col": 14
+        },
+        "end": {
+          "line": 20,
+          "col": 23
+        },
+        "text": "Expected "
+      },
+      "target_span": {
+        "start": {
+          "line": 20,
+          "col": 14
+        },
+        "end": {
+          "line": 20,
+          "col": 17
+        },
+        "text": "期望 "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 20,
+          "col": 36
+        },
+        "end": {
+          "line": 20,
+          "col": 45
+        },
+        "text": " but got "
+      },
+      "target_span": {
+        "start": {
+          "line": 20,
+          "col": 30
+        },
+        "end": {
+          "line": 20,
+          "col": 35
+        },
+        "text": " 但得到 "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 21,
+          "col": 26
+        },
+        "end": {
+          "line": 21,
+          "col": 39
+        },
+        "text": " at position "
+      },
+      "target_span": {
+        "start": {
+          "line": 21,
+          "col": 26
+        },
+        "end": {
+          "line": 21,
+          "col": 32
+        },
+        "text": "，位于位置 "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 29,
+          "col": 1
+        },
+        "end": {
+          "line": 29,
+          "col": 21
+        },
+        "text": "Test peek/consume"
+      },
+      "target_span": {
+        "start": {
+          "line": 29,
+          "col": 1
+        },
+        "end": {
+          "line": 29,
+          "col": 19
+        },
+        "text": "测试 peek/consume"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 31,
+          "col": 8
+        },
+        "end": {
+          "line": 31,
+          "col": 13
+        },
+        "text": "Peek:"
+      },
+      "target_span": {
+        "start": {
+          "line": 31,
+          "col": 8
+        },
+        "end": {
+          "line": 31,
+          "col": 18
+        },
+        "text": "查看 (Peek):"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 32,
+          "col": 8
+        },
+        "end": {
+          "line": 32,
+          "col": 16
+        },
+        "text": "Consume:"
+      },
+      "target_span": {
+        "start": {
+          "line": 32,
+          "col": 8
+        },
+        "end": {
+          "line": 32,
+          "col": 21
+        },
+        "text": "消耗 (Consume):"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 33,
+          "col": 8
+        },
+        "end": {
+          "line": 33,
+          "col": 13
+        },
+        "text": "Next:"
+      },
+      "target_span": {
+        "start": {
+          "line": 33,
+          "col": 8
+        },
+        "end": {
+          "line": 33,
+          "col": 19
+        },
+        "text": "下一个 (Next):"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 10,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 25
+        },
+        "text": "AST node constructors"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 14
+        },
+        "text": "AST 节点构造函数"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 11,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 54
+        },
+        "text": "Parser: recursive descent with precedence climbing"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 23
+        },
+        "text": "解析器: 结合优先级爬升的递归下降解析"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 11,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 33,
+          "col": 41
+        },
+        "end": {
+          "line": 33,
+          "col": 60
+        },
+        "text": "right-recursive!"
+      },
+      "target_span": {
+        "start": {
+          "line": 33,
+          "col": 41
+        },
+        "end": {
+          "line": 33,
+          "col": 48
+        },
+        "text": "右递归！"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 11,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 58,
+          "col": 7
+        },
+        "end": {
+          "line": 58,
+          "col": 24
+        },
+        "text": "Function call?"
+      },
+      "target_span": {
+        "start": {
+          "line": 58,
+          "col": 7
+        },
+        "end": {
+          "line": 58,
+          "col": 15
+        },
+        "text": "函数调用？"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 11,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 60,
+          "col": 27
+        },
+        "end": {
+          "line": 60,
+          "col": 37
+        },
+        "text": "eat '('"
+      },
+      "target_span": {
+        "start": {
+          "line": 60,
+          "col": 27
+        },
+        "end": {
+          "line": 60,
+          "col": 36
+        },
+        "text": "消耗 '('"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 11,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 82,
+          "col": 12
+        },
+        "end": {
+          "line": 82,
+          "col": 30
+        },
+        "text": "Unexpected token: "
+      },
+      "target_span": {
+        "start": {
+          "line": 82,
+          "col": 12
+        },
+        "end": {
+          "line": 82,
+          "col": 23
+        },
+        "text": "意外的 Token: "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 11,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 83,
+          "col": 24
+        },
+        "end": {
+          "line": 83,
+          "col": 37
+        },
+        "text": " at position "
+      },
+      "target_span": {
+        "start": {
+          "line": 83,
+          "col": 24
+        },
+        "end": {
+          "line": 83,
+          "col": 30
+        },
+        "text": "，位于位置 "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 11,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 91,
+          "col": 8
+        },
+        "end": {
+          "line": 91,
+          "col": 22
+        },
+        "text": "Parser loaded."
+      },
+      "target_span": {
+        "start": {
+          "line": 91,
+          "col": 8
+        },
+        "end": {
+          "line": 91,
+          "col": 15
+        },
+        "text": "解析器已加载。"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 25,
+          "col": 1
+        },
+        "end": {
+          "line": 25,
+          "col": 21
+        },
+        "text": "Parse and display"
+      },
+      "target_span": {
+        "start": {
+          "line": 25,
+          "col": 1
+        },
+        "end": {
+          "line": 25,
+          "col": 9
+        },
+        "text": "解析并显示"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 27,
+          "col": 8
+        },
+        "end": {
+          "line": 27,
+          "col": 32
+        },
+        "text": "AST for '2 ^ 3 ^ 2 + 1':"
+      },
+      "target_span": {
+        "start": {
+          "line": 27,
+          "col": 8
+        },
+        "end": {
+          "line": 27,
+          "col": 30
+        },
+        "text": "'2 ^ 3 ^ 2 + 1' 的 AST:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 13,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 30,
+          "col": 8
+        },
+        "end": {
+          "line": 30,
+          "col": 33
+        },
+        "text": "\\nAST for '-(3 + 4) * 2':"
+      },
+      "target_span": {
+        "start": {
+          "line": 30,
+          "col": 8
+        },
+        "end": {
+          "line": 30,
+          "col": 31
+        },
+        "text": "\\n'-(3 + 4) * 2' 的 AST:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 15,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 9,
+          "col": 31
+        },
+        "end": {
+          "line": 9,
+          "col": 51
+        },
+        "text": "Undefined variable: "
+      },
+      "target_span": {
+        "start": {
+          "line": 9,
+          "col": 31
+        },
+        "end": {
+          "line": 9,
+          "col": 39
+        },
+        "text": "未定义的变量: "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 15,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 31,
+          "col": 14
+        },
+        "end": {
+          "line": 31,
+          "col": 30
+        },
+        "text": "Not a function: "
+      },
+      "target_span": {
+        "start": {
+          "line": 31,
+          "col": 14
+        },
+        "end": {
+          "line": 31,
+          "col": 20
+        },
+        "text": "不是函数: "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 15,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 40,
+          "col": 10
+        },
+        "end": {
+          "line": 40,
+          "col": 28
+        },
+        "text": "Unknown node tag: "
+      },
+      "target_span": {
+        "start": {
+          "line": 40,
+          "col": 10
+        },
+        "end": {
+          "line": 40,
+          "col": 19
+        },
+        "text": "未知的节点标签: "
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 15,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 43,
+          "col": 1
+        },
+        "end": {
+          "line": 43,
+          "col": 33
+        },
+        "text": "Convenience: parse + evaluate"
+      },
+      "target_span": {
+        "start": {
+          "line": 43,
+          "col": 1
+        },
+        "end": {
+          "line": 43,
+          "col": 17
+        },
+        "text": "便捷函数: 解析 + 求值"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 15,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 48,
+          "col": 8
+        },
+        "end": {
+          "line": 48,
+          "col": 26
+        },
+        "text": "Calculator loaded."
+      },
+      "target_span": {
+        "start": {
+          "line": 48,
+          "col": 8
+        },
+        "end": {
+          "line": 48,
+          "col": 15
+        },
+        "text": "计算器已加载。"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 20
+        },
+        "text": "Basic arithmetic"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 10
+        },
+        "text": "基本算术运算"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 51
+        },
+        "end": {
+          "line": 4,
+          "col": 80
+        },
+        "text": "right-assoc: 2^(3^2) = 512"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 51
+        },
+        "end": {
+          "line": 4,
+          "col": 72
+        },
+        "text": "右结合: 2^(3^2) = 512"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 17,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 32
+        },
+        "text": "With variables and functions"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 11
+        },
+        "text": "包含变量和函数"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 19,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 61
+        },
+        "text": "A parser is: function(input, pos) -> result, newpos | nil"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 56
+        },
+        "text": "解析器的定义: function(input, pos) -> result, newpos | nil"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 19,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 1
+        },
+        "end": {
+          "line": 3,
+          "col": 46
+        },
+        "text": "Match a Lua pattern, return captured group"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 1
+        },
+        "end": {
+          "line": 3,
+          "col": 20
+        },
+        "text": "匹配 Lua 模式，返回捕获的组"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 19,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 12,
+          "col": 1
+        },
+        "end": {
+          "line": 12,
+          "col": 24
+        },
+        "text": "Match literal string"
+      },
+      "target_span": {
+        "start": {
+          "line": 12,
+          "col": 1
+        },
+        "end": {
+          "line": 12,
+          "col": 12
+        },
+        "text": "匹配字面量字符串"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 19,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 22,
+          "col": 1
+        },
+        "end": {
+          "line": 22,
+          "col": 38
+        },
+        "text": "Skip whitespace, then apply parser"
+      },
+      "target_span": {
+        "start": {
+          "line": 22,
+          "col": 1
+        },
+        "end": {
+          "line": 22,
+          "col": 18
+        },
+        "text": "跳过空白字符，然后应用解析器"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 19,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 30,
+          "col": 8
+        },
+        "end": {
+          "line": 30,
+          "col": 27
+        },
+        "text": "Combinators loaded."
+      },
+      "target_span": {
+        "start": {
+          "line": 30,
+          "col": 8
+        },
+        "end": {
+          "line": 30,
+          "col": 15
+        },
+        "text": "组合子已加载。"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 20,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 45
+        },
+        "text": "Sequence: all parsers must match in order"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 26
+        },
+        "text": "Sequence: 所有解析器必须按顺序匹配"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 20,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 17,
+          "col": 1
+        },
+        "end": {
+          "line": 17,
+          "col": 47
+        },
+        "text": "Choice: try each parser, return first match"
+      },
+      "target_span": {
+        "start": {
+          "line": 17,
+          "col": 1
+        },
+        "end": {
+          "line": 17,
+          "col": 30
+        },
+        "text": "Choice: 依次尝试每个解析器，返回第一个匹配项"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 20,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 29,
+          "col": 1
+        },
+        "end": {
+          "line": 29,
+          "col": 28
+        },
+        "text": "Zero or more repetitions"
+      },
+      "target_span": {
+        "start": {
+          "line": 29,
+          "col": 1
+        },
+        "end": {
+          "line": 29,
+          "col": 11
+        },
+        "text": "零次或多次重复"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 20,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 44,
+          "col": 1
+        },
+        "end": {
+          "line": 44,
+          "col": 20
+        },
+        "text": "Transform result"
+      },
+      "target_span": {
+        "start": {
+          "line": 44,
+          "col": 1
+        },
+        "end": {
+          "line": 44,
+          "col": 8
+        },
+        "text": "转换结果"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 20,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 53,
+          "col": 8
+        },
+        "end": {
+          "line": 53,
+          "col": 38
+        },
+        "text": "Seq, Choice, Many, Map loaded."
+      },
+      "target_span": {
+        "start": {
+          "line": 53,
+          "col": 8
+        },
+        "end": {
+          "line": 53,
+          "col": 35
+        },
+        "text": "Seq, Choice, Many, Map 已加载。"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 21,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 43
+        },
+        "text": "Parse a simple key-value config format:"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 25
+        },
+        "text": "解析简单的 key-value 配置格式:"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 21,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 20,
+          "col": 8
+        },
+        "end": {
+          "line": 20,
+          "col": 22
+        },
+        "text": "Parsed config:"
+      },
+      "target_span": {
+        "start": {
+          "line": 20,
+          "col": 8
+        },
+        "end": {
+          "line": 20,
+          "col": 15
+        },
+        "text": "解析后的配置:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 23,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 3
+        },
+        "end": {
+          "line": 4,
+          "col": 53
+        },
+        "text": "Use a coroutine to yield rows as they're parsed"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 3
+        },
+        "end": {
+          "line": 4,
+          "col": 26
+        },
+        "text": "使用协程在解析时逐行 yield 产出行"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 23,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 7
+        },
+        "end": {
+          "line": 7,
+          "col": 63
+        },
+        "text": "Quoted field: find closing quote (handles escaped \"\")"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 7
+        },
+        "end": {
+          "line": 7,
+          "col": 34
+        },
+        "text": "带引号的字段: 查找闭合引号（处理转义的 \"\"）"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 23,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 24,
+          "col": 7
+        },
+        "end": {
+          "line": 24,
+          "col": 49
+        },
+        "text": "Unquoted field: read until comma or end"
+      },
+      "target_span": {
+        "start": {
+          "line": 24,
+          "col": 7
+        },
+        "end": {
+          "line": 24,
+          "col": 28
+        },
+        "text": "不带引号的字段: 读取直到逗号或末尾"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 23,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 37,
+          "col": 7
+        },
+        "end": {
+          "line": 37,
+          "col": 30
+        },
+        "text": "Skip comma separator"
+      },
+      "target_span": {
+        "start": {
+          "line": 37,
+          "col": 7
+        },
+        "end": {
+          "line": 37,
+          "col": 17
+        },
+        "text": "跳过逗号分隔符"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 23,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 55,
+          "col": 1
+        },
+        "end": {
+          "line": 55,
+          "col": 30
+        },
+        "text": "Print as a formatted table"
+      },
+      "target_span": {
+        "start": {
+          "line": 55,
+          "col": 1
+        },
+        "end": {
+          "line": 55,
+          "col": 12
+        },
+        "text": "打印为格式化表格"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 25,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 7
+        },
+        "end": {
+          "line": 4,
+          "col": 39
+        },
+        "text": "Skip comments and blank lines"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 7
+        },
+        "end": {
+          "line": 4,
+          "col": 17
+        },
+        "text": "跳过注释和空行"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 25,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 35,
+          "col": 8
+        },
+        "end": {
+          "line": 35,
+          "col": 29
+        },
+        "text": "Expression evaluator:"
+      },
+      "target_span": {
+        "start": {
+          "line": 35,
+          "col": 8
+        },
+        "end": {
+          "line": 35,
+          "col": 15
+        },
+        "text": "表达式求值器:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 25,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 39,
+          "col": 26
+        },
+        "end": {
+          "line": 39,
+          "col": 44
+        },
+        "text": "  %-20s  ERROR: %s"
+      },
+      "target_span": {
+        "start": {
+          "line": 39,
+          "col": 26
+        },
+        "end": {
+          "line": 39,
+          "col": 41
+        },
+        "text": "  %-20s  错误: %s"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    }
+  ],
+  "exclusions": []
+}
