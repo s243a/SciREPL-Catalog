@@ -1,0 +1,27 @@
+{
+  "spans": {
+    "1:3:0": "ggplot2 dimuat — theme_scirepl() diterapkan otomatis\n",
+    "3:5:0": "Ukuran Mesin vs MPG Jalan Raya",
+    "3:7:0": "Kapasitas Mesin (L)",
+    "3:9:0": "MPG Jalan Raya",
+    "5:3:0": "Kelas Kendaraan berdasarkan Tipe Penggerak (1999 vs 2008)",
+    "5:5:0": "Kelas",
+    "5:7:0": "Jumlah",
+    "7:1:0": "Distribusi MPG Jalan Raya berdasarkan Tipe Penggerak",
+    "7:3:0": "MPG Jalan Raya",
+    "7:5:0": "Densitas",
+    "9:1:0": "MPG Jalan Raya berdasarkan Kelas Kendaraan",
+    "9:3:0": "Kelas",
+    "9:5:0": "MPG Jalan Raya",
+    "11:13:0": "Heatmap Korelasi mtcars"
+  },
+  "keeps": [
+    "1:1:0",
+    "3:1:0",
+    "3:3:0",
+    "5:1:0",
+    "11:5:0",
+    "11:11:0"
+  ],
+  "suggestions": []
+}

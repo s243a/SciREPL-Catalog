@@ -1,0 +1,134 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T15:29:27.521Z",
+  "notebook": {
+    "id": "default",
+    "name": "Pameran ggplot2",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "r",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 13,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# Pameran ggplot2\n\nBagan interaktif ggplot2 dengan tema gelap SciREPL — diterapkan secara otomatis, tidak memerlukan pengaturan.\n\nMenggunakan kumpulan data bawaan R (`mpg`, `mtcars`). Tidak perlu mengunduh data.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "install.packages(\"ggplot2\")\nlibrary(ggplot2)\ncat(\"ggplot2 dimuat — theme_scirepl() diterapkan otomatis\\n\")",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "ggplot2 dimuat — theme_scirepl() diterapkan otomatis",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">ggplot2 dimuat — theme_scirepl() diterapkan otomatis</pre>"
+      },
+      {
+        "id": 3,
+        "code": "## 1. Plot Sebar (Scatter Plot) dengan Garis Tren",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 4,
+        "code": "ggplot(mpg, aes(displ, hwy, color = class)) +\n  geom_point(size = 2, alpha = 0.7) +\n  geom_smooth(method = \"lm\", se = FALSE, color = \"#58a6ff\") +\n  labs(title = \"Ukuran Mesin vs MPG Jalan Raya\",\n       x = \"Kapasitas Mesin (L)\", y = \"MPG Jalan Raya\")",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "`geom_smooth()` using formula = 'y ~ x'",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">`geom_smooth()` using formula = 'y ~ x'</pre><img src=\"blob:http://localhost:8090/42d544fc-9ec7-4946-85f9-625dd818a5a7\" style=\"max-width: 100%; border-radius: 6px; margin-top: 8px;\">"
+      },
+      {
+        "id": 5,
+        "code": "## 2. Bagan Batang Berpanel (Faceted)",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 6,
+        "code": "ggplot(mpg, aes(class, fill = drv)) +\n  geom_bar(position = \"dodge\") +\n  facet_wrap(~year) +\n  labs(title = \"Kelas Kendaraan berdasarkan Tipe Penggerak (1999 vs 2008)\",\n       x = \"Kelas\", y = \"Jumlah\") +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1))",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": "<img src=\"blob:http://localhost:8090/b175d175-8f5b-43b4-b5d1-5300a7246d91\" style=\"max-width: 100%; border-radius: 6px; margin-top: 8px;\">"
+      },
+      {
+        "id": 7,
+        "code": "## 3. Plot Densitas",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 8,
+        "code": "ggplot(mpg, aes(hwy, fill = drv)) +\n  geom_density(alpha = 0.5) +\n  labs(title = \"Distribusi MPG Jalan Raya berdasarkan Tipe Penggerak\",\n       x = \"MPG Jalan Raya\", y = \"Densitas\")",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": "<img src=\"blob:http://localhost:8090/8b6f943f-65ce-4bfe-ac17-0746d8fa294d\" style=\"max-width: 100%; border-radius: 6px; margin-top: 8px;\">"
+      },
+      {
+        "id": 9,
+        "code": "## 4. Boxplot dengan Jitter",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 10,
+        "code": "ggplot(mpg, aes(class, hwy, fill = class)) +\n  geom_boxplot(alpha = 0.7, show.legend = FALSE) +\n  geom_jitter(width = 0.2, alpha = 0.3, size = 1) +\n  labs(title = \"MPG Jalan Raya berdasarkan Kelas Kendaraan\",\n       x = \"Kelas\", y = \"MPG Jalan Raya\") +\n  coord_flip()",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": "<img src=\"blob:http://localhost:8090/ae16dcb4-a02d-45a8-b645-0eac6d1e191c\" style=\"max-width: 100%; border-radius: 6px; margin-top: 8px;\">"
+      },
+      {
+        "id": 11,
+        "code": "## 5. Heatmap Korelasi",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 12,
+        "code": "corr <- round(cor(mtcars), 2)\nvars <- colnames(mtcars)\ngrid <- expand.grid(x = vars, y = vars)\ngrid$value <- as.vector(corr)\nggplot(grid, aes(x, y, fill = value)) +\n  geom_tile(color = \"#30363d\") +\n  geom_text(aes(label = ifelse(abs(value) > 0.5, value, \"\")),\n            color = \"#e6edf3\", size = 2.5) +\n  scale_fill_gradient2(low = \"#f85149\", mid = \"#161b22\", high = \"#58a6ff\",\n                       midpoint = 0, limits = c(-1, 1)) +\n  labs(title = \"Heatmap Korelasi mtcars\", fill = \"r\") +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1))",
+        "type": "code",
+        "language": "r",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": "<img src=\"blob:http://localhost:8090/9d2e9333-2d61-4342-9600-ddd8cbf0e744\" style=\"max-width: 100%; border-radius: 6px; margin-top: 8px;\">"
+      },
+      {
+        "id": 13,
+        "code": "## Ringkasan\n\nSemua plot di atas menggunakan `theme_scirepl()`, yang diterapkan secara otomatis saat ggplot2 dimuat di SciREPL.\n\nSesuaikan plot apa pun dengan penggantian `+ theme(...)` standar ggplot2.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      }
+    ]
+  }
+}

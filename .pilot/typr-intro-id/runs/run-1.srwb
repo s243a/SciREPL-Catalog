@@ -1,54 +1,88 @@
 {
   "format": "srwb",
-  "version": "1.0",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T15:29:04.690Z",
   "notebook": {
+    "id": "default",
     "name": "Pengantar TypR",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "python",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 8,
     "cells": [
       {
-        "type": "markdown",
+        "id": 1,
         "code": "# TypR — R yang Bertipe\n\nTypR adalah superset bertipe dari bahasa R yang dikompilasi menjadi kode R standar.\nIni menambahkan anotasi tipe, pemeriksaan tipe (type checking), dan generik dengan tetap menjaga kompatibilitas penuh dengan R.\n\n**Catatan Sintaks:**\n- Pernyataan diakhiri dengan titik koma: `let x <- 42;`\n- Fungsi bertipe menggunakan `fn(x: int): int { x * x }`\n- TypR mendukung fungsi variadik dan titik bernama, sehingga `cat(\"x =\", x);` dapat langsung berfungsi.",
-        "language": "markdown"
-      },
-      {
-        "type": "code",
-        "code": "let x <- 42;\n# Argumen variadik didukung\ncat(\"x =\", x);",
-        "language": "typr",
-        "name": "basics"
-      },
-      {
-        "type": "code",
-        "code": "# Badan fungsi memerlukan kurung kurawal\nlet add <- function(a, b) { a + b };\nlet result <- add(3, 4);\nprint(result);",
-        "language": "typr",
-        "name": "functions"
-      },
-      {
-        "type": "code",
-        "code": "let greeting: char <- \"Halo dari TypR!\";\nprint(greeting);",
-        "language": "typr",
-        "name": "typed"
-      },
-      {
-        "type": "code",
-        "code": "# Tipe parameter dan nilai kembalian eksplisit membuat panggilan dapat diperiksa secara statis\nlet square <- fn(x: int): int { x * x };\nlet result <- square(7);\n# Argumen variadik berfungsi langsung\ncat(\"7 kuadrat =\", result);",
-        "language": "typr",
-        "name": "square"
-      },
-      {
-        "type": "code",
-        "code": "# Meneruskan argumen bernama heterogen\nlet collect <- fn(...args: Any): [#N, Any] { args };\nlet forward <- fn(...args: Any): [#N, Any] { collect(...args) };\nlet values <- forward(count = 1, enabled = true);\nprint(values);\n@{ base::cat(\"Nama:\", base::paste(base::names(values$data), collapse = \", \"), \"\\n\") }@;",
-        "language": "typr",
-        "name": "variadic_forwarding"
-      },
-      {
         "type": "markdown",
-        "code": "## Direktif\n\nTempatkan direktif pada baris pertama sel TypR:\n\n- `#!source` mempertahankan cuplikan kode sumber bernama dan berpenyorot tanpa mengompilasi atau mengeksekusi isinya. Sel khusus sumber sengaja tidak menghasilkan `Out [n]` dan tetap dapat dibaca melalui Notebook VFS.\n- `#!typecheck` memeriksa tipe dari kode berikut tanpa menjalankannya.\n- `#!transpile` menampilkan output R hasil transpilasi.\n- `#!show-r` beralih menampilkan kode R yang dihasilkan untuk eksekusi TypR berikutnya.",
-        "language": "markdown"
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
       },
       {
+        "id": 2,
+        "code": "let x <- 42;\n# Argumen variadik didukung\ncat(\"x =\", x);",
         "type": "code",
-        "code": "#!transpile\nlet fib <- fn(n: int): int {\n  if (n <= 1) { n }\n  else { fib(n - 1) + fib(n - 2) }\n};\nprint(fib(10));",
         "language": "typr",
-        "name": "transpile_demo"
+        "name": "basics",
+        "lastOutput": "x = 42",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">x = 42</pre>"
+      },
+      {
+        "id": 3,
+        "code": "# Badan fungsi memerlukan kurung kurawal\nlet add <- function(a, b) { a + b };\nlet result <- add(3, 4);\nprint(result);",
+        "type": "code",
+        "language": "typr",
+        "name": "functions",
+        "lastOutput": "7",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">7</pre>"
+      },
+      {
+        "id": 4,
+        "code": "let greeting: char <- \"Halo dari TypR!\";\nprint(greeting);",
+        "type": "code",
+        "language": "typr",
+        "name": "typed",
+        "lastOutput": "Halo dari TypR!",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Halo dari TypR!</pre>"
+      },
+      {
+        "id": 5,
+        "code": "# Tipe parameter dan nilai kembalian eksplisit membuat panggilan dapat diperiksa secara statis\nlet square <- fn(x: int): int { x * x };\nlet result <- square(7);\n# Argumen variadik berfungsi langsung\ncat(\"7 kuadrat =\", result);",
+        "type": "code",
+        "language": "typr",
+        "name": "square",
+        "lastOutput": "7 kuadrat = 49",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">7 kuadrat = 49</pre>"
+      },
+      {
+        "id": 6,
+        "code": "# Meneruskan argumen bernama heterogen\nlet collect <- fn(...args: Any): [#N, Any] { args };\nlet forward <- fn(...args: Any): [#N, Any] { collect(...args) };\nlet values <- forward(count = 1, enabled = true);\nprint(values);\n@{ base::cat(\"Nama:\", base::paste(base::names(values$data), collapse = \", \"), \"\\n\") }@;",
+        "type": "code",
+        "language": "typr",
+        "name": "variadic_forwarding",
+        "lastOutput": "typed_vec [2]\n[1] 1\n[2] TRUE\nNama: count, enabled",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">typed_vec [2]\n[1] 1\n[2] TRUE\nNama: count, enabled</pre>"
+      },
+      {
+        "id": 7,
+        "code": "## Direktif\n\nTempatkan direktif pada baris pertama sel TypR:\n\n- `#!source` mempertahankan cuplikan kode sumber bernama dan berpenyorot tanpa mengompilasi atau mengeksekusi isinya. Sel khusus sumber sengaja tidak menghasilkan `Out [n]` dan tetap dapat dibaca melalui Notebook VFS.\n- `#!typecheck` memeriksa tipe dari kode berikut tanpa menjalankannya.\n- `#!transpile` menampilkan output R hasil transpilasi.\n- `#!show-r` beralih menampilkan kode R yang dihasilkan untuk eksekusi TypR berikutnya.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 8,
+        "code": "#!transpile\nlet fib <- fn(n: int): int {\n  if (n <= 1) { n }\n  else { fib(n - 1) + fib(n - 2) }\n};\nprint(fib(10));",
+        "type": "code",
+        "language": "typr",
+        "name": "transpile_demo",
+        "lastOutput": "\n`fib.integer` <- (function(n) {\nif(n <= 1L |> as.Integer()) {\nn \n} else {\nfib(n - 1L |> as.Integer()) + fib(n - 2L |> as.Integer())\n}\n} |> as.Integer()) |> as.Generic()\n\nprint(fib(10L |> as.Integer()))",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">\n`fib.integer` &lt;- (function(n) {\nif(n &lt;= 1L |&gt; as.Integer()) {\nn \n} else {\nfib(n - 1L |&gt; as.Integer()) + fib(n - 2L |&gt; as.Integer())\n}\n} |&gt; as.Integer()) |&gt; as.Generic()\n\nprint(fib(10L |&gt; as.Integer()))</pre>"
       }
     ]
   }

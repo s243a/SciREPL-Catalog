@@ -1,0 +1,18 @@
+{
+  "spans": {
+    "1:1:0": "Argumen variadik didukung",
+    "2:0:0": "Badan fungsi memerlukan kurung kurawal",
+    "3:1:0": "Halo dari TypR!",
+    "4:0:0": "Tipe parameter dan nilai kembalian eksplisit membuat panggilan dapat diperiksa secara statis",
+    "4:2:0": "Argumen variadik berfungsi langsung",
+    "4:4:0": "7 kuadrat =",
+    "5:0:0": "Meneruskan argumen bernama heterogen",
+    "5:6:0": "Nama:"
+  },
+  "keeps": [
+    "5:2:0",
+    "5:4:0",
+    "7:0:0"
+  ],
+  "suggestions": []
+}
