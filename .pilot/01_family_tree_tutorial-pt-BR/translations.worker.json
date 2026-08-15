@@ -1,0 +1,31 @@
+{
+  "spans": {
+    "2:0:0": "Carregar o arquivo de inicialização",
+    "4:0:0": "Definir os fatos de parent",
+    "6:0:0": "Consulta: Quem são os filhos de Abraão?",
+    "7:0:0": "Consulta: Quem são os filhos de Jacó?",
+    "9:0:0": "Definir ancestor como o fecho transitivo de parent",
+    "9:2:0": "Caso base: pai/mãe é um ancestral",
+    "9:4:0": "Caso recursivo: se X é pai/mãe de Y e Y é ancestral de Z, então X é ancestral de Z",
+    "11:0:0": "Consulta: Abraão é um ancestral de Jacó?",
+    "12:0:0": "Consulta: Quem são todos os descendentes de Abraão?",
+    "14:0:0": "Carregar o compilador de fluxo",
+    "14:2:0": "Compilar fatos de parent para bash",
+    "16:0:0": "Salvar em arquivo",
+    "18:0:0": "Carregar o compilador recursivo",
+    "18:2:0": "Compilar ancestor para bash",
+    "20:0:0": "Salvar em arquivo",
+    "22:1:0": "Carregar o script parent com source",
+    "22:3:0": "Teste: Quem são os filhos de Abraão?",
+    "22:5:0": "Filhos de Abraão:",
+    "23:1:0": "Carregar ambos os scripts com source",
+    "23:3:0": "Teste: Quem são os descendentes de Abraão?",
+    "23:5:0": "Descendentes de Abraão:",
+    "24:1:0": "Carregar ambos os scripts com source",
+    "24:3:0": "Teste: Abraão é um ancestral de Judá?",
+    "24:5:0": "✓ Sim, Abraão é um ancestral de Judá",
+    "24:7:0": "✗ Não",
+    "26:0:0": "Verificar se ancestor está classificado como recursivo"
+  },
+  "keeps": []
+}
