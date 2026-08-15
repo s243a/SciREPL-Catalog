@@ -1,0 +1,34 @@
+{
+  "spans": {
+    "2:1:0": "Conjunto de datos: mtcars (",
+    "2:3:0": "automóviles, ",
+    "2:5:0": "variables)\n\n",
+    "4:1:0": "Automático:",
+    "4:3:0": "MPG (n =",
+    "4:7:0": "Transmisión manual:   ",
+    "4:9:0": "MPG (n =",
+    "4:15:0": "\nConclusión:",
+    "4:17:0": "Rechazar H0 — los automóviles manuales tienen un MPG significativamente mayor",
+    "4:19:0": "No se rechaza H0",
+    "6:1:0": "Automático",
+    "6:3:0": "Manual",
+    "12:1:0": "95% Confianza - Intervalos:\n",
+    "13:5:0": "Estimación",
+    "13:9:0": "95% Confianza - Intervalos para los coeficientes",
+    "15:1:0": "\nComparaciones post hoc de Tukey HSD:\n",
+    "16:1:0": "MPG según el número de cilindros",
+    "16:3:0": "Cilindros",
+    "16:5:0": "Millas por galón"
+  },
+  "keeps": [
+    "2:7:0",
+    "2:9:0",
+    "2:11:0",
+    "2:13:0",
+    "4:13:0",
+    "13:1:0",
+    "13:11:0",
+    "16:7:0"
+  ],
+  "suggestions": []
+}

@@ -24,15 +24,16 @@
  */
 
 import { readFileSync, writeFileSync } from 'node:fs';
-import { cellsOf, tokenize, segmentFString, widthOfSpec } from './span-lib.mjs';
+import { cellsOf, tokenize, tokenizeLang, segmentFString, widthOfSpec, formatSpecsOf, setCellCode } from './span-lib.mjs';
 
 const LIT_PH = /^\{\s*'([^']*)'\s*(:[^}]*)?\}$/;
 const HAS_PROSE = /\p{L}\p{L}/u;
 
 /** Enumerate translatable positions of one cell. Shared by both modes. */
-function enumerate(cellIndex, code) {
+function enumerate(cellIndex, code, lang = 'python') {
   const out = [];
-  const toks = tokenize(code);
+  const toks = lang === 'python' ? tokenize(code) : tokenizeLang(code, lang);
+  if (!toks) return [];   // unsupported language: opaque, no candidates
   let symbolsCall = false;
   for (let t = 0; t < toks.length; t++) {
     const tok = toks[t];
@@ -42,7 +43,9 @@ function enumerate(cellIndex, code) {
       continue;
     }
     if (tok.kind === 'comment') {
-      const body = tok.text.replace(/^#\s?/, '');
+      const marker = tok.marker || '#';
+      let body = tok.text.startsWith(marker) ? tok.text.slice(marker.length).replace(/^ /, '') : tok.text;
+      if (tok.block) body = body.replace(/(\]\]|\*\/)\s*$/, '');
       if (HAS_PROSE.test(body)) {
         out.push({ id: `${cellIndex}:${t}:0`, kind: 'comment', text: body, tok, seg: null });
       }
@@ -93,7 +96,7 @@ if (mode === 'candidates') {
   for (const c of cellsOf(wb)) {
     if (c.type === 'markdown') continue;
     const lines = c.code.split('\n');
-    for (const e of enumerate(c.index, c.code)) {
+    for (const e of enumerate(c.index, c.code, c.language || 'python')) {
       if (e.kind === 'trap') continue;   // never offered for translation
       const { tok, seg, ...pub } = e;
       pub.cell_name = c.name || null;
@@ -136,7 +139,7 @@ for (const c of cellsOf(target)) {
     bad.push(`cell ${c.index}: target code differs from en — ids would not align; refuse`);
     continue;
   }
-  const entries = enumerate(c.index, c.code);
+  const entries = enumerate(c.index, c.code, c.language || 'python');
   const byId = new Map(entries.map(e => [e.id, e]));
   // validate every translation targeting this cell
   const cellTrans = Object.entries(translations).filter(([id]) => id.startsWith(`${c.index}:`));
@@ -154,6 +157,10 @@ for (const c of cellsOf(target)) {
     }
     if (e.kind !== 'docstring' && t.includes('\n')) bad.push(`${id}: newline in single-line span`);
     if (e.kind !== 'comment') {
+      const so = formatSpecsOf(e.text).join(' '), st = formatSpecsOf(t).join(' ');
+      if (so !== st) bad.push(`${id}: format specs changed (${JSON.stringify(so)} -> ${JSON.stringify(st)})`);
+    }
+    if (e.kind !== 'comment') {
       // backslashes only as recognized escapes — a stray one (incl. trailing)
       // could swallow the closing quote or change rendering unpredictably
       if (/\\(?![ntr\\'"])/.test(t)) bad.push(`${id}: unrecognized backslash escape in proposed text`);
@@ -167,7 +174,7 @@ for (const c of cellsOf(target)) {
   if (bad.length) continue;
 
   // rebuild the cell with translations applied
-  const toks = tokenize(c.code);
+  const toks = c.language && c.language !== 'python' ? tokenizeLang(c.code, c.language) : tokenize(c.code);
   const rebuilt = toks.map((tok, ti) => {
     const raw = (x) => x.kind === 'string'
       ? (x.prefix || '') + x.quote.repeat(x.triple ? 3 : 1) + x.text + x.quote.repeat(x.triple ? 3 : 1)
@@ -175,9 +182,10 @@ for (const c of cellsOf(target)) {
     if (tok.kind === 'comment') {
       const id = `${c.index}:${ti}:0`;
       if (translations[id] === undefined) return tok.text;
-      const body = tok.text.replace(/^#\s?/, '');
-      const marker = tok.text.slice(0, tok.text.length - body.length);
-      return marker + translations[id];
+      const mk = tok.marker || '#';
+      let head = tok.text.startsWith(mk + ' ') ? mk + ' ' : mk;
+      const tail = tok.block ? (tok.text.match(/(\]\]|\*\/)\s*$/) || [''])[0] : '';
+      return head + translations[id] + (tail ? ' ' + tail : '');
     }
     if (tok.kind !== 'string') return tok.text;
     const q = tok.quote.repeat(tok.triple ? 3 : 1);
@@ -196,7 +204,7 @@ for (const c of cellsOf(target)) {
     const body = translations[id] !== undefined ? translations[id] : tok.text;
     return (tok.prefix || '') + q + body + q;
   }).join('');
-  if (rebuilt !== c.code) c.cell.code = rebuilt;
+  if (rebuilt !== c.code) setCellCode(c, rebuilt);
 }
 
 for (const id of Object.keys(translations)) {

@@ -20,7 +20,7 @@
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import {
-  cellsOf, tokenize, segmentFString, microTokens,
+  cellsOf, tokenize, tokenizeLang, segmentFString, microTokens,
   isValidPyIdentifier, PY_KEYWORDS,
 } from './span-lib.mjs';
 
@@ -135,7 +135,14 @@ for (let i = 0; i < Math.min(enCells.length, xxCells.length); i++) {
     continue;
   }
 
-  const ta = tokenize(a.code), tb = tokenize(b.code);
+  const lang = a.language || 'python';
+  const isPy = lang === 'python';
+  const ta = isPy ? tokenize(a.code) : tokenizeLang(a.code, lang);
+  const tb = isPy ? tokenize(b.code) : tokenizeLang(b.code, lang);
+  if (!ta || !tb) {
+    errors.push(`cell ${i}: unsupported language '${lang}' with code differences — must stay byte-identical`);
+    continue;
+  }
   if (ta.length !== tb.length) {
     errors.push(`cell ${i}: token stream length differs (${ta.length} vs ${tb.length}) — structural code change`);
     continue;
@@ -145,6 +152,10 @@ for (let i = 0; i < Math.min(enCells.length, xxCells.length); i++) {
     const x = ta[t], y = tb[t];
     if (x.kind !== y.kind) { errors.push(`cell ${i} tok ${t}: kind ${x.kind} vs ${y.kind}`); continue; }
     if (x.kind === 'code') {
+      if (!isPy) {
+        if (x.text !== y.text) errors.push(`cell ${i} tok ${t}: CODE changed in ${lang} cell (renames are Python-only for now): ${JSON.stringify(x.text.slice(0, 50))} -> ${JSON.stringify(y.text.slice(0, 50))}`);
+        continue;
+      }
       const startStack = enStack;
       const enMs = microTokens(x.text, startStack);
       enStack = enMs.finalStack;
@@ -164,9 +175,14 @@ for (let i = 0; i < Math.min(enCells.length, xxCells.length); i++) {
       target_span: { start: y.kind === 'comment' ? y.start : y.bodyStart, end: y.kind === 'comment' ? y.end : y.bodyEnd, text: y.text },
     };
     if (x.kind === 'comment') {
-      const bodyA = x.text.replace(/^#\s?/, ''), bodyB = y.text.replace(/^#\s?/, '');
-      const markA = x.text.length - bodyA.length, markB = y.text.length - bodyB.length;
-      if (x.text.slice(0, markA) !== y.text.slice(0, markB)) {
+      const mk = x.marker || '#';
+      const strip = (txt) => {
+        let b = txt.startsWith(mk) ? txt.slice(mk.length).replace(/^ /, '') : txt;
+        if (x.block) b = b.replace(/(\]\]|\*\/)\s*$/, '').trimEnd();
+        return b;
+      };
+      const bodyA = strip(x.text), bodyB = strip(y.text);
+      if ((y.marker || '#') !== mk) {
         errors.push(`cell ${i} tok ${t}: comment marker changed`);
         continue;
       }

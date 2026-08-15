@@ -188,9 +188,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/es/r_statistics.ipynb",
-      "revision": 1,
-      "sha256": "46ea6f994b9b2f6bcd3849285b0fdb22349f769240ac54a1698e26cee813a7f5",
-      "size": 6043
+      "revision": 2,
+      "sha256": "08ca8485fcd009f62f31407e58015b591f10974de64950915c0bef353f0d36ca",
+      "size": 6864
     },
     {
       "id": "r-tidyverse-wrangling-es",

@@ -86,3 +86,30 @@ legitimate path is escalation:
   spotted by three translators is a strong signal) and raises them to the
   owner. Accepted ones change the ENGLISH source, then re-translate to all
   locales — improvements propagate everywhere or nowhere.
+
+## Mode B inputs: give the polisher both versions
+
+The polish prompt should include the ENGLISH source cells alongside the
+loaded translated workbook (the worker reads the translation live in the
+app; the English rides in the prompt as reference). Judging a translation
+means comparing it to what it translates — without the source, the polisher
+can only assess fluency, not fidelity.
+
+## Worker access levels (both documented, owner's choice per run)
+
+1. **MCP-only (locked default)**: the dedicated MCP-host workspace pattern —
+   an empty trusted directory holding only `.agents/mcp_config.json`; file
+   tools have nothing meaningful to reach; every scirepl MCP call is
+   Ask-mode under the supervisor. Strongest containment; the worker sees
+   only what the prompt and the cell tools give it.
+2. **Workspace file access (opt-in)**: trust a working directory containing
+   reference material (e.g., the English workbook, prior locales). Richer
+   self-served context at the cost of prompt-free file reads (and, in
+   headless mode, writes) inside that directory. Safeguards remain layered:
+   supervisor per-call approvals on MCP tools, the broker's file-scope
+   permissions (allowlisted roots, deny rules, size caps), and the app's
+   own permission gate — plus deny-first rules in the worker's settings
+   (`~/.ssh`, configs, the catalog repo) per the hardening notes.
+
+Either way, the commit boundary is unchanged: exports re-run the full gate
+chain before anything reaches the repo.

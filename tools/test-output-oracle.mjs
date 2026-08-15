@@ -123,6 +123,16 @@ const jP2 = judge(plotRun('−2−1012'),
   ] } }, manifest([]));
 check('non-plot cell still text-diffed strictly', !jP2.pass);
 
+console.log('8d. Layout-shift tolerance (R table auto-width)');
+const mL = manifest([span(1, 'gear', 'marchas')]);
+const jL = judge(run([null, 'gear\n  4    3   8\n  6    4   3']),
+                 run([null, 'marchas\n  4     3   8\n  6     4   3']), mL);
+check('span-bearing cell tolerates space-run reflow', jL.pass && jL.layoutShifted.includes(1), jL.failures.join('|'));
+const jL2 = judge(run([null, 'gear\n  4    3   8']), run([null, 'marchas\n  4     3   9']), mL);
+check('value change still fails through reflow', !jL2.pass);
+const jL3 = judge(run([null, 'x\n  4    3']), run([null, 'x\n  4     3']), manifest([]));
+check('span-less cell does NOT get reflow tolerance', !jL3.pass);
+
 console.log('9. Sentinel collision resistance');
 // translated word 'términos' coincidentally equals another legit span's text —
 // symmetric sentinels keep them distinct because masking is per-span-index

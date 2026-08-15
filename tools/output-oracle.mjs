@@ -121,6 +121,7 @@ export function renderedText(text, formatSpec) {
 
 export function judge(enRun, xxRun, manifest) {
   const failures = [];
+  const layoutShifted = [];
   const en = extractTextOutputs(enRun);
   const xx = extractTextOutputs(xxRun);
   if (en.length !== xx.length) {
@@ -176,6 +177,16 @@ export function judge(enRun, xxRun, manifest) {
     });
 
     if (a !== b) {
+      // translated labels legitimately reflow auto-layout whitespace
+      // (R table()/data.frame printing pads columns to header width).
+      // If the cell HAS declared spans and the only difference is the
+      // width of space runs, record a layout shift instead of failing —
+      // all non-space bytes (numbers, symbols, order) still match exactly.
+      const collapse = (t) => t.replace(/ {2,}/g, ' ');
+      if (spansHere.length && collapse(a) === collapse(b)) {
+        layoutShifted.push(i);
+        continue;
+      }
       // locate first divergence for the report
       let d = 0;
       while (d < Math.min(a.length, b.length) && a[d] === b[d]) d++;
@@ -183,7 +194,7 @@ export function judge(enRun, xxRun, manifest) {
         `en=${JSON.stringify(a.slice(Math.max(0, d - 20), d + 40))} xx=${JSON.stringify(b.slice(Math.max(0, d - 20), d + 40))}`);
     }
   }
-  return { pass: failures.length === 0, failures, plotCells: [...plotCells] };
+  return { pass: failures.length === 0, failures, plotCells: [...plotCells], layoutShifted };
 }
 
 /* --------------------------------- CLI ---------------------------------- */
@@ -199,6 +210,7 @@ if (mode === 'envelope' || mode === 'judge') {
     const r = judge(load(paths[0]), load(paths[1]), load(paths[2]));
     for (const f of r.failures) console.error('FAIL ' + f);
     if (r.plotCells.length) console.error(`note: plot check required for cell(s) ${r.plotCells.join(', ')} (separate tool)`);
+    if (r.layoutShifted?.length) console.error(`note: layout-only whitespace shift tolerated in cell(s) ${r.layoutShifted.join(', ')}`);
     console.log(r.pass ? 'ORACLE PASS' : `ORACLE FAIL (${r.failures.length})`);
     process.exit(r.pass ? 0 : 1);
   }
