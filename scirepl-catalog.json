@@ -1012,9 +1012,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ko/01_family_tree_tutorial.ipynb",
-      "revision": 1,
-      "sha256": "b16d10573ba14e0a51cb2d3b3ef4ed1be7e9dcf59bfd9db0f3bb77eb7851a532",
-      "size": 10592
+      "revision": 2,
+      "sha256": "41bf0b4ba4a2e53926048e162978e427ba12b85c534bf562a1203c8f8716771f",
+      "size": 12081
     },
     {
       "id": "02-recursion-patterns-ko",
@@ -1030,9 +1030,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ko/02_recursion_patterns.ipynb",
-      "revision": 1,
-      "sha256": "bfdce741f2c9251770878be2830cb2fd06580957d66e92f61be03acb8af75002",
-      "size": 16595
+      "revision": 2,
+      "sha256": "7f7f03f08167c83606e93b90a9826c743e9482f1424c42e81ab7ea96ae664ab1",
+      "size": 18899
     },
     {
       "id": "03-call-graph-analysis-ko",
@@ -1048,9 +1048,9 @@
       ],
       "format": "ipynb",
       "path": "workbooks/ko/03_call_graph_analysis.ipynb",
-      "revision": 1,
-      "sha256": "d8707e7841f46bca6547387924250ccece81387763625662c909225e75a878d9",
-      "size": 14013
+      "revision": 2,
+      "sha256": "60c8060e4a5ec4e06854d881546894dd6a5107e1e4caf19fa9f666ea1885e79f",
+      "size": 15942
     },
     {
       "id": "life-expectancy-csv-demo-ko",

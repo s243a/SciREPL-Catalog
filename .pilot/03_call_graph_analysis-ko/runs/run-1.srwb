@@ -1,0 +1,359 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T17:25:43.768Z",
+  "notebook": {
+    "id": "default",
+    "name": "호출 그래프 분석 및 강결합 컴포넌트(SCC) 감지",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "prolog",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 38,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# 호출 그래프 분석 및 강결합 컴포넌트(SCC) 감지\n\n이 노트북은 UnifyWeaver의 고급 코드 분석 기능을 탐구합니다:\n\n- **호출 그래프 구축 (Call Graph Construction)** - Prolog 코드로부터 의존성 그래프 구축\n- **SCC 감지** - 강결합 컴포넌트(상호 재귀) 찾기\n- **패턴 분석** - 재귀 패턴 이해\n- **의존성 시각화** - 서술어 간의 관계 시각화\n\n## 학습 목표\n\n- UnifyWeaver가 코드 구조를 분석하는 방식 이해\n- 호출 그래프 구축 및 검사\n- 타잔(Tarjan) 알고리즘을 사용한 상호 재귀 감지\n- 코드 의존성 시각화",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "## 설정\n\nUnifyWeaver 및 분석 모듈을 로드합니다.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 3,
+        "code": "% 초기화 로드\n['../init'].\n\n% 분석 모듈 로드\nuse_module(unifyweaver(core/advanced/call_graph)).\nuse_module(unifyweaver(core/advanced/scc_detection)).\nuse_module(unifyweaver(core/advanced/pattern_matchers)).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
+      },
+      {
+        "id": 4,
+        "code": "## 예제 1: 간단한 호출 그래프\n\n간단한 서술어로 시작하여 호출 그래프를 구축해 보겠습니다.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 5,
+        "code": "% ancestor 서술어 정의\n:- dynamic ancestor/2.\n:- dynamic parent/2.\n\n% parent 사실\nparent(abraham, isaac).\nparent(isaac, jacob).\n\n% ancestor 규칙\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Z) :- parent(X, Y), ancestor(Y, Z).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 6,
+        "code": "### 호출 그래프 구축",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 7,
+        "code": "% ancestor에 대한 호출 그래프 구축\nbuild_call_graph([ancestor/2], _Graph),\nformat('Call Graph for ancestor/2:~n'),\nforall(member(_Edge, _Graph),\n    format('  ~w~n', [_Edge])).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: build_call_graph/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: build_call_graph/2</pre>"
+      },
+      {
+        "id": 8,
+        "code": "### 의존성 분석",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 9,
+        "code": "% ancestor/2의 모든 의존성 가져오기\nget_dependencies(ancestor/2, _Deps),\nformat('Dependencies of ancestor/2: ~w~n', [_Deps]).\n\n% 자기 재귀 여부 확인\n(is_self_recursive(ancestor/2) ->\n    writeln('✓ ancestor/2 is self-recursive')\n;\n    writeln('✗ ancestor/2 is not self-recursive')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: get_dependencies/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: get_dependencies/2</pre>"
+      },
+      {
+        "id": 10,
+        "code": "## 예제 2: 상호 재귀 감지\n\n이제 짝수/홀수 예제로 상호 재귀를 감지해 보겠습니다.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 11,
+        "code": "% 상호 재귀 서술어 정의\n:- dynamic is_even/1.\n:- dynamic is_odd/1.\n\nis_even(0).\nis_even(N) :- N > 0, N1 is N - 1, is_odd(N1).\n\nis_odd(1).\nis_odd(N) :- N > 1, N1 is N - 1, is_even(N1).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 12,
+        "code": "### 두 서술어에 대한 호출 그래프 구축",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 13,
+        "code": "% 두 서술어에 대한 호출 그래프 구축\nbuild_call_graph([is_even/1, is_odd/1], _Graph),\nformat('Call Graph for is_even/1 and is_odd/1:~n'),\nforall(member(_Edge, _Graph),\n    format('  ~w~n', [_Edge])).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: build_call_graph/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: build_call_graph/2</pre>"
+      },
+      {
+        "id": 14,
+        "code": "### 강결합 컴포넌트 (SCC) 찾기",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 15,
+        "code": "% 노트북 셀 간에 변수가 유지되지 않으므로 그래프 다시 작성\nbuild_call_graph([is_even/1, is_odd/1], _Graph),\n% 타잔 알고리즘을 사용하여 SCC 찾기\nfind_sccs(_Graph, _SCCs),\nformat('Strongly Connected Components:~n'),\nforall(member(_SCC, _SCCs),\n    format('  ~w~n', [_SCC])).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: build_call_graph/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: build_call_graph/2</pre>"
+      },
+      {
+        "id": 16,
+        "code": "### SCC가 자명(Trivial)한지 확인",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 17,
+        "code": "% 이 셀도 독립적으로 실행되도록 파생 값 다시 작성\nbuild_call_graph([is_even/1, is_odd/1], _Graph),\nfind_sccs(_Graph, _SCCs),\n% 각 SCC 확인\nforall(member(_SCC, _SCCs),\n    (   is_trivial_scc(_SCC) ->\n        format('  ~w is trivial (single predicate)~n', [_SCC])\n    ;\n        format('  ~w is NON-TRIVIAL (mutual recursion!)~n', [_SCC])\n    )\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: build_call_graph/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: build_call_graph/2</pre>"
+      },
+      {
+        "id": 18,
+        "code": "## 예제 3: 복잡한 호출 그래프\n\n여러 서술어가 포함된 더 복잡한 시스템을 분석해 보겠습니다.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 19,
+        "code": "% 여러 서술어가 포함된 작은 프로그램 정의\n:- dynamic grandparent/2.\n:- dynamic sibling/2.\n:- dynamic cousin/2.\n\n% grandparent는 parent를 사용함\ngrandparent(X, Z) :- parent(X, Y), parent(Y, Z).\n\n% sibling: 부모는 같고 자녀는 다름\nsibling(X, Y) :- parent(P, X), parent(P, Y), X \\= Y.\n\n% cousin: 부모가 서로 형제자매임\ncousin(X, Y) :- parent(P1, X), parent(P2, Y), sibling(P1, P2).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 20,
+        "code": "### 전체 호출 그래프 구축",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 21,
+        "code": "% 모든 서술어에 대한 호출 그래프 구축\nbuild_call_graph([grandparent/2, sibling/2, cousin/2], _Graph),\nformat('Complete Call Graph:~n'),\nforall(member(_Edge, _Graph),\n    format('  ~w~n', [_Edge])).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: build_call_graph/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: build_call_graph/2</pre>"
+      },
+      {
+        "id": 22,
+        "code": "### 서술어 그룹 찾기\n\n시작 서술어를 포함하는 상호 재귀 서술어 그룹을 찾습니다.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 23,
+        "code": "% cousin/2를 포함하는 상호 재귀 그룹 찾기\npredicates_in_group(cousin/2, _Group),\nformat('Mutually recursive group containing cousin/2: ~w~n', [_Group]).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: predicates_in_group/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: predicates_in_group/2</pre>"
+      },
+      {
+        "id": 24,
+        "code": "## 예제 4: 패턴 감지\n\n패턴 매처를 사용하여 재귀 유형을 분석해 보겠습니다.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 25,
+        "code": "% 다양한 재귀 패턴 정의\n:- dynamic count/3.     % 꼬리 재귀\n:- dynamic factorial/2. % 선형 재귀\n:- dynamic fib/2.       % 트리 재귀 (또는 감지된 경우 선형 재귀)\n\n% 꼬리 재귀 count\ncount([], Acc, Acc).\ncount([_|T], Acc, N) :-\n    Acc1 is Acc + 1,\n    count(T, Acc1, N).\n\n% 선형 재귀 factorial\nfactorial(0, 1).\nfactorial(N, F) :-\n    N > 0,\n    N1 is N - 1,\n    factorial(N1, F1),\n    F is N * F1.\n\n% 피보나치 (선형 또는 트리 재귀로 감지될 수 있음)\nfib(0, 0).\nfib(1, 1).\nfib(N, F) :-\n    N > 1,\n    N1 is N - 1,\n    N2 is N - 2,\n    fib(N1, F1),\n    fib(N2, F2),\n    F is F1 + F2.",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 26,
+        "code": "### 꼬리 재귀 감지",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 27,
+        "code": "% count/3이 꼬리 재귀인지 확인\n(is_tail_recursive_accumulator(count/3, _AccInfo) ->\n    format('✓ count/3 is tail recursive: ~w~n', [_AccInfo])\n;\n    writeln('✗ count/3 is not tail recursive')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: is_tail_recursive_accumulator/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: is_tail_recursive_accumulator/2</pre>"
+      },
+      {
+        "id": 28,
+        "code": "### 선형 재귀 감지",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 29,
+        "code": "% factorial/2가 선형 재귀인지 확인\n(is_linear_recursive_streamable(factorial/2) ->\n    writeln('✓ factorial/2 is linear recursive')\n;\n    writeln('✗ factorial/2 is not linear recursive')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: is_linear_recursive_streamable/1",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: is_linear_recursive_streamable/1</pre>"
+      },
+      {
+        "id": 30,
+        "code": "### 재귀 호출 횟수 계산",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 31,
+        "code": "% fibonacci의 재귀 호출 횟수 세기\nfunctor(_FibHead, fib, 2),\nuser:clause(_FibHead, _FibBody),\nonce(contains_call_to(_FibBody, fib)),\ncount_recursive_calls(_FibBody, fib, _Count),\nformat('Fibonacci body has ~w recursive calls~n', [_Count]).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "once/1: Unknown procedure: contains_call_to/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">once/1: Unknown procedure: contains_call_to/2</pre>"
+      },
+      {
+        "id": 32,
+        "code": "## DOT 형식을 이용한 시각화\n\n호출 그래프의 Graphviz DOT 표현을 생성해 보겠습니다.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 33,
+        "code": "% DOT 형식을 생성하는 헬퍼\ngenerate_dot(Graph, DotCode) :-\n    findall(Line,\n        (   member(From -> To, Graph),\n            format(atom(Line), '  \"~w\" -> \"~w\";', [From, To])\n        ),\n        Lines),\n    atomic_list_concat(['digraph CallGraph {', '  rankdir=LR;' | Lines], '\\n', Body),\n    format(atom(DotCode), '~w~n}~n', [Body]).\n\n% 짝수/홀수 그래프용 DOT 생성\nbuild_call_graph([is_even/1, is_odd/1], _Graph),\ngenerate_dot(_Graph, _DotCode),\nwriteln('DOT Code for even/odd call graph:'),\nwriteln(_DotCode).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: build_call_graph/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: build_call_graph/2</pre>"
+      },
+      {
+        "id": 34,
+        "code": "### DOT 파일 저장",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 35,
+        "code": "% 셀 간에 변수가 유지되지 않으므로 DOT 소스 다시 작성\nbuild_call_graph([is_even/1, is_odd/1], _Graph),\ngenerate_dot(_Graph, _DotCode),\nsetup_call_cleanup(\n    open('/shared/data/even_odd_graph.dot', write, _Stream),\n    write(_Stream, _DotCode),\n    close(_Stream)),\nwriteln('✓ Saved to /shared/data/even_odd_graph.dot').\n\nwriteln('To visualize, run:'),\nwriteln('  dot -Tpng /shared/data/even_odd_graph.dot -o even_odd_graph.png').",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: build_call_graph/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: build_call_graph/2</pre>"
+      },
+      {
+        "id": 36,
+        "code": "## 연습 과제: 자신만의 코드 분석하기\n\n자신만의 서술어를 정의하고 분석해 보세요!",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 37,
+        "code": "% 여기에 자신만의 서술어를 정의하세요\n% 그런 다음 호출 그래프를 작성하고, SCC를 찾고, 패턴을 감지하세요\n\n% 예시:\n% :- dynamic my_predicate/2.\n% my_predicate(...) :- ...\n\n% build_call_graph([my_predicate/2], Graph).\n",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 38,
+        "code": "## 요약\n\n이 노트북에서 배운 내용:\n\n✅ Prolog 코드로부터 호출 그래프를 구축하는 방법\n\n✅ 상호 재귀를 위한 강결합 컴포넌트(SCC)를 감지하는 방법\n\n✅ 패턴 매처를 사용하여 재귀 유형을 분류하는 방법\n\n✅ 서술어 의존성을 분석하는 방법\n\n✅ DOT 형식으로 호출 그래프를 시각화하는 방법\n\n## 고급 주제\n\n심화 분석을 위한 주제:\n\n- **위상 정렬 (Topological Ordering)**: `topological_order/2`를 사용하여 의존성에 따라 SCC 정렬\n- **커스텀 패턴 매처**: 고유한 패턴 감지 서술어 작성\n- **누산기 패턴 추출**: 상세 분석을 위해 `extract_accumulator_pattern/2` 사용\n- **선형 재귀 금지**: `forbid_linear_recursion/1`을 사용하여 다른 컴파일 전략 강제\n\n## 참고 자료 및 관련 파일\n\n- 제10장: Prolog 인트로스펙션과 이론\n- `src/unifyweaver/core/advanced/call_graph.pl`\n- `src/unifyweaver/core/advanced/scc_detection.pl`\n- `src/unifyweaver/core/advanced/pattern_matchers.pl`",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      }
+    ]
+  }
+}

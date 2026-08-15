@@ -1,0 +1,269 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T17:25:16.061Z",
+  "notebook": {
+    "id": "default",
+    "name": "UnifyWeaver를 활용한 가계도 튜토리얼",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "prolog",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 28,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# UnifyWeaver를 활용한 가계도 튜토리얼\n\n이 인터랙티브 노트북은 UnifyWeaver를 사용하여 Prolog 서술어를 Bash 스크립트로 컴파일하는 방법을 시연합니다.\n\n## 사전 요구 사항\n\n- SWI-Prolog 설치\n- UnifyWeaver 라이브러리 사용 가능\n- Prolog Jupyter 커널 설치 (`pip install prolog-jupyter-kernel`)\n\n## 학습 목표\n\n이 노트북을 마치면 다음을 수행할 수 있습니다:\n1. Prolog 사실 및 규칙 정의\n2. UnifyWeaver를 사용하여 서술어를 Bash로 컴파일\n3. 생성된 Bash 스크립트 테스트\n4. 이행 폐포 컴파일 메커니즘 이해",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "## 1단계: UnifyWeaver 환경 초기화\n\n먼저 UnifyWeaver 모듈을 로드해야 합니다. education 디렉터리의 `init.pl` 파일을 사용합니다.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 3,
+        "code": "% 초기화 파일 로드\n['../init'].",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
+      },
+      {
+        "id": 4,
+        "code": "## 2단계: 가족 관계 정의\n\n성경 속 가계도로부터 부모-자식 관계를 정의해 보겠습니다.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 5,
+        "code": "% parent 사실 정의\n:- dynamic parent/2.\n\nparent(abraham, isaac).\nparent(abraham, ishmael).\nparent(isaac, jacob).\nparent(isaac, esau).\nparent(jacob, reuben).\nparent(jacob, simeon).\nparent(jacob, levi).\nparent(jacob, judah).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 6,
+        "code": "## 3단계: 부모 쿼리 테스트\n\n컴파일하기 전에 몇 가지 Prolog 쿼리로 데이터가 올바른지 확인합니다.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 7,
+        "code": "% 쿼리: 아브라함의 자녀는 누구인가?\nparent(abraham, Child).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Child = isaac\nChild = ishmael",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Child = isaac\nChild = ishmael</pre>"
+      },
+      {
+        "id": 8,
+        "code": "% 쿼리: 야곱의 자녀는 누구인가?\nparent(jacob, Child).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Child = reuben\nChild = simeon\nChild = levi\nChild = judah",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Child = reuben\nChild = simeon\nChild = levi\nChild = judah</pre>"
+      },
+      {
+        "id": 9,
+        "code": "## 4단계: 조상 관계 정의\n\n이제 이행 폐포인 `ancestor` 관계를 정의해 보겠습니다.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 10,
+        "code": "% parent의 이행 폐포로 ancestor 정의\n:- dynamic ancestor/2.\n\n% 기저 사례: 부모는 조상이다\nancestor(X, Y) :- parent(X, Y).\n\n% 재귀 사례: X가 Y의 부모이고 Y가 Z의 조상이면, X는 Z의 조상이다\nancestor(X, Z) :- parent(X, Y), ancestor(Y, Z).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 11,
+        "code": "## 5단계: 조상 쿼리 테스트\n\nancestor 서술어가 올바르게 동작하는지 확인합니다.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 12,
+        "code": "% 쿼리: 아브라함은 야곱의 조상인가?\n( ancestor(abraham, jacob) ->\n    writeln('Yes: Abraham is an ancestor of Jacob')\n;\n    writeln('No: Abraham is not an ancestor of Jacob')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Yes: Abraham is an ancestor of Jacob",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Yes: Abraham is an ancestor of Jacob</pre>"
+      },
+      {
+        "id": 13,
+        "code": "% 쿼리: 아브라함의 모든 후손은 누구인가?\nancestor(abraham, Descendant).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Descendant = isaac\nDescendant = ishmael\nDescendant = jacob\nDescendant = esau\nDescendant = reuben\nDescendant = simeon\nDescendant = levi\nDescendant = judah",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Descendant = isaac\nDescendant = ishmael\nDescendant = jacob\nDescendant = esau\nDescendant = reuben\nDescendant = simeon\nDescendant = levi\nDescendant = judah</pre>"
+      },
+      {
+        "id": 14,
+        "code": "## 6단계: 부모 사실을 Bash로 컴파일\n\n이제 흥미로운 부분입니다 — `parent/2` 사실을 Bash 스크립트로 컴파일해 보겠습니다!",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 15,
+        "code": "% stream compiler 로드\n\\+ \\+ (\n    use_module(unifyweaver(core/stream_compiler)),\n\n    % parent 사실을 bash로 컴파일\n    stream_compiler:compile_facts(parent, 2, [], _BashCode),\n    writeln('Generated Bash code for parent/2:'),\n    writeln(_BashCode)\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "source_sink `unifyweaver(core/stream_compiler)' does not exist",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">source_sink `unifyweaver(core/stream_compiler)' does not exist</pre>"
+      },
+      {
+        "id": 16,
+        "code": "## 7단계: 부모 스크립트 저장\n\n생성된 Bash 코드를 파일에 저장합니다.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 17,
+        "code": "% 파일에 저장\n\\+ \\+ (\n    stream_compiler:compile_facts(parent, 2, [], _BashCode),\n    setup_call_cleanup(\n        open('../output/parent.sh', write, _Stream),\n        write(_Stream, _BashCode),\n        close(_Stream)),\n    writeln('Saved to ../output/parent.sh')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: stream_compiler:compile_facts/4",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: stream_compiler:compile_facts/4</pre>"
+      },
+      {
+        "id": 18,
+        "code": "## 8단계: 조상 서술어를 Bash로 컴파일\n\n이제 재귀를 사용하는 `ancestor/2` 서술어를 컴파일합니다.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 19,
+        "code": "% recursive compiler 로드\n\\+ \\+ (\n    use_module(unifyweaver(core/recursive_compiler)),\n\n    % ancestor를 bash로 컴파일\n    compile_recursive(ancestor/2, [], _BashCode),\n    writeln('Generated Bash code for ancestor/2:'),\n    writeln(_BashCode)\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "source_sink `unifyweaver(core/recursive_compiler)' does not exist",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">source_sink `unifyweaver(core/recursive_compiler)' does not exist</pre>"
+      },
+      {
+        "id": 20,
+        "code": "## 9단계: 조상 스크립트 저장\n\nancestor 스크립트를 파일에 저장합니다.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 21,
+        "code": "% 파일에 저장\n\\+ \\+ (\n    compile_recursive(ancestor/2, [], _BashCode),\n    setup_call_cleanup(\n        open('../output/ancestor.sh', write, _Stream),\n        write(_Stream, _BashCode),\n        close(_Stream)),\n    writeln('Saved to ../output/ancestor.sh')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: compile_recursive/3</pre>"
+      },
+      {
+        "id": 22,
+        "code": "## 10단계: 생성된 스크립트 테스트\n\n이제 생성된 Bash 스크립트를 테스트해 보겠습니다! `%%bash` 매직 명령을 사용하여 bash 명령을 실행합니다.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 23,
+        "code": "# source로 parent 스크립트 불러오기\nsource ../output/parent.sh\n\n# 테스트: 아브라함의 자녀는 누구인가?\necho \"아브라함의 자녀:\"\nparent abraham",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "아브라함의 자녀:\nerror: source: failed to source file: ../output/parent.sh\nerror: failed to execute command 'parent': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">아브라함의 자녀:\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/parent.sh\nerror: failed to execute command 'parent': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 24,
+        "code": "# source로 두 스크립트 모두 불러오기\nsource ../output/parent.sh\nsource ../output/ancestor.sh\n\n# 테스트: 아브라함의 후손은 누구인가?\necho \"아브라함의 후손:\"\nancestor abraham",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "아브라함의 후손:\nerror: source: failed to source file: ../output/parent.sh\nerror: source: failed to source file: ../output/ancestor.sh\nerror: failed to execute command 'ancestor': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">아브라함의 후손:\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/parent.sh\nerror: source: failed to source file: ../output/ancestor.sh\nerror: failed to execute command 'ancestor': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 25,
+        "code": "# source로 두 스크립트 모두 불러오기\nsource ../output/parent.sh\nsource ../output/ancestor.sh\n\n# 테스트: 아브라함은 유다의 조상인가?\nif ancestor abraham judah >/dev/null 2>&1; then\n    echo \"✓ 예, 아브라함은 유다의 조상입니다\"\nelse\n    echo \"✗ 아니오\"\nfi",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "✗ 아니오\nerror: source: failed to source file: ../output/parent.sh\nerror: source: failed to source file: ../output/ancestor.sh\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">✗ 아니오\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/parent.sh\nerror: source: failed to source file: ../output/ancestor.sh\n</pre>"
+      },
+      {
+        "id": 26,
+        "code": "## 11단계: 컴파일 전략 이해하기\n\nUnifyWeaver가 수행한 작업을 분석해 보겠습니다:\n\n1. **parent 컴파일**: `stream_compiler`를 사용하여 모든 부모-자식 쌍을 출력하는 간단한 스트리밍 함수를 생성했습니다.\n\n2. **ancestor 컴파일**: 이행 폐포 패턴을 감지하고 너비 우선 탐색(BFS) 최적화를 적용하여 도달 가능한 모든 조상을 효율적으로 계산했습니다.\n\n컴파일 전략을 확인해 보겠습니다:",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 27,
+        "code": "% ancestor가 재귀적으로 분류되었는지 확인\n\\+ \\+ (\n    use_module(unifyweaver(core/recursive_compiler)),\n    recursive_compiler:classify_predicate(ancestor/2, _Classification),\n    format('Ancestor classification: ~w~n', [_Classification])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "source_sink `unifyweaver(core/recursive_compiler)' does not exist",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">source_sink `unifyweaver(core/recursive_compiler)' does not exist</pre>"
+      },
+      {
+        "id": 28,
+        "code": "## 요약\n\n이 노트북에서 배운 내용:\n\n✅ Prolog 사실 및 규칙 정의 방법\n\n✅ 사실에 대해 UnifyWeaver의 `stream_compiler`를 사용하는 방법\n\n✅ 재귀적 서술어에 대해 UnifyWeaver의 `recursive_compiler`를 사용하는 방법\n\n✅ 생성된 Bash 스크립트를 테스트하는 방법\n\n✅ UnifyWeaver가 이행 폐포를 자동으로 감지하고 BFS 최적화를 적용한다는 점\n\n## 다음 단계\n\n다음 연습 과제를 시도해 보세요:\n\n1. 가계도에 가족 구성원을 더 추가하기\n2. `grandparent/2` (조부모) 서술어를 정의하고 컴파일하기\n3. `sibling/2` (부모가 같은 두 사람) 서술어 만들기\n4. 생성된 Bash 코드를 살펴보고 BFS 알고리즘 동작 방식 파악하기\n\n고급 재귀 패턴을 배우려면 **노트북 2: 재귀 패턴 비교**로 이동하세요!",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      }
+    ]
+  }
+}

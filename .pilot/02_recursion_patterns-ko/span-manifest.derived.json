@@ -1,0 +1,1380 @@
+{
+  "manifest_version": 1,
+  "produced_by": "derived",
+  "generator": "tools/span-derive.mjs",
+  "locale": "ko",
+  "source": {
+    "path": "workbooks/en/02_recursion_patterns.ipynb",
+    "sha256": "6c8e6bff87fe57d5fb79605a216926b5c48b4e263d2208823228dfe6676c6a80"
+  },
+  "target": {
+    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/jobs/02_recursion_patterns-ko/translated.ipynb",
+    "sha256": "7f7f03f08167c83606e93b90a9826c743e9482f1424c42e81ab7ea96ae664ab1"
+  },
+  "spans": [
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 22
+        },
+        "text": "Load initialization"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 9
+        },
+        "text": "초기화 로드"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 25
+        },
+        "text": "Load necessary modules"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 12
+        },
+        "text": "필요한 모듈 로드"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 36
+        },
+        "text": "Define tail-recursive count_items"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 23
+        },
+        "text": "꼬리 재귀 count_items 정의"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 44
+        },
+        "text": "Base case: empty list, return accumulator"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 23
+        },
+        "text": "기저 사례: 빈 리스트, 누산기 반환"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 1
+        },
+        "end": {
+          "line": 7,
+          "col": 57
+        },
+        "text": "Recursive case: increment accumulator, recurse on tail"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 1
+        },
+        "end": {
+          "line": 7,
+          "col": 31
+        },
+        "text": "재귀 사례: 누산기 증가 후 꼬리에 대해 재귀 호출"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 10,
+          "col": 31
+        },
+        "end": {
+          "line": 10,
+          "col": 49
+        },
+        "text": "← Tail position!"
+      },
+      "target_span": {
+        "start": {
+          "line": 10,
+          "col": 31
+        },
+        "end": {
+          "line": 10,
+          "col": 41
+        },
+        "text": "← 꼬리 위치!"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 35
+        },
+        "text": "Test: count items in [a,b,c,d,e]"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 28
+        },
+        "text": "테스트: [a,b,c,d,e]의 항목 수 세기"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 38
+        },
+        "text": "Check if detected as tail recursive"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 19
+        },
+        "text": "꼬리 재귀로 감지되었는지 확인"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 10,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 19
+        },
+        "text": "Compile and save"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 11
+        },
+        "text": "컴파일 및 저장"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 12,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 37
+        },
+        "text": "Counting items in [a,b,c,d,e]:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 30
+        },
+        "text": "[a,b,c,d,e]의 항목 수 세는 중:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 19
+        },
+        "text": "Define factorial"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 10
+        },
+        "text": "팩토리얼 정의"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 12
+        },
+        "text": "Base case"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 8
+        },
+        "text": "기저 사례"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 1
+        },
+        "end": {
+          "line": 7,
+          "col": 45
+        },
+        "text": "Recursive case: exactly ONE recursive call"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 1
+        },
+        "end": {
+          "line": 7,
+          "col": 23
+        },
+        "text": "재귀 사례: 정확히 하나의 재귀 호출"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 11,
+          "col": 25
+        },
+        "end": {
+          "line": 11,
+          "col": 47
+        },
+        "text": "← One recursive call"
+      },
+      "target_span": {
+        "start": {
+          "line": 11,
+          "col": 25
+        },
+        "end": {
+          "line": 11,
+          "col": 38
+        },
+        "text": "← 하나의 재귀 호출"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 12,
+          "col": 25
+        },
+        "end": {
+          "line": 12,
+          "col": 51
+        },
+        "text": "← Computation after call"
+      },
+      "target_span": {
+        "start": {
+          "line": 12,
+          "col": 25
+        },
+        "end": {
+          "line": 12,
+          "col": 36
+        },
+        "text": "← 호출 후 계산"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 23
+        },
+        "text": "Test: factorial of 5"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 15
+        },
+        "text": "테스트: 5의 팩토리얼"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 18,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 40
+        },
+        "text": "Check if detected as linear recursive"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 19
+        },
+        "text": "선형 재귀로 감지되었는지 확인"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 20,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 19
+        },
+        "text": "Compile and save"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 11
+        },
+        "text": "컴파일 및 저장"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 20,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 5
+        },
+        "end": {
+          "line": 4,
+          "col": 87
+        },
+        "text": "Keep function definitions only; Brush treats sourced scripts as direct execution"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 5
+        },
+        "end": {
+          "line": 4,
+          "col": 51
+        },
+        "text": "함수 정의만 유지 (Brush는 source된 스크립트를 직접 실행으로 처리함)"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 22,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 22
+        },
+        "text": "Factorial of 5:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 15
+        },
+        "text": "5의 팩토리얼:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 22,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 7
+        },
+        "end": {
+          "line": 6,
+          "col": 23
+        },
+        "text": "Factorial of 10:"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 7
+        },
+        "end": {
+          "line": 6,
+          "col": 16
+        },
+        "text": "10의 팩토리얼:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 35
+        },
+        "text": "Define tree_sum for binary trees"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 24
+        },
+        "text": "이진 트리를 위한 tree_sum 정의"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 56
+        },
+        "text": "Tree format: [Value, LeftSubtree, RightSubtree] or []"
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 36
+        },
+        "text": "트리 형식: [값, 왼쪽서브트리, 오른쪽서브트리] 또는 []"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 34
+        },
+        "text": "Base case: empty tree has sum 0"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 20
+        },
+        "text": "기저 사례: 빈 트리의 합은 0"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 8,
+          "col": 1
+        },
+        "end": {
+          "line": 8,
+          "col": 53
+        },
+        "text": "Recursive case: sum = value + left_sum + right_sum"
+      },
+      "target_span": {
+        "start": {
+          "line": 8,
+          "col": 1
+        },
+        "end": {
+          "line": 8,
+          "col": 29
+        },
+        "text": "재귀 사례: 합계 = 값 + 왼쪽합 + 오른쪽합"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 10,
+          "col": 24
+        },
+        "end": {
+          "line": 10,
+          "col": 48
+        },
+        "text": "← First recursive call"
+      },
+      "target_span": {
+        "start": {
+          "line": 10,
+          "col": 24
+        },
+        "end": {
+          "line": 10,
+          "col": 38
+        },
+        "text": "← 첫 번째 재귀 호출"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 11,
+          "col": 24
+        },
+        "end": {
+          "line": 11,
+          "col": 49
+        },
+        "text": "← Second recursive call"
+      },
+      "target_span": {
+        "start": {
+          "line": 11,
+          "col": 24
+        },
+        "end": {
+          "line": 11,
+          "col": 38
+        },
+        "text": "← 두 번째 재귀 호출"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 26,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 59
+        },
+        "text": "Test: tree_sum of [5, [3, [1, [], []], []], [2, [], []]]"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 56
+        },
+        "text": "테스트: [5, [3, [1, [], []], []], [2, [], []]]의 tree_sum"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 28,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 19
+        },
+        "text": "Compile and save"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 11
+        },
+        "text": "컴파일 및 저장"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 30,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 50
+        },
+        "text": "Tree sum of [5,[3,[1,[],[]],[]],[2,[],[]]]:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 45
+        },
+        "text": "[5,[3,[1,[],[]],[]],[2,[],[]]]의 트리 합계:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 32,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 47
+        },
+        "text": "Define mutually recursive is_even and is_odd"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 28
+        },
+        "text": "상호 재귀 is_even 및 is_odd 정의"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 32,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 20
+        },
+        "text": "is_even base case"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 16
+        },
+        "text": "is_even 기저 사례"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 32,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 8,
+          "col": 1
+        },
+        "end": {
+          "line": 8,
+          "col": 45
+        },
+        "text": "is_even recursive: N is even if N-1 is odd"
+      },
+      "target_span": {
+        "start": {
+          "line": 8,
+          "col": 1
+        },
+        "end": {
+          "line": 8,
+          "col": 30
+        },
+        "text": "is_even 재귀: N-1이 홀수이면 N은 짝수"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 32,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 12,
+          "col": 18
+        },
+        "end": {
+          "line": 12,
+          "col": 34
+        },
+        "text": "← Calls is_odd"
+      },
+      "target_span": {
+        "start": {
+          "line": 12,
+          "col": 18
+        },
+        "end": {
+          "line": 12,
+          "col": 31
+        },
+        "text": "← is_odd 호출"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 32,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 14,
+          "col": 1
+        },
+        "end": {
+          "line": 14,
+          "col": 19
+        },
+        "text": "is_odd base case"
+      },
+      "target_span": {
+        "start": {
+          "line": 14,
+          "col": 1
+        },
+        "end": {
+          "line": 14,
+          "col": 15
+        },
+        "text": "is_odd 기저 사례"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 32,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 17,
+          "col": 1
+        },
+        "end": {
+          "line": 17,
+          "col": 44
+        },
+        "text": "is_odd recursive: N is odd if N-1 is even"
+      },
+      "target_span": {
+        "start": {
+          "line": 17,
+          "col": 1
+        },
+        "end": {
+          "line": 17,
+          "col": 29
+        },
+        "text": "is_odd 재귀: N-1이 짝수이면 N은 홀수"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 32,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 21,
+          "col": 19
+        },
+        "end": {
+          "line": 21,
+          "col": 36
+        },
+        "text": "← Calls is_even"
+      },
+      "target_span": {
+        "start": {
+          "line": 21,
+          "col": 19
+        },
+        "end": {
+          "line": 21,
+          "col": 33
+        },
+        "text": "← is_even 호출"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 34,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 16
+        },
+        "text": "Test even/odd"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 12
+        },
+        "text": "짝수/홀수 테스트"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 36,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 33
+        },
+        "text": "Build call graph and find SCCs"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 21
+        },
+        "text": "호출 그래프 작성 및 SCC 검색"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 38,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 37
+        },
+        "text": "Compile the mutual recursion group"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 15
+        },
+        "text": "상호 재귀 그룹 컴파일"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 40,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 34
+        },
+        "text": "Testing is_even and is_odd:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 30
+        },
+        "text": "is_even 및 is_odd 테스트 중:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 40,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 31
+        },
+        "end": {
+          "line": 4,
+          "col": 42
+        },
+        "text": "✓ 0 is even"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 31
+        },
+        "end": {
+          "line": 4,
+          "col": 38
+        },
+        "text": "✓ 0은 짝수"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 40,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 31
+        },
+        "end": {
+          "line": 5,
+          "col": 42
+        },
+        "text": "✓ 4 is even"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 31
+        },
+        "end": {
+          "line": 5,
+          "col": 38
+        },
+        "text": "✓ 4는 짝수"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 40,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 30
+        },
+        "end": {
+          "line": 6,
+          "col": 40
+        },
+        "text": "✓ 3 is odd"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 30
+        },
+        "end": {
+          "line": 6,
+          "col": 37
+        },
+        "text": "✓ 3은 홀수"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 40,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 30
+        },
+        "end": {
+          "line": 7,
+          "col": 40
+        },
+        "text": "✓ 7 is odd"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 30
+        },
+        "end": {
+          "line": 7,
+          "col": 37
+        },
+        "text": "✓ 7은 홀수"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 40,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 8,
+          "col": 36
+        },
+        "end": {
+          "line": 8,
+          "col": 51
+        },
+        "text": "✓ 5 is not even"
+      },
+      "target_span": {
+        "start": {
+          "line": 8,
+          "col": 36
+        },
+        "end": {
+          "line": 8,
+          "col": 47
+        },
+        "text": "✓ 5는 짝수가 아님"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 44,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 18
+        },
+        "text": "Your code here!"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 17
+        },
+        "text": "여기에 코드를 작성하세요!"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    }
+  ],
+  "exclusions": []
+}
