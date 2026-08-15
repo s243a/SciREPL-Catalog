@@ -311,9 +311,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ja/lua-tables-coroutines.srwb",
-      "revision": 1,
-      "sha256": "4d2693227083583b174e1fcb5d74edfdb8946b5b8da2ddc066bc00186e4ebf23",
-      "size": 14465
+      "revision": 2,
+      "sha256": "9127d6f29f537291e150ee2abafd0cbf6094c1ceabdfa7fc02e6b8d7414a4b57",
+      "size": 14893
     },
     {
       "id": "lua-parsing-coroutines-ja",
