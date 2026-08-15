@@ -1,9 +1,21 @@
 {
-  "format_version": "1.0",
+  "format_version": "2.0",
   "name": "SciREPL Catalog",
   "source": "https://github.com/s243a/SciREPL-Catalog",
   "locales": [
-    "en"
+    "ar",
+    "bn",
+    "de",
+    "en",
+    "es",
+    "fr",
+    "hi",
+    "id",
+    "ja",
+    "ko",
+    "pt-BR",
+    "ru",
+    "zh"
   ],
   "items": [
     {
@@ -18,7 +30,7 @@
         "es"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/es/compute-pi-workbook.srwb",
+      "path": "workbooks/es/compute-pi-workbook.srwb",
       "revision": 2,
       "sha256": "4a78da71304431d23a31b7bc0b72642159b39c212f37975077f9960b7f156411",
       "size": 5931
@@ -35,7 +47,7 @@
         "es"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/es/lua-tables-coroutines.srwb",
+      "path": "workbooks/es/lua-tables-coroutines.srwb",
       "revision": 1,
       "sha256": "0550759ba95f99b942124dcaf9bceeab771d36cdf729f7e68cbd41398bffbe8c",
       "size": 13623
@@ -52,7 +64,7 @@
         "es"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/es/lua-parsing-coroutines.srwb",
+      "path": "workbooks/es/lua-parsing-coroutines.srwb",
       "revision": 1,
       "sha256": "4d90a12eb9b8411a154ae39a0e8413904ecd8bb5bdd92822ffc330b481ebc660",
       "size": 21696
@@ -69,7 +81,7 @@
         "es"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/es/typr-intro.srwb",
+      "path": "workbooks/es/typr-intro.srwb",
       "revision": 1,
       "sha256": "031eca0c30ef18c2ceca9bfcf1e810904be25bb0837217c7db3cf7eaf44937ff",
       "size": 2943
@@ -87,7 +99,7 @@
         "es"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/es/prolog-generates-r.srwb",
+      "path": "workbooks/es/prolog-generates-r.srwb",
       "revision": 1,
       "sha256": "106888cba947bc33791defff2d256ccd9d67db7ecf9f349eefd4b782e85cfa7e",
       "size": 14110
@@ -105,7 +117,7 @@
         "es"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/es/prolog-generates-lua.srwb",
+      "path": "workbooks/es/prolog-generates-lua.srwb",
       "revision": 1,
       "sha256": "1b62081830fd0447aa93dada95dc91ee12ac8d504b5a70ecf8ad64c83e4c6a88",
       "size": 6545
@@ -123,7 +135,7 @@
         "es"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/es/prolog-generates-clojurescript.srwb",
+      "path": "workbooks/es/prolog-generates-clojurescript.srwb",
       "revision": 1,
       "sha256": "53128573b363edaa7491d4778c26f588363ca20ab40d82e54478ca7816ffb068",
       "size": 4923
@@ -141,7 +153,7 @@
         "es"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/es/prolog-generates-typr.srwb",
+      "path": "workbooks/es/prolog-generates-typr.srwb",
       "revision": 1,
       "sha256": "e95b08629e8214803003616fb25a6139e8244b65689047406ebb2dbf679f9bed",
       "size": 6654
@@ -158,7 +170,7 @@
         "es"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/es/r_ggplot2_showcase.ipynb",
+      "path": "workbooks/es/r_ggplot2_showcase.ipynb",
       "revision": 1,
       "sha256": "d0eab9168034be85bd43d2755c417eee68d40c4160b680a7702f25cde4030571",
       "size": 4387
@@ -175,7 +187,7 @@
         "es"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/es/r_statistics.ipynb",
+      "path": "workbooks/es/r_statistics.ipynb",
       "revision": 1,
       "sha256": "46ea6f994b9b2f6bcd3849285b0fdb22349f769240ac54a1698e26cee813a7f5",
       "size": 6043
@@ -192,7 +204,7 @@
         "es"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/es/r_tidyverse_wrangling.ipynb",
+      "path": "workbooks/es/r_tidyverse_wrangling.ipynb",
       "revision": 1,
       "sha256": "7ee8598046a7bef17a942d5f390c31535ed8f02f691a8ae77069558ab437f016",
       "size": 7926
@@ -210,7 +222,7 @@
         "es"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/es/01_family_tree_tutorial.ipynb",
+      "path": "workbooks/es/01_family_tree_tutorial.ipynb",
       "revision": 1,
       "sha256": "e7da86940a2f9b154456e440dfa45c705d73147e575b833386345f1dffce4699",
       "size": 10444
@@ -228,7 +240,7 @@
         "es"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/es/02_recursion_patterns.ipynb",
+      "path": "workbooks/es/02_recursion_patterns.ipynb",
       "revision": 1,
       "sha256": "f09b6fd4f1bfc006cb283dc5dece7ebdabbc9bc32e6772ced56d6e075b24db64",
       "size": 16540
@@ -246,7 +258,7 @@
         "es"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/es/03_call_graph_analysis.ipynb",
+      "path": "workbooks/es/03_call_graph_analysis.ipynb",
       "revision": 1,
       "sha256": "afa53f4ba79504f06acd5316eb50c4243df0bcb62365b3640ebe7e7be7fa3b47",
       "size": 14186
@@ -264,7 +276,7 @@
         "es"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/es/life_expectancy_csv_demo.ipynb",
+      "path": "workbooks/es/life_expectancy_csv_demo.ipynb",
       "revision": 1,
       "sha256": "2b0371f8797051d3599337749f4811428cbc1b9c357665964f8daf441f727a84",
       "size": 11537
@@ -281,7 +293,7 @@
         "ja"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ja/compute-pi-workbook.srwb",
+      "path": "workbooks/ja/compute-pi-workbook.srwb",
       "revision": 1,
       "sha256": "25850dbe21a8c4c134be89e53f3c8afb0b98674c7c07b2e810d7adf7b064d2f4",
       "size": 6060
@@ -298,7 +310,7 @@
         "ja"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ja/lua-tables-coroutines.srwb",
+      "path": "workbooks/ja/lua-tables-coroutines.srwb",
       "revision": 1,
       "sha256": "4d2693227083583b174e1fcb5d74edfdb8946b5b8da2ddc066bc00186e4ebf23",
       "size": 14465
@@ -315,7 +327,7 @@
         "ja"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ja/lua-parsing-coroutines.srwb",
+      "path": "workbooks/ja/lua-parsing-coroutines.srwb",
       "revision": 1,
       "sha256": "d1b39274661ef371975f555b3bb3b5860e5a357261947098541c1ec5ee6c8698",
       "size": 22305
@@ -332,7 +344,7 @@
         "ja"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ja/typr-intro.srwb",
+      "path": "workbooks/ja/typr-intro.srwb",
       "revision": 1,
       "sha256": "086199044f18dc335698a5d216679b68eff77841db002376213a7373c6fb18d2",
       "size": 3185
@@ -350,7 +362,7 @@
         "ja"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ja/prolog-generates-r.srwb",
+      "path": "workbooks/ja/prolog-generates-r.srwb",
       "revision": 1,
       "sha256": "6c9ec064d4a48cc54ea97c6529fb68ccb42acc336380e30b48b2dcd3214bc127",
       "size": 15101
@@ -368,7 +380,7 @@
         "ja"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ja/prolog-generates-lua.srwb",
+      "path": "workbooks/ja/prolog-generates-lua.srwb",
       "revision": 1,
       "sha256": "ec0ec9528a7e94bf0a7226735f211595f93f5a04708545cf9e3bdd9b85e20e91",
       "size": 6896
@@ -386,7 +398,7 @@
         "ja"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ja/prolog-generates-clojurescript.srwb",
+      "path": "workbooks/ja/prolog-generates-clojurescript.srwb",
       "revision": 1,
       "sha256": "00fe67db5f052e17a90b4d75cef4fde9f66ed5ec644021eea284a8ca19a5efff",
       "size": 5336
@@ -404,7 +416,7 @@
         "ja"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ja/prolog-generates-typr.srwb",
+      "path": "workbooks/ja/prolog-generates-typr.srwb",
       "revision": 1,
       "sha256": "1de7ab7cf778316096d0f6b9d909f2c9517df4079769eea948eb0c9e707508e1",
       "size": 7173
@@ -421,7 +433,7 @@
         "ja"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ja/r_ggplot2_showcase.ipynb",
+      "path": "workbooks/ja/r_ggplot2_showcase.ipynb",
       "revision": 1,
       "sha256": "e94efb832776d30833b55ba89fe31c652c0decb61df91c952fdedb32d16c1383",
       "size": 4477
@@ -438,7 +450,7 @@
         "ja"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ja/r_statistics.ipynb",
+      "path": "workbooks/ja/r_statistics.ipynb",
       "revision": 1,
       "sha256": "435fe12bcae94da6cfaa1ff017c35a9177c49e285dbbb5ff06cae848204095db",
       "size": 6206
@@ -455,7 +467,7 @@
         "ja"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ja/r_tidyverse_wrangling.ipynb",
+      "path": "workbooks/ja/r_tidyverse_wrangling.ipynb",
       "revision": 1,
       "sha256": "af823c7af50b80bb70dc853ad2f1a5f6863acf133cc3e9aa1d323e1a2ede2e39",
       "size": 8035
@@ -473,7 +485,7 @@
         "ja"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ja/01_family_tree_tutorial.ipynb",
+      "path": "workbooks/ja/01_family_tree_tutorial.ipynb",
       "revision": 1,
       "sha256": "b2673fba5d7e7096c2b83ede0964909dd11602881b9fa53173013b1b5778dce6",
       "size": 11195
@@ -491,7 +503,7 @@
         "ja"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ja/02_recursion_patterns.ipynb",
+      "path": "workbooks/ja/02_recursion_patterns.ipynb",
       "revision": 1,
       "sha256": "862befe26b8fb03ff72183ad0bef477521166644c2b195023153c6c6335f86c8",
       "size": 17144
@@ -509,7 +521,7 @@
         "ja"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ja/03_call_graph_analysis.ipynb",
+      "path": "workbooks/ja/03_call_graph_analysis.ipynb",
       "revision": 1,
       "sha256": "cab2c7cfeb4e38b906f6eb30bec39fd2789fafec9d0d1fee818a32a7cf252a0c",
       "size": 14352
@@ -527,7 +539,7 @@
         "ja"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ja/life_expectancy_csv_demo.ipynb",
+      "path": "workbooks/ja/life_expectancy_csv_demo.ipynb",
       "revision": 1,
       "sha256": "beece58dfda5b15d380699e417bbe6a63f36823de66eb00531d44e35fed6241e",
       "size": 11699
@@ -544,7 +556,7 @@
         "ar"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ar/compute-pi-workbook.srwb",
+      "path": "workbooks/ar/compute-pi-workbook.srwb",
       "revision": 1,
       "sha256": "295e3411a4310c255a6980e3884011152c0145e03c1cf81bef1f9c409cc8efcf",
       "size": 6069
@@ -561,7 +573,7 @@
         "ar"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ar/lua-tables-coroutines.srwb",
+      "path": "workbooks/ar/lua-tables-coroutines.srwb",
       "revision": 1,
       "sha256": "e8b1501f638e91a993cb4b42d646d1805f0123519e8a6768ff33a71d85f92950",
       "size": 15126
@@ -578,7 +590,7 @@
         "ar"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ar/lua-parsing-coroutines.srwb",
+      "path": "workbooks/ar/lua-parsing-coroutines.srwb",
       "revision": 1,
       "sha256": "9fd5c597e89f73d368324cacc33bb7db57ec5ad2ad3ecfdf1d159b22accf7114",
       "size": 23238
@@ -595,7 +607,7 @@
         "ar"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ar/typr-intro.srwb",
+      "path": "workbooks/ar/typr-intro.srwb",
       "revision": 1,
       "sha256": "8ef313e539190b3297b1eba18ab9bfee0707e7f113610d71d8a753c34accdafa",
       "size": 3341
@@ -613,7 +625,7 @@
         "ar"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ar/prolog-generates-r.srwb",
+      "path": "workbooks/ar/prolog-generates-r.srwb",
       "revision": 1,
       "sha256": "20bb21eafb2f8a63b42da608b3fb9666bbb26d10454c16f3db83238a280f0b21",
       "size": 15462
@@ -631,7 +643,7 @@
         "ar"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ar/prolog-generates-lua.srwb",
+      "path": "workbooks/ar/prolog-generates-lua.srwb",
       "revision": 1,
       "sha256": "ce4f28de4fb171b509ef0fc3ab573f6ac3f30e827bbd8c6546827f531fccab7c",
       "size": 6994
@@ -649,7 +661,7 @@
         "ar"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ar/prolog-generates-clojurescript.srwb",
+      "path": "workbooks/ar/prolog-generates-clojurescript.srwb",
       "revision": 1,
       "sha256": "ae88e807c85b5acfe07e575d6e6953728960d69cae65eddfd475f7e6290d0c38",
       "size": 5472
@@ -667,7 +679,7 @@
         "ar"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ar/prolog-generates-typr.srwb",
+      "path": "workbooks/ar/prolog-generates-typr.srwb",
       "revision": 1,
       "sha256": "9170cc2a145b5ffb2092583790c12c7c5eb772f70194c040da0879e17a551fef",
       "size": 7270
@@ -684,7 +696,7 @@
         "ar"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ar/r_ggplot2_showcase.ipynb",
+      "path": "workbooks/ar/r_ggplot2_showcase.ipynb",
       "revision": 1,
       "sha256": "37f29da196d6b76d84e42e611fc1735385b86f716f630c5d1b9bd7c0b334d659",
       "size": 4597
@@ -701,7 +713,7 @@
         "ar"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ar/r_statistics.ipynb",
+      "path": "workbooks/ar/r_statistics.ipynb",
       "revision": 1,
       "sha256": "a3215ca659e1418848ad0f35e0a39181a4e711ae30f28f46d318f992b11bdc66",
       "size": 6485
@@ -718,7 +730,7 @@
         "ar"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ar/r_tidyverse_wrangling.ipynb",
+      "path": "workbooks/ar/r_tidyverse_wrangling.ipynb",
       "revision": 1,
       "sha256": "c6df07df4e842efc148e838323d2fbce76d642b71bb9461bbfe93a0ed45fa41e",
       "size": 8227
@@ -736,7 +748,7 @@
         "ar"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ar/01_family_tree_tutorial.ipynb",
+      "path": "workbooks/ar/01_family_tree_tutorial.ipynb",
       "revision": 1,
       "sha256": "afe18781de5bee0c775d2990fbd60dcb4eab7310dfdccccb690c67c14727af69",
       "size": 11276
@@ -754,7 +766,7 @@
         "ar"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ar/02_recursion_patterns.ipynb",
+      "path": "workbooks/ar/02_recursion_patterns.ipynb",
       "revision": 1,
       "sha256": "81f4258659d1041bbf1f4e499bc0c795bcf277087323fbe5f4a14f93c2c682e1",
       "size": 18081
@@ -772,7 +784,7 @@
         "ar"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ar/03_call_graph_analysis.ipynb",
+      "path": "workbooks/ar/03_call_graph_analysis.ipynb",
       "revision": 1,
       "sha256": "49a4fbf7e3109985f86ffa69940d2ff261c47e6b8011fb046037867818084123",
       "size": 15233
@@ -790,7 +802,7 @@
         "ar"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ar/life_expectancy_csv_demo.ipynb",
+      "path": "workbooks/ar/life_expectancy_csv_demo.ipynb",
       "revision": 1,
       "sha256": "0ea8b874811c17458288bf8855b05792b963cd6c24df14dc4af3a2d50405a925",
       "size": 11992
@@ -807,7 +819,7 @@
         "ko"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ko/compute-pi-workbook.srwb",
+      "path": "workbooks/ko/compute-pi-workbook.srwb",
       "revision": 1,
       "sha256": "d15fccfa54fe18368f4038448cf648461859cfb963075cbc6700322b632b8022",
       "size": 5938
@@ -824,7 +836,7 @@
         "ko"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ko/lua-tables-coroutines.srwb",
+      "path": "workbooks/ko/lua-tables-coroutines.srwb",
       "revision": 1,
       "sha256": "159f32542b529361eb0b783be3f4157899cc8e4e35e62eb2ba84de6e5d6e6b9f",
       "size": 13906
@@ -841,7 +853,7 @@
         "ko"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ko/lua-parsing-coroutines.srwb",
+      "path": "workbooks/ko/lua-parsing-coroutines.srwb",
       "revision": 1,
       "sha256": "043927af6c52bc81deba6c8b9656e84b44a34bd7255f52aed9e810adb24a735d",
       "size": 21528
@@ -858,7 +870,7 @@
         "ko"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ko/typr-intro.srwb",
+      "path": "workbooks/ko/typr-intro.srwb",
       "revision": 1,
       "sha256": "bff4e639e046db1288285b225175a5b6031bd5dc17fd1b9a0ba20caa99cf57ba",
       "size": 3054
@@ -876,7 +888,7 @@
         "ko"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ko/prolog-generates-r.srwb",
+      "path": "workbooks/ko/prolog-generates-r.srwb",
       "revision": 1,
       "sha256": "46e5c1755791badece12fe2ba7c6cfc605a561ef63c8350c2a6f6c38d2e5f5d1",
       "size": 14291
@@ -894,7 +906,7 @@
         "ko"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ko/prolog-generates-lua.srwb",
+      "path": "workbooks/ko/prolog-generates-lua.srwb",
       "revision": 1,
       "sha256": "aab112a62aa1bd727ad507923f488261f71d039fae78f2c017a34a8929de36cc",
       "size": 6554
@@ -912,7 +924,7 @@
         "ko"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ko/prolog-generates-clojurescript.srwb",
+      "path": "workbooks/ko/prolog-generates-clojurescript.srwb",
       "revision": 1,
       "sha256": "b934284df869f63e4164489ad53570ef2aa36495955b4edca0847bf221359011",
       "size": 5000
@@ -930,7 +942,7 @@
         "ko"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ko/prolog-generates-typr.srwb",
+      "path": "workbooks/ko/prolog-generates-typr.srwb",
       "revision": 1,
       "sha256": "dda71bf29bf807cf44d9ebd3086666f353d47980a948d4e9aad022c815c87a9a",
       "size": 6755
@@ -947,7 +959,7 @@
         "ko"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ko/r_ggplot2_showcase.ipynb",
+      "path": "workbooks/ko/r_ggplot2_showcase.ipynb",
       "revision": 1,
       "sha256": "6ffd0aa1310fb4b54cb997cbb08abfbc2b2a2ad3812040b2cc16e02061f2fe8a",
       "size": 4428
@@ -964,7 +976,7 @@
         "ko"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ko/r_statistics.ipynb",
+      "path": "workbooks/ko/r_statistics.ipynb",
       "revision": 1,
       "sha256": "4f3981d8d28155d06a5b0c0a27bea7fe93dc881638e495c6fc52d28d775008da",
       "size": 6076
@@ -981,7 +993,7 @@
         "ko"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ko/r_tidyverse_wrangling.ipynb",
+      "path": "workbooks/ko/r_tidyverse_wrangling.ipynb",
       "revision": 1,
       "sha256": "f813fb1c114e8232d1570c37410abd9d2d94e76e9fbf9bc95426a7b7430d275a",
       "size": 7906
@@ -999,7 +1011,7 @@
         "ko"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ko/01_family_tree_tutorial.ipynb",
+      "path": "workbooks/ko/01_family_tree_tutorial.ipynb",
       "revision": 1,
       "sha256": "b16d10573ba14e0a51cb2d3b3ef4ed1be7e9dcf59bfd9db0f3bb77eb7851a532",
       "size": 10592
@@ -1017,7 +1029,7 @@
         "ko"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ko/02_recursion_patterns.ipynb",
+      "path": "workbooks/ko/02_recursion_patterns.ipynb",
       "revision": 1,
       "sha256": "bfdce741f2c9251770878be2830cb2fd06580957d66e92f61be03acb8af75002",
       "size": 16595
@@ -1035,7 +1047,7 @@
         "ko"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ko/03_call_graph_analysis.ipynb",
+      "path": "workbooks/ko/03_call_graph_analysis.ipynb",
       "revision": 1,
       "sha256": "d8707e7841f46bca6547387924250ccece81387763625662c909225e75a878d9",
       "size": 14013
@@ -1053,7 +1065,7 @@
         "ko"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ko/life_expectancy_csv_demo.ipynb",
+      "path": "workbooks/ko/life_expectancy_csv_demo.ipynb",
       "revision": 1,
       "sha256": "8ae47e44a427c8a928ff27eb6b35490d9522ccc5b5935d5a8c29b81dfaf3cbff",
       "size": 11590
@@ -1070,7 +1082,7 @@
         "pt-BR"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/pt-BR/compute-pi-workbook.srwb",
+      "path": "workbooks/pt-BR/compute-pi-workbook.srwb",
       "revision": 1,
       "sha256": "157276a62bcd19d262c88e0b593de92434f4c3498e2f98fcefd311a48e4699e6",
       "size": 5750
@@ -1087,7 +1099,7 @@
         "pt-BR"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/pt-BR/lua-tables-coroutines.srwb",
+      "path": "workbooks/pt-BR/lua-tables-coroutines.srwb",
       "revision": 1,
       "sha256": "9df37aa0829c4d6d85c13c3fa408024fe89a94f4642cf368bfc98ab6782c0084",
       "size": 13619
@@ -1104,7 +1116,7 @@
         "pt-BR"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/pt-BR/lua-parsing-coroutines.srwb",
+      "path": "workbooks/pt-BR/lua-parsing-coroutines.srwb",
       "revision": 1,
       "sha256": "bdf79d8aa35f1768673073fcc4a5044f157084cc9acb56b43f30638e2e329d29",
       "size": 21521
@@ -1121,7 +1133,7 @@
         "pt-BR"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/pt-BR/typr-intro.srwb",
+      "path": "workbooks/pt-BR/typr-intro.srwb",
       "revision": 1,
       "sha256": "873dce339e068fb5b5604e3747d7b2c4545ae7b472908170153c886f62e6c2de",
       "size": 2927
@@ -1139,7 +1151,7 @@
         "pt-BR"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/pt-BR/prolog-generates-r.srwb",
+      "path": "workbooks/pt-BR/prolog-generates-r.srwb",
       "revision": 1,
       "sha256": "badbbeb16eeb9622c36b5d5196be02a14cd389bd7cf9834e40e9b558acdef8ec",
       "size": 13954
@@ -1157,7 +1169,7 @@
         "pt-BR"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/pt-BR/prolog-generates-lua.srwb",
+      "path": "workbooks/pt-BR/prolog-generates-lua.srwb",
       "revision": 1,
       "sha256": "74363937c21e037b008d5a65a365b1331700eda50438954ba5287041924f60c5",
       "size": 6507
@@ -1175,7 +1187,7 @@
         "pt-BR"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/pt-BR/prolog-generates-clojurescript.srwb",
+      "path": "workbooks/pt-BR/prolog-generates-clojurescript.srwb",
       "revision": 1,
       "sha256": "f1ddd39896a9b6cd88600ded53e08e97bdbc05088f0b0b1f83675bfa8647bc39",
       "size": 4945
@@ -1193,7 +1205,7 @@
         "pt-BR"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/pt-BR/prolog-generates-typr.srwb",
+      "path": "workbooks/pt-BR/prolog-generates-typr.srwb",
       "revision": 1,
       "sha256": "9ffe94b9c1dc16a4fae3839b229efaef637c45260b7f2775c8bc1a1b4e958c21",
       "size": 6572
@@ -1210,7 +1222,7 @@
         "pt-BR"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/pt-BR/r_ggplot2_showcase.ipynb",
+      "path": "workbooks/pt-BR/r_ggplot2_showcase.ipynb",
       "revision": 1,
       "sha256": "f3ca98b4828bbe85e02e6d03083f0a4ed7f46ffe093c514d14e2cae2926a0424",
       "size": 4418
@@ -1227,7 +1239,7 @@
         "pt-BR"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/pt-BR/r_statistics.ipynb",
+      "path": "workbooks/pt-BR/r_statistics.ipynb",
       "revision": 1,
       "sha256": "0fd26ad7f68d697e7a608e659d27aad21128f013f8d531e662b90614fa5d196e",
       "size": 6047
@@ -1244,7 +1256,7 @@
         "pt-BR"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/pt-BR/r_tidyverse_wrangling.ipynb",
+      "path": "workbooks/pt-BR/r_tidyverse_wrangling.ipynb",
       "revision": 1,
       "sha256": "5a8ff0db5fd1841e616d94a3578001cf92d40080fd985a46af31ee3f1702a13a",
       "size": 7874
@@ -1262,7 +1274,7 @@
         "pt-BR"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/pt-BR/01_family_tree_tutorial.ipynb",
+      "path": "workbooks/pt-BR/01_family_tree_tutorial.ipynb",
       "revision": 1,
       "sha256": "94dac04ea1c552b5684439ade750752a8651ae8c92c632b2047571727c0edc2a",
       "size": 10390
@@ -1280,7 +1292,7 @@
         "pt-BR"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/pt-BR/02_recursion_patterns.ipynb",
+      "path": "workbooks/pt-BR/02_recursion_patterns.ipynb",
       "revision": 1,
       "sha256": "b953c086e876c05cc83e552382372395fe038d75c85b5d0c5b3706fa2d89bb0d",
       "size": 16665
@@ -1298,7 +1310,7 @@
         "pt-BR"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/pt-BR/03_call_graph_analysis.ipynb",
+      "path": "workbooks/pt-BR/03_call_graph_analysis.ipynb",
       "revision": 1,
       "sha256": "d80ae476f4c2adbaa79b2dd67a36277183903de087071f6032e6e544fb37a9db",
       "size": 14239
@@ -1316,7 +1328,7 @@
         "pt-BR"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/pt-BR/life_expectancy_csv_demo.ipynb",
+      "path": "workbooks/pt-BR/life_expectancy_csv_demo.ipynb",
       "revision": 1,
       "sha256": "0654b8d8dc355b7fbf279c045f36d5b00d8f70b17dd3052fdee4aa2d16b6d61c",
       "size": 11533
@@ -1333,7 +1345,7 @@
         "de"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/de/compute-pi-workbook.srwb",
+      "path": "workbooks/de/compute-pi-workbook.srwb",
       "revision": 1,
       "sha256": "01604ab188b2763309bd2f3f3cad6f727c0cc911825a4674aacbc4e8e9359472",
       "size": 5790
@@ -1350,7 +1362,7 @@
         "de"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/de/lua-tables-coroutines.srwb",
+      "path": "workbooks/de/lua-tables-coroutines.srwb",
       "revision": 1,
       "sha256": "5c9f39e912a9579a14b253001b19c834560f340c314cc4664d72b1fdfd3832b4",
       "size": 13687
@@ -1367,7 +1379,7 @@
         "de"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/de/lua-parsing-coroutines.srwb",
+      "path": "workbooks/de/lua-parsing-coroutines.srwb",
       "revision": 1,
       "sha256": "bb82b5b7e94eb0daf6d5a6bad9cd952a8654b2551988b5b142f2502fa8445b7f",
       "size": 21375
@@ -1384,7 +1396,7 @@
         "de"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/de/typr-intro.srwb",
+      "path": "workbooks/de/typr-intro.srwb",
       "revision": 1,
       "sha256": "870b5f74e44d6213f4a317571be901527e36edd1cb8fc354fab01b93562c296f",
       "size": 2914
@@ -1402,7 +1414,7 @@
         "de"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/de/prolog-generates-r.srwb",
+      "path": "workbooks/de/prolog-generates-r.srwb",
       "revision": 1,
       "sha256": "99e8da39198eaac1c506eaa44acf5408aeebb2231a380fb28d60e5af4d2b0b70",
       "size": 14084
@@ -1420,7 +1432,7 @@
         "de"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/de/prolog-generates-lua.srwb",
+      "path": "workbooks/de/prolog-generates-lua.srwb",
       "revision": 1,
       "sha256": "ee707f33afa0be73e64437779397abf1e1f80edec6c4965e7d9d661dacd3b73a",
       "size": 6460
@@ -1438,7 +1450,7 @@
         "de"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/de/prolog-generates-clojurescript.srwb",
+      "path": "workbooks/de/prolog-generates-clojurescript.srwb",
       "revision": 1,
       "sha256": "42a30c59553819a321360deff41f752e68a6a951e6938619b2a7babdedaa32f5",
       "size": 4803
@@ -1456,7 +1468,7 @@
         "de"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/de/prolog-generates-typr.srwb",
+      "path": "workbooks/de/prolog-generates-typr.srwb",
       "revision": 1,
       "sha256": "8932dec4e8996163273d21e4f5fbe2b1b8bca715ff5272c8b0830b0a8f04833b",
       "size": 6646
@@ -1473,7 +1485,7 @@
         "de"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/de/r_ggplot2_showcase.ipynb",
+      "path": "workbooks/de/r_ggplot2_showcase.ipynb",
       "revision": 1,
       "sha256": "2dbad673c01f7abdc46b248109a6ae33110a922166e77838d7ced7dce73f7f3e",
       "size": 4336
@@ -1490,7 +1502,7 @@
         "de"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/de/r_statistics.ipynb",
+      "path": "workbooks/de/r_statistics.ipynb",
       "revision": 1,
       "sha256": "00a82c160f4eadbf119ef2a42927f524beadc3c66f62e4681c3ee918437618e9",
       "size": 6079
@@ -1507,7 +1519,7 @@
         "de"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/de/r_tidyverse_wrangling.ipynb",
+      "path": "workbooks/de/r_tidyverse_wrangling.ipynb",
       "revision": 1,
       "sha256": "82ad0a07d9397d46c0fd1a9a3f7613cbdf5bd720c29b0d9a6284d68daf3eb0e1",
       "size": 7933
@@ -1525,7 +1537,7 @@
         "de"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/de/01_family_tree_tutorial.ipynb",
+      "path": "workbooks/de/01_family_tree_tutorial.ipynb",
       "revision": 1,
       "sha256": "2dc84c297fc8503113ef2ea88fcf9d4be9d9defe0400f48b58c9dc58027f92fb",
       "size": 10538
@@ -1543,7 +1555,7 @@
         "de"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/de/02_recursion_patterns.ipynb",
+      "path": "workbooks/de/02_recursion_patterns.ipynb",
       "revision": 1,
       "sha256": "00b7e55c1f0fd13faad226cd7735c6c34b4fb5f309aae13ae6c08b8844a1cc8f",
       "size": 16701
@@ -1561,7 +1573,7 @@
         "de"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/de/03_call_graph_analysis.ipynb",
+      "path": "workbooks/de/03_call_graph_analysis.ipynb",
       "revision": 1,
       "sha256": "0fd3f9a6031db29d3e8f5f057aa8ffdd835f2b2bc4cfbed644aadfe25752781a",
       "size": 14132
@@ -1579,7 +1591,7 @@
         "de"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/de/life_expectancy_csv_demo.ipynb",
+      "path": "workbooks/de/life_expectancy_csv_demo.ipynb",
       "revision": 1,
       "sha256": "adcff6feaf2b7f0d529e94821838e28fe574fcde6938c43da20fd8fb828bea78",
       "size": 11537
@@ -1596,7 +1608,7 @@
         "fr"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/fr/compute-pi-workbook.srwb",
+      "path": "workbooks/fr/compute-pi-workbook.srwb",
       "revision": 1,
       "sha256": "670dd5ee9add30bc8f9c4ce1c37ac6eb46c69a3d195f279bc28969620ecce7a7",
       "size": 5843
@@ -1613,7 +1625,7 @@
         "fr"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/fr/lua-tables-coroutines.srwb",
+      "path": "workbooks/fr/lua-tables-coroutines.srwb",
       "revision": 1,
       "sha256": "d711bc73ae4c287164827b150fa31c0972c399f406889ab0098379e042af6c59",
       "size": 13966
@@ -1630,7 +1642,7 @@
         "fr"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/fr/lua-parsing-coroutines.srwb",
+      "path": "workbooks/fr/lua-parsing-coroutines.srwb",
       "revision": 1,
       "sha256": "1ed05841c4dd532853562ca2a2d9e8dd51192de6ba47785bf2a758507a26ea6a",
       "size": 21804
@@ -1647,7 +1659,7 @@
         "fr"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/fr/typr-intro.srwb",
+      "path": "workbooks/fr/typr-intro.srwb",
       "revision": 1,
       "sha256": "07d6152de09624b7f2ed26ddef70a34a130cbfda79611bbb5f6ab37a81bc0fbc",
       "size": 2966
@@ -1665,7 +1677,7 @@
         "fr"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/fr/prolog-generates-r.srwb",
+      "path": "workbooks/fr/prolog-generates-r.srwb",
       "revision": 1,
       "sha256": "8a47aa745dcacc9ef461b583986958df363b5048a7842e9fcd1f8d8b87fa1b7b",
       "size": 14359
@@ -1683,7 +1695,7 @@
         "fr"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/fr/prolog-generates-lua.srwb",
+      "path": "workbooks/fr/prolog-generates-lua.srwb",
       "revision": 1,
       "sha256": "a4078548d749c118545a2c235bc509ffe0b0ccc703863fe8aa4d427de87cf9e7",
       "size": 6529
@@ -1701,7 +1713,7 @@
         "fr"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/fr/prolog-generates-clojurescript.srwb",
+      "path": "workbooks/fr/prolog-generates-clojurescript.srwb",
       "revision": 1,
       "sha256": "0d63fd167fef8b0964e098ec707e617cd580c6ce4fd37d7403e0e00da7384ca8",
       "size": 5000
@@ -1719,7 +1731,7 @@
         "fr"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/fr/prolog-generates-typr.srwb",
+      "path": "workbooks/fr/prolog-generates-typr.srwb",
       "revision": 1,
       "sha256": "c0e04da89ed34f93c4c777c78d918b789098ccb167461879a306cbdf16bbfea8",
       "size": 6705
@@ -1736,7 +1748,7 @@
         "fr"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/fr/r_ggplot2_showcase.ipynb",
+      "path": "workbooks/fr/r_ggplot2_showcase.ipynb",
       "revision": 1,
       "sha256": "c3302f577f8c2aa2ce2bd915d71ba00d6aa25fa584839238ab59bdcf03c2f944",
       "size": 4438
@@ -1753,7 +1765,7 @@
         "fr"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/fr/r_statistics.ipynb",
+      "path": "workbooks/fr/r_statistics.ipynb",
       "revision": 1,
       "sha256": "23d7e42ffa02874c4f39d78ab8cefcfebea436af5e585eebe5648d9793ad7f41",
       "size": 6138
@@ -1770,7 +1782,7 @@
         "fr"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/fr/r_tidyverse_wrangling.ipynb",
+      "path": "workbooks/fr/r_tidyverse_wrangling.ipynb",
       "revision": 1,
       "sha256": "dac6f52add76366e9acfc737de447d1994f63defc18d8a6308a994111a1e8c33",
       "size": 7921
@@ -1788,7 +1800,7 @@
         "fr"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/fr/01_family_tree_tutorial.ipynb",
+      "path": "workbooks/fr/01_family_tree_tutorial.ipynb",
       "revision": 1,
       "sha256": "437a4e43410d218bd45798c270f78783c40605fab4476c5e47b1f8e819e595ab",
       "size": 10563
@@ -1806,7 +1818,7 @@
         "fr"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/fr/02_recursion_patterns.ipynb",
+      "path": "workbooks/fr/02_recursion_patterns.ipynb",
       "revision": 1,
       "sha256": "5987390f1490d3b8459577b2de4459b66e970ffa391a768fb2dd973addc7f298",
       "size": 16811
@@ -1824,7 +1836,7 @@
         "fr"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/fr/03_call_graph_analysis.ipynb",
+      "path": "workbooks/fr/03_call_graph_analysis.ipynb",
       "revision": 1,
       "sha256": "0a8278e3bace876df387c96f8b5da87cc86d7efcb35e44deea8cc61e878d54dd",
       "size": 14335
@@ -1842,7 +1854,7 @@
         "fr"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/fr/life_expectancy_csv_demo.ipynb",
+      "path": "workbooks/fr/life_expectancy_csv_demo.ipynb",
       "revision": 1,
       "sha256": "4cecc1f02378d9b3c8823339b7848b3b06826bd4a263826ec3b6b2bcf4cf4ee9",
       "size": 11581
@@ -1859,7 +1871,7 @@
         "ru"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ru/compute-pi-workbook.srwb",
+      "path": "workbooks/ru/compute-pi-workbook.srwb",
       "revision": 1,
       "sha256": "d09f1d770ddfab2713f10c00dd6d944172ab5e6d4781c7a37c05c19e2139bce8",
       "size": 6708
@@ -1876,7 +1888,7 @@
         "ru"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ru/lua-tables-coroutines.srwb",
+      "path": "workbooks/ru/lua-tables-coroutines.srwb",
       "revision": 1,
       "sha256": "8fdc2309a9b0d06dba3b1661ce4173e0a6dc452c0d085d04e8989d52aac8219f",
       "size": 15636
@@ -1893,7 +1905,7 @@
         "ru"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ru/lua-parsing-coroutines.srwb",
+      "path": "workbooks/ru/lua-parsing-coroutines.srwb",
       "revision": 1,
       "sha256": "76634d2fbb2cfa9b8730ebb95de67a64359e2d58dcfbd5fc32582574f2a1b573",
       "size": 23896
@@ -1910,7 +1922,7 @@
         "ru"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ru/typr-intro.srwb",
+      "path": "workbooks/ru/typr-intro.srwb",
       "revision": 1,
       "sha256": "a362b7cc37b71943cba6d4676ef1a4c235e8a3127ab3bf07bee48261d17b7deb",
       "size": 3653
@@ -1928,7 +1940,7 @@
         "ru"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ru/prolog-generates-r.srwb",
+      "path": "workbooks/ru/prolog-generates-r.srwb",
       "revision": 1,
       "sha256": "9cf2891d8803bd64a178c1155954fbabf122da2783dba0519ed5ccccae6d6f4b",
       "size": 17142
@@ -1946,7 +1958,7 @@
         "ru"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ru/prolog-generates-lua.srwb",
+      "path": "workbooks/ru/prolog-generates-lua.srwb",
       "revision": 1,
       "sha256": "4a59f3a57d92c0abad68dc9da4d47cb82a11f30facd176bafbf376d907d8dc94",
       "size": 7783
@@ -1964,7 +1976,7 @@
         "ru"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ru/prolog-generates-clojurescript.srwb",
+      "path": "workbooks/ru/prolog-generates-clojurescript.srwb",
       "revision": 1,
       "sha256": "d7993db0eca0bdfb2b6421f9b60e731ea7c4fef7f000254a97348586b4b43e63",
       "size": 6161
@@ -1982,7 +1994,7 @@
         "ru"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ru/prolog-generates-typr.srwb",
+      "path": "workbooks/ru/prolog-generates-typr.srwb",
       "revision": 1,
       "sha256": "cfb2995912ce9431679c92af2526b9a1099d652f71bb88dbfec70b8630e08f12",
       "size": 7993
@@ -1999,7 +2011,7 @@
         "ru"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ru/r_ggplot2_showcase.ipynb",
+      "path": "workbooks/ru/r_ggplot2_showcase.ipynb",
       "revision": 1,
       "sha256": "df5ae4df3c96d8b0f1cc67ac540b02a5ea5e5c734fc8dbafe35a7e299518ceb5",
       "size": 4813
@@ -2016,7 +2028,7 @@
         "ru"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ru/r_statistics.ipynb",
+      "path": "workbooks/ru/r_statistics.ipynb",
       "revision": 1,
       "sha256": "ec6271a6fdc1815574f7d584b0e9ccb6b7e397290adb59872f866cf7f2d99d8d",
       "size": 7335
@@ -2033,7 +2045,7 @@
         "ru"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ru/r_tidyverse_wrangling.ipynb",
+      "path": "workbooks/ru/r_tidyverse_wrangling.ipynb",
       "revision": 1,
       "sha256": "03bc1e27501ea52fca7b28bc65546d670f1418fb21f587d433315e4e848f0182",
       "size": 8520
@@ -2051,7 +2063,7 @@
         "ru"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ru/01_family_tree_tutorial.ipynb",
+      "path": "workbooks/ru/01_family_tree_tutorial.ipynb",
       "revision": 1,
       "sha256": "7e28a3c84f0a72a93eb030526003ca62bc6f670962781d119f6bf0d1e78c0715",
       "size": 12383
@@ -2069,7 +2081,7 @@
         "ru"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ru/02_recursion_patterns.ipynb",
+      "path": "workbooks/ru/02_recursion_patterns.ipynb",
       "revision": 1,
       "sha256": "2481c6031b109f3322e73bd69b72a053342cc2901a6d6172729a2a443a6ecf30",
       "size": 19393
@@ -2087,7 +2099,7 @@
         "ru"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ru/03_call_graph_analysis.ipynb",
+      "path": "workbooks/ru/03_call_graph_analysis.ipynb",
       "revision": 1,
       "sha256": "d603fa337b7a3a7f6c2e05347b2129894953cea24fb9956966019ffe0411d66f",
       "size": 16074
@@ -2105,7 +2117,7 @@
         "ru"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/ru/life_expectancy_csv_demo.ipynb",
+      "path": "workbooks/ru/life_expectancy_csv_demo.ipynb",
       "revision": 1,
       "sha256": "0b4fe59538b9087f6dab2976e7e211b64f4df9026c13b3c0ae2cf8e887598581",
       "size": 12289
@@ -2122,7 +2134,7 @@
         "zh"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/zh/compute-pi-workbook.srwb",
+      "path": "workbooks/zh/compute-pi-workbook.srwb",
       "revision": 1,
       "sha256": "eca177ccd0f7752f4a44eb1c71ecdbe865a8b9b3ee32a71dee852fe8ff6b00a5",
       "size": 5464
@@ -2139,7 +2151,7 @@
         "zh"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/zh/lua-tables-coroutines.srwb",
+      "path": "workbooks/zh/lua-tables-coroutines.srwb",
       "revision": 1,
       "sha256": "0665a6cde09b47046d24630f126375612d4f249bd1a5e1ad492c80458426ba26",
       "size": 13374
@@ -2156,7 +2168,7 @@
         "zh"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/zh/lua-parsing-coroutines.srwb",
+      "path": "workbooks/zh/lua-parsing-coroutines.srwb",
       "revision": 1,
       "sha256": "7d40af3d18c460f9e9bcbb8d32a569150e6c75eebcee4c237977ed9222ada427",
       "size": 21023
@@ -2173,7 +2185,7 @@
         "zh"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/zh/typr-intro.srwb",
+      "path": "workbooks/zh/typr-intro.srwb",
       "revision": 1,
       "sha256": "4ee5699cbd3fa98d3fdd5a12a0a35f71155c7e5fbe315d6bd5b2390374024005",
       "size": 2744
@@ -2191,7 +2203,7 @@
         "zh"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/zh/prolog-generates-r.srwb",
+      "path": "workbooks/zh/prolog-generates-r.srwb",
       "revision": 1,
       "sha256": "fae8606bd9b4825d4cdfe062de6bc3b41f777f9aa86ee2e9d33795bc927ed948",
       "size": 13330
@@ -2209,7 +2221,7 @@
         "zh"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/zh/prolog-generates-lua.srwb",
+      "path": "workbooks/zh/prolog-generates-lua.srwb",
       "revision": 1,
       "sha256": "3f1e36cbe81e3856564d16854f10f009f3b9dfe86c2099bb1d137e358c11143f",
       "size": 6173
@@ -2227,7 +2239,7 @@
         "zh"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/zh/prolog-generates-clojurescript.srwb",
+      "path": "workbooks/zh/prolog-generates-clojurescript.srwb",
       "revision": 1,
       "sha256": "27e14228ff2a66cdf2a88acdf81f0c0a2044130d9ff35a0d3041becef6e5e0d1",
       "size": 4626
@@ -2245,7 +2257,7 @@
         "zh"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/zh/prolog-generates-typr.srwb",
+      "path": "workbooks/zh/prolog-generates-typr.srwb",
       "revision": 1,
       "sha256": "4a0546263a895214084d7ad7ec96b8445a08f83f6d24e5ba69483d0a3e6de0b0",
       "size": 6362
@@ -2262,7 +2274,7 @@
         "zh"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/zh/r_ggplot2_showcase.ipynb",
+      "path": "workbooks/zh/r_ggplot2_showcase.ipynb",
       "revision": 1,
       "sha256": "b15780972310f4957583ac734562c10bb5d32adafd4944c50e552d0d3896d898",
       "size": 4250
@@ -2279,7 +2291,7 @@
         "zh"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/zh/r_statistics.ipynb",
+      "path": "workbooks/zh/r_statistics.ipynb",
       "revision": 1,
       "sha256": "5cfad41c4c0fba9da80ade215e07f874b42f4f9287bbcf8152b76d0e8a0958bc",
       "size": 5744
@@ -2296,7 +2308,7 @@
         "zh"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/zh/r_tidyverse_wrangling.ipynb",
+      "path": "workbooks/zh/r_tidyverse_wrangling.ipynb",
       "revision": 1,
       "sha256": "af4ec4b77c247f2adf74bd48f66214597ae9c9f4582418f25384f1c5fbcd1ab4",
       "size": 7755
@@ -2314,7 +2326,7 @@
         "zh"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/zh/01_family_tree_tutorial.ipynb",
+      "path": "workbooks/zh/01_family_tree_tutorial.ipynb",
       "revision": 1,
       "sha256": "104b0ed8bf6c5de5bb84080f74189b5ecb9d3c7534c613300167914e34b6fc4a",
       "size": 9917
@@ -2332,7 +2344,7 @@
         "zh"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/zh/02_recursion_patterns.ipynb",
+      "path": "workbooks/zh/02_recursion_patterns.ipynb",
       "revision": 1,
       "sha256": "50dcd9300e660e9059250998ad37d08ed7d555f6afc682ccf0f5d649116aa2e4",
       "size": 16076
@@ -2350,7 +2362,7 @@
         "zh"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/zh/03_call_graph_analysis.ipynb",
+      "path": "workbooks/zh/03_call_graph_analysis.ipynb",
       "revision": 1,
       "sha256": "ed3677691890a96347e36229046cebcd336b093e1ebc285c33630112bd1788ed",
       "size": 13388
@@ -2368,7 +2380,7 @@
         "zh"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/zh/life_expectancy_csv_demo.ipynb",
+      "path": "workbooks/zh/life_expectancy_csv_demo.ipynb",
       "revision": 1,
       "sha256": "54ac790516dd80c3b49cdb44e06661339d2a8177875269df263d1fbe2ba5fe34",
       "size": 11398
@@ -2385,7 +2397,7 @@
         "hi"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/hi/compute-pi-workbook.srwb",
+      "path": "workbooks/hi/compute-pi-workbook.srwb",
       "revision": 1,
       "sha256": "2cf2da72f9b7ebc361795a11aab6a76f069288c0f5b1de09436be1efa0761b36",
       "size": 7350
@@ -2402,7 +2414,7 @@
         "hi"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/hi/lua-tables-coroutines.srwb",
+      "path": "workbooks/hi/lua-tables-coroutines.srwb",
       "revision": 1,
       "sha256": "db6c56864a271c0fd171966c66d9a7f10ccbfcd52ade5bf076b768a09430c50b",
       "size": 16716
@@ -2419,7 +2431,7 @@
         "hi"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/hi/lua-parsing-coroutines.srwb",
+      "path": "workbooks/hi/lua-parsing-coroutines.srwb",
       "revision": 1,
       "sha256": "ad2d253d37c02d3f5d5394ec07210b4287a5bad7a6ba0e34ef19238d75ea3a2e",
       "size": 25388
@@ -2436,7 +2448,7 @@
         "hi"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/hi/typr-intro.srwb",
+      "path": "workbooks/hi/typr-intro.srwb",
       "revision": 1,
       "sha256": "cc09161b9f739b658bb7f0acbaca515074fbbe11a285c4c07f4e5d42a5f9c98d",
       "size": 4109
@@ -2454,7 +2466,7 @@
         "hi"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/hi/prolog-generates-r.srwb",
+      "path": "workbooks/hi/prolog-generates-r.srwb",
       "revision": 1,
       "sha256": "2b69785262d85aebe90c19bc3680add746562df7eb66f6f414858d5c618082c3",
       "size": 19330
@@ -2472,7 +2484,7 @@
         "hi"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/hi/prolog-generates-lua.srwb",
+      "path": "workbooks/hi/prolog-generates-lua.srwb",
       "revision": 1,
       "sha256": "4ea8aa8e8347d938e1aa11dc0771c7202a83a977c6c2bbd9fbf0b1a5b58caff0",
       "size": 8425
@@ -2490,7 +2502,7 @@
         "hi"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/hi/prolog-generates-clojurescript.srwb",
+      "path": "workbooks/hi/prolog-generates-clojurescript.srwb",
       "revision": 1,
       "sha256": "091d3b467b86985c608dbc9931e84d04152610b317044419aedab981df97f968",
       "size": 6669
@@ -2508,7 +2520,7 @@
         "hi"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/hi/prolog-generates-typr.srwb",
+      "path": "workbooks/hi/prolog-generates-typr.srwb",
       "revision": 1,
       "sha256": "426c416b71134ce0972d11bc41ca4b72e925d3f09d6c0086fac5cd767606c7fb",
       "size": 8766
@@ -2525,7 +2537,7 @@
         "hi"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/hi/r_ggplot2_showcase.ipynb",
+      "path": "workbooks/hi/r_ggplot2_showcase.ipynb",
       "revision": 1,
       "sha256": "f5665174f3f70a5d264adf775ff922e3527ea00d8a911b03aea74b666bacdbde",
       "size": 5010
@@ -2542,7 +2554,7 @@
         "hi"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/hi/r_statistics.ipynb",
+      "path": "workbooks/hi/r_statistics.ipynb",
       "revision": 1,
       "sha256": "b5b7b1e7fb1cca21013c50fabbf5118dad57a21deac3653c32ed84d215c4a306",
       "size": 7626
@@ -2559,7 +2571,7 @@
         "hi"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/hi/r_tidyverse_wrangling.ipynb",
+      "path": "workbooks/hi/r_tidyverse_wrangling.ipynb",
       "revision": 1,
       "sha256": "a5063d2de10925be2d94bbebdd2252ae5a0d6cbe3f629a0e410535c3cf2b2f70",
       "size": 8907
@@ -2577,7 +2589,7 @@
         "hi"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/hi/01_family_tree_tutorial.ipynb",
+      "path": "workbooks/hi/01_family_tree_tutorial.ipynb",
       "revision": 1,
       "sha256": "26ff5bdeab499eb72d3ef653c0e3f6ed251de0b294d93c1e97aa33f881de1659",
       "size": 14022
@@ -2595,7 +2607,7 @@
         "hi"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/hi/02_recursion_patterns.ipynb",
+      "path": "workbooks/hi/02_recursion_patterns.ipynb",
       "revision": 1,
       "sha256": "14f9deeeaccf080d73059b9b34da0b95a5087ab9add0fe9b8e2bf09b913e5fac",
       "size": 20723
@@ -2613,7 +2625,7 @@
         "hi"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/hi/03_call_graph_analysis.ipynb",
+      "path": "workbooks/hi/03_call_graph_analysis.ipynb",
       "revision": 1,
       "sha256": "2aae45b7322b815758db76c5294f48ce590cbdc7c85102185e0f047f4cbccf77",
       "size": 17281
@@ -2631,7 +2643,7 @@
         "hi"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/hi/life_expectancy_csv_demo.ipynb",
+      "path": "workbooks/hi/life_expectancy_csv_demo.ipynb",
       "revision": 1,
       "sha256": "a19983bf65490f984ec1a04ad59e51cefbad3a04b633db3c208a44b7bf9a2686",
       "size": 12486
@@ -2648,7 +2660,7 @@
         "bn"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/bn/compute-pi-workbook.srwb",
+      "path": "workbooks/bn/compute-pi-workbook.srwb",
       "revision": 1,
       "sha256": "7e29783a4ff550917060d8312680ca8086ba3d9bb6f6c3fa0c1e6f8232dc3501",
       "size": 7323
@@ -2665,7 +2677,7 @@
         "bn"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/bn/lua-tables-coroutines.srwb",
+      "path": "workbooks/bn/lua-tables-coroutines.srwb",
       "revision": 1,
       "sha256": "08e6d042795a02ad7d622fbece1578c38cad84e9316f07c993390ef2d7ea1e9f",
       "size": 16608
@@ -2682,7 +2694,7 @@
         "bn"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/bn/lua-parsing-coroutines.srwb",
+      "path": "workbooks/bn/lua-parsing-coroutines.srwb",
       "revision": 1,
       "sha256": "1d20cc3efbebe6f8f0918220d60d06be39ee2790f96ed75ac504e40eb6352c52",
       "size": 25361
@@ -2699,7 +2711,7 @@
         "bn"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/bn/typr-intro.srwb",
+      "path": "workbooks/bn/typr-intro.srwb",
       "revision": 1,
       "sha256": "7268143a8d4fb6e7e2dc5dd733ef5e8a816a010786c3b91d369d32d9161ab764",
       "size": 4029
@@ -2717,7 +2729,7 @@
         "bn"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/bn/prolog-generates-r.srwb",
+      "path": "workbooks/bn/prolog-generates-r.srwb",
       "revision": 1,
       "sha256": "f7c77b3fa60d57a4035abf5afbdd8a9901dd0346fcc0951b146fab2298004207",
       "size": 19185
@@ -2735,7 +2747,7 @@
         "bn"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/bn/prolog-generates-lua.srwb",
+      "path": "workbooks/bn/prolog-generates-lua.srwb",
       "revision": 1,
       "sha256": "b94794668b2ff67f89609f8cc2bdf6c5a13606ab8d529b1da8e113dafcf8ceaf",
       "size": 8244
@@ -2753,7 +2765,7 @@
         "bn"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/bn/prolog-generates-clojurescript.srwb",
+      "path": "workbooks/bn/prolog-generates-clojurescript.srwb",
       "revision": 1,
       "sha256": "295a6360740b00d4f519a17c5d7383cf184b9b30fe1965b1047462d795c22312",
       "size": 6727
@@ -2771,7 +2783,7 @@
         "bn"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/bn/prolog-generates-typr.srwb",
+      "path": "workbooks/bn/prolog-generates-typr.srwb",
       "revision": 1,
       "sha256": "6d8c9d7e31c73bf7de053facdd318a041a86e560bd02e1c9849d459dab4861f9",
       "size": 8706
@@ -2788,7 +2800,7 @@
         "bn"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/bn/r_ggplot2_showcase.ipynb",
+      "path": "workbooks/bn/r_ggplot2_showcase.ipynb",
       "revision": 1,
       "sha256": "d2140bb09ecb68f37443827bd40f47e270522981dc51996a24d07bb83f9329dc",
       "size": 5043
@@ -2805,7 +2817,7 @@
         "bn"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/bn/r_statistics.ipynb",
+      "path": "workbooks/bn/r_statistics.ipynb",
       "revision": 1,
       "sha256": "c578fed4fb912af50132503f567ff7cebe10980e3da8f6e74264c11eee7a88ac",
       "size": 7597
@@ -2822,7 +2834,7 @@
         "bn"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/bn/r_tidyverse_wrangling.ipynb",
+      "path": "workbooks/bn/r_tidyverse_wrangling.ipynb",
       "revision": 1,
       "sha256": "5b311f218ac1d9a3a414a141bff9c25fab330f7fd0e997db74577e59800cce66",
       "size": 8869
@@ -2840,7 +2852,7 @@
         "bn"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/bn/01_family_tree_tutorial.ipynb",
+      "path": "workbooks/bn/01_family_tree_tutorial.ipynb",
       "revision": 1,
       "sha256": "f3865e665d6279c5c0ff9599733f1ac62e10420afe70f2b1c37adcd0c0e7ba14",
       "size": 14383
@@ -2858,7 +2870,7 @@
         "bn"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/bn/02_recursion_patterns.ipynb",
+      "path": "workbooks/bn/02_recursion_patterns.ipynb",
       "revision": 1,
       "sha256": "95b0ea42588a755f584f1e485dc489f91a27c4b731617cb8c11ff9c7b49d2a2d",
       "size": 21006
@@ -2876,7 +2888,7 @@
         "bn"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/bn/03_call_graph_analysis.ipynb",
+      "path": "workbooks/bn/03_call_graph_analysis.ipynb",
       "revision": 1,
       "sha256": "9c749d24b003e6d3e753f959e185b2660b6e9f8a02481b6b5cd428002ede1313",
       "size": 17553
@@ -2894,7 +2906,7 @@
         "bn"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/bn/life_expectancy_csv_demo.ipynb",
+      "path": "workbooks/bn/life_expectancy_csv_demo.ipynb",
       "revision": 1,
       "sha256": "2f6b1f87b7e3de775cf72172d5493a35ac825b3ac53e5ff87987573e64692ac4",
       "size": 12420
@@ -2911,7 +2923,7 @@
         "id"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/id/compute-pi-workbook.srwb",
+      "path": "workbooks/id/compute-pi-workbook.srwb",
       "revision": 1,
       "sha256": "bb1810d5916351752ce3e12aec883f56d439f51f8696cefed49d669115145dfc",
       "size": 5692
@@ -2928,7 +2940,7 @@
         "id"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/id/lua-tables-coroutines.srwb",
+      "path": "workbooks/id/lua-tables-coroutines.srwb",
       "revision": 1,
       "sha256": "abd30461fc5d3b76855425103e3a3deeb418a14610a815f9e28f54d8ab6acd19",
       "size": 13660
@@ -2945,7 +2957,7 @@
         "id"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/id/lua-parsing-coroutines.srwb",
+      "path": "workbooks/id/lua-parsing-coroutines.srwb",
       "revision": 1,
       "sha256": "74f74ef368f79d3ab100ee34318765bf903fccd9b26cbe63b89c77713728785c",
       "size": 21463
@@ -2962,7 +2974,7 @@
         "id"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/id/typr-intro.srwb",
+      "path": "workbooks/id/typr-intro.srwb",
       "revision": 1,
       "sha256": "55779f471a3cd9e443c09e407cb410df50c8e1c752bbe4945c9c5e4c967cb705",
       "size": 2886
@@ -2980,7 +2992,7 @@
         "id"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/id/prolog-generates-r.srwb",
+      "path": "workbooks/id/prolog-generates-r.srwb",
       "revision": 1,
       "sha256": "bff7908bd34286b4fb2c69a4b1765c6c60ac7c87a40be4a5d4c335a7584973aa",
       "size": 14026
@@ -2998,7 +3010,7 @@
         "id"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/id/prolog-generates-lua.srwb",
+      "path": "workbooks/id/prolog-generates-lua.srwb",
       "revision": 1,
       "sha256": "90a732e15bb8c5a3f3bcd4c38ee44eb8741a49eb49482de5267c934011401c73",
       "size": 6355
@@ -3016,7 +3028,7 @@
         "id"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/id/prolog-generates-clojurescript.srwb",
+      "path": "workbooks/id/prolog-generates-clojurescript.srwb",
       "revision": 1,
       "sha256": "057fa1de218aaaf042ab76d916c503ee424c913847a93679685f3f13e5f11488",
       "size": 4817
@@ -3034,7 +3046,7 @@
         "id"
       ],
       "format": "srwb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/id/prolog-generates-typr.srwb",
+      "path": "workbooks/id/prolog-generates-typr.srwb",
       "revision": 1,
       "sha256": "7a23060e50ac90dac7db00cedea68b6f5d8d0adf9c8e25c8b38876fd5dcf1332",
       "size": 6564
@@ -3051,7 +3063,7 @@
         "id"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/id/r_ggplot2_showcase.ipynb",
+      "path": "workbooks/id/r_ggplot2_showcase.ipynb",
       "revision": 1,
       "sha256": "56995bb205f48e8fcb0f2fedc6e65348a57bf6a1823051605c2ad3c3fdb17eb5",
       "size": 4288
@@ -3068,7 +3080,7 @@
         "id"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/id/r_statistics.ipynb",
+      "path": "workbooks/id/r_statistics.ipynb",
       "revision": 1,
       "sha256": "ac2a6bfbde3e81adbdd7869196a093b087033442983bbbe52d870b891dca0548",
       "size": 5932
@@ -3085,7 +3097,7 @@
         "id"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/id/r_tidyverse_wrangling.ipynb",
+      "path": "workbooks/id/r_tidyverse_wrangling.ipynb",
       "revision": 1,
       "sha256": "42fb9bc2a5d92a73f25d4d96ec348271e51d406c980e4aa49398203680fe0eca",
       "size": 7810
@@ -3103,7 +3115,7 @@
         "id"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/id/01_family_tree_tutorial.ipynb",
+      "path": "workbooks/id/01_family_tree_tutorial.ipynb",
       "revision": 1,
       "sha256": "45094e50275a85465f4576d75864333323f7e9f4a0ea76e985478670dbf56d40",
       "size": 10442
@@ -3121,7 +3133,7 @@
         "id"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/id/02_recursion_patterns.ipynb",
+      "path": "workbooks/id/02_recursion_patterns.ipynb",
       "revision": 1,
       "sha256": "11565ac029aed1ff115c803805c6c3aabcf675a0c0752cc28416133cbcbfc68f",
       "size": 16454
@@ -3139,7 +3151,7 @@
         "id"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/id/03_call_graph_analysis.ipynb",
+      "path": "workbooks/id/03_call_graph_analysis.ipynb",
       "revision": 1,
       "sha256": "3d372e0d03cdb4365ae7858bef5966d4af0bcf633f8424c9169d604cb0dc5a70",
       "size": 13995
@@ -3157,7 +3169,7 @@
         "id"
       ],
       "format": "ipynb",
-      "url": "https://raw.githubusercontent.com/s243a/SciREPL-Catalog/main/workbooks/id/life_expectancy_csv_demo.ipynb",
+      "path": "workbooks/id/life_expectancy_csv_demo.ipynb",
       "revision": 1,
       "sha256": "7370de647bdc47705e81fec4578949eea1d99993e709ee13f1233e12f59e6871",
       "size": 11475
