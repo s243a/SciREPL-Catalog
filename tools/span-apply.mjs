@@ -92,10 +92,15 @@ if (mode === 'candidates') {
   const candidates = [];
   for (const c of cellsOf(wb)) {
     if (c.type === 'markdown') continue;
+    const lines = c.code.split('\n');
     for (const e of enumerate(c.index, c.code)) {
       if (e.kind === 'trap') continue;   // never offered for translation
       const { tok, seg, ...pub } = e;
       pub.cell_name = c.name || null;
+      // word-sense context: the source line the span lives on (comments:
+      // their own line; strings: the statement using them)
+      const ln = (tok.start?.line ?? tok.bodyStart?.line ?? 1) - 1;
+      pub.context = (lines[ln] || '').trim().slice(0, 120);
       candidates.push(pub);
     }
   }

@@ -1,0 +1,884 @@
+{
+  "manifest_version": 1,
+  "produced_by": "derived",
+  "generator": "tools/span-derive.mjs",
+  "locale": "ar",
+  "source": {
+    "path": "workbooks/en/compute-pi-workbook.srwb",
+    "sha256": "390396a85df660459b2ae6df25e19fde05c525d4c1a8cea17727fd547a258e4f"
+  },
+  "target": {
+    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/locales/ar/full.srwb",
+    "sha256": "5a06bfbcfe9fd7a494d345fc35d51d156f4d895a002f89c6bcbf45b8e3a56f63"
+  },
+  "spans": [
+    {
+      "cell_index": 1,
+      "cell_name": "geometry",
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 1
+        },
+        "end": {
+          "line": 3,
+          "col": 55
+        },
+        "text": "Visualize the starting hexagon inside a unit circle."
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 1
+        },
+        "end": {
+          "line": 3,
+          "col": 43
+        },
+        "text": "تصور المسدس الابتدائي داخل دائرة الوحدة."
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 1,
+      "cell_name": "geometry",
+      "source_span": {
+        "start": {
+          "line": 9,
+          "col": 77
+        },
+        "end": {
+          "line": 9,
+          "col": 88
+        },
+        "text": "Unit circle"
+      },
+      "target_span": {
+        "start": {
+          "line": 9,
+          "col": 77
+        },
+        "end": {
+          "line": 9,
+          "col": 89
+        },
+        "text": "دائرة الوحدة"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 1,
+      "cell_name": "geometry",
+      "source_span": {
+        "start": {
+          "line": 10,
+          "col": 70
+        },
+        "end": {
+          "line": 10,
+          "col": 87
+        },
+        "text": "Inscribed hexagon"
+      },
+      "target_span": {
+        "start": {
+          "line": 10,
+          "col": 70
+        },
+        "end": {
+          "line": 10,
+          "col": 84
+        },
+        "text": "المسدس الداخلي"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 1,
+      "cell_name": "geometry",
+      "source_span": {
+        "start": {
+          "line": 11,
+          "col": 21
+        },
+        "end": {
+          "line": 11,
+          "col": 53
+        },
+        "text": "Archimedes starts with a hexagon"
+      },
+      "target_span": {
+        "start": {
+          "line": 11,
+          "col": 21
+        },
+        "end": {
+          "line": 11,
+          "col": 39
+        },
+        "text": "يبدأ أرخميدس بمسدس"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "bounds",
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 8
+        },
+        "end": {
+          "line": 8,
+          "col": 5
+        },
+        "text": "Return rigorous polygon bounds for a unit circle.\n\n    chord is the side length of the inscribed n-gon. The stable half-angle\n    recurrence doubles n without requiring pi.\n    "
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 8
+        },
+        "end": {
+          "line": 8,
+          "col": 5
+        },
+        "text": "إرجاع حدود مضلع دقيقة لدائرة الوحدة.\n\n    chord هو طول ضلع المضلع الداخلي ذي n ضلعًا. تكرار نصف الزاوية\n    المستق�� يضاعف n دون الحاجة إلى pi.\n    "
+      },
+      "kind": "docstring",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "bounds",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "format_spec": ">4",
+      "source_span": {
+        "start": {
+          "line": 22,
+          "col": 9
+        },
+        "end": {
+          "line": 22,
+          "col": 87
+        },
+        "text": "step"
+      },
+      "target_span": {
+        "start": {
+          "line": 22,
+          "col": 9
+        },
+        "end": {
+          "line": 22,
+          "col": 89
+        },
+        "text": "خطوة"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "bounds",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "format_spec": ">9",
+      "source_span": {
+        "start": {
+          "line": 22,
+          "col": 9
+        },
+        "end": {
+          "line": 22,
+          "col": 87
+        },
+        "text": "sides"
+      },
+      "target_span": {
+        "start": {
+          "line": 22,
+          "col": 9
+        },
+        "end": {
+          "line": 22,
+          "col": 89
+        },
+        "text": "الأضلاع"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "bounds",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "format_spec": ">16",
+      "source_span": {
+        "start": {
+          "line": 22,
+          "col": 9
+        },
+        "end": {
+          "line": 22,
+          "col": 87
+        },
+        "text": "lower bound"
+      },
+      "target_span": {
+        "start": {
+          "line": 22,
+          "col": 9
+        },
+        "end": {
+          "line": 22,
+          "col": 89
+        },
+        "text": "الحد الأدنى"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "bounds",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "format_spec": ">16",
+      "source_span": {
+        "start": {
+          "line": 22,
+          "col": 9
+        },
+        "end": {
+          "line": 22,
+          "col": 87
+        },
+        "text": "upper bound"
+      },
+      "target_span": {
+        "start": {
+          "line": 22,
+          "col": 9
+        },
+        "end": {
+          "line": 22,
+          "col": 89
+        },
+        "text": "الحد الأقصى"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "bounds",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "format_spec": ">12",
+      "source_span": {
+        "start": {
+          "line": 22,
+          "col": 9
+        },
+        "end": {
+          "line": 22,
+          "col": 87
+        },
+        "text": "width"
+      },
+      "target_span": {
+        "start": {
+          "line": 22,
+          "col": 9
+        },
+        "end": {
+          "line": 22,
+          "col": 89
+        },
+        "text": "العرض"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": "bounds",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 28,
+          "col": 9
+        },
+        "end": {
+          "line": 28,
+          "col": 60
+        },
+        "text": "\\nFinal enclosure: "
+      },
+      "target_span": {
+        "start": {
+          "line": 28,
+          "col": 9
+        },
+        "end": {
+          "line": 28,
+          "col": 58
+        },
+        "text": "\\nالحصر النهائي: "
+      },
+      "placeholders": [
+        "{lower:.12f}",
+        "{upper:.12f}"
+      ]
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "accuracy",
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 70
+        },
+        "text": "How many sides are needed before the complete enclosure is narrower"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 56
+        },
+        "text": "كم عدد الأضلاع المطلوبة قبل أن يصبح الحصر الكامل أضيق"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "accuracy",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 65
+        },
+        "text": "than 10^-d? Values are for repeated doubling from the hexagon."
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 66
+        },
+        "text": "من 10^-d؟ القيم ناتجة عن المض��عفة المتكررة انطلاقًا من المسدس."
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "accuracy",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "format_spec": ">18",
+      "source_span": {
+        "start": {
+          "line": 9,
+          "col": 9
+        },
+        "end": {
+          "line": 9,
+          "col": 61
+        },
+        "text": "first doubled n"
+      },
+      "target_span": {
+        "start": {
+          "line": 9,
+          "col": 9
+        },
+        "end": {
+          "line": 9,
+          "col": 56
+        },
+        "text": "أول n مضاعف"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "accuracy",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "format_spec": ">14",
+      "source_span": {
+        "start": {
+          "line": 9,
+          "col": 9
+        },
+        "end": {
+          "line": 9,
+          "col": 61
+        },
+        "text": "bound width"
+      },
+      "target_span": {
+        "start": {
+          "line": 9,
+          "col": 9
+        },
+        "end": {
+          "line": 9,
+          "col": 56
+        },
+        "text": "نطاق الحصر"
+      },
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "accuracy",
+      "source_span": {
+        "start": {
+          "line": 14,
+          "col": 8
+        },
+        "end": {
+          "line": 14,
+          "col": 79
+        },
+        "text": "\\nA narrower enclosure certifies more absolute accuracy; it is stronger"
+      },
+      "target_span": {
+        "start": {
+          "line": 14,
+          "col": 8
+        },
+        "end": {
+          "line": 14,
+          "col": 52
+        },
+        "text": "\\nالحصر الأضيق يضمن دقة مطلقة أعلى؛ وهو أقوى"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 3,
+      "cell_name": "accuracy",
+      "source_span": {
+        "start": {
+          "line": 15,
+          "col": 8
+        },
+        "end": {
+          "line": 15,
+          "col": 81
+        },
+        "text": "than merely counting matching digits in one floating-point approximation."
+      },
+      "target_span": {
+        "start": {
+          "line": 15,
+          "col": 8
+        },
+        "end": {
+          "line": 15,
+          "col": 61
+        },
+        "text": "من مجرد عد الأرقام المتطابقة في تقريب عشري عائم واحد."
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": "symbolic_limit",
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 8
+        },
+        "end": {
+          "line": 7,
+          "col": 62
+        },
+        "text": "Symbolic check of the familiar inscribed-area formula:"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 8
+        },
+        "end": {
+          "line": 7,
+          "col": 60
+        },
+        "text": "التحقق الرمزي من صيغة مساحة المضلع الداخلي المألوفة:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": "symbolic_limit",
+      "source_span": {
+        "start": {
+          "line": 8,
+          "col": 8
+        },
+        "end": {
+          "line": 8,
+          "col": 40
+        },
+        "text": "limit as n approaches infinity ="
+      },
+      "target_span": {
+        "start": {
+          "line": 8,
+          "col": 8
+        },
+        "end": {
+          "line": 8,
+          "col": 44
+        },
+        "text": "النهاية عندما تقترب n من اللانهاية ="
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 5
+        },
+        "end": {
+          "line": 2,
+          "col": 63
+        },
+        "text": "Alternating-series remainder for pi is at most 4/(2N+1)."
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 5
+        },
+        "end": {
+          "line": 2,
+          "col": 57
+        },
+        "text": "باقي المتسلسلة المتناوبة لـ pi لا يتجاوز 4/(2N+1)."
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "source_span": {
+        "start": {
+          "line": 14,
+          "col": 8
+        },
+        "end": {
+          "line": 14,
+          "col": 54
+        },
+        "text": "Work needed for about 1e-10 absolute accuracy:"
+      },
+      "target_span": {
+        "start": {
+          "line": 14,
+          "col": 8
+        },
+        "end": {
+          "line": 14,
+          "col": 60
+        },
+        "text": "العمل المطلوب للوصول إلى دقة مطلقة تبلغ حوالي 1e-10:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 15,
+          "col": 9
+        },
+        "end": {
+          "line": 15,
+          "col": 73
+        },
+        "text": "  Leibniz guarantee:       "
+      },
+      "target_span": {
+        "start": {
+          "line": 15,
+          "col": 9
+        },
+        "end": {
+          "line": 15,
+          "col": 72
+        },
+        "text": "  ضمان لايبنتس:            "
+      },
+      "placeholders": [
+        "{leibniz_terms_for_error(10):,}"
+      ]
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 15,
+          "col": 9
+        },
+        "end": {
+          "line": 15,
+          "col": 73
+        },
+        "text": " terms"
+      },
+      "target_span": {
+        "start": {
+          "line": 15,
+          "col": 9
+        },
+        "end": {
+          "line": 15,
+          "col": 72
+        },
+        "text": " حدود"
+      },
+      "placeholders": [
+        "{leibniz_terms_for_error(10):,}"
+      ]
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 16,
+          "col": 9
+        },
+        "end": {
+          "line": 16,
+          "col": 87
+        },
+        "text": "  Polygon bound width:     "
+      },
+      "target_span": {
+        "start": {
+          "line": 16,
+          "col": 9
+        },
+        "end": {
+          "line": 16,
+          "col": 87
+        },
+        "text": "  عرض حدود المضلع:         "
+      },
+      "placeholders": [
+        "{polygon_sides:,}",
+        "{polygon_width:.2e}"
+      ]
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 16,
+          "col": 9
+        },
+        "end": {
+          "line": 16,
+          "col": 87
+        },
+        "text": " sides (width "
+      },
+      "target_span": {
+        "start": {
+          "line": 16,
+          "col": 9
+        },
+        "end": {
+          "line": 16,
+          "col": 87
+        },
+        "text": " أضلاع (العرض "
+      },
+      "placeholders": [
+        "{polygon_sides:,}",
+        "{polygon_width:.2e}"
+      ]
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 17,
+          "col": 9
+        },
+        "end": {
+          "line": 17,
+          "col": 71
+        },
+        "text": "  Machin formula in float: "
+      },
+      "target_span": {
+        "start": {
+          "line": 17,
+          "col": 9
+        },
+        "end": {
+          "line": 17,
+          "col": 70
+        },
+        "text": "  صيغة ماتشين بالفاصل العائم: "
+      },
+      "placeholders": [
+        "{machin_terms}"
+      ]
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "source_span": {
+        "start": {
+          "line": 17,
+          "col": 9
+        },
+        "end": {
+          "line": 17,
+          "col": 71
+        },
+        "text": " terms per arctangent"
+      },
+      "target_span": {
+        "start": {
+          "line": 17,
+          "col": 9
+        },
+        "end": {
+          "line": 17,
+          "col": 70
+        },
+        "text": " حدود لكل ظل عكسي"
+      },
+      "placeholders": [
+        "{machin_terms}"
+      ]
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "source_span": {
+        "start": {
+          "line": 18,
+          "col": 8
+        },
+        "end": {
+          "line": 18,
+          "col": 81
+        },
+        "text": "\\nThe methods have very different convergence rates; the polygon method's"
+      },
+      "target_span": {
+        "start": {
+          "line": 18,
+          "col": 8
+        },
+        "end": {
+          "line": 18,
+          "col": 64
+        },
+        "text": "\\nتختلف الطرق في معدلات تقاربها بشكل كبير؛ وتكمن الأهمية"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 5,
+      "cell_name": "comparison",
+      "source_span": {
+        "start": {
+          "line": 19,
+          "col": 8
+        },
+        "end": {
+          "line": 19,
+          "col": 79
+        },
+        "text": "historical importance is its rigorous geometric squeeze, not raw speed."
+      },
+      "target_span": {
+        "start": {
+          "line": 19,
+          "col": 8
+        },
+        "end": {
+          "line": 19,
+          "col": 82
+        },
+        "text": "التاريخية لطريقة المضلعات في حصرها الهندسي الصارم، وليس في سرعتها المجردة."
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    }
+  ],
+  "exclusions": [],
+  "stage": "b",
+  "renames": []
+}

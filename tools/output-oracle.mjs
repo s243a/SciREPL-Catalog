@@ -35,6 +35,14 @@ import { readFileSync } from 'node:fs';
  * Tolerates the plausible shapes; extend on first real bench export.
  * Plot/image outputs are EXCLUDED here — they route to the plot check.
  */
+export function renderedHtmlCells(nb) {
+  // every cell carries lastOutputHtml (text cells as <pre class="text-result">);
+  // only actual PLOT markup routes a cell out of the text diff
+  const isPlot = (h) => typeof h === 'string' && (/js-plotly-plot|<svg/i.test(h)) && !/^<pre class="text-result"/.test(h);
+  const cells = nb.format === 'srwb' ? nb.notebook.cells : nb.cells;
+  return new Set(cells.map((c, i) => isPlot(c.lastOutputHtml) ? i : -1).filter(i => i >= 0));
+}
+
 export function extractTextOutputs(nb) {
   const isSrwb = nb.format === 'srwb';
   const cells = isSrwb ? nb.notebook.cells : nb.cells;
@@ -133,8 +141,15 @@ export function judge(enRun, xxRun, manifest) {
     .filter(s => s.reaches_output === 'plot' || s.reaches_output === 'both')
     .map(s => s.cell_index));
 
+  // cells with RENDERED output in both runs are plots: their extracted text
+  // includes axis tick labels, which legitimately vary with translated label
+  // widths (auto-ranging). They route to the plot check, never the text diff.
+  const htmlBoth = new Set([...renderedHtmlCells(enRun)].filter(i => renderedHtmlCells(xxRun).has(i)));
+  for (const i of htmlBoth) plotCells.add(i);
+
   for (let i = 0; i < en.length; i++) {
     if (excluded.has(i)) continue;
+    if (htmlBoth.has(i)) continue;
     let a = en[i].join('\n');
     let b = xx[i].join('\n');
 

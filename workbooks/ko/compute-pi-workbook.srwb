@@ -11,33 +11,33 @@
       },
       {
         "type": "code",
-        "code": "import numpy as np\n\n# Visualize the starting hexagon inside a unit circle.\ntheta = np.linspace(0, 2 * np.pi, 200)\nangles = np.linspace(0, 2 * np.pi, 6, endpoint=False)\nx_hex = np.r_[np.cos(angles), np.cos(angles[0])]\ny_hex = np.r_[np.sin(angles), np.sin(angles[0])]\n\ncircle = {\"x\": np.cos(theta), \"y\": np.sin(theta), \"mode\": \"lines\", \"name\": \"Unit circle\"}\nhexagon = {\"x\": x_hex, \"y\": y_hex, \"mode\": \"lines+markers\", \"name\": \"Inscribed hexagon\"}\nlayout = {\"title\": \"Archimedes starts with a hexagon\", \"xaxis\": {\"scaleanchor\": \"y\"}, \"yaxis\": {\"scaleanchor\": \"x\"}}\nmplot([circle, hexagon], layout=layout)",
+        "code": "import numpy as np\n\n# 단위 원 안의 초기 육각형을 시각화합니다.\ntheta = np.linspace(0, 2 * np.pi, 200)\n각도 = np.linspace(0, 2 * np.pi, 6, endpoint=False)\nx_육각형 = np.r_[np.cos(각도), np.cos(각도[0])]\ny_육각형 = np.r_[np.sin(각도), np.sin(각도[0])]\n\n원 = {\"x\": np.cos(theta), \"y\": np.sin(theta), \"mode\": \"lines\", \"name\": \"단위 원\"}\n육각형 = {\"x\": x_육각형, \"y\": y_육각형, \"mode\": \"lines+markers\", \"name\": \"내접 육각형\"}\n레이아웃 = {\"title\": \"아르키메데스는 육각형에서 시작합니다\", \"xaxis\": {\"scaleanchor\": \"y\"}, \"yaxis\": {\"scaleanchor\": \"x\"}}\nmplot([원, 육각형], layout=레이아웃)",
         "language": "python",
-        "name": "geometry"
+        "name": "기하"
       },
       {
         "type": "code",
-        "code": "import math\n\ndef archimedes_rows(doublings=16):\n    \"\"\"Return rigorous polygon bounds for a unit circle.\n\n    chord is the side length of the inscribed n-gon. The stable half-angle\n    recurrence doubles n without requiring pi.\n    \"\"\"\n    n = 6\n    chord = 1.0\n    rows = []\n    for step in range(doublings + 1):\n        half_chord = chord / 2\n        lower = n * half_chord\n        upper = n * half_chord / math.sqrt(1 - half_chord * half_chord)\n        rows.append((step, n, lower, upper, upper - lower))\n        chord = chord / math.sqrt(2 + math.sqrt(4 - chord * chord))\n        n *= 2\n    return rows\n\nrows = archimedes_rows()\nprint(f\"{'step':>4} {'sides':>9} {'lower bound':>16} {'upper bound':>16} {'width':>12}\")\nfor step, n, lower, upper, width in rows:\n    if step in {0, 1, 2, 4, 7, 10, 13, 16}:\n        print(f\"{step:>4} {n:>9,} {lower:>16.12f} {upper:>16.12f} {width:>12.2e}\")\n\nlower, upper = rows[-1][2], rows[-1][3]\nprint(f\"\\nFinal enclosure: {lower:.12f} < pi < {upper:.12f}\")",
+        "code": "import math\n\ndef 아르키메데스_행(배가_횟수=16):\n    \"\"\"단위 원에 대한 엄밀한 다각형 상하계를 반환합니다.\n\n    현_길이는 내접 n각형의 변 길이입니다. 안정적인 반각\n    점화식은 pi 없이 n을 두 배로 늘립니다.\n    \"\"\"\n    n = 6\n    현_길이 = 1.0\n    행_목록 = []\n    for 단계 in range(배가_횟수 + 1):\n        반현_길이 = 현_길이 / 2\n        하계 = n * 반현_길이\n        상계 = n * 반현_길이 / math.sqrt(1 - 반현_길이 * 반현_길이)\n        행_목록.append((단계, n, 하계, 상계, 상계 - 하계))\n        현_길이 = 현_길이 / math.sqrt(2 + math.sqrt(4 - 현_길이 * 현_길이))\n        n *= 2\n    return 행_목록\n\n행_목록 = 아르키메데스_행()\nprint(f\"{'단계':>4} {'변의 수':>9} {'하계':>16} {'상계':>16} {'구간 너비':>12}\")\nfor 단계, n, 하계, 상계, 너비 in 행_목록:\n    if 단계 in {0, 1, 2, 4, 7, 10, 13, 16}:\n        print(f\"{단계:>4} {n:>9,} {하계:>16.12f} {상계:>16.12f} {너비:>12.2e}\")\n\n하계, 상계 = 행_목록[-1][2], 행_목록[-1][3]\nprint(f\"\\n최종 포위 구간: {하계:.12f} < pi < {상계:.12f}\")",
         "language": "python",
-        "name": "bounds"
+        "name": "상하계"
       },
       {
         "type": "code",
-        "code": "# How many sides are needed before the complete enclosure is narrower\n# than 10^-d? Values are for repeated doubling from the hexagon.\nfirst_for_digits = {}\nfor step, n, lower, upper, width in archimedes_rows(22):\n    for d in range(1, 11):\n        if d not in first_for_digits and width < 10 ** (-d):\n            first_for_digits[d] = (n, width)\n\nprint(f\"{'d':>3} {'first doubled n':>18} {'bound width':>14}\")\nfor d in range(1, 11):\n    n, width = first_for_digits[d]\n    print(f\"{d:>3} {n:>18,} {width:>14.2e}\")\n\nprint(\"\\nA narrower enclosure certifies more absolute accuracy; it is stronger\")\nprint(\"than merely counting matching digits in one floating-point approximation.\")",
+        "code": "# 전체 포위 구간이 다음보다 좁아지려면 몇 개의 변이 필요한가\n# 10^-d? 값은 육각형에서 반복적으로 두 배 늘린 결과입니다.\n자릿수별_최초_n = {}\nfor 단계, n, 하계, 상계, 너비 in 아르키메데스_행(22):\n    for d in range(1, 11):\n        if d not in 자릿수별_최초_n and 너비 < 10 ** (-d):\n            자릿수별_최초_n[d] = (n, 너비)\n\nprint(f\"{'d':>3} {'최초 배가 n':>18} {'포위 구�� 너비':>14}\")\nfor d in range(1, 11):\n    n, 너비 = 자릿수별_최초_n[d]\n    print(f\"{d:>3} {n:>18,} {너비:>14.2e}\")\n\nprint(\"\\n더 좁은 포위 구간은 더 높은 절대 정확도를 보증합니다. 이는\")\nprint(\"하나의 부동소수점 근사치에서 일치하는 자릿수를 ���순히 세는 것보다 강력합니다.\")",
         "language": "python",
-        "name": "accuracy"
+        "name": "정확도"
       },
       {
         "type": "code",
-        "code": "import sympy as sp\n\nn = sp.symbols('n', positive=True)\ninscribed_area = (n / 2) * sp.sin(2 * sp.pi / n)\nlimit_value = sp.limit(inscribed_area, n, sp.oo)\n\nprint(\"Symbolic check of the familiar inscribed-area formula:\")\nprint(\"limit as n approaches infinity =\", limit_value)\nassert limit_value == sp.pi\ninscribed_area",
+        "code": "import sympy as sp\n\nn = sp.symbols('n', positive=True)\n내접_넓이 = (n / 2) * sp.sin(2 * sp.pi / n)\n극한값 = sp.limit(내접_넓이, n, sp.oo)\n\nprint(\"친숙한 내접 다각형 넓이 공식에 대한 기호적 검증:\")\nprint(\"n이 무한대로 갈 때의 극한 =\", 극한값)\nassert 극한값 == sp.pi\n내접_넓이",
         "language": "python",
-        "name": "symbolic_limit"
+        "name": "기호_극한"
       },
       {
         "type": "code",
-        "code": "def leibniz_terms_for_error(d):\n    # Alternating-series remainder for pi is at most 4/(2N+1).\n    return math.ceil((4 * 10**d - 1) / 2)\n\ndef arctan_series(x, terms):\n    return sum((-1)**k * x**(2*k + 1) / (2*k + 1) for k in range(terms))\n\ndef machin_pi(terms):\n    return 4 * (4 * arctan_series(1/5, terms) - arctan_series(1/239, terms))\n\nmachin_terms = next(n for n in range(1, 30) if abs(machin_pi(n) - math.pi) < 1e-10)\npolygon_sides, polygon_width = first_for_digits[10]\n\nprint(\"Work needed for about 1e-10 absolute accuracy:\")\nprint(f\"  Leibniz guarantee:       {leibniz_terms_for_error(10):,} terms\")\nprint(f\"  Polygon bound width:     {polygon_sides:,} sides (width {polygon_width:.2e})\")\nprint(f\"  Machin formula in float: {machin_terms} terms per arctangent\")\nprint(\"\\nThe methods have very different convergence rates; the polygon method's\")\nprint(\"historical importance is its rigorous geometric squeeze, not raw speed.\")",
+        "code": "def 라이프니츠_오차_항수(d):\n    # 원주율에 대한 교대급수의 잉여항은 최대 4/(2N+1)입니다.\n    return math.ceil((4 * 10**d - 1) / 2)\n\ndef 아크탄젠트_급수(x, 항_수):\n    return sum((-1)**k * x**(2*k + 1) / (2*k + 1) for k in range(항_수))\n\ndef 머신_원주율(항_수):\n    return 4 * (4 * 아크탄젠트_급수(1/5, 항_수) - 아크탄젠트_급수(1/239, 항_수))\n\n머신_항수 = next(n for n in range(1, 30) if abs(머신_원주율(n) - math.pi) < 1e-10)\n다각형_변_수, 다각형_너비 = 자릿수별_최초_n[10]\n\nprint(\"약 1e-10 절대 정확도에 필요한 계산량:\")\nprint(f\"  라이프니츠 보증:         {라이프니츠_오차_항수(10):,} 항\")\nprint(f\"  다각형 상하계 너비:      {다각형_변_수:,} 변 (너비 {다각형_너비:.2e})\")\nprint(f\"  부동소수점 머신 공식:    {머신_항수} 항 (아크탄젠트당)\")\nprint(\"\\n각 방법의 수렴 속도는 매우 다릅니다. 다각형 방법의\")\nprint(\"역사적 중요성은 계산 속도가 아니라 엄밀한 기하학적 포위에 있습니다.\")",
         "language": "python",
-        "name": "comparison"
+        "name": "비교"
       },
       {
         "type": "markdown",

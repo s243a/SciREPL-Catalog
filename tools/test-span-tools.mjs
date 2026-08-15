@@ -280,6 +280,18 @@ try {
         || applyMap({ [any.id]: "kaputt ' kaputt" }, 'sa-q2.srwb').code === 1;
   })());
 
+  console.log('5e. NFC normalization of rename targets (bn regression)');
+  // Bengali \u09dc is composition-EXCLUDED: its NFC form is decomposed.
+  // The precomposed form must be accepted and normalized, not rejected.
+  const bnGloss = apply({ renames: { hexagon: 'ষড়ভুজ'.normalize('NFD').replace('\u09a1\u09bc', '\u09dc') } }, 'stageb-bn.srwb');
+  check('precomposed excluded char accepted', bnGloss.code === 0, bnGloss.log.slice(0, 150));
+  if (bnGloss.code === 0) {
+    const txt = readFileSync(bnGloss.out, 'utf8');
+    check('stored form is NFC', txt.includes('ষড়ভুজ'.normalize('NFC')) );
+    check('derive passes NFC-normalized result',
+      run(['tools/span-derive.mjs', EN, bnGloss.out, 'bn', '--allow-renames']).code === 0);
+  }
+
   console.log('6. Lint: completeness');
 
   const lintSame = run(['tools/span-scan.mjs', EN, '--lint', EN, '--strict']);

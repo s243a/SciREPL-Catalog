@@ -11,33 +11,33 @@
       },
       {
         "type": "code",
-        "code": "import numpy as np\n\n# Visualize the starting hexagon inside a unit circle.\ntheta = np.linspace(0, 2 * np.pi, 200)\nangles = np.linspace(0, 2 * np.pi, 6, endpoint=False)\nx_hex = np.r_[np.cos(angles), np.cos(angles[0])]\ny_hex = np.r_[np.sin(angles), np.sin(angles[0])]\n\ncircle = {\"x\": np.cos(theta), \"y\": np.sin(theta), \"mode\": \"lines\", \"name\": \"Unit circle\"}\nhexagon = {\"x\": x_hex, \"y\": y_hex, \"mode\": \"lines+markers\", \"name\": \"Inscribed hexagon\"}\nlayout = {\"title\": \"Archimedes starts with a hexagon\", \"xaxis\": {\"scaleanchor\": \"y\"}, \"yaxis\": {\"scaleanchor\": \"x\"}}\nmplot([circle, hexagon], layout=layout)",
+        "code": "import numpy as np\n\n# इकाई वृत्त के अंदर प्रारंभिक षट्भुज को देखें।\ntheta = np.linspace(0, 2 * np.pi, 200)\nकोण = np.linspace(0, 2 * np.pi, 6, endpoint=False)\nx_षट्भुज = np.r_[np.cos(कोण), np.cos(कोण[0])]\ny_षट्भुज = np.r_[np.sin(कोण), np.sin(कोण[0])]\n\nवृत्त = {\"x\": np.cos(theta), \"y\": np.sin(theta), \"mode\": \"lines\", \"name\": \"इकाई वृत्त\"}\nषट्भुज = {\"x\": x_षट्भुज, \"y\": y_षट्भुज, \"mode\": \"lines+markers\", \"name\": \"अंतर्निहित षट्भ��ज\"}\nलेआउट = {\"title\": \"आर्किमिडीज षट्भुज से शुरुआत करते हैं\", \"xaxis\": {\"scaleanchor\": \"y\"}, \"yaxis\": {\"scaleanchor\": \"x\"}}\nmplot([वृत्त, षट्भुज], layout=लेआउट)",
         "language": "python",
-        "name": "geometry"
+        "name": "ज्यामिति"
       },
       {
         "type": "code",
-        "code": "import math\n\ndef archimedes_rows(doublings=16):\n    \"\"\"Return rigorous polygon bounds for a unit circle.\n\n    chord is the side length of the inscribed n-gon. The stable half-angle\n    recurrence doubles n without requiring pi.\n    \"\"\"\n    n = 6\n    chord = 1.0\n    rows = []\n    for step in range(doublings + 1):\n        half_chord = chord / 2\n        lower = n * half_chord\n        upper = n * half_chord / math.sqrt(1 - half_chord * half_chord)\n        rows.append((step, n, lower, upper, upper - lower))\n        chord = chord / math.sqrt(2 + math.sqrt(4 - chord * chord))\n        n *= 2\n    return rows\n\nrows = archimedes_rows()\nprint(f\"{'step':>4} {'sides':>9} {'lower bound':>16} {'upper bound':>16} {'width':>12}\")\nfor step, n, lower, upper, width in rows:\n    if step in {0, 1, 2, 4, 7, 10, 13, 16}:\n        print(f\"{step:>4} {n:>9,} {lower:>16.12f} {upper:>16.12f} {width:>12.2e}\")\n\nlower, upper = rows[-1][2], rows[-1][3]\nprint(f\"\\nFinal enclosure: {lower:.12f} < pi < {upper:.12f}\")",
+        "code": "import math\n\ndef आर्किमिडीज_पंक्तियां(दोगुना_करना=16):\n    \"\"\"इकाई वृत्त के लिए सटीक बहुभुज सीमाए�� लौटाएं।\n\n    जीवा आंतरिक n-भुज की भुजा लंबाई है। स्थिर अर्ध-कोण\n    पुनरावृत्ति pi की आव���्यकता के बिना n को दोगुना करती है।\n    \"\"\"\n    n = 6\n    जीवा = 1.0\n    पंक्तियां = []\n    for चरण in range(दोगुना_करना + 1):\n        अर्ध_जीवा = जीवा / 2\n        निचली_सीमा = n * अर्ध_जीवा\n        ऊपरी_सीमा = n * अर्ध_जीवा / math.sqrt(1 - अर्ध_जीवा * अर्ध_जीवा)\n        पंक्तियां.append((चरण, n, निचली_सीमा, ऊपरी_सीमा, ऊपरी_सीमा - निचली_सीमा))\n        जीवा = जीवा / math.sqrt(2 + math.sqrt(4 - जीवा * जीवा))\n        n *= 2\n    return पंक्तियां\n\nपंक्तियां = आर्किमिडीज_पंक्तियां()\nprint(f\"{'चरण':>4} {'भुजाएं':>9} {'निचली सीम���':>16} {'ऊपरी सीमा':>16} {'चौड़ाई':>12}\")\nfor चरण, n, निचली_सीमा, ऊपरी_सीमा, चौड़ाई in पंक्तियां:\n    if चरण in {0, 1, 2, 4, 7, 10, 13, 16}:\n        print(f\"{चरण:>4} {n:>9,} {निचली_सीमा:>16.12f} {ऊपरी_सीमा:>16.12f} {चौड़ाई:>12.2e}\")\n\nनिचली_सीमा, ऊपरी_सीमा = पंक्तियां[-1][2], पंक्तियां[-1][3]\nprint(f\"\\nअंतिम सीमांकन: {निचली_सीमा:.12f} < pi < {ऊपरी_सीमा:.12f}\")",
         "language": "python",
-        "name": "bounds"
+        "name": "सीमाएं"
       },
       {
         "type": "code",
-        "code": "# How many sides are needed before the complete enclosure is narrower\n# than 10^-d? Values are for repeated doubling from the hexagon.\nfirst_for_digits = {}\nfor step, n, lower, upper, width in archimedes_rows(22):\n    for d in range(1, 11):\n        if d not in first_for_digits and width < 10 ** (-d):\n            first_for_digits[d] = (n, width)\n\nprint(f\"{'d':>3} {'first doubled n':>18} {'bound width':>14}\")\nfor d in range(1, 11):\n    n, width = first_for_digits[d]\n    print(f\"{d:>3} {n:>18,} {width:>14.2e}\")\n\nprint(\"\\nA narrower enclosure certifies more absolute accuracy; it is stronger\")\nprint(\"than merely counting matching digits in one floating-point approximation.\")",
+        "code": "# पूर्ण सीमांकन इससे संकीर्ण होने से पहले कितनी भुजाओं की आवश्यकता है\n# 10^-d से? मान षट्भुज ���े बार-बार दोगुना करने के लिए हैं।\nअंकों_के_लिए_पहला = {}\nfor चरण, n, निचली_सीमा, ऊपरी_सीमा, चौड़ाई in आर्किमिडीज_पंक्तियां(22):\n    for d in range(1, 11):\n        if d not in अंकों_के_लिए_पहला and चौड़ाई < 10 ** (-d):\n            अंकों_के_लिए_पहला[d] = (n, चौड़ाई)\n\nprint(f\"{'d':>3} {'पहला दोगुना n':>18} {'सीमा चौड़ाई':>14}\")\nfor d in range(1, 11):\n    n, चौड़ाई = अंकों_के_लिए_पहला[d]\n    print(f\"{d:>3} {n:>18,} {चौड़ाई:>14.2e}\")\n\nprint(\"\\nएक संकीर्ण ���ीमांकन अधिक पूर्ण सटीकता को प्रमाणित करता है; यह\")\nprint(\"एक फ्लोटिंग-पॉइंट अनुमान में मेल खाने वाले अंकों को केवल गिनने से अधिक मजबूत है।\")",
         "language": "python",
-        "name": "accuracy"
+        "name": "सटीकता"
       },
       {
         "type": "code",
-        "code": "import sympy as sp\n\nn = sp.symbols('n', positive=True)\ninscribed_area = (n / 2) * sp.sin(2 * sp.pi / n)\nlimit_value = sp.limit(inscribed_area, n, sp.oo)\n\nprint(\"Symbolic check of the familiar inscribed-area formula:\")\nprint(\"limit as n approaches infinity =\", limit_value)\nassert limit_value == sp.pi\ninscribed_area",
+        "code": "import sympy as sp\n\nn = sp.symbols('n', positive=True)\nअंतर्निहित_क्षेत्रफल = (n / 2) * sp.sin(2 * sp.pi / n)\nसीमा_मान = sp.limit(अंतर्निहित_क्षेत्रफल, n, sp.oo)\n\nprint(\"परिचित अंतर्निहित क्षेत्रफल सूत्र की प्रतीकात्मक जांच:\")\nprint(\"n अनंत की ओर अग्रसर होने पर सीमा =\", सीमा_मान)\nassert सीमा_मान == sp.pi\nअंतर्निहित_क्षेत्रफल",
         "language": "python",
-        "name": "symbolic_limit"
+        "name": "प्रतीकात्मक_सीमा"
       },
       {
         "type": "code",
-        "code": "def leibniz_terms_for_error(d):\n    # Alternating-series remainder for pi is at most 4/(2N+1).\n    return math.ceil((4 * 10**d - 1) / 2)\n\ndef arctan_series(x, terms):\n    return sum((-1)**k * x**(2*k + 1) / (2*k + 1) for k in range(terms))\n\ndef machin_pi(terms):\n    return 4 * (4 * arctan_series(1/5, terms) - arctan_series(1/239, terms))\n\nmachin_terms = next(n for n in range(1, 30) if abs(machin_pi(n) - math.pi) < 1e-10)\npolygon_sides, polygon_width = first_for_digits[10]\n\nprint(\"Work needed for about 1e-10 absolute accuracy:\")\nprint(f\"  Leibniz guarantee:       {leibniz_terms_for_error(10):,} terms\")\nprint(f\"  Polygon bound width:     {polygon_sides:,} sides (width {polygon_width:.2e})\")\nprint(f\"  Machin formula in float: {machin_terms} terms per arctangent\")\nprint(\"\\nThe methods have very different convergence rates; the polygon method's\")\nprint(\"historical importance is its rigorous geometric squeeze, not raw speed.\")",
+        "code": "def त्रुटि_के_लिए_लाइबनिज_पद(d):\n    # पाई के लिए प्रत्यावर्ती श्रेणी का शेष अधिकतम 4/(2N+1) है।\n    return math.ceil((4 * 10**d - 1) / 2)\n\ndef आर्कटैन_श्रेणी(x, पद):\n    return sum((-1)**k * x**(2*k + 1) / (2*k + 1) for k in range(पद))\n\ndef माचिन_पाई(पद):\n    return 4 * (4 * आर्कटैन_श्रेणी(1/5, पद) - आर्कटैन_श्रेणी(1/239, पद))\n\nमाचिन_पद = next(n for n in range(1, 30) if abs(माचिन_पाई(n) - math.pi) < 1e-10)\nबहुभुज_भुजाएं, बहुभुज_चौड़ाई = अंकों_के_लिए_पहला[10]\n\nprint(\"लगभग 1e-10 पूर्ण सटीकता के लिए आवश्यक कार्य:\")\nprint(f\"  लाइबनिज गारंटी:          {त्रुटि_के_लिए_लाइबनिज_पद(10):,} पद\")\nprint(f\"  बहुभुज सीमा चौड़ाई:      {बहुभुज_भुजाएं:,} भुजाएं (चौड़ाई {बहुभुज_चौड़ाई:.2e})\")\nprint(f\"  फ्लोट में माचिन सूत्र:   {माचिन_पद} पद प्रति आर्कटैनजेंट\")\nprint(\"\\nइन विधियों की अभिसरण दर बहुत भिन्न है; बहुभुज विधि का\")\nprint(\"ऐतिहासिक महत्व इसकी कठोर ज्यामितीय सीमा में है, न कि केवल गति में।\")",
         "language": "python",
-        "name": "comparison"
+        "name": "तुलना"
       },
       {
         "type": "markdown",

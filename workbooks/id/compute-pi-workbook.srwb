@@ -11,33 +11,33 @@
       },
       {
         "type": "code",
-        "code": "import numpy as np\n\n# Visualize the starting hexagon inside a unit circle.\ntheta = np.linspace(0, 2 * np.pi, 200)\nangles = np.linspace(0, 2 * np.pi, 6, endpoint=False)\nx_hex = np.r_[np.cos(angles), np.cos(angles[0])]\ny_hex = np.r_[np.sin(angles), np.sin(angles[0])]\n\ncircle = {\"x\": np.cos(theta), \"y\": np.sin(theta), \"mode\": \"lines\", \"name\": \"Unit circle\"}\nhexagon = {\"x\": x_hex, \"y\": y_hex, \"mode\": \"lines+markers\", \"name\": \"Inscribed hexagon\"}\nlayout = {\"title\": \"Archimedes starts with a hexagon\", \"xaxis\": {\"scaleanchor\": \"y\"}, \"yaxis\": {\"scaleanchor\": \"x\"}}\nmplot([circle, hexagon], layout=layout)",
+        "code": "import numpy as np\n\n# Visualisasikan segi enam awal di dalam lingkaran satuan.\ntheta = np.linspace(0, 2 * np.pi, 200)\nsudut = np.linspace(0, 2 * np.pi, 6, endpoint=False)\nx_heksagon = np.r_[np.cos(sudut), np.cos(sudut[0])]\ny_heksagon = np.r_[np.sin(sudut), np.sin(sudut[0])]\n\nlingkaran = {\"x\": np.cos(theta), \"y\": np.sin(theta), \"mode\": \"lines\", \"name\": \"Lingkaran satuan\"}\nheksagon = {\"x\": x_heksagon, \"y\": y_heksagon, \"mode\": \"lines+markers\", \"name\": \"Segi enam dalam\"}\ntata_letak = {\"title\": \"Archimedes mulai dengan segi enam\", \"xaxis\": {\"scaleanchor\": \"y\"}, \"yaxis\": {\"scaleanchor\": \"x\"}}\nmplot([lingkaran, heksagon], layout=tata_letak)",
         "language": "python",
-        "name": "geometry"
+        "name": "geometri"
       },
       {
         "type": "code",
-        "code": "import math\n\ndef archimedes_rows(doublings=16):\n    \"\"\"Return rigorous polygon bounds for a unit circle.\n\n    chord is the side length of the inscribed n-gon. The stable half-angle\n    recurrence doubles n without requiring pi.\n    \"\"\"\n    n = 6\n    chord = 1.0\n    rows = []\n    for step in range(doublings + 1):\n        half_chord = chord / 2\n        lower = n * half_chord\n        upper = n * half_chord / math.sqrt(1 - half_chord * half_chord)\n        rows.append((step, n, lower, upper, upper - lower))\n        chord = chord / math.sqrt(2 + math.sqrt(4 - chord * chord))\n        n *= 2\n    return rows\n\nrows = archimedes_rows()\nprint(f\"{'step':>4} {'sides':>9} {'lower bound':>16} {'upper bound':>16} {'width':>12}\")\nfor step, n, lower, upper, width in rows:\n    if step in {0, 1, 2, 4, 7, 10, 13, 16}:\n        print(f\"{step:>4} {n:>9,} {lower:>16.12f} {upper:>16.12f} {width:>12.2e}\")\n\nlower, upper = rows[-1][2], rows[-1][3]\nprint(f\"\\nFinal enclosure: {lower:.12f} < pi < {upper:.12f}\")",
+        "code": "import math\n\ndef baris_archimedes(penggandaan=16):\n    \"\"\"Kembalikan batas poligon yang ketat untuk lingkaran satuan.\n\n    tali_busur adalah panjang sisi segi-n dalam. Rekurensi setengah sudut\n    yang stabil melipatgandakan n tanpa memerlukan pi.\n    \"\"\"\n    n = 6\n    tali_busur = 1.0\n    baris = []\n    for langkah in range(penggandaan + 1):\n        setengah_tali_busur = tali_busur / 2\n        batas_bawah = n * setengah_tali_busur\n        batas_atas = n * setengah_tali_busur / math.sqrt(1 - setengah_tali_busur * setengah_tali_busur)\n        baris.append((langkah, n, batas_bawah, batas_atas, batas_atas - batas_bawah))\n        tali_busur = tali_busur / math.sqrt(2 + math.sqrt(4 - tali_busur * tali_busur))\n        n *= 2\n    return baris\n\nbaris = baris_archimedes()\nprint(f\"{'lang':>4} {'sisi':>9} {'batas bawah':>16} {'batas atas':>16} {'lebar':>12}\")\nfor langkah, n, batas_bawah, batas_atas, lebar in baris:\n    if langkah in {0, 1, 2, 4, 7, 10, 13, 16}:\n        print(f\"{langkah:>4} {n:>9,} {batas_bawah:>16.12f} {batas_atas:>16.12f} {lebar:>12.2e}\")\n\nbatas_bawah, batas_atas = baris[-1][2], baris[-1][3]\nprint(f\"\\nPengapitan akhir: {batas_bawah:.12f} < pi < {batas_atas:.12f}\")",
         "language": "python",
-        "name": "bounds"
+        "name": "batas"
       },
       {
         "type": "code",
-        "code": "# How many sides are needed before the complete enclosure is narrower\n# than 10^-d? Values are for repeated doubling from the hexagon.\nfirst_for_digits = {}\nfor step, n, lower, upper, width in archimedes_rows(22):\n    for d in range(1, 11):\n        if d not in first_for_digits and width < 10 ** (-d):\n            first_for_digits[d] = (n, width)\n\nprint(f\"{'d':>3} {'first doubled n':>18} {'bound width':>14}\")\nfor d in range(1, 11):\n    n, width = first_for_digits[d]\n    print(f\"{d:>3} {n:>18,} {width:>14.2e}\")\n\nprint(\"\\nA narrower enclosure certifies more absolute accuracy; it is stronger\")\nprint(\"than merely counting matching digits in one floating-point approximation.\")",
+        "code": "# Berapa banyak sisi yang dibutuhkan sebelum pengapitan lengkap lebih sempit\n# dari 10^-d? Nilai adalah untuk penggandaan berulang dari segi enam.\npertama_untuk_digit = {}\nfor langkah, n, batas_bawah, batas_atas, lebar in baris_archimedes(22):\n    for d in range(1, 11):\n        if d not in pertama_untuk_digit and lebar < 10 ** (-d):\n            pertama_untuk_digit[d] = (n, lebar)\n\nprint(f\"{'d':>3} {'n ganda pertama':>18} {'lebar interval':>14}\")\nfor d in range(1, 11):\n    n, lebar = pertama_untuk_digit[d]\n    print(f\"{d:>3} {n:>18,} {lebar:>14.2e}\")\n\nprint(\"\\nPengapitan yang lebih sempit menjamin akurasi mutlak yang lebih tinggi; ini lebih kuat\")\nprint(\"daripada sekadar menghitung digit yang cocok dalam satu aproksimasi floating-point.\")",
         "language": "python",
-        "name": "accuracy"
+        "name": "akurasi"
       },
       {
         "type": "code",
-        "code": "import sympy as sp\n\nn = sp.symbols('n', positive=True)\ninscribed_area = (n / 2) * sp.sin(2 * sp.pi / n)\nlimit_value = sp.limit(inscribed_area, n, sp.oo)\n\nprint(\"Symbolic check of the familiar inscribed-area formula:\")\nprint(\"limit as n approaches infinity =\", limit_value)\nassert limit_value == sp.pi\ninscribed_area",
+        "code": "import sympy as sp\n\nn = sp.symbols('n', positive=True)\nluas_dalam = (n / 2) * sp.sin(2 * sp.pi / n)\nnilai_limit = sp.limit(luas_dalam, n, sp.oo)\n\nprint(\"Pemeriksaan simbolik rumus luas poligon dalam yang umum:\")\nprint(\"limit ketika n mendekati tak hingga =\", nilai_limit)\nassert nilai_limit == sp.pi\nluas_dalam",
         "language": "python",
-        "name": "symbolic_limit"
+        "name": "limit_simbolik"
       },
       {
         "type": "code",
-        "code": "def leibniz_terms_for_error(d):\n    # Alternating-series remainder for pi is at most 4/(2N+1).\n    return math.ceil((4 * 10**d - 1) / 2)\n\ndef arctan_series(x, terms):\n    return sum((-1)**k * x**(2*k + 1) / (2*k + 1) for k in range(terms))\n\ndef machin_pi(terms):\n    return 4 * (4 * arctan_series(1/5, terms) - arctan_series(1/239, terms))\n\nmachin_terms = next(n for n in range(1, 30) if abs(machin_pi(n) - math.pi) < 1e-10)\npolygon_sides, polygon_width = first_for_digits[10]\n\nprint(\"Work needed for about 1e-10 absolute accuracy:\")\nprint(f\"  Leibniz guarantee:       {leibniz_terms_for_error(10):,} terms\")\nprint(f\"  Polygon bound width:     {polygon_sides:,} sides (width {polygon_width:.2e})\")\nprint(f\"  Machin formula in float: {machin_terms} terms per arctangent\")\nprint(\"\\nThe methods have very different convergence rates; the polygon method's\")\nprint(\"historical importance is its rigorous geometric squeeze, not raw speed.\")",
+        "code": "def suku_leibniz_untuk_galat(d):\n    # Sisa deret berganti-tanda untuk pi paling banyak 4/(2N+1).\n    return math.ceil((4 * 10**d - 1) / 2)\n\ndef deret_arktangens(x, suku):\n    return sum((-1)**k * x**(2*k + 1) / (2*k + 1) for k in range(suku))\n\ndef pi_machin(suku):\n    return 4 * (4 * deret_arktangens(1/5, suku) - deret_arktangens(1/239, suku))\n\nsuku_machin = next(n for n in range(1, 30) if abs(pi_machin(n) - math.pi) < 1e-10)\nsisi_poligon, lebar_poligon = pertama_untuk_digit[10]\n\nprint(\"Kerja yang dibutuhkan untuk akurasi mutlak sekitar 1e-10:\")\nprint(f\"  Jaminan Leibniz:         {suku_leibniz_untuk_galat(10):,} suku\")\nprint(f\"  Lebar batas poligon:     {sisi_poligon:,} sisi (lebar {lebar_poligon:.2e})\")\nprint(f\"  Rumus Machin di float:   {suku_machin} suku per arktangens\")\nprint(\"\\nMetode-metode ini memiliki laju konvergensi yang sangat berbeda; arti penting\")\nprint(\"historis metode poligon terletak pada pengapitan geometrisnya yang ketat, bukan kecepatan mentahnya.\")",
         "language": "python",
-        "name": "comparison"
+        "name": "perbandingan"
       },
       {
         "type": "markdown",
