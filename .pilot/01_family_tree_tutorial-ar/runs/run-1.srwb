@@ -1,0 +1,269 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T17:27:44.176Z",
+  "notebook": {
+    "id": "default",
+    "name": "البرنامج التعليمي لشجرة العائلة باستخدام UnifyWeaver",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "prolog",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 28,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# البرنامج التعليمي لشجرة العائلة باستخدام UnifyWeaver\n\nيوضح هذا الدفتر التفاعلي للملاحظات كيفية استخدام UnifyWeaver لتجميع محددات Prolog إلى سكربتات Bash.\n\n## المتطلبات الأساسية\n\n- تثبيت SWI-Prolog\n- توفر مكتبة UnifyWeaver\n- تثبيت نواة Jupyter الخاصة بـ Prolog (`pip install prolog-jupyter-kernel`)\n\n## الأهداف التعليمية\n\nبنهاية هذا الدفتر، ستكون قادرًا على:\n1. تعريف حقائق وقواعد Prolog\n2. استخدام UnifyWeaver لتجميع المحددات إلى Bash\n3. اختبار سكربتات Bash المولدة\n4. فهم تجميع الانغلاق المتعدي",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "## الخطوة 1: تهيئة بيئة UnifyWeaver\n\nأولاً، نحتاج إلى تحميل وحدات UnifyWeaver. سنستخدم ملف `init.pl` من دليل education.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 3,
+        "code": "% تحميل ملف التهيئة\n['../init'].",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
+      },
+      {
+        "id": 4,
+        "code": "## الخطوة 2: تعريف علاقات العائلة\n\nدعنا نحدد بعض علاقات الآباء والأبناء (parent-child) من شجرة العائلة المذكورة في السياق التاريخي.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 5,
+        "code": "% تعريف حقائق parent\n:- dynamic parent/2.\n\nparent(abraham, isaac).\nparent(abraham, ishmael).\nparent(isaac, jacob).\nparent(isaac, esau).\nparent(jacob, reuben).\nparent(jacob, simeon).\nparent(jacob, levi).\nparent(jacob, judah).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 6,
+        "code": "## الخطوة 3: اختبار استعلامات الوالدين (Parent)\n\nقبل التجميع، دعنا نتحقق من صحة بياناتنا باستخدام بعض استعلامات Prolog.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 7,
+        "code": "% استعلام: من هم أبناء إبراهيم؟\nparent(abraham, Child).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Child = isaac\nChild = ishmael",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Child = isaac\nChild = ishmael</pre>"
+      },
+      {
+        "id": 8,
+        "code": "% استعلام: من هم أبناء يعقوب؟\nparent(jacob, Child).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Child = reuben\nChild = simeon\nChild = levi\nChild = judah",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Child = reuben\nChild = simeon\nChild = levi\nChild = judah</pre>"
+      },
+      {
+        "id": 9,
+        "code": "## الخطوة 4: تعريف علاقة السلف (Ancestor)\n\nالآن دعنا نحدد الانغلاق المتعدي — علاقة `ancestor`.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 10,
+        "code": "% تعريف ancestor على أنه الانغلاق المتعدي لـ parent\n:- dynamic ancestor/2.\n\n% الحالة الأساسية: الوالد هو سلف\nancestor(X, Y) :- parent(X, Y).\n\n% الحالة العودية: إذا كان X والدًا لـ Y وكان Y سلفًا لـ Z، فإن X هو سلف لـ Z\nancestor(X, Z) :- parent(X, Y), ancestor(Y, Z).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 11,
+        "code": "## الخطوة 5: اختبار استعلامات السلف (Ancestor)\n\nدعنا نتحقق من أن محدد ancestor يعمل بشكل صحيح.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 12,
+        "code": "% استعلام: هل إبراهيم سلف ليعقوب؟\n( ancestor(abraham, jacob) ->\n    writeln('Yes: Abraham is an ancestor of Jacob')\n;\n    writeln('No: Abraham is not an ancestor of Jacob')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Yes: Abraham is an ancestor of Jacob",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Yes: Abraham is an ancestor of Jacob</pre>"
+      },
+      {
+        "id": 13,
+        "code": "% استعلام: من هم جميع نسل إبراهيم؟\nancestor(abraham, Descendant).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Descendant = isaac\nDescendant = ishmael\nDescendant = jacob\nDescendant = esau\nDescendant = reuben\nDescendant = simeon\nDescendant = levi\nDescendant = judah",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Descendant = isaac\nDescendant = ishmael\nDescendant = jacob\nDescendant = esau\nDescendant = reuben\nDescendant = simeon\nDescendant = levi\nDescendant = judah</pre>"
+      },
+      {
+        "id": 14,
+        "code": "## الخطوة 6: تجميع Parent إلى Bash\n\nالآن إلى الجزء الممتع — دعنا نجمع حقائق `parent/2` إلى سكربت Bash!",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 15,
+        "code": "% تحميل مترجم التدفق\n\\+ \\+ (\n    use_module(unifyweaver(core/stream_compiler)),\n\n    % تجميع حقائق parent إلى bash\n    stream_compiler:compile_facts(parent, 2, [], _BashCode),\n    writeln('Generated Bash code for parent/2:'),\n    writeln(_BashCode)\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "source_sink `unifyweaver(core/stream_compiler)' does not exist",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">source_sink `unifyweaver(core/stream_compiler)' does not exist</pre>"
+      },
+      {
+        "id": 16,
+        "code": "## الخطوة 7: حفظ سكربت Parent\n\nدعنا نحفظ كود Bash المولد في ملف.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 17,
+        "code": "% حفظ في ملف\n\\+ \\+ (\n    stream_compiler:compile_facts(parent, 2, [], _BashCode),\n    setup_call_cleanup(\n        open('../output/parent.sh', write, _Stream),\n        write(_Stream, _BashCode),\n        close(_Stream)),\n    writeln('Saved to ../output/parent.sh')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: stream_compiler:compile_facts/4",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: stream_compiler:compile_facts/4</pre>"
+      },
+      {
+        "id": 18,
+        "code": "## الخطوة 8: تجميع Ancestor إلى Bash\n\nالآن دعنا نجمع محدد `ancestor/2`، الذي يستخدم العودية.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 19,
+        "code": "% تحميل المترجم العودي\n\\+ \\+ (\n    use_module(unifyweaver(core/recursive_compiler)),\n\n    % تجميع ancestor إلى bash\n    compile_recursive(ancestor/2, [], _BashCode),\n    writeln('Generated Bash code for ancestor/2:'),\n    writeln(_BashCode)\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "source_sink `unifyweaver(core/recursive_compiler)' does not exist",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">source_sink `unifyweaver(core/recursive_compiler)' does not exist</pre>"
+      },
+      {
+        "id": 20,
+        "code": "## الخطوة 9: حفظ سكربت Ancestor\n\nحفظ سكربت ancestor في ملف.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 21,
+        "code": "% حفظ في ملف\n\\+ \\+ (\n    compile_recursive(ancestor/2, [], _BashCode),\n    setup_call_cleanup(\n        open('../output/ancestor.sh', write, _Stream),\n        write(_Stream, _BashCode),\n        close(_Stream)),\n    writeln('Saved to ../output/ancestor.sh')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: compile_recursive/3</pre>"
+      },
+      {
+        "id": 22,
+        "code": "## الخطوة 10: اختبار السكربتات المولدة\n\nدعنا الآن نختبر سكربتات Bash المولدة! سنستخدم الأمر السحري `%%bash` لتشغيل أوامر bash.",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 23,
+        "code": "# استيراد سكربت parent باستخدام source\nsource ../output/parent.sh\n\n# اختبار: من هم أبناء إبراهيم؟\necho \"أبناء إبراهيم:\"\nparent abraham",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "أبناء إبراهيم:\nerror: source: failed to source file: ../output/parent.sh\nerror: failed to execute command 'parent': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">أبناء إبراهيم:\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/parent.sh\nerror: failed to execute command 'parent': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 24,
+        "code": "# استيراد كلا السكربتين باستخدام source\nsource ../output/parent.sh\nsource ../output/ancestor.sh\n\n# اختبار: من هم نسل إبراهيم؟\necho \"نسل إبراهيم:\"\nancestor abraham",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "نسل إبراهيم:\nerror: source: failed to source file: ../output/parent.sh\nerror: source: failed to source file: ../output/ancestor.sh\nerror: failed to execute command 'ancestor': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">نسل إبراهيم:\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/parent.sh\nerror: source: failed to source file: ../output/ancestor.sh\nerror: failed to execute command 'ancestor': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 25,
+        "code": "# استيراد كلا السكربتين باستخدام source\nsource ../output/parent.sh\nsource ../output/ancestor.sh\n\n# اختبار: هل إبراهيم سلف ليهوذا؟\nif ancestor abraham judah >/dev/null 2>&1; then\n    echo \"✓ نعم، إبراهيم سلف ليهوذا\"\nelse\n    echo \"✗ لا\"\nfi",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "✗ لا\nerror: source: failed to source file: ../output/parent.sh\nerror: source: failed to source file: ../output/ancestor.sh\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">✗ لا\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/parent.sh\nerror: source: failed to source file: ../output/ancestor.sh\n</pre>"
+      },
+      {
+        "id": 26,
+        "code": "## الخطوة 11: فهم استراتيجية التجميع\n\nدعنا نحلل ما قام به UnifyWeaver:\n\n1. **تجميع parent**: استخدام `stream_compiler` لإنشاء دالة تدفق بسيطة تُخرج جميع أزواج الوالد-الطفل\n\n2. **تجميع ancestor**: اكتشاف نمط الانغلاق المتعدي واستخدام تحسين البحث بالاتساع (BFS) لحساب جميع الأسلاف الذين يمكن الوصول إليهم بكفاءة\n\nدعنا نتحقق من استراتيجية التجميع:",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 27,
+        "code": "% التحقق مما إذا كان ancestor مصنفًا على أنه عودي\n\\+ \\+ (\n    use_module(unifyweaver(core/recursive_compiler)),\n    recursive_compiler:classify_predicate(ancestor/2, _Classification),\n    format('Ancestor classification: ~w~n', [_Classification])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "source_sink `unifyweaver(core/recursive_compiler)' does not exist",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">source_sink `unifyweaver(core/recursive_compiler)' does not exist</pre>"
+      },
+      {
+        "id": 28,
+        "code": "## الملخص\n\nفي هذا الدفتر، تعلمت:\n\n✅ كيفية تعريف حقائق وقواعد Prolog\n\n✅ كيفية استخدام `stream_compiler` في UnifyWeaver للحقائق\n\n✅ كيفية استخدام `recursive_compiler` في UnifyWeaver للمحددات العودية\n\n✅ كيفية اختبار سكربتات Bash المولدة\n\n✅ أن UnifyWeaver يكتشف الانغلاق المتعدي تلقائيًا ويطبق تحسين BFS\n\n## الخطوات التالية\n\nجرب هذه التمارين:\n\n1. أضف المزيد من أفراد العائلة إلى الشجرة\n2. عرّف محدد `grandparent/2` (الجد/الجدة) وقم بتجميعه\n3. أنشئ محدد `sibling/2` (شخصان لهما نفس الوالد)\n4. استكشف كود Bash المولد لفهم خوارزمية BFS\n\nتابع إلى **دفتر الملاحظات 2: مقارنة أنماط العودية** للتعرف على أنماط العودية المتقدمة!",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      }
+    ]
+  }
+}
