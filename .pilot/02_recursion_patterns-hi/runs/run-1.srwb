@@ -1,0 +1,431 @@
+{
+  "format": "srwb",
+  "format_version": "1.0",
+  "exported_at": "2026-08-15T17:26:22.460Z",
+  "notebook": {
+    "id": "default",
+    "name": "UnifyWeaver में उन्नत रिकर्सन पैटर्न",
+    "autoNameNumber": null,
+    "description": "",
+    "kernelLanguage": "prolog",
+    "catalogId": null,
+    "catalogRevision": null,
+    "cellCounter": 46,
+    "cells": [
+      {
+        "id": 1,
+        "code": "# UnifyWeaver में उन्नत रिकर्सन पैटर्न\n\nयह नोटबुक चार मुख्य रिकर्सन पैटर्न प्रदर्शित करती है जिन्हें UnifyWeaver पहचान सकता है और अनुकूलित कर सकता है:\n\n1. **टेल रिकर्सन (Tail Recursion)** - संचायक (accumulator) के साथ पुनरावृत्त लूप\n2. **रैखिक रिकर्सन (Linear Recursion)** - मेमोइज़ेशन के साथ एकल पुनरावर्ती कॉल\n3. **ट्री रिकर्सन (Tree Recursion)** - संरचना भागों पर कई पुनरावर्ती कॉल\n4. **म्यूचुअल रिकर्सन (Mutual Recursion)** - चक्रों में एक दूसरे को कॉल करने वाले प्रेडिकेट्स\n\n## सीखने के उद्देश्य\n\n- विभिन्न रिकर्सन पैटर्न को समझना\n- देखना कि UnifyWeaver प्रत्येक पैटर्न का पता कैसे लगाता है और उसे कैसे अनुकूलित करता है\n- प्रदर्शन विशेषताओं की तुलना करना\n- प्रत्येक पैटर्न का उपयोग कब करना है यह सीखना",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 2,
+        "code": "## सेटअप\n\nUnifyWeaver वातावरण प्रारंभ करें।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 3,
+        "code": "% आरंभीकरण लोड करें\n['../init'].\n\n% आवश्यक मॉड्यूल लोड करें\nuse_module(unifyweaver(core/recursive_compiler)).\nuse_module(unifyweaver(core/advanced/pattern_matchers)).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Cannot find file: ../init",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">Cannot find file: ../init</pre>"
+      },
+      {
+        "id": 4,
+        "code": "## पैटर्न 1: टेल रिकर्सन (Tail Recursion)\n\nटेल रिकर्सन मध्यवर्ती परिणामों को आगे बढ़ाने के लिए एक संचायक का उपयोग करता है, और पुनरावर्ती कॉल फ़ंक्शन में **अंतिम क्रिया** होती है।\n\n### उदाहरण: सूची में तत्वों की गिनती",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 5,
+        "code": "% टेल-रिकर्सिव count_items परिभाषित करें\n:- dynamic count_items/3.\n\n% आधार स्थिति: खाली सूची, संचायक लौटाएं\ncount_items([], Acc, Acc).\n\n% पुनरावर्ती स्थिति: संचायक बढ़ाएं, टेल पर पुनरावृत्ति करें\ncount_items([_|T], Acc, N) :-\n    Acc1 is Acc + 1,\n    count_items(T, Acc1, N).  % ← टेल स्थिति!",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 6,
+        "code": "### Prolog में परीक्षण करें",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 7,
+        "code": "% परीक्षण: [a,b,c,d,e] में तत्वों की गिनती करें\n\\+ \\+ (\n    count_items([a,b,c,d,e], 0, _N),\n    format('Count: ~w~n', [_N])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Count: 5",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Count: 5</pre>"
+      },
+      {
+        "id": 8,
+        "code": "### पैटर्न पहचान की जांच करें",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 9,
+        "code": "% जाँचें कि क्या टेल रिकर्सिव के रूप में पहचाना गया है\n\\+ \\+ (\n    is_tail_recursive_accumulator(count_items/3, _AccInfo),\n    format('Tail recursive: ~w~n', [_AccInfo])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: is_tail_recursive_accumulator/2",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: is_tail_recursive_accumulator/2</pre>"
+      },
+      {
+        "id": 10,
+        "code": "### Bash में संकलित करें",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 11,
+        "code": "% संकलित करें और सहेजें\n\\+ \\+ (\n    compile_recursive(count_items/3, [], _BashCode),\n    setup_call_cleanup(\n        open('../output/count_items_demo.sh', write, _Stream),\n        write(_Stream, _BashCode),\n        close(_Stream)),\n    writeln('✓ Compiled count_items to Bash with tail recursion optimization')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: compile_recursive/3</pre>"
+      },
+      {
+        "id": 12,
+        "code": "### जनरेट किए गए Bash का परीक्षण करें",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 13,
+        "code": "source ../output/count_items_demo.sh\necho \"[a,b,c,d,e] में तत्वों की गिनती की जा रही है:\"\ncount_items \"[a,b,c,d,e]\" 0 \"\"",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "[a,b,c,d,e] में तत्वों की गिनती की जा रही है:\nerror: source: failed to source file: ../output/count_items_demo.sh\nerror: failed to execute command 'count_items': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">[a,b,c,d,e] में तत्वों की गिनती की जा रही है:\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/count_items_demo.sh\nerror: failed to execute command 'count_items': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 14,
+        "code": "## पैटर्न 2: रैखिक रिकर्सन (Linear Recursion)\n\nरैखिक रिकर्सन में प्रति क्लॉज **सटीक रूप से एक** पुनरावर्ती कॉल होती है, जिसमें पुनरावर्ती कॉल वापस आने के बाद गणना होती है।\n\n### उदाहरण: फैक्टोरियल (Factorial)",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 15,
+        "code": "% फ़ैक्टोरियल परिभाषित करें\n:- dynamic factorial/2.\n\n% आधार स्थिति\nfactorial(0, 1).\n\n% पुनरावर्ती स्थिति: सटीक रूप से केवल एक पुनरावर्ती कॉल\nfactorial(N, F) :-\n    N > 0,\n    N1 is N - 1,\n    factorial(N1, F1),  % ← एक पुनरावर्ती कॉल\n    F is N * F1.        % ← कॉल के बाद गणना",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 16,
+        "code": "### Prolog में परीक्षण करें",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 17,
+        "code": "% परीक्षण: 5 का फ़ैक्टोरियल\n\\+ \\+ (\n    factorial(5, _F),\n    format('5! = ~w~n', [_F])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "5! = 120",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">5! = 120</pre>"
+      },
+      {
+        "id": 18,
+        "code": "### पैटर्न पहचान की जांच करें",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 19,
+        "code": "% जाँचें कि क्या रैखिक रिकर्सिव के रूप में पहचाना गया है\nis_linear_recursive_streamable(factorial/2),\nwriteln('✓ Detected as linear recursion').",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: is_linear_recursive_streamable/1",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: is_linear_recursive_streamable/1</pre>"
+      },
+      {
+        "id": 20,
+        "code": "### Bash में संकलित करें",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 21,
+        "code": "% संकलित करें और सहेजें\n\\+ \\+ (\n    compile_recursive(factorial/2, [], _BashCode),\n    % केवल फ़ंक्शन परिभाषाएं रखें; Brush सोर्स की गई स्क्रिप्ट को सीधे निष्पादन के रूप में मानता है\n    split_string(_BashCode, \"\\n\", \"\\r\", _BashLines),\n    append(_LibraryLines, [\"# Auto-execute when run directly (not when sourced)\"|_], _BashLines),\n    atomics_to_string(_LibraryLines, \"\\n\", _LibraryCode),\n    setup_call_cleanup(\n        open('../output/factorial_demo.sh', write, _Stream),\n        write(_Stream, _LibraryCode),\n        close(_Stream)),\n    writeln('✓ Compiled factorial to Bash with fold-based linear recursion')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: compile_recursive/3</pre>"
+      },
+      {
+        "id": 22,
+        "code": "### जनरेट किए गए Bash का परीक्षण करें",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 23,
+        "code": "source ../output/factorial_demo.sh\necho \"5 का फ़ैक्टोरियल:\"\nfactorial 5 \"\"\necho \"\"\necho \"10 का फ़ैक्टोरियल:\"\nfactorial 10 \"\"",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "5 का फ़ैक्टोरियल:\n\n10 का फ़ैक्टोरियल:\nerror: source: failed to source file: ../output/factorial_demo.sh\nerror: failed to execute command 'factorial': operation not supported on this platform\nerror: failed to execute command 'factorial': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">5 का फ़ैक्टोरियल:\n\n10 का फ़ैक्टोरियल:\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/factorial_demo.sh\nerror: failed to execute command 'factorial': operation not supported on this platform\nerror: failed to execute command 'factorial': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 24,
+        "code": "## पैटर्न 3: ट्री रिकर्सन (Tree Recursion)\n\nसंरचना के विभिन्न भागों को संसाधित करने के लिए ट्री रिकर्सन **एकाधिक** पुनरावर्ती कॉल करता है।\n\n### उदाहरण: ट्री सम (Tree Sum)",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 25,
+        "code": "% बाइनरी ट्री के लिए tree_sum परिभाषित करें\n% ट्री प्रारूप: [Value, LeftSubtree, RightSubtree] या []\n:- dynamic tree_sum/2.\n\n% आधार स्थिति: खाली ट्री का योग 0 होता है\ntree_sum([], 0).\n\n% पुनरावर्ती स्थिति: योग = मान + बायाँ_योग + दायाँ_योग\ntree_sum([V, L, R], Sum) :-\n    tree_sum(L, LS),   % ← पहली पुनरावर्ती कॉल\n    tree_sum(R, RS),   % ← दूसरी पुनरावर्ती कॉल\n    Sum is V + LS + RS.",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 26,
+        "code": "### Prolog में परीक्षण करें",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 27,
+        "code": "% परीक्षण: [5, [3, [1, [], []], []], [2, [], []]] का tree_sum\n%       5\n%      / \\\n%     3   2\n%    /\n%   1\n\\+ \\+ (\n    tree_sum([5, [3, [1, [], []], []], [2, [], []]], _Sum),\n    format('Tree sum: ~w (expected 11)~n', [_Sum])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "Tree sum: 11 (expected 11)",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">Tree sum: 11 (expected 11)</pre>"
+      },
+      {
+        "id": 28,
+        "code": "### Bash में संकलित करें",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 29,
+        "code": "% संकलित करें और सहेजें\n\\+ \\+ (\n    compile_recursive(tree_sum/2, [], _BashCode),\n    setup_call_cleanup(\n        open('../output/tree_sum_demo.sh', write, _Stream),\n        write(_Stream, _BashCode),\n        close(_Stream)),\n    writeln('✓ Compiled tree_sum to Bash with tree recursion')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "'<meta-call>'/1: Unknown procedure: compile_recursive/3",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">'&lt;meta-call&gt;'/1: Unknown procedure: compile_recursive/3</pre>"
+      },
+      {
+        "id": 30,
+        "code": "### जनरेट किए गए Bash का परीक्षण करें",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 31,
+        "code": "source ../output/tree_sum_demo.sh\necho \"[5,[3,[1,[],[]],[]],[2,[],[]]] का ट्री योग:\"\ntree_sum \"[5,[3,[1,[],[]],[]],[2,[],[]]]\"",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "[5,[3,[1,[],[]],[]],[2,[],[]]] का ट्री योग:\nerror: source: failed to source file: ../output/tree_sum_demo.sh\nerror: failed to execute command 'tree_sum': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">[5,[3,[1,[],[]],[]],[2,[],[]]] का ट्री योग:\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/tree_sum_demo.sh\nerror: failed to execute command 'tree_sum': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 32,
+        "code": "## पैटर्न 4: म्यूचुअल रिकर्सन (Mutual Recursion)\n\nम्यूचुअल रिकर्सन तब होता है जब दो या दो से अधिक प्रेडिकेट्स एक चक्र में एक दूसरे को कॉल करते हैं।\n\n### उदाहरण: सम (Even) और विषम (Odd)",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 33,
+        "code": "% परस्पर पुनरावर्ती is_even और is_odd परिभाषित करें\n:- dynamic is_even/1.\n:- dynamic is_odd/1.\n\n% is_even आधार स्थिति\nis_even(0).\n\n% is_even पुनरावर्ती: N सम है यदि N-1 विषम है\nis_even(N) :-\n    N > 0,\n    N1 is N - 1,\n    is_odd(N1).  % ← is_odd को कॉल करता है\n\n% is_odd आधार स्थिति\nis_odd(1).\n\n% is_odd पुनरावर्ती: N विषम है यदि N-1 सम है\nis_odd(N) :-\n    N > 1,\n    N1 is N - 1,\n    is_even(N1).  % ← is_even को कॉल करता है",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 34,
+        "code": "### Prolog में परीक्षण करें",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 35,
+        "code": "% सम/विषम का परीक्षण करें\nis_even(0), writeln('✓ 0 is even').\nis_even(4), writeln('✓ 4 is even').\nis_odd(3), writeln('✓ 3 is odd').\nis_odd(7), writeln('✓ 7 is odd').",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "✓ 0 is even\n✓ 4 is even\n✓ 3 is odd\n✓ 7 is odd",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">✓ 0 is even\n✓ 4 is even\n✓ 3 is odd\n✓ 7 is odd</pre>"
+      },
+      {
+        "id": 36,
+        "code": "### म्यूचुअल रिकर्सन की जांच करें",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 37,
+        "code": "% कॉल ग्राफ़ बनाएं और SCC खोजें\n\\+ \\+ (\n    use_module(unifyweaver(core/advanced/call_graph)),\n    use_module(unifyweaver(core/advanced/scc_detection)),\n\n    build_call_graph([is_even/1, is_odd/1], _Graph),\n    format('Call graph: ~w~n', [_Graph]),\n\n    find_sccs(_Graph, _SCCs),\n    format('SCCs (mutual recursion groups): ~w~n', [_SCCs])\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "source_sink `unifyweaver(core/advanced/call_graph)' does not exist",
+        "lastOutputHtml": "<pre class=\"error-result\" dir=\"ltr\">source_sink `unifyweaver(core/advanced/call_graph)' does not exist</pre>"
+      },
+      {
+        "id": 38,
+        "code": "### Bash में संकलित करें",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 39,
+        "code": "% म्यूचुअल रिकर्सन समूह को संकलित करें\n\\+ \\+ (\n    use_module(unifyweaver(core/advanced/mutual_recursion)),\n\n    compile_mutual_recursion([is_even/1, is_odd/1], [], _BashCode),\n    split_string(_BashCode, \"\\n\", \"\\r\", _BashLines),\n    append(_LibraryLines, [\"# Main dispatch: route command line calls to functions\"|_], _BashLines),\n    atomics_to_string(_LibraryLines, \"\\n\", _LibraryCode),\n    setup_call_cleanup(\n        open('../output/even_odd_demo.sh', write, _Stream),\n        write(_Stream, _LibraryCode),\n        close(_Stream)),\n    writeln('✓ Compiled is_even/is_odd to Bash with shared memoization')\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "true.",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">true.</pre>"
+      },
+      {
+        "id": 40,
+        "code": "### जनरेट किए गए Bash का परीक्षण करें",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 41,
+        "code": "source ../output/even_odd_demo.sh\necho \"is_even और is_odd का परीक्षण किया जा रहा है:\"\nis_even 0 >/dev/null && echo \"✓ 0 सम है\"\nis_even 4 >/dev/null && echo \"✓ 4 सम है\"\nis_odd 3 >/dev/null && echo \"✓ 3 विषम है\"\nis_odd 7 >/dev/null && echo \"✓ 7 विषम है\"\nis_even 5 >/dev/null 2>&1 || echo \"✓ 5 सम नहीं है\"",
+        "type": "code",
+        "language": "bash",
+        "name": "",
+        "lastOutput": "is_even और is_odd का परीक्षण किया जा रहा है:\n✓ 5 सम नहीं है\nerror: source: failed to source file: ../output/even_odd_demo.sh\nerror: failed to execute command 'is_even': operation not supported on this platform\nerror: failed to execute command 'is_even': operation not supported on this platform\nerror: failed to execute command 'is_odd': operation not supported on this platform\nerror: failed to execute command 'is_odd': operation not supported on this platform\n",
+        "lastOutputHtml": "<pre class=\"text-result\" dir=\"ltr\">is_even और is_odd का परीक्षण किया जा रहा है:\n✓ 5 सम नहीं है\n</pre><pre class=\"error-result\" dir=\"ltr\">error: source: failed to source file: ../output/even_odd_demo.sh\nerror: failed to execute command 'is_even': operation not supported on this platform\nerror: failed to execute command 'is_even': operation not supported on this platform\nerror: failed to execute command 'is_odd': operation not supported on this platform\nerror: failed to execute command 'is_odd': operation not supported on this platform\n</pre>"
+      },
+      {
+        "id": 42,
+        "code": "## पैटर्न तुलना\n\nआइए प्रत्येक पैटर्न की विशेषताओं की तुलना करें:\n\n| पैटर्न | पुनरावर्ती कॉल | अनुकूलन | अंतरिक्ष जटिलता | इसके लिए सर्वोत्तम |\n|:--------|:----------------|:-------------|:-----------------|:---------|\n| **टेल** | 1 (टेल स्थिति में) | पुनरावृत्त लूप | O(1) | संचायक, रैखिक स्कैन |\n| **रैखिक** | 1 (किसी भी स्थिति में) | फोल्ड + मेमोइज़ेशन | O(n) मेमो तालिका | फाइबोनैचि, फैक्टोरियल |\n| **ट्री** | 2+ (संरचना भाग) | संरचनात्मक अपघटन | O(गहराई) स्टैक | ट्री/ग्राफ संचालन |\n| **म्यूचुअल** | 1+ (प्रेडिकेट्स के पार) | साझा मेमोइज़ेशन | O(n) साझा तालिका | सम/विषम, पारस्परिक परिभाषाएं |",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 43,
+        "code": "## पैटर्न पहचान क्रम\n\nUnifyWeaver इस क्रम में पैटर्न से मिलान करने का प्रयास करता है:\n\n1. **टेल रिकर्सन** (सबसे कुशल)\n2. **रैखिक रिकर्सन** (जब तक निषिद्ध न हो)\n3. **ट्री रिकर्सन** (संरचनात्मक)\n4. **म्यूचुअल रिकर्सन** (SCC पहचान)\n5. **मूल रिकर्सन** (डिफ़ॉल्ट फॉलबैक)\n\nआप `forbid_linear_recursion/1` के साथ पहचान को प्रभावित कर सकते हैं।",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 44,
+        "code": "## अभ्यास: आपकी बारी!\n\nइन प्रेडिकेट्स को परिभाषित और संकलित करने का प्रयास करें:\n\n### 1. टेल रिकर्सिव सम\n```prolog\nsum_list([], Acc, Acc).\nsum_list([H|T], Acc, Sum) :-\n    Acc1 is Acc + H,\n    sum_list(T, Acc1, Sum).\n```\n\n### 2. रैखिक रिकर्सिव फाइबोनैचि\n```prolog\nfib(0, 0).\nfib(1, 1).\nfib(N, F) :-\n    N > 1,\n    N1 is N - 1,\n    N2 is N - 2,\n    fib(N1, F1),\n    fib(N2, F2),\n    F is F1 + F2.\n```\n\n### 3. ट्री की ऊंचाई\n```prolog\ntree_height([], 0).\ntree_height([_, L, R], H) :-\n    tree_height(L, HL),\n    tree_height(R, HR),\n    H is max(HL, HR) + 1.\n```",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 45,
+        "code": "% आपका कोड यहाँ!\n",
+        "type": "code",
+        "language": "prolog",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      },
+      {
+        "id": 46,
+        "code": "## सारांश\n\nइस नोटबुक में, आपने सीखा:\n\n✅ UnifyWeaver में चार मुख्य रिकर्सन पैटर्न\n\n✅ Prolog में प्रत्येक पैटर्न को कैसे परिभाषित करें\n\n✅ UnifyWeaver प्रत्येक पैटर्न का पता कैसे लगाता है और उसे कैसे अनुकूलित करता है\n\n✅ प्रत्येक पैटर्न की प्रदर्शन विशेषताएं\n\n✅ प्रत्येक पैटर्न का उपयोग कब करना है\n\n## अगले कदम\n\nउन्नत कोड विश्लेषण और विज़ुअलाइज़ेशन के बारे में जानने के लिए **नोटबुक 3: कॉल ग्राफ विज़ुअलाइज़ेशन** पर आगे बढ़ें!",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "",
+        "lastOutput": "",
+        "lastOutputHtml": ""
+      }
+    ]
+  }
+}

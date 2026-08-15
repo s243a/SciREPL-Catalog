@@ -1,0 +1,1380 @@
+{
+  "manifest_version": 1,
+  "produced_by": "derived",
+  "generator": "tools/span-derive.mjs",
+  "locale": "hi",
+  "source": {
+    "path": "workbooks/en/02_recursion_patterns.ipynb",
+    "sha256": "6c8e6bff87fe57d5fb79605a216926b5c48b4e263d2208823228dfe6676c6a80"
+  },
+  "target": {
+    "path": "/tmp/claude-1000/-home-s243a-Projects-UnifyWeaver-examples-sci-repl-prototype/1e85ca50-6e86-4c69-99c6-e55aa4d662bb/scratchpad/jobs/02_recursion_patterns-hi/translated.ipynb",
+    "sha256": "f60d049243787c5b92d9cf83f26f2fdd08fd86d0b726970b73354b0a59f9b421"
+  },
+  "spans": [
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 22
+        },
+        "text": "Load initialization"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 20
+        },
+        "text": "आरंभीकरण लोड करें"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 2,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 25
+        },
+        "text": "Load necessary modules"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 26
+        },
+        "text": "आवश्यक मॉड्यूल लोड करें"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 36
+        },
+        "text": "Define tail-recursive count_items"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 41
+        },
+        "text": "टेल-रिकर्सिव count_items परिभाषित करें"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 44
+        },
+        "text": "Base case: empty list, return accumulator"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 40
+        },
+        "text": "आधार स्थिति: खाली सूची, संचायक लौटाएं"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 1
+        },
+        "end": {
+          "line": 7,
+          "col": 57
+        },
+        "text": "Recursive case: increment accumulator, recurse on tail"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 1
+        },
+        "end": {
+          "line": 7,
+          "col": 60
+        },
+        "text": "पुनरावर्ती स्थिति: संचायक बढ़ाएं, टेल पर पुनरावृत्ति करें"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 4,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 10,
+          "col": 31
+        },
+        "end": {
+          "line": 10,
+          "col": 49
+        },
+        "text": "← Tail position!"
+      },
+      "target_span": {
+        "start": {
+          "line": 10,
+          "col": 31
+        },
+        "end": {
+          "line": 10,
+          "col": 46
+        },
+        "text": "← टेल स्थिति!"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 6,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 35
+        },
+        "text": "Test: count items in [a,b,c,d,e]"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 48
+        },
+        "text": "परीक्षण: [a,b,c,d,e] में तत्वों की गिनती करें"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 8,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 38
+        },
+        "text": "Check if detected as tail recursive"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 55
+        },
+        "text": "जाँचें कि क्या टेल रिकर्सिव के रूप में पहचाना गया है"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 10,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 19
+        },
+        "text": "Compile and save"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 24
+        },
+        "text": "संकलित करें और सहेजें"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 12,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 37
+        },
+        "text": "Counting items in [a,b,c,d,e]:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 52
+        },
+        "text": "[a,b,c,d,e] में तत्वों की गिनती की जा रही है:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 19
+        },
+        "text": "Define factorial"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 28
+        },
+        "text": "फ़ैक्टोरियल परिभाषित करें"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 12
+        },
+        "text": "Base case"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 1
+        },
+        "end": {
+          "line": 4,
+          "col": 14
+        },
+        "text": "आधार स्थिति"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 1
+        },
+        "end": {
+          "line": 7,
+          "col": 45
+        },
+        "text": "Recursive case: exactly ONE recursive call"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 1
+        },
+        "end": {
+          "line": 7,
+          "col": 56
+        },
+        "text": "पुनरावर्ती स्थिति: सटीक रूप से केवल एक पुनरावर्ती कॉल"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 11,
+          "col": 25
+        },
+        "end": {
+          "line": 11,
+          "col": 47
+        },
+        "text": "← One recursive call"
+      },
+      "target_span": {
+        "start": {
+          "line": 11,
+          "col": 25
+        },
+        "end": {
+          "line": 11,
+          "col": 46
+        },
+        "text": "← एक पुनरावर्ती कॉल"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 14,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 12,
+          "col": 25
+        },
+        "end": {
+          "line": 12,
+          "col": 51
+        },
+        "text": "← Computation after call"
+      },
+      "target_span": {
+        "start": {
+          "line": 12,
+          "col": 25
+        },
+        "end": {
+          "line": 12,
+          "col": 44
+        },
+        "text": "← कॉल के बाद गणना"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 16,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 23
+        },
+        "text": "Test: factorial of 5"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 28
+        },
+        "text": "परीक्षण: 5 का फ़ैक्टोरियल"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 18,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 40
+        },
+        "text": "Check if detected as linear recursive"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 57
+        },
+        "text": "जाँचें कि क्या रैखिक रिकर्सिव के रूप में पहचाना गया है"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 20,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 19
+        },
+        "text": "Compile and save"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 24
+        },
+        "text": "संकलित करें और सहेजें"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 20,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 5
+        },
+        "end": {
+          "line": 4,
+          "col": 87
+        },
+        "text": "Keep function definitions only; Brush treats sourced scripts as direct execution"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 5
+        },
+        "end": {
+          "line": 4,
+          "col": 100
+        },
+        "text": "केवल फ़ंक्शन परिभाषाएं रखें; Brush सोर्स की गई स्क्रिप्ट को सीधे निष्पादन के रूप में मानता है"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 22,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 22
+        },
+        "text": "Factorial of 5:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 24
+        },
+        "text": "5 का फ़ैक्टोरियल:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 22,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 7
+        },
+        "end": {
+          "line": 6,
+          "col": 23
+        },
+        "text": "Factorial of 10:"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 7
+        },
+        "end": {
+          "line": 6,
+          "col": 25
+        },
+        "text": "10 का फ़ैक्टोरियल:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 35
+        },
+        "text": "Define tree_sum for binary trees"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 44
+        },
+        "text": "बाइनरी ट्री के लिए tree_sum परिभाषित करें"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 56
+        },
+        "text": "Tree format: [Value, LeftSubtree, RightSubtree] or []"
+      },
+      "target_span": {
+        "start": {
+          "line": 2,
+          "col": 1
+        },
+        "end": {
+          "line": 2,
+          "col": 57
+        },
+        "text": "ट्री प्रारूप: [Value, LeftSubtree, RightSubtree] या []"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 34
+        },
+        "text": "Base case: empty tree has sum 0"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 42
+        },
+        "text": "आधार स्थिति: खाली ट्री का योग 0 होता है"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 8,
+          "col": 1
+        },
+        "end": {
+          "line": 8,
+          "col": 53
+        },
+        "text": "Recursive case: sum = value + left_sum + right_sum"
+      },
+      "target_span": {
+        "start": {
+          "line": 8,
+          "col": 1
+        },
+        "end": {
+          "line": 8,
+          "col": 55
+        },
+        "text": "पुनरावर्ती स्थिति: योग = मान + बायाँ_योग + दायाँ_योग"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 10,
+          "col": 24
+        },
+        "end": {
+          "line": 10,
+          "col": 48
+        },
+        "text": "← First recursive call"
+      },
+      "target_span": {
+        "start": {
+          "line": 10,
+          "col": 24
+        },
+        "end": {
+          "line": 10,
+          "col": 47
+        },
+        "text": "← पहली पुनरावर्ती कॉल"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 24,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 11,
+          "col": 24
+        },
+        "end": {
+          "line": 11,
+          "col": 49
+        },
+        "text": "← Second recursive call"
+      },
+      "target_span": {
+        "start": {
+          "line": 11,
+          "col": 24
+        },
+        "end": {
+          "line": 11,
+          "col": 48
+        },
+        "text": "← दूसरी पुनरावर्ती कॉल"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 26,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 59
+        },
+        "text": "Test: tree_sum of [5, [3, [1, [], []], []], [2, [], []]]"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 62
+        },
+        "text": "परीक्षण: [5, [3, [1, [], []], []], [2, [], []]] का tree_sum"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 28,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 19
+        },
+        "text": "Compile and save"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 24
+        },
+        "text": "संकलित करें और सहेजें"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 30,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 50
+        },
+        "text": "Tree sum of [5,[3,[1,[],[]],[]],[2,[],[]]]:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 50
+        },
+        "text": "[5,[3,[1,[],[]],[]],[2,[],[]]] का ट्री योग:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 32,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 47
+        },
+        "text": "Define mutually recursive is_even and is_odd"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 52
+        },
+        "text": "परस्पर पुनरावर्ती is_even और is_odd परिभाषित करें"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 32,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 20
+        },
+        "text": "is_even base case"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 1
+        },
+        "end": {
+          "line": 5,
+          "col": 22
+        },
+        "text": "is_even आधार स्थिति"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 32,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 8,
+          "col": 1
+        },
+        "end": {
+          "line": 8,
+          "col": 45
+        },
+        "text": "is_even recursive: N is even if N-1 is odd"
+      },
+      "target_span": {
+        "start": {
+          "line": 8,
+          "col": 1
+        },
+        "end": {
+          "line": 8,
+          "col": 46
+        },
+        "text": "is_even पुनरावर्ती: N सम है यदि N-1 विषम है"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 32,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 12,
+          "col": 18
+        },
+        "end": {
+          "line": 12,
+          "col": 34
+        },
+        "text": "← Calls is_odd"
+      },
+      "target_span": {
+        "start": {
+          "line": 12,
+          "col": 18
+        },
+        "end": {
+          "line": 12,
+          "col": 43
+        },
+        "text": "← is_odd को कॉल करता है"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 32,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 14,
+          "col": 1
+        },
+        "end": {
+          "line": 14,
+          "col": 19
+        },
+        "text": "is_odd base case"
+      },
+      "target_span": {
+        "start": {
+          "line": 14,
+          "col": 1
+        },
+        "end": {
+          "line": 14,
+          "col": 21
+        },
+        "text": "is_odd आधार स्थिति"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 32,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 17,
+          "col": 1
+        },
+        "end": {
+          "line": 17,
+          "col": 44
+        },
+        "text": "is_odd recursive: N is odd if N-1 is even"
+      },
+      "target_span": {
+        "start": {
+          "line": 17,
+          "col": 1
+        },
+        "end": {
+          "line": 17,
+          "col": 45
+        },
+        "text": "is_odd पुनरावर्ती: N विषम है यदि N-1 सम है"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 32,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 21,
+          "col": 19
+        },
+        "end": {
+          "line": 21,
+          "col": 36
+        },
+        "text": "← Calls is_even"
+      },
+      "target_span": {
+        "start": {
+          "line": 21,
+          "col": 19
+        },
+        "end": {
+          "line": 21,
+          "col": 45
+        },
+        "text": "← is_even को कॉल करता है"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 34,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 16
+        },
+        "text": "Test even/odd"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 26
+        },
+        "text": "सम/विषम का परीक्षण करें"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 36,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 33
+        },
+        "text": "Build call graph and find SCCs"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 32
+        },
+        "text": "कॉल ग्राफ़ बनाएं और SCC खोजें"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 38,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 37
+        },
+        "text": "Compile the mutual recursion group"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 39
+        },
+        "text": "म्यूचुअल रिकर्सन समूह को संकलित करें"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    },
+    {
+      "cell_index": 40,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 34
+        },
+        "text": "Testing is_even and is_odd:"
+      },
+      "target_span": {
+        "start": {
+          "line": 3,
+          "col": 7
+        },
+        "end": {
+          "line": 3,
+          "col": 51
+        },
+        "text": "is_even और is_odd का परीक्षण किया जा रहा है:"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 40,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 4,
+          "col": 31
+        },
+        "end": {
+          "line": 4,
+          "col": 42
+        },
+        "text": "✓ 0 is even"
+      },
+      "target_span": {
+        "start": {
+          "line": 4,
+          "col": 31
+        },
+        "end": {
+          "line": 4,
+          "col": 40
+        },
+        "text": "✓ 0 सम है"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 40,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 5,
+          "col": 31
+        },
+        "end": {
+          "line": 5,
+          "col": 42
+        },
+        "text": "✓ 4 is even"
+      },
+      "target_span": {
+        "start": {
+          "line": 5,
+          "col": 31
+        },
+        "end": {
+          "line": 5,
+          "col": 40
+        },
+        "text": "✓ 4 सम है"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 40,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 6,
+          "col": 30
+        },
+        "end": {
+          "line": 6,
+          "col": 40
+        },
+        "text": "✓ 3 is odd"
+      },
+      "target_span": {
+        "start": {
+          "line": 6,
+          "col": 30
+        },
+        "end": {
+          "line": 6,
+          "col": 41
+        },
+        "text": "✓ 3 विषम है"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 40,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 7,
+          "col": 30
+        },
+        "end": {
+          "line": 7,
+          "col": 40
+        },
+        "text": "✓ 7 is odd"
+      },
+      "target_span": {
+        "start": {
+          "line": 7,
+          "col": 30
+        },
+        "end": {
+          "line": 7,
+          "col": 41
+        },
+        "text": "✓ 7 विषम है"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 40,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 8,
+          "col": 36
+        },
+        "end": {
+          "line": 8,
+          "col": 51
+        },
+        "text": "✓ 5 is not even"
+      },
+      "target_span": {
+        "start": {
+          "line": 8,
+          "col": 36
+        },
+        "end": {
+          "line": 8,
+          "col": 50
+        },
+        "text": "✓ 5 सम नहीं है"
+      },
+      "kind": "display_string",
+      "reaches_output": "stdout",
+      "placeholders": []
+    },
+    {
+      "cell_index": 44,
+      "cell_name": null,
+      "source_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 18
+        },
+        "text": "Your code here!"
+      },
+      "target_span": {
+        "start": {
+          "line": 1,
+          "col": 1
+        },
+        "end": {
+          "line": 1,
+          "col": 17
+        },
+        "text": "आपका कोड यहाँ!"
+      },
+      "kind": "comment",
+      "reaches_output": "none",
+      "placeholders": []
+    }
+  ],
+  "exclusions": []
+}
