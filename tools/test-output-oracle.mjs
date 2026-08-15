@@ -150,6 +150,14 @@ const mX = manifest([span(2, 'Total: ', 'Total generales: ')]);
 const jX = judge(run([null, 'Total: 5', 'x']), run([null, 'Total generales: 5', 'x']), mX);
 check('span from cell 2 masks when surfacing in cell 1', jX.pass, jX.failures.join('|'));
 
+console.log('8h. Comment-substring must not shred longer display spans (lua/ru regression)');
+const mS = manifest([
+  span(1, 'Odd squares: ', 'Nechetnye kvadraty: '),
+  span(1, 'square', 'kvadrat', 'none'),
+]);
+const jS = judge(run([null, 'Odd squares: 1 9 25']), run([null, 'Nechetnye kvadraty: 1 9 25']), mS);
+check('substring comment span does not break longer span mask', jS.pass, jS.failures.join('|'));
+
 console.log('9. Sentinel collision resistance');
 // translated word 'términos' coincidentally equals another legit span's text —
 // symmetric sentinels keep them distinct because masking is per-span-index

@@ -166,10 +166,8 @@ export function judge(enRun, xxRun, manifest) {
     for (const s of noneSpans) {
       if (s.target_span?.text && b.includes(renderedText(s.target_span.text, s.format_spec))) {
         warnings.push(`cell ${i}: reaches_output:none span appears in output: ${JSON.stringify(s.target_span.text.slice(0, 60))}`);
-        // mask it symmetrically so the appearance itself doesn't fail the diff
-        const src = renderedText(s.source_span?.text || '', s.format_spec);
-        const dst = renderedText(s.target_span.text, s.format_spec);
-        if (src && dst) { a = a.split(src).join('⟦N⟧'); b = b.split(dst).join('⟦N⟧'); }
+        // masking happens in the unified longest-first pass below — masking
+        // here would shred longer stdout spans that contain this text
       }
     }
 
@@ -206,8 +204,9 @@ export function judge(enRun, xxRun, manifest) {
       });
       return [ma, mb];
     };
-    const localPairs = expand(stdoutSpans.filter(sp => sp.cell_index === i));
-    const globalPairs = expand(stdoutSpans);
+    const maskable = stdoutSpans.concat(noneSpans);
+    const localPairs = expand(maskable.filter(sp => sp.cell_index === i));
+    const globalPairs = expand(maskable);
     let spansHere = localPairs;
     [a, b] = applyMask([a, b], localPairs, 'S');
     if (a !== b && globalPairs.length > localPairs.length) {
