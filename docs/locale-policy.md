@@ -50,7 +50,8 @@ comments, strings, labels) is Arabic. Two independent reasons:
 2. **Arabic developer custom.** Arabic-script programming languages never
    gained adoption; Arabic developers read code with English identifiers
    and Arabic prose. Cell names are additionally addressing identifiers
-   (`/nb/<name>`, MCP `read_cell`), i.e., part of the structural layer.
+   (`/nb/<name>` in the app's [notebook VFS](https://github.com/s243a/SciREPL/blob/main/www/js/notebook_vfs.js), MCP `read_cell`),
+   i.e., part of the structural layer.
 
 **Deferred, not dropped**: Arabic glosses for the English names. The agreed
 future home is a per-cell `notes` metadata field in the srwb format (shown

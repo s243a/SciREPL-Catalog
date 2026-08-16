@@ -17,7 +17,7 @@ Root cause: the MCP broker decoded agent stdout per-chunk
 boundaries became replacement characters — and *self-consistent corruption
 is invisible to the differential oracle by design* (the manifest and the
 output carry the same corrupted bytes). Fixes: upstream, incremental
-decoding in the broker (SciREPL-MCP #9, `setEncoding('utf8')`); locally,
+decoding in the broker ([SciREPL-MCP PR #9](https://github.com/s243a/SciREPL-MCP/pull/9), `setEncoding('utf8')`); locally,
 U+FFFD is now rejected at four layers — span-apply and apply-renames at
 proposal time, span-derive at the gate, and build-pages refuses to publish
 it. Lesson: **an oracle that verifies consistency cannot see consistent
@@ -124,7 +124,8 @@ job's evidence).
 - Non-bundled kernels (Lua/Prolog CDN runtimes) show a download-consent
   dialog; headless nobody clicks; `ensureReady` awaits forever and wedges
   every subsequent tool call. Bench profile sets
-  `localStorage.scirepl_auto_download = '1'`.
+  `localStorage.scirepl_auto_download = '1'` (the gate lives in the app's
+  [kernel manager](https://github.com/s243a/SciREPL/blob/main/www/js/kernel_manager.js)).
 - Exactly ONE bench-pair process may hold the app connection; N>1 fight
   over the single slot with random "connection replaced" failures. And
   `pkill -f` matches your own shell's command line — kill by PID list.
