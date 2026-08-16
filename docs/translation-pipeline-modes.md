@@ -113,3 +113,15 @@ can only assess fluency, not fidelity.
 
 Either way, the commit boundary is unchanged: exports re-run the full gate
 chain before anything reaches the repo.
+
+## Cross-repo references
+
+Mode B's supervised sessions run on SciREPL-MCP's remote-agent control
+surface: [tutorial](https://github.com/s243a/SciREPL-MCP/blob/main/docs/remote-agent-control.md),
+[agent context](https://github.com/s243a/SciREPL-MCP/blob/main/docs/agent-context.md),
+[resources & scaling](https://github.com/s243a/SciREPL-MCP/blob/main/docs/supervision-resources-and-scaling.md).
+The sandbox boundary is the app's MCP tool surface (see the
+[scirepl-notebook skill template](https://github.com/s243a/SciREPL-MCP/blob/main/packages/broker/templates/scirepl-notebook-skill.md.template)
+the broker installs into agent workspaces). Worker import/export as a
+guarded alternative rides the broker's
+[workbook file transfer](https://github.com/s243a/SciREPL-MCP/blob/main/docs/workbook-file-transfer.md) permissions.
