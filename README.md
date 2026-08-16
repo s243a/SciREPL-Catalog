@@ -24,6 +24,15 @@ unaffected.
 > Catalog sources require a SciREPL version with the Sources panel (in
 > development). Until then this repository is content staging.
 
+## Documentation
+
+- [docs/translation-process.md](docs/translation-process.md) — how every translated edition is produced (both passes)
+- [docs/translation-pipeline-modes.md](docs/translation-pipeline-modes.md) — mechanical vs sandboxed-polish modes, worker access levels
+- [docs/locale-policy.md](docs/locale-policy.md) — what translates per locale; per-script identifier policy; the Arabic decision
+- [docs/field-lessons.md](docs/field-lessons.md) — every bug the campaign found, and the guard that locks it
+- [docs/distribution.md](docs/distribution.md) — releases, the Pages channel, integrity model
+- [bench/README.md](bench/README.md) — the executable pipeline tooling
+
 ## Layout
 
 ```

@@ -114,3 +114,46 @@ for the full tables and the caveats that keep them honest.
    distinctness checks appropriate to the locale.
 5. Index with `build-index.mjs`, changelog, commit — controller only.
 6. Recruit a native speaker; record their findings as `revision` bumps.
+
+---
+
+# Pass 2: code-level translation (the current process)
+
+The section above documents the first pass (markdown, PTY-supervised
+file editing). Pass 2 — which produced the v0.3.0 corpus — translates
+code-level prose (comments, strings, formatted output, plot labels; for
+compute-pi also identifiers and cell names) and replaced supervised file
+editing with a **propose/apply/verify** pipeline in which no agent edits
+workbook bytes:
+
+1. **Candidates**: `tools/span-apply.mjs candidates <en-workbook>` emits
+   every translatable position with a stable id, kind, width constraint,
+   and its source line as word-sense context.
+2. **Worker proposes** (two one-shot calls: draft, then review):
+   `{"spans": {id: text}, "keeps": [ids], "suggestions": [...]}` — see
+   [locale-policy.md](locale-policy.md) for what may translate and
+   [translation-pipeline-modes.md](translation-pipeline-modes.md) for the
+   Mode A/B design and worker access levels.
+3. **Deterministic apply**: `span-apply apply` (and `apply-renames` for
+   Stage B) — validates widths, quoting, escapes, format-spec integrity,
+   U+FFFD hygiene; rejects rather than mangles.
+4. **Static gates**: `span-derive` (structural identity / α-rename),
+   `span-scan --lint` (completeness, with declared keeps as allows).
+5. **Runtime gates** on the bench (`bench/`): import → Run All → export,
+   twice (determinism envelope), then the **differential oracle**
+   (`tools/output-oracle.mjs judge`) against the cached English baseline —
+   byte-identical outside declared spans, with the tolerances documented
+   in [field-lessons.md](field-lessons.md).
+6. **Repair loop**: gate failures go back to the worker with the exact
+   error text (max 2 rounds); integrity gates prevent un-translation.
+7. **Evidence + index**: per-job `.pilot/<workbook>-<locale>/` (worker
+   JSON, derived manifest, both post-run exports) and the item's
+   `revision`/`sha256` bump. Batches commit per locale
+   (`bench/fanout.sh`), release flow per [distribution.md](distribution.md).
+
+One (workbook × locale) job = `node bench/run-translation.mjs <wb> <loc>`:
+two worker calls plus bench time, no supervision required in Mode A. The
+optional Mode B polish pass (sandboxed worker with app access, rendered-
+output QA) is documented in translation-pipeline-modes.md; content
+improvement ideas travel the escalation channel to `.pilot/escalations.md`
+and, if accepted, change the ENGLISH source and re-translate everywhere.
