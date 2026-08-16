@@ -17,5 +17,9 @@ the constants at the top of each script for another environment.
 | `reverify-locale.mjs` | Re-run the gate chain on an already-staged file (post-repair verification). |
 | `fanout.sh` | Batch driver over locales × workbooks. Resumable (evidence dirs are done-markers), restores failed jobs to round-one state, commits greens per locale. |
 
+Broker setup, security posture, and the agent/PTY surfaces are documented
+in [SciREPL-MCP](https://github.com/s243a/SciREPL-MCP/blob/main/packages/broker/README.md) (see also
+[configuration](https://github.com/s243a/SciREPL-MCP/blob/main/docs/configuration.md)).
+
 Verification tools proper (span-lib/apply/derive/scan, output-oracle) live in
 `tools/` and are covered by the fixture suites there.

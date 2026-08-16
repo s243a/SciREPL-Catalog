@@ -157,3 +157,23 @@ optional Mode B polish pass (sandboxed worker with app access, rendered-
 output QA) is documented in translation-pipeline-modes.md; content
 improvement ideas travel the escalation channel to `.pilot/escalations.md`
 and, if accepted, change the ENGLISH source and re-translate everywhere.
+
+## Cross-repo references
+
+The pipeline runs on machinery documented in sibling repositories:
+
+- **Supervised remote-agent control** (the worker/supervisor pattern both
+  passes build on): [tutorial](https://github.com/s243a/SciREPL-MCP/blob/main/docs/remote-agent-control.md) and
+  [resources & scaling](https://github.com/s243a/SciREPL-MCP/blob/main/docs/supervision-resources-and-scaling.md)
+  in SciREPL-MCP, plus the broker's
+  [supervisor-skill template](https://github.com/s243a/SciREPL-MCP/blob/main/packages/broker/templates/remote-agent-supervisor-skill.md.template).
+- **The MCP broker** the bench drives:
+  [README](https://github.com/s243a/SciREPL-MCP/blob/main/packages/broker/README.md),
+  [protocol](https://github.com/s243a/SciREPL-MCP/blob/main/docs/protocol.md),
+  [configuration](https://github.com/s243a/SciREPL-MCP/blob/main/docs/configuration.md), and
+  [workbook file transfer](https://github.com/s243a/SciREPL-MCP/blob/main/docs/workbook-file-transfer.md)
+  (the direct-to-file surface, SciREPL-MCP PR #7).
+- **The notebook cell/tool surface** agents act on (why cell names are
+  addressing identifiers): the app's notebook VFS
+  ([www/js/notebook_vfs.js](https://github.com/s243a/SciREPL/blob/main/www/js/notebook_vfs.js)) in
+  [SciREPL](https://github.com/s243a/SciREPL).
