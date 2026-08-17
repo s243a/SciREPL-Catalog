@@ -1,9 +1,15 @@
 # Translation pipeline: the two modes
 
-Settled 2026-08-15 (owner + Kimi discussion; supersedes neither — Mode A
-remains the bulk default, Mode B layers on top).
+Settled 2026-08-15 (owner + Kimi discussion). Mode A and Mode B are not
+alternatives: they are **Phase 1 and Phase 2 of Pass 2**, run
+sequentially. Mode A does the bulk mechanical translation and its gates
+must be green before Mode B — the full-context quality pass — touches the
+workbook. The phase ordering and its rationale (mechanical gating bounds
+the execution-error surface before any full-context agent sees the
+workbook) are documented in
+[translation-process.md](translation-process.md).
 
-## Mode A — mechanical (bulk default)
+## Mode A — mechanical (Phase 1 of Pass 2, bulk default)
 
 Worker proposes JSON (span translations by id, identifier glossary, keeps);
 deterministic tools apply; gates certify; gate failures loop back to the
@@ -12,10 +18,12 @@ calls per locale. This produced the entire v0.2.0 compute-pi corpus.
 
 Strengths: cheap, auditable (same JSON → same bytes), failure shape is
 *rejection before any byte changes*. Blind spot: the worker sees fragments
-plus context lines, not the living document — and no pass sees RENDERED
-output.
+plus context lines, not the living document — and nothing in this phase
+sees RENDERED output. That blind spot is deliberate (safety over quality)
+and is what Phase 2 exists to cover: **after Mode A's gates are green,
+proceed to Mode B (Phase 2 of Pass 2) for contextual polish.**
 
-## Mode B — sandboxed contextual polish (quality pass)
+## Mode B — sandboxed contextual polish (Phase 2 of Pass 2)
 
 Runs AFTER Mode A's gates are green, on top of the verified baseline:
 
