@@ -15,7 +15,9 @@ terminology judgment calls each run flagged.
 > — two sequential phases: mechanical translation (Mode A), then contextual
 > polish (Mode B). Pass 1 (markdown, PTY-supervised) is documented first for
 > historical context and remains the reference for the supervision
-> machinery, but new locale rounds follow Pass 2.
+> machinery, but new locale rounds follow Pass 2 (after the round-one
+> markdown translation exists — Pass 2's gates assume code cells are
+> byte-identical to the English source, which round one establishes).
 
 ## The division of labor
 
@@ -214,11 +216,11 @@ which stage actually uses them:
   [resources & scaling](https://github.com/s243a/SciREPL-MCP/blob/main/docs/supervision-resources-and-scaling.md)
   in SciREPL-MCP, plus the broker's
   [supervisor-skill template](https://github.com/s243a/SciREPL-MCP/blob/main/packages/broker/templates/remote-agent-supervisor-skill.md.template).
-  Pass 2 **Phase 1 does not use this**: its worker calls are one-shot JSON
-  exchanges via `bench/agent-drive.mjs`, and its gate chain is the local
-  `tools/span-*.mjs` + `tools/output-oracle.mjs` toolset in **this
-  repository** (the MCP broker is used only to drive the bench app, not
-  the worker).
+  Pass 2 **Phase 1 does not use PTY supervision**: its worker calls are
+  one-shot JSON exchanges via `bench/agent-drive.mjs` (which talks to the
+  broker's `/agent` surface, but without the interactive permission
+  loop), and its gate chain is the local `tools/span-*.mjs` +
+  `tools/output-oracle.mjs` toolset in **this repository**.
 - **Pass 2 Phase 2 (Mode B): the sandboxed notebook tool surface** — the
   [scirepl-notebook skill template](https://github.com/s243a/SciREPL-MCP/blob/main/packages/broker/templates/scirepl-notebook-skill.md.template)
   and the cell-scoped MCP tools it documents; see
