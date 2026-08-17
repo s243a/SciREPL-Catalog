@@ -11,6 +11,12 @@ Every edition is machine-translated and awaits native-speaker review; the
 [CHANGELOG](../CHANGELOG.md) tracks per-locale review status and the
 terminology judgment calls each run flagged.
 
+> **Which process is current?** Pass 2 ([below](#pass-2-code-level-translation-the-current-process))
+> — two sequential phases: mechanical translation (Mode A), then contextual
+> polish (Mode B). Pass 1 (markdown, PTY-supervised) is documented first for
+> historical context and remains the reference for the supervision
+> machinery, but new locale rounds follow Pass 2.
+
 ## The division of labor
 
 | Role | Who | Pays with | Responsibility |
@@ -20,8 +26,9 @@ terminology judgment calls each run flagged.
 | Controller | Claude (main session) | Claude tokens | Writes the task files, verifies every produced file, maintains the index, commits |
 | Human | Repo owner | Attention | Privilege decisions (enabling agent mode, trusting the workspace) and final quality judgment |
 
-The worker runs under the SciREPL-MCP broker's supervised terminal surface —
-one named agent CLI on a PTY, no shell, every consequential action gated by
+The worker runs under the SciREPL-MCP (Model Context Protocol) broker's
+supervised terminal surface — one named agent CLI on a PTY
+(pseudo-terminal), no shell, every consequential action gated by
 an interactive permission prompt that the supervisor answers individually.
 The pattern, its drivers, and its security posture are documented in
 SciREPL-MCP:
@@ -37,7 +44,8 @@ SciREPL-MCP:
 ## The per-locale loop
 
 1. **Task file.** The controller generates `.translation-task-<locale>.md`
-   in the repo root: the 15 files, per-format rules (srwb vs ipynb), the
+   in the repo root: the 15 files, per-format rules (`.srwb`, the SciREPL
+   WorkBook format, vs `.ipynb`), the
    hard constraints (only markdown translates; code cells byte-identical;
    cell names stay English — see the [README](../README.md) conventions),
    and the locale's terminology. Glossary terms are pulled from the SciREPL
@@ -120,11 +128,29 @@ for the full tables and the caveats that keep them honest.
 # Pass 2: code-level translation (the current process)
 
 The section above documents the first pass (markdown, PTY-supervised
-file editing). Pass 2 — which produced the v0.3.0 corpus — translates
-code-level prose (comments, strings, formatted output, plot labels; for
-compute-pi also identifiers and cell names) and replaced supervised file
-editing with a **propose/apply/verify** pipeline in which no agent edits
-workbook bytes:
+file editing — markdown is safe to translate with full-file context
+because it has no execution surface). Pass 2 — which produced the v0.3.0
+corpus — translates code-level prose (comments, strings, formatted
+output, plot labels; for compute-pi also identifiers and cell names) and
+runs in **two sequential phases**:
+
+- **Phase 1 — Mechanical translation (Mode A)**: the propose/apply/verify
+  pipeline below, in which no agent edits workbook bytes.
+- **Phase 2 — Contextual polish (Mode B)**: a sandboxed full-context
+  quality pass that runs **only after Phase 1's gates are green**.
+
+**Why this order:** the mechanical phase intentionally limits the worker
+to fragments plus context lines — its job is not quality, it is *safety*.
+By restricting the worker to pre-identified prose spans and validating
+every change mechanically, the gates prove the executable surface is
+untouched before any full-context agent sees the workbook. The
+full-context phase then cannot introduce execution-breaking changes even
+if it errs, because it operates on a workbook the gates already certified
+and every edit re-runs the same gate chain.
+
+## Phase 1 — Mechanical translation (Mode A)
+
+The worker deliberately sees fragments, not the living document:
 
 1. **Candidates**: `tools/span-apply.mjs candidates <en-workbook>` emits
    every translatable position with a stable id, kind, width constraint,
@@ -152,21 +178,51 @@ workbook bytes:
    (`bench/fanout.sh`), release flow per [distribution.md](distribution.md).
 
 One (workbook × locale) job = `node bench/run-translation.mjs <wb> <loc>`:
-two worker calls plus bench time, no supervision required in Mode A. The
-optional Mode B polish pass (sandboxed worker with app access, rendered-
-output QA) is documented in translation-pipeline-modes.md; content
-improvement ideas travel the escalation channel to `.pilot/escalations.md`
-and, if accepted, change the ENGLISH source and re-translate everywhere.
+two worker calls plus bench time, no supervision required in Phase 1 —
+the worker calls are one-shot JSON exchanges (`bench/agent-drive.mjs`),
+not a supervised PTY session.
+
+## Phase 2 — Contextual polish (Mode B)
+
+Only after Phase 1 is green, a sandboxed worker imports the verified
+workbook into the SciREPL Pro app, sees whole-workbook phrasing side by
+side with the English source, inspects the **rendered** output (tables,
+plots — which no Phase 1 step ever sees), and edits/re-runs/confirms
+quality improvements in a live environment. The worker's own judgment is
+a claim, not evidence: the supervisor exports the tab and re-runs the
+FULL Phase 1 gate chain plus bench before anything is promoted — the
+commit boundary is unchanged. "No changes needed" is an acceptable
+outcome. The full specification (worker access levels, sandbox boundary,
+headless TODO) is in
+[translation-pipeline-modes.md](translation-pipeline-modes.md); the
+field evidence for why this phase exists is the U+FFFD incident in
+[field-lessons.md](field-lessons.md) — rendered-output inspection caught
+corruption the fragment-based phase structurally could not see.
+
+Content improvement ideas (in either phase) travel the escalation channel
+to `.pilot/escalations.md` and, if accepted, change the ENGLISH source
+and re-translate everywhere.
 
 ## Cross-repo references
 
-The pipeline runs on machinery documented in sibling repositories:
+Each stage runs on different machinery — the references are grouped by
+which stage actually uses them:
 
-- **Supervised remote-agent control** (the worker/supervisor pattern both
-  passes build on): [tutorial](https://github.com/s243a/SciREPL-MCP/blob/main/docs/remote-agent-control.md) and
+- **Pass 1 (and Mode B's supervised sessions): remote-agent control** —
+  the PTY worker/supervisor pattern:
+  [tutorial](https://github.com/s243a/SciREPL-MCP/blob/main/docs/remote-agent-control.md) and
   [resources & scaling](https://github.com/s243a/SciREPL-MCP/blob/main/docs/supervision-resources-and-scaling.md)
   in SciREPL-MCP, plus the broker's
   [supervisor-skill template](https://github.com/s243a/SciREPL-MCP/blob/main/packages/broker/templates/remote-agent-supervisor-skill.md.template).
+  Pass 2 **Phase 1 does not use this**: its worker calls are one-shot JSON
+  exchanges via `bench/agent-drive.mjs`, and its gate chain is the local
+  `tools/span-*.mjs` + `tools/output-oracle.mjs` toolset in **this
+  repository** (the MCP broker is used only to drive the bench app, not
+  the worker).
+- **Pass 2 Phase 2 (Mode B): the sandboxed notebook tool surface** — the
+  [scirepl-notebook skill template](https://github.com/s243a/SciREPL-MCP/blob/main/packages/broker/templates/scirepl-notebook-skill.md.template)
+  and the cell-scoped MCP tools it documents; see
+  [translation-pipeline-modes.md](translation-pipeline-modes.md).
 - **The MCP broker** the bench drives:
   [README](https://github.com/s243a/SciREPL-MCP/blob/main/packages/broker/README.md),
   [protocol](https://github.com/s243a/SciREPL-MCP/blob/main/docs/protocol.md),

@@ -1,6 +1,11 @@
 #!/usr/bin/env node
-// run-translation.mjs — generalized Pass 2 pipeline: <workbook-file> <locale>
+// run-translation.mjs — Pass 2 PHASE 1 (Mode A, mechanical): one
+// (workbook x locale) job: <workbook-file> <locale>
 //   node run-translation.mjs r_statistics.ipynb es
+// The worker deliberately sees fragments (candidates + context lines +
+// a translated-markdown terminology reference), never the full workbook:
+// Phase 1's job is safety, not quality — the contextual quality pass is
+// Phase 2 (Mode B), docs/translation-pipeline-modes.md.
 // Stage A (comments/strings) for ANY supported kernel; identifier renames
 // remain Python-only and are skipped for non-Python workbooks.
 // draft (agy) → review (agy) → span-apply → derive (strict) → lint →
