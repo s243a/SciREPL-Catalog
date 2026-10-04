@@ -110,6 +110,55 @@ check('adjacent long/short format strings mask deterministically across calls',
 check('format masking still rejects changed RR values',
   !judge(enFormatted, run([null, 'Un encabezado descriptivo largo antes del recuento: 500\nRR en Mild = 1.9999\n']), formatted).pass);
 
+const reorderedR = manifest([
+  span(1, '  A: success = %d, failure = %d  (p_A = %.4f, n = %d)\\n',
+    '  A: সাফল্য = %d, ব্যর্থতা = %d  (p_A = %.4f, n = %d)\\n'),
+  span(1, '  RR(A/B) in %s = %.4f\\n\\n', '  %s-এ RR(A/B) = %.4f\\n\\n'),
+]);
+const enReorderedR = run([null, '  A: success = 85, failure = 15  (p_A = 0.8500, n = 100)\n  RR(A/B) in Mild = 1.2143\n\n']);
+const bnReorderedR = run([null, '  A: সাফল্য = 85, ব্যর্থতা = 15  (p_A = 0.8500, n = 100)\n  Mild-এ RR(A/B) = 1.2143\n\n']);
+check('unchanged format runs protect shared fields from short translated label masks',
+  judge(enReorderedR, bnReorderedR, reorderedR).pass);
+for (const [from, to] of [['85', '86'], ['15', '14'], ['0.8500', '0.8600'], ['100', '101'], ['1.2143', '1.2144'], ['p_A', 'p_B']]) {
+  const changed = structuredClone(bnReorderedR);
+  changed.notebook.cells[1].output = changed.notebook.cells[1].output.replace(from, to);
+  check('protected format runs still reject changed output ' + from,
+    !judge(enReorderedR, changed, reorderedR).pass);
+}
+
+const startsWithValue = manifest([span(1, 'Validated %d complete rankings of %d foods.\\n',
+  '%d vollständige Ranglisten mit %d Lebensmitteln validiert.\\n')]);
+const enRankings = run([null, 'Validated 42 complete rankings of 15 foods.']);
+const deRankings = run([null, '42 vollständige Ranglisten mit 15 Lebensmitteln validiert.']);
+check('a translated printf template may start with its unchanged first value',
+  judge(enRankings, deRankings, startsWithValue).pass);
+check('a missing terminal newline is permitted only at the saved-stream boundary',
+  judge(run([null, enRankings.notebook.cells[1].output + '\n']), deRankings, startsWithValue).pass);
+for (const output of ['41 vollständige Ranglisten mit 15 Lebensmitteln validiert.',
+  '42 vollständige Ranglisten mit 16 Lebensmitteln validiert.',
+  '15 vollständige Ranglisten mit 42 Lebensmitteln validiert.',
+  '42 vollständige Ranglisten mit 15 Lebensmitteln validiert. EXTRA']) {
+  check('complete printf matching rejects changed/moved values or extra undeclared text',
+    !judge(enRankings, run([null, output]), startsWithValue).pass);
+}
+const winners = manifest([span(1, '~w winner: ~w~n', 'Ganador de ~w: ~w~n')]);
+const enWinners = run([null, 'plurality winner: Buttered toast\nborda winner: Cinnamon bun']);
+const esWinners = run([null, 'Ganador de plurality: Buttered toast\nGanador de borda: Cinnamon bun']);
+check('translated Prolog format prefix preserves each repeated rule and food value',
+  judge(enWinners, esWinners, winners).pass);
+for (const output of ['Ganador de plurality: Buttered toast\nGanador de borda: Coffee cake',
+  'Ganador de plurality: Buttered toast\nGanador de random: Cinnamon bun',
+  'Ganador de borda: Cinnamon bun\nGanador de plurality: Buttered toast']) {
+  check('complete Prolog matching rejects changed data and reordered results',
+    !judge(enWinners, run([null, output]), winners).pass);
+}
+const opaqueData = manifest([span(1, 'Data: %s\\n', 'Datos: %s\\n'),
+  span(1, 'winner', 'ganador', 'none')]);
+check('captured data cannot be accidentally masked as another translated label',
+  !judge(run([null, 'Data: winner']), run([null, 'Datos: ganador']), opaqueData).pass);
+check('the template cannot silently swallow a missing internal result newline',
+  !judge(enWinners, run([null, esWinners.notebook.cells[1].output.replace('\n', '')]), winners).pass);
+
 console.log('8b. cell_name spans exempt from checked-claim');
 const mCN = manifest([
   { cell_index: 1, kind: 'cell_name', reaches_output: 'none',
