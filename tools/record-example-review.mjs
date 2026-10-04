@@ -10,7 +10,7 @@ import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { envelope, judge } from './output-oracle.mjs';
-import { plotData } from './example-plot-data.mjs';
+import { plotData, categoryLabels } from './example-plot-data.mjs';
 import { EXAMPLE_LOCALES, EXAMPLE_DESCRIPTIONS, GENERATED_TARGETS } from './example-lessons.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
@@ -79,8 +79,9 @@ const hasPlots = ['patients-to-evidence', 'cooling-plume-capture'].includes(less
 if (hasPlots) for (const record of [enA, enB, a, b]) assert(record.report.plots?.length, 'Re-run with plot capture enabled');
 const rasterChart = ['simpsons-paradox', 'breakfast-democracy'].includes(lesson);
 if (rasterChart) for (const record of [enA, enB, a, b]) assert(record.report.images?.length, 'Re-run with R image decode check enabled');
-assert.deepEqual((a.report.plots || []).map(plotData), (enA.report.plots || []).map(plotData), 'Translated plot data/config changed');
-assert.deepEqual((b.report.plots || []).map(plotData), (enB.report.plots || []).map(plotData), 'Repeated plot data/config changed');
+const categories = categoryLabels(lesson, manifest);
+assert.deepEqual((a.report.plots || []).map(plot => plotData(plot, categories)), (enA.report.plots || []).map(plot => plotData(plot)), 'Translated plot data/config changed');
+assert.deepEqual((b.report.plots || []).map(plot => plotData(plot, categories)), (enB.report.plots || []).map(plot => plotData(plot)), 'Repeated plot data/config changed');
 const publicReceipt = { schema: 1, lesson, locale, source: { path: sourcePath, sha256: sha(sourceBytes) },
   target: { path: targetPath, sha256: sha(targetBytes), size: targetBytes.length, title: target.notebook.name, description },
   translation, browser: { status: 'passed', first: a.receipt, second: b.receipt,

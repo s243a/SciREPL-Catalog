@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { plotData } from './example-plot-data.mjs';
+import { plotData, categoryLabels } from './example-plot-data.mjs';
 const en = { traces: [{ x: [1, 2], y: [3, 4], name: 'Counts', text: ['A', 'B'] }],
   layout: { title: 'Trial', yaxis: { title: 'Risk', range: [0, 5] }, height: 600,
     shapes: [{ name: 'true ARR = 0.040', x0: 0.04, x1: 0.04, showlegend: true }],
@@ -34,4 +34,28 @@ for (const mutate of [
   const changed = structuredClone(objectTranslated); mutate(changed);
   assert.notDeepEqual(plotData(objectTitle), plotData(changed));
 }
-console.log('[PASS] 12 plot checks: translated labels only; values/settings still exact; no mutation.');
+const sourceCategories = { traces: [{ x: ['Baseline makeup', 'After recovery', 'Recovered condensate'], y: [12, 10, 2] }] };
+const targetCategories = { traces: [{ x: ['Air penambah', 'Setelah pemulihan', 'Kondensat pulih'], y: [12, 10, 2] }] };
+const span = (source, target, cell_index = 3, kind = 'display_string') =>
+  ({ cell_index, kind, source_span: { text: source }, target_span: { text: target } });
+const categoryManifest = { spans: [span('Baseline makeup', 'Air penambah'),
+  span('After recovery', 'Setelah pemulihan'), span('Recovered condensate', 'Kondensat pulih')] };
+const mapping = categoryLabels('cooling-plume-capture', categoryManifest);
+assert.deepEqual([sourceCategories].map(plotData), [plotData(sourceCategories)]);
+assert.deepEqual(plotData(sourceCategories), plotData(targetCategories, mapping));
+assert.deepEqual(targetCategories.traces[0].x, ['Air penambah', 'Setelah pemulihan', 'Kondensat pulih']);
+for (const mutate of [
+  p => { p.traces[0].y[0] = 13; },
+  p => { p.traces[0].x.reverse(); },
+  p => { p.traces[0].x[0] = 'unknown'; },
+  p => { p.traces[0].x.push('Air penambah'); },
+]) {
+  const changed = structuredClone(targetCategories); mutate(changed);
+  assert.notDeepEqual(plotData(sourceCategories), plotData(changed, mapping));
+}
+assert.equal(categoryLabels('patients-to-evidence', categoryManifest).size, 0);
+assert.equal(categoryLabels('cooling-plume-capture', { spans: [span('Baseline makeup', 'X', 1)] }).size, 0);
+assert.equal(categoryLabels('cooling-plume-capture', { spans: [span('Baseline makeup', 'X', 3, 'comment')] }).size, 0);
+assert.equal(categoryLabels('cooling-plume-capture', { spans: [span('Mild', 'X')] }).size, 0);
+assert.throws(() => categoryLabels('cooling-plume-capture', { spans: [span('Baseline makeup', 'X'), span('After recovery', 'X')] }), /Ambiguous/);
+console.log('[PASS] 24 plot checks: explicit presentation categories only; values/order/settings still exact; no mutation.');
