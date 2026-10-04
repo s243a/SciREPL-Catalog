@@ -97,6 +97,19 @@ check('width-16 header masks with padding', judge(enP, xxP, mP).pass,
 const xxP2 = run([null, '   cota inferior|   2']);
 check('padded masking still catches a changed number', !judge(enP, xxP2, mP).pass);
 
+// Real R/sprintf pilot: a global regex .test leaked its lastIndex from a
+// long format string into the next shorter one, leaving "in" unmasked.
+const formatted = manifest([
+  span(1, 'A long descriptive heading before the count: %d\\n', 'Un encabezado descriptivo largo antes del recuento: %d\\n'),
+  span(1, 'RR in %s = %.4f\\n', 'RR en %s = %.4f\\n'),
+]);
+const enFormatted = run([null, 'A long descriptive heading before the count: 500\nRR in Mild = 1.2143\n']);
+const esFormatted = run([null, 'Un encabezado descriptivo largo antes del recuento: 500\nRR en Mild = 1.2143\n']);
+check('adjacent long/short format strings mask deterministically across calls',
+  judge(enFormatted, esFormatted, formatted).pass && judge(enFormatted, esFormatted, formatted).pass);
+check('format masking still rejects changed RR values',
+  !judge(enFormatted, run([null, 'Un encabezado descriptivo largo antes del recuento: 500\nRR en Mild = 1.9999\n']), formatted).pass);
+
 console.log('8b. cell_name spans exempt from checked-claim');
 const mCN = manifest([
   { cell_index: 1, kind: 'cell_name', reaches_output: 'none',
@@ -157,6 +170,18 @@ const mS = manifest([
 ]);
 const jS = judge(run([null, 'Odd squares: 1 9 25']), run([null, 'Nechetnye kvadraty: 1 9 25']), mS);
 check('substring comment span does not break longer span mask', jS.pass, jS.failures.join('|'));
+
+const asymmetric = manifest([
+  span(1, 'Risk difference (percentage points) = ', '风险差（百分点）= '),
+  span(1, 'A very long explanatory comment describing the risk difference', '风险差', 'none'),
+]);
+const enRisk = run([null, 'Risk difference (percentage points) = -1.501']);
+check('different source/target length ordering preserves paired label identities',
+  judge(enRisk, run([null, '风险差（百分点）= -1.501']), asymmetric).pass);
+check('asymmetric label masking still rejects changed numerical results',
+  !judge(enRisk, run([null, '风险差（百分点）= -1.502']), asymmetric).pass);
+check('an empty translated span does not inject sentinels between output characters',
+  !judge(run([null, 'Heading: 5']), run([null, '5']), manifest([span(1, 'Heading: ', '')])).pass);
 
 console.log('9. Sentinel collision resistance');
 // translated word 'términos' coincidentally equals another legit span's text —

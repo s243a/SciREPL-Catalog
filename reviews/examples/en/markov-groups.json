@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "lesson": "markov-groups",
+  "locale": "en",
+  "source": {
+    "path": "workbooks/en/markov-groups.srwb",
+    "sha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4"
+  },
+  "target": {
+    "path": "workbooks/en/markov-groups.srwb",
+    "sha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4",
+    "size": 14648,
+    "title": "Markov Groups: A Random Walk on Cube Moves",
+    "description": "Verify Rubik cube sticker permutations, four-turn cycles and noncommuting moves, then build a lazy Markov random walk. The one-sticker transition matrix is not the full cube-state chain."
+  },
+  "translation": null,
+  "browser": {
+    "status": "passed",
+    "first": {
+      "exportSha256": "c9b5cebbf7e00eb178079a0610fb595c9158bd3bf0f9e0edbd4fe6ffa084b18c",
+      "reportSha256": "5d2d7fcf80037243115b986477f4acb1938af752fe0f8c37f9a0e651cc9ba4b2",
+      "appVersion": "1.4.0",
+      "cells": 9,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "second": {
+      "exportSha256": "ee691306c00a08037a2b7870fd8a96efffa7f36702b8957b16632645d2b73908",
+      "reportSha256": "5d2d7fcf80037243115b986477f4acb1938af752fe0f8c37f9a0e651cc9ba4b2",
+      "appVersion": "1.4.0",
+      "cells": 9,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "englishBaseline": [
+      {
+        "exportSha256": "c9b5cebbf7e00eb178079a0610fb595c9158bd3bf0f9e0edbd4fe6ffa084b18c",
+        "reportSha256": "5d2d7fcf80037243115b986477f4acb1938af752fe0f8c37f9a0e651cc9ba4b2",
+        "appVersion": "1.4.0",
+        "cells": 9,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      },
+      {
+        "exportSha256": "ee691306c00a08037a2b7870fd8a96efffa7f36702b8957b16632645d2b73908",
+        "reportSha256": "5d2d7fcf80037243115b986477f4acb1938af752fe0f8c37f9a0e651cc9ba4b2",
+        "appVersion": "1.4.0",
+        "cells": 9,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      }
+    ],
+    "deterministic": true,
+    "textOracle": {
+      "first": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      },
+      "second": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      }
+    },
+    "plotData": {
+      "status": "passed",
+      "count": 0
+    },
+    "rasterCharts": null,
+    "renderedReview": "not-applicable"
+  },
+  "caveat": "Reviewed educational examples; stated limitations still apply."
+}

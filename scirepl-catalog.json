@@ -3173,6 +3173,112 @@
       "revision": 2,
       "sha256": "669c9e22cebbfd1e3120ff68647ad1abf42e1ee096c58ba96faa6d0fc1d91925",
       "size": 12609
+    },
+    {
+      "id": "select-risk-measures-en",
+      "name": "From SELECT to Risk Measures",
+      "description": "Distinguish the published SELECT hazard ratio from crude risk ratios and NNT, using a seeded fictional dataset and explicit follow-up caveats. Educational, not medical advice.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "en"
+      ],
+      "format": "srwb",
+      "path": "workbooks/en/select-risk-measures.srwb",
+      "revision": 1,
+      "sha256": "3df6189e8206d7a292a52f227b96e4a81680b6de515f6786e0788a83a4306147",
+      "size": 14446
+    },
+    {
+      "id": "patients-to-evidence-en",
+      "name": "From Patients to Evidence",
+      "description": "Simulate fictional randomized trials, examine confidence-interval coverage, and compare relative risk, absolute benefit and NNT. Educational, not medical advice.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "en"
+      ],
+      "format": "srwb",
+      "path": "workbooks/en/patients-to-evidence.srwb",
+      "revision": 1,
+      "sha256": "80c529dd819cc536ec3b8a718e6adba96ea8adee2ee71fcd7d4ad3fc374796a2",
+      "size": 19374
+    },
+    {
+      "id": "simpsons-paradox-en",
+      "name": "Simpson's Paradox",
+      "description": "Build a synthetic Simpson reversal, independently check stratified and pooled comparisons in R and JavaScript, and separate association from causation.",
+      "type": "workbook",
+      "kernels": [
+        "r",
+        "javascript"
+      ],
+      "locales": [
+        "en"
+      ],
+      "format": "srwb",
+      "path": "workbooks/en/simpsons-paradox.srwb",
+      "revision": 1,
+      "sha256": "bb32d966c1ee1ec6f5372f621804a8121a08cdb0b976e89bce118449c168aac0",
+      "size": 12901
+    },
+    {
+      "id": "markov-groups-en",
+      "name": "Markov Groups: A Random Walk on Cube Moves",
+      "description": "Verify Rubik cube sticker permutations, four-turn cycles and noncommuting moves, then build a lazy Markov random walk. The one-sticker transition matrix is not the full cube-state chain.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "en"
+      ],
+      "format": "srwb",
+      "path": "workbooks/en/markov-groups.srwb",
+      "revision": 1,
+      "sha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4",
+      "size": 14648
+    },
+    {
+      "id": "cooling-plume-capture-en",
+      "name": "Flooded-Mine Cooling: Water–Energy Trade-offs",
+      "description": "An explicitly fictional Python–Prolog toy model explores plume-condensate recovery, heat-balance checks, mine thermal storage, and water–electricity trade-offs against dry cooling.",
+      "type": "workbook",
+      "kernels": [
+        "python",
+        "prolog"
+      ],
+      "locales": [
+        "en"
+      ],
+      "format": "srwb",
+      "path": "workbooks/en/cooling-plume-capture.srwb",
+      "revision": 1,
+      "sha256": "5bf2691a5b73522c382b48f96442c3a26c4e3770507b2ee871e0505001fb8977",
+      "size": 30649
+    },
+    {
+      "id": "breakfast-democracy-en",
+      "name": "Breakfast Democracy: R → Python → Prolog",
+      "description": "A pinned historical breakfast-preference poll flows through R validation, Python voting-rule counts and clustering, and Prolog reasoning to distinguish majority cycles from an overall Condorcet winner.",
+      "type": "workbook",
+      "kernels": [
+        "r",
+        "prolog",
+        "python"
+      ],
+      "locales": [
+        "en"
+      ],
+      "format": "srwb",
+      "path": "workbooks/en/breakfast-democracy.srwb",
+      "revision": 1,
+      "sha256": "9bcbce31d8633a642967021824a776aaaf943846b133798fd034dfd740bcf448",
+      "size": 15063
     }
   ]
 }

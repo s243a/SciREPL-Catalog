@@ -3,6 +3,30 @@
 Notable changes to the SciREPL Catalog: content added, conventions adopted,
 and work deliberately deferred.
 
+## 2026-10-04 — reviewed examples (staging)
+
+- Added six reviewed English lessons: SELECT risk measures, trial evidence,
+  Simpson's paradox, cube permutations/Markov walks, fictional plume
+  cooling, and breakfast voting. Stripped saved AI/output/device metadata.
+- Corrected the cube moves against an independent physical rotation
+  oracle; clarified the one-sticker versus full-state Markov distinction.
+- Distinguished hazard ratios from crude risks/NNT and marked the trial
+  data fictional; added uncertainty, zero-SE and rerun-order checks.
+- Corrected cooling heat/moisture accounting and invalid prose-as-code;
+  added conservation and same-weather comparisons with explicit caveats.
+  Distinguished its makeup-plus-electricity water metric from consumptive
+  use rather than treating blowdown as automatically consumed water.
+- Breakfast fetches a pinned, hashed historical PrefLib source rather than
+  redistributing the separately licensed dataset.
+- Added clean-profile browser checks, repeat-run/output comparison,
+  plot-data invariants and compact source-hashed review receipts.
+- Translation rollout targets all 13 locales. Gemini editions are machine
+  drafts with independent same-model review; native-speaker review is
+  pending, and incomplete/failed editions are not registered.
+- Fixed format-2.0 index validation and a stateful placeholder-regex issue
+  in the differential output oracle, with regressions. No app release,
+  model/API settings, or catalog release tag changed.
+
 ## 2026-08-13
 
 ### Added

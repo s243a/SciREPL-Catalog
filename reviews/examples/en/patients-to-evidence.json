@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "lesson": "patients-to-evidence",
+  "locale": "en",
+  "source": {
+    "path": "workbooks/en/patients-to-evidence.srwb",
+    "sha256": "80c529dd819cc536ec3b8a718e6adba96ea8adee2ee71fcd7d4ad3fc374796a2"
+  },
+  "target": {
+    "path": "workbooks/en/patients-to-evidence.srwb",
+    "sha256": "80c529dd819cc536ec3b8a718e6adba96ea8adee2ee71fcd7d4ad3fc374796a2",
+    "size": 19374,
+    "title": "From Patients to Evidence",
+    "description": "Simulate fictional randomized trials, examine confidence-interval coverage, and compare relative risk, absolute benefit and NNT. Educational, not medical advice."
+  },
+  "translation": null,
+  "browser": {
+    "status": "passed",
+    "first": {
+      "exportSha256": "5c07ffc36e44473ae41f210116f8dbe9b64e73350ec6ea76adfe6853047e9998",
+      "reportSha256": "b4b413ecd9fd13b0c07e7a9d12dde2eba4e8edd797b1164d599fe5d379e3668a",
+      "appVersion": "1.4.0",
+      "cells": 13,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "second": {
+      "exportSha256": "24b4a9420bbebfaba009a39995e6823195a43e8e569508d1fb00ce004155c46e",
+      "reportSha256": "b4b413ecd9fd13b0c07e7a9d12dde2eba4e8edd797b1164d599fe5d379e3668a",
+      "appVersion": "1.4.0",
+      "cells": 13,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "englishBaseline": [
+      {
+        "exportSha256": "5c07ffc36e44473ae41f210116f8dbe9b64e73350ec6ea76adfe6853047e9998",
+        "reportSha256": "b4b413ecd9fd13b0c07e7a9d12dde2eba4e8edd797b1164d599fe5d379e3668a",
+        "appVersion": "1.4.0",
+        "cells": 13,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      },
+      {
+        "exportSha256": "24b4a9420bbebfaba009a39995e6823195a43e8e569508d1fb00ce004155c46e",
+        "reportSha256": "b4b413ecd9fd13b0c07e7a9d12dde2eba4e8edd797b1164d599fe5d379e3668a",
+        "appVersion": "1.4.0",
+        "cells": 13,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      }
+    ],
+    "deterministic": true,
+    "textOracle": {
+      "first": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [
+          4,
+          6
+        ],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      },
+      "second": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [
+          4,
+          6
+        ],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      }
+    },
+    "plotData": {
+      "status": "passed",
+      "count": 2
+    },
+    "rasterCharts": null,
+    "renderedReview": "separate-controller-review-required"
+  },
+  "caveat": "Reviewed educational examples; stated limitations still apply."
+}

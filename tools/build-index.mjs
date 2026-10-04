@@ -5,8 +5,8 @@
  *   node tools/build-index.mjs           # write: fill sha256 + size from files
  *   node tools/build-index.mjs --check   # verify without writing (CI)
  *
- * Every item's `url` must resolve to a file in this repository
- * (raw.githubusercontent.com/<owner>/<repo>/<ref>/<path> → <path>). The tool
+ * Format 2.0 items use a repository-relative `path`; legacy 1.0 items use a
+ * raw.githubusercontent.com/<owner>/<repo>/<ref>/<path> URL. The tool
  * hashes the real bytes, so an index entry can never disagree with the file
  * it points at — a mismatch is exactly what a stale edit or a botched upload
  * looks like, and SciREPL treats it as a hard install failure.
@@ -19,7 +19,7 @@
 
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
-import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync, realpathSync, statSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -30,7 +30,7 @@ const CHECK = process.argv.includes('--check');
 const fail = (msg) => { console.error('[catalog] ' + msg); process.exit(1); };
 
 const index = JSON.parse(readFileSync(INDEX, 'utf8'));
-if (index.format_version !== '1.0') fail('unsupported format_version: ' + index.format_version);
+if (!['1.0', '2.0'].includes(index.format_version)) fail('unsupported format_version: ' + index.format_version);
 
 const RAW = /^https:\/\/raw\.githubusercontent\.com\/[^/]+\/[^/]+\/[^/]+\/(.+)$/;
 
@@ -62,7 +62,7 @@ for (const item of index.items || []) {
   if (!item.id) fail('an item is missing id');
   if (ids.has(item.id)) fail(`duplicate id: ${item.id}`);
   ids.add(item.id);
-  for (const field of ['name', 'type', 'url']) {
+  for (const field of ['name', 'type', index.format_version === '2.0' ? 'path' : 'url']) {
     if (!item[field]) fail(`${item.id}: missing ${field}`);
   }
   if (!['package', 'bundle', 'workbook'].includes(item.type)) {
@@ -72,10 +72,16 @@ for (const item of index.items || []) {
     fail(`${item.id}: revision must be a positive integer`);
   }
 
-  const rel = repoPath(item.url);
-  if (!rel) fail(`${item.id}: url must be a raw.githubusercontent.com URL into this repository`);
-  const file = path.join(ROOT, rel);
+  const rel = index.format_version === '2.0' ? item.path : repoPath(item.url);
+  if (!rel || typeof rel !== 'string') fail(`${item.id}: missing repository artifact path`);
+  const file = path.resolve(ROOT, rel);
+  if (path.isAbsolute(rel) || rel.includes('\\') || !file.startsWith(ROOT + path.sep)) {
+    fail(`${item.id}: artifact path must stay inside this repository`);
+  }
   if (!existsSync(file)) fail(`${item.id}: ${rel} does not exist`);
+  if (!realpathSync(file).startsWith(realpathSync(ROOT) + path.sep) || !statSync(file).isFile()) {
+    fail(`${item.id}: artifact must be a regular file inside this repository`);
+  }
 
   const bytes = readFileSync(file);
   const sha256 = createHash('sha256').update(bytes).digest('hex');

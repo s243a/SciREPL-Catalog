@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "lesson": "select-risk-measures",
+  "locale": "en",
+  "source": {
+    "path": "workbooks/en/select-risk-measures.srwb",
+    "sha256": "3df6189e8206d7a292a52f227b96e4a81680b6de515f6786e0788a83a4306147"
+  },
+  "target": {
+    "path": "workbooks/en/select-risk-measures.srwb",
+    "sha256": "3df6189e8206d7a292a52f227b96e4a81680b6de515f6786e0788a83a4306147",
+    "size": 14446,
+    "title": "From SELECT to Risk Measures",
+    "description": "Distinguish the published SELECT hazard ratio from crude risk ratios and NNT, using a seeded fictional dataset and explicit follow-up caveats. Educational, not medical advice."
+  },
+  "translation": null,
+  "browser": {
+    "status": "passed",
+    "first": {
+      "exportSha256": "69956fb3cafbb841ee43cc77bd6f9fe050a1fe6ae7666d0db121f32837bea4a9",
+      "reportSha256": "5218fde195c9812aad70b39124d5f39ac1e80b084ecf5a4cc0acf324202efb18",
+      "appVersion": "1.4.0",
+      "cells": 8,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "second": {
+      "exportSha256": "f960e99a0e9732ae63bcb444b5ea60d0a7b6818542e61c856870117adc900151",
+      "reportSha256": "5218fde195c9812aad70b39124d5f39ac1e80b084ecf5a4cc0acf324202efb18",
+      "appVersion": "1.4.0",
+      "cells": 8,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "englishBaseline": [
+      {
+        "exportSha256": "69956fb3cafbb841ee43cc77bd6f9fe050a1fe6ae7666d0db121f32837bea4a9",
+        "reportSha256": "5218fde195c9812aad70b39124d5f39ac1e80b084ecf5a4cc0acf324202efb18",
+        "appVersion": "1.4.0",
+        "cells": 8,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      },
+      {
+        "exportSha256": "f960e99a0e9732ae63bcb444b5ea60d0a7b6818542e61c856870117adc900151",
+        "reportSha256": "5218fde195c9812aad70b39124d5f39ac1e80b084ecf5a4cc0acf324202efb18",
+        "appVersion": "1.4.0",
+        "cells": 8,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      }
+    ],
+    "deterministic": true,
+    "textOracle": {
+      "first": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      },
+      "second": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      }
+    },
+    "plotData": {
+      "status": "passed",
+      "count": 0
+    },
+    "rasterCharts": null,
+    "renderedReview": "not-applicable"
+  },
+  "caveat": "Reviewed educational examples; stated limitations still apply."
+}

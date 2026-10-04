@@ -280,7 +280,30 @@ try {
         || applyMap({ [any.id]: "kaputt ' kaputt" }, 'sa-q2.srwb').code === 1;
   })());
 
-  console.log('5e. NFC normalization of rename targets (bn regression)');
+  console.log('5e. Literal statistical percent sign is not printf in an f-string');
+  const percentFixture = (code, text, label) => {
+    const book = { format: 'srwb', version: '1.0', notebook: { name: 'fixture', cells: [
+      { type: 'code', language: 'python', name: 'example', code },
+    ] } };
+    const input = path.join(tmp, label + '-input.srwb'), map = path.join(tmp, label + '-map.json');
+    const output = path.join(tmp, label + '-output.srwb');
+    writeFileSync(input, JSON.stringify(book));
+    const candidates = JSON.parse(run(['tools/span-apply.mjs', 'candidates', input]).out).candidates;
+    writeFileSync(map, JSON.stringify({ [candidates[0].id]: text }));
+    return { result: run(['tools/span-apply.mjs', 'apply', input, map, output, '--en', input]), input, output };
+  };
+  const literalPercent = percentFixture('print(f"Estimated 95% CI across {N} trials")', 'Geschätztes 95%-CI über ', 'literal-ci');
+  check('95%-CI literal f-string prose applies', literalPercent.result.code === 0);
+  check('its N expression remains byte-identical', literalPercent.result.code === 0 &&
+    JSON.parse(readFileSync(literalPercent.output)).notebook.cells[0].code.includes('{N} trials'));
+  check('its authoritative code-token gate passes', literalPercent.result.code === 0 &&
+    run(['tools/span-derive.mjs', literalPercent.input, literalPercent.output, 'de']).code === 0);
+  check('adding a real %d still fails', percentFixture('print(f"Estimated 95% CI across {N} trials")', 'Geschätztes 95%-CI %d über ', 'real-d').result.code === 1);
+  check('ordinary string formatting remains strict', percentFixture('print("Estimated 95% CI across %d trials" % N)', 'Geschätztes 95%-CI über %d Versuche', 'printf-ci').result.code === 1);
+  check('real f-string %s conversion cannot change', percentFixture('print(f"Result %s {N}")', 'Ergebnis %d ', 'f-percent').result.code === 1);
+  check('f-string expression injection still fails', percentFixture('print(f"Estimated 95% CI across {N} trials")', 'Geschätztes 95%-CI {evil()} über ', 'braces').result.code === 1);
+
+  console.log('5f. NFC normalization of rename targets (bn regression)');
   // Bengali \u09dc is composition-EXCLUDED: its NFC form is decomposed.
   // The precomposed form must be accepted and normalized, not rejected.
   const bnGloss = apply({ renames: { hexagon: 'ষড়ভুজ'.normalize('NFD').replace('\u09a1\u09bc', '\u09dc') } }, 'stageb-bn.srwb');

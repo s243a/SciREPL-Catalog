@@ -1,0 +1,84 @@
+{
+  "schema": 1,
+  "lesson": "breakfast-democracy",
+  "locale": "en",
+  "source": {
+    "path": "workbooks/en/breakfast-democracy.srwb",
+    "sha256": "9bcbce31d8633a642967021824a776aaaf943846b133798fd034dfd740bcf448"
+  },
+  "target": {
+    "path": "workbooks/en/breakfast-democracy.srwb",
+    "sha256": "9bcbce31d8633a642967021824a776aaaf943846b133798fd034dfd740bcf448",
+    "size": 15063,
+    "title": "Breakfast Democracy: R → Python → Prolog",
+    "description": "A pinned historical breakfast-preference poll flows through R validation, Python voting-rule counts and clustering, and Prolog reasoning to distinguish majority cycles from an overall Condorcet winner."
+  },
+  "translation": null,
+  "browser": {
+    "status": "passed",
+    "first": {
+      "exportSha256": "69aba8d77745057efc4b9fdd8aaba21b5c3530a89b7f2c05c82f83a31b9442dd",
+      "reportSha256": "81d87d8dae01bd9b15d4c865f842b13c8512b200cd3bd101d351374a4b4ce263",
+      "appVersion": "1.4.0",
+      "cells": 9,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "second": {
+      "exportSha256": "cfd0239595953ba7d66e65bb1efc8ee114fd51a2764cb7cbeb345f1d7ceee371",
+      "reportSha256": "81d87d8dae01bd9b15d4c865f842b13c8512b200cd3bd101d351374a4b4ce263",
+      "appVersion": "1.4.0",
+      "cells": 9,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "englishBaseline": [
+      {
+        "exportSha256": "69aba8d77745057efc4b9fdd8aaba21b5c3530a89b7f2c05c82f83a31b9442dd",
+        "reportSha256": "81d87d8dae01bd9b15d4c865f842b13c8512b200cd3bd101d351374a4b4ce263",
+        "appVersion": "1.4.0",
+        "cells": 9,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      },
+      {
+        "exportSha256": "cfd0239595953ba7d66e65bb1efc8ee114fd51a2764cb7cbeb345f1d7ceee371",
+        "reportSha256": "81d87d8dae01bd9b15d4c865f842b13c8512b200cd3bd101d351374a4b4ce263",
+        "appVersion": "1.4.0",
+        "cells": 9,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      }
+    ],
+    "deterministic": true,
+    "textOracle": {
+      "first": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      },
+      "second": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      }
+    },
+    "plotData": {
+      "status": "passed",
+      "count": 0
+    },
+    "rasterCharts": {
+      "decoded": true,
+      "count": 1,
+      "caveat": "R raster rendering checked separately; numerical checks use unchanged executable tokens and the lesson’s independent count/vote checks."
+    },
+    "renderedReview": "separate-controller-review-required"
+  },
+  "caveat": "Reviewed educational examples; stated limitations still apply."
+}

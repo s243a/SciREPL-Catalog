@@ -1,0 +1,4 @@
+# Translation worker conversations and transport receipts are local evidence,
+# not publishable catalogue content. A compact controller report is committed.
+/reviews/translations/
+/reviews/translation-pilot*/

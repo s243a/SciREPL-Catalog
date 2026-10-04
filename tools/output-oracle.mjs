@@ -184,8 +184,11 @@ export function judge(enRun, xxRun, manifest) {
         // spec-bearing strings render with substituted values: mask their
         // LITERAL RUNS pairwise (specs split both sides identically — the
         // apply gate guarantees spec equality)
-        if (SPEC_RE.test(src)) {
-          const sa = src.split(SPEC_RE), sb = dst.split(SPEC_RE);
+        // Do not .test() the global regex: its lastIndex leaked between
+        // adjacent labels, making a short formatted label fail to mask.
+        const sa = src.split(SPEC_RE);
+        if (sa.length > 1) {
+          const sb = dst.split(SPEC_RE);
           if (sa.length === sb.length) {
             return sa.map((t, k) => ({ src: t, dst: sb[k] }))
               .filter(x => (x.src.length >= 2 || x.dst.length >= 2) && x.src !== x.dst);
@@ -197,11 +200,16 @@ export function judge(enRun, xxRun, manifest) {
       .sort((x, y) => y.src.length - x.src.length);
     const applyMask = (base, pairs, tagPrefix) => {
       let [ma, mb] = base;
-      pairs.forEach((sp, k) => {
-        const sentinel = `⟦${tagPrefix}${i}_${k}⟧`;
-        ma = ma.split(sp.src).join(sentinel);
-        mb = mb.split(sp.dst).join(sentinel);
-      });
+      // Retain a shared identity, but choose longest-first separately on
+      // each side. A long English comment can translate to a short label
+      // that is also a substring of a longer translated stdout heading.
+      const indexed = pairs.map((sp, k) => ({ ...sp, sentinel: `⟦${tagPrefix}${i}_${k}⟧` }));
+      for (const sp of [...indexed].sort((x, y) => y.src.length - x.src.length)) {
+        if (sp.src.length) ma = ma.split(sp.src).join(sp.sentinel);
+      }
+      for (const sp of [...indexed].sort((x, y) => y.dst.length - x.dst.length)) {
+        if (sp.dst.length) mb = mb.split(sp.dst).join(sp.sentinel);
+      }
       return [ma, mb];
     };
     const maskable = stdoutSpans.concat(noneSpans);
