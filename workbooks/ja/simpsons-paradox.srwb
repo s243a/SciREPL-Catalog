@@ -1,0 +1,51 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "シンプソンのパラドックス",
+    "cells": [
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "name": "intro",
+        "code": "# シンプソンのパラドックス：すべてのグループが全体と矛盾するとき\n\n> **このワークブックのすべてのデータは合成／架空のもの**であり、授業での説明のために作成されています。実際の患者、製品、または治療法は一切関係ありません。\n\n## 学習目標\nこのノートブックを終えるまでに、以下ができるようになる必要があります：\n\n1. シンプソンのパラドックスを示す小さな層別化された 2×2 データセットを構築する。\n2. 各層内およびプール後の成功割合と**相対リスク（RR = p_A / p_B）**を計算する。\n3. なぜ集計による比較が層内の比較を逆転させることがあるのか（層のサイズによる交絡／潜伏変数）を説明する。\n4. 別の言語（RおよびJavaScript）で同じ数値を個別に検証する。\n\n## 予測の質問（計算セルを実行する前にお答えください）\n治療法Aが治療法Bに**すべての層で**勝っている（より高い成功率、すべての場所で RR > 1）とします。層を無視してすべてのデータをプールしたときに、治療法Aが治療法Bよりも**悪い**結果になることはあり得るでしょうか？\n\n- あなたの予想を**はい / いいえ**で書き、その理由を一文で記述してください。\n- もし*はい*と答えた場合：この逆転が生じるためには、AとBの**層のサイズ**についてどのような条件が成り立っている必要がありますか？\n- 次のセルで度数を確認したら、手計算でプールされた割合を計算してみてください。\n\n## 実行環境と実行順序\n\n名前付きセルを次の順序で実行してください：`data`（R）、`compute`（R）、`viz`（R）、そして `js_check`（JavaScript）。Rのセルはランタイム変数を共有します。保存されたセルを表示することは、セルを実行することと同じではありません。このカタログのコピーには保存された出力は含まれていません。\n\nRの例では基本Rのみを使用します：パッケージのインストールは不要ですが、SciREPLは初回にwebRランタイムをダウンロードまたは初期化する必要がある場合があります。JavaScriptはブラウザ内で実行されます。JavaScriptセルは元の固定された度数を個別に再計算し、Rセッションを読み取ることはありません。データセットを変更した場合は、両言語を比較する前に入力度数とそのチェックを更新してください。"
+      },
+      {
+        "type": "code",
+        "language": "r",
+        "name": "data",
+        "code": "# ---- 合成／架空のデータ（実際のものではありません） ----\n# 二つの層、二つの治療法AとB、二値のアウトカム（成功／失敗）。\n# 各層内では A > B だが、プールすると B > A となるように構築。\n# メカニズム：Aは主に重症（高リスク）患者を治療し、Bは主に軽症患者を治療する。\n\ndat <- data.frame(\n  stratum   = rep(c(\"Mild\", \"Severe\"), each = 4),\n  treatment = rep(rep(c(\"A\", \"B\"), each = 2), 2),\n  outcome   = rep(c(\"success\", \"failure\"), 4),\n  count = c(\n    # Mild 層\n    85, 15,       # A: 成功 85、失敗 15   -> p = 0.85  (n = 100)\n    350, 150,     # B: 成功 350、失敗 150 -> p = 0.70  (n = 500)\n    # Severe 層\n    30, 470,      # A: 成功 30、失敗 470  -> p = 0.06  (n = 500)\n    2,  98        # B:  成功 2、失敗 98   -> p = 0.02  (n = 100)\n  )\n)\ndat"
+      },
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "name": "pause",
+        "code": "## ⏸️ 一時停止 — 予測と計算\n\n上記のデータセットが定義されました。**次のセルはまだ実行しないでください。**\n\n1. 度数から、*Mild* 層および *Severe* 層におけるAとBの成功割合を手計算してください。各層でどちらの治療法が勝ちますか？\n2. 次にプールします：各治療法について両方の層にわたる**すべての**成功数と**すべての**失敗数を足し合わせ、プールされた割合を計算します。全体としてどちらの治療法が勝ちますか？\n3. 三つの相対リスク RR = p_A / p_B（Mild、Severe、プール後）を計算してください。それらはすべて同じ方向を指していますか？\n4. 答えを確認する前に：*なぜ* Aはすべての場所で良く見えるのに、全体としては悪く見えるのでしょうか？（ヒント：どちらの治療法が主に **Severe** の患者を治療しており、それが全体の平均にどのように影響しますか？）\n\n予測を書き留めてから、次のセルを実行して確認してください。"
+      },
+      {
+        "type": "code",
+        "language": "r",
+        "name": "compute",
+        "code": "# ---- データセットからの計算（以下にハードコードされたものはありません） ----\n\n# データセルから層を導出：このセルの前に data を実行してください。\nstrata <- unique(dat$stratum)\n\nget_p <- function(s, t) {\n  n_ok <- dat$count[dat$stratum == s & dat$treatment == t & dat$outcome == \"success\"]\n  n_no <- dat$count[dat$stratum == s & dat$treatment == t & dat$outcome == \"failure\"]\n  c(success = n_ok, failure = n_no, n = n_ok + n_no, p = n_ok / (n_ok + n_no))\n}\n\nrr <- function(pA, pB) pA / pB\n\n# --- 層内結果 ---\nfor (s in strata) {\n  a <- get_p(s, \"A\"); b <- get_p(s, \"B\")\n  cat(sprintf(\"--- 層: %s ---\\n\", s))\n  cat(sprintf(\"  A: 成功 = %d, 失敗 = %d  (p_A = %.4f, n = %d)\\n\", a[\"success\"], a[\"failure\"], a[\"p\"], a[\"n\"]))\n  cat(sprintf(\"  B: 成功 = %d, 失敗 = %d  (p_B = %.4f, n = %d)\\n\", b[\"success\"], b[\"failure\"], b[\"p\"], b[\"n\"]))\n  cat(sprintf(\"  %s における RR(A/B) = %.4f\\n\\n\", s, rr(a[\"p\"], b[\"p\"])))\n}\n\n# --- プール結果（層を統合） ---\nagg <- aggregate(count ~ treatment + outcome, data = dat, FUN = sum)\npooled <- function(t) {\n  s <- agg$count[agg$treatment == t & agg$outcome == \"success\"]\n  f <- agg$count[agg$treatment == t & agg$outcome == \"failure\"]\n  c(success = s, failure = f, n = s + f, p = s / (s + f))\n}\npA <- pooled(\"A\"); pB <- pooled(\"B\")\ncat(\"--- プール（層を統合） ---\\n\")\ncat(sprintf(\"  A: 成功 = %d, 失敗 = %d  (p_A = %.4f, n = %d)\\n\", pA[\"success\"], pA[\"failure\"], pA[\"p\"], pA[\"n\"]))\ncat(sprintf(\"  B: 成功 = %d, 失敗 = %d  (p_B = %.4f, n = %d)\\n\", pB[\"success\"], pB[\"failure\"], pB[\"p\"], pB[\"n\"]))\ncat(sprintf(\"  プールされた RR(A/B) = %.4f\\n\\n\", rr(pA[\"p\"], pB[\"p\"])))\n\n# --- パラドックスの証明 ---\nrr_mild    <- rr(get_p(\"Mild\",   \"A\")[\"p\"], get_p(\"Mild\",   \"B\")[\"p\"])\nrr_severe  <- rr(get_p(\"Severe\", \"A\")[\"p\"], get_p(\"Severe\", \"B\")[\"p\"])\nrr_pooled  <- rr(pA[\"p\"], pB[\"p\"])\n\nstopifnot(\n  rr_mild   > 1,   # Mild 内では A が B を上回る\n  rr_severe > 1,   # Severe 内では A が B を上回る\n  rr_pooled < 1    # ... それでも全体では A が B に負ける -> シンプソンのパラドックス\n)\ncat(\"✔ すべての stopifnot チェックに合格しました：RR_mild > 1、RR_severe > 1、しかし RR_pooled < 1。\")"
+      },
+      {
+        "type": "code",
+        "language": "r",
+        "name": "viz",
+        "code": "# ---- 可視化：層別およびプール後の成功率（base R のみ） ----\n\nlabels <- c(\"Mild\", \"Severe\", \"プール\")\npA_v <- c(get_p(\"Mild\", \"A\")[\"p\"], get_p(\"Severe\", \"A\")[\"p\"], pA[\"p\"])\npB_v <- c(get_p(\"Mild\", \"B\")[\"p\"], get_p(\"Severe\", \"B\")[\"p\"], pB[\"p\"])\n\nm <- rbind(A = pA_v, B = pB_v)\ncolnames(m) <- labels\nop <- par(mar = c(4.1, 4.1, 4.1, 1.1))\nbarplot(m, beside = TRUE, ylim = c(0, 0.9),\n        col = c(\"#4472C4\", \"#ED7D31\"),\n        main = paste(strwrap(\"シンプソンのパラドックス：グループ別の成功率（合成データ）\", width = 42), collapse = \"\\n\"), cex.main = 1.0,\n        ylab = \"成功割合\", legend.text = c(\"治療法A\", \"治療法B\"),\n        args.legend = list(x = \"topright\", bty = \"n\"))\nabline(h = 0, col = \"grey40\")\npar(op)"
+      },
+      {
+        "type": "code",
+        "language": "javascript",
+        "name": "js_check",
+        "code": "// 基礎となる度数からの独立した再計算（合成データ）\nconst counts = {\n  Mild:   { A: { s: 85,  f: 15 },  B: { s: 350, f: 150 } },\n  Severe: { A: { s: 30,  f: 470 }, B: { s: 2,   f: 98 } }\n};\n\nconst res = {};\nfor (const st of Object.keys(counts)) {\n  const g = counts[st];\n  for (const t of [\"A\", \"B\"]) g[t].p = g[t].s / (g[t].s + g[t].f);\n  res[st] = { A: g.A, B: g.B, RR: g.A.p / g.B.p };\n}\n\n// 層全体で成功数と失敗数を合算してプールする\nconst pooled = { A: { s: 0, f: 0 }, B: { s: 0, f: 0 } };\nfor (const st of Object.keys(counts)) {\n  pooled.A.s += counts[st].A.s; pooled.A.f += counts[st].A.f;\n  pooled.B.s += counts[st].B.s; pooled.B.f += counts[st].B.f;\n}\nfor (const t of [\"A\", \"B\"]) pooled[t].p = pooled[t].s / (pooled[t].s + pooled[t].f);\nres.Pooled = { A: pooled.A, B: pooled.B, RR: pooled.A.p / pooled.B.p };\n\n// わかりやすい要約\nconsole.log(\"JavaScript による独立した再計算（合成データ）：\");\nfor (const k of Object.keys(res)) {\n  const r = res[k];\n  console.log(\n    k.padEnd(7) +\n    `  p_A = ${r.A.p.toFixed(4)} (${r.A.s}/${r.A.s + r.A.f})` +\n    `  p_B = ${r.B.p.toFixed(4)} (${r.B.s}/${r.B.s + r.B.f})` +\n    `  RR = ${r.RR.toFixed(4)}`\n  );\n}\n\n// 元の固定された度数を個別にチェックします。これは R の状態を読み取りません。\nconst expect = {\n  Mild:   { pA: 85/100,  pB: 350/500 },\n  Severe: { pA: 30/500,  pB: 2/100 },\n  Pooled: { pA: 115/600, pB: 352/600 }\n};\nconst eps = 1e-12;\nfunction near(a, b) { return Math.abs(a - b) < eps; }\n\nif (!near(res.Mild.A.p,   expect.Mild.pA)   || !near(res.Mild.B.p,   expect.Mild.pB))   throw new Error(\"Mild の割合が期待される入力度数と一致しません\");\nif (!near(res.Severe.A.p, expect.Severe.pA) || !near(res.Severe.B.p, expect.Severe.pB)) throw new Error(\"Severe の割合が期待される入力度数と一致しません\");\nif (!near(res.Pooled.A.p, expect.Pooled.pA) || !near(res.Pooled.B.p, expect.Pooled.pB)) throw new Error(\"プールされた割合が期待される入力度数と一致しません\");\nif (!(res.Mild.RR > 1 && res.Severe.RR > 1 && res.Pooled.RR < 1))\n  throw new Error(\"パラドックスの構造が再現されませんでした：RR_mild > 1、RR_severe > 1、RR_pooled < 1 が期待されます\");\n\nconsole.log(\"\\n✔ 元の度数に基づく JavaScript の再計算とパラドックスのチェックに合格しました。\");"
+      },
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "name": "explanation",
+        "code": "## 逆転が起こる理由\n\n**パラドックス。** 両方の層において、Aの成功率はBを上回っています（それぞれで RR > 1）。しかし、層を統合すると、Bの全体的な割合がAを上回ります。両方の記述は同じデータに対して真であり、集計によって結論が変わってしまいました。\n\n**メカニズム：重症度による交絡。** 重症度は、治療の割り当てと結果の双方に影響を与える*潜伏変数*です：\n\n- 重症の患者は、**いずれの**治療法においても成功率が非常に低くなっています（Aは 6%、Bは 2%）。\n- この合成コホートでは、**Aは主に重症の患者を治療し**（600 人中 500 人）、**Bは主に軽症の患者を治療しています**（600 人中 500 人）。\n- したがって、Aの全体的な平均は重症患者の割合の高さによって引き下げられ、Bの平均は軽症患者の割合の高さによって押し上げられます — Aが*すべての層内で*優れているにもかかわらずです。\n\n形式的には、各治療のプールされた割合は、その層別割合の加重平均です：\n\n$$p_T^{\\,pooled} = w_{T,\\text{Mild}}\\,p_{T,\\text{Mild}} + w_{T,\\text{Severe}}\\,p_{T,\\text{Severe}}, \\qquad w_{T,s} = \\frac{n_{T,s}}{n_T}$$\n\n重み $w_{T,s}$ は**治療法によって異なります**（A：Mild の重み 1/6 に対し B：5/6）。そのため、プールされた差は層内の関連性と患者構成（case-mix）の違いを混在させてしまいます。重みの不均衡が層別割合の差に対して十分に大きい場合、符号が反転します。層別化（または両方の治療法を同じ層の重みに標準化すること）は、*この測定された特定の患者構成の歪み*を取り除きます：それは**この合成データのすべての層においてAの方が優れている**ことを示します。これ自体が「治療効果」を単独で特定したり、Aが因果関係として優れていることを証明したりするわけでは**ありません** — 因果関係の結論を導くには、適切な設計（例：無作為化）と、この二変数による例示には含まれていない重症度*以外の*交絡因子に関する仮定が必要です。\n\n**ここでのプールされた比較が誤解を招く理由。** プールされた数値は、「所定の重症度の患者にとってどちらの治療法が優れているか？」ではなく、「*この特定の患者構成において*どちらの治療法が良い結果を出すか？」（誰がどこに割り当てられたかに左右される問題）に答えています。層別化された比較、または共通の重みによる標準化された比較は、この測定された患者構成の歪みを層内の関連から分離します。どちらの比較も、それ自体では因果的な治療効果を確立するものではありません。\n\n## 三つのディスカッションの質問\n\n1. **設計：** この合成データセットにおいて、無作為割り付けはどのようにして系統的な患者構成の不均衡を軽減するでしょうか？なぜ層別無作為化が役立つ可能性があり、なぜ偶然による不均衡が依然として発生し得るのでしょうか？\n2. **解釈：** ある病院が、自院の新しい治療法の*全体的な*生存率が標準治療よりも高いと報告しています。新しい治療法が優れていると結論付ける前に、どの層（年齢、ベースラインの重症度、併存疾患）の提示を求めますか？\n3. **意思決定：** プールされた RR は < 1 ですが、各層の RR は > 1 です。一人の既知の重症患者を治療する臨床医にとって、どちらの推定値がより関連性が高く、それはなぜですか？その推定値を治療決定の因果的指針として扱う前に、どのような追加のエビデンス（研究デザイン、他の交絡因子、再現性）が必要でしょうか？"
+      }
+    ]
+  }
+}

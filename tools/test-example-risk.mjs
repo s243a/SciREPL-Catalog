@@ -155,7 +155,14 @@ check('Patients Plotly charts preserve original histogram and axis formulas', ()
   assert.match(baseline, /"overlaying": "y", "side": "right"/);
   assert.match(baseline, /"legend": \{"orientation": "v", "x": 0\.98, "y": 0\.98/);
   assert.match(baseline, /"xanchor": "right", "yanchor": "top"/);
-  assert.match(baseline, /"margin": \{"t": 45, "r": 90, "b": 85, "l": 65\}/);
+  assert.match(baseline, /"height": 540/);
+  assert.match(baseline, /"margin": \{"t": 100, "r": 110, "b": 100, "l": 90\}/);
+  assert.match(baseline, /import textwrap/);
+  assert.match(baseline, /break_long_words=False, break_on_hyphens=False/);
+  assert.match(baseline, /title=_risk_wrap_label\(/);
+  assert.match(baseline, /xlabel=_risk_wrap_label\(/);
+  assert.match(baseline, /"yaxis": \{"automargin": True/);
+  assert.match(baseline, /"yaxis2": \{"automargin": True/);
   assert.doesNotMatch(baseline, /"legend": \{"orientation": "h"/);
 });
 check('Patients has approximate coverage wording and ordered exercise reruns', () => {
@@ -214,7 +221,7 @@ check('fictional generating probabilities imply ARR=0.04, RR=2/3, NNT=25', () =>
 const pythonCheck = [
   'import ast, json, sys',
   'workbooks = json.load(sys.stdin)',
-  'allowed = {"random", "math", "numpy"}',
+  'allowed = {"random", "math", "numpy", "textwrap"}',
   'for wb in workbooks:',
   '    for cell in wb["cells"]:',
   '        filename = wb["file"] + "/" + cell["name"]',

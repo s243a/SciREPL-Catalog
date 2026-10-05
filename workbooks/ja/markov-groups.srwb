@@ -1,0 +1,63 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "マルコフ群: キューブの操作によるランダムウォーク",
+    "cells": [
+      {
+        "name": "intro",
+        "type": "markdown",
+        "language": "markdown",
+        "code": "# マルコフ群: キューブの操作によるランダムウォーク\n\nこのレッスンでは、三つの考え方を区別します:\n\n1. 正当なキューブの操作は、ステッカー位置の**置換**である。\n2. 一回のクォーターターンを繰り返すと、指数が**法 4**となるべき乗が得られる。\n3. 正当な操作をランダムに選ぶと、到達可能なキューブ状態上の**マルコフ連鎖**が生成される。\n\nここでは、54枚のラベル付きステッカーを持つ標準的な3×3×3ルービックキューブを使用します。ラベル `1..54` は単なる色ではなく個々のステッカーを識別します。六つの面すべての中心は固定されたままです。クォーターターンは、回転する面を外側から正面に見たときに時計回りとなります。[ルービック公式ムーブガイド](https://rubiks.com/solve-guide)を参照してください。\n\n## 実行環境と実行順序\n\nPythonセルを `cube_moves`、`check_moves`、`show_turn`、そして `random_walk` の順序で実行してください。これらはPythonセッションを共有します。使用するパッケージはNumPyのみであり、SciREPLがPyodideランタイムとともにこれを読み込みます。初回使用時にはランタイムのダウンロードが必要になる場合があります。AIアカウント、プロンプトの実行、追加パッケージのインストール、外部データは一切必要ありません。このカタログコピーには保存済みの出力はありません。\n\n`check_moves` を実行する前に予測してみましょう: どのステッカーが決して位置を変えてはならず、何回のクォーターターンの繰り返しですべてのラベルが元に戻るでしょうか？"
+      },
+      {
+        "name": "coordinates",
+        "type": "markdown",
+        "language": "markdown",
+        "code": "## ステージ 1 — 配置と行列の規約を確定する\n\n面の順序は **U, D, F, B, L, R**（上、下、前、後、左、右）です。各面は、その面を外側から見たときに行優先で読み取る、連続する九つの**ゼロ始まりの位置**を占めます:\n\n```\n0 1 2\n3 4 5\n6 7 8\n```\n\n特定の面に対しては `9 * face_index` を加算します。中心の位置は `4, 13, 22, 31, 40, 49` です。ステッカーのラベルは一始まりであるため、最初に位置 `j` にあるラベルは `j + 1` です。\n\n向きの曖昧さをなくすため、座標 x = 右、y = 上、z = 前を使用します。表において「右」および「上」は、面の外観図における方向です。\n\n| 面 | 外向き法線 | 図の右 | 図の上 |\n| --- | --- | --- | --- |\n| U | (0, 1, 0) | (1, 0, 0) | (0, 0, -1) |\n| D | (0, -1, 0) | (1, 0, 0) | (0, 0, 1) |\n| F | (0, 0, 1) | (1, 0, 0) | (0, 1, 0) |\n| B | (0, 0, -1) | (-1, 0, 0) | (0, 1, 0) |\n| L | (-1, 0, 0) | (0, 0, 1) | (0, 1, 0) |\n| R | (1, 0, 0) | (0, 0, -1) | (0, 1, 0) |\n\n置換 `p` は、**移動元の位置** `j` をその**移動先** `p[j]` に写します。列状態ベクトル `s` について、`P[p[j], j] = 1` と設定します。このとき `s_next = P @ s` となり、同値として `s_next[p[j]] = s[j]` となります。行は移動先、列は移動元を表します。次のセルでは、それぞれ移動元から移動先の順序で記述された、互いに素な巡回置換を使用します。"
+      },
+      {
+        "name": "cube_moves",
+        "type": "code",
+        "language": "python",
+        "code": "import numpy as np\n\nN = 54\nFACE_NAMES = \"UDFBLR\"\nCENTRES = np.array([9 * f + 4 for f in range(6)])\n\n# 時計回りの面回転ごとに五つの互いに素な4-サイクル: 二つは面上、\n# 三つは周囲の帯上。インデックスはゼロ始まりの位置。\nMOVE_CYCLES = {\n    \"U\": [\n        [\n            0,\n            2,\n            8,\n            6\n        ],\n        [\n            1,\n            5,\n            7,\n            3\n        ],\n        [\n            18,\n            36,\n            27,\n            45\n        ],\n        [\n            19,\n            37,\n            28,\n            46\n        ],\n        [\n            20,\n            38,\n            29,\n            47\n        ]\n    ],\n    \"D\": [\n        [\n            9,\n            11,\n            17,\n            15\n        ],\n        [\n            10,\n            14,\n            16,\n            12\n        ],\n        [\n            24,\n            51,\n            33,\n            42\n        ],\n        [\n            25,\n            52,\n            34,\n            43\n        ],\n        [\n            26,\n            53,\n            35,\n            44\n        ]\n    ],\n    \"F\": [\n        [\n            6,\n            45,\n            11,\n            44\n        ],\n        [\n            7,\n            48,\n            10,\n            41\n        ],\n        [\n            8,\n            51,\n            9,\n            38\n        ],\n        [\n            18,\n            20,\n            26,\n            24\n        ],\n        [\n            19,\n            23,\n            25,\n            21\n        ]\n    ],\n    \"B\": [\n        [\n            0,\n            42,\n            17,\n            47\n        ],\n        [\n            1,\n            39,\n            16,\n            50\n        ],\n        [\n            2,\n            36,\n            15,\n            53\n        ],\n        [\n            27,\n            29,\n            35,\n            33\n        ],\n        [\n            28,\n            32,\n            34,\n            30\n        ]\n    ],\n    \"L\": [\n        [\n            0,\n            18,\n            9,\n            35\n        ],\n        [\n            3,\n            21,\n            12,\n            32\n        ],\n        [\n            6,\n            24,\n            15,\n            29\n        ],\n        [\n            36,\n            38,\n            44,\n            42\n        ],\n        [\n            37,\n            41,\n            43,\n            39\n        ]\n    ],\n    \"R\": [\n        [\n            2,\n            33,\n            11,\n            20\n        ],\n        [\n            5,\n            30,\n            14,\n            23\n        ],\n        [\n            8,\n            27,\n            17,\n            26\n        ],\n        [\n            45,\n            47,\n            53,\n            51\n        ],\n        [\n            46,\n            50,\n            52,\n            48\n        ]\n    ]\n}\n\ndef turn_perm(name):\n    \"\"\"p を返す: 移動元の位置 j が移動先 p[j] に移動する。\"\"\"\n    p = np.arange(N)\n    for cycle in MOVE_CYCLES[name]:\n        for source, destination in zip(cycle, cycle[1:] + cycle[:1]):\n            p[source] = destination\n    return p\n\ndef perm_matrix(p):\n    \"\"\"行は移動先、列は移動元。\"\"\"\n    p = np.asarray(p)\n    if p.shape != (N,) or not np.array_equal(np.sort(p), np.arange(N)):\n        raise ValueError(\"位置 0..53 の置換が期待されます\")\n    P = np.zeros((N, N), dtype=int)\n    P[p, np.arange(N)] = 1\n    return P\n\nPERMS = {name: turn_perm(name) for name in FACE_NAMES}\nM = {name: perm_matrix(PERMS[name]) for name in FACE_NAMES}\nIDENTITY = np.eye(N, dtype=int)\nSOLVED = np.arange(1, N + 1)\n\ndef sticker_state(state):\n    values = np.asarray(state)\n    if values.shape != (N,) or not np.array_equal(np.sort(values), SOLVED):\n        raise ValueError(\"各ステッカーラベル 1..54 が正確に一度ずつ現れることが期待されます\")\n    return values.astype(int, copy=True)\n\ndef apply(state, *moves):\n    \"\"\"左から右へと操作を適用する。アポストロフィは逆操作を意味する。\"\"\"\n    result = sticker_state(state)\n    for move in moves:\n        if move == \"I\":\n            continue\n        if move in M:\n            matrix = M[move]\n        elif move.endswith(\"'\") and move[:-1] in M:\n            matrix = M[move[:-1]].T\n        else:\n            raise ValueError(\"未知の操作: \" + move)\n        result = matrix @ result\n    return result\n\ndef stickers_to_colours(state):\n    \"\"\"物理的な塗料名ではなく、ホーム面の文字を色ラベルとして返す。\"\"\"\n    return [FACE_NAMES[(int(label) - 1) // 9] for label in sticker_state(state)]\n\nprint(\"面の中心を固定した六つの時計回りクォーターターン行列を構築しました。\")"
+      },
+      {
+        "name": "check_moves",
+        "type": "code",
+        "language": "python",
+        "code": "# ステージ 2: 色だけでは明らかにできない特性を検証する。\nfor name in FACE_NAMES:\n    p, matrix = PERMS[name], M[name]\n    assert np.array_equal(np.sort(p), np.arange(N)), name + \": 全単射ではありません\"\n    assert np.array_equal(p[CENTRES], CENTRES), name + \": 中心が移動しました\"\n    assert np.all(matrix.sum(axis=0) == 1), name + \": 移動元の列が不正です\"\n    assert np.all(matrix.sum(axis=1) == 1), name + \": 移動先の行が不正です\"\n    assert np.array_equal(np.linalg.matrix_power(matrix, 4), IDENTITY), name + \": 四乗が単位行列ではありません\"\n    assert np.array_equal(matrix.T @ matrix, IDENTITY), name + \": 逆行列の検証に失敗しました\"\n    assert np.array_equal(apply(SOLVED, name, name, name, name), SOLVED)\n    assert np.array_equal(apply(SOLVED, name, name + \"'\"), SOLVED)\n    print(name + \": 全単射、中心の固定、四回の回転、逆操作のテストに合格しました\")\n\nassert not np.array_equal(M[\"U\"] @ M[\"R\"], M[\"R\"] @ M[\"U\"])\nprint(\"六つの操作すべてに合格しました。U と R は可換ではありません。\")"
+      },
+      {
+        "name": "cycles",
+        "type": "markdown",
+        "language": "markdown",
+        "code": "## ステージ 3 — 円、巡回置換、そして合同算術\n\nすべての面回転には五つの互いに素な**4-サイクル**が含まれます。たとえば、その面のコーナーは一つの4-サイクルを形成し、コーナー以外の四つのエッジステッカーがもう一つの四-サイクルを形成します。中心は固定されています。\n\nリストされた一つのサイクルを、円周上の四つの位置として描いてみましょう。一回のクォーターターンで一歩進み、二回の回転で二歩進み、四回の回転で始点に戻ります。固定された操作 `P` に対して、`P^k = P^(k mod 4)` となります。その逆操作は `P^3 = P.T` であり、半回転は `P^2` です。\n\nこれは位数 4 の巡回部分群です。これによってキューブ群全体が合同算術になるわけでは**ありません**。異なる面の回転は可換であるとは限らないからです。列ベクトルの場合、「U、その後にR」は逆の行列積ではなく `M[\"R\"] @ M[\"U\"] @ s` となります。次のセルで、同じ二つの操作を逆の順序で比較してみましょう。"
+      },
+      {
+        "name": "show_turn",
+        "type": "code",
+        "language": "python",
+        "code": "after_u = apply(SOLVED, \"U\")\nprint(\"U のサイクル（一始まりのステッカー位置で表示）:\")\nfor cycle in MOVE_CYCLES[\"U\"]:\n    print(\" -> \".join(str(position + 1) for position in cycle + cycle[:1]))\n\n# F は面インデックス 2 なので、その最上行は位置 18, 19, 20 にあります。\nfront_top = np.arange(18, 21)\nprint(\"\\nU の前の F 最上行のラベル:\", SOLVED[front_top].tolist())\nprint(\"U の後の F 最上行のラベル: \", after_u[front_top].tolist())\nprint(\"U の後の面文字の色:\", stickers_to_colours(after_u))\nprint(\"U の後に R は R の後に U と等しい:\",\n      np.array_equal(apply(SOLVED, \"U\", \"R\"), apply(SOLVED, \"R\", \"U\")))\nassert not np.array_equal(apply(SOLVED, \"U\", \"R\"), apply(SOLVED, \"R\", \"U\"))"
+      },
+      {
+        "name": "markov_bridge",
+        "type": "markdown",
+        "language": "markdown",
+        "code": "## ステージ 4 — ランダムに操作を選択する\n\nマルコフ連鎖は、現在の状態のみを用いて次の状態の確率を指定します。**13の選択肢**から一様に選びます: その場にとどまる（`I`）、六つのクォーターターン、およびそれら六つの逆操作。選択された操作を現在のキューブ状態に適用します。\n\n逆操作が同じ確率を持つため、このウォークは対称です。その場にとどまることで怠惰になり、クォーターターンのみからなるウォークのパリティ交代を回避できます。これらの生成元によって到達可能なキューブ状態の有限集合上では、一様分布が定常分布となります。到達可能性と自己ループにより、既約性と非周期性が得られます。これは、短いランダムな列が一様に混ざり合っていることを意味するものではなく、混合時間を確定するものでも**ありません**。\n\n平均 `T = (I + sum(P + P.T)) / 13` も有用ですが、これは**54×54の単一ステッカー位置モデル**にすぎず、すべてのキューブ配置に対する遷移行列ではありません。列確率ベクトルを用いると、`T` の各列の和は 1 となり、`x_next = T @ x` となります。ここで `T` は対称であるため、その各行の和も 1 になります。中心のステッカーは自分自身の位置にとどまります。すべてのステッカーがすべての位置を訪れることができるわけではありません。\n\n確率的平均は、正当な決定論的キューブ操作ではありません。ラベルベクトルの平均をとると小数のラベルが生じる可能性があります。キューブ状態を取得するには実際に選択された置換を適用し、`T` は確率分布に対してのみ使用してください。"
+      },
+      {
+        "name": "random_walk",
+        "type": "code",
+        "language": "python",
+        "code": "MOVE_OPTIONS = [\"I\", \"U\", \"U'\", \"D\", \"D'\", \"F\", \"F'\", \"B\", \"B'\", \"L\", \"L'\", \"R\", \"R'\"]\nT = (IDENTITY + sum((M[name] + M[name].T for name in FACE_NAMES), np.zeros((N, N), dtype=int))) / len(MOVE_OPTIONS)\nassert np.all(T >= 0)\nassert np.allclose(T.sum(axis=0), 1)\nassert np.allclose(T.sum(axis=1), 1)\nassert np.allclose(T, T.T)\n\n# 特定の一枚のステッカーの位置に関する分布。\nlocation_probability = np.zeros(N)\nlocation_probability[0] = 1\nafter_one_step = T @ location_probability\nassert np.isclose(after_one_step.sum(), 1)\nprint(\"一歩後の単一ステッカーの確率質量:\", round(float(after_one_step.sum()), 6))\n\n# 有効なキューブの軌道をサンプリングする。シードによりこの例は再現可能になるが、\n# すべての到達可能なキューブ配置にわたって一様に混ざり合っているわけではない。\nrng = np.random.default_rng(7)\nmoves = rng.choice(MOVE_OPTIONS, size=12).tolist()\nwalk_state = apply(SOLVED, *moves)\nassert np.array_equal(np.sort(walk_state), SOLVED)\nassert np.array_equal(walk_state[CENTRES], SOLVED[CENTRES])\nprint(\"サンプリングされた操作:\", \" \".join(moves))\nprint(\"最終的な面文字の色:\", stickers_to_colours(walk_state))\nprint(\"サンプリングされたパスは、すべてのステッカーラベルと六つの中心すべてを保持しました。\")"
+      },
+      {
+        "name": "takeaways",
+        "type": "markdown",
+        "language": "markdown",
+        "code": "## 理解度の確認\n\n1. 色のみをチェックすることでは、面内のいくつかの不正な置換を見抜けないのはなぜでしょうか？\n2. クォーターターンが中心を固定し、`P^4 = I` を満たさなければならないのはなぜでしょうか？\n3. 「U、その後にR」の行列積が、時系列と逆の順序で記述されるのはなぜでしょうか？\n4. 一つの面の回転のべき乗は法 4 で記述できるのに、異なる面の回転の任意の列ではそうならないのはなぜでしょうか？\n5. 54×54の確率行列は何を記述しているでしょうか？それがキューブ状態全体のマルコフ連鎖ではないのはなぜでしょうか？\n6. 再現可能な12ステップのランダムウォークが、一様なスクランブルを証明しないのはなぜでしょうか？\n\nキューブ群全体は六つの面の操作によって生成され、逆操作はすでに三乗として取得可能です。U、R、F だけで群全体を生成できると主張しているわけではありません。これら三つはすべて、反対側の D–B–L コーナーを変更しないまま残します。\n\n**主な教訓:** 正当な置換、その巡回べき乗、そして操作の確率的混合を区別すること。これらは関連した概念であり、互いに交換可能な対象ではありません。"
+      }
+    ]
+  }
+}

@@ -1,0 +1,3131 @@
+{
+  "schema": 1,
+  "lesson": "patients-to-evidence",
+  "locale": "fr",
+  "source": {
+    "path": "workbooks/en/patients-to-evidence.srwb",
+    "sha256": "91fcb454cdbf2e135e95fff03cdc59a3c201ed90319b8093cc2f129e2ef0fe4b"
+  },
+  "target": {
+    "path": "workbooks/fr/patients-to-evidence.srwb",
+    "sha256": "d407c4852f999e96a3da52a30ab7d3807f23a8ea9638c93ab7b123076eadb304",
+    "size": 22815,
+    "title": "Des patients aux données probantes",
+    "description": "Simuler un essai fictif de 12 mois, explorer la variation d’échantillonnage et les intervalles de confiance approximatifs, et comparer les effets absolus et relatifs par rapport à un seuil clinique supposé."
+  },
+  "translation": {
+    "model": "Gemini draft; independent manual adjudication",
+    "contentAudit": {
+      "status": "passed",
+      "sourceSha256": "91fcb454cdbf2e135e95fff03cdc59a3c201ed90319b8093cc2f129e2ef0fe4b",
+      "targetSha256": "d407c4852f999e96a3da52a30ab7d3807f23a8ea9638c93ab7b123076eadb304",
+      "findings": [],
+      "errors": [],
+      "reviewMethod": "Previously passed AI/controller source-fidelity audit, preserved through verified presentation-only rebase where applicable; scoped final Bengali corrections independently adjudicated and re-gated.",
+      "provenance": {
+        "predecessorSourceSha256": "80c529dd819cc536ec3b8a718e6adba96ea8adee2ee71fcd7d4ad3fc374796a2",
+        "predecessorTargetSha256": "87090e7498791ec00058e035e748537602856399c466380b6a1fb574bf5938be",
+        "predecessorAuditSha256": "3f8c87f793488e52839d9529cdaf022568e785e3c32ab7bb2954ecdd064c64bb",
+        "sharedLayoutOnly": true,
+        "sharedLayoutProjectionSha256": "4dc7e309a2caae6afa901024a466a915ec8ccdd65eb5e008ab4a9c3bea39764f"
+      },
+      "nativeSpeakerReview": "pending",
+      "caveat": "AI/controller review, not native-speaker or qualified technical certification."
+    },
+    "policy": {
+      "locale": "fr",
+      "protectedTexts": [
+        "ARR",
+        "NNT",
+        "ARR = p_C(1−RR)",
+        "NNT = 1/ARR",
+        "type",
+        "bar",
+        "width",
+        "marker",
+        "color",
+        "#7fb3d5",
+        "showlegend",
+        "bargap",
+        "legend",
+        "font",
+        "size",
+        "shapes",
+        "line",
+        "xref",
+        "yref",
+        "paper",
+        "darkgreen",
+        "name",
+        "crimson",
+        "dash",
+        "rect",
+        "fillcolor",
+        "rgba(128,128,128,0.15)",
+        "layer",
+        "below",
+        "mode",
+        "lines+markers",
+        "symbol",
+        "circle",
+        "square",
+        "yaxis",
+        "y2",
+        "#2874a6",
+        "#b03a2e",
+        "margin",
+        "title",
+        "text",
+        "yaxis2",
+        "overlaying",
+        "side",
+        "right",
+        "orientation",
+        "h",
+        "x",
+        "y",
+        "x0",
+        "x1",
+        "y0",
+        "y1",
+        "t",
+        "r",
+        "b",
+        "l",
+        "orange",
+        "v",
+        "xanchor",
+        "yanchor",
+        "top",
+        "bgcolor",
+        "rgba(22,27,34,0.85)"
+      ],
+      "protectedIds": [
+        "4:19:0",
+        "4:21:0",
+        "4:27:0",
+        "4:29:0",
+        "4:31:0",
+        "4:33:0",
+        "4:35:0",
+        "4:43:0",
+        "4:45:0",
+        "4:47:0",
+        "4:49:0",
+        "4:51:0",
+        "4:53:0",
+        "4:55:0",
+        "4:57:0",
+        "4:59:0",
+        "4:63:0",
+        "4:65:0",
+        "4:75:0",
+        "4:77:0",
+        "4:79:0",
+        "4:81:0",
+        "4:83:0",
+        "4:85:0",
+        "4:89:0",
+        "4:91:0",
+        "4:93:0",
+        "4:97:0",
+        "4:99:0",
+        "4:109:0",
+        "4:111:0",
+        "4:113:0",
+        "4:115:0",
+        "4:117:0",
+        "4:119:0",
+        "4:121:0",
+        "4:123:0",
+        "4:127:0",
+        "4:129:0",
+        "4:131:0",
+        "4:135:0",
+        "4:137:0",
+        "4:147:0",
+        "4:149:0",
+        "4:151:0",
+        "4:153:0",
+        "4:155:0",
+        "4:157:0",
+        "4:159:0",
+        "4:161:0",
+        "6:7:2",
+        "6:7:4",
+        "6:17:0",
+        "6:19:0",
+        "6:21:0",
+        "6:23:0",
+        "6:27:0",
+        "6:29:0",
+        "6:31:0",
+        "6:33:0",
+        "6:35:0",
+        "6:41:0",
+        "6:43:0",
+        "6:45:0",
+        "6:49:0",
+        "6:51:0",
+        "6:55:0",
+        "6:57:0",
+        "6:59:0",
+        "6:61:0",
+        "6:63:0",
+        "6:65:0",
+        "6:67:0",
+        "6:77:0",
+        "6:87:0",
+        "6:91:0",
+        "6:93:0",
+        "6:97:0",
+        "6:99:0",
+        "6:103:0",
+        "6:107:0",
+        "6:109:0",
+        "6:113:0",
+        "6:115:0",
+        "6:119:0",
+        "6:123:0",
+        "6:125:0",
+        "6:127:0",
+        "6:129:0",
+        "6:137:0",
+        "6:139:0",
+        "6:141:0",
+        "6:143:0",
+        "6:145:0",
+        "6:147:0",
+        "6:149:0",
+        "6:151:0",
+        "6:153:0",
+        "6:155:0",
+        "6:157:0",
+        "6:159:0",
+        "6:161:0",
+        "6:163:0",
+        "6:175:0",
+        "6:177:0",
+        "6:179:0",
+        "6:181:0",
+        "6:183:0",
+        "6:185:0",
+        "6:187:0",
+        "6:189:0"
+      ],
+      "widthOverrides": {
+        "baseline risk": 13
+      },
+      "identifierRenames": false,
+      "cellNames": "English",
+      "nativeReviewCaveat": "Machine-translated; native-speaker review pending. Numerical/structural tests do not certify prose quality."
+    },
+    "keeps": {
+      "ids": [
+        "4:19:0",
+        "4:21:0",
+        "4:27:0",
+        "4:29:0",
+        "4:31:0",
+        "4:33:0",
+        "4:35:0",
+        "4:43:0",
+        "4:45:0",
+        "4:47:0",
+        "4:49:0",
+        "4:51:0",
+        "4:53:0",
+        "4:55:0",
+        "4:57:0",
+        "4:59:0",
+        "4:63:0",
+        "4:65:0",
+        "4:75:0",
+        "4:77:0",
+        "4:79:0",
+        "4:81:0",
+        "4:83:0",
+        "4:85:0",
+        "4:89:0",
+        "4:91:0",
+        "4:93:0",
+        "4:97:0",
+        "4:99:0",
+        "4:109:0",
+        "4:111:0",
+        "4:113:0",
+        "4:115:0",
+        "4:117:0",
+        "4:119:0",
+        "4:121:0",
+        "4:123:0",
+        "4:127:0",
+        "4:129:0",
+        "4:131:0",
+        "4:135:0",
+        "4:137:0",
+        "4:147:0",
+        "4:149:0",
+        "4:151:0",
+        "4:153:0",
+        "4:155:0",
+        "4:157:0",
+        "4:159:0",
+        "4:161:0",
+        "6:7:2",
+        "6:7:4",
+        "6:17:0",
+        "6:19:0",
+        "6:21:0",
+        "6:23:0",
+        "6:27:0",
+        "6:29:0",
+        "6:31:0",
+        "6:33:0",
+        "6:35:0",
+        "6:41:0",
+        "6:43:0",
+        "6:45:0",
+        "6:49:0",
+        "6:51:0",
+        "6:55:0",
+        "6:57:0",
+        "6:59:0",
+        "6:61:0",
+        "6:63:0",
+        "6:65:0",
+        "6:67:0",
+        "6:77:0",
+        "6:87:0",
+        "6:91:0",
+        "6:93:0",
+        "6:97:0",
+        "6:99:0",
+        "6:103:0",
+        "6:107:0",
+        "6:109:0",
+        "6:113:0",
+        "6:115:0",
+        "6:119:0",
+        "6:123:0",
+        "6:125:0",
+        "6:127:0",
+        "6:129:0",
+        "6:137:0",
+        "6:139:0",
+        "6:141:0",
+        "6:143:0",
+        "6:145:0",
+        "6:147:0",
+        "6:149:0",
+        "6:151:0",
+        "6:153:0",
+        "6:155:0",
+        "6:157:0",
+        "6:159:0",
+        "6:161:0",
+        "6:163:0",
+        "6:175:0",
+        "6:177:0",
+        "6:179:0",
+        "6:181:0",
+        "6:183:0",
+        "6:185:0",
+        "6:187:0",
+        "6:189:0",
+        "6:1:0",
+        "6:75:0",
+        "6:89:0",
+        "6:105:0"
+      ],
+      "texts": [
+        "type",
+        "bar",
+        "width",
+        "marker",
+        "color",
+        "#7fb3d5",
+        "showlegend",
+        "bargap",
+        "showlegend",
+        "legend",
+        "font",
+        "size",
+        "shapes",
+        "type",
+        "line",
+        "xref",
+        "yref",
+        "paper",
+        "line",
+        "color",
+        "darkgreen",
+        "width",
+        "showlegend",
+        "name",
+        "type",
+        "line",
+        "xref",
+        "yref",
+        "paper",
+        "line",
+        "color",
+        "crimson",
+        "width",
+        "dash",
+        "dash",
+        "showlegend",
+        "name",
+        "type",
+        "rect",
+        "xref",
+        "yref",
+        "paper",
+        "line",
+        "width",
+        "fillcolor",
+        "rgba(128,128,128,0.15)",
+        "layer",
+        "below",
+        "showlegend",
+        "name",
+        "ARR",
+        "NNT",
+        "mode",
+        "lines+markers",
+        "line",
+        "color",
+        "marker",
+        "symbol",
+        "circle",
+        "name",
+        "ARR = p_C(1−RR)",
+        "mode",
+        "lines+markers",
+        "yaxis",
+        "line",
+        "color",
+        "dash",
+        "dash",
+        "marker",
+        "symbol",
+        "square",
+        "name",
+        "NNT = 1/ARR",
+        "margin",
+        "yaxis",
+        "title",
+        "text",
+        "font",
+        "color",
+        "yaxis2",
+        "title",
+        "text",
+        "font",
+        "color",
+        "overlaying",
+        "side",
+        "right",
+        "legend",
+        "orientation",
+        "xanchor",
+        "right",
+        "yanchor",
+        "top",
+        "bgcolor",
+        "rgba(22,27,34,0.85)",
+        "font",
+        "size",
+        "shapes",
+        "type",
+        "line",
+        "xref",
+        "paper",
+        "yref",
+        "line",
+        "color",
+        "orange",
+        "width",
+        "dash",
+        "dash",
+        "showlegend",
+        "name",
+        "<br>",
+        "height",
+        "automargin",
+        "automargin"
+      ]
+    },
+    "manifest": {
+      "manifest_version": 1,
+      "produced_by": "derived",
+      "generator": "tools/span-derive.mjs",
+      "locale": "fr",
+      "source": {
+        "path": "workbooks/en/patients-to-evidence.srwb",
+        "sha256": "91fcb454cdbf2e135e95fff03cdc59a3c201ed90319b8093cc2f129e2ef0fe4b"
+      },
+      "target": {
+        "path": "workbooks/fr/patients-to-evidence.srwb",
+        "sha256": "d407c4852f999e96a3da52a30ab7d3807f23a8ea9638c93ab7b123076eadb304"
+      },
+      "spans": [
+        {
+          "cell_index": 2,
+          "cell_name": "one-trial-simulation",
+          "source_span": {
+            "start": {
+              "line": 5,
+              "col": 18
+            },
+            "end": {
+              "line": 5,
+              "col": 36
+            },
+            "text": "patients per arm"
+          },
+          "target_span": {
+            "start": {
+              "line": 5,
+              "col": 18
+            },
+            "end": {
+              "line": 5,
+              "col": 37
+            },
+            "text": "patients par bras"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "one-trial-simulation",
+          "source_span": {
+            "start": {
+              "line": 6,
+              "col": 25
+            },
+            "end": {
+              "line": 6,
+              "col": 56
+            },
+            "text": "true generating probabilities"
+          },
+          "target_span": {
+            "start": {
+              "line": 6,
+              "col": 25
+            },
+            "end": {
+              "line": 6,
+              "col": 59
+            },
+            "text": "vraies probabilités génératrices"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "one-trial-simulation",
+          "source_span": {
+            "start": {
+              "line": 7,
+              "col": 18
+            },
+            "end": {
+              "line": 7,
+              "col": 79
+            },
+            "text": "assumed illustrative minimum clinically important reduction"
+          },
+          "target_span": {
+            "start": {
+              "line": 7,
+              "col": 18
+            },
+            "end": {
+              "line": 7,
+              "col": 84
+            },
+            "text": "réduction minimale cliniquement importante illustrative supposée"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "one-trial-simulation",
+          "source_span": {
+            "start": {
+              "line": 13,
+              "col": 36
+            },
+            "end": {
+              "line": 13,
+              "col": 72
+            },
+            "text": "observed hospitalizations, control"
+          },
+          "target_span": {
+            "start": {
+              "line": 13,
+              "col": 36
+            },
+            "end": {
+              "line": 13,
+              "col": 72
+            },
+            "text": "hospitalisations observées, témoin"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "one-trial-simulation",
+          "source_span": {
+            "start": {
+              "line": 14,
+              "col": 36
+            },
+            "end": {
+              "line": 14,
+              "col": 74
+            },
+            "text": "observed hospitalizations, treatment"
+          },
+          "target_span": {
+            "start": {
+              "line": 14,
+              "col": 36
+            },
+            "end": {
+              "line": 14,
+              "col": 76
+            },
+            "text": "hospitalisations observées, traitement"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "one-trial-simulation",
+          "source_span": {
+            "start": {
+              "line": 16,
+              "col": 1
+            },
+            "end": {
+              "line": 16,
+              "col": 61
+            },
+            "text": "--- observed estimates (what an analyst actually sees) ---"
+          },
+          "target_span": {
+            "start": {
+              "line": 16,
+              "col": 1
+            },
+            "end": {
+              "line": 16,
+              "col": 68
+            },
+            "text": "--- estimations observées (ce qu’un analyste voit réellement) ---"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "one-trial-simulation",
+          "source_span": {
+            "start": {
+              "line": 18,
+              "col": 40
+            },
+            "end": {
+              "line": 18,
+              "col": 100
+            },
+            "text": "treatment minus control (negative = treatment better here)"
+          },
+          "target_span": {
+            "start": {
+              "line": 18,
+              "col": 40
+            },
+            "end": {
+              "line": 18,
+              "col": 102
+            },
+            "text": "traitement moins témoin (négatif = traitement supérieur ici)"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "one-trial-simulation",
+          "source_span": {
+            "start": {
+              "line": 19,
+              "col": 40
+            },
+            "end": {
+              "line": 19,
+              "col": 106
+            },
+            "text": "absolute risk reduction = -(risk_difference), positive = benefit"
+          },
+          "target_span": {
+            "start": {
+              "line": 19,
+              "col": 40
+            },
+            "end": {
+              "line": 19,
+              "col": 110
+            },
+            "text": "réduction absolue du risque = -(risk_difference), positif = bénéfice"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "one-trial-simulation",
+          "source_span": {
+            "start": {
+              "line": 22,
+              "col": 40
+            },
+            "end": {
+              "line": 22,
+              "col": 79
+            },
+            "text": "no finite NNT for benefit if ARR <= 0"
+          },
+          "target_span": {
+            "start": {
+              "line": 22,
+              "col": 40
+            },
+            "end": {
+              "line": 22,
+              "col": 86
+            },
+            "text": "pas de NNT fini pour le bénéfice si ARR <= 0"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "one-trial-simulation",
+          "source_span": {
+            "start": {
+              "line": 23,
+              "col": 41
+            },
+            "end": {
+              "line": 23,
+              "col": 75
+            },
+            "text": "number needed to harm if ARR < 0"
+          },
+          "target_span": {
+            "start": {
+              "line": 23,
+              "col": 41
+            },
+            "end": {
+              "line": 23,
+              "col": 107
+            },
+            "text": "nombre de sujets à traiter pour causer un effet nocif si ARR < 0"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "one-trial-simulation",
+          "source_span": {
+            "start": {
+              "line": 24,
+              "col": 59
+            },
+            "end": {
+              "line": 24,
+              "col": 88
+            },
+            "text": "observed-data SE of the ARR"
+          },
+          "target_span": {
+            "start": {
+              "line": 24,
+              "col": 59
+            },
+            "end": {
+              "line": 24,
+              "col": 127
+            },
+            "text": "erreur-type (SE) de l’ARR, calculée à partir des données observées"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "one-trial-simulation",
+          "source_span": {
+            "start": {
+              "line": 25,
+              "col": 59
+            },
+            "end": {
+              "line": 25,
+              "col": 79
+            },
+            "text": "95% CI for the ARR"
+          },
+          "target_span": {
+            "start": {
+              "line": 25,
+              "col": 59
+            },
+            "end": {
+              "line": 25,
+              "col": 80
+            },
+            "text": "CI à 95% pour l’ARR"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "one-trial-simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 27,
+              "col": 9
+            },
+            "end": {
+              "line": 27,
+              "col": 79
+            },
+            "text": "TRUE generating probabilities : control "
+          },
+          "target_span": {
+            "start": {
+              "line": 27,
+              "col": 9
+            },
+            "end": {
+              "line": 27,
+              "col": 82
+            },
+            "text": "VRAIES probabilités génératrices : témoin "
+          },
+          "placeholders": [
+            "{P_C:.3f}",
+            "{P_T:.3f}"
+          ]
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "one-trial-simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 27,
+              "col": 9
+            },
+            "end": {
+              "line": 27,
+              "col": 79
+            },
+            "text": ", treatment "
+          },
+          "target_span": {
+            "start": {
+              "line": 27,
+              "col": 9
+            },
+            "end": {
+              "line": 27,
+              "col": 82
+            },
+            "text": ", traitement "
+          },
+          "placeholders": [
+            "{P_C:.3f}",
+            "{P_T:.3f}"
+          ]
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "one-trial-simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 28,
+              "col": 9
+            },
+            "end": {
+              "line": 28,
+              "col": 73
+            },
+            "text": "Observed events (n="
+          },
+          "target_span": {
+            "start": {
+              "line": 28,
+              "col": 9
+            },
+            "end": {
+              "line": 28,
+              "col": 77
+            },
+            "text": "Événements observés (n="
+          },
+          "placeholders": [
+            "{N}",
+            "{ev_c}",
+            "{ev_t}"
+          ]
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "one-trial-simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 28,
+              "col": 9
+            },
+            "end": {
+              "line": 28,
+              "col": 73
+            },
+            "text": "/arm)   : control "
+          },
+          "target_span": {
+            "start": {
+              "line": 28,
+              "col": 9
+            },
+            "end": {
+              "line": 28,
+              "col": 77
+            },
+            "text": "/bras)  : témoin "
+          },
+          "placeholders": [
+            "{N}",
+            "{ev_c}",
+            "{ev_t}"
+          ]
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "one-trial-simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 28,
+              "col": 9
+            },
+            "end": {
+              "line": 28,
+              "col": 73
+            },
+            "text": ", treatment "
+          },
+          "target_span": {
+            "start": {
+              "line": 28,
+              "col": 9
+            },
+            "end": {
+              "line": 28,
+              "col": 77
+            },
+            "text": ", traitement "
+          },
+          "placeholders": [
+            "{N}",
+            "{ev_c}",
+            "{ev_t}"
+          ]
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "one-trial-simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 30,
+              "col": 9
+            },
+            "end": {
+              "line": 30,
+              "col": 68
+            },
+            "text": "Observed risk, control        : "
+          },
+          "target_span": {
+            "start": {
+              "line": 30,
+              "col": 9
+            },
+            "end": {
+              "line": 30,
+              "col": 68
+            },
+            "text": "Risque observé, témoin        : "
+          },
+          "placeholders": [
+            "{r_c:.3f}",
+            "{P_C:.3f}"
+          ]
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "one-trial-simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 30,
+              "col": 9
+            },
+            "end": {
+              "line": 30,
+              "col": 68
+            },
+            "text": "  (true "
+          },
+          "target_span": {
+            "start": {
+              "line": 30,
+              "col": 9
+            },
+            "end": {
+              "line": 30,
+              "col": 68
+            },
+            "text": "  (vrai "
+          },
+          "placeholders": [
+            "{r_c:.3f}",
+            "{P_C:.3f}"
+          ]
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "one-trial-simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 31,
+              "col": 9
+            },
+            "end": {
+              "line": 31,
+              "col": 68
+            },
+            "text": "Observed risk, treatment      : "
+          },
+          "target_span": {
+            "start": {
+              "line": 31,
+              "col": 9
+            },
+            "end": {
+              "line": 31,
+              "col": 68
+            },
+            "text": "Risque observé, traitement    : "
+          },
+          "placeholders": [
+            "{r_t:.3f}",
+            "{P_T:.3f}"
+          ]
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "one-trial-simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 31,
+              "col": 9
+            },
+            "end": {
+              "line": 31,
+              "col": 68
+            },
+            "text": "  (true "
+          },
+          "target_span": {
+            "start": {
+              "line": 31,
+              "col": 9
+            },
+            "end": {
+              "line": 31,
+              "col": 68
+            },
+            "text": "  (vrai "
+          },
+          "placeholders": [
+            "{r_t:.3f}",
+            "{P_T:.3f}"
+          ]
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "one-trial-simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 32,
+              "col": 9
+            },
+            "end": {
+              "line": 32,
+              "col": 103
+            },
+            "text": "Risk difference (T - C)       : "
+          },
+          "target_span": {
+            "start": {
+              "line": 32,
+              "col": 9
+            },
+            "end": {
+              "line": 32,
+              "col": 111
+            },
+            "text": "Différence de risque (T - C)  : "
+          },
+          "placeholders": [
+            "{risk_difference:+.3f}"
+          ]
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "one-trial-simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 32,
+              "col": 9
+            },
+            "end": {
+              "line": 32,
+              "col": 103
+            },
+            "text": "  (negative = fewer events on treatment)"
+          },
+          "target_span": {
+            "start": {
+              "line": 32,
+              "col": 9
+            },
+            "end": {
+              "line": 32,
+              "col": 111
+            },
+            "text": "  (négatif = moins d’événements sous traitement)"
+          },
+          "placeholders": [
+            "{risk_difference:+.3f}"
+          ]
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "one-trial-simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 33,
+              "col": 9
+            },
+            "end": {
+              "line": 33,
+              "col": 95
+            },
+            "text": "Absolute risk reduction (ARR) : "
+          },
+          "target_span": {
+            "start": {
+              "line": 33,
+              "col": 9
+            },
+            "end": {
+              "line": 33,
+              "col": 104
+            },
+            "text": "Réduction absolue du risque (ARR) : "
+          },
+          "placeholders": [
+            "{arr:.3f}"
+          ]
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "one-trial-simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 33,
+              "col": 9
+            },
+            "end": {
+              "line": 33,
+              "col": 95
+            },
+            "text": "   (= -(risk difference), positive = benefit)"
+          },
+          "target_span": {
+            "start": {
+              "line": 33,
+              "col": 9
+            },
+            "end": {
+              "line": 33,
+              "col": 104
+            },
+            "text": "   (= -(différence de risque), positif = bénéfice)"
+          },
+          "placeholders": [
+            "{arr:.3f}"
+          ]
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "one-trial-simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 34,
+              "col": 9
+            },
+            "end": {
+              "line": 34,
+              "col": 49
+            },
+            "text": "Risk ratio (RR)               : "
+          },
+          "target_span": {
+            "start": {
+              "line": 34,
+              "col": 9
+            },
+            "end": {
+              "line": 34,
+              "col": 49
+            },
+            "text": "Risque relatif (RR)           : "
+          },
+          "placeholders": [
+            "{rr:.3f}"
+          ]
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "one-trial-simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 35,
+              "col": 9
+            },
+            "end": {
+              "line": 35,
+              "col": 50
+            },
+            "text": "Relative risk reduction (RRR) : "
+          },
+          "target_span": {
+            "start": {
+              "line": 35,
+              "col": 9
+            },
+            "end": {
+              "line": 35,
+              "col": 55
+            },
+            "text": "Réduction relative du risque (RRR) : "
+          },
+          "placeholders": [
+            "{rrr:.1%}"
+          ]
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "one-trial-simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 37,
+              "col": 13
+            },
+            "end": {
+              "line": 37,
+              "col": 54
+            },
+            "text": "NNT for benefit (unrounded)   : "
+          },
+          "target_span": {
+            "start": {
+              "line": 37,
+              "col": 13
+            },
+            "end": {
+              "line": 37,
+              "col": 56
+            },
+            "text": "NNT pour bénéfice (non arrondi) : "
+          },
+          "placeholders": [
+            "{nnt:.1f}"
+          ]
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "one-trial-simulation",
+          "source_span": {
+            "start": {
+              "line": 39,
+              "col": 12
+            },
+            "end": {
+              "line": 39,
+              "col": 80
+            },
+            "text": "NNT for benefit (unrounded)   : no finite NNT for benefit (ARR <= 0)"
+          },
+          "target_span": {
+            "start": {
+              "line": 39,
+              "col": 12
+            },
+            "end": {
+              "line": 39,
+              "col": 88
+            },
+            "text": "NNT pour bénéfice (non arrondi) : aucun NNT fini pour le bénéfice (ARR <= 0)"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "one-trial-simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 41,
+              "col": 13
+            },
+            "end": {
+              "line": 41,
+              "col": 56
+            },
+            "text": "NNT for benefit (rounded up)  : "
+          },
+          "target_span": {
+            "start": {
+              "line": 41,
+              "col": 13
+            },
+            "end": {
+              "line": 41,
+              "col": 67
+            },
+            "text": "NNT pour bénéfice (arrondi vers le haut) : "
+          },
+          "placeholders": [
+            "{ceil(nnt)}"
+          ]
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "one-trial-simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 43,
+              "col": 13
+            },
+            "end": {
+              "line": 43,
+              "col": 55
+            },
+            "text": "NNH (unrounded; treatment harm): "
+          },
+          "target_span": {
+            "start": {
+              "line": 43,
+              "col": 13
+            },
+            "end": {
+              "line": 43,
+              "col": 67
+            },
+            "text": "NNH (non arrondi ; nocivité du traitement) : "
+          },
+          "placeholders": [
+            "{nnh:.1f}"
+          ]
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "one-trial-simulation",
+          "source_span": {
+            "start": {
+              "line": 45,
+              "col": 12
+            },
+            "end": {
+              "line": 45,
+              "col": 75
+            },
+            "text": "ARR is zero: neither a finite NNT for benefit nor a finite NNH."
+          },
+          "target_span": {
+            "start": {
+              "line": 45,
+              "col": 12
+            },
+            "end": {
+              "line": 45,
+              "col": 71
+            },
+            "text": "L’ARR est nulle : ni NNT fini pour le bénéfice ni NNH fini."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "one-trial-simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 46,
+              "col": 9
+            },
+            "end": {
+              "line": 46,
+              "col": 49
+            },
+            "text": "SE of the ARR (observed data) : "
+          },
+          "target_span": {
+            "start": {
+              "line": 46,
+              "col": 9
+            },
+            "end": {
+              "line": 46,
+              "col": 65
+            },
+            "text": "Erreur-type (SE) de l’ARR (données observées) : "
+          },
+          "placeholders": [
+            "{se:.4f}"
+          ]
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "one-trial-simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 47,
+              "col": 9
+            },
+            "end": {
+              "line": 47,
+              "col": 69
+            },
+            "text": "95% CI for the ARR            : ("
+          },
+          "target_span": {
+            "start": {
+              "line": 47,
+              "col": 9
+            },
+            "end": {
+              "line": 47,
+              "col": 69
+            },
+            "text": "CI à 95% pour l’ARR           : ("
+          },
+          "placeholders": [
+            "{ci[0]:+.3f}",
+            "{ci[1]:+.3f}"
+          ]
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "coverage-simulation",
+          "source_span": {
+            "start": {
+              "line": 3,
+              "col": 1
+            },
+            "end": {
+              "line": 3,
+              "col": 49
+            },
+            "text": "Approximate Wald 95% CI for a risk difference."
+          },
+          "target_span": {
+            "start": {
+              "line": 3,
+              "col": 1
+            },
+            "end": {
+              "line": 3,
+              "col": 63
+            },
+            "text": "CI de Wald approximatif à 95% pour une différence de risque."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "coverage-simulation",
+          "source_span": {
+            "start": {
+              "line": 4,
+              "col": 1
+            },
+            "end": {
+              "line": 4,
+              "col": 73
+            },
+            "text": "Reasonable for this example's counts; not an exact coverage guarantee."
+          },
+          "target_span": {
+            "start": {
+              "line": 4,
+              "col": 1
+            },
+            "end": {
+              "line": 4,
+              "col": 89
+            },
+            "text": "Raisonnable pour les comptages de cet exemple ; pas une garantie de couverture exacte."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "coverage-simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 20,
+              "col": 9
+            },
+            "end": {
+              "line": 20,
+              "col": 92
+            },
+            "text": "Our trial (seed "
+          },
+          "target_span": {
+            "start": {
+              "line": 20,
+              "col": 9
+            },
+            "end": {
+              "line": 20,
+              "col": 99
+            },
+            "text": "Notre essai (graine "
+          },
+          "placeholders": [
+            "{SEED}",
+            "{arr:+.3f}",
+            "{lo:+.3f}",
+            "{hi:+.3f}"
+          ]
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "coverage-simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 20,
+              "col": 9
+            },
+            "end": {
+              "line": 20,
+              "col": 92
+            },
+            "text": "): observed ARR = "
+          },
+          "target_span": {
+            "start": {
+              "line": 20,
+              "col": 9
+            },
+            "end": {
+              "line": 20,
+              "col": 99
+            },
+            "text": ") : ARR observée = "
+          },
+          "placeholders": [
+            "{SEED}",
+            "{arr:+.3f}",
+            "{lo:+.3f}",
+            "{hi:+.3f}"
+          ]
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "coverage-simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 20,
+              "col": 9
+            },
+            "end": {
+              "line": 20,
+              "col": 92
+            },
+            "text": ", 95% CI = ("
+          },
+          "target_span": {
+            "start": {
+              "line": 20,
+              "col": 9
+            },
+            "end": {
+              "line": 20,
+              "col": 99
+            },
+            "text": ", CI à 95% = ("
+          },
+          "placeholders": [
+            "{SEED}",
+            "{arr:+.3f}",
+            "{lo:+.3f}",
+            "{hi:+.3f}"
+          ]
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "coverage-simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 22,
+              "col": 13
+            },
+            "end": {
+              "line": 22,
+              "col": 60
+            },
+            "text": "True ARR = "
+          },
+          "target_span": {
+            "start": {
+              "line": 22,
+              "col": 13
+            },
+            "end": {
+              "line": 22,
+              "col": 63
+            },
+            "text": "Vraie ARR = "
+          },
+          "placeholders": [
+            "{TRUE_ARR:.3f}"
+          ]
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "coverage-simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 22,
+              "col": 13
+            },
+            "end": {
+              "line": 22,
+              "col": 60
+            },
+            "text": " -> our CI contains it"
+          },
+          "target_span": {
+            "start": {
+              "line": 22,
+              "col": 13
+            },
+            "end": {
+              "line": 22,
+              "col": 63
+            },
+            "text": " -> notre CI la contient"
+          },
+          "placeholders": [
+            "{TRUE_ARR:.3f}"
+          ]
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "coverage-simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 24,
+              "col": 13
+            },
+            "end": {
+              "line": 24,
+              "col": 68
+            },
+            "text": "True ARR = "
+          },
+          "target_span": {
+            "start": {
+              "line": 24,
+              "col": 13
+            },
+            "end": {
+              "line": 24,
+              "col": 70
+            },
+            "text": "Vraie ARR = "
+          },
+          "placeholders": [
+            "{TRUE_ARR:.3f}"
+          ]
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "coverage-simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 24,
+              "col": 13
+            },
+            "end": {
+              "line": 24,
+              "col": 68
+            },
+            "text": " -> our CI does not contain it"
+          },
+          "target_span": {
+            "start": {
+              "line": 24,
+              "col": 13
+            },
+            "end": {
+              "line": 24,
+              "col": 70
+            },
+            "text": " -> notre CI ne la contient pas"
+          },
+          "placeholders": [
+            "{TRUE_ARR:.3f}"
+          ]
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "coverage-simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 25,
+              "col": 9
+            },
+            "end": {
+              "line": 25,
+              "col": 113
+            },
+            "text": "Estimated coverage of the nominal 95% CI procedure across "
+          },
+          "target_span": {
+            "start": {
+              "line": 25,
+              "col": 9
+            },
+            "end": {
+              "line": 25,
+              "col": 113
+            },
+            "text": "Couverture estimée de la procédure de CI nominal à 95% sur "
+          },
+          "placeholders": [
+            "{N_SIMS}",
+            "{covers.mean():.1%}"
+          ]
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "coverage-simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 25,
+              "col": 9
+            },
+            "end": {
+              "line": 25,
+              "col": 113
+            },
+            "text": " simulated trials: "
+          },
+          "target_span": {
+            "start": {
+              "line": 25,
+              "col": 9
+            },
+            "end": {
+              "line": 25,
+              "col": 113
+            },
+            "text": " essais simulés : "
+          },
+          "placeholders": [
+            "{N_SIMS}",
+            "{covers.mean():.1%}"
+          ]
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "coverage-simulation",
+          "source_span": {
+            "start": {
+              "line": 26,
+              "col": 8
+            },
+            "end": {
+              "line": 26,
+              "col": 86
+            },
+            "text": "95% is the nominal target, not an exact guarantee for this Wald approximation."
+          },
+          "target_span": {
+            "start": {
+              "line": 26,
+              "col": 8
+            },
+            "end": {
+              "line": 26,
+              "col": 92
+            },
+            "text": "95% est la cible nominale, pas une garantie exacte pour cette approximation de Wald."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "coverage-simulation",
+          "source_span": {
+            "start": {
+              "line": 27,
+              "col": 8
+            },
+            "end": {
+              "line": 27,
+              "col": 84
+            },
+            "text": "Estimated coverage also has Monte Carlo variation across finite simulations."
+          },
+          "target_span": {
+            "start": {
+              "line": 27,
+              "col": 8
+            },
+            "end": {
+              "line": 27,
+              "col": 112
+            },
+            "text": "La couverture estimée présente également une variation de Monte-Carlo sur un nombre fini de simulations."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "coverage-simulation",
+          "source_span": {
+            "start": {
+              "line": 29,
+              "col": 1
+            },
+            "end": {
+              "line": 29,
+              "col": 79
+            },
+            "text": "Match the original 40-bin histogram exactly; do not use Plotly auto-binning."
+          },
+          "target_span": {
+            "start": {
+              "line": 29,
+              "col": 1
+            },
+            "end": {
+              "line": 29,
+              "col": 125
+            },
+            "text": "Reproduire exactement l’histogramme original à 40 classes ; ne pas utiliser le découpage automatique en classes de Plotly."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "coverage-simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 37,
+              "col": 13
+            },
+            "end": {
+              "line": 37,
+              "col": 60
+            },
+            "text": "Sampling variation of the ARR ("
+          },
+          "target_span": {
+            "start": {
+              "line": 37,
+              "col": 13
+            },
+            "end": {
+              "line": 37,
+              "col": 67
+            },
+            "text": "Variation d’échantillonnage de l’ARR ("
+          },
+          "placeholders": [
+            "{N_SIMS}"
+          ]
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "coverage-simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 37,
+              "col": 13
+            },
+            "end": {
+              "line": 37,
+              "col": 60
+            },
+            "text": " trials)"
+          },
+          "target_span": {
+            "start": {
+              "line": 37,
+              "col": 13
+            },
+            "end": {
+              "line": 37,
+              "col": 67
+            },
+            "text": " essais)"
+          },
+          "placeholders": [
+            "{N_SIMS}"
+          ]
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "coverage-simulation",
+          "source_span": {
+            "start": {
+              "line": 38,
+              "col": 13
+            },
+            "end": {
+              "line": 38,
+              "col": 49
+            },
+            "text": "Observed ARR across simulated trials"
+          },
+          "target_span": {
+            "start": {
+              "line": 38,
+              "col": 13
+            },
+            "end": {
+              "line": 38,
+              "col": 48
+            },
+            "text": "ARR observée sur les essais simulés"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "coverage-simulation",
+          "source_span": {
+            "start": {
+              "line": 39,
+              "col": 13
+            },
+            "end": {
+              "line": 39,
+              "col": 29
+            },
+            "text": "Number of trials"
+          },
+          "target_span": {
+            "start": {
+              "line": 39,
+              "col": 13
+            },
+            "end": {
+              "line": 39,
+              "col": 28
+            },
+            "text": "Nombre d’essais"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "coverage-simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 48,
+              "col": 44
+            },
+            "end": {
+              "line": 48,
+              "col": 69
+            },
+            "text": "true ARR = "
+          },
+          "target_span": {
+            "start": {
+              "line": 48,
+              "col": 44
+            },
+            "end": {
+              "line": 48,
+              "col": 70
+            },
+            "text": "vraie ARR = "
+          },
+          "placeholders": [
+            "{TRUE_ARR:.3f}"
+          ]
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "coverage-simulation",
+          "source_span": {
+            "start": {
+              "line": 52,
+              "col": 43
+            },
+            "end": {
+              "line": 52,
+              "col": 56
+            },
+            "text": "no effect (0)"
+          },
+          "target_span": {
+            "start": {
+              "line": 52,
+              "col": 43
+            },
+            "end": {
+              "line": 52,
+              "col": 58
+            },
+            "text": "aucun effet (0)"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "coverage-simulation",
+          "source_span": {
+            "start": {
+              "line": 56,
+              "col": 61
+            },
+            "end": {
+              "line": 56,
+              "col": 79
+            },
+            "text": "our trial's 95% CI"
+          },
+          "target_span": {
+            "start": {
+              "line": 56,
+              "col": 61
+            },
+            "end": {
+              "line": 56,
+              "col": 84
+            },
+            "text": "CI à 95% de notre essai"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "baseline-risk-plot",
+          "source_span": {
+            "start": {
+              "line": 8,
+              "col": 42
+            },
+            "end": {
+              "line": 8,
+              "col": 89
+            },
+            "text": "fixed known generating RR = 0.08/0.12 ≈ 0.667"
+          },
+          "target_span": {
+            "start": {
+              "line": 8,
+              "col": 42
+            },
+            "end": {
+              "line": 8,
+              "col": 91
+            },
+            "text": "RR générateur fixe et connu = 0.08/0.12 ≈ 0.667"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "baseline-risk-plot",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 13,
+              "col": 9
+            },
+            "end": {
+              "line": 13,
+              "col": 72
+            },
+            "text": "Fixed known generating RR = "
+          },
+          "target_span": {
+            "start": {
+              "line": 13,
+              "col": 9
+            },
+            "end": {
+              "line": 13,
+              "col": 77
+            },
+            "text": "RR générateur fixe et connu = "
+          },
+          "placeholders": [
+            "{rr_known:.3f}"
+          ]
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "baseline-risk-plot",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 13,
+              "col": 9
+            },
+            "end": {
+              "line": 13,
+              "col": 72
+            },
+            "text": " across all scenarios"
+          },
+          "target_span": {
+            "start": {
+              "line": 13,
+              "col": 9
+            },
+            "end": {
+              "line": 13,
+              "col": 77
+            },
+            "text": " pour tous les scénarios"
+          },
+          "placeholders": [
+            "{rr_known:.3f}"
+          ]
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "baseline-risk-plot",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "format_spec": ">13",
+          "source_span": {
+            "start": {
+              "line": 14,
+              "col": 9
+            },
+            "end": {
+              "line": 14,
+              "col": 56
+            },
+            "text": "baseline risk"
+          },
+          "target_span": {
+            "start": {
+              "line": 14,
+              "col": 9
+            },
+            "end": {
+              "line": 14,
+              "col": 55
+            },
+            "text": "risque basal"
+          },
+          "placeholders": []
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "baseline-risk-plot",
+          "source_span": {
+            "start": {
+              "line": 28,
+              "col": 29
+            },
+            "end": {
+              "line": 28,
+              "col": 78
+            },
+            "text": "One (assumed constant) RR, many absolute benefits"
+          },
+          "target_span": {
+            "start": {
+              "line": 28,
+              "col": 29
+            },
+            "end": {
+              "line": 28,
+              "col": 84
+            },
+            "text": "Un RR (supposé constant), de nombreux bénéfices absolus"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "baseline-risk-plot",
+          "source_span": {
+            "start": {
+              "line": 29,
+              "col": 30
+            },
+            "end": {
+              "line": 29,
+              "col": 73
+            },
+            "text": "Baseline 12-month risk in control arm (p_C)"
+          },
+          "target_span": {
+            "start": {
+              "line": 29,
+              "col": 30
+            },
+            "end": {
+              "line": 29,
+              "col": 80
+            },
+            "text": "Risque initial à 12 mois dans le bras témoin (p_C)"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "baseline-risk-plot",
+          "source_span": {
+            "start": {
+              "line": 30,
+              "col": 30
+            },
+            "end": {
+              "line": 30,
+              "col": 53
+            },
+            "text": "Absolute risk reduction"
+          },
+          "target_span": {
+            "start": {
+              "line": 30,
+              "col": 30
+            },
+            "end": {
+              "line": 30,
+              "col": 57
+            },
+            "text": "Réduction absolue du risque"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "baseline-risk-plot",
+          "source_span": {
+            "start": {
+              "line": 34,
+              "col": 75
+            },
+            "end": {
+              "line": 34,
+              "col": 98
+            },
+            "text": "Absolute risk reduction"
+          },
+          "target_span": {
+            "start": {
+              "line": 34,
+              "col": 75
+            },
+            "end": {
+              "line": 34,
+              "col": 102
+            },
+            "text": "Réduction absolue du risque"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "baseline-risk-plot",
+          "source_span": {
+            "start": {
+              "line": 35,
+              "col": 76
+            },
+            "end": {
+              "line": 35,
+              "col": 98
+            },
+            "text": "Number needed to treat"
+          },
+          "target_span": {
+            "start": {
+              "line": 35,
+              "col": 76
+            },
+            "end": {
+              "line": 35,
+              "col": 102
+            },
+            "text": "Nombre de sujets à traiter"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "baseline-risk-plot",
+          "source_span": {
+            "start": {
+              "line": 44,
+              "col": 43
+            },
+            "end": {
+              "line": 44,
+              "col": 60
+            },
+            "text": "assumed MCID 0.02"
+          },
+          "target_span": {
+            "start": {
+              "line": 44,
+              "col": 43
+            },
+            "end": {
+              "line": 44,
+              "col": 61
+            },
+            "text": "MCID supposée 0.02"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 8,
+          "cell_name": "compatibility-analysis",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 5,
+              "col": 9
+            },
+            "end": {
+              "line": 5,
+              "col": 67
+            },
+            "text": "Observed ARR = "
+          },
+          "target_span": {
+            "start": {
+              "line": 5,
+              "col": 9
+            },
+            "end": {
+              "line": 5,
+              "col": 69
+            },
+            "text": "ARR observée = "
+          },
+          "placeholders": [
+            "{arr:+.3f}",
+            "{lo:+.3f}",
+            "{hi:+.3f}"
+          ]
+        },
+        {
+          "cell_index": 8,
+          "cell_name": "compatibility-analysis",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 5,
+              "col": 9
+            },
+            "end": {
+              "line": 5,
+              "col": 67
+            },
+            "text": ", 95% CI = ("
+          },
+          "target_span": {
+            "start": {
+              "line": 5,
+              "col": 9
+            },
+            "end": {
+              "line": 5,
+              "col": 69
+            },
+            "text": ", CI à 95% = ("
+          },
+          "placeholders": [
+            "{arr:+.3f}",
+            "{lo:+.3f}",
+            "{hi:+.3f}"
+          ]
+        },
+        {
+          "cell_index": 8,
+          "cell_name": "compatibility-analysis",
+          "source_span": {
+            "start": {
+              "line": 8,
+              "col": 12
+            },
+            "end": {
+              "line": 8,
+              "col": 78
+            },
+            "text": "The normal-approximation test is undefined because the SE is zero."
+          },
+          "target_span": {
+            "start": {
+              "line": 8,
+              "col": 12
+            },
+            "end": {
+              "line": 8,
+              "col": 92
+            },
+            "text": "Le test par approximation normale est indéfini car l’erreur-type (SE) est nulle."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 8,
+          "cell_name": "compatibility-analysis",
+          "source_span": {
+            "start": {
+              "line": 9,
+              "col": 12
+            },
+            "end": {
+              "line": 9,
+              "col": 77
+            },
+            "text": "A degenerate Wald interval is not reliable evidence of certainty."
+          },
+          "target_span": {
+            "start": {
+              "line": 9,
+              "col": 12
+            },
+            "end": {
+              "line": 9,
+              "col": 91
+            },
+            "text": "Un intervalle de Wald dégénéré ne constitue pas une preuve fiable de certitude."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 8,
+          "cell_name": "compatibility-analysis",
+          "source_span": {
+            "start": {
+              "line": 10,
+              "col": 12
+            },
+            "end": {
+              "line": 10,
+              "col": 81
+            },
+            "text": "Use an interval/test appropriate for sparse or boundary event counts."
+          },
+          "target_span": {
+            "start": {
+              "line": 10,
+              "col": 12
+            },
+            "end": {
+              "line": 10,
+              "col": 114
+            },
+            "text": "Utilisez un intervalle/test adapté à de faibles effectifs d’événements ou à des effectifs aux limites."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 8,
+          "cell_name": "compatibility-analysis",
+          "source_span": {
+            "start": {
+              "line": 13,
+              "col": 42
+            },
+            "end": {
+              "line": 13,
+              "col": 84
+            },
+            "text": "stable two-sided normal tail probability"
+          },
+          "target_span": {
+            "start": {
+              "line": 13,
+              "col": 42
+            },
+            "end": {
+              "line": 13,
+              "col": 116
+            },
+            "text": "probabilité bilatérale en queue de loi normale, calculée de façon stable"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 8,
+          "cell_name": "compatibility-analysis",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 17,
+              "col": 13
+            },
+            "end": {
+              "line": 17,
+              "col": 68
+            },
+            "text": ", two-sided approximate p = "
+          },
+          "target_span": {
+            "start": {
+              "line": 17,
+              "col": 13
+            },
+            "end": {
+              "line": 17,
+              "col": 69
+            },
+            "text": ", p approximatif bilatéral = "
+          },
+          "placeholders": [
+            "{z_stat:.2f}",
+            "{p_two:.3g}"
+          ]
+        },
+        {
+          "cell_index": 8,
+          "cell_name": "compatibility-analysis",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 18,
+              "col": 13
+            },
+            "end": {
+              "line": 18,
+              "col": 71
+            },
+            "text": "CI includes 0 (compatible with no effect): "
+          },
+          "target_span": {
+            "start": {
+              "line": 18,
+              "col": 13
+            },
+            "end": {
+              "line": 18,
+              "col": 81
+            },
+            "text": "Le CI inclut 0 (compatible avec l’absence d’effet) : "
+          },
+          "placeholders": [
+            "{includes_zero}"
+          ]
+        },
+        {
+          "cell_index": 8,
+          "cell_name": "compatibility-analysis",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 19,
+              "col": 13
+            },
+            "end": {
+              "line": 19,
+              "col": 80
+            },
+            "text": "CI lies entirely above the assumed MCID of "
+          },
+          "target_span": {
+            "start": {
+              "line": 19,
+              "col": 13
+            },
+            "end": {
+              "line": 19,
+              "col": 97
+            },
+            "text": "Le CI se situe entièrement au-dessus de la MCID supposée de "
+          },
+          "placeholders": [
+            "{MCID:.3f}",
+            "{above_mcid}"
+          ]
+        },
+        {
+          "cell_index": 8,
+          "cell_name": "compatibility-analysis",
+          "source_span": {
+            "start": {
+              "line": 22,
+              "col": 16
+            },
+            "end": {
+              "line": 22,
+              "col": 82
+            },
+            "text": "No effect is among the values compatible with this approximate CI."
+          },
+          "target_span": {
+            "start": {
+              "line": 22,
+              "col": 16
+            },
+            "end": {
+              "line": 22,
+              "col": 95
+            },
+            "text": "L’absence d’effet figure parmi les valeurs compatibles avec ce CI approximatif."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 8,
+          "cell_name": "compatibility-analysis",
+          "source_span": {
+            "start": {
+              "line": 23,
+              "col": 16
+            },
+            "end": {
+              "line": 23,
+              "col": 81
+            },
+            "text": "This is not proof of no effect: inspect the full range of the CI."
+          },
+          "target_span": {
+            "start": {
+              "line": 23,
+              "col": 16
+            },
+            "end": {
+              "line": 23,
+              "col": 96
+            },
+            "text": "Ceci n’est pas une preuve d’absence d’effet : inspectez la plage complète du CI."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 8,
+          "cell_name": "compatibility-analysis",
+          "source_span": {
+            "start": {
+              "line": 25,
+              "col": 16
+            },
+            "end": {
+              "line": 25,
+              "col": 75
+            },
+            "text": "Zero is outside this approximate CI under the stated model."
+          },
+          "target_span": {
+            "start": {
+              "line": 25,
+              "col": 16
+            },
+            "end": {
+              "line": 25,
+              "col": 79
+            },
+            "text": "Zéro est en dehors de ce CI approximatif sous le modèle énoncé."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 8,
+          "cell_name": "compatibility-analysis",
+          "source_span": {
+            "start": {
+              "line": 26,
+              "col": 16
+            },
+            "end": {
+              "line": 26,
+              "col": 82
+            },
+            "text": "The sign and range of the CI describe the compatible effect sizes."
+          },
+          "target_span": {
+            "start": {
+              "line": 26,
+              "col": 16
+            },
+            "end": {
+              "line": 26,
+              "col": 85
+            },
+            "text": "Le signe et la plage du CI décrivent les tailles d’effet compatibles."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 8,
+          "cell_name": "compatibility-analysis",
+          "source_span": {
+            "start": {
+              "line": 29,
+              "col": 16
+            },
+            "end": {
+              "line": 29,
+              "col": 81
+            },
+            "text": "The entire approximate CI exceeds the assumed clinical threshold."
+          },
+          "target_span": {
+            "start": {
+              "line": 29,
+              "col": 16
+            },
+            "end": {
+              "line": 29,
+              "col": 80
+            },
+            "text": "L’ensemble du CI approximatif dépasse le seuil clinique supposé."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 8,
+          "cell_name": "compatibility-analysis",
+          "source_span": {
+            "start": {
+              "line": 31,
+              "col": 16
+            },
+            "end": {
+              "line": 31,
+              "col": 82
+            },
+            "text": "The entire approximate CI is below the assumed clinical threshold."
+          },
+          "target_span": {
+            "start": {
+              "line": 31,
+              "col": 16
+            },
+            "end": {
+              "line": 31,
+              "col": 86
+            },
+            "text": "L’ensemble du CI approximatif est inférieur au seuil clinique supposé."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 8,
+          "cell_name": "compatibility-analysis",
+          "source_span": {
+            "start": {
+              "line": 33,
+              "col": 16
+            },
+            "end": {
+              "line": 33,
+              "col": 75
+            },
+            "text": "The approximate CI includes the assumed clinical threshold:"
+          },
+          "target_span": {
+            "start": {
+              "line": 33,
+              "col": 16
+            },
+            "end": {
+              "line": 33,
+              "col": 69
+            },
+            "text": "Le CI approximatif inclut le seuil clinique supposé :"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 8,
+          "cell_name": "compatibility-analysis",
+          "source_span": {
+            "start": {
+              "line": 34,
+              "col": 16
+            },
+            "end": {
+              "line": 34,
+              "col": 74
+            },
+            "text": "the data do not clearly resolve that threshold comparison."
+          },
+          "target_span": {
+            "start": {
+              "line": 34,
+              "col": 16
+            },
+            "end": {
+              "line": 34,
+              "col": 96
+            },
+            "text": "les données ne permettent pas de trancher clairement cette comparaison au seuil."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 8,
+          "cell_name": "compatibility-analysis",
+          "source_span": {
+            "start": {
+              "line": 36,
+              "col": 12
+            },
+            "end": {
+              "line": 36,
+              "col": 80
+            },
+            "text": "The MCID is assumed for illustration, not established by these data."
+          },
+          "target_span": {
+            "start": {
+              "line": 36,
+              "col": 12
+            },
+            "end": {
+              "line": 36,
+              "col": 88
+            },
+            "text": "La MCID est supposée à titre d’illustration, et non établie par ces données."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 8,
+          "cell_name": "compatibility-analysis",
+          "source_span": {
+            "start": {
+              "line": 37,
+              "col": 12
+            },
+            "end": {
+              "line": 37,
+              "col": 75
+            },
+            "text": "Clinical importance also depends on harms, patient preferences,"
+          },
+          "target_span": {
+            "start": {
+              "line": 37,
+              "col": 12
+            },
+            "end": {
+              "line": 37,
+              "col": 96
+            },
+            "text": "L’importance clinique dépend également des préjudices, des préférences des patients,"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 8,
+          "cell_name": "compatibility-analysis",
+          "source_span": {
+            "start": {
+              "line": 38,
+              "col": 12
+            },
+            "end": {
+              "line": 38,
+              "col": 64
+            },
+            "text": "and costs, which this simulation does not represent."
+          },
+          "target_span": {
+            "start": {
+              "line": 38,
+              "col": 12
+            },
+            "end": {
+              "line": 38,
+              "col": 70
+            },
+            "text": "et des coûts, que cette simulation ne prend pas en compte."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        }
+      ],
+      "exclusions": []
+    },
+    "nativeSpeakerReview": "pending"
+  },
+  "browser": {
+    "status": "passed",
+    "first": {
+      "exportSha256": "c93fa68feac5db937267c6ae5529c54771e0cf208fb11c97af893e55193aac69",
+      "reportSha256": "58aeb40ae04a050ece8d11f182552deab77f5e97f5c1642495e38191f4b5e885",
+      "appVersion": "1.4.0",
+      "cells": 13,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "second": {
+      "exportSha256": "da996a92fd3590a7c11140a5f266e346f47a99a33f43fe71f8b67dee8b97b91b",
+      "reportSha256": "58aeb40ae04a050ece8d11f182552deab77f5e97f5c1642495e38191f4b5e885",
+      "appVersion": "1.4.0",
+      "cells": 13,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "englishBaseline": [
+      {
+        "exportSha256": "51fc4212a0811605131bcd1b38e367cfe651e0a4a8d4e2997395b217ee13c4ee",
+        "reportSha256": "6667d7b42d0ebc8f792576aecfdc7d1073dd8166b5027612b623fb4fc8994e48",
+        "appVersion": "1.4.0",
+        "cells": 13,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      },
+      {
+        "exportSha256": "27ef646c8d616167b8fca64b02edf7654c8de3b392bbb8908c81e9a5857cd1d2",
+        "reportSha256": "6667d7b42d0ebc8f792576aecfdc7d1073dd8166b5027612b623fb4fc8994e48",
+        "appVersion": "1.4.0",
+        "cells": 13,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      }
+    ],
+    "deterministic": true,
+    "textOracle": {
+      "first": {
+        "pass": true,
+        "failures": [],
+        "warnings": [
+          "cell 2: reaches_output:none span appears in output: \"CI à 95% pour l’ARR\""
+        ],
+        "plotCells": [
+          4,
+          6
+        ],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      },
+      "second": {
+        "pass": true,
+        "failures": [],
+        "warnings": [
+          "cell 2: reaches_output:none span appears in output: \"CI à 95% pour l’ARR\""
+        ],
+        "plotCells": [
+          4,
+          6
+        ],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      }
+    },
+    "plotData": {
+      "status": "passed",
+      "count": 2
+    },
+    "rasterCharts": null,
+    "renderedReview": "controller-AI-reviewed",
+    "rendering": {
+      "status": "passed",
+      "scope": "Titles, axes, legends and glyphs visually checked in captured app renders; not native-language approval.",
+      "nativeSpeakerReview": "pending",
+      "note": "Full540px chart verified with settled export renders; earlier viewport-resize crops retained in private history."
+    }
+  },
+  "caveat": "Machine translated with Gemini and reviewed by AI/controller checks, including scoped corrections where needed. Native-speaker review is pending; structural and numerical checks do not certify prose quality."
+}

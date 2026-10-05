@@ -1,0 +1,1836 @@
+{
+  "schema": 1,
+  "lesson": "select-risk-measures",
+  "locale": "hi",
+  "source": {
+    "path": "workbooks/en/select-risk-measures.srwb",
+    "sha256": "3df6189e8206d7a292a52f227b96e4a81680b6de515f6786e0788a83a4306147"
+  },
+  "target": {
+    "path": "workbooks/hi/select-risk-measures.srwb",
+    "sha256": "64b69dddaf972a1d3d6d2339e5df152cf7ec11ad9013a362c733e09dbbe4c46b",
+    "size": 29431,
+    "title": "SELECT से जोखिम मापों तक",
+    "description": "प्रकाशित SELECT ट्रायल के समग्र आंकड़ों को संरक्षित करने वाले सिंथेटिक रिकॉर्ड; अपरिष्कृत जोखिम मापों और अनुमानित NNT की गणना करें, तथा जोखिम अनुपातों और संकट अनुपातों में अंतर स्पष्ट करें।"
+  },
+  "translation": {
+    "model": "gemini-3.8-flash-medium",
+    "contentAudit": {
+      "status": "passed",
+      "sourceSha256": "3df6189e8206d7a292a52f227b96e4a81680b6de515f6786e0788a83a4306147",
+      "targetSha256": "64b69dddaf972a1d3d6d2339e5df152cf7ec11ad9013a362c733e09dbbe4c46b",
+      "findings": [],
+      "errors": [],
+      "reviewMethod": "Previously passed AI/controller source-fidelity audit, preserved through verified presentation-only rebase where applicable; scoped final Bengali corrections independently adjudicated and re-gated.",
+      "provenance": {
+        "predecessorSourceSha256": "3df6189e8206d7a292a52f227b96e4a81680b6de515f6786e0788a83a4306147",
+        "predecessorTargetSha256": "64b69dddaf972a1d3d6d2339e5df152cf7ec11ad9013a362c733e09dbbe4c46b",
+        "predecessorAuditSha256": "fdce62afca0554111ecb222d4f45a4168857a8526379806138f78b07e306b5e8",
+        "sharedLayoutOnly": false
+      },
+      "nativeSpeakerReview": "pending",
+      "caveat": "AI/controller review, not native-speaker or qualified technical certification."
+    },
+    "policy": {
+      "locale": "hi",
+      "protectedTexts": [
+        "id",
+        "treatment",
+        "primary_outcome",
+        "semaglutide",
+        "placebo",
+        " | primary_outcome = "
+      ],
+      "protectedIds": [
+        "2:16:0",
+        "2:18:0",
+        "2:20:0",
+        "2:24:0",
+        "2:26:0",
+        "2:34:4",
+        "2:38:0",
+        "2:40:0",
+        "2:42:0",
+        "2:44:0",
+        "2:46:0",
+        "2:48:0",
+        "2:50:0",
+        "3:4:0",
+        "3:6:0",
+        "3:8:0",
+        "3:10:0",
+        "3:12:0",
+        "3:14:0"
+      ],
+      "widthOverrides": {},
+      "identifierRenames": false,
+      "cellNames": "English",
+      "nativeReviewCaveat": "Machine-translated; native-speaker review pending. Numerical/structural tests do not certify prose quality."
+    },
+    "keeps": {
+      "ids": [
+        "2:16:0",
+        "2:18:0",
+        "2:20:0",
+        "2:24:0",
+        "2:26:0",
+        "2:34:4",
+        "2:38:0",
+        "2:40:0",
+        "2:42:0",
+        "2:44:0",
+        "2:46:0",
+        "2:48:0",
+        "2:50:0",
+        "3:4:0",
+        "3:6:0",
+        "3:8:0",
+        "3:10:0",
+        "3:12:0",
+        "3:14:0",
+        "3:38:0",
+        "3:38:2",
+        "7:18:2",
+        "7:20:0",
+        "7:20:2"
+      ],
+      "texts": [
+        "id",
+        "treatment",
+        "primary_outcome",
+        "semaglutide",
+        "placebo",
+        " | primary_outcome = ",
+        "treatment",
+        "semaglutide",
+        "treatment",
+        "placebo",
+        "primary_outcome",
+        "primary_outcome",
+        "id",
+        "treatment",
+        "semaglutide",
+        "treatment",
+        "placebo",
+        "primary_outcome",
+        "primary_outcome",
+        "  RR = ",
+        " (95% CI ",
+        " pp",
+        "ARR               : ",
+        " pp"
+      ]
+    },
+    "manifest": {
+      "manifest_version": 1,
+      "produced_by": "derived",
+      "generator": "tools/span-derive.mjs",
+      "locale": "hi",
+      "source": {
+        "path": "workbooks/en/select-risk-measures.srwb",
+        "sha256": "3df6189e8206d7a292a52f227b96e4a81680b6de515f6786e0788a83a4306147"
+      },
+      "target": {
+        "path": "workbooks/hi/select-risk-measures.srwb",
+        "sha256": "64b69dddaf972a1d3d6d2339e5df152cf7ec11ad9013a362c733e09dbbe4c46b"
+      },
+      "spans": [
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 110
+            },
+            "text": "Synthetic patient-level dataset for the SELECT trial (Lincoff et al., NEJM 2023, DOI 10.1056/NEJMoa2307563)"
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 107
+            },
+            "text": "SELECT ट्रायल के लिए सिंथेटिक रोगी-स्तरीय डेटासेट (Lincoff et al., NEJM 2023, DOI 10.1056/NEJMoa2307563)"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 2,
+              "col": 1
+            },
+            "end": {
+              "line": 2,
+              "col": 81
+            },
+            "text": "All rows are FICTIONAL/SYNTHETIC: IDs are deterministic and guaranteed unique;"
+          },
+          "target_span": {
+            "start": {
+              "line": 2,
+              "col": 1
+            },
+            "end": {
+              "line": 2,
+              "col": 91
+            },
+            "text": "सभी पंक्तियाँ काल्पनिक/सिंथेटिक हैं: IDs निश्चयात्मक और विशिष्ट होने की गारंटी वाले हैं;"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 3,
+              "col": 1
+            },
+            "end": {
+              "line": 3,
+              "col": 85
+            },
+            "text": "outcome assignment and row order are randomized within each arm with a fixed seed."
+          },
+          "target_span": {
+            "start": {
+              "line": 3,
+              "col": 1
+            },
+            "end": {
+              "line": 3,
+              "col": 89
+            },
+            "text": "प्रत्येक आर्म के भीतर एक निश्चित सीड के साथ परिणाम आवंटन और पंक्ति क्रम यादृच्छिक हैं।"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 4,
+              "col": 1
+            },
+            "end": {
+              "line": 4,
+              "col": 63
+            },
+            "text": "The exact group denominators and event counts are preserved."
+          },
+          "target_span": {
+            "start": {
+              "line": 4,
+              "col": 1
+            },
+            "end": {
+              "line": 4,
+              "col": 51
+            },
+            "text": "सटीक समूह हर और घटना गणनाएं सुरक्षित रखी गई हैं।"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 5,
+              "col": 1
+            },
+            "end": {
+              "line": 5,
+              "col": 22
+            },
+            "text": "NOT medical advice."
+          },
+          "target_span": {
+            "start": {
+              "line": 5,
+              "col": 1
+            },
+            "end": {
+              "line": 5,
+              "col": 23
+            },
+            "text": "चिकित्सीय सलाह नहीं।"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 14,
+              "col": 5
+            },
+            "end": {
+              "line": 14,
+              "col": 86
+            },
+            "text": "Sequential zero-padded IDs guarantee uniqueness (no collisions by construction)"
+          },
+          "target_span": {
+            "start": {
+              "line": 14,
+              "col": 5
+            },
+            "end": {
+              "line": 14,
+              "col": 92
+            },
+            "text": "क्रमिक शून्य-पैडेड IDs विशिष्टता की गारंटी देते हैं (संरचना के अनुसार कोई टकराव नहीं)"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 17,
+              "col": 28
+            },
+            "end": {
+              "line": 17,
+              "col": 71
+            },
+            "text": "randomize outcome assignment within group"
+          },
+          "target_span": {
+            "start": {
+              "line": 17,
+              "col": 28
+            },
+            "end": {
+              "line": 17,
+              "col": 73
+            },
+            "text": "समूह के भीतर परिणाम आवंटन को यादृच्छिक करें"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 20,
+              "col": 24
+            },
+            "end": {
+              "line": 20,
+              "col": 58
+            },
+            "text": "randomize row order within group"
+          },
+          "target_span": {
+            "start": {
+              "line": 20,
+              "col": 24
+            },
+            "end": {
+              "line": 20,
+              "col": 68
+            },
+            "text": "समूह के भीतर पंक्ति क्रम को यादृच्छिक करें"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 26,
+              "col": 9
+            },
+            "end": {
+              "line": 26,
+              "col": 73
+            },
+            "text": "Total synthetic rows: "
+          },
+          "target_span": {
+            "start": {
+              "line": 26,
+              "col": 9
+            },
+            "end": {
+              "line": 26,
+              "col": 63
+            },
+            "text": "कुल सिंथेटिक पंक्तियाँ: "
+          },
+          "placeholders": [
+            "{len(data)}"
+          ]
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 26,
+              "col": 9
+            },
+            "end": {
+              "line": 26,
+              "col": 73
+            },
+            "text": " (exact denominators preserved)"
+          },
+          "target_span": {
+            "start": {
+              "line": 26,
+              "col": 9
+            },
+            "end": {
+              "line": 26,
+              "col": 63
+            },
+            "text": " (सटीक हर सुरक्षित)"
+          },
+          "placeholders": [
+            "{len(data)}"
+          ]
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 27,
+              "col": 9
+            },
+            "end": {
+              "line": 27,
+              "col": 51
+            },
+            "text": "Unique IDs: "
+          },
+          "target_span": {
+            "start": {
+              "line": 27,
+              "col": 9
+            },
+            "end": {
+              "line": 27,
+              "col": 52
+            },
+            "text": "विशिष्ट IDs: "
+          },
+          "placeholders": [
+            "{len({r['id'] for r in data})}"
+          ]
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 28,
+              "col": 8
+            },
+            "end": {
+              "line": 28,
+              "col": 34
+            },
+            "text": "\\nSample of first 10 rows:"
+          },
+          "target_span": {
+            "start": {
+              "line": 28,
+              "col": 8
+            },
+            "end": {
+              "line": 28,
+              "col": 37
+            },
+            "text": "\\nपहली 10 पंक्तियों का नमूना:"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 32,
+              "col": 1
+            },
+            "end": {
+              "line": 32,
+              "col": 13
+            },
+            "text": "validation"
+          },
+          "target_span": {
+            "start": {
+              "line": 32,
+              "col": 1
+            },
+            "end": {
+              "line": 32,
+              "col": 10
+            },
+            "text": "सत्यापन"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 38,
+              "col": 52
+            },
+            "end": {
+              "line": 38,
+              "col": 84
+            },
+            "text": "duplicate synthetic IDs detected"
+          },
+          "target_span": {
+            "start": {
+              "line": 38,
+              "col": 52
+            },
+            "end": {
+              "line": 38,
+              "col": 85
+            },
+            "text": "डुप्लिकेट सिंथेटिक IDs का पता चला"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 39,
+              "col": 8
+            },
+            "end": {
+              "line": 39,
+              "col": 77
+            },
+            "text": "\\nAssertions passed: exact group sizes, event counts, and unique IDs."
+          },
+          "target_span": {
+            "start": {
+              "line": 39,
+              "col": 8
+            },
+            "end": {
+              "line": 39,
+              "col": 70
+            },
+            "text": "\\nअभिकथन सफल रहे: सटीक समूह आकार, घटना गणनाएं, और विशिष्ट IDs।"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 74
+            },
+            "text": "Analysis cell — derives all answers from `data`, no hard-coded results."
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 83
+            },
+            "text": "विश्लेषण सेल — `data` से सभी उत्तर प्राप्त करता है, कोई हार्ड-कोडित परिणाम नहीं।"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "source_span": {
+            "start": {
+              "line": 2,
+              "col": 1
+            },
+            "end": {
+              "line": 2,
+              "col": 78
+            },
+            "text": "These are crude event proportions, not censoring-adjusted fixed-time risks."
+          },
+          "target_span": {
+            "start": {
+              "line": 2,
+              "col": 1
+            },
+            "end": {
+              "line": 2,
+              "col": 75
+            },
+            "text": "ये अपरिष्कृत घटना अनुपात हैं, सेंसॉरिंग-समायोजित निश्चित-समय जोखिम नहीं।"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "source_span": {
+            "start": {
+              "line": 17,
+              "col": 41
+            },
+            "end": {
+              "line": 17,
+              "col": 82
+            },
+            "text": "risk difference (semaglutide - placebo)"
+          },
+          "target_span": {
+            "start": {
+              "line": 17,
+              "col": 41
+            },
+            "end": {
+              "line": 17,
+              "col": 78
+            },
+            "text": "जोखिम अंतर (सेमाग्लूटाइड - प्लेसबो)"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "source_span": {
+            "start": {
+              "line": 18,
+              "col": 41
+            },
+            "end": {
+              "line": 18,
+              "col": 66
+            },
+            "text": "absolute risk reduction"
+          },
+          "target_span": {
+            "start": {
+              "line": 18,
+              "col": 41
+            },
+            "end": {
+              "line": 18,
+              "col": 65
+            },
+            "text": "निरपेक्ष जोखिम में कमी"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "source_span": {
+            "start": {
+              "line": 22,
+              "col": 1
+            },
+            "end": {
+              "line": 22,
+              "col": 76
+            },
+            "text": "Approximate 95% CI for crude RR via the Katz log method on the 2x2 counts"
+          },
+          "target_span": {
+            "start": {
+              "line": 22,
+              "col": 1
+            },
+            "end": {
+              "line": 22,
+              "col": 79
+            },
+            "text": "2x2 गणनाओं पर Katz log विधि के माध्यम से अपरिष्कृत RR के लिए अनुमानित 95% CI"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 27,
+              "col": 9
+            },
+            "end": {
+              "line": 27,
+              "col": 63
+            },
+            "text": "Crude event proportion (semaglutide) = "
+          },
+          "target_span": {
+            "start": {
+              "line": 27,
+              "col": 9
+            },
+            "end": {
+              "line": 27,
+              "col": 63
+            },
+            "text": "अपरिष्कृत घटना अनुपात (सेमाग्लूटाइड) = "
+          },
+          "placeholders": [
+            "{risk_sema:.4%}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 28,
+              "col": 9
+            },
+            "end": {
+              "line": 28,
+              "col": 66
+            },
+            "text": "Crude event proportion (placebo)     = "
+          },
+          "target_span": {
+            "start": {
+              "line": 28,
+              "col": 9
+            },
+            "end": {
+              "line": 28,
+              "col": 65
+            },
+            "text": "अपरिष्कृत घटना अनुपात (प्लेसबो)     = "
+          },
+          "placeholders": [
+            "{risk_placebo:.4%}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 29,
+              "col": 9
+            },
+            "end": {
+              "line": 29,
+              "col": 53
+            },
+            "text": "Crude event-proportion ratio (RR) = "
+          },
+          "target_span": {
+            "start": {
+              "line": 29,
+              "col": 9
+            },
+            "end": {
+              "line": 29,
+              "col": 53
+            },
+            "text": "अपरिष्कृत घटना-अनुपात अनुपात (RR) = "
+          },
+          "placeholders": [
+            "{rr:.4f}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 30,
+              "col": 9
+            },
+            "end": {
+              "line": 30,
+              "col": 75
+            },
+            "text": "Risk difference (sema - placebo) = "
+          },
+          "target_span": {
+            "start": {
+              "line": 30,
+              "col": 9
+            },
+            "end": {
+              "line": 30,
+              "col": 64
+            },
+            "text": "जोखिम अंतर (sema - placebo) = "
+          },
+          "placeholders": [
+            "{rd*100:+.3f}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 30,
+              "col": 9
+            },
+            "end": {
+              "line": 30,
+              "col": 75
+            },
+            "text": " percentage points"
+          },
+          "target_span": {
+            "start": {
+              "line": 30,
+              "col": 9
+            },
+            "end": {
+              "line": 30,
+              "col": 64
+            },
+            "text": " प्रतिशत अंक"
+          },
+          "placeholders": [
+            "{rd*100:+.3f}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 31,
+              "col": 9
+            },
+            "end": {
+              "line": 31,
+              "col": 72
+            },
+            "text": "Absolute risk reduction       = "
+          },
+          "target_span": {
+            "start": {
+              "line": 31,
+              "col": 9
+            },
+            "end": {
+              "line": 31,
+              "col": 65
+            },
+            "text": "निरपेक्ष जोखिम में कमी       = "
+          },
+          "placeholders": [
+            "{arr*100:.3f}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 31,
+              "col": 9
+            },
+            "end": {
+              "line": 31,
+              "col": 72
+            },
+            "text": " percentage points"
+          },
+          "target_span": {
+            "start": {
+              "line": 31,
+              "col": 9
+            },
+            "end": {
+              "line": 31,
+              "col": 65
+            },
+            "text": " प्रतिशत अंक"
+          },
+          "placeholders": [
+            "{arr*100:.3f}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 32,
+              "col": 9
+            },
+            "end": {
+              "line": 32,
+              "col": 63
+            },
+            "text": "1/ARR (crude approximate NNT)       = "
+          },
+          "target_span": {
+            "start": {
+              "line": 32,
+              "col": 9
+            },
+            "end": {
+              "line": 32,
+              "col": 64
+            },
+            "text": "1/ARR (अपरिष्कृत अनुमानित NNT)       = "
+          },
+          "placeholders": [
+            "{nnt_approx:.2f}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 33,
+              "col": 9
+            },
+            "end": {
+              "line": 33,
+              "col": 51
+            },
+            "text": "Conventional rounded-up NNT   = "
+          },
+          "target_span": {
+            "start": {
+              "line": 33,
+              "col": 9
+            },
+            "end": {
+              "line": 33,
+              "col": 51
+            },
+            "text": "पारंपरिक ऊपर-पूर्णांकित NNT   = "
+          },
+          "placeholders": [
+            "{nnt_conv}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 34,
+              "col": 9
+            },
+            "end": {
+              "line": 34,
+              "col": 75
+            },
+            "text": "\\nApproximate 95% CI for crude RR (Katz log method on 2x2 counts):"
+          },
+          "target_span": {
+            "start": {
+              "line": 34,
+              "col": 9
+            },
+            "end": {
+              "line": 34,
+              "col": 77
+            },
+            "text": "\\nअपरिष्कृत RR के लिए अनुमानित 95% CI (2x2 गणनाओं पर Katz log विधि):"
+          },
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "source_span": {
+            "start": {
+              "line": 36,
+              "col": 8
+            },
+            "end": {
+              "line": 36,
+              "col": 69
+            },
+            "text": "NNT is a crude classroom approximation from aggregate counts,"
+          },
+          "target_span": {
+            "start": {
+              "line": 36,
+              "col": 8
+            },
+            "end": {
+              "line": 36,
+              "col": 70
+            },
+            "text": "NNT समग्र गणनाओं से प्राप्त एक अपरिष्कृत क्लासरूम सन्निकटन है,"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "source_span": {
+            "start": {
+              "line": 37,
+              "col": 8
+            },
+            "end": {
+              "line": 37,
+              "col": 67
+            },
+            "text": "not a censoring-adjusted estimate at a common time horizon."
+          },
+          "target_span": {
+            "start": {
+              "line": 37,
+              "col": 8
+            },
+            "end": {
+              "line": 37,
+              "col": 65
+            },
+            "text": "एक सामान्य समय क्षितिज पर सेंसॉरिंग-समायोजित अनुमान नहीं।"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 73
+            },
+            "text": "Final summary — consolidates all validated results for quick reference"
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 78
+            },
+            "text": "अंतिम सारांश — त्वरित संदर्भ के लिए सभी सत्यापित परिणामों को समेकित करता है"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "source_span": {
+            "start": {
+              "line": 3,
+              "col": 8
+            },
+            "end": {
+              "line": 3,
+              "col": 62
+            },
+            "text": "SELECT AGGREGATES (SYNTHETIC ROWS) — CLASSROOM SUMMARY"
+          },
+          "target_span": {
+            "start": {
+              "line": 3,
+              "col": 8
+            },
+            "end": {
+              "line": 3,
+              "col": 59
+            },
+            "text": "SELECT समग्र (सिंथेटिक पंक्तियाँ) — क्लासरूम सारांश"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 5,
+              "col": 9
+            },
+            "end": {
+              "line": 5,
+              "col": 81
+            },
+            "text": "Denominators preserved: semaglutide n="
+          },
+          "target_span": {
+            "start": {
+              "line": 5,
+              "col": 9
+            },
+            "end": {
+              "line": 5,
+              "col": 78
+            },
+            "text": "हर सुरक्षित रखे गए: सेमाग्लूटाइड n="
+          },
+          "placeholders": [
+            "{len(sema)}",
+            "{len(plac)}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 5,
+              "col": 9
+            },
+            "end": {
+              "line": 5,
+              "col": 81
+            },
+            "text": ", placebo n="
+          },
+          "target_span": {
+            "start": {
+              "line": 5,
+              "col": 9
+            },
+            "end": {
+              "line": 5,
+              "col": 78
+            },
+            "text": ", प्लेसबो n="
+          },
+          "placeholders": [
+            "{len(sema)}",
+            "{len(plac)}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 6,
+              "col": 9
+            },
+            "end": {
+              "line": 6,
+              "col": 67
+            },
+            "text": "Event counts preserved: semaglutide e="
+          },
+          "target_span": {
+            "start": {
+              "line": 6,
+              "col": 9
+            },
+            "end": {
+              "line": 6,
+              "col": 74
+            },
+            "text": "घटना गणनाएं सुरक्षित रखी गईं: सेमाग्लूटाइड e="
+          },
+          "placeholders": [
+            "{e1}",
+            "{e0}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 6,
+              "col": 9
+            },
+            "end": {
+              "line": 6,
+              "col": 67
+            },
+            "text": ", placebo e="
+          },
+          "target_span": {
+            "start": {
+              "line": 6,
+              "col": 9
+            },
+            "end": {
+              "line": 6,
+              "col": 74
+            },
+            "text": ", प्लेसबो e="
+          },
+          "placeholders": [
+            "{e1}",
+            "{e0}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 7,
+              "col": 9
+            },
+            "end": {
+              "line": 7,
+              "col": 55
+            },
+            "text": "Crude proportion, semaglutide: "
+          },
+          "target_span": {
+            "start": {
+              "line": 7,
+              "col": 9
+            },
+            "end": {
+              "line": 7,
+              "col": 56
+            },
+            "text": "अपरिष्कृत अनुपात, सेमाग्लूटाइड: "
+          },
+          "placeholders": [
+            "{risk_sema:.4%}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 8,
+              "col": 9
+            },
+            "end": {
+              "line": 8,
+              "col": 54
+            },
+            "text": "Crude proportion, placebo: "
+          },
+          "target_span": {
+            "start": {
+              "line": 8,
+              "col": 9
+            },
+            "end": {
+              "line": 8,
+              "col": 54
+            },
+            "text": "अपरिष्कृत अनुपात, प्लेसबो: "
+          },
+          "placeholders": [
+            "{risk_placebo:.4%}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 9,
+              "col": 9
+            },
+            "end": {
+              "line": 9,
+              "col": 95
+            },
+            "text": "Crude risk ratio  : "
+          },
+          "target_span": {
+            "start": {
+              "line": 9,
+              "col": 9
+            },
+            "end": {
+              "line": 9,
+              "col": 101
+            },
+            "text": "अपरिष्कृत जोखिम अनुपात  : "
+          },
+          "placeholders": [
+            "{rr:.4f}",
+            "{rr_lo:.4f}",
+            "{rr_hi:.4f}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 9,
+              "col": 9
+            },
+            "end": {
+              "line": 9,
+              "col": 95
+            },
+            "text": "  (approx 95% CI "
+          },
+          "target_span": {
+            "start": {
+              "line": 9,
+              "col": 9
+            },
+            "end": {
+              "line": 9,
+              "col": 101
+            },
+            "text": "  (अनुमानित 95% CI "
+          },
+          "placeholders": [
+            "{rr:.4f}",
+            "{rr_lo:.4f}",
+            "{rr_hi:.4f}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 9,
+              "col": 9
+            },
+            "end": {
+              "line": 9,
+              "col": 95
+            },
+            "text": ", Katz log method)"
+          },
+          "target_span": {
+            "start": {
+              "line": 9,
+              "col": 9
+            },
+            "end": {
+              "line": 9,
+              "col": 101
+            },
+            "text": ", Katz log विधि)"
+          },
+          "placeholders": [
+            "{rr:.4f}",
+            "{rr_lo:.4f}",
+            "{rr_hi:.4f}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 10,
+              "col": 9
+            },
+            "end": {
+              "line": 10,
+              "col": 45
+            },
+            "text": "Risk difference   : "
+          },
+          "target_span": {
+            "start": {
+              "line": 10,
+              "col": 9
+            },
+            "end": {
+              "line": 10,
+              "col": 40
+            },
+            "text": "जोखिम अंतर   : "
+          },
+          "placeholders": [
+            "{rd*100:+.3f}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 12,
+              "col": 9
+            },
+            "end": {
+              "line": 12,
+              "col": 45
+            },
+            "text": "NNT (crude approx): "
+          },
+          "target_span": {
+            "start": {
+              "line": 12,
+              "col": 9
+            },
+            "end": {
+              "line": 12,
+              "col": 49
+            },
+            "text": "NNT (अपरिष्कृत अनुमान): "
+          },
+          "placeholders": [
+            "{nnt_approx:.2f}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 13,
+              "col": 9
+            },
+            "end": {
+              "line": 13,
+              "col": 39
+            },
+            "text": "NNT (conventional): "
+          },
+          "target_span": {
+            "start": {
+              "line": 13,
+              "col": 9
+            },
+            "end": {
+              "line": 13,
+              "col": 35
+            },
+            "text": "NNT (पारंपरिक): "
+          },
+          "placeholders": [
+            "{nnt_conv}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "source_span": {
+            "start": {
+              "line": 15,
+              "col": 8
+            },
+            "end": {
+              "line": 15,
+              "col": 19
+            },
+            "text": "LIMITATIONS"
+          },
+          "target_span": {
+            "start": {
+              "line": 15,
+              "col": 8
+            },
+            "end": {
+              "line": 15,
+              "col": 14
+            },
+            "text": "सीमाएं"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "source_span": {
+            "start": {
+              "line": 16,
+              "col": 8
+            },
+            "end": {
+              "line": 16,
+              "col": 90
+            },
+            "text": "- Patient rows, row order, and IDs are synthetic; counts are published aggregates."
+          },
+          "target_span": {
+            "start": {
+              "line": 16,
+              "col": 8
+            },
+            "end": {
+              "line": 16,
+              "col": 93
+            },
+            "text": "- रोगी पंक्तियाँ, पंक्ति क्रम, और IDs सिंथेटिक हैं; गणनाएं प्रकाशित समग्र आंकड़े हैं।"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "source_span": {
+            "start": {
+              "line": 17,
+              "col": 8
+            },
+            "end": {
+              "line": 17,
+              "col": 81
+            },
+            "text": "- Crude RR ≠ published HR (0.80, 95% CI 0.72–0.90): HR uses time-to-event"
+          },
+          "target_span": {
+            "start": {
+              "line": 17,
+              "col": 8
+            },
+            "end": {
+              "line": 17,
+              "col": 97
+            },
+            "text": "- अपरिष्कृत RR ≠ प्रकाशित HR (0.80, 95% CI 0.72–0.90): HR घटना-तक-के-समय का उपयोग करता है"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "source_span": {
+            "start": {
+              "line": 18,
+              "col": 8
+            },
+            "end": {
+              "line": 18,
+              "col": 79
+            },
+            "text": "  and censoring info we cannot reconstruct from aggregate counts alone."
+          },
+          "target_span": {
+            "start": {
+              "line": 18,
+              "col": 8
+            },
+            "end": {
+              "line": 18,
+              "col": 87
+            },
+            "text": "  और सेंसॉरिंग जानकारी का, जिसे हम केवल समग्र गणनाओं से पुनर्गठित नहीं कर सकते।"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "source_span": {
+            "start": {
+              "line": 19,
+              "col": 8
+            },
+            "end": {
+              "line": 19,
+              "col": 76
+            },
+            "text": "- Mean follow-up was 39.8 months, with varying individual follow-up."
+          },
+          "target_span": {
+            "start": {
+              "line": 19,
+              "col": 8
+            },
+            "end": {
+              "line": 19,
+              "col": 73
+            },
+            "text": "- औसत फॉलो-अप 39.8 महीने था, जिसमें व्यक्तिगत फॉलो-अप अलग-अलग था।"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "source_span": {
+            "start": {
+              "line": 20,
+              "col": 8
+            },
+            "end": {
+              "line": 20,
+              "col": 67
+            },
+            "text": "- The NNT is crude, not censoring-adjusted at a fixed time."
+          },
+          "target_span": {
+            "start": {
+              "line": 20,
+              "col": 8
+            },
+            "end": {
+              "line": 20,
+              "col": 70
+            },
+            "text": "- NNT अपरिष्कृत है, एक निश्चित समय पर सेंसॉरिंग-समायोजित नहीं।"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "source_span": {
+            "start": {
+              "line": 21,
+              "col": 8
+            },
+            "end": {
+              "line": 21,
+              "col": 67
+            },
+            "text": "- No safety, subgroup, or secondary-endpoint data included."
+          },
+          "target_span": {
+            "start": {
+              "line": 21,
+              "col": 8
+            },
+            "end": {
+              "line": 21,
+              "col": 74
+            },
+            "text": "- कोई सुरक्षा, उपसमूह, या द्वितीयक-समापन बिंदु डेटा शामिल नहीं है।"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "source_span": {
+            "start": {
+              "line": 22,
+              "col": 8
+            },
+            "end": {
+              "line": 22,
+              "col": 56
+            },
+            "text": "- Educational exercise only; not medical advice."
+          },
+          "target_span": {
+            "start": {
+              "line": 22,
+              "col": 8
+            },
+            "end": {
+              "line": 22,
+              "col": 51
+            },
+            "text": "- केवल शैक्षिक अभ्यास; चिकित्सीय सलाह नहीं।"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        }
+      ],
+      "exclusions": []
+    },
+    "nativeSpeakerReview": "pending"
+  },
+  "browser": {
+    "status": "passed",
+    "first": {
+      "exportSha256": "07f00d513a6fc2ef4412be6729923acc640c8599df78c23cbd564c846410c42f",
+      "reportSha256": "178d6f956320f1c6f83b057ac0918ae0670a56eb0a85ec82ec3a1758f442fa11",
+      "appVersion": "1.4.0",
+      "cells": 8,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "second": {
+      "exportSha256": "8028bb7e89b8d0949a07cbb2e67f5c684b90f5ce9ef20823ba87b7d003b93fb0",
+      "reportSha256": "178d6f956320f1c6f83b057ac0918ae0670a56eb0a85ec82ec3a1758f442fa11",
+      "appVersion": "1.4.0",
+      "cells": 8,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "englishBaseline": [
+      {
+        "exportSha256": "69956fb3cafbb841ee43cc77bd6f9fe050a1fe6ae7666d0db121f32837bea4a9",
+        "reportSha256": "5218fde195c9812aad70b39124d5f39ac1e80b084ecf5a4cc0acf324202efb18",
+        "appVersion": "1.4.0",
+        "cells": 8,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      },
+      {
+        "exportSha256": "f960e99a0e9732ae63bcb444b5ea60d0a7b6818542e61c856870117adc900151",
+        "reportSha256": "5218fde195c9812aad70b39124d5f39ac1e80b084ecf5a4cc0acf324202efb18",
+        "appVersion": "1.4.0",
+        "cells": 8,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      }
+    ],
+    "deterministic": true,
+    "textOracle": {
+      "first": {
+        "pass": true,
+        "failures": [],
+        "warnings": [
+          "cell 3: reaches_output:none span appears in output: \"निरपेक्ष जोखिम में कमी\"",
+          "cell 7: reaches_output:none span appears in output: \"चिकित्सीय सलाह नहीं।\""
+        ],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      },
+      "second": {
+        "pass": true,
+        "failures": [],
+        "warnings": [
+          "cell 3: reaches_output:none span appears in output: \"निरपेक्ष जोखिम में कमी\"",
+          "cell 7: reaches_output:none span appears in output: \"चिकित्सीय सलाह नहीं।\""
+        ],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      }
+    },
+    "plotData": {
+      "status": "passed",
+      "count": 0
+    },
+    "rasterCharts": null,
+    "renderedReview": "not-applicable"
+  },
+  "caveat": "Machine translated with Gemini and reviewed by AI/controller checks, including scoped corrections where needed. Native-speaker review is pending; structural and numerical checks do not certify prose quality."
+}

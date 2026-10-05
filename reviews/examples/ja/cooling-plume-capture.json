@@ -1,0 +1,5456 @@
+{
+  "schema": 1,
+  "lesson": "cooling-plume-capture",
+  "locale": "ja",
+  "source": {
+    "path": "workbooks/en/cooling-plume-capture.srwb",
+    "sha256": "5bf2691a5b73522c382b48f96442c3a26c4e3770507b2ee871e0505001fb8977"
+  },
+  "target": {
+    "path": "workbooks/ja/cooling-plume-capture.srwb",
+    "sha256": "cb5b7c61a559365c55f9aeae7f710471ee5224f097ffad2f2f5d1deb38bfe9f4",
+    "size": 33876,
+    "title": "水没鉱山冷却：水とエネルギーのトレードオフ",
+    "description": "明示的に架空のPython–Prologトイモデルを用いて、プルーム復水回収、熱収支の確認、鉱山蓄熱、および乾式冷却に対する水と電力のトレードオフを探究します。"
+  },
+  "translation": {
+    "model": "gemini-3.8-flash-medium",
+    "contentAudit": {
+      "status": "passed",
+      "sourceSha256": "5bf2691a5b73522c382b48f96442c3a26c4e3770507b2ee871e0505001fb8977",
+      "targetSha256": "cb5b7c61a559365c55f9aeae7f710471ee5224f097ffad2f2f5d1deb38bfe9f4",
+      "findings": [],
+      "errors": [],
+      "reviewMethod": "Previously passed AI/controller source-fidelity audit, preserved through verified presentation-only rebase where applicable; scoped final Bengali corrections independently adjudicated and re-gated.",
+      "provenance": {
+        "predecessorSourceSha256": "5bf2691a5b73522c382b48f96442c3a26c4e3770507b2ee871e0505001fb8977",
+        "predecessorTargetSha256": "cb5b7c61a559365c55f9aeae7f710471ee5224f097ffad2f2f5d1deb38bfe9f4",
+        "predecessorAuditSha256": "1b7b72dff2bd0d3ce3c0890d7b1318169ee92d1b5092a275aa281a1a5267e61c",
+        "sharedLayoutOnly": false
+      },
+      "nativeSpeakerReview": "pending",
+      "caveat": "AI/controller review, not native-speaker or qualified technical certification."
+    },
+    "policy": {
+      "locale": "ja",
+      "protectedTexts": [
+        "hot_dry",
+        "hot_humid",
+        "tdb",
+        "rh",
+        "twb",
+        "tcold",
+        "thot",
+        "plume_dp",
+        "mine_t",
+        "base_mu",
+        "mu_after",
+        "rec",
+        "fan_pen",
+        "pump",
+        "hp",
+        "extra",
+        "hp_on",
+        "cond_ok",
+        "plume_t",
+        "plume_w",
+        "out_t",
+        "out_w",
+        "mine_in",
+        "qc",
+        "evap",
+        "condensate",
+        "coil_resid_kw",
+        "case_result(",
+        "/shared/mine_cooling.csv",
+        "case",
+        "hour",
+        "/shared/mine_cooling_status.pl",
+        "classification",
+        ".code",
+        "% FACTS-BEGIN",
+        "% FACTS-BEGIN\\n",
+        "% FACTS-END",
+        "FACTS-BEGIN",
+        "FACTS-END",
+        "base_ml",
+        "after_ml",
+        "rec_ml",
+        "type",
+        "bar",
+        "name",
+        "marker",
+        "color",
+        "barmode",
+        "group",
+        "title",
+        "text",
+        "yaxis",
+        "legend",
+        "orientation",
+        "solid",
+        "dot",
+        "scatter",
+        "mode",
+        "lines",
+        "line",
+        "dash",
+        "width",
+        "opacity",
+        "xaxis",
+        "margin",
+        "annotations",
+        "xref",
+        "paper",
+        "yref",
+        "showarrow",
+        "font",
+        "size",
+        "US grid 2023 ref (incl. hydro reservoirs)",
+        "wet-cooled natural-gas CC",
+        "wet-cooled coal",
+        "wet-cooled nuclear",
+        "utility solar PV",
+        "wind (~0)",
+        "custom local grid",
+        "wet baseline",
+        "mine vapour recovery",
+        "air-cooled chiller",
+        "warm-water dry cooler",
+        "w_site",
+        "cool",
+        "d_fac",
+        "fac_mwh",
+        "ons_saved",
+        "inc_up",
+        "net_saved",
+        "frac_up",
+        "/shared/dry_cooling_hourly.csv",
+        "it_kw",
+        "wet_cool_kw",
+        "mine_cool_kw",
+        "chiller_kw",
+        "chiller_cop",
+        "drycooler_kw",
+        "assist_frac",
+        "assist_cop",
+        "fan_only",
+        "/shared/water_energy_summary.csv",
+        "scenario",
+        "#2ca02c",
+        "#ff7f0e",
+        "w_up",
+        "#9467bd",
+        "stack",
+        "markers+text",
+        "textposition",
+        "top center",
+        "markers",
+        "symbol",
+        "gray",
+        "range",
+        "shapes",
+        "height",
+        "xanchor",
+        "yanchor",
+        "left",
+        "bottom",
+        "top",
+        "center",
+        "pad",
+        "<br>",
+        "cliponaxis"
+      ],
+      "protectedIds": [
+        "1:17:0",
+        "1:19:0",
+        "1:75:0",
+        "1:77:0",
+        "1:79:0",
+        "1:81:0",
+        "1:83:0",
+        "1:85:0",
+        "1:87:0",
+        "1:89:0",
+        "1:91:0",
+        "1:93:0",
+        "1:95:0",
+        "1:97:0",
+        "1:99:0",
+        "1:101:0",
+        "1:103:0",
+        "1:105:0",
+        "1:107:0",
+        "1:109:0",
+        "1:111:0",
+        "1:113:0",
+        "1:115:0",
+        "1:117:0",
+        "1:119:0",
+        "1:121:0",
+        "1:123:0",
+        "1:147:0",
+        "1:149:0",
+        "1:151:0",
+        "1:153:0",
+        "1:155:0",
+        "1:157:0",
+        "1:159:0",
+        "1:161:0",
+        "1:167:0",
+        "1:169:0",
+        "1:175:0",
+        "1:177:0",
+        "1:179:0",
+        "1:187:0",
+        "1:189:0",
+        "1:191:0",
+        "1:193:0",
+        "1:195:0",
+        "1:197:0",
+        "1:199:0",
+        "2:1:0",
+        "2:5:0",
+        "3:1:0",
+        "3:3:0",
+        "3:13:0",
+        "3:15:0",
+        "3:17:0",
+        "3:19:0",
+        "3:21:0",
+        "3:27:0",
+        "3:29:0",
+        "3:33:0",
+        "3:35:0",
+        "3:37:0",
+        "3:41:0",
+        "3:43:0",
+        "3:45:0",
+        "3:53:0",
+        "3:55:0",
+        "3:57:0",
+        "3:59:0",
+        "3:61:0",
+        "3:63:0",
+        "3:65:0",
+        "3:67:0",
+        "3:69:0",
+        "3:71:0",
+        "3:73:0",
+        "3:79:0",
+        "3:81:0",
+        "3:83:0",
+        "3:87:0",
+        "3:99:0",
+        "3:101:0",
+        "3:107:0",
+        "3:109:0",
+        "3:111:0",
+        "3:113:0",
+        "3:115:0",
+        "3:117:0",
+        "3:121:0",
+        "3:123:0",
+        "3:125:0",
+        "3:127:0",
+        "3:129:0",
+        "3:131:0",
+        "3:135:0",
+        "3:137:0",
+        "3:141:0",
+        "3:143:0",
+        "3:151:0",
+        "3:153:0",
+        "3:155:0",
+        "3:157:0",
+        "3:163:0",
+        "3:165:0",
+        "3:167:0",
+        "3:169:0",
+        "3:171:0",
+        "3:173:0",
+        "3:177:0",
+        "3:179:0",
+        "3:181:0",
+        "3:183:0",
+        "3:189:0",
+        "3:191:0",
+        "3:193:0",
+        "3:195:0",
+        "3:197:0",
+        "3:199:0",
+        "3:203:0",
+        "3:205:0",
+        "3:207:0",
+        "3:209:0",
+        "3:211:0",
+        "3:213:0",
+        "3:215:0",
+        "3:219:0",
+        "3:221:0",
+        "3:225:0",
+        "3:227:0",
+        "3:231:0",
+        "3:233:0",
+        "3:241:0",
+        "3:243:0",
+        "3:245:0",
+        "3:247:0",
+        "3:249:0",
+        "3:255:0",
+        "3:257:0",
+        "3:259:0",
+        "3:261:0",
+        "3:263:0",
+        "3:269:0",
+        "3:271:0",
+        "3:273:0",
+        "3:275:0",
+        "3:277:0",
+        "3:279:0",
+        "4:40:0",
+        "4:42:0",
+        "4:44:0",
+        "4:46:0",
+        "4:48:0",
+        "4:50:0",
+        "4:52:0",
+        "4:56:0",
+        "4:58:0",
+        "4:64:0",
+        "4:66:0",
+        "4:68:0",
+        "4:70:0",
+        "4:84:0",
+        "4:86:0",
+        "4:88:0",
+        "4:90:0",
+        "4:92:0",
+        "4:94:0",
+        "4:96:0",
+        "4:98:0",
+        "4:102:0",
+        "4:104:0",
+        "4:106:0",
+        "4:108:0",
+        "4:110:0",
+        "4:112:0",
+        "4:114:0",
+        "4:116:0",
+        "4:118:0",
+        "4:122:0",
+        "4:128:0",
+        "4:130:0",
+        "4:132:0",
+        "4:134:0",
+        "4:136:0",
+        "4:138:0",
+        "4:140:0",
+        "4:142:0",
+        "4:144:0",
+        "4:146:0",
+        "4:148:0",
+        "4:150:0",
+        "4:154:0",
+        "4:156:0",
+        "4:158:0",
+        "4:160:0",
+        "4:162:0",
+        "4:164:0",
+        "4:168:0",
+        "4:170:0",
+        "4:188:0",
+        "4:198:0",
+        "4:204:0",
+        "4:210:0",
+        "4:212:0",
+        "4:214:0",
+        "4:216:0",
+        "4:218:0",
+        "4:220:0",
+        "4:222:0",
+        "4:224:0",
+        "4:226:0",
+        "4:228:0",
+        "4:230:0",
+        "4:232:0",
+        "4:238:0",
+        "5:2:0",
+        "5:4:0",
+        "5:6:0",
+        "5:8:0",
+        "5:10:0",
+        "5:14:0",
+        "5:16:0",
+        "5:18:0",
+        "5:22:0",
+        "5:24:0",
+        "5:32:0",
+        "5:34:0",
+        "5:36:0",
+        "5:38:0",
+        "5:42:0",
+        "5:44:0",
+        "5:52:0",
+        "5:54:0",
+        "5:56:0",
+        "5:58:0",
+        "5:62:0",
+        "5:64:0",
+        "5:66:0",
+        "5:68:0",
+        "5:70:0",
+        "5:72:0",
+        "5:74:0",
+        "5:78:0",
+        "5:80:0",
+        "5:84:0",
+        "5:86:0",
+        "5:96:0",
+        "5:100:0",
+        "5:102:0",
+        "5:104:0",
+        "5:106:0",
+        "5:108:0",
+        "5:110:0",
+        "5:112:0",
+        "5:114:0",
+        "5:116:0",
+        "5:118:0",
+        "5:120:0",
+        "5:122:0",
+        "5:124:0",
+        "5:130:0",
+        "5:132:0",
+        "5:134:0",
+        "5:136:0",
+        "5:138:0",
+        "5:140:0",
+        "5:142:0",
+        "5:144:0",
+        "5:146:0",
+        "5:148:0",
+        "5:150:0",
+        "5:154:0",
+        "5:156:0",
+        "5:160:0",
+        "5:162:0",
+        "5:166:0",
+        "5:168:0",
+        "5:172:0",
+        "5:174:0",
+        "5:184:0",
+        "5:186:0",
+        "5:188:0",
+        "5:194:0",
+        "5:196:0",
+        "5:198:0",
+        "5:200:0",
+        "5:202:0",
+        "5:204:0",
+        "5:206:0",
+        "5:208:0",
+        "5:210:0",
+        "5:212:0",
+        "5:222:0",
+        "5:224:0",
+        "5:226:0",
+        "5:228:0",
+        "5:230:0",
+        "5:232:0",
+        "5:234:0",
+        "5:236:0",
+        "5:238:0",
+        "5:240:0",
+        "5:244:0",
+        "5:246:0",
+        "5:250:0",
+        "5:252:0",
+        "5:256:0",
+        "5:258:0",
+        "5:260:0",
+        "5:266:0",
+        "5:268:0",
+        "5:270:0",
+        "5:274:0",
+        "5:276:0",
+        "5:278:0",
+        "5:284:0",
+        "5:286:0",
+        "5:288:0",
+        "5:292:0",
+        "5:294:0",
+        "5:296:0",
+        "5:302:0",
+        "5:304:0",
+        "5:306:0",
+        "5:310:0",
+        "5:312:0",
+        "5:314:0",
+        "5:316:0",
+        "5:318:0"
+      ],
+      "widthOverrides": {},
+      "identifierRenames": false,
+      "cellNames": "English",
+      "nativeReviewCaveat": "Machine-translated; native-speaker review pending. Numerical/structural tests do not certify prose quality."
+    },
+    "keeps": {
+      "ids": [
+        "1:17:0",
+        "1:19:0",
+        "1:75:0",
+        "1:77:0",
+        "1:79:0",
+        "1:81:0",
+        "1:83:0",
+        "1:85:0",
+        "1:87:0",
+        "1:89:0",
+        "1:91:0",
+        "1:93:0",
+        "1:95:0",
+        "1:97:0",
+        "1:99:0",
+        "1:101:0",
+        "1:103:0",
+        "1:105:0",
+        "1:107:0",
+        "1:109:0",
+        "1:111:0",
+        "1:113:0",
+        "1:115:0",
+        "1:117:0",
+        "1:119:0",
+        "1:121:0",
+        "1:123:0",
+        "1:147:0",
+        "1:149:0",
+        "1:151:0",
+        "1:153:0",
+        "1:155:0",
+        "1:157:0",
+        "1:159:0",
+        "1:161:0",
+        "1:167:0",
+        "1:169:0",
+        "1:175:0",
+        "1:177:0",
+        "1:179:0",
+        "1:187:0",
+        "1:189:0",
+        "1:191:0",
+        "1:193:0",
+        "1:195:0",
+        "1:197:0",
+        "1:199:0",
+        "2:1:0",
+        "2:5:0",
+        "3:1:0",
+        "3:3:0",
+        "3:13:0",
+        "3:15:0",
+        "3:17:0",
+        "3:19:0",
+        "3:21:0",
+        "3:27:0",
+        "3:29:0",
+        "3:33:0",
+        "3:35:0",
+        "3:37:0",
+        "3:41:0",
+        "3:43:0",
+        "3:45:0",
+        "3:53:0",
+        "3:55:0",
+        "3:57:0",
+        "3:59:0",
+        "3:61:0",
+        "3:63:0",
+        "3:65:0",
+        "3:67:0",
+        "3:69:0",
+        "3:71:0",
+        "3:73:0",
+        "3:79:0",
+        "3:81:0",
+        "3:83:0",
+        "3:87:0",
+        "3:99:0",
+        "3:101:0",
+        "3:107:0",
+        "3:109:0",
+        "3:111:0",
+        "3:113:0",
+        "3:115:0",
+        "3:117:0",
+        "3:121:0",
+        "3:123:0",
+        "3:125:0",
+        "3:127:0",
+        "3:129:0",
+        "3:131:0",
+        "3:135:0",
+        "3:137:0",
+        "3:141:0",
+        "3:143:0",
+        "3:151:0",
+        "3:153:0",
+        "3:155:0",
+        "3:157:0",
+        "3:163:0",
+        "3:165:0",
+        "3:167:0",
+        "3:169:0",
+        "3:171:0",
+        "3:173:0",
+        "3:177:0",
+        "3:179:0",
+        "3:181:0",
+        "3:183:0",
+        "3:189:0",
+        "3:191:0",
+        "3:193:0",
+        "3:195:0",
+        "3:197:0",
+        "3:199:0",
+        "3:203:0",
+        "3:205:0",
+        "3:207:0",
+        "3:209:0",
+        "3:211:0",
+        "3:213:0",
+        "3:215:0",
+        "3:219:0",
+        "3:221:0",
+        "3:225:0",
+        "3:227:0",
+        "3:231:0",
+        "3:233:0",
+        "3:241:0",
+        "3:243:0",
+        "3:245:0",
+        "3:247:0",
+        "3:249:0",
+        "3:255:0",
+        "3:257:0",
+        "3:259:0",
+        "3:261:0",
+        "3:263:0",
+        "3:269:0",
+        "3:271:0",
+        "3:273:0",
+        "3:275:0",
+        "3:277:0",
+        "3:279:0",
+        "4:40:0",
+        "4:42:0",
+        "4:44:0",
+        "4:46:0",
+        "4:48:0",
+        "4:50:0",
+        "4:52:0",
+        "4:56:0",
+        "4:58:0",
+        "4:64:0",
+        "4:66:0",
+        "4:68:0",
+        "4:70:0",
+        "4:84:0",
+        "4:86:0",
+        "4:88:0",
+        "4:90:0",
+        "4:92:0",
+        "4:94:0",
+        "4:96:0",
+        "4:98:0",
+        "4:102:0",
+        "4:104:0",
+        "4:106:0",
+        "4:108:0",
+        "4:110:0",
+        "4:112:0",
+        "4:114:0",
+        "4:116:0",
+        "4:118:0",
+        "4:122:0",
+        "4:128:0",
+        "4:130:0",
+        "4:132:0",
+        "4:134:0",
+        "4:136:0",
+        "4:138:0",
+        "4:140:0",
+        "4:142:0",
+        "4:144:0",
+        "4:146:0",
+        "4:148:0",
+        "4:150:0",
+        "4:154:0",
+        "4:156:0",
+        "4:158:0",
+        "4:160:0",
+        "4:162:0",
+        "4:164:0",
+        "4:168:0",
+        "4:170:0",
+        "4:188:0",
+        "4:198:0",
+        "4:204:0",
+        "4:210:0",
+        "4:212:0",
+        "4:214:0",
+        "4:216:0",
+        "4:218:0",
+        "4:220:0",
+        "4:222:0",
+        "4:224:0",
+        "4:226:0",
+        "4:228:0",
+        "4:230:0",
+        "4:232:0",
+        "4:238:0",
+        "5:2:0",
+        "5:4:0",
+        "5:6:0",
+        "5:8:0",
+        "5:10:0",
+        "5:14:0",
+        "5:16:0",
+        "5:18:0",
+        "5:22:0",
+        "5:24:0",
+        "5:32:0",
+        "5:34:0",
+        "5:36:0",
+        "5:38:0",
+        "5:42:0",
+        "5:44:0",
+        "5:52:0",
+        "5:54:0",
+        "5:56:0",
+        "5:58:0",
+        "5:62:0",
+        "5:64:0",
+        "5:66:0",
+        "5:68:0",
+        "5:70:0",
+        "5:72:0",
+        "5:74:0",
+        "5:78:0",
+        "5:80:0",
+        "5:84:0",
+        "5:86:0",
+        "5:96:0",
+        "5:100:0",
+        "5:102:0",
+        "5:104:0",
+        "5:106:0",
+        "5:108:0",
+        "5:110:0",
+        "5:112:0",
+        "5:114:0",
+        "5:116:0",
+        "5:118:0",
+        "5:120:0",
+        "5:122:0",
+        "5:124:0",
+        "5:130:0",
+        "5:132:0",
+        "5:134:0",
+        "5:136:0",
+        "5:138:0",
+        "5:140:0",
+        "5:142:0",
+        "5:144:0",
+        "5:146:0",
+        "5:148:0",
+        "5:150:0",
+        "5:154:0",
+        "5:156:0",
+        "5:160:0",
+        "5:162:0",
+        "5:166:0",
+        "5:168:0",
+        "5:172:0",
+        "5:174:0",
+        "5:184:0",
+        "5:186:0",
+        "5:188:0",
+        "5:194:0",
+        "5:196:0",
+        "5:198:0",
+        "5:200:0",
+        "5:202:0",
+        "5:204:0",
+        "5:206:0",
+        "5:208:0",
+        "5:210:0",
+        "5:212:0",
+        "5:222:0",
+        "5:224:0",
+        "5:226:0",
+        "5:228:0",
+        "5:230:0",
+        "5:232:0",
+        "5:234:0",
+        "5:236:0",
+        "5:238:0",
+        "5:240:0",
+        "5:244:0",
+        "5:246:0",
+        "5:250:0",
+        "5:252:0",
+        "5:256:0",
+        "5:258:0",
+        "5:260:0",
+        "5:266:0",
+        "5:268:0",
+        "5:270:0",
+        "5:274:0",
+        "5:276:0",
+        "5:278:0",
+        "5:284:0",
+        "5:286:0",
+        "5:288:0",
+        "5:292:0",
+        "5:294:0",
+        "5:296:0",
+        "5:302:0",
+        "5:304:0",
+        "5:306:0",
+        "5:310:0",
+        "5:312:0",
+        "5:314:0",
+        "5:316:0",
+        "5:318:0",
+        "1:201:3",
+        "1:203:3",
+        "1:203:7",
+        "1:205:6",
+        "4:120:0",
+        "4:124:0",
+        "4:152:0",
+        "4:188:1",
+        "4:188:2",
+        "4:188:3",
+        "4:188:4",
+        "4:188:5",
+        "4:188:6",
+        "4:188:7",
+        "4:188:8",
+        "4:188:9",
+        "5:60:2",
+        "5:76:2",
+        "5:182:0"
+      ],
+      "texts": [
+        "hot_dry",
+        "hot_humid",
+        "tdb",
+        "rh",
+        "twb",
+        "tcold",
+        "thot",
+        "plume_dp",
+        "mine_t",
+        "base_mu",
+        "mu_after",
+        "rec",
+        "fan_pen",
+        "pump",
+        "hp",
+        "extra",
+        "hp_on",
+        "cond_ok",
+        "plume_t",
+        "plume_w",
+        "out_t",
+        "out_w",
+        "mine_in",
+        "qc",
+        "evap",
+        "condensate",
+        "coil_resid_kw",
+        "base_mu",
+        "rec",
+        "extra",
+        "mine_t",
+        "cond_ok",
+        "hp_on",
+        "mu_after",
+        "mu_after",
+        "case_result(",
+        "/shared/mine_cooling.csv",
+        "case",
+        "hour",
+        "/shared/mine_cooling_status.pl",
+        "classification",
+        ".code",
+        "% FACTS-BEGIN",
+        "% FACTS-BEGIN\\n",
+        "% FACTS-END",
+        "classification",
+        ".code",
+        "FACTS-BEGIN",
+        "FACTS-END",
+        "height",
+        "margin",
+        "title",
+        "text",
+        "text",
+        "<br>",
+        "text",
+        "xanchor",
+        "center",
+        "yanchor",
+        "top",
+        "pad",
+        "title",
+        "legend",
+        "orientation",
+        "xanchor",
+        "left",
+        "yanchor",
+        "bottom",
+        "annotations",
+        "text",
+        "text",
+        "<br>",
+        "text",
+        "yref",
+        "paper",
+        "yanchor",
+        "top",
+        "hot_dry",
+        "hot_humid",
+        "hot_dry",
+        "hot_humid",
+        "base_ml",
+        "after_ml",
+        "rec_ml",
+        "type",
+        "bar",
+        "name",
+        "marker",
+        "color",
+        "barmode",
+        "group",
+        "title",
+        "text",
+        "yaxis",
+        "title",
+        "legend",
+        "orientation",
+        "hot_dry",
+        "solid",
+        "hot_humid",
+        "dot",
+        "plume_dp",
+        "type",
+        "scatter",
+        "mode",
+        "lines",
+        "name",
+        "line",
+        "color",
+        "dash",
+        "width",
+        "mine_t",
+        "type",
+        "scatter",
+        "mode",
+        "lines",
+        "name",
+        "line",
+        "color",
+        "width",
+        "opacity",
+        "height",
+        "title",
+        "text",
+        "xaxis",
+        "title",
+        "yaxis",
+        "title",
+        "legend",
+        "orientation",
+        "xanchor",
+        "left",
+        "yanchor",
+        "bottom",
+        "margin",
+        "annotations",
+        "xref",
+        "paper",
+        "yref",
+        "paper",
+        "yanchor",
+        "top",
+        "showarrow",
+        "font",
+        "size",
+        "text",
+        "US grid 2023 ref (incl. hydro reservoirs)",
+        "wet-cooled natural-gas CC",
+        "wet-cooled coal",
+        "wet-cooled nuclear",
+        "utility solar PV",
+        "wind (~0)",
+        "custom local grid",
+        "hot_dry",
+        "hp",
+        "hot_dry",
+        "fan_pen",
+        "hot_dry",
+        "pump",
+        "wet baseline",
+        "hot_dry",
+        "base_ml",
+        "mine vapour recovery",
+        "hot_dry",
+        "after_ml",
+        "air-cooled chiller",
+        "warm-water dry cooler",
+        "air-cooled chiller",
+        "w_site",
+        "hot_dry",
+        "base_ml",
+        "warm-water dry cooler",
+        "w_site",
+        "hot_dry",
+        "base_ml",
+        "cool",
+        "w_site",
+        "wet baseline",
+        "wet baseline",
+        "d_fac",
+        "fac_mwh",
+        "fac_mwh",
+        "fac_mwh",
+        "ons_saved",
+        "w_site",
+        "w_site",
+        "inc_up",
+        "fac_mwh",
+        "fac_mwh",
+        "net_saved",
+        "ons_saved",
+        "inc_up",
+        "frac_up",
+        "inc_up",
+        "ons_saved",
+        "hot_dry",
+        "extra",
+        "scenario",
+        "wet baseline",
+        "/shared/dry_cooling_hourly.csv",
+        "hour",
+        "tdb",
+        "it_kw",
+        "wet_cool_kw",
+        "mine_cool_kw",
+        "chiller_kw",
+        "chiller_cop",
+        "drycooler_kw",
+        "assist_frac",
+        "assist_cop",
+        "fan_only",
+        "/shared/water_energy_summary.csv",
+        "scenario",
+        "wet baseline",
+        "mine vapour recovery",
+        "air-cooled chiller",
+        "warm-water dry cooler",
+        "wet baseline",
+        "mine vapour recovery",
+        "#2ca02c",
+        "air-cooled chiller",
+        "warm-water dry cooler",
+        "#ff7f0e",
+        "w_site",
+        "type",
+        "bar",
+        "name",
+        "marker",
+        "color",
+        "w_up",
+        "type",
+        "bar",
+        "name",
+        "marker",
+        "color",
+        "#9467bd",
+        "barmode",
+        "stack",
+        "title",
+        "text",
+        "yaxis",
+        "title",
+        "legend",
+        "orientation",
+        "d_fac",
+        "net_saved",
+        "type",
+        "scatter",
+        "mode",
+        "markers+text",
+        "name",
+        "text",
+        "textposition",
+        "top center",
+        "cliponaxis",
+        "marker",
+        "color",
+        "size",
+        "type",
+        "scatter",
+        "mode",
+        "markers",
+        "name",
+        "wet baseline",
+        "marker",
+        "color",
+        "wet baseline",
+        "size",
+        "symbol",
+        "title",
+        "text",
+        "xaxis",
+        "title",
+        "yaxis",
+        "title",
+        "legend",
+        "orientation",
+        "fac_mwh",
+        "fac_mwh",
+        "ons_saved",
+        "type",
+        "scatter",
+        "mode",
+        "lines",
+        "name",
+        "line",
+        "color",
+        "width",
+        "type",
+        "line",
+        "yref",
+        "paper",
+        "line",
+        "color",
+        "gray",
+        "dash",
+        "dot",
+        "width",
+        "title",
+        "text",
+        "xaxis",
+        "title",
+        "yaxis",
+        "title",
+        "range",
+        "shapes",
+        "annotations",
+        "yref",
+        "paper",
+        "text",
+        "showarrow",
+        "font",
+        "size",
+        "yref",
+        "paper",
+        "text",
+        "showarrow",
+        "font",
+        "size",
+        "yref",
+        "paper",
+        "text",
+        "showarrow",
+        "font",
+        "size",
+        "legend",
+        "orientation",
+        " kW",
+        "% (WUE ",
+        " L/kWh), ",
+        "h, HP ",
+        "E_facility = PUE*E_IT",
+        "L/yr",
+        "ML/yr",
+        "coolMWh",
+        "facMWh",
+        "PUE",
+        "onsiteML",
+        "upstrML",
+        "WUEsite",
+        "WUEsrc",
+        "dFac%",
+        "shift%",
+        " L/kWh)",
+        " L/kWh)",
+        "0..5 L/kWh"
+      ]
+    },
+    "manifest": {
+      "manifest_version": 1,
+      "produced_by": "derived",
+      "generator": "tools/span-derive.mjs",
+      "locale": "ja",
+      "source": {
+        "path": "workbooks/en/cooling-plume-capture.srwb",
+        "sha256": "5bf2691a5b73522c382b48f96442c3a26c4e3770507b2ee871e0505001fb8977"
+      },
+      "target": {
+        "path": "workbooks/ja/cooling-plume-capture.srwb",
+        "sha256": "cb5b7c61a559365c55f9aeae7f710471ee5224f097ffad2f2f5d1deb38bfe9f4"
+      },
+      "spans": [
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 3,
+              "col": 1
+            },
+            "end": {
+              "line": 3,
+              "col": 83
+            },
+            "text": "============ ILLUSTRATIVE CONSTANTS (toy model, no false precision) ============"
+          },
+          "target_span": {
+            "start": {
+              "line": 3,
+              "col": 1
+            },
+            "end": {
+              "line": 3,
+              "col": 49
+            },
+            "text": "============ 説明用定数（トイモデル、過剰な精度なし） ============"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 4,
+              "col": 25
+            },
+            "end": {
+              "line": 4,
+              "col": 51
+            },
+            "text": "kPa atmospheric pressure"
+          },
+          "target_span": {
+            "start": {
+              "line": 4,
+              "col": 25
+            },
+            "end": {
+              "line": 4,
+              "col": 34
+            },
+            "text": "kPa 大気圧"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 5,
+              "col": 25
+            },
+            "end": {
+              "line": 5,
+              "col": 43
+            },
+            "text": "one week, hourly"
+          },
+          "target_span": {
+            "start": {
+              "line": 5,
+              "col": 25
+            },
+            "end": {
+              "line": 5,
+              "col": 33
+            },
+            "text": "一週間、毎時"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 6,
+              "col": 25
+            },
+            "end": {
+              "line": 6,
+              "col": 37
+            },
+            "text": "s per hour"
+          },
+          "target_span": {
+            "start": {
+              "line": 6,
+              "col": 25
+            },
+            "end": {
+              "line": 6,
+              "col": 35
+            },
+            "text": "時間あたりの秒数"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 7,
+              "col": 25
+            },
+            "end": {
+              "line": 7,
+              "col": 40
+            },
+            "text": "kJ/kg-K water"
+          },
+          "target_span": {
+            "start": {
+              "line": 7,
+              "col": 25
+            },
+            "end": {
+              "line": 7,
+              "col": 36
+            },
+            "text": "kJ/kg-K 水"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 8,
+              "col": 25
+            },
+            "end": {
+              "line": 8,
+              "col": 42
+            },
+            "text": "kJ/kg-K dry air"
+          },
+          "target_span": {
+            "start": {
+              "line": 8,
+              "col": 25
+            },
+            "end": {
+              "line": 8,
+              "col": 39
+            },
+            "text": "kJ/kg-K 乾き空気"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 9,
+              "col": 35
+            },
+            "end": {
+              "line": 9,
+              "col": 77
+            },
+            "text": "MW IT load diurnal schedule (both cases)"
+          },
+          "target_span": {
+            "start": {
+              "line": 9,
+              "col": 35
+            },
+            "end": {
+              "line": 9,
+              "col": 59
+            },
+            "text": "MW IT負荷の日内スケジュール（両ケース）"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 10,
+              "col": 35
+            },
+            "end": {
+              "line": 10,
+              "col": 80
+            },
+            "text": "degC dry-bulb diurnal schedule (both cases)"
+          },
+          "target_span": {
+            "start": {
+              "line": 10,
+              "col": 35
+            },
+            "end": {
+              "line": 10,
+              "col": 61
+            },
+            "text": "degC 乾球温度の日内スケジュール（両ケース）"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 11,
+              "col": 65
+            },
+            "end": {
+              "line": 11,
+              "col": 78
+            },
+            "text": "% mean, amp"
+          },
+          "target_span": {
+            "start": {
+              "line": 11,
+              "col": 65
+            },
+            "end": {
+              "line": 11,
+              "col": 74
+            },
+            "text": "% 平均、振幅"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 13,
+              "col": 25
+            },
+            "end": {
+              "line": 13,
+              "col": 55
+            },
+            "text": "constant tower effectiveness"
+          },
+          "target_span": {
+            "start": {
+              "line": 13,
+              "col": 25
+            },
+            "end": {
+              "line": 13,
+              "col": 36
+            },
+            "text": "一定の冷却塔有効度"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 14,
+              "col": 25
+            },
+            "end": {
+              "line": 14,
+              "col": 78
+            },
+            "text": "kg dry-air/s per MW IT (induced-draft fan schedule)"
+          },
+          "target_span": {
+            "start": {
+              "line": 14,
+              "col": 25
+            },
+            "end": {
+              "line": 14,
+              "col": 61
+            },
+            "text": "MW ITあたりの kg 乾き空気/s（誘引通風ファンスケジュール）"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 15,
+              "col": 25
+            },
+            "end": {
+              "line": 15,
+              "col": 55
+            },
+            "text": "kg/s tower water design flow"
+          },
+          "target_span": {
+            "start": {
+              "line": 15,
+              "col": 25
+            },
+            "end": {
+              "line": 15,
+              "col": 40
+            },
+            "text": "kg/s 冷却塔水設計流量"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 16,
+              "col": 25
+            },
+            "end": {
+              "line": 16,
+              "col": 50
+            },
+            "text": "cycles of concentration"
+          },
+          "target_span": {
+            "start": {
+              "line": 16,
+              "col": 25
+            },
+            "end": {
+              "line": 16,
+              "col": 31
+            },
+            "text": "濃縮倍数"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 17,
+              "col": 25
+            },
+            "end": {
+              "line": 17,
+              "col": 65
+            },
+            "text": "drift as fraction of circulating water"
+          },
+          "target_span": {
+            "start": {
+              "line": 17,
+              "col": 25
+            },
+            "end": {
+              "line": 17,
+              "col": 44
+            },
+            "text": "循環水に対する割合としてのドリフト"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 18,
+              "col": 47
+            },
+            "end": {
+              "line": 18,
+              "col": 80
+            },
+            "text": "fan eff., coil pressure drop Pa"
+          },
+          "target_span": {
+            "start": {
+              "line": 18,
+              "col": 47
+            },
+            "end": {
+              "line": 18,
+              "col": 65
+            },
+            "text": "ファン効率、コイル圧力損失 Pa"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 20,
+              "col": 25
+            },
+            "end": {
+              "line": 20,
+              "col": 78
+            },
+            "text": "degC illustrative facility supply limit (W27-class)"
+          },
+          "target_span": {
+            "start": {
+              "line": 20,
+              "col": 25
+            },
+            "end": {
+              "line": 20,
+              "col": 49
+            },
+            "text": "degC 説明用施設供給上限（W27クラス）"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 21,
+              "col": 25
+            },
+            "end": {
+              "line": 21,
+              "col": 52
+            },
+            "text": "K heat-exchanger approach"
+          },
+          "target_span": {
+            "start": {
+              "line": 21,
+              "col": 25
+            },
+            "end": {
+              "line": 21,
+              "col": 40
+            },
+            "text": "K 熱交換器アプローチ温度"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 23,
+              "col": 25
+            },
+            "end": {
+              "line": 23,
+              "col": 69
+            },
+            "text": "kW/K fixed, widely spaced finned-tube coil"
+          },
+          "target_span": {
+            "start": {
+              "line": 23,
+              "col": 25
+            },
+            "end": {
+              "line": 23,
+              "col": 49
+            },
+            "text": "kW/K 固定、広ピッチフィンチューブコイル"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 24,
+              "col": 25
+            },
+            "end": {
+              "line": 24,
+              "col": 67
+            },
+            "text": "K coil-surface approach above mine water"
+          },
+          "target_span": {
+            "start": {
+              "line": 24,
+              "col": 25
+            },
+            "end": {
+              "line": 24,
+              "col": 48
+            },
+            "text": "K 鉱山水に対するコイル表面アプローチ温度"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 25,
+              "col": 25
+            },
+            "end": {
+              "line": 25,
+              "col": 46
+            },
+            "text": "kg/s mine-loop flow"
+          },
+          "target_span": {
+            "start": {
+              "line": 25,
+              "col": 25
+            },
+            "end": {
+              "line": 25,
+              "col": 39
+            },
+            "text": "kg/s 鉱山ループ流量"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 27,
+              "col": 35
+            },
+            "end": {
+              "line": 27,
+              "col": 69
+            },
+            "text": "degC mine start / far-field rock"
+          },
+          "target_span": {
+            "start": {
+              "line": 27,
+              "col": 35
+            },
+            "end": {
+              "line": 27,
+              "col": 54
+            },
+            "text": "degC 鉱山初期値 / 遠方岩体"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 28,
+              "col": 25
+            },
+            "end": {
+              "line": 28,
+              "col": 56
+            },
+            "text": "m3 effective reservoir volume"
+          },
+          "target_span": {
+            "start": {
+              "line": 28,
+              "col": 25
+            },
+            "end": {
+              "line": 28,
+              "col": 39
+            },
+            "text": "m3 有効リザーバー容量"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 29,
+              "col": 25
+            },
+            "end": {
+              "line": 29,
+              "col": 69
+            },
+            "text": "kW/K recharge/loss to rock and groundwater"
+          },
+          "target_span": {
+            "start": {
+              "line": 29,
+              "col": 25
+            },
+            "end": {
+              "line": 29,
+              "col": 47
+            },
+            "text": "kW/K 岩体および地下水への涵養/損失"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 31,
+              "col": 1
+            },
+            "end": {
+              "line": 31,
+              "col": 43
+            },
+            "text": "============ PSYCHROMETRICS ============"
+          },
+          "target_span": {
+            "start": {
+              "line": 31,
+              "col": 1
+            },
+            "end": {
+              "line": 31,
+              "col": 35
+            },
+            "text": "============ 湿り空気特性 ============"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 32,
+              "col": 25
+            },
+            "end": {
+              "line": 32,
+              "col": 85
+            },
+            "text": "saturation vapour pressure, kPa (Magnus/Alduchov-Eskridge)"
+          },
+          "target_span": {
+            "start": {
+              "line": 32,
+              "col": 25
+            },
+            "end": {
+              "line": 32,
+              "col": 63
+            },
+            "text": "飽和水蒸気圧、kPa（Magnus/Alduchov-Eskridge）"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 34,
+              "col": 25
+            },
+            "end": {
+              "line": 34,
+              "col": 55
+            },
+            "text": "humidity ratio kg/kg dry air"
+          },
+          "target_span": {
+            "start": {
+              "line": 34,
+              "col": 25
+            },
+            "end": {
+              "line": 34,
+              "col": 42
+            },
+            "text": "絶対湿度 kg/kg 乾き空気"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 37,
+              "col": 25
+            },
+            "end": {
+              "line": 37,
+              "col": 62
+            },
+            "text": "dew point from humidity ratio, degC"
+          },
+          "target_span": {
+            "start": {
+              "line": 37,
+              "col": 25
+            },
+            "end": {
+              "line": 37,
+              "col": 43
+            },
+            "text": "絶対湿度からの露点温度、degC"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 40,
+              "col": 25
+            },
+            "end": {
+              "line": 40,
+              "col": 73
+            },
+            "text": "wet bulb, Stull (2011) empirical approximation"
+          },
+          "target_span": {
+            "start": {
+              "line": 40,
+              "col": 25
+            },
+            "end": {
+              "line": 40,
+              "col": 50
+            },
+            "text": "湿球温度、Stull (2011) 経験的近似"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 44,
+              "col": 25
+            },
+            "end": {
+              "line": 44,
+              "col": 59
+            },
+            "text": "moist-air enthalpy kJ/kg dry air"
+          },
+          "target_span": {
+            "start": {
+              "line": 44,
+              "col": 25
+            },
+            "end": {
+              "line": 44,
+              "col": 48
+            },
+            "text": "湿り空気エンタルピー kJ/kg 乾き空気"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 48,
+              "col": 8
+            },
+            "end": {
+              "line": 48,
+              "col": 89
+            },
+            "text": "Captured nearly-saturated tower exhaust via moist-air energy balance (bisection)."
+          },
+          "target_span": {
+            "start": {
+              "line": 48,
+              "col": 8
+            },
+            "end": {
+              "line": 48,
+              "col": 42
+            },
+            "text": "湿り空気エネルギー収支（二分法）によるほぼ飽和した冷却塔排気の捕集。"
+          },
+          "kind": "docstring",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 60,
+              "col": 8
+            },
+            "end": {
+              "line": 66,
+              "col": 5
+            },
+            "text": "Energy-limited toy coil, not a calibrated wet-coil/geometry model.\n\n    Moist-air enthalpy uses a 0 degC liquid-water reference. Condensate\n    leaves at outlet air temperature, so its liquid enthalpy is subtracted.\n    Return total heat to the mine, outlet temperature/humidity, total\n    condensation, and the energy-balance residual.\n    "
+          },
+          "target_span": {
+            "start": {
+              "line": 60,
+              "col": 8
+            },
+            "end": {
+              "line": 66,
+              "col": 5
+            },
+            "text": "エネルギー制限トイコイルであり、校正された湿式コイル/幾何形状モデルではありません。\n\n    湿り空気エンタルピーは 0 degC の液状水を基準とします。復水は\n    出口空気温度で流出するため、その液体エンタルピーは差し引かれます。\n    鉱山への全熱量、出口温度/湿度、総凝縮量、\n    およびエネルギー収支残差を返します。\n    "
+          },
+          "kind": "docstring",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 68,
+              "col": 27
+            },
+            "end": {
+              "line": 68,
+              "col": 74
+            },
+            "text": "The illustrative coil requires positive airflow"
+          },
+          "target_span": {
+            "start": {
+              "line": 68,
+              "col": 27
+            },
+            "end": {
+              "line": 68,
+              "col": 44
+            },
+            "text": "説明用コイルには正の風量が必要です"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 80,
+              "col": 5
+            },
+            "end": {
+              "line": 80,
+              "col": 71
+            },
+            "text": "Retain a simple UA-based heat-transfer budget. Explicitly cap it"
+          },
+          "target_span": {
+            "start": {
+              "line": 80,
+              "col": 5
+            },
+            "end": {
+              "line": 80,
+              "col": 37
+            },
+            "text": "単純なUAベースの熱伝達バジェットを維持する。これを明示的に"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 81,
+              "col": 5
+            },
+            "end": {
+              "line": 81,
+              "col": 66
+            },
+            "text": "by the air-side approach limit and mine-loop heat capacity."
+          },
+          "target_span": {
+            "start": {
+              "line": 81,
+              "col": 5
+            },
+            "end": {
+              "line": 81,
+              "col": 35
+            },
+            "text": "空気側アプローチ限界と鉱山ループ熱容量によって制限する。"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 99,
+              "col": 1
+            },
+            "end": {
+              "line": 99,
+              "col": 39
+            },
+            "text": "============ SIMULATION ============"
+          },
+          "target_span": {
+            "start": {
+              "line": 99,
+              "col": 1
+            },
+            "end": {
+              "line": 99,
+              "col": 37
+            },
+            "text": "============ シミュレーション ============"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 114,
+              "col": 53
+            },
+            "end": {
+              "line": 114,
+              "col": 81
+            },
+            "text": "induced-draft fan schedule"
+          },
+          "target_span": {
+            "start": {
+              "line": 114,
+              "col": 53
+            },
+            "end": {
+              "line": 114,
+              "col": 68
+            },
+            "text": "誘引通風ファンスケジュール"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 116,
+              "col": 53
+            },
+            "end": {
+              "line": 116,
+              "col": 79
+            },
+            "text": "IT heat to tower circuit"
+          },
+          "target_span": {
+            "start": {
+              "line": 116,
+              "col": 53
+            },
+            "end": {
+              "line": 116,
+              "col": 66
+            },
+            "text": "冷却塔回路へのIT排熱"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 117,
+              "col": 53
+            },
+            "end": {
+              "line": 117,
+              "col": 86
+            },
+            "text": "tower range from heat rejection"
+          },
+          "target_span": {
+            "start": {
+              "line": 117,
+              "col": 53
+            },
+            "end": {
+              "line": 117,
+              "col": 66
+            },
+            "text": "排熱による冷却塔レンジ"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 120,
+              "col": 53
+            },
+            "end": {
+              "line": 120,
+              "col": 89
+            },
+            "text": "passive HX insufficient -> chiller"
+          },
+          "target_span": {
+            "start": {
+              "line": 120,
+              "col": 53
+            },
+            "end": {
+              "line": 120,
+              "col": 75
+            },
+            "text": "パッシブ熱交換器では不十分 -> チラー"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 124,
+              "col": 53
+            },
+            "end": {
+              "line": 124,
+              "col": 89
+            },
+            "text": "compressor heat into tower circuit"
+          },
+          "target_span": {
+            "start": {
+              "line": 124,
+              "col": 53
+            },
+            "end": {
+              "line": 124,
+              "col": 67
+            },
+            "text": "冷却塔回路への圧縮機排熱"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 125,
+              "col": 53
+            },
+            "end": {
+              "line": 125,
+              "col": 81
+            },
+            "text": "recalculated once, no loop"
+          },
+          "target_span": {
+            "start": {
+              "line": 125,
+              "col": 53
+            },
+            "end": {
+              "line": 125,
+              "col": 68
+            },
+            "text": "一度だけ再計算、ループなし"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 131,
+              "col": 53
+            },
+            "end": {
+              "line": 131,
+              "col": 90
+            },
+            "text": "drift also removes dissolved solids"
+          },
+          "target_span": {
+            "start": {
+              "line": 131,
+              "col": 53
+            },
+            "end": {
+              "line": 131,
+              "col": 70
+            },
+            "text": "ドリフトも溶解固形分を除去する"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 133,
+              "col": 9
+            },
+            "end": {
+              "line": 133,
+              "col": 69
+            },
+            "text": "---- plume condenser on closed mine loop (non-mixing) ----"
+          },
+          "target_span": {
+            "start": {
+              "line": 133,
+              "col": 9
+            },
+            "end": {
+              "line": 133,
+              "col": 43
+            },
+            "text": "---- 閉ループ鉱山回路上のプルーム凝縮器（非混合） ----"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 136,
+              "col": 9
+            },
+            "end": {
+              "line": 136,
+              "col": 75
+            },
+            "text": "Cap makeup credit at the tower's evaporation. Total condensation"
+          },
+          "target_span": {
+            "start": {
+              "line": 136,
+              "col": 9
+            },
+            "end": {
+              "line": 136,
+              "col": 40
+            },
+            "text": "補給水クレジットの上限を冷却塔の蒸発量とする。総凝縮量には"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 137,
+              "col": 9
+            },
+            "end": {
+              "line": 137,
+              "col": 78
+            },
+            "text": "may include ambient humidity; this does not trace water provenance."
+          },
+          "target_span": {
+            "start": {
+              "line": 137,
+              "col": 9
+            },
+            "end": {
+              "line": 137,
+              "col": 45
+            },
+            "text": "外気湿分が含まれる場合がある。これは水の起源を追跡するものではない。"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 140,
+              "col": 60
+            },
+            "end": {
+              "line": 140,
+              "col": 92
+            },
+            "text": "coil pressure-drop penalty, kW"
+          },
+          "target_span": {
+            "start": {
+              "line": 140,
+              "col": 60
+            },
+            "end": {
+              "line": 140,
+              "col": 77
+            },
+            "text": "コイル圧力損失ペナルティ、kW"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 154,
+              "col": 1
+            },
+            "end": {
+              "line": 154,
+              "col": 41
+            },
+            "text": "============ OUTPUT FILES ============"
+          },
+          "target_span": {
+            "start": {
+              "line": 154,
+              "col": 1
+            },
+            "end": {
+              "line": 154,
+              "col": 35
+            },
+            "text": "============ 出力ファイル ============"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 164,
+              "col": 1
+            },
+            "end": {
+              "line": 164,
+              "col": 64
+            },
+            "text": "Refresh only the marked facts block in the named Prolog cell."
+          },
+          "target_span": {
+            "start": {
+              "line": 164,
+              "col": 1
+            },
+            "end": {
+              "line": 164,
+              "col": 40
+            },
+            "text": "指定されたPrologセル内のマークされたファクトブロックのみを更新する。"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "source_span": {
+            "start": {
+              "line": 165,
+              "col": 1
+            },
+            "end": {
+              "line": 165,
+              "col": 71
+            },
+            "text": "Keep cell names and markers unchanged when translating the workbook."
+          },
+          "target_span": {
+            "start": {
+              "line": 165,
+              "col": 1
+            },
+            "end": {
+              "line": 165,
+              "col": 39
+            },
+            "text": "ワークブックを翻訳する際、セル名とマーカーは変更せずに保持してください。"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 171,
+              "col": 13
+            },
+            "end": {
+              "line": 171,
+              "col": 103
+            },
+            "text": ": maximum coil energy residual "
+          },
+          "target_span": {
+            "start": {
+              "line": 171,
+              "col": 13
+            },
+            "end": {
+              "line": 171,
+              "col": 87
+            },
+            "text": ": コイルエネルギー最大残差 "
+          },
+          "placeholders": [
+            "{name}",
+            "{np.max(np.abs(cases[name]['coil_resid_kw'])):.2e}"
+          ]
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 172,
+              "col": 13
+            },
+            "end": {
+              "line": 172,
+              "col": 98
+            },
+            "text": ": water saved "
+          },
+          "target_span": {
+            "start": {
+              "line": 172,
+              "col": 13
+            },
+            "end": {
+              "line": 172,
+              "col": 90
+            },
+            "text": ": 節水率 "
+          },
+          "placeholders": [
+            "{name}",
+            "{s['save']:.0f}",
+            "{s['wue_b']:.2f}",
+            "{s['wue_a']:.2f}"
+          ]
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 173,
+              "col": 13
+            },
+            "end": {
+              "line": 173,
+              "col": 106
+            },
+            "text": "extra energy "
+          },
+          "target_span": {
+            "start": {
+              "line": 173,
+              "col": 13
+            },
+            "end": {
+              "line": 173,
+              "col": 95
+            },
+            "text": "追加エネルギー "
+          },
+          "placeholders": [
+            "{s['extra']:.1f}",
+            "{s['maxt']:.1f}",
+            "{s['condh']}",
+            "{s['hph']}"
+          ]
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 173,
+              "col": 13
+            },
+            "end": {
+              "line": 173,
+              "col": 106
+            },
+            "text": "%, max mine "
+          },
+          "target_span": {
+            "start": {
+              "line": 173,
+              "col": 13
+            },
+            "end": {
+              "line": 173,
+              "col": 95
+            },
+            "text": "%, 鉱山最大 "
+          },
+          "placeholders": [
+            "{s['extra']:.1f}",
+            "{s['maxt']:.1f}",
+            "{s['condh']}",
+            "{s['hph']}"
+          ]
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "simulation",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 173,
+              "col": 13
+            },
+            "end": {
+              "line": 173,
+              "col": 106
+            },
+            "text": "C, cond "
+          },
+          "target_span": {
+            "start": {
+              "line": 173,
+              "col": 13
+            },
+            "end": {
+              "line": 173,
+              "col": 95
+            },
+            "text": "C, 凝縮 "
+          },
+          "placeholders": [
+            "{s['extra']:.1f}",
+            "{s['maxt']:.1f}",
+            "{s['condh']}",
+            "{s['hph']}"
+          ]
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "classification",
+          "source_span": {
+            "start": {
+              "line": 4,
+              "col": 1
+            },
+            "end": {
+              "line": 4,
+              "col": 59
+            },
+            "text": "Run simulation first: it writes this marked facts block."
+          },
+          "target_span": {
+            "start": {
+              "line": 4,
+              "col": 1
+            },
+            "end": {
+              "line": 4,
+              "col": 48
+            },
+            "text": "最初にシミュレーションを実行してください：このマークされたファクトブロックを書き込みます。"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "classification",
+          "source_span": {
+            "start": {
+              "line": 7,
+              "col": 1
+            },
+            "end": {
+              "line": 7,
+              "col": 80
+            },
+            "text": "Thresholds below are illustrative teaching choices, not engineering criteria."
+          },
+          "target_span": {
+            "start": {
+              "line": 7,
+              "col": 1
+            },
+            "end": {
+              "line": 7,
+              "col": 39
+            },
+            "text": "以下のしきい値は説明用の教育的選択肢であり、工学的な基準ではありません。"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "classification",
+          "source_span": {
+            "start": {
+              "line": 10,
+              "col": 43
+            },
+            "end": {
+              "line": 10,
+              "col": 72
+            },
+            "text": "< 5% of 168 simulated hours"
+          },
+          "target_span": {
+            "start": {
+              "line": 10,
+              "col": 43
+            },
+            "end": {
+              "line": 10,
+              "col": 69
+            },
+            "text": "< シミュレーションされた 168 時間の 5%"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "classification",
+          "source_span": {
+            "start": {
+              "line": 22,
+              "col": 13
+            },
+            "end": {
+              "line": 22,
+              "col": 61
+            },
+            "text": "~w: ~w | water saving ~1f% | extra energy ~1f%~n"
+          },
+          "target_span": {
+            "start": {
+              "line": 22,
+              "col": 13
+            },
+            "end": {
+              "line": 22,
+              "col": 47
+            },
+            "text": "~w: ~w | 節水率 ~1f% | 追加エネルギー ~1f%~n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "classification",
+          "source_span": {
+            "start": {
+              "line": 27,
+              "col": 13
+            },
+            "end": {
+              "line": 27,
+              "col": 69
+            },
+            "text": "Run the simulation cell before this classification cell."
+          },
+          "target_span": {
+            "start": {
+              "line": 27,
+              "col": 13
+            },
+            "end": {
+              "line": 27,
+              "col": 42
+            },
+            "text": "この分類セルの前にシミュレーションセルを実行してください。"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "dashboard",
+          "source_span": {
+            "start": {
+              "line": 26,
+              "col": 1
+            },
+            "end": {
+              "line": 26,
+              "col": 44
+            },
+            "text": "--- Chart 1: water balance comparison ---"
+          },
+          "target_span": {
+            "start": {
+              "line": 26,
+              "col": 1
+            },
+            "end": {
+              "line": 26,
+              "col": 24
+            },
+            "text": "--- チャート 1: 水収支比較 ---"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "dashboard",
+          "source_span": {
+            "start": {
+              "line": 27,
+              "col": 19
+            },
+            "end": {
+              "line": 27,
+              "col": 34
+            },
+            "text": "Baseline makeup"
+          },
+          "target_span": {
+            "start": {
+              "line": 27,
+              "col": 19
+            },
+            "end": {
+              "line": 27,
+              "col": 28
+            },
+            "text": "ベースライン補給水"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "dashboard",
+          "source_span": {
+            "start": {
+              "line": 27,
+              "col": 38
+            },
+            "end": {
+              "line": 27,
+              "col": 52
+            },
+            "text": "After recovery"
+          },
+          "target_span": {
+            "start": {
+              "line": 27,
+              "col": 32
+            },
+            "end": {
+              "line": 27,
+              "col": 35
+            },
+            "text": "回収後"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "dashboard",
+          "source_span": {
+            "start": {
+              "line": 27,
+              "col": 56
+            },
+            "end": {
+              "line": 27,
+              "col": 76
+            },
+            "text": "Recovered condensate"
+          },
+          "target_span": {
+            "start": {
+              "line": 27,
+              "col": 39
+            },
+            "end": {
+              "line": 27,
+              "col": 46
+            },
+            "text": "回収された復水"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "dashboard",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 33,
+              "col": 26
+            },
+            "end": {
+              "line": 33,
+              "col": 80
+            },
+            "text": " (save "
+          },
+          "target_span": {
+            "start": {
+              "line": 33,
+              "col": 26
+            },
+            "end": {
+              "line": 33,
+              "col": 77
+            },
+            "text": " (節水 "
+          },
+          "placeholders": [
+            "{c}",
+            "{s['save']:.0f}",
+            "{s['extra']:.1f}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "dashboard",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 33,
+              "col": 26
+            },
+            "end": {
+              "line": 33,
+              "col": 80
+            },
+            "text": "% energy)"
+          },
+          "target_span": {
+            "start": {
+              "line": 33,
+              "col": 26
+            },
+            "end": {
+              "line": 33,
+              "col": 77
+            },
+            "text": "% エネルギー)"
+          },
+          "placeholders": [
+            "{c}",
+            "{s['save']:.0f}",
+            "{s['extra']:.1f}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "dashboard",
+          "source_span": {
+            "start": {
+              "line": 36,
+              "col": 38
+            },
+            "end": {
+              "line": 36,
+              "col": 85
+            },
+            "text": "Weekly tower makeup water (10 MW IT, toy model)"
+          },
+          "target_span": {
+            "start": {
+              "line": 36,
+              "col": 38
+            },
+            "end": {
+              "line": 36,
+              "col": 62
+            },
+            "text": "週間冷却塔補給水（10 MW IT、トイモデル）"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "dashboard",
+          "source_span": {
+            "start": {
+              "line": 37,
+              "col": 39
+            },
+            "end": {
+              "line": 37,
+              "col": 49
+            },
+            "text": "Water (ML)"
+          },
+          "target_span": {
+            "start": {
+              "line": 37,
+              "col": 39
+            },
+            "end": {
+              "line": 37,
+              "col": 46
+            },
+            "text": "水量 (ML)"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "dashboard",
+          "source_span": {
+            "start": {
+              "line": 40,
+              "col": 1
+            },
+            "end": {
+              "line": 40,
+              "col": 68
+            },
+            "text": "--- Chart 2: hourly plume dew point vs mine-water temperature ---"
+          },
+          "target_span": {
+            "start": {
+              "line": 40,
+              "col": 1
+            },
+            "end": {
+              "line": 40,
+              "col": 36
+            },
+            "text": "--- チャート 2: 毎時プルーム露点 vs 鉱山水温度 ---"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "dashboard",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 44,
+              "col": 43
+            },
+            "end": {
+              "line": 44,
+              "col": 67
+            },
+            "text": " plume dew point (°C)"
+          },
+          "target_span": {
+            "start": {
+              "line": 44,
+              "col": 43
+            },
+            "end": {
+              "line": 44,
+              "col": 58
+            },
+            "text": " プルーム露点 (°C)"
+          },
+          "placeholders": [
+            "{c}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "dashboard",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 47,
+              "col": 43
+            },
+            "end": {
+              "line": 47,
+              "col": 62
+            },
+            "text": " mine water (°C)"
+          },
+          "target_span": {
+            "start": {
+              "line": 47,
+              "col": 43
+            },
+            "end": {
+              "line": 47,
+              "col": 55
+            },
+            "text": " 鉱山水 (°C)"
+          },
+          "placeholders": [
+            "{c}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "dashboard",
+          "source_span": {
+            "start": {
+              "line": 50,
+              "col": 74
+            },
+            "end": {
+              "line": 50,
+              "col": 131
+            },
+            "text": "Condensation driving force: plume dew point vs mine water"
+          },
+          "target_span": {
+            "start": {
+              "line": 50,
+              "col": 74
+            },
+            "end": {
+              "line": 50,
+              "col": 95
+            },
+            "text": "凝縮の駆動力: プルーム露点 vs 鉱山水"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "dashboard",
+          "source_span": {
+            "start": {
+              "line": 51,
+              "col": 39
+            },
+            "end": {
+              "line": 51,
+              "col": 51
+            },
+            "text": "Hour of week"
+          },
+          "target_span": {
+            "start": {
+              "line": 51,
+              "col": 39
+            },
+            "end": {
+              "line": 51,
+              "col": 43
+            },
+            "text": "週の時間"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "dashboard",
+          "source_span": {
+            "start": {
+              "line": 52,
+              "col": 39
+            },
+            "end": {
+              "line": 52,
+              "col": 55
+            },
+            "text": "Temperature (°C)"
+          },
+          "target_span": {
+            "start": {
+              "line": 52,
+              "col": 39
+            },
+            "end": {
+              "line": 52,
+              "col": 46
+            },
+            "text": "温度 (°C)"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "dashboard",
+          "source_span": {
+            "start": {
+              "line": 58,
+              "col": 46
+            },
+            "end": {
+              "line": 58,
+              "col": 107
+            },
+            "text": "Toy model: results depend on weather, heat-exchanger design, "
+          },
+          "target_span": {
+            "start": {
+              "line": 58,
+              "col": 46
+            },
+            "end": {
+              "line": 58,
+              "col": 68
+            },
+            "text": "トイモデル: 結果は気象、熱交換器の設計、 "
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "dashboard",
+          "source_span": {
+            "start": {
+              "line": 59,
+              "col": 46
+            },
+            "end": {
+              "line": 59,
+              "col": 108
+            },
+            "text": "mine hydraulics, fan and heat-pump assumptions, and long-term "
+          },
+          "target_span": {
+            "start": {
+              "line": 59,
+              "col": 46
+            },
+            "end": {
+              "line": 59,
+              "col": 77
+            },
+            "text": "鉱山の水理、ファンおよびヒートポンプの前提、ならびに長期的な "
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "dashboard",
+          "source_span": {
+            "start": {
+              "line": 60,
+              "col": 46
+            },
+            "end": {
+              "line": 60,
+              "col": 63
+            },
+            "text": "thermal recharge."
+          },
+          "target_span": {
+            "start": {
+              "line": 60,
+              "col": 46
+            },
+            "end": {
+              "line": 60,
+              "col": 56
+            },
+            "text": "熱涵養に依存します。"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 93
+            },
+            "text": "===== Dry-cooling comparison + upstream (source) water — reuses simulation variables ====="
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 49
+            },
+            "text": "===== 乾式冷却の比較 + 上流（電源）水 — シミュレーション変数を再利用 ====="
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 2,
+              "col": 1
+            },
+            "end": {
+              "line": 2,
+              "col": 69
+            },
+            "text": "Historical/reference sources are cited in the final Markdown cell."
+          },
+          "target_span": {
+            "start": {
+              "line": 2,
+              "col": 1
+            },
+            "end": {
+              "line": 2,
+              "col": 38
+            },
+            "text": "歴史的/参照文献の出典は最後のMarkdownセルに引用されています。"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 3,
+              "col": 1
+            },
+            "end": {
+              "line": 3,
+              "col": 74
+            },
+            "text": "All factors and equipment efficiencies remain editable toy assumptions."
+          },
+          "target_span": {
+            "start": {
+              "line": 3,
+              "col": 1
+            },
+            "end": {
+              "line": 3,
+              "col": 33
+            },
+            "text": "すべての係数および機器効率は、編集可能なトイ仮定のままです。"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 6,
+              "col": 26
+            },
+            "end": {
+              "line": 6,
+              "col": 98
+            },
+            "text": "weeks/yr — annualizes the simulated week (NOT a full-year weather run)"
+          },
+          "target_span": {
+            "start": {
+              "line": 6,
+              "col": 26
+            },
+            "end": {
+              "line": 6,
+              "col": 66
+            },
+            "text": "週/年 — シミュレーションされた週を年換算（通年気象の実行ではありません）"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 8,
+              "col": 1
+            },
+            "end": {
+              "line": 8,
+              "col": 100
+            },
+            "text": "---- declared toy assumptions (same IT load, heat rejection, climate, hours as wet baseline) ----"
+          },
+          "target_span": {
+            "start": {
+              "line": 8,
+              "col": 1
+            },
+            "end": {
+              "line": 8,
+              "col": 48
+            },
+            "text": "---- 宣言されたトイ前提（湿式ベースラインと同じIT負荷、排熱、気候、時間） ----"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 9,
+              "col": 26
+            },
+            "end": {
+              "line": 9,
+              "col": 70
+            },
+            "text": "Pa induced-draft tower fan static pressure"
+          },
+          "target_span": {
+            "start": {
+              "line": 9,
+              "col": 26
+            },
+            "end": {
+              "line": 9,
+              "col": 44
+            },
+            "text": "Pa 誘引通風冷却塔ファンの静圧"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 10,
+              "col": 26
+            },
+            "end": {
+              "line": 10,
+              "col": 50
+            },
+            "text": "m tower-loop pump head"
+          },
+          "target_span": {
+            "start": {
+              "line": 10,
+              "col": 26
+            },
+            "end": {
+              "line": 10,
+              "col": 41
+            },
+            "text": "m 冷却塔ループポンプ揚程"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 11,
+              "col": 26
+            },
+            "end": {
+              "line": 11,
+              "col": 78
+            },
+            "text": "non-cooling facility overhead (UPS, lighting) / IT"
+          },
+          "target_span": {
+            "start": {
+              "line": 11,
+              "col": 26
+            },
+            "end": {
+              "line": 11,
+              "col": 55
+            },
+            "text": "冷却以外の施設オーバーヘッド（UPS、照明） / IT"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 12,
+              "col": 26
+            },
+            "end": {
+              "line": 12,
+              "col": 65
+            },
+            "text": "degC facility-loop return temperature"
+          },
+          "target_span": {
+            "start": {
+              "line": 12,
+              "col": 26
+            },
+            "end": {
+              "line": 12,
+              "col": 42
+            },
+            "text": "degC 施設ループ還水温度"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 13,
+              "col": 26
+            },
+            "end": {
+              "line": 13,
+              "col": 70
+            },
+            "text": "air-cooled chiller: fraction of Carnot COP"
+          },
+          "target_span": {
+            "start": {
+              "line": 13,
+              "col": 26
+            },
+            "end": {
+              "line": 13,
+              "col": 45
+            },
+            "text": "空冷チラー: カルノーCOPの比率"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 14,
+              "col": 26
+            },
+            "end": {
+              "line": 14,
+              "col": 58
+            },
+            "text": "K chiller evaporator (~7 degC)"
+          },
+          "target_span": {
+            "start": {
+              "line": 14,
+              "col": 26
+            },
+            "end": {
+              "line": 14,
+              "col": 46
+            },
+            "text": "K チラー蒸発器 (~7 degC)"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 15,
+              "col": 26
+            },
+            "end": {
+              "line": 15,
+              "col": 70
+            },
+            "text": "K chiller condensing approach over ambient"
+          },
+          "target_span": {
+            "start": {
+              "line": 15,
+              "col": 26
+            },
+            "end": {
+              "line": 15,
+              "col": 48
+            },
+            "text": "K 外気に対するチラー凝縮アプローチ温度"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 16,
+              "col": 26
+            },
+            "end": {
+              "line": 16,
+              "col": 61
+            },
+            "text": "chilled-water pump / cooling load"
+          },
+          "target_span": {
+            "start": {
+              "line": 16,
+              "col": 26
+            },
+            "end": {
+              "line": 16,
+              "col": 40
+            },
+            "text": "冷水ポンプ / 冷却負荷"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 17,
+              "col": 26
+            },
+            "end": {
+              "line": 17,
+              "col": 73
+            },
+            "text": "K dry-cooler approach (loop supply - ambient)"
+          },
+          "target_span": {
+            "start": {
+              "line": 17,
+              "col": 26
+            },
+            "end": {
+              "line": 17,
+              "col": 54
+            },
+            "text": "K ドライクーラーアプローチ（ループ供給 - 外気）"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 18,
+              "col": 26
+            },
+            "end": {
+              "line": 18,
+              "col": 64
+            },
+            "text": "dry-cooler fan power / heat rejected"
+          },
+          "target_span": {
+            "start": {
+              "line": 18,
+              "col": 26
+            },
+            "end": {
+              "line": 18,
+              "col": 46
+            },
+            "text": "ドライクーラーファン動力 / 排熱量"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 19,
+              "col": 26
+            },
+            "end": {
+              "line": 19,
+              "col": 64
+            },
+            "text": "dry-cooler loop pump / heat rejected"
+          },
+          "target_span": {
+            "start": {
+              "line": 19,
+              "col": 26
+            },
+            "end": {
+              "line": 19,
+              "col": 47
+            },
+            "text": "ドライクーラーループポンプ / 排熱量"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 20,
+              "col": 26
+            },
+            "end": {
+              "line": 20,
+              "col": 78
+            },
+            "text": "trim mechanical assistance: fraction of Carnot COP"
+          },
+          "target_span": {
+            "start": {
+              "line": 20,
+              "col": 26
+            },
+            "end": {
+              "line": 20,
+              "col": 50
+            },
+            "text": "トリム機械的アシスト: カルノーCOPの比率"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 21,
+              "col": 26
+            },
+            "end": {
+              "line": 21,
+              "col": 93
+            },
+            "text": "optional adiabatic assist; OFF => zero direct water for dry cases"
+          },
+          "target_span": {
+            "start": {
+              "line": 21,
+              "col": 26
+            },
+            "end": {
+              "line": 21,
+              "col": 59
+            },
+            "text": "オプションの断熱アシスト；OFF => 乾式ケースで直接水ゼロ"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 23,
+              "col": 26
+            },
+            "end": {
+              "line": 23,
+              "col": 94
+            },
+            "text": "L/kWh configurable; 2023 US supplied-electricity reference (LBNL),"
+          },
+          "target_span": {
+            "start": {
+              "line": 23,
+              "col": 26
+            },
+            "end": {
+              "line": 23,
+              "col": 61
+            },
+            "text": "L/kWh 設定可能、2023 米国供給電力参照値 (LBNL)、"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 24,
+              "col": 26
+            },
+            "end": {
+              "line": 24,
+              "col": 102
+            },
+            "text": "INCLUDES reservoir evaporation allocated to hydropower — accounting choice"
+          },
+          "target_span": {
+            "start": {
+              "line": 24,
+              "col": 26
+            },
+            "end": {
+              "line": 24,
+              "col": 58
+            },
+            "text": "水力発電に割り当てられた貯水池蒸発量を含む — 会計上の選択"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 30,
+              "col": 50
+            },
+            "end": {
+              "line": 30,
+              "col": 79
+            },
+            "text": "kW heat rejection = IT load"
+          },
+          "target_span": {
+            "start": {
+              "line": 30,
+              "col": 50
+            },
+            "end": {
+              "line": 30,
+              "col": 65
+            },
+            "text": "kW 排熱量 = IT負荷"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 32,
+              "col": 50
+            },
+            "end": {
+              "line": 32,
+              "col": 86
+            },
+            "text": "conditional heat pump (wet system)"
+          },
+          "target_span": {
+            "start": {
+              "line": 32,
+              "col": 50
+            },
+            "end": {
+              "line": 32,
+              "col": 70
+            },
+            "text": "条件付きヒートポンプ（湿式システム）"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 34,
+              "col": 1
+            },
+            "end": {
+              "line": 34,
+              "col": 53
+            },
+            "text": "---- wet baseline & mine-recovery electricity ----"
+          },
+          "target_span": {
+            "start": {
+              "line": 34,
+              "col": 1
+            },
+            "end": {
+              "line": 34,
+              "col": 31
+            },
+            "text": "---- 湿式ベースラインおよび鉱山回収の電力 ----"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 38,
+              "col": 81
+            },
+            "end": {
+              "line": 38,
+              "col": 95
+            },
+            "text": "hp unchanged"
+          },
+          "target_span": {
+            "start": {
+              "line": 38,
+              "col": 81
+            },
+            "end": {
+              "line": 38,
+              "col": 90
+            },
+            "text": "hp 変更なし"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 40,
+              "col": 1
+            },
+            "end": {
+              "line": 40,
+              "col": 83
+            },
+            "text": "---- 1) conventional air-cooled chiller: COP varies with ambient & lift (K) ----"
+          },
+          "target_span": {
+            "start": {
+              "line": 40,
+              "col": 1
+            },
+            "end": {
+              "line": 40,
+              "col": 49
+            },
+            "text": "---- 1) 従来の空冷チラー: COPは外気およびリフト (K) に応じて変動 ----"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 41,
+              "col": 60
+            },
+            "end": {
+              "line": 41,
+              "col": 89
+            },
+            "text": "condensing - evaporating, K"
+          },
+          "target_span": {
+            "start": {
+              "line": 41,
+              "col": 60
+            },
+            "end": {
+              "line": 41,
+              "col": 72
+            },
+            "text": "凝縮 - 蒸発, K"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 45,
+              "col": 1
+            },
+            "end": {
+              "line": 45,
+              "col": 88
+            },
+            "text": "---- 2) warm-water dry cooler: fan-only when ambient + approach meets loop limit ----"
+          },
+          "target_span": {
+            "start": {
+              "line": 45,
+              "col": 1
+            },
+            "end": {
+              "line": 45,
+              "col": 55
+            },
+            "text": "---- 2) 温水ドライクーラー: 外気 + アプローチがループ限界を満たす場合はファンのみ ----"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 48,
+              "col": 66
+            },
+            "end": {
+              "line": 48,
+              "col": 94
+            },
+            "text": "share of load needing trim"
+          },
+          "target_span": {
+            "start": {
+              "line": 48,
+              "col": 66
+            },
+            "end": {
+              "line": 48,
+              "col": 82
+            },
+            "text": "トリムを必要とする負荷の割合"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 53,
+              "col": 51
+            },
+            "end": {
+              "line": 53,
+              "col": 75
+            },
+            "text": "kWh per simulated week"
+          },
+          "target_span": {
+            "start": {
+              "line": 53,
+              "col": 51
+            },
+            "end": {
+              "line": 53,
+              "col": 73
+            },
+            "text": "シミュレーションされた週あたりの kWh"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 59,
+              "col": 16
+            },
+            "end": {
+              "line": 59,
+              "col": 46
+            },
+            "text": "only when explicitly enabled"
+          },
+          "target_span": {
+            "start": {
+              "line": 59,
+              "col": 16
+            },
+            "end": {
+              "line": 59,
+              "col": 32
+            },
+            "text": "明示的に有効化された場合のみ"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 67,
+              "col": 67
+            },
+            "end": {
+              "line": 67,
+              "col": 96
+            },
+            "text": "L/yr (upstream operational)"
+          },
+          "target_span": {
+            "start": {
+              "line": 67,
+              "col": 67
+            },
+            "end": {
+              "line": 67,
+              "col": 79
+            },
+            "text": "L/yr（上流運用）"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 81,
+              "col": 1
+            },
+            "end": {
+              "line": 81,
+              "col": 84
+            },
+            "text": "---- denominator verification of the workbook's mine-recovery \"extra energy\" ----"
+          },
+          "target_span": {
+            "start": {
+              "line": 81,
+              "col": 1
+            },
+            "end": {
+              "line": 81,
+              "col": 47
+            },
+            "text": "---- ワークブックの鉱山回収における「extra energy」の分母検証 ----"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 82,
+              "col": 50
+            },
+            "end": {
+              "line": 82,
+              "col": 92
+            },
+            "text": "coil fan penalty + mine pump + heat pump"
+          },
+          "target_span": {
+            "start": {
+              "line": 82,
+              "col": 50
+            },
+            "end": {
+              "line": 82,
+              "col": 80
+            },
+            "text": "コイルファンペナルティ + 鉱山ポンプ + ヒートポンプ"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 84,
+              "col": 9
+            },
+            "end": {
+              "line": 84,
+              "col": 89
+            },
+            "text": "DENOMINATOR CHECK — workbook mine extra energy = "
+          },
+          "target_span": {
+            "start": {
+              "line": 84,
+              "col": 9
+            },
+            "end": {
+              "line": 84,
+              "col": 65
+            },
+            "text": "分母確認 — ワークブック鉱山追加エネルギー = "
+          },
+          "placeholders": [
+            "{SUM['hot_dry']['extra']:.1f}"
+          ]
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 85,
+              "col": 9
+            },
+            "end": {
+              "line": 85,
+              "col": 86
+            },
+            "text": "= (coil fan penalty + mine pump + heat pump) / IT electricity, simulated week"
+          },
+          "target_span": {
+            "start": {
+              "line": 85,
+              "col": 9
+            },
+            "end": {
+              "line": 85,
+              "col": 58
+            },
+            "text": "= (コイルファンペナルティ + 鉱山ポンプ + ヒートポンプ) / IT電力、シミュレーション週"
+          },
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 86,
+              "col": 9
+            },
+            "end": {
+              "line": 86,
+              "col": 92
+            },
+            "text": "% of facility electricity | dPUE +"
+          },
+          "target_span": {
+            "start": {
+              "line": 86,
+              "col": 9
+            },
+            "end": {
+              "line": 86,
+              "col": 73
+            },
+            "text": "% 施設電力 | dPUE +"
+          },
+          "placeholders": [
+            "{100*ex_kwh/E_fac_mine:.2f}",
+            "{ex_kwh/E_IT:.3f}"
+          ]
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 87,
+              "col": 9
+            },
+            "end": {
+              "line": 87,
+              "col": 70
+            },
+            "text": " MWh/yr on the repeated-hot-week basis"
+          },
+          "target_span": {
+            "start": {
+              "line": 87,
+              "col": 9
+            },
+            "end": {
+              "line": 87,
+              "col": 51
+            },
+            "text": " MWh/yr（暑い週の繰り返し基準）"
+          },
+          "placeholders": [
+            "{ex_kwh*ANN/1e3:,.0f}"
+          ]
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 88,
+              "col": 9
+            },
+            "end": {
+              "line": 88,
+              "col": 114
+            },
+            "text": "Dry-cooler operation: fan-only "
+          },
+          "target_span": {
+            "start": {
+              "line": 88,
+              "col": 9
+            },
+            "end": {
+              "line": 88,
+              "col": 84
+            },
+            "text": "ドライクーラー運転: ファンのみ "
+          },
+          "placeholders": [
+            "{int(fan_only.sum())}",
+            "{int((~fan_only).sum())}"
+          ]
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 88,
+              "col": 9
+            },
+            "end": {
+              "line": 88,
+              "col": 114
+            },
+            "text": " h, mechanically assisted "
+          },
+          "target_span": {
+            "start": {
+              "line": 88,
+              "col": 9
+            },
+            "end": {
+              "line": 88,
+              "col": 84
+            },
+            "text": " h、機械アシスト "
+          },
+          "placeholders": [
+            "{int(fan_only.sum())}",
+            "{int((~fan_only).sum())}"
+          ]
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 89,
+              "col": 9
+            },
+            "end": {
+              "line": 89,
+              "col": 107
+            },
+            "text": "(of "
+          },
+          "target_span": {
+            "start": {
+              "line": 89,
+              "col": 9
+            },
+            "end": {
+              "line": 89,
+              "col": 67
+            },
+            "text": "(全 "
+          },
+          "placeholders": [
+            "{HOURS}",
+            "{HOURS}"
+          ]
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 89,
+              "col": 9
+            },
+            "end": {
+              "line": 89,
+              "col": 107
+            },
+            "text": " h); air-cooled chiller runs all "
+          },
+          "target_span": {
+            "start": {
+              "line": 89,
+              "col": 9
+            },
+            "end": {
+              "line": 89,
+              "col": 67
+            },
+            "text": " h中); 空冷チラーは全 "
+          },
+          "placeholders": [
+            "{HOURS}",
+            "{HOURS}"
+          ]
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 89,
+              "col": 9
+            },
+            "end": {
+              "line": 89,
+              "col": 107
+            },
+            "text": " h; dry-case direct water = 0 (adiabatic off)\\n"
+          },
+          "target_span": {
+            "start": {
+              "line": 89,
+              "col": 9
+            },
+            "end": {
+              "line": 89,
+              "col": 67
+            },
+            "text": " h稼働; 乾式ケース直接水 = 0 (断熱オフ)\\n"
+          },
+          "placeholders": [
+            "{HOURS}",
+            "{HOURS}"
+          ]
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 90,
+              "col": 9
+            },
+            "end": {
+              "line": 90,
+              "col": 119
+            },
+            "text": "COMPARISON (annualized x"
+          },
+          "target_span": {
+            "start": {
+              "line": 90,
+              "col": 9
+            },
+            "end": {
+              "line": 90,
+              "col": 78
+            },
+            "text": "比較 (年換算 x"
+          },
+          "placeholders": [
+            "{ANN:.1f}",
+            "{GRID_WI}"
+          ]
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 90,
+              "col": 9
+            },
+            "end": {
+              "line": 90,
+              "col": 119
+            },
+            "text": "; upstream at GRID_WI="
+          },
+          "target_span": {
+            "start": {
+              "line": 90,
+              "col": 9
+            },
+            "end": {
+              "line": 90,
+              "col": 78
+            },
+            "text": "; 上流 GRID_WI="
+          },
+          "placeholders": [
+            "{ANN:.1f}",
+            "{GRID_WI}"
+          ]
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 90,
+              "col": 9
+            },
+            "end": {
+              "line": 90,
+              "col": 119
+            },
+            "text": " L/kWh, hydro-reservoir-inclusive US 2023 ref)"
+          },
+          "target_span": {
+            "start": {
+              "line": 90,
+              "col": 9
+            },
+            "end": {
+              "line": 90,
+              "col": 78
+            },
+            "text": " L/kWh、水力発電貯水池を含む米国 2023 参照値)"
+          },
+          "placeholders": [
+            "{ANN:.1f}",
+            "{GRID_WI}"
+          ]
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 96,
+              "col": 8
+            },
+            "end": {
+              "line": 96,
+              "col": 105
+            },
+            "text": "\\nNET MAKEUP-PLUS-ELECTRICITY WATER-METRIC REDUCTION VS WET BASELINE (same-weather extrapolation)"
+          },
+          "target_span": {
+            "start": {
+              "line": 96,
+              "col": 8
+            },
+            "end": {
+              "line": 96,
+              "col": 47
+            },
+            "text": "\\n湿式ベースラインに対する正味の補給水+電力水指標削減量（同一気象での外挿）"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 99,
+              "col": 17
+            },
+            "end": {
+              "line": 99,
+              "col": 92
+            },
+            "text": " ML/yr; facility energy change "
+          },
+          "target_span": {
+            "start": {
+              "line": 99,
+              "col": 17
+            },
+            "end": {
+              "line": 99,
+              "col": 79
+            },
+            "text": " ML/yr; 施設エネルギー変化 "
+          },
+          "placeholders": [
+            "{nm}",
+            "{r['net_saved']:.1f}",
+            "{r['d_fac']:+.1f}"
+          ]
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "dry_cooling",
+          "source_span": {
+            "start": {
+              "line": 100,
+              "col": 8
+            },
+            "end": {
+              "line": 100,
+              "col": 112
+            },
+            "text": "Lower facility energy and a lower defined water-accounting metric are separate objectives; inspect both."
+          },
+          "target_span": {
+            "start": {
+              "line": 100,
+              "col": 8
+            },
+            "end": {
+              "line": 100,
+              "col": 56
+            },
+            "text": "より低い施設エネルギーと、より低い定義された水会計指標は別個の目的です。両方を精査してください。"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "analysis_plots",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 92
+            },
+            "text": "===== Water-energy plots: onsite vs upstream, trade-off, grid-intensity sensitivity ====="
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 54
+            },
+            "text": "===== 水とエネルギーのプロット: オンサイト vs 上流、トレードオフ、系統強度感度 ====="
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "analysis_plots",
+          "source_span": {
+            "start": {
+              "line": 6,
+              "col": 1
+            },
+            "end": {
+              "line": 6,
+              "col": 45
+            },
+            "text": "--- 1) stacked onsite + upstream water ---"
+          },
+          "target_span": {
+            "start": {
+              "line": 6,
+              "col": 1
+            },
+            "end": {
+              "line": 6,
+              "col": 27
+            },
+            "text": "--- 1) 積み上げ現場 + 上流の水 ---"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "analysis_plots",
+          "source_span": {
+            "start": {
+              "line": 8,
+              "col": 21
+            },
+            "end": {
+              "line": 8,
+              "col": 42
+            },
+            "text": "onsite (tower makeup)"
+          },
+          "target_span": {
+            "start": {
+              "line": 8,
+              "col": 21
+            },
+            "end": {
+              "line": 8,
+              "col": 31
+            },
+            "text": "現場（冷却塔補給水）"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "analysis_plots",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 10,
+              "col": 22
+            },
+            "end": {
+              "line": 10,
+              "col": 62
+            },
+            "text": "upstream electricity (@ "
+          },
+          "target_span": {
+            "start": {
+              "line": 10,
+              "col": 22
+            },
+            "end": {
+              "line": 10,
+              "col": 46
+            },
+            "text": "上流電力 (@ "
+          },
+          "placeholders": [
+            "{GRID_WI}"
+          ]
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "analysis_plots",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 12,
+              "col": 25
+            },
+            "end": {
+              "line": 12,
+              "col": 111
+            },
+            "text": "Annualized site makeup plus attributed electricity water (ML/yr; grid "
+          },
+          "target_span": {
+            "start": {
+              "line": 12,
+              "col": 25
+            },
+            "end": {
+              "line": 12,
+              "col": 70
+            },
+            "text": "年換算の現場補給水および発電起因水 (ML/yr; 系統 "
+          },
+          "placeholders": [
+            "{GRID_WI}"
+          ]
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "analysis_plots",
+          "source_span": {
+            "start": {
+              "line": 13,
+              "col": 25
+            },
+            "end": {
+              "line": 13,
+              "col": 38
+            },
+            "text": "Water (ML/yr)"
+          },
+          "target_span": {
+            "start": {
+              "line": 13,
+              "col": 25
+            },
+            "end": {
+              "line": 13,
+              "col": 35
+            },
+            "text": "水量 (ML/yr)"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "analysis_plots",
+          "source_span": {
+            "start": {
+              "line": 15,
+              "col": 1
+            },
+            "end": {
+              "line": 15,
+              "col": 39
+            },
+            "text": "--- 2) water-vs-energy trade-off ---"
+          },
+          "target_span": {
+            "start": {
+              "line": 15,
+              "col": 1
+            },
+            "end": {
+              "line": 15,
+              "col": 28
+            },
+            "text": "--- 2) 水とエネルギーのトレードオフ ---"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "analysis_plots",
+          "source_span": {
+            "start": {
+              "line": 25,
+              "col": 63
+            },
+            "end": {
+              "line": 25,
+              "col": 125
+            },
+            "text": "Trade-off: water-accounting reduction vs extra facility energy"
+          },
+          "target_span": {
+            "start": {
+              "line": 25,
+              "col": 63
+            },
+            "end": {
+              "line": 25,
+              "col": 92
+            },
+            "text": "トレードオフ: 水会計上の削減量 vs 追加施設エネルギー"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "analysis_plots",
+          "source_span": {
+            "start": {
+              "line": 26,
+              "col": 25
+            },
+            "end": {
+              "line": 26,
+              "col": 69
+            },
+            "text": "Facility energy increase vs wet baseline (%)"
+          },
+          "target_span": {
+            "start": {
+              "line": 26,
+              "col": 25
+            },
+            "end": {
+              "line": 26,
+              "col": 51
+            },
+            "text": "湿式ベースラインに対する施設エネルギー増加率 (%)"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "analysis_plots",
+          "source_span": {
+            "start": {
+              "line": 27,
+              "col": 25
+            },
+            "end": {
+              "line": 27,
+              "col": 59
+            },
+            "text": "Water-accounting reduction (ML/yr)"
+          },
+          "target_span": {
+            "start": {
+              "line": 27,
+              "col": 25
+            },
+            "end": {
+              "line": 27,
+              "col": 39
+            },
+            "text": "水会計削減量 (ML/yr)"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "analysis_plots",
+          "source_span": {
+            "start": {
+              "line": 30,
+              "col": 1
+            },
+            "end": {
+              "line": 30,
+              "col": 93
+            },
+            "text": "--- 3) sensitivity: fraction of onsite saving shifted upstream vs grid water intensity ---"
+          },
+          "target_span": {
+            "start": {
+              "line": 30,
+              "col": 1
+            },
+            "end": {
+              "line": 30,
+              "col": 43
+            },
+            "text": "--- 3) 感度: 上流にシフトした現場節水の割合 vs 系統水原単位 ---"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "analysis_plots",
+          "source_span": {
+            "start": {
+              "line": 40,
+              "col": 61
+            },
+            "end": {
+              "line": 40,
+              "col": 126
+            },
+            "text": "Sensitivity: makeup saving offset by attributed electricity water"
+          },
+          "target_span": {
+            "start": {
+              "line": 40,
+              "col": 61
+            },
+            "end": {
+              "line": 40,
+              "col": 87
+            },
+            "text": "感度分析: 発電起因水によって相殺される補給水節減量"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "analysis_plots",
+          "source_span": {
+            "start": {
+              "line": 41,
+              "col": 25
+            },
+            "end": {
+              "line": 41,
+              "col": 78
+            },
+            "text": "Grid water intensity (L/kWh, operational consumption)"
+          },
+          "target_span": {
+            "start": {
+              "line": 41,
+              "col": 25
+            },
+            "end": {
+              "line": 41,
+              "col": 46
+            },
+            "text": "系統水消費原単位 (L/kWh、運用消費)"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "analysis_plots",
+          "source_span": {
+            "start": {
+              "line": 42,
+              "col": 25
+            },
+            "end": {
+              "line": 42,
+              "col": 49
+            },
+            "text": "Makeup saving offset (%)"
+          },
+          "target_span": {
+            "start": {
+              "line": 42,
+              "col": 25
+            },
+            "end": {
+              "line": 42,
+              "col": 37
+            },
+            "text": "補給水節減相殺率 (%)"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "analysis_plots",
+          "source_span": {
+            "start": {
+              "line": 44,
+              "col": 71
+            },
+            "end": {
+              "line": 44,
+              "col": 77
+            },
+            "text": "gas CC"
+          },
+          "target_span": {
+            "start": {
+              "line": 44,
+              "col": 71
+            },
+            "end": {
+              "line": 44,
+              "col": 75
+            },
+            "text": "ガスCC"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "analysis_plots",
+          "source_span": {
+            "start": {
+              "line": 45,
+              "col": 70
+            },
+            "end": {
+              "line": 45,
+              "col": 74
+            },
+            "text": "coal"
+          },
+          "target_span": {
+            "start": {
+              "line": 45,
+              "col": 70
+            },
+            "end": {
+              "line": 45,
+              "col": 72
+            },
+            "text": "石炭"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "analysis_plots",
+          "source_span": {
+            "start": {
+              "line": 46,
+              "col": 70
+            },
+            "end": {
+              "line": 46,
+              "col": 91
+            },
+            "text": "US 2023 (incl. hydro)"
+          },
+          "target_span": {
+            "start": {
+              "line": 46,
+              "col": 70
+            },
+            "end": {
+              "line": 46,
+              "col": 84
+            },
+            "text": "米国 2023 (水力含む)"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        }
+      ],
+      "exclusions": []
+    },
+    "nativeSpeakerReview": "pending"
+  },
+  "browser": {
+    "status": "passed",
+    "first": {
+      "exportSha256": "148a77c2a34aca8df128cc076a49c7261ff476bc3e49f87fe6f4c0027a258397",
+      "reportSha256": "6723dc02edce101a1c07b98915b4ed3faf769270cdcafc3e46ed48ae4c16e969",
+      "appVersion": "1.4.0",
+      "cells": 7,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "second": {
+      "exportSha256": "32d987cc7c54be3249dd25f359182b1670983894ea2b83be351e02641e692291",
+      "reportSha256": "6723dc02edce101a1c07b98915b4ed3faf769270cdcafc3e46ed48ae4c16e969",
+      "appVersion": "1.4.0",
+      "cells": 7,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "englishBaseline": [
+      {
+        "exportSha256": "783c3be245e87afc47399448a254f6c61e4dfa3b8abcbe4d576d394480be8615",
+        "reportSha256": "dce1a2b4759b2e7f4f2e5882af9296e4e7a3bb61abc863b5620d3b00abd286cc",
+        "appVersion": "1.4.0",
+        "cells": 7,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      },
+      {
+        "exportSha256": "4276b663b5d6d795886675a6db2e903a4fe8b1c903f0134bed4abc814830be39",
+        "reportSha256": "dce1a2b4759b2e7f4f2e5882af9296e4e7a3bb61abc863b5620d3b00abd286cc",
+        "appVersion": "1.4.0",
+        "cells": 7,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      }
+    ],
+    "deterministic": true,
+    "textOracle": {
+      "first": {
+        "pass": true,
+        "failures": [],
+        "warnings": [
+          "cell 4: reaches_output:none span appears in output: \"コイルファンペナルティ + 鉱山ポンプ + ヒートポンプ\""
+        ],
+        "plotCells": [
+          3,
+          5
+        ],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      },
+      "second": {
+        "pass": true,
+        "failures": [],
+        "warnings": [
+          "cell 4: reaches_output:none span appears in output: \"コイルファンペナルティ + 鉱山ポンプ + ヒートポンプ\""
+        ],
+        "plotCells": [
+          3,
+          5
+        ],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      }
+    },
+    "plotData": {
+      "status": "passed",
+      "count": 5
+    },
+    "rasterCharts": null,
+    "renderedReview": "controller-AI-reviewed",
+    "rendering": {
+      "status": "passed",
+      "scope": "Titles, axes, legends and glyphs visually checked in captured app renders; not native-language approval.",
+      "nativeSpeakerReview": "pending"
+    }
+  },
+  "caveat": "Machine translated with Gemini and reviewed by AI/controller checks, including scoped corrections where needed. Native-speaker review is pending; structural and numerical checks do not certify prose quality."
+}

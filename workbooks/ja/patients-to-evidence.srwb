@@ -1,0 +1,87 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "患者からエビデンスへ",
+    "cells": [
+      {
+        "type": "markdown",
+        "code": "# 患者からエビデンスへ\n\n**学習目標**\n1. ランダム化比較試験をシミュレーションし、**真の生成確率**と**観測された標本推定量**を区別する。\n2. 中核となる効果指標を計算する：リスク差、絶対リスク減少（ARR）、リスク比（RR）、相対リスク減少（RRR）、および治療必要数（NNT）。\n3. **標本変動**、95%信頼区間、およびその正しい頻度論的解釈を理解する。\n4. ベースラインリスクが変化するにつれて、同じ**相対**リスクが大きく異なる**絶対**的利益を意味し得る理由を理解する。\n5. *ゼロとの統計的両立性*と*臨床的重要性*（例示のために想定した閾値 = 0.02の絶対減少）を区別する。\n\n> ⚠️ すべてのデータは**合成**されたものであり、教育目的のみに使用されます。**医学的な助言ではありません。**\n\n**実行環境と実行順序。** SciREPLのPython（Pyodide）カーネルを使用してください。コードセルを次の順序で実行します：`one-trial-simulation` → `coverage-simulation` → `baseline-risk-plot` → `compatibility-analysis`。NumPyはSciREPLのPythonランタイムで利用可能であり、SciREPLはブラウザでレンダリングされるラベルを備えた対話型Plotlyチャート用の`mplot`ヘルパーを提供しています。このワークブックにはMatplotlibや`micropip`パッケージのインストールは不要であり、ワークブック発のダウンロードやアップロードは行われません。`mplot`ヘルパーはアプリから提供されるものであり、通常のネイティブPythonスクリプトの一部ではありません。\n\nこの架空のモデルは、12か月の完全な追跡と、各群内での独立した二値アウトカムを前提としています。これは算術的・統計的な教育用演習であり、実際の治療や医療上の決定に対するエビデンスではありません。",
+        "language": "markdown",
+        "name": "title-goals"
+      },
+      {
+        "type": "markdown",
+        "code": "## 1 · 一つの試験\n\n架空の試験：**各群500名の患者**、12か月の入院リスク\n- 対照群：真の確率 **0.12**\n- 治療群：真の確率 **0.08**\n\n自然はこれらの**生成確率**を「知っています」。分析者である私たちに見えるのは**観測された度数**だけであり、これは0.12や0.08に正確には一致しないランダムな抽出値です。以下の一回の試験による推定値は、観測された度数から計算されます。既知の生成確率は、信頼区間の被覆率を確認するため、またそれとは別に、ベースラインリスクのシナリオ全体で一定のリスク比を想定した場合を説明するために使用されます。",
+        "language": "markdown",
+        "name": "one-trial-context"
+      },
+      {
+        "type": "code",
+        "code": "import numpy as np\nfrom math import ceil\n\nSEED = 42\nN = 500          # 各群の患者数\nP_C, P_T = 0.12, 0.08   # 真の生成確率\nMCID = 0.02      # 例示のために想定された臨床的最小重要減少\n\nassert isinstance(N, int) and N > 0\nassert 0 <= P_C <= 1 and 0 <= P_T <= 1\n\nrng = np.random.default_rng(SEED)\nev_c = int(rng.binomial(N, P_C))   # 観測された入院数、対照群\nev_t = int(rng.binomial(N, P_T))   # 観測された入院数、治療群\n\n# --- 観測された推定量（分析者が実際に見るもの） ---\nr_c, r_t = ev_c / N, ev_t / N\nrisk_difference = r_t - r_c            # 治療群から対照群を引いた値（ここでは負 = 治療群が優れている）\narr = r_c - r_t                        # 絶対リスク減少 = -(risk_difference)、正 = 利益\nrr  = r_t / r_c if r_c > 0 else np.nan\nrrr = 1 - rr if r_c > 0 else np.nan\nnnt = 1 / arr if arr > 0 else np.inf   # ARR <= 0 の場合、利益の有限なNNTはなし\nnnh = 1 / (-arr) if arr < 0 else np.inf # ARR < 0 の場合の害必要数\nse  = np.sqrt(r_c * (1 - r_c) / N + r_t * (1 - r_t) / N)  # ARRの観測データSE\nci  = (arr - 1.96 * se, arr + 1.96 * se)                  # ARRの95% CI\n\nprint(f\"真の生成確率 : 対照群 {P_C:.3f}, 治療群 {P_T:.3f}\")\nprint(f\"観測されたイベント数 (n={N}/群)   : 対照群 {ev_c}, 治療群 {ev_t}\")\nprint(\"-\" * 56)\nprint(f\"観測されたリスク、対照群      : {r_c:.3f}  (真値 {P_C:.3f})\")\nprint(f\"観測されたリスク、治療群      : {r_t:.3f}  (真値 {P_T:.3f})\")\nprint(f\"リスク差 (T - C)               : {risk_difference:+.3f}  (負 = 治療群でイベントがより少ない)\")\nprint(f\"絶対リスク減少 (ARR)         : {arr:.3f}   (= -(リスク差)、正 = 利益)\")\nprint(f\"リスク比 (RR)                 : {rr:.3f}\")\nprint(f\"相対リスク減少 (RRR)         : {rrr:.1%}\")\nif np.isfinite(nnt):\n    print(f\"利益のNNT（未丸め）          : {nnt:.1f}\")\nelse:\n    print(\"利益のNNT（未丸め）          : 利益の有限なNNTはなし (ARR <= 0)\")\nif arr > 0:\n    print(f\"利益のNNT（切り上げ）        : {ceil(nnt)}\")\nelif arr < 0:\n    print(f\"NNH（未丸め；治療による害）   : {nnh:.1f}\")\nelse:\n    print(\"ARRがゼロ：利益の有限なNNTも有限なNNHも存在しません。\")\nprint(f\"ARRのSE（観測データ）        : {se:.4f}\")\nprint(f\"ARRの95% CI                  : ({ci[0]:+.3f}, {ci[1]:+.3f})\")",
+        "language": "python",
+        "name": "one-trial-simulation"
+      },
+      {
+        "type": "markdown",
+        "code": "## 2 · 標本変動と95%信頼区間\n\n一つの試験は一回の抽出です。1000名の患者による試験全体を何度も繰り返すと、観測されるARRは異なるものになります — それは生物学的な変化ではなく、**標本変動**です。\n\n**95%信頼区間**は、長期的な被覆率95%を目標とする手順から得られます。このワークブックでは**近似Wald法**を使用しています。実際の被覆率は、特に小標本の場合や確率が0または1に近い場合に、95%から異なることがあります。個々の区間は、真のARRを含んでいるか、含んでいないかのいずれかです。実際の研究では通常どちらであるかは分かりませんが、このシミュレーションでは生成確率が既知であるため、確認することができます。頻度論的な解釈は、「真の値がこの区間内にある確率が95%である」ということでは**ありません**。\n\n有限回のシミュレーション試験全体において、推定された被覆率もモンテカルロ抽出によって変動します。厳密に95%であることを期待するのではなく、公称の95%という目標と比較してください。",
+        "language": "markdown",
+        "name": "sampling-variation-explanation"
+      },
+      {
+        "type": "code",
+        "code": "import numpy as np\n\n# リスク差に対する近似Wald 95% CI。\n# この例の度数に対しては妥当ですが、厳密な被覆率の保証ではありません。\ndef one_trial(r):\n    c = r.binomial(N, P_C) / N\n    t = r.binomial(N, P_T) / N\n    d = c - t\n    se_i = np.sqrt(c * (1 - c) / N + t * (1 - t) / N)\n    return d, (d - 1.96 * se_i, d + 1.96 * se_i)\n\nN_SIMS = 2000\nr = np.random.default_rng(7)\nres = [one_trial(r) for _ in range(N_SIMS)]\narrs = np.array([d for d, _ in res])\ncovers = np.array([lo <= P_C - P_T <= hi for _, (lo, hi) in res])\nTRUE_ARR = P_C - P_T\nlo, hi = ci\n\nprint(f\"私たちの試験 (シード {SEED}): 観測されたARR = {arr:+.3f}, 95% CI = ({lo:+.3f}, {hi:+.3f})\")\nif lo <= TRUE_ARR <= hi:\n    print(f\"真のARR = {TRUE_ARR:.3f} -> 私たちのCIはこれを含んでいる\")\nelse:\n    print(f\"真のARR = {TRUE_ARR:.3f} -> 私たちのCIはこれを含んでいない\")\nprint(f\"公称95% CI手順の推定被覆率 ( {N_SIMS} 回のシミュレーション試験全体): {covers.mean():.1%}\")\nprint(\"95%は公称目標であり、このWald近似における厳密な保証ではありません。\")\nprint(\"有限回のシミュレーション全体において、推定被覆率にもモンテカルロ変動があります。\")\n\n# オリジナルの40ビンのヒストグラムに正確に一致させます。Plotlyの自動ビン分割は使用しないでください。\nhist_counts, hist_edges = np.histogram(arrs, bins=40)\nhist_centers = (hist_edges[:-1] + hist_edges[1:]) / 2\nhist_widths = np.diff(hist_edges)\nmplot(\n    [{\"type\": \"bar\", \"x\": hist_centers, \"y\": hist_counts,\n      \"width\": hist_widths.tolist(), \"marker\": {\"color\": \"#7fb3d5\"},\n      \"showlegend\": False}],\n    title=f\"ARRの標本変動 ({N_SIMS} 回の試験)\",\n    xlabel=\"シミュレーション試験全体で観測されたARR\",\n    ylabel=\"試験の数\",\n    layout={\n        \"bargap\": 0,\n        \"showlegend\": True,\n        \"legend\": {\"font\": {\"size\": 10}},\n        \"shapes\": [\n            {\"type\": \"line\", \"xref\": \"x\", \"yref\": \"paper\",\n             \"x0\": float(TRUE_ARR), \"x1\": float(TRUE_ARR), \"y0\": 0, \"y1\": 1,\n             \"line\": {\"color\": \"darkgreen\", \"width\": 2},\n             \"showlegend\": True, \"name\": f\"真のARR = {TRUE_ARR:.3f}\"},\n            {\"type\": \"line\", \"xref\": \"x\", \"yref\": \"paper\",\n             \"x0\": 0, \"x1\": 0, \"y0\": 0, \"y1\": 1,\n             \"line\": {\"color\": \"crimson\", \"width\": 2, \"dash\": \"dash\"},\n             \"showlegend\": True, \"name\": \"効果なし (0)\"},\n            {\"type\": \"rect\", \"xref\": \"x\", \"yref\": \"paper\",\n             \"x0\": float(lo), \"x1\": float(hi), \"y0\": 0, \"y1\": 1,\n             \"line\": {\"width\": 0}, \"fillcolor\": \"rgba(128,128,128,0.15)\",\n             \"layer\": \"below\", \"showlegend\": True, \"name\": \"私たちの試験の95% CI\"},\n        ],\n    },\n)",
+        "language": "python",
+        "name": "coverage-simulation"
+      },
+      {
+        "type": "markdown",
+        "code": "## 3 · 同じ相対リスク、異なる絶対的利益\n\nこの単純化された演習では、集団間で**生成リスク比が一定であると仮定**しています。実際の相対効果はある集団と別の集団で異なる場合があります。その仮定の下でも、絶対的利益はベースラインにおいてそのアウトカムがどの程度一般的であるかに依然として左右されます。RRを既知の生成値である$P_T/P_C = 0.08/0.12 \\approx 0.667$に固定したままにすると、高リスク集団は低リスク集団よりも絶対的な観点で遥かに大きな利益を得られ、治療が必要な患者数も遥かに少なくなります。\n\n$$\\text{ARR} = p_C(1 - \\text{RR}), \\qquad \\text{NNT} = 1/\\text{ARR}$$\n\n> **教育上の単純化のための仮定：** 集団全体で0.667という生成RRを固定された既知の定数として扱います。現実には、治療の相対効果はベースラインリスクや患者の特性によって変動する可能性があります — このセクションは算術的な側面を分離して説明するものであり、実証的な主張ではありません。",
+        "language": "markdown",
+        "name": "constant-rr-explanation"
+      },
+      {
+        "type": "code",
+        "code": "import numpy as np\nimport textwrap\n\ndef _risk_wrap_label(text, width):\n    return \"<br>\".join(textwrap.wrap(str(text), width=width, break_long_words=False, break_on_hyphens=False))\n\n\nrr_known = P_T / P_C                     # 固定された既知の生成RR = 0.08/0.12 ≈ 0.667\nbaselines = np.array([0.02, 0.05, 0.12, 0.20, 0.30])\narrs_b = baselines * (1 - rr_known)\nnnts_b = 1 / arrs_b\n\nprint(f\"固定された既知の生成RR = {rr_known:.3f} （全シナリオ共通）\")\nprint(f\"{'ベースラインリスク':>13} | {'ARR':>6} | {'NNT':>6}\")\nprint(\"-\" * 33)\nfor b, a, n in zip(baselines, arrs_b, nnts_b):\n    print(f\"{b:>13.2f} | {a:>6.3f} | {n:>6.1f}\")\n\nmplot(\n    [\n        {\"x\": baselines, \"y\": arrs_b, \"mode\": \"lines+markers\",\n         \"line\": {\"color\": \"#2874a6\"}, \"marker\": {\"symbol\": \"circle\"},\n         \"name\": \"ARR = p_C(1−RR)\"},\n        {\"x\": baselines, \"y\": nnts_b, \"mode\": \"lines+markers\", \"yaxis\": \"y2\",\n         \"line\": {\"color\": \"#b03a2e\", \"dash\": \"dash\"},\n         \"marker\": {\"symbol\": \"square\"}, \"name\": \"NNT = 1/ARR\"},\n    ],\n    title=_risk_wrap_label(\"一つの（一定と仮定された）RR、多様な絶対的利益\", 45),\n    xlabel=_risk_wrap_label(\"対照群におけるベースライン12か月リスク (p_C)\", 48),\n    ylabel=_risk_wrap_label(\"絶対リスク減少\", 24),\n    layout={\n        \"height\": 540,\n        \"margin\": {\"t\": 100, \"r\": 110, \"b\": 100, \"l\": 90},\n        \"yaxis\": {\"automargin\": True, \"title\": {\"text\": _risk_wrap_label(\"絶対リスク減少\", 24), \"font\": {\"color\": \"#2874a6\"}}},\n        \"yaxis2\": {\"automargin\": True, \"title\": {\"text\": _risk_wrap_label(\"治療必要数\", 24), \"font\": {\"color\": \"#b03a2e\"}},\n                  \"overlaying\": \"y\", \"side\": \"right\"},\n        \"legend\": {\"orientation\": \"v\", \"x\": 0.98, \"y\": 0.98,\n                   \"xanchor\": \"right\", \"yanchor\": \"top\",\n                   \"bgcolor\": \"rgba(22,27,34,0.85)\", \"font\": {\"size\": 10}},\n        \"shapes\": [\n            {\"type\": \"line\", \"xref\": \"paper\", \"yref\": \"y\",\n             \"x0\": 0, \"x1\": 1, \"y0\": float(MCID), \"y1\": float(MCID),\n             \"line\": {\"color\": \"orange\", \"width\": 1.5, \"dash\": \"dash\"},\n             \"showlegend\": True, \"name\": \"想定されたMCID 0.02\"},\n        ],\n    },\n)",
+        "language": "python",
+        "name": "baseline-risk-plot"
+      },
+      {
+        "type": "markdown",
+        "code": "## 4 · ゼロと両立可能 ≠ 臨床的に重要ではない\n\nしばしば混同される、二つの異なる問い：\n\n- **ゼロとの統計的両立性：** 「効果なし」はデータと合理的に両立する値の中に含まれているか？（95% CIに0が含まれているか？ p値はいくらか？）\n- **臨床的妥当性：** その効果は重要視するのに十分な大きさか？ ここでは、**想定された**臨床的最小重要差（MCID）として0.02を使用します — これは説明のために仮定した値であり、データによって確立されたものではありません。\n\np値単独ではどちらの問いにも適切には答えられず、想定されたMCIDを超えることだけで重要性が確定するわけでもありません：害、患者の意向、そして費用も依然として重要です。以下では、CIをゼロラインとMCIDラインの**両方**と比較します。",
+        "language": "markdown",
+        "name": "compatibility-explanation"
+      },
+      {
+        "type": "code",
+        "code": "import numpy as np\nfrom math import erfc, sqrt\n\nlo, hi = ci\nprint(f\"観測されたARR = {arr:+.3f}, 95% CI = ({lo:+.3f}, {hi:+.3f})\")\n\nif not np.isfinite(se) or se <= 0:\n    print(\"SEがゼロであるため、正規近似検定は定義されません。\")\n    print(\"退化したWald区間は、確実性を示す信頼できる証拠ではありません。\")\n    print(\"スパースな、または境界にあるイベント度数に適した区間/検定を使用してください。\")\nelse:\n    z_stat = arr / se\n    p_two = erfc(abs(z_stat) / sqrt(2))  # 安定した両側正規裾確率\n    includes_zero = lo <= 0 <= hi\n    above_mcid = lo > MCID\n\n    print(f\"z = {z_stat:.2f}, 両側近似p = {p_two:.3g}\")\n    print(f\"CIに0が含まれる（効果なしと両立可能）: {includes_zero}\")\n    print(f\"CI全体が想定されたMCIDを完全に上回る、基準値 {MCID:.3f}: {above_mcid}\")\n    print(\"-\" * 60)\n    if includes_zero:\n        print(\"効果なしはこの近似CIと両立可能な値の中に含まれています。\")\n        print(\"これは効果がないことの証明ではありません。CIの全範囲を確認してください。\")\n    else:\n        print(\"ゼロは、設定されたモデルの下でこの近似CIの外側にあります。\")\n        print(\"CIの符号と範囲は、両立可能な効果量を表しています。\")\n\n    if above_mcid:\n        print(\"近似CI全体が、想定された臨床的閾値を超えています。\")\n    elif hi < MCID:\n        print(\"近似CI全体が、想定された臨床的閾値を下回っています。\")\n    else:\n        print(\"近似CIには想定された臨床的閾値が含まれています:\")\n        print(\"データはその閾値との比較を明確には解決していません。\")\n\n    print(\"MCIDは説明のために仮定されたものであり、これらのデータによって確立されたものではありません。\")\n    print(\"臨床的重要性は害、患者の意向、\")\n    print(\"および費用にも左右されますが、このシミュレーションではそれらを表現していません。\")",
+        "language": "python",
+        "name": "compatibility-analysis"
+      },
+      {
+        "type": "markdown",
+        "code": "### ✅ チェックポイント\n\n二つの新薬がそれぞれ入院において**50%の相対リスク減少**を示しています。\n\n- 薬剤Aは、ベースラインの12か月リスクが**20%**の集団で試験されています。\n- 薬剤Bは、ベースラインリスクが**2%**の集団で試験されています。\n\n厳密な計算をすることなく答えてください：どちらの薬剤のほうが絶対的利益が大きいでしょうか？ また、一回の入院を防ぐために薬剤Bでおよそ何名の患者を治療する必要があるでしょうか？ そして、このことは相対リスクだけで薬剤を判断することについて何を教えてくれるでしょうか？\n\n*（解答は次のセルにあります — まずは自分で考えてみましょう！）*",
+        "language": "markdown",
+        "name": "checkpoint"
+      },
+      {
+        "type": "markdown",
+        "code": "### 🔑 チェックポイントの解答\n\n- **薬剤A：** ARR = 0.20 × 0.50 = **0.10** → NNT = **10**。\n- **薬剤B：** ARR = 0.02 × 0.50 = **0.01** → NNT = **100**。\n\n同一の相対リスクであるにもかかわらず、薬剤Aの絶対的利益は**十倍大きく**なります。相対リスクだけで判断すること（「どちらもリスクを半減させた！」）は、費用、負担、または害が利益を上回る可能性があるほど薬剤Bの利益が小さいかもしれないという事実を覆い隠してしまいます — ベースラインリスクに応じて、同じ*相対*効果が著しく異なる*絶対*価値を意味し得るのです。",
+        "language": "markdown",
+        "name": "checkpoint-answer"
+      },
+      {
+        "type": "markdown",
+        "code": "### ✍️ 読者演習\n\n`one-trial-simulation`（セル3）をテンプレートとして使用し、同じシード（`SEED = 42`）、`N = 500`、および`P_C, P_T = 0.12, 0.08`を設定します：\n\n1. シードを`2024`に変更し、観測されたARR、RR、およびNNTを再計算します。それらはどの程度変動するでしょうか？\n2. 標本サイズを半分の`N = 250`にします（シード42はそのまま維持）。まず`one-trial-simulation`を再実行し、次に`coverage-simulation`（セル5）、`baseline-risk-plot`、および`compatibility-analysis`を実行します。95% CIの幅はどうなるでしょうか？\n3. 任意：（いくつかのシードを試して）真のARRである0.040を*逃す*CIを生成するシードがあるかどうかを調べます。被覆率が公称の95%という目標に近い場合、多くのシード全体でおよそどのくらいの頻度でそれが起こると予想されますか？\n\nヒント：`one-trial-simulation`内の`SEED`または`N`を変更し、そのセルとそれ以降のコードセルを順番に再実行してください。セルのテキストを変更しても、保存されたカーネル変数は再計算されません。他の条件がすべて同じであれば、期待されるCIの幅はおよそ$1/\\sqrt{N}$に比例します。個々のランダムな試験では異なる結果になる場合があります。",
+        "language": "markdown",
+        "name": "reader-exercise"
+      },
+      {
+        "type": "markdown",
+        "code": "### ⚠️ このワークブックの限界\n\n- **合成データ。** この試験は既知の確率を用いたシミュレーションです。実際の試験には、ここではモデル化されていない複雑な現実（追跡不能、アドヒアランス不良、非盲検化）が加わります。\n- **二値アウトカムのみ。** 入院は12か月以内の有無（yes/no）として扱われます。競合リスク、打ち切り、または時間事象解析（生存時間解析）は含まれません。\n- **正規近似CI。** これはリスク差に対する公称95%のWald区間であり、厳密な被覆を保証するものではありません。度数が疎である場合や境界にある場合は、二つの独立した比率に対するスコアベースの区間など、適切な手法が必要となります。一般的なブートストラップ法は、イベント数がゼロに近い場合には自動的に信頼できるわけではありません。\n- **多重性や研究デザイン上の問題の非考慮。** 実際の実臨床試験の信頼性において極めて重要である、複数評価項目、中間解析、割り付けの隠蔽化、事前登録などは無視しています。\n- **頻度論の枠組みのみ。** ベイズ流の事後分布や意思決定分析の視点はなく、「臨床的重要性」も想定されたものであり、患者の意向や費用対効果から導かれたものではありません。\n- **時間および集団に固有のNNT。** これらはこのシミュレーション集団および12か月の入院アウトカムに対する点推定値です。NNTは追跡期間やサブグループによって異なる可能性があり、このワークブックではNNTの信頼区間を提供していません。推定されたARRが負の場合、コードは有益なNNTではなく害必要数（NNH）を報告します。\n\n**留意点：** 合成データであり、教育目的のみに使用されます — **医学的な助言ではありません**。\n\n**主要な統計学参考文献：** [Altman and Andersen, 時間事象アウトカムに対するNNT, BMJ 1999](https://www.bmj.com/content/319/7223/1492); [Wang and Hutson, 平滑化ブートストラップに基づく信頼区間, Journal of Applied Statistics 2013](https://pmc.ncbi.nlm.nih.gov/articles/PMC4789773/)。",
+        "language": "markdown",
+        "name": "limitations"
+      }
+    ]
+  }
+}

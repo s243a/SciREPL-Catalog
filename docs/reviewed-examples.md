@@ -52,7 +52,11 @@ The controller applies only the proposed prose. Identifiers, cell names,
 data keys, dataset values, hashes, URLs and executable code tokens remain
 unchanged, including in Arabic. Display text/comments may translate.
 Known untranslated headings or prose hold an edition out of the index.
-Machine-reviewed translations still await native-speaker review.
+All six lessons now have editions in all 13 locales. The 72 non-English
+editions are **machine-translated; native-speaker review pending**. The owner
+authorized publication with this caveat; that authorization is not language
+approval. AI/controller review and scoped corrections are recorded honestly,
+including cases where the final correction was not freshly Gemini-reviewed.
 
 Compact receipts under `reviews/examples/` pin the exact English and
 translated artifact hashes, code-span manifest, content audit and two
@@ -84,8 +88,8 @@ node tools/test-span-tools.mjs
 node tools/test-output-oracle.mjs
 node tools/test-example-plot-data.mjs
 node tools/translate-example-prose.mjs --self-test
-node tools/test-example-editions.mjs --locale en
-node tools/register-example-workbooks.mjs --locale en --check
+node tools/test-example-editions.mjs
+node tools/register-example-workbooks.mjs --check
 node tools/build-index.mjs --check
 ```
 

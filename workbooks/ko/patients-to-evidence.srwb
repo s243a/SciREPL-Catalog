@@ -1,0 +1,87 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "환자에서 근거로",
+    "cells": [
+      {
+        "type": "markdown",
+        "code": "# 환자에서 근거로\n\n**학습 목표**\n1. 무작위 배정 임상시험을 시뮬레이션하고 **참 생성 확률**과 **관찰된 표본 추정치**를 구별합니다.\n2. 핵심 효과 척도를 계산합니다: 위험 차이, 절대 위험 감소(ARR), 위험비(RR), 상대 위험 감소(RRR), 치료필요수(NNT).\n3. **표본추출 변동**, 95% 신뢰구간 및 그 올바른 빈도주의적 해석을 이해합니다.\n4. 기저 위험이 변함에 따라 동일한 **상대적** 위험이 왜 매우 다른 **절대적** 이득을 의미할 수 있는지 확인합니다.\n5. *영과의 통계적 양립성*을 *임상적 중요성*과 구분합니다(예시용으로 가정한 임계값 = 0.02 절대 감소).\n\n> ⚠️ 모든 데이터는 **가상**이며 교육 목적으로만 제공됩니다. **의학적 조언이 아닙니다.**\n\n**런타임 및 실행 순서.** SciREPL의 Python (Pyodide) 커널을 사용하세요. 코드 셀을 순서대로 실행하세요: `one-trial-simulation` → `coverage-simulation` → `baseline-risk-plot` → `compatibility-analysis`. NumPy는 SciREPL의 Python 런타임에서 사용할 수 있으며, SciREPL은 브라우저에서 렌더링되는 레이블이 포함된 대화형 Plotly 차트를 위한 `mplot` 헬퍼를 제공합니다. 이 워크북은 Matplotlib이나 `micropip` 패키지 설치가 필요하지 않으며, 워크북에서 시작되는 다운로드나 업로드를 수행하지 않습니다. `mplot` 헬퍼는 앱에서 제공되며, 순수 네이티브 Python 스크립트의 일부가 아닙니다.\n\n이 가상 모델은 완전한 12개월 추적 관찰과 각 군 내의 독립적인 이진 결과를 가정합니다. 이는 산술적/통계적 교육 실습이며, 실제 치료나 의학적 결정을 위한 근거가 아닙니다.",
+        "language": "markdown",
+        "name": "title-goals"
+      },
+      {
+        "type": "markdown",
+        "code": "## 1 · 단일 임상시험\n\n가상의 임상시험: **군당 500명의 환자**, 12개월 입원 위험\n- 대조군: 참 확률 **0.12**\n- 치료군: 참 확률 **0.08**\n\n자연은 이러한 **생성 확률**을 \"알고\" 있습니다. 분석가인 우리는 정확히 0.12 및 0.08에 떨어지지 않는 무작위 추출인 **관찰된 빈도**만을 볼 수 있습니다. 아래의 단일 임상시험 추정치는 관찰된 빈도로부터 계산됩니다. 알려진 생성 확률은 신뢰구간 포함률을 확인하는 데 사용되며, 이와 별도로 기저 위험 시나리오 전반에 걸쳐 일정하다고 가정한 위험비를 보여주는 데 사용됩니다.",
+        "language": "markdown",
+        "name": "one-trial-context"
+      },
+      {
+        "type": "code",
+        "code": "import numpy as np\nfrom math import ceil\n\nSEED = 42\nN = 500          # 군당 환자 수\nP_C, P_T = 0.12, 0.08   # 참 생성 확률\nMCID = 0.02      # 예시를 위해 가정한 최소 임상적으로 중요한 감소\n\nassert isinstance(N, int) and N > 0\nassert 0 <= P_C <= 1 and 0 <= P_T <= 1\n\nrng = np.random.default_rng(SEED)\nev_c = int(rng.binomial(N, P_C))   # 관찰된 입원 건수, 대조군\nev_t = int(rng.binomial(N, P_T))   # 관찰된 입원 건수, 치료군\n\n# --- 관찰된 추정치 (분석가가 실제로 보는 것) ---\nr_c, r_t = ev_c / N, ev_t / N\nrisk_difference = r_t - r_c            # 치료군 빼기 대조군 (음수 = 여기서 치료군이 더 우수함)\narr = r_c - r_t                        # 절대 위험 감소 = -(risk_difference), 양수 = 이득\nrr  = r_t / r_c if r_c > 0 else np.nan\nrrr = 1 - rr if r_c > 0 else np.nan\nnnt = 1 / arr if arr > 0 else np.inf   # ARR <= 0이면 이득에 대한 유한한 NNT 없음\nnnh = 1 / (-arr) if arr < 0 else np.inf # ARR < 0이면 위해필요수\nse  = np.sqrt(r_c * (1 - r_c) / N + r_t * (1 - r_t) / N)  # ARR의 관찰 데이터 SE\nci  = (arr - 1.96 * se, arr + 1.96 * se)                  # ARR의 95% CI\n\nprint(f\"참 생성 확률 : 대조군 {P_C:.3f}, 치료군 {P_T:.3f}\")\nprint(f\"관찰된 사건 (n={N}/군)   : 대조군 {ev_c}, 치료군 {ev_t}\")\nprint(\"-\" * 56)\nprint(f\"관찰된 위험, 대조군        : {r_c:.3f}  (참 {P_C:.3f})\")\nprint(f\"관찰된 위험, 치료군        : {r_t:.3f}  (참 {P_T:.3f})\")\nprint(f\"위험 차이 (T - C)             : {risk_difference:+.3f}  (음수 = 치료군에서 사건이 더 적음)\")\nprint(f\"절대 위험 감소 (ARR)          : {arr:.3f}   (= -(risk difference), 양수 = 이득)\")\nprint(f\"위험비 (RR)                   : {rr:.3f}\")\nprint(f\"상대 위험 감소 (RRR)          : {rrr:.1%}\")\nif np.isfinite(nnt):\n    print(f\"이득에 대한 NNT (반올림 전)   : {nnt:.1f}\")\nelse:\n    print(\"이득에 대한 NNT (반올림 전)   : 이득에 대한 유한한 NNT 없음 (ARR <= 0)\")\nif arr > 0:\n    print(f\"이득에 대한 NNT (올림)        : {ceil(nnt)}\")\nelif arr < 0:\n    print(f\"NNH (반올림 전; 치료 위해)    : {nnh:.1f}\")\nelse:\n    print(\"ARR이 영입니다: 이득에 대한 유한한 NNT도, 유한한 NNH도 없습니다.\")\nprint(f\"ARR의 SE (관찰 데이터)        : {se:.4f}\")\nprint(f\"ARR의 95% CI                  : ({ci[0]:+.3f}, {ci[1]:+.3f})\")",
+        "language": "python",
+        "name": "one-trial-simulation"
+      },
+      {
+        "type": "markdown",
+        "code": "## 2 · 표본추출 변동과 95% 신뢰구간\n\n하나의 임상시험은 한 번의 추출입니다. 전체 1000명의 환자를 대상으로 한 임상시험을 여러 번 반복하면 관찰되는 ARR 값이 서로 달라지는데, 이는 생물학적 변화가 아니라 **표본추출 변동**입니다.\n\n**95% 신뢰구간**은 장기적으로 95% 포함률을 목표로 하는 절차에서 나옵니다. 이 워크북은 **근사 왈드 절차**를 사용합니다: 실제 포함률은 특히 표본 크기가 작거나 확률이 0 또는 1에 가까울 때 95%와 다를 수 있습니다. 개별 구간은 참 ARR을 포함하거나 포함하지 않거나 둘 중 하나입니다. 실제 연구에서는 일반적으로 어느 쪽인지 알 수 없지만, 이 시뮬레이션에서는 생성 확률이 알려져 있으므로 확인할 수 있습니다. 빈도주의적 해석은 \"참값이 이 구간에 속할 확률이 95%\"라는 의미가 **아닙니다**.\n\n유한한 수의 시뮬레이션된 임상시험에서 추정된 포함률 역시 몬테카를로 표본추출로 인해 변동합니다. 정확히 95%를 기대하기보다는 명목상 목표인 95%와 비교하세요.",
+        "language": "markdown",
+        "name": "sampling-variation-explanation"
+      },
+      {
+        "type": "code",
+        "code": "import numpy as np\n\n# 위험 차이에 대한 근사 왈드 95% CI.\n# 이 예시의 빈도에는 합리적이지만, 정확한 포함률을 보장하지는 않습니다.\ndef one_trial(r):\n    c = r.binomial(N, P_C) / N\n    t = r.binomial(N, P_T) / N\n    d = c - t\n    se_i = np.sqrt(c * (1 - c) / N + t * (1 - t) / N)\n    return d, (d - 1.96 * se_i, d + 1.96 * se_i)\n\nN_SIMS = 2000\nr = np.random.default_rng(7)\nres = [one_trial(r) for _ in range(N_SIMS)]\narrs = np.array([d for d, _ in res])\ncovers = np.array([lo <= P_C - P_T <= hi for _, (lo, hi) in res])\nTRUE_ARR = P_C - P_T\nlo, hi = ci\n\nprint(f\"우리 임상시험 (시드 {SEED}): 관찰된 ARR = {arr:+.3f}, 95% CI = ({lo:+.3f}, {hi:+.3f})\")\nif lo <= TRUE_ARR <= hi:\n    print(f\"참 ARR = {TRUE_ARR:.3f} -> 우리 CI가 이를 포함함\")\nelse:\n    print(f\"참 ARR = {TRUE_ARR:.3f} -> 우리 CI가 이를 포함하지 않음\")\nprint(f\"명목 95% CI 절차의 추정 포함률, 총 {N_SIMS} 개 시뮬레이션 임상시험: {covers.mean():.1%}\")\nprint(\"95%는 명목상 목표이며, 이 왈드 근사에 대한 정확한 보장은 아닙니다.\")\nprint(\"추정된 포함률 역시 유한한 시뮬레이션 전반에서 몬테카를로 변동이 있습니다.\")\n\n# 원래의 40-bin 히스토그램과 정확히 일치시키세요. Plotly 자동 빈 생성을 사용하지 마세요.\nhist_counts, hist_edges = np.histogram(arrs, bins=40)\nhist_centers = (hist_edges[:-1] + hist_edges[1:]) / 2\nhist_widths = np.diff(hist_edges)\nmplot(\n    [{\"type\": \"bar\", \"x\": hist_centers, \"y\": hist_counts,\n      \"width\": hist_widths.tolist(), \"marker\": {\"color\": \"#7fb3d5\"},\n      \"showlegend\": False}],\n    title=f\"ARR의 표본추출 변동 ({N_SIMS} 개 임상시험)\",\n    xlabel=\"시뮬레이션된 임상시험 전반의 관찰된 ARR\",\n    ylabel=\"임상시험 수\",\n    layout={\n        \"bargap\": 0,\n        \"showlegend\": True,\n        \"legend\": {\"font\": {\"size\": 10}},\n        \"shapes\": [\n            {\"type\": \"line\", \"xref\": \"x\", \"yref\": \"paper\",\n             \"x0\": float(TRUE_ARR), \"x1\": float(TRUE_ARR), \"y0\": 0, \"y1\": 1,\n             \"line\": {\"color\": \"darkgreen\", \"width\": 2},\n             \"showlegend\": True, \"name\": f\"참 ARR = {TRUE_ARR:.3f}\"},\n            {\"type\": \"line\", \"xref\": \"x\", \"yref\": \"paper\",\n             \"x0\": 0, \"x1\": 0, \"y0\": 0, \"y1\": 1,\n             \"line\": {\"color\": \"crimson\", \"width\": 2, \"dash\": \"dash\"},\n             \"showlegend\": True, \"name\": \"효과 없음 (0)\"},\n            {\"type\": \"rect\", \"xref\": \"x\", \"yref\": \"paper\",\n             \"x0\": float(lo), \"x1\": float(hi), \"y0\": 0, \"y1\": 1,\n             \"line\": {\"width\": 0}, \"fillcolor\": \"rgba(128,128,128,0.15)\",\n             \"layer\": \"below\", \"showlegend\": True, \"name\": \"우리 임상시험의 95% CI\"},\n        ],\n    },\n)",
+        "language": "python",
+        "name": "coverage-simulation"
+      },
+      {
+        "type": "markdown",
+        "code": "## 3 · 동일한 상대 위험, 서로 다른 절대 이득\n\n이 단순화된 실습은 집단 전반에 걸쳐 **생성 위험비가 일정하다고 가정**합니다. 실제 상대적 효과는 집단마다 다를 수 있습니다. 이러한 가정 하에서도 절대적 이득은 기저 시점에서 결과가 얼마나 흔한지에 따라 달라집니다: RR을 알려진 생성 값인 $P_T/P_C = 0.08/0.12 \\approx 0.667$로 고정할 때, 고위험 집단은 저위험 집단에 비해 절대적인 측면에서 훨씬 더 큰 이득을 얻으며 치료해야 하는 환자 수도 훨씬 적습니다.\n\n$$\\text{ARR} = p_C(1 - \\text{RR}), \\qquad \\text{NNT} = 1/\\text{ARR}$$\n\n> **단순화된 교육용 가정:** 우리는 집단 전반에 걸쳐 생성 RR인 0.667을 고정된 기지의 상수로 취급합니다. 실제로 치료의 상대적 효과는 기저 위험 및 환자 특성에 따라 달라질 수 있으며, 이 절은 실증적 주장이 아닌 산술적 원리만을 분리하여 다룹니다.",
+        "language": "markdown",
+        "name": "constant-rr-explanation"
+      },
+      {
+        "type": "code",
+        "code": "import numpy as np\nimport textwrap\n\ndef _risk_wrap_label(text, width):\n    return \"<br>\".join(textwrap.wrap(str(text), width=width, break_long_words=False, break_on_hyphens=False))\n\n\nrr_known = P_T / P_C                     # 고정된 기지의 생성 RR = 0.08/0.12 ≈ 0.667\nbaselines = np.array([0.02, 0.05, 0.12, 0.20, 0.30])\narrs_b = baselines * (1 - rr_known)\nnnts_b = 1 / arrs_b\n\nprint(f\"고정된 알려진 생성 RR = {rr_known:.3f} (모든 시나리오 전반)\")\nprint(f\"{'기저 위험':>13} | {'ARR':>6} | {'NNT':>6}\")\nprint(\"-\" * 33)\nfor b, a, n in zip(baselines, arrs_b, nnts_b):\n    print(f\"{b:>13.2f} | {a:>6.3f} | {n:>6.1f}\")\n\nmplot(\n    [\n        {\"x\": baselines, \"y\": arrs_b, \"mode\": \"lines+markers\",\n         \"line\": {\"color\": \"#2874a6\"}, \"marker\": {\"symbol\": \"circle\"},\n         \"name\": \"ARR = p_C(1−RR)\"},\n        {\"x\": baselines, \"y\": nnts_b, \"mode\": \"lines+markers\", \"yaxis\": \"y2\",\n         \"line\": {\"color\": \"#b03a2e\", \"dash\": \"dash\"},\n         \"marker\": {\"symbol\": \"square\"}, \"name\": \"NNT = 1/ARR\"},\n    ],\n    title=_risk_wrap_label(\"하나의 (일정하다고 가정한) RR, 다양한 절대적 이득\", 45),\n    xlabel=_risk_wrap_label(\"대조군의 기저 12개월 위험 (p_C)\", 48),\n    ylabel=_risk_wrap_label(\"절대 위험 감소\", 24),\n    layout={\n        \"height\": 540,\n        \"margin\": {\"t\": 100, \"r\": 110, \"b\": 100, \"l\": 90},\n        \"yaxis\": {\"automargin\": True, \"title\": {\"text\": _risk_wrap_label(\"절대 위험 감소\", 24), \"font\": {\"color\": \"#2874a6\"}}},\n        \"yaxis2\": {\"automargin\": True, \"title\": {\"text\": _risk_wrap_label(\"치료필요수\", 24), \"font\": {\"color\": \"#b03a2e\"}},\n                  \"overlaying\": \"y\", \"side\": \"right\"},\n        \"legend\": {\"orientation\": \"v\", \"x\": 0.98, \"y\": 0.98,\n                   \"xanchor\": \"right\", \"yanchor\": \"top\",\n                   \"bgcolor\": \"rgba(22,27,34,0.85)\", \"font\": {\"size\": 10}},\n        \"shapes\": [\n            {\"type\": \"line\", \"xref\": \"paper\", \"yref\": \"y\",\n             \"x0\": 0, \"x1\": 1, \"y0\": float(MCID), \"y1\": float(MCID),\n             \"line\": {\"color\": \"orange\", \"width\": 1.5, \"dash\": \"dash\"},\n             \"showlegend\": True, \"name\": \"가정된 MCID 0.02\"},\n        ],\n    },\n)",
+        "language": "python",
+        "name": "baseline-risk-plot"
+      },
+      {
+        "type": "markdown",
+        "code": "## 4 · 영과의 양립 가능성 ≠ 임상적으로 중요하지 않음\n\n자주 혼동되는 두 가지 서로 다른 질문:\n\n- **영과의 통계적 양립성:** \"효과 없음\"이 우리 데이터와 합리적으로 양립할 수 있는 값 중에 속합니까? (95% CI가 0을 포함합니까? p 값은 얼마입니까?)\n- **임상적 관련성:** 그 효과가 중요할 만큼 충분히 큽니까? 여기서는 0.02라는 **가정된** 최소 임상적으로 중요한 차이(MCID)를 사용합니다 — 이는 데이터가 확립한 값이 아니라 예시를 위해 상정한 값입니다.\n\np 값 하나만으로는 두 질문 모두에 잘 답할 수 없으며, 가정한 MCID를 넘는다고 해서 중요성이 확정되는 것은 아닙니다: 위해, 환자 선호도 및 비용 또한 여전히 중요합니다. 아래에서는 CI를 영 기준선과 MCID 기준선 **모두**와 비교합니다.",
+        "language": "markdown",
+        "name": "compatibility-explanation"
+      },
+      {
+        "type": "code",
+        "code": "import numpy as np\nfrom math import erfc, sqrt\n\nlo, hi = ci\nprint(f\"관찰된 ARR = {arr:+.3f}, 95% CI = ({lo:+.3f}, {hi:+.3f})\")\n\nif not np.isfinite(se) or se <= 0:\n    print(\"SE가 영이므로 정규 근사 검정이 정의되지 않습니다.\")\n    print(\"퇴화된 왈드 구간은 확실성에 대한 신뢰할 수 있는 근거가 아닙니다.\")\n    print(\"희소하거나 경계에 있는 사건 빈도에 적합한 구간/검정을 사용하세요.\")\nelse:\n    z_stat = arr / se\n    p_two = erfc(abs(z_stat) / sqrt(2))  # 안정적인 양측 정규 꼬리 확률\n    includes_zero = lo <= 0 <= hi\n    above_mcid = lo > MCID\n\n    print(f\"z = {z_stat:.2f}, 양측 근사 p = {p_two:.3g}\")\n    print(f\"CI가 0을 포함함 (효과 없음과 양립 가능): {includes_zero}\")\n    print(f\"CI 전체가 가정된 MCID를 완전히 상회, 기준 {MCID:.3f}: {above_mcid}\")\n    print(\"-\" * 60)\n    if includes_zero:\n        print(\"효과 없음은 이 근사 CI와 양립할 수 있는 값에 속합니다.\")\n        print(\"이것이 효과가 없다는 증거는 아닙니다: CI의 전체 범위를 확인하세요.\")\n    else:\n        print(\"영은 명시된 모델 하에서 이 근사 CI를 벗어납니다.\")\n        print(\"CI의 부호와 범위는 양립 가능한 효과 크기를 나타냅니다.\")\n\n    if above_mcid:\n        print(\"근사 CI 전체가 가정한 임상적 임계값을 초과합니다.\")\n    elif hi < MCID:\n        print(\"근사 CI 전체가 가정한 임상적 임계값 미만입니다.\")\n    else:\n        print(\"근사 CI가 가정한 임상적 임계값을 포함합니다:\")\n        print(\"데이터가 해당 임계값 비교를 명확하게 해결하지 못합니다.\")\n\n    print(\"MCID는 예시를 위해 가정한 것이며, 이 데이터에 의해 확립된 것이 아닙니다.\")\n    print(\"임상적 중요성은 위해, 환자 선호도,\")\n    print(\"및 비용에도 의존하지만, 이 시뮬레이션은 이를 나타내지 않습니다.\")",
+        "language": "python",
+        "name": "compatibility-analysis"
+      },
+      {
+        "type": "markdown",
+        "code": "### ✅ 체크포인트\n\n두 가지 신약이 각각 입원에 있어 **50% 상대 위험 감소**를 보입니다.\n\n- 신약 A는 **20%**의 기저 12개월 위험을 가진 집단에서 시험됩니다.\n- 신약 B는 **2%**의 기저 위험을 가진 집단에서 시험됩니다.\n\n정밀하게 계산하지 않고 답해 보세요: 어느 약물의 절대적 이득이 더 큽니까? 신약 B로 환자 한 명의 입원을 예방하려면 대략 몇 명의 환자를 치료해야 하며, 이는 상대 위험만으로 약물을 판단하는 것에 대해 무엇을 말해 줍니까?\n\n*(답은 다음 셀에 있습니다 — 먼저 시도해 보세요!)*",
+        "language": "markdown",
+        "name": "checkpoint"
+      },
+      {
+        "type": "markdown",
+        "code": "### 🔑 체크포인트 정답\n\n- **신약 A:** ARR = 0.20 × 0.50 = **0.10** → NNT = **10**.\n- **신약 B:** ARR = 0.02 × 0.50 = **0.01** → NNT = **100**.\n\n동일한 상대 위험에도 불구하고 신약 A의 절대적 이득은 **열 배 더 큽니다**. 상대 위험만으로 판단하는 것(\"둘 다 위험을 절반으로 줄였습니다!\")은 신약 B의 이득이 너무 작아 비용, 부담 또는 위해가 이를 능가할 수 있다는 점을 가립니다 — 동일한 *상대적* 효과라도 기저 위험에 따라 완전히 다른 *절대적* 가치를 의미할 수 있습니다.",
+        "language": "markdown",
+        "name": "checkpoint-answer"
+      },
+      {
+        "type": "markdown",
+        "code": "### ✍️ 독자 실습\n\n`one-trial-simulation` (셀 3)을 템플릿으로 사용하고, 동일한 시드(`SEED = 42`), `N = 500`, `P_C, P_T = 0.12, 0.08`을 적용하여:\n\n1. 시드를 `2024`로 변경하고 관찰된 ARR, RR, NNT를 다시 계산하세요. 이 값들이 얼마나 변합니까?\n2. 표본 크기를 `N = 250`으로 반감시키세요(시드 42 유지). 먼저 `one-trial-simulation`을 다시 실행한 다음, `coverage-simulation` (셀 5), `baseline-risk-plot`, `compatibility-analysis`를 다시 실행하세요. 95% CI의 너비는 어떻게 됩니까?\n3. 선택 과제: (몇 가지 시드를 시도하여) 참 ARR인 0.040을 *벗어나는* CI를 생성하는 시드가 있는지 찾아보세요. 포함률이 명목상 목표인 95%에 가깝다면, 수많은 시드에 걸쳐 대략 얼마나 자주 이러한 일이 발생할 것으로 예상하십니까?\n\n힌트: `one-trial-simulation`에서 `SEED` 또는 `N`을 변경한 후 해당 셀과 이후의 코드 셀들을 순서대로 다시 실행하세요. 셀의 텍스트를 변경해도 저장된 커널 변수가 다시 계산되지는 않습니다. 다른 조건이 동일하다면 기대되는 CI 너비는 대략 $1/\\sqrt{N}$에 비례하여 조정되며, 개별 무작위 임상시험마다 차이가 있을 수 있습니다.",
+        "language": "markdown",
+        "name": "reader-exercise"
+      },
+      {
+        "type": "markdown",
+        "code": "### ⚠️ 이 워크북의 한계점\n\n- **가상 데이터.** 이 임상시험은 알려진 확률을 사용한 시뮬레이션입니다. 실제 임상시험에는 여기에 모델링되지 않은 복잡한 현실(추적 관찰 탈락, 미순응, 눈가림 해제)이 수반됩니다.\n- **이진 결과만 고려.** 입원은 12개월 이내 예/아니오로 취급되며, 경쟁 위험, 중도절단 또는 사건 발생 시간 분석은 포함되지 않습니다.\n- **정규 근사 신뢰구간.** 이는 위험 차이에 대한 명목 95% 왈드 구간이며, 정확한 포함률을 보장하지 않습니다. 희소 빈도나 경계 빈도의 경우 두 독립 비율에 대한 점수 기반 구간과 같은 적절한 방법이 필요합니다. 일반적인 부트스트랩은 사건 수가 영에 가까울 때 자동으로 신뢰할 수 있는 것은 아닙니다.\n- **다중성 또는 설계 문제 배제.** 다중 평가변수, 중간 분석, 배정 은폐 및 사전 등록 등 실제 임상시험의 신뢰성에 핵심적인 요소들을 무시합니다.\n- **빈도주의 프레임워크만 적용.** 베이지안 사후 분포나 의사결정 분석적 관점은 없으며, \"임상적 중요성\"은 환자 선호도나 비용 효과성에서 도출된 것이 아니라 가정한 것입니다.\n- **시간 및 집단 특이적 NNT.** 이들은 이 시뮬레이션된 집단과 12개월 입원 결과에 대한 점추정치입니다. NNT는 추적 관찰 기간과 하위 집단에 따라 달라질 수 있으며, 이 워크북은 NNT 신뢰구간을 제공하지 않습니다. 추정된 ARR이 음수이면 코드는 유익한 NNT가 아닌 유해필요수(NNH)를 보고합니다.\n\n**알림:** 가상이며 교육 목적으로만 제공됩니다 — **의학적 조언이 아닙니다**.\n\n**주요 통계 참고문헌:** [Altman and Andersen, NNT for time-to-event outcomes, BMJ 1999](https://www.bmj.com/content/319/7223/1492); [Wang and Hutson, Smooth bootstrap-based confidence intervals, Journal of Applied Statistics 2013](https://pmc.ncbi.nlm.nih.gov/articles/PMC4789773/).",
+        "language": "markdown",
+        "name": "limitations"
+      }
+    ]
+  }
+}

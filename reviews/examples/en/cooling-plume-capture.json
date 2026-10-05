@@ -80,7 +80,12 @@
       "count": 5
     },
     "rasterCharts": null,
-    "renderedReview": "separate-controller-review-required"
+    "renderedReview": "controller-AI-reviewed",
+    "rendering": {
+      "status": "passed",
+      "scope": "Titles, axes, legends and glyphs visually checked in captured app renders; not native-language approval.",
+      "nativeSpeakerReview": "pending"
+    }
   },
   "caveat": "Reviewed educational examples; stated limitations still apply."
 }

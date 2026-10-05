@@ -1,0 +1,1065 @@
+{
+  "schema": 1,
+  "lesson": "markov-groups",
+  "locale": "de",
+  "source": {
+    "path": "workbooks/en/markov-groups.srwb",
+    "sha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4"
+  },
+  "target": {
+    "path": "workbooks/de/markov-groups.srwb",
+    "sha256": "0249405c4376361b99b3bcc376e0bb74fbb7f45a8d1adc9353c9e9cab713f53f",
+    "size": 16379,
+    "title": "Markov-Gruppen: Ein Random Walk auf Würfelzügen",
+    "description": "Modellieren Sie Drehungen der Seitenflächen des Zauberwürfels als verifizierte Permutationen, untersuchen Sie Potenzen modulo vier und unterscheiden Sie einen Lazy Random Walk von einem stochastischen Ein-Sticker-Modell."
+  },
+  "translation": {
+    "model": "gemini-3.8-flash-medium",
+    "contentAudit": {
+      "status": "passed",
+      "sourceSha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4",
+      "targetSha256": "0249405c4376361b99b3bcc376e0bb74fbb7f45a8d1adc9353c9e9cab713f53f",
+      "findings": [],
+      "errors": [],
+      "reviewMethod": "Previously passed AI/controller source-fidelity audit, preserved through verified presentation-only rebase where applicable; scoped final Bengali corrections independently adjudicated and re-gated.",
+      "provenance": {
+        "predecessorSourceSha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4",
+        "predecessorTargetSha256": "0249405c4376361b99b3bcc376e0bb74fbb7f45a8d1adc9353c9e9cab713f53f",
+        "predecessorAuditSha256": "83cd5382cb5f15b7591af0c0a132fc103cd1c91625b6a3fb114f9716710216bd",
+        "sharedLayoutOnly": false
+      },
+      "nativeSpeakerReview": "pending",
+      "caveat": "AI/controller review, not native-speaker or qualified technical certification."
+    },
+    "policy": {
+      "locale": "de",
+      "protectedTexts": [
+        "UDFBLR"
+      ],
+      "protectedIds": [
+        "2:1:0"
+      ],
+      "widthOverrides": {},
+      "identifierRenames": false,
+      "cellNames": "English",
+      "nativeReviewCaveat": "Machine-translated; native-speaker review pending. Numerical/structural tests do not certify prose quality."
+    },
+    "keeps": {
+      "ids": [
+        "2:1:0"
+      ],
+      "texts": [
+        "UDFBLR"
+      ]
+    },
+    "manifest": {
+      "manifest_version": 1,
+      "produced_by": "derived",
+      "generator": "tools/span-derive.mjs",
+      "locale": "de",
+      "source": {
+        "path": "workbooks/en/markov-groups.srwb",
+        "sha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4"
+      },
+      "target": {
+        "path": "workbooks/de/markov-groups.srwb",
+        "sha256": "0249405c4376361b99b3bcc376e0bb74fbb7f45a8d1adc9353c9e9cab713f53f"
+      },
+      "spans": [
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 7,
+              "col": 1
+            },
+            "end": {
+              "line": 7,
+              "col": 67
+            },
+            "text": "Five disjoint 4-cycles per clockwise face turn: two on the face,"
+          },
+          "target_span": {
+            "start": {
+              "line": 7,
+              "col": 1
+            },
+            "end": {
+              "line": 7,
+              "col": 84
+            },
+            "text": "Fünf disjunkte 4-Zyklen pro Flächendrehung im Uhrzeigersinn: zwei auf der Fläche,"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 8,
+              "col": 1
+            },
+            "end": {
+              "line": 8,
+              "col": 69
+            },
+            "text": "three on the surrounding strips. Indices are zero-based positions."
+          },
+          "target_span": {
+            "start": {
+              "line": 8,
+              "col": 1
+            },
+            "end": {
+              "line": 8,
+              "col": 75
+            },
+            "text": "drei auf den umliegenden Streifen. Indizes sind nullbasierte Positionen."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 205,
+              "col": 8
+            },
+            "end": {
+              "line": 205,
+              "col": 62
+            },
+            "text": "Return p: source position j moves to destination p[j]."
+          },
+          "target_span": {
+            "start": {
+              "line": 205,
+              "col": 8
+            },
+            "end": {
+              "line": 205,
+              "col": 76
+            },
+            "text": "Gibt p zurück: Ausgangsposition j bewegt sich zur Zielposition p[j]."
+          },
+          "kind": "docstring",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 213,
+              "col": 8
+            },
+            "end": {
+              "line": 213,
+              "col": 51
+            },
+            "text": "Rows are destinations, columns are sources."
+          },
+          "target_span": {
+            "start": {
+              "line": 213,
+              "col": 8
+            },
+            "end": {
+              "line": 213,
+              "col": 48
+            },
+            "text": "Zeilen sind Ziele, Spalten sind Quellen."
+          },
+          "kind": "docstring",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 216,
+              "col": 27
+            },
+            "end": {
+              "line": 216,
+              "col": 68
+            },
+            "text": "Expected a permutation of positions 0..53"
+          },
+          "target_span": {
+            "start": {
+              "line": 216,
+              "col": 27
+            },
+            "end": {
+              "line": 216,
+              "col": 79
+            },
+            "text": "Eine Permutation der Positionen 0..53 wurde erwartet"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 229,
+              "col": 27
+            },
+            "end": {
+              "line": 229,
+              "col": 73
+            },
+            "text": "Expected each sticker label 1..54 exactly once"
+          },
+          "target_span": {
+            "start": {
+              "line": 229,
+              "col": 27
+            },
+            "end": {
+              "line": 229,
+              "col": 85
+            },
+            "text": "Jede Sticker-Bezeichnung 1..54 wurde genau einmal erwartet"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 233,
+              "col": 8
+            },
+            "end": {
+              "line": 233,
+              "col": 67
+            },
+            "text": "Apply moves left to right; an apostrophe means the inverse."
+          },
+          "target_span": {
+            "start": {
+              "line": 233,
+              "col": 8
+            },
+            "end": {
+              "line": 233,
+              "col": 80
+            },
+            "text": "Züge von links nach rechts anwenden; ein Apostroph bedeutet die Inverse."
+          },
+          "kind": "docstring",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 243,
+              "col": 31
+            },
+            "end": {
+              "line": 243,
+              "col": 45
+            },
+            "text": "Unknown move: "
+          },
+          "target_span": {
+            "start": {
+              "line": 243,
+              "col": 31
+            },
+            "end": {
+              "line": 243,
+              "col": 48
+            },
+            "text": "Unbekannter Zug: "
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 248,
+              "col": 8
+            },
+            "end": {
+              "line": 248,
+              "col": 76
+            },
+            "text": "Return home-face letters as colour labels, not physical paint names."
+          },
+          "target_span": {
+            "start": {
+              "line": 248,
+              "col": 8
+            },
+            "end": {
+              "line": 248,
+              "col": 99
+            },
+            "text": "Buchstaben der Ausgangsfläche als Farbbezeichnungen zurückgeben, nicht physische Farbnamen."
+          },
+          "kind": "docstring",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 251,
+              "col": 8
+            },
+            "end": {
+              "line": 251,
+              "col": 74
+            },
+            "text": "Built six clockwise quarter-turn matrices with fixed face centres."
+          },
+          "target_span": {
+            "start": {
+              "line": 251,
+              "col": 8
+            },
+            "end": {
+              "line": 251,
+              "col": 100
+            },
+            "text": "Sechs Vierteldrehungs-Matrizen im Uhrzeigersinn mit fixierten Flächenmittelpunkten erstellt."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 63
+            },
+            "text": "Stage 2: verify properties that colours alone cannot reveal."
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 80
+            },
+            "text": "Stufe 2: Eigenschaften überprüfen, die Farben allein nicht offenbaren können."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 4,
+              "col": 62
+            },
+            "end": {
+              "line": 4,
+              "col": 77
+            },
+            "text": ": not bijective"
+          },
+          "target_span": {
+            "start": {
+              "line": 4,
+              "col": 62
+            },
+            "end": {
+              "line": 4,
+              "col": 78
+            },
+            "text": ": nicht bijektiv"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 5,
+              "col": 57
+            },
+            "end": {
+              "line": 5,
+              "col": 71
+            },
+            "text": ": centre moved"
+          },
+          "target_span": {
+            "start": {
+              "line": 5,
+              "col": 57
+            },
+            "end": {
+              "line": 5,
+              "col": 81
+            },
+            "text": ": Mittelpunkt verschoben"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 6,
+              "col": 53
+            },
+            "end": {
+              "line": 6,
+              "col": 72
+            },
+            "text": ": bad source column"
+          },
+          "target_span": {
+            "start": {
+              "line": 6,
+              "col": 53
+            },
+            "end": {
+              "line": 6,
+              "col": 76
+            },
+            "text": ": ungültige Quellspalte"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 7,
+              "col": 53
+            },
+            "end": {
+              "line": 7,
+              "col": 74
+            },
+            "text": ": bad destination row"
+          },
+          "target_span": {
+            "start": {
+              "line": 7,
+              "col": 53
+            },
+            "end": {
+              "line": 7,
+              "col": 74
+            },
+            "text": ": ungültige Zielzeile"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 8,
+              "col": 81
+            },
+            "end": {
+              "line": 8,
+              "col": 111
+            },
+            "text": ": fourth power is not identity"
+          },
+          "target_span": {
+            "start": {
+              "line": 8,
+              "col": 81
+            },
+            "end": {
+              "line": 8,
+              "col": 120
+            },
+            "text": ": vierte Potenz ist nicht die Identität"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 9,
+              "col": 65
+            },
+            "end": {
+              "line": 9,
+              "col": 81
+            },
+            "text": ": inverse failed"
+          },
+          "target_span": {
+            "start": {
+              "line": 9,
+              "col": 65
+            },
+            "end": {
+              "line": 9,
+              "col": 89
+            },
+            "text": ": Inverse fehlgeschlagen"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 12,
+              "col": 19
+            },
+            "end": {
+              "line": 12,
+              "col": 77
+            },
+            "text": ": bijection, fixed centres, four turns, and inverse passed"
+          },
+          "target_span": {
+            "start": {
+              "line": 12,
+              "col": 19
+            },
+            "end": {
+              "line": 12,
+              "col": 91
+            },
+            "text": ": Bijektion, fixierte Mittelpunkte, vier Drehungen und Inverse bestanden"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 15,
+              "col": 8
+            },
+            "end": {
+              "line": 15,
+              "col": 53
+            },
+            "text": "All six moves passed. U and R do not commute."
+          },
+          "target_span": {
+            "start": {
+              "line": 15,
+              "col": 8
+            },
+            "end": {
+              "line": 15,
+              "col": 61
+            },
+            "text": "Alle sechs Züge bestanden. U und R kommutieren nicht."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "show_turn",
+          "source_span": {
+            "start": {
+              "line": 2,
+              "col": 8
+            },
+            "end": {
+              "line": 2,
+              "col": 55
+            },
+            "text": "U cycles, shown as one-based sticker positions:"
+          },
+          "target_span": {
+            "start": {
+              "line": 2,
+              "col": 8
+            },
+            "end": {
+              "line": 2,
+              "col": 66
+            },
+            "text": "U-Zyklen, dargestellt als einsbasierte Sticker-Positionen:"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "show_turn",
+          "source_span": {
+            "start": {
+              "line": 6,
+              "col": 1
+            },
+            "end": {
+              "line": 6,
+              "col": 64
+            },
+            "text": "F is face index 2, so its top row is at positions 18, 19, 20."
+          },
+          "target_span": {
+            "start": {
+              "line": 6,
+              "col": 1
+            },
+            "end": {
+              "line": 6,
+              "col": 84
+            },
+            "text": "F ist Flächenindex 2, daher liegt die oberste Zeile an den Positionen 18, 19, 20."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "show_turn",
+          "source_span": {
+            "start": {
+              "line": 8,
+              "col": 8
+            },
+            "end": {
+              "line": 8,
+              "col": 36
+            },
+            "text": "\\nF top row labels before U:"
+          },
+          "target_span": {
+            "start": {
+              "line": 8,
+              "col": 8
+            },
+            "end": {
+              "line": 8,
+              "col": 51
+            },
+            "text": "\\nBezeichnungen der obersten F-Zeile vor U:"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "show_turn",
+          "source_span": {
+            "start": {
+              "line": 9,
+              "col": 8
+            },
+            "end": {
+              "line": 9,
+              "col": 34
+            },
+            "text": "F top row labels after U: "
+          },
+          "target_span": {
+            "start": {
+              "line": 9,
+              "col": 8
+            },
+            "end": {
+              "line": 9,
+              "col": 51
+            },
+            "text": "Bezeichnungen der obersten F-Zeile nach U: "
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "show_turn",
+          "source_span": {
+            "start": {
+              "line": 10,
+              "col": 8
+            },
+            "end": {
+              "line": 10,
+              "col": 36
+            },
+            "text": "Face-letter colours after U:"
+          },
+          "target_span": {
+            "start": {
+              "line": 10,
+              "col": 8
+            },
+            "end": {
+              "line": 10,
+              "col": 40
+            },
+            "text": "Flächenbuchstaben-Farben nach U:"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "show_turn",
+          "source_span": {
+            "start": {
+              "line": 11,
+              "col": 8
+            },
+            "end": {
+              "line": 11,
+              "col": 33
+            },
+            "text": "U then R equals R then U:"
+          },
+          "target_span": {
+            "start": {
+              "line": 11,
+              "col": 8
+            },
+            "end": {
+              "line": 11,
+              "col": 37
+            },
+            "text": "U dann R entspricht R dann U:"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "random_walk",
+          "source_span": {
+            "start": {
+              "line": 8,
+              "col": 1
+            },
+            "end": {
+              "line": 8,
+              "col": 61
+            },
+            "text": "A distribution for the location of one particular sticker."
+          },
+          "target_span": {
+            "start": {
+              "line": 8,
+              "col": 1
+            },
+            "end": {
+              "line": 8,
+              "col": 57
+            },
+            "text": "Eine Verteilung für den Ort eines bestimmten Stickers."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "random_walk",
+          "source_span": {
+            "start": {
+              "line": 13,
+              "col": 8
+            },
+            "end": {
+              "line": 13,
+              "col": 52
+            },
+            "text": "One-sticker probability mass after one step:"
+          },
+          "target_span": {
+            "start": {
+              "line": 13,
+              "col": 8
+            },
+            "end": {
+              "line": 13,
+              "col": 77
+            },
+            "text": "Wahrscheinlichkeitsmasse eines einzelnen Stickers nach einem Schritt:"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "random_walk",
+          "source_span": {
+            "start": {
+              "line": 15,
+              "col": 1
+            },
+            "end": {
+              "line": 15,
+              "col": 76
+            },
+            "text": "Sample a valid cube trajectory. The seed makes this example reproducible,"
+          },
+          "target_span": {
+            "start": {
+              "line": 15,
+              "col": 1
+            },
+            "end": {
+              "line": 15,
+              "col": 90
+            },
+            "text": "Eine zulässige Würfeltrajektorie ziehen. Der Seed macht dieses Beispiel reproduzierbar,"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "random_walk",
+          "source_span": {
+            "start": {
+              "line": 16,
+              "col": 1
+            },
+            "end": {
+              "line": 16,
+              "col": 62
+            },
+            "text": "not uniformly mixed over all reachable cube configurations."
+          },
+          "target_span": {
+            "start": {
+              "line": 16,
+              "col": 1
+            },
+            "end": {
+              "line": 16,
+              "col": 75
+            },
+            "text": "nicht gleichmäßig über alle erreichbaren Würfelkonfigurationen gemischt."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "random_walk",
+          "source_span": {
+            "start": {
+              "line": 22,
+              "col": 8
+            },
+            "end": {
+              "line": 22,
+              "col": 22
+            },
+            "text": "Sampled moves:"
+          },
+          "target_span": {
+            "start": {
+              "line": 22,
+              "col": 8
+            },
+            "end": {
+              "line": 22,
+              "col": 22
+            },
+            "text": "Gezogene Züge:"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "random_walk",
+          "source_span": {
+            "start": {
+              "line": 23,
+              "col": 8
+            },
+            "end": {
+              "line": 23,
+              "col": 34
+            },
+            "text": "Final face-letter colours:"
+          },
+          "target_span": {
+            "start": {
+              "line": 23,
+              "col": 8
+            },
+            "end": {
+              "line": 23,
+              "col": 44
+            },
+            "text": "Endgültige Flächenbuchstaben-Farben:"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "random_walk",
+          "source_span": {
+            "start": {
+              "line": 24,
+              "col": 8
+            },
+            "end": {
+              "line": 24,
+              "col": 75
+            },
+            "text": "The sampled path preserved every sticker label and all six centres."
+          },
+          "target_span": {
+            "start": {
+              "line": 24,
+              "col": 8
+            },
+            "end": {
+              "line": 24,
+              "col": 95
+            },
+            "text": "Der gezogene Pfad hat jede Sticker-Bezeichnung und alle sechs Mittelpunkte beibehalten."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        }
+      ],
+      "exclusions": []
+    },
+    "nativeSpeakerReview": "pending"
+  },
+  "browser": {
+    "status": "passed",
+    "first": {
+      "exportSha256": "14892b3f1a8c5d644b689bccd50e4710dc7dcedea02bf1871753e0b80d3a045b",
+      "reportSha256": "0f9a65c4c821dfd775b97120fd09b9f418a2c684cc099d15e50cab2589d92bf0",
+      "appVersion": "1.4.0",
+      "cells": 9,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "second": {
+      "exportSha256": "60ae365f0736e376dc04e82c5a8781b18c63d9a59324e400db3a9feda7c151da",
+      "reportSha256": "0f9a65c4c821dfd775b97120fd09b9f418a2c684cc099d15e50cab2589d92bf0",
+      "appVersion": "1.4.0",
+      "cells": 9,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "englishBaseline": [
+      {
+        "exportSha256": "c9b5cebbf7e00eb178079a0610fb595c9158bd3bf0f9e0edbd4fe6ffa084b18c",
+        "reportSha256": "5d2d7fcf80037243115b986477f4acb1938af752fe0f8c37f9a0e651cc9ba4b2",
+        "appVersion": "1.4.0",
+        "cells": 9,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      },
+      {
+        "exportSha256": "ee691306c00a08037a2b7870fd8a96efffa7f36702b8957b16632645d2b73908",
+        "reportSha256": "5d2d7fcf80037243115b986477f4acb1938af752fe0f8c37f9a0e651cc9ba4b2",
+        "appVersion": "1.4.0",
+        "cells": 9,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      }
+    ],
+    "deterministic": true,
+    "textOracle": {
+      "first": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      },
+      "second": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      }
+    },
+    "plotData": {
+      "status": "passed",
+      "count": 0
+    },
+    "rasterCharts": null,
+    "renderedReview": "not-applicable"
+  },
+  "caveat": "Machine translated with Gemini and reviewed by AI/controller checks, including scoped corrections where needed. Native-speaker review is pending; structural and numerical checks do not certify prose quality."
+}

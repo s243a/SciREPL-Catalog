@@ -1,0 +1,1488 @@
+{
+  "schema": 1,
+  "lesson": "simpsons-paradox",
+  "locale": "hi",
+  "source": {
+    "path": "workbooks/en/simpsons-paradox.srwb",
+    "sha256": "a99db8a614a1392f64ad4f1a5d00181a26c65bd3f4e67581de4b911e4299aacb"
+  },
+  "target": {
+    "path": "workbooks/hi/simpsons-paradox.srwb",
+    "sha256": "cb2fec3443b7c17388310b36360a9e4e7a70535f35ef0b8c54cff8da5f30d95e",
+    "size": 23604,
+    "title": "सिम्पसन का विरोधाभास",
+    "description": "सिम्पसन के विरोधाभास को प्रदर्शित करने के लिए सिंथेटिक डेटा का उपयोग करें, R और JavaScript में स्तरीकृत और एकत्रित सफलता दरों की तुलना करें, और सहसंबंध को कार्य-कारण से अलग करें।"
+  },
+  "translation": {
+    "model": "gemini-3.8-flash-medium",
+    "contentAudit": {
+      "status": "passed",
+      "sourceSha256": "a99db8a614a1392f64ad4f1a5d00181a26c65bd3f4e67581de4b911e4299aacb",
+      "targetSha256": "cb2fec3443b7c17388310b36360a9e4e7a70535f35ef0b8c54cff8da5f30d95e",
+      "findings": [],
+      "errors": [],
+      "reviewMethod": "Previously passed AI/controller source-fidelity audit, preserved through verified presentation-only rebase where applicable; scoped final Bengali corrections independently adjudicated and re-gated.",
+      "provenance": {
+        "predecessorSourceSha256": "bb32d966c1ee1ec6f5372f621804a8121a08cdb0b976e89bce118449c168aac0",
+        "predecessorTargetSha256": "4a4908a6c9e8f1e3bf8ed9369009e870983fde2890ea02448119f608c03aa521",
+        "predecessorAuditSha256": "09c5385259deb134596f2aeb9bc5994486ed270b7fb418bee4b5caa9bbbb7846",
+        "sharedLayoutOnly": true,
+        "sharedLayoutProjectionSha256": "4e2c5dac75fdbedd96a095d8f007a0b9d355ea789370f24d44496ea2bf13919d"
+      },
+      "nativeSpeakerReview": "pending",
+      "caveat": "AI/controller review, not native-speaker or qualified technical certification."
+    },
+    "policy": {
+      "locale": "hi",
+      "protectedTexts": [
+        "Mild",
+        "Severe",
+        "success",
+        "failure",
+        "stratum",
+        "treatment",
+        "outcome",
+        "count"
+      ],
+      "protectedIds": [
+        "1:8:0",
+        "1:10:0",
+        "1:16:0",
+        "1:18:0",
+        "3:4:0",
+        "3:6:0",
+        "3:18:0",
+        "3:20:0",
+        "3:28:0",
+        "3:30:0",
+        "3:44:0",
+        "3:46:0",
+        "3:56:0",
+        "3:58:0",
+        "3:66:0",
+        "3:68:0",
+        "3:82:0",
+        "3:88:0",
+        "3:94:0",
+        "3:100:0",
+        "4:2:0",
+        "4:4:0",
+        "4:8:0",
+        "4:14:0",
+        "4:22:0",
+        "4:28:0"
+      ],
+      "widthOverrides": {},
+      "identifierRenames": false,
+      "cellNames": "English",
+      "nativeReviewCaveat": "Machine-translated; native-speaker review pending. Numerical/structural tests do not certify prose quality."
+    },
+    "keeps": {
+      "ids": [
+        "1:8:0",
+        "1:10:0",
+        "1:16:0",
+        "1:18:0",
+        "3:4:0",
+        "3:6:0",
+        "3:18:0",
+        "3:20:0",
+        "3:28:0",
+        "3:30:0",
+        "3:44:0",
+        "3:46:0",
+        "3:56:0",
+        "3:58:0",
+        "3:66:0",
+        "3:68:0",
+        "3:82:0",
+        "3:88:0",
+        "3:94:0",
+        "3:100:0",
+        "4:2:0",
+        "4:4:0",
+        "4:8:0",
+        "4:14:0",
+        "4:22:0",
+        "4:28:0",
+        "4:38:0",
+        "4:50:0",
+        "4:54:0",
+        "5:16:0",
+        "5:18:0",
+        "5:20:0"
+      ],
+      "texts": [
+        "Mild",
+        "Severe",
+        "success",
+        "failure",
+        "success",
+        "failure",
+        "success",
+        "failure",
+        "success",
+        "failure",
+        "success",
+        "failure",
+        "success",
+        "failure",
+        "success",
+        "failure",
+        "Mild",
+        "Mild",
+        "Severe",
+        "Severe",
+        "Mild",
+        "Severe",
+        "Mild",
+        "Severe",
+        "Mild",
+        "Severe",
+        "#ED7D31",
+        "topright",
+        "grey40",
+        "  p_A = ${r.A.p.toFixed(4)} (${r.A.s}/${r.A.s + r.A.f})",
+        "  p_B = ${r.B.p.toFixed(4)} (${r.B.s}/${r.B.s + r.B.f})",
+        "  RR = ${r.RR.toFixed(4)}"
+      ]
+    },
+    "manifest": {
+      "manifest_version": 1,
+      "produced_by": "derived",
+      "generator": "tools/span-derive.mjs",
+      "locale": "hi",
+      "source": {
+        "path": "workbooks/en/simpsons-paradox.srwb",
+        "sha256": "a99db8a614a1392f64ad4f1a5d00181a26c65bd3f4e67581de4b911e4299aacb"
+      },
+      "target": {
+        "path": "workbooks/hi/simpsons-paradox.srwb",
+        "sha256": "cb2fec3443b7c17388310b36360a9e4e7a70535f35ef0b8c54cff8da5f30d95e"
+      },
+      "spans": [
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 50
+            },
+            "text": "---- SYNTHETIC / FICTIONAL DATA (not real) ----"
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 53
+            },
+            "text": "---- सिंथेटिक / काल्पनिक डेटा (वास्तविक नहीं) ----"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 2,
+              "col": 1
+            },
+            "end": {
+              "line": 2,
+              "col": 72
+            },
+            "text": "Two strata; two treatments A and B; binary outcome (success/failure)."
+          },
+          "target_span": {
+            "start": {
+              "line": 2,
+              "col": 1
+            },
+            "end": {
+              "line": 2,
+              "col": 58
+            },
+            "text": "दो स्तर; दो उपचार A और B; बाइनरी परिणाम (सफलता/विफलता)।"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 3,
+              "col": 1
+            },
+            "end": {
+              "line": 3,
+              "col": 72
+            },
+            "text": "Constructed so that A > B within each stratum, but B > A when pooled."
+          },
+          "target_span": {
+            "start": {
+              "line": 3,
+              "col": 1
+            },
+            "end": {
+              "line": 3,
+              "col": 81
+            },
+            "text": "इस प्रकार निर्मित कि प्रत्येक स्तर के भीतर A > B, लेकिन एकत्रित करने पर B > A।"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 4,
+              "col": 1
+            },
+            "end": {
+              "line": 4,
+              "col": 89
+            },
+            "text": "Mechanism: A treats mostly Severe patients (high-risk), B treats mostly Mild patients."
+          },
+          "target_span": {
+            "start": {
+              "line": 4,
+              "col": 1
+            },
+            "end": {
+              "line": 4,
+              "col": 119
+            },
+            "text": "क्रियाविधि: A मुख्य रूप से Severe रोगियों (उच्च-जोखिम) का इलाज करता है, B मुख्य रूप से Mild रोगियों का इलाज करता है।"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 11,
+              "col": 5
+            },
+            "end": {
+              "line": 11,
+              "col": 19
+            },
+            "text": "Mild stratum"
+          },
+          "target_span": {
+            "start": {
+              "line": 11,
+              "col": 5
+            },
+            "end": {
+              "line": 11,
+              "col": 16
+            },
+            "text": "Mild स्तर"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 12,
+              "col": 19
+            },
+            "end": {
+              "line": 12,
+              "col": 71
+            },
+            "text": "A: 85 success, 15 failure   -> p = 0.85  (n = 100)"
+          },
+          "target_span": {
+            "start": {
+              "line": 12,
+              "col": 19
+            },
+            "end": {
+              "line": 12,
+              "col": 68
+            },
+            "text": "A: 85 सफलता, 15 विफलता   -> p = 0.85  (n = 100)"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 13,
+              "col": 19
+            },
+            "end": {
+              "line": 13,
+              "col": 71
+            },
+            "text": "B: 350 success, 150 failure -> p = 0.70  (n = 500)"
+          },
+          "target_span": {
+            "start": {
+              "line": 13,
+              "col": 19
+            },
+            "end": {
+              "line": 13,
+              "col": 68
+            },
+            "text": "B: 350 सफलता, 150 विफलता -> p = 0.70  (n = 500)"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 14,
+              "col": 5
+            },
+            "end": {
+              "line": 14,
+              "col": 21
+            },
+            "text": "Severe stratum"
+          },
+          "target_span": {
+            "start": {
+              "line": 14,
+              "col": 5
+            },
+            "end": {
+              "line": 14,
+              "col": 18
+            },
+            "text": "Severe स्तर"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 15,
+              "col": 19
+            },
+            "end": {
+              "line": 15,
+              "col": 71
+            },
+            "text": "A: 30 success, 470 failure  -> p = 0.06  (n = 500)"
+          },
+          "target_span": {
+            "start": {
+              "line": 15,
+              "col": 19
+            },
+            "end": {
+              "line": 15,
+              "col": 68
+            },
+            "text": "A: 30 सफलता, 470 विफलता  -> p = 0.06  (n = 500)"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 16,
+              "col": 19
+            },
+            "end": {
+              "line": 16,
+              "col": 71
+            },
+            "text": "B:  2 success, 98 failure   -> p = 0.02  (n = 100)"
+          },
+          "target_span": {
+            "start": {
+              "line": 16,
+              "col": 19
+            },
+            "end": {
+              "line": 16,
+              "col": 68
+            },
+            "text": "B:  2 सफलता, 98 विफलता   -> p = 0.02  (n = 100)"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 68
+            },
+            "text": "---- Computation from the dataset (nothing hard-coded below) ----"
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 62
+            },
+            "text": "---- डेटासेट से गणना (नीचे कुछ भी हार्ड-कोडेड नहीं है) ----"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 3,
+              "col": 1
+            },
+            "end": {
+              "line": 3,
+              "col": 63
+            },
+            "text": "Derive strata from the data cell: run data before this cell."
+          },
+          "target_span": {
+            "start": {
+              "line": 3,
+              "col": 1
+            },
+            "end": {
+              "line": 3,
+              "col": 60
+            },
+            "text": "data सेल से स्तर प्राप्त करें: इस सेल से पहले data चलाएं।"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 14,
+              "col": 1
+            },
+            "end": {
+              "line": 14,
+              "col": 33
+            },
+            "text": "--- Within-stratum results ---"
+          },
+          "target_span": {
+            "start": {
+              "line": 14,
+              "col": 1
+            },
+            "end": {
+              "line": 14,
+              "col": 33
+            },
+            "text": "--- स्तर के भीतर के परिणाम ---"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 17,
+              "col": 16
+            },
+            "end": {
+              "line": 17,
+              "col": 37
+            },
+            "text": "--- Stratum: %s ---\\n"
+          },
+          "target_span": {
+            "start": {
+              "line": 17,
+              "col": 16
+            },
+            "end": {
+              "line": 17,
+              "col": 34
+            },
+            "text": "--- स्तर: %s ---\\n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 18,
+              "col": 16
+            },
+            "end": {
+              "line": 18,
+              "col": 71
+            },
+            "text": "  A: success = %d, failure = %d  (p_A = %.4f, n = %d)\\n"
+          },
+          "target_span": {
+            "start": {
+              "line": 18,
+              "col": 16
+            },
+            "end": {
+              "line": 18,
+              "col": 68
+            },
+            "text": "  A: सफलता = %d, विफलता = %d  (p_A = %.4f, n = %d)\\n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 19,
+              "col": 16
+            },
+            "end": {
+              "line": 19,
+              "col": 71
+            },
+            "text": "  B: success = %d, failure = %d  (p_B = %.4f, n = %d)\\n"
+          },
+          "target_span": {
+            "start": {
+              "line": 19,
+              "col": 16
+            },
+            "end": {
+              "line": 19,
+              "col": 68
+            },
+            "text": "  B: सफलता = %d, विफलता = %d  (p_B = %.4f, n = %d)\\n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 20,
+              "col": 16
+            },
+            "end": {
+              "line": 20,
+              "col": 42
+            },
+            "text": "  RR(A/B) in %s = %.4f\\n\\n"
+          },
+          "target_span": {
+            "start": {
+              "line": 20,
+              "col": 16
+            },
+            "end": {
+              "line": 20,
+              "col": 43
+            },
+            "text": "  %s में RR(A/B) = %.4f\\n\\n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 23,
+              "col": 1
+            },
+            "end": {
+              "line": 23,
+              "col": 48
+            },
+            "text": "--- Pooled results (collapse over strata) ---"
+          },
+          "target_span": {
+            "start": {
+              "line": 23,
+              "col": 1
+            },
+            "end": {
+              "line": 23,
+              "col": 44
+            },
+            "text": "--- एकत्रित परिणाम (स्तरों को मिलाकर) ---"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 31,
+              "col": 6
+            },
+            "end": {
+              "line": 31,
+              "col": 41
+            },
+            "text": "--- Pooled (strata collapsed) ---\\n"
+          },
+          "target_span": {
+            "start": {
+              "line": 31,
+              "col": 6
+            },
+            "end": {
+              "line": 31,
+              "col": 39
+            },
+            "text": "--- एकत्रित (स्तर मिलाए गए) ---\\n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 32,
+              "col": 14
+            },
+            "end": {
+              "line": 32,
+              "col": 69
+            },
+            "text": "  A: success = %d, failure = %d  (p_A = %.4f, n = %d)\\n"
+          },
+          "target_span": {
+            "start": {
+              "line": 32,
+              "col": 14
+            },
+            "end": {
+              "line": 32,
+              "col": 66
+            },
+            "text": "  A: सफलता = %d, विफलता = %d  (p_A = %.4f, n = %d)\\n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 33,
+              "col": 14
+            },
+            "end": {
+              "line": 33,
+              "col": 69
+            },
+            "text": "  B: success = %d, failure = %d  (p_B = %.4f, n = %d)\\n"
+          },
+          "target_span": {
+            "start": {
+              "line": 33,
+              "col": 14
+            },
+            "end": {
+              "line": 33,
+              "col": 66
+            },
+            "text": "  B: सफलता = %d, विफलता = %d  (p_B = %.4f, n = %d)\\n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 34,
+              "col": 14
+            },
+            "end": {
+              "line": 34,
+              "col": 41
+            },
+            "text": "  Pooled RR(A/B) = %.4f\\n\\n"
+          },
+          "target_span": {
+            "start": {
+              "line": 34,
+              "col": 14
+            },
+            "end": {
+              "line": 34,
+              "col": 42
+            },
+            "text": "  एकत्रित RR(A/B) = %.4f\\n\\n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 36,
+              "col": 1
+            },
+            "end": {
+              "line": 36,
+              "col": 32
+            },
+            "text": "--- Proofs of the paradox ---"
+          },
+          "target_span": {
+            "start": {
+              "line": 36,
+              "col": 1
+            },
+            "end": {
+              "line": 36,
+              "col": 30
+            },
+            "text": "--- विरोधाभास के प्रमाण ---"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 42,
+              "col": 20
+            },
+            "end": {
+              "line": 42,
+              "col": 43
+            },
+            "text": "A beats B within Mild"
+          },
+          "target_span": {
+            "start": {
+              "line": 42,
+              "col": 20
+            },
+            "end": {
+              "line": 42,
+              "col": 51
+            },
+            "text": "Mild के भीतर A, B से बेहतर है"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 43,
+              "col": 20
+            },
+            "end": {
+              "line": 43,
+              "col": 45
+            },
+            "text": "A beats B within Severe"
+          },
+          "target_span": {
+            "start": {
+              "line": 43,
+              "col": 20
+            },
+            "end": {
+              "line": 43,
+              "col": 53
+            },
+            "text": "Severe के भीतर A, B से बेहतर है"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 44,
+              "col": 20
+            },
+            "end": {
+              "line": 44,
+              "col": 71
+            },
+            "text": "... yet A loses to B overall -> Simpson's paradox"
+          },
+          "target_span": {
+            "start": {
+              "line": 44,
+              "col": 20
+            },
+            "end": {
+              "line": 44,
+              "col": 87
+            },
+            "text": "... फिर भी कुल मिलाकर A, B से हार जाता है -> सिम्पसन का विरोधाभास"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 46,
+              "col": 6
+            },
+            "end": {
+              "line": 46,
+              "col": 83
+            },
+            "text": "✔ All stopifnot checks passed: RR_mild > 1, RR_severe > 1, but RR_pooled < 1."
+          },
+          "target_span": {
+            "start": {
+              "line": 46,
+              "col": 6
+            },
+            "end": {
+              "line": 46,
+              "col": 87
+            },
+            "text": "✔ सभी stopifnot जाँचें पास हुईं: RR_mild > 1, RR_severe > 1, लेकिन RR_pooled < 1।"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "viz",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 77
+            },
+            "text": "---- Visualization: success rates by stratum and pooled (base R only) ----"
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 78
+            },
+            "text": "---- विज़ुअलाइज़ेशन: स्तर और एकत्रित के अनुसार सफलता दरें (केवल बेस R) ----"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "viz",
+          "source_span": {
+            "start": {
+              "line": 3,
+              "col": 32
+            },
+            "end": {
+              "line": 3,
+              "col": 38
+            },
+            "text": "Pooled"
+          },
+          "target_span": {
+            "start": {
+              "line": 3,
+              "col": 32
+            },
+            "end": {
+              "line": 3,
+              "col": 39
+            },
+            "text": "एकत्रित"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "viz",
+          "source_span": {
+            "start": {
+              "line": 12,
+              "col": 31
+            },
+            "end": {
+              "line": 12,
+              "col": 88
+            },
+            "text": "Simpson's Paradox: success rate by group (synthetic data)"
+          },
+          "target_span": {
+            "start": {
+              "line": 12,
+              "col": 31
+            },
+            "end": {
+              "line": 12,
+              "col": 92
+            },
+            "text": "सिम्पसन का विरोधाभास: समूह के अनुसार सफलता दर (सिंथेटिक डेटा)"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "viz",
+          "source_span": {
+            "start": {
+              "line": 13,
+              "col": 17
+            },
+            "end": {
+              "line": 13,
+              "col": 35
+            },
+            "text": "Success proportion"
+          },
+          "target_span": {
+            "start": {
+              "line": 13,
+              "col": 17
+            },
+            "end": {
+              "line": 13,
+              "col": 32
+            },
+            "text": "सफलता का अनुपात"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "viz",
+          "source_span": {
+            "start": {
+              "line": 13,
+              "col": 55
+            },
+            "end": {
+              "line": 13,
+              "col": 66
+            },
+            "text": "Treatment A"
+          },
+          "target_span": {
+            "start": {
+              "line": 13,
+              "col": 52
+            },
+            "end": {
+              "line": 13,
+              "col": 59
+            },
+            "text": "उपचार A"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "viz",
+          "source_span": {
+            "start": {
+              "line": 13,
+              "col": 70
+            },
+            "end": {
+              "line": 13,
+              "col": 81
+            },
+            "text": "Treatment B"
+          },
+          "target_span": {
+            "start": {
+              "line": 13,
+              "col": 63
+            },
+            "end": {
+              "line": 13,
+              "col": 70
+            },
+            "text": "उपचार B"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 73
+            },
+            "text": "Independent recalculation from the underlying counts (SYNTHETIC data)"
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 52
+            },
+            "text": "मूल गणनाओं से स्वतंत्र पुनर्गणना (सिंथेटिक डेटा)"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 14,
+              "col": 1
+            },
+            "end": {
+              "line": 14,
+              "col": 56
+            },
+            "text": "Pool by summing successes and failures across strata"
+          },
+          "target_span": {
+            "start": {
+              "line": 14,
+              "col": 1
+            },
+            "end": {
+              "line": 14,
+              "col": 57
+            },
+            "text": "स्तरों में सफलताओं और विफलताओं को जोड़कर एकत्रित करें"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 23,
+              "col": 1
+            },
+            "end": {
+              "line": 23,
+              "col": 20
+            },
+            "text": "Readable summary"
+          },
+          "target_span": {
+            "start": {
+              "line": 23,
+              "col": 1
+            },
+            "end": {
+              "line": 23,
+              "col": 16
+            },
+            "text": "पठनीय सारांश"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 24,
+              "col": 14
+            },
+            "end": {
+              "line": 24,
+              "col": 68
+            },
+            "text": "Independent JavaScript recalculation (synthetic data):"
+          },
+          "target_span": {
+            "start": {
+              "line": 24,
+              "col": 14
+            },
+            "end": {
+              "line": 24,
+              "col": 60
+            },
+            "text": "स्वतंत्र JavaScript पुनर्गणना (सिंथेटिक डेटा):"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 35,
+              "col": 1
+            },
+            "end": {
+              "line": 35,
+              "col": 78
+            },
+            "text": "Check the original fixed counts independently; this does not read R state."
+          },
+          "target_span": {
+            "start": {
+              "line": 35,
+              "col": 1
+            },
+            "end": {
+              "line": 35,
+              "col": 84
+            },
+            "text": "मूल निश्चित संख्याओं की स्वतंत्र रूप से जाँच करें; यह R स्थिति को नहीं पढ़ता है।"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 44,
+              "col": 106
+            },
+            "end": {
+              "line": 44,
+              "col": 162
+            },
+            "text": "Mild proportions disagree with the expected input counts"
+          },
+          "target_span": {
+            "start": {
+              "line": 44,
+              "col": 106
+            },
+            "end": {
+              "line": 44,
+              "col": 158
+            },
+            "text": "Mild अनुपात अपेक्षित इनपुट संख्याओं से मेल नहीं खाते"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 45,
+              "col": 106
+            },
+            "end": {
+              "line": 45,
+              "col": 164
+            },
+            "text": "Severe proportions disagree with the expected input counts"
+          },
+          "target_span": {
+            "start": {
+              "line": 45,
+              "col": 106
+            },
+            "end": {
+              "line": 45,
+              "col": 160
+            },
+            "text": "Severe अनुपात अपेक्षित इनपुट संख्याओं से मेल नहीं खाते"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 46,
+              "col": 106
+            },
+            "end": {
+              "line": 46,
+              "col": 164
+            },
+            "text": "Pooled proportions disagree with the expected input counts"
+          },
+          "target_span": {
+            "start": {
+              "line": 46,
+              "col": 106
+            },
+            "end": {
+              "line": 46,
+              "col": 161
+            },
+            "text": "एकत्रित अनुपात अपेक्षित इनपुट संख्याओं से मेल नहीं खाते"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 48,
+              "col": 20
+            },
+            "end": {
+              "line": 48,
+              "col": 104
+            },
+            "text": "Paradox structure not reproduced: expected RR_mild > 1, RR_severe > 1, RR_pooled < 1"
+          },
+          "target_span": {
+            "start": {
+              "line": 48,
+              "col": 20
+            },
+            "end": {
+              "line": 48,
+              "col": 110
+            },
+            "text": "विरोधाभास संरचना पुनरुत्पादित नहीं हुई: अपेक्षित RR_mild > 1, RR_severe > 1, RR_pooled < 1"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 50,
+              "col": 14
+            },
+            "end": {
+              "line": 50,
+              "col": 84
+            },
+            "text": "\\n✔ Original-count JavaScript recalculation and paradox checks passed."
+          },
+          "target_span": {
+            "start": {
+              "line": 50,
+              "col": 14
+            },
+            "end": {
+              "line": 50,
+              "col": 79
+            },
+            "text": "\\n✔ मूल-संख्या JavaScript पुनर्गणना और विरोधाभास जाँचें पास हुईं।"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        }
+      ],
+      "exclusions": []
+    },
+    "nativeSpeakerReview": "pending"
+  },
+  "browser": {
+    "status": "passed",
+    "first": {
+      "exportSha256": "654d83424f2ca5caf4dbb5bd77f138f5a405e616fda8885d9e100d182f03b039",
+      "reportSha256": "3b20a4ed9907f8eb38bfbecb380594159c546f637a42e978b6864edf48031391",
+      "appVersion": "1.4.0",
+      "cells": 7,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "second": {
+      "exportSha256": "40df8bcbb155a7a9b46cb416279a23d8151d5dd998ef06585bfee8a1656df122",
+      "reportSha256": "3b20a4ed9907f8eb38bfbecb380594159c546f637a42e978b6864edf48031391",
+      "appVersion": "1.4.0",
+      "cells": 7,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "englishBaseline": [
+      {
+        "exportSha256": "715a787cba3b5f4805a616c22b636b3c35db086fcfb69ce5c3ec184307e8d095",
+        "reportSha256": "341ef72fc46e69193b5f49ddc7d217fcb3445bf4c3580789c0c36bded7da45fc",
+        "appVersion": "1.4.0",
+        "cells": 7,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      },
+      {
+        "exportSha256": "8bfe8c73d93d967c96ca4e6921a494859abdcc20208f0fc12b02f63cd6f2b711",
+        "reportSha256": "341ef72fc46e69193b5f49ddc7d217fcb3445bf4c3580789c0c36bded7da45fc",
+        "appVersion": "1.4.0",
+        "cells": 7,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      }
+    ],
+    "deterministic": true,
+    "textOracle": {
+      "first": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      },
+      "second": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      }
+    },
+    "plotData": {
+      "status": "passed",
+      "count": 0
+    },
+    "rasterCharts": {
+      "decoded": true,
+      "count": 1,
+      "caveat": "R raster rendering checked separately; numerical checks use unchanged executable tokens and the lesson’s independent count/vote checks."
+    },
+    "renderedReview": "controller-AI-reviewed",
+    "rendering": {
+      "status": "passed",
+      "scope": "Titles, axes, legends and glyphs visually checked in captured app renders; not native-language approval.",
+      "nativeSpeakerReview": "pending"
+    }
+  },
+  "caveat": "Machine translated with Gemini and reviewed by AI/controller checks, including scoped corrections where needed. Native-speaker review is pending; structural and numerical checks do not certify prose quality."
+}

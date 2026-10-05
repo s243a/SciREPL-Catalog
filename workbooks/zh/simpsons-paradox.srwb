@@ -1,0 +1,51 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "辛普森悖论",
+    "cells": [
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "name": "intro",
+        "code": "# 辛普森悖论：当每个组都与总体不一致时\n\n> **本工作簿中的所有数据均为合成/虚构数据**，仅为课堂演示而构建。不涉及真实的患者、产品或治疗。\n\n## 学习目标\n学完本笔记本后，你应该能够：\n\n1. 构建一个展现辛普森悖论的小型分层 2×2 数据集。\n2. 计算每个层内以及合并后的成功比例和**相对危险度（RR = p_A / p_B）**。\n3. 解释**为什么**汇总比较会逆转层内比较（由层大小/潜变量引起的混杂）。\n4. 在第二种语言（R 和 JavaScript）中独立验证相同的数字。\n\n## 预测问题（在运行计算单元格之前回答）\n假设疗法 A **在每一个层中**都胜过疗法 B（更高的成功率，处处 RR > 1）。当你忽略分层并合并所有数据时，疗法 A 的结果有可能比疗法 B **更差**吗？\n\n- 写下你的猜测：**是 / 否**，以及一句推理理由。\n- 如果你回答了*是*：A 和 B 的**层大小**必须满足什么条件才会出现反转？\n- 在看到下一个单元格中的计数后，尝试手动计算合并率。\n\n## 运行环境与运行顺序\n\n按顺序运行指定的单元格：`data` (R)、`compute` (R)、`viz` (R)，然后是 `js_check` (JavaScript)。R 单元格共享运行时变量；显示已保存的单元格并不等同于运行它。此目录副本不包含已保存的输出。\n\n该 R 示例仅使用基础 R：无需安装任何程序包，但 SciREPL 首次可能需要下载或初始化其 webR 运行时。JavaScript 在浏览器中运行。JavaScript 单元格独立重新计算原始固定计数；它不读取 R 会话。如果更改数据集，请在比较它们之前更新两种语言的输入计数及其检查。"
+      },
+      {
+        "type": "code",
+        "language": "r",
+        "name": "data",
+        "code": "# ---- 合成 / 虚构数据（非真实） ----\n# 两个层；两种疗法 A 和 B；二元结局（成功/失败）。\n# 构建为在每个层内 A > B，但合并后 B > A。\n# 机制：A 主要治疗重度患者（高风险），B 主要治疗轻度患者。\n\ndat <- data.frame(\n  stratum   = rep(c(\"Mild\", \"Severe\"), each = 4),\n  treatment = rep(rep(c(\"A\", \"B\"), each = 2), 2),\n  outcome   = rep(c(\"success\", \"failure\"), 4),\n  count = c(\n    # 轻度层\n    85, 15,       # A: 85 成功，15 失败   -> p = 0.85  (n = 100)\n    350, 150,     # B: 350 成功，150 失败 -> p = 0.70  (n = 500)\n    # 重度层\n    30, 470,      # A: 30 成功，470 失败  -> p = 0.06  (n = 500)\n    2,  98        # B:  2 成功，98 失败   -> p = 0.02  (n = 100)\n  )\n)\ndat"
+      },
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "name": "pause",
+        "code": "## ⏸️ 暂停——预测与计算\n\n上方的数据集现已定义。**请先不要运行下一个单元格。**\n\n1. 根据计数，手动计算 A 和 B 在 *Mild* 层以及 *Severe* 层中的成功比例。哪种疗法在各层中胜出？\n2. 现在进行合并：将每种疗法在两个层中的**所有**成功数和**所有**失败数相加，并计算合并比例。总体上哪种疗法胜出？\n3. 计算三个相对危险度 RR = p_A / p_B（Mild、Severe、合并）。它们都指向同一方向吗？\n4. 在揭晓答案之前：*为什么* A 看起来处处更好，但总体上却更差？（提示：哪种疗法主要治疗**重度**（Severe）患者，这对其总体平均值有什么影响？）\n\n写下你的预测，然后运行下一个单元格进行检查。"
+      },
+      {
+        "type": "code",
+        "language": "r",
+        "name": "compute",
+        "code": "# ---- 从数据集计算（以下内容均非硬编码） ----\n\n# 从 data 单元格推导各层：在此单元格之前运行 data。\nstrata <- unique(dat$stratum)\n\nget_p <- function(s, t) {\n  n_ok <- dat$count[dat$stratum == s & dat$treatment == t & dat$outcome == \"success\"]\n  n_no <- dat$count[dat$stratum == s & dat$treatment == t & dat$outcome == \"failure\"]\n  c(success = n_ok, failure = n_no, n = n_ok + n_no, p = n_ok / (n_ok + n_no))\n}\n\nrr <- function(pA, pB) pA / pB\n\n# --- 层内结果 ---\nfor (s in strata) {\n  a <- get_p(s, \"A\"); b <- get_p(s, \"B\")\n  cat(sprintf(\"--- 层：%s ---\\n\", s))\n  cat(sprintf(\"  A: 成功 = %d, 失败 = %d  (p_A = %.4f, n = %d)\\n\", a[\"success\"], a[\"failure\"], a[\"p\"], a[\"n\"]))\n  cat(sprintf(\"  B: 成功 = %d, 失败 = %d  (p_B = %.4f, n = %d)\\n\", b[\"success\"], b[\"failure\"], b[\"p\"], b[\"n\"]))\n  cat(sprintf(\"  %s 中的 RR(A/B) = %.4f\\n\\n\", s, rr(a[\"p\"], b[\"p\"])))\n}\n\n# --- 合并结果（跨层汇总） ---\nagg <- aggregate(count ~ treatment + outcome, data = dat, FUN = sum)\npooled <- function(t) {\n  s <- agg$count[agg$treatment == t & agg$outcome == \"success\"]\n  f <- agg$count[agg$treatment == t & agg$outcome == \"failure\"]\n  c(success = s, failure = f, n = s + f, p = s / (s + f))\n}\npA <- pooled(\"A\"); pB <- pooled(\"B\")\ncat(\"--- 合并（跨层汇总） ---\\n\")\ncat(sprintf(\"  A: 成功 = %d, 失败 = %d  (p_A = %.4f, n = %d)\\n\", pA[\"success\"], pA[\"failure\"], pA[\"p\"], pA[\"n\"]))\ncat(sprintf(\"  B: 成功 = %d, 失败 = %d  (p_B = %.4f, n = %d)\\n\", pB[\"success\"], pB[\"failure\"], pB[\"p\"], pB[\"n\"]))\ncat(sprintf(\"  合并 RR(A/B) = %.4f\\n\\n\", rr(pA[\"p\"], pB[\"p\"])))\n\n# --- 悖论证明 ---\nrr_mild    <- rr(get_p(\"Mild\",   \"A\")[\"p\"], get_p(\"Mild\",   \"B\")[\"p\"])\nrr_severe  <- rr(get_p(\"Severe\", \"A\")[\"p\"], get_p(\"Severe\", \"B\")[\"p\"])\nrr_pooled  <- rr(pA[\"p\"], pB[\"p\"])\n\nstopifnot(\n  rr_mild   > 1,   # A 在 Mild 层胜过 B\n  rr_severe > 1,   # A 在 Severe 层胜过 B\n  rr_pooled < 1    # ……然而 A 总体上输给 B -> 辛普森悖论\n)\ncat(\"✔ 所有 stopifnot 检查均已通过：RR_mild > 1, RR_severe > 1, 但 RR_pooled < 1。\")"
+      },
+      {
+        "type": "code",
+        "language": "r",
+        "name": "viz",
+        "code": "# ---- 可视化：按层划分及合并的成功率（仅基础 R） ----\n\nlabels <- c(\"Mild\", \"Severe\", \"合并\")\npA_v <- c(get_p(\"Mild\", \"A\")[\"p\"], get_p(\"Severe\", \"A\")[\"p\"], pA[\"p\"])\npB_v <- c(get_p(\"Mild\", \"B\")[\"p\"], get_p(\"Severe\", \"B\")[\"p\"], pB[\"p\"])\n\nm <- rbind(A = pA_v, B = pB_v)\ncolnames(m) <- labels\nop <- par(mar = c(4.1, 4.1, 4.1, 1.1))\nbarplot(m, beside = TRUE, ylim = c(0, 0.9),\n        col = c(\"#4472C4\", \"#ED7D31\"),\n        main = paste(strwrap(\"辛普森悖论：各组成功率（合成数据）\", width = 42), collapse = \"\\n\"), cex.main = 1.0,\n        ylab = \"成功比例\", legend.text = c(\"疗法 A\", \"疗法 B\"),\n        args.legend = list(x = \"topright\", bty = \"n\"))\nabline(h = 0, col = \"grey40\")\npar(op)"
+      },
+      {
+        "type": "code",
+        "language": "javascript",
+        "name": "js_check",
+        "code": "// 根据基础计数进行独立重新计算（合成数据）\nconst counts = {\n  Mild:   { A: { s: 85,  f: 15 },  B: { s: 350, f: 150 } },\n  Severe: { A: { s: 30,  f: 470 }, B: { s: 2,   f: 98 } }\n};\n\nconst res = {};\nfor (const st of Object.keys(counts)) {\n  const g = counts[st];\n  for (const t of [\"A\", \"B\"]) g[t].p = g[t].s / (g[t].s + g[t].f);\n  res[st] = { A: g.A, B: g.B, RR: g.A.p / g.B.p };\n}\n\n// 通过对各层的成功数和失败数求和进行合并\nconst pooled = { A: { s: 0, f: 0 }, B: { s: 0, f: 0 } };\nfor (const st of Object.keys(counts)) {\n  pooled.A.s += counts[st].A.s; pooled.A.f += counts[st].A.f;\n  pooled.B.s += counts[st].B.s; pooled.B.f += counts[st].B.f;\n}\nfor (const t of [\"A\", \"B\"]) pooled[t].p = pooled[t].s / (pooled[t].s + pooled[t].f);\nres.Pooled = { A: pooled.A, B: pooled.B, RR: pooled.A.p / pooled.B.p };\n\n// 易读摘要\nconsole.log(\"独立 JavaScript 重新计算（合成数据）：\");\nfor (const k of Object.keys(res)) {\n  const r = res[k];\n  console.log(\n    k.padEnd(7) +\n    `  p_A = ${r.A.p.toFixed(4)} (${r.A.s}/${r.A.s + r.A.f})` +\n    `  p_B = ${r.B.p.toFixed(4)} (${r.B.s}/${r.B.s + r.B.f})` +\n    `  RR = ${r.RR.toFixed(4)}`\n  );\n}\n\n// 独立检查原始固定计数；此操作不读取 R 状态。\nconst expect = {\n  Mild:   { pA: 85/100,  pB: 350/500 },\n  Severe: { pA: 30/500,  pB: 2/100 },\n  Pooled: { pA: 115/600, pB: 352/600 }\n};\nconst eps = 1e-12;\nfunction near(a, b) { return Math.abs(a - b) < eps; }\n\nif (!near(res.Mild.A.p,   expect.Mild.pA)   || !near(res.Mild.B.p,   expect.Mild.pB))   throw new Error(\"Mild 比例与预期输入计数不一致\");\nif (!near(res.Severe.A.p, expect.Severe.pA) || !near(res.Severe.B.p, expect.Severe.pB)) throw new Error(\"Severe 比例与预期输入计数不一致\");\nif (!near(res.Pooled.A.p, expect.Pooled.pA) || !near(res.Pooled.B.p, expect.Pooled.pB)) throw new Error(\"合并比例与预期输入计数不一致\");\nif (!(res.Mild.RR > 1 && res.Severe.RR > 1 && res.Pooled.RR < 1))\n  throw new Error(\"未复现悖论结构：预期 RR_mild > 1, RR_severe > 1, RR_pooled < 1\");\n\nconsole.log(\"\\n✔ 原始计数 JavaScript 重新计算和悖论检查已通过。\");"
+      },
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "name": "explanation",
+        "code": "## 为什么会发生反转\n\n**悖论。** 在两个层中，A 的成功率都高于 B（各层中 RR > 1）。然而，当把各层合并时，B 的总体成功率却高于 A。两个陈述对于同一组数据都是真实的——汇总改变了结论。\n\n**机制：严重程度带来的混杂。** 严重程度是一个同时影响治疗分配和结局的*潜变量*：\n\n- 重度患者在**任一**疗法下的成功率都很低（A 为 6%，B 为 2%）。\n- 在这个合成队列中，**A 主要治疗重度患者**（600 例中有 500 例），而 **B 主要治疗轻度患者**（600 例中有 500 例）。\n- 因此，A 的总体平均值被其大量的重度病例组合拉低，而 B 的总体平均值则被其以轻度为主的组合所支撑——尽管 A *在每个层内*都表现更好。\n\n形式上，每种疗法的合并率是其各层特异性比率的加权平均值：\n\n$$p_T^{\\,pooled} = w_{T,\\text{Mild}}\\,p_{T,\\text{Mild}} + w_{T,\\text{Severe}}\\,p_{T,\\text{Severe}}, \\qquad w_{T,s} = \\frac{n_{T,s}}{n_T}$$\n\n权重 $w_{T,s}$ **在不同疗法之间存在差异**（A 的 Mild 权重为 1/6，而 B 为 5/6），因此合并后的差异将层内关联与病例组合差异混合在一起。当权重的不平衡相对于层比率的差距足够大时，正负号就会反转。分层（或将两种疗法标准化为相同的层权重）可以消除*这种特定的已测量病例组合扭曲*：它表明**在此合成数据的每个层中 A 都更好**。但这本身并**不能**单独分离出“治疗效应”，也不能证明 A 在因果上更优——因果推断需要合适的设计（例如随机化）以及关于严重程度*之外*的混杂因素的假设，而这些并未在这个双变量说明中体现。\n\n**为什么在此处合并比较具有误导性。** 合并后的数值回答的是“*针对这种特定的病例组合*，哪种疗法表现更好？”——这个问题主要由谁被分配到哪里所决定——而不是“对于给定严重程度的患者，哪种疗法更好？”分层比较或具有共同权重的标准化比较将这种测得的病例组合扭曲与层内关联分离开来。这两种比较本身都无法确立因果治疗效应。\n\n## 三个讨论问题\n\n1. **设计：** 在这个合成数据集中，随机分配将如何减少系统性的病例组合不平衡？为什么分层随机化可能会有帮助，以及为什么机会性不平衡仍然可能发生？\n2. **解释：** 一家医院报告其新疗法的*总体*存活率高于标准疗法。在得出新疗法更好的结论之前，你会要求查看哪些层（年龄、基线严重程度、合并症）？\n3. **决策：** 合并 RR < 1，但各层 RR > 1。对于正在治疗一位已知重度患者的临床医生来说，哪个估计值更具相关性，为什么？在将该估计值作为治疗决策的因果指导之前，还需要哪些额外证据（研究设计、其他混杂因素、重复验证）？"
+      }
+    ]
+  }
+}

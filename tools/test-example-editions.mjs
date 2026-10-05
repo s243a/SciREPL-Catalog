@@ -56,9 +56,14 @@ for (const lesson of Object.keys(EXAMPLE_DESCRIPTIONS)) for (const locale of loc
     assert.deepEqual(manifest, review.translation.manifest, 'Authoritative span manifest changed');
     const sourceCandidates = JSON.parse(run('span-apply.mjs', ['candidates', sourcePath])).candidates;
     const targetCandidates = new Map(JSON.parse(run('span-apply.mjs', ['candidates', targetPath])).candidates.map(c => [c.id, c]));
+    const candidateIds = new Set(sourceCandidates.map(c => c.id));
     const kept = new Set(review.translation.keeps.ids);
     assert.equal(kept.size, review.translation.keeps.ids.length);
-    for (const id of review.translation.policy.protectedIds) assert(kept.has(id));
+    for (const id of kept) assert(candidateIds.has(id), 'Stale/unknown KEEP id: ' + id);
+    for (const id of review.translation.policy.protectedIds) {
+      assert(candidateIds.has(id), 'Stale/unknown protected id: ' + id);
+      assert(kept.has(id));
+    }
     for (const candidate of sourceCandidates.filter(c => kept.has(c.id))) {
       assert.equal(targetCandidates.get(candidate.id)?.text, candidate.text, 'Protected/kept candidate changed');
     }
@@ -73,6 +78,8 @@ for (const lesson of Object.keys(EXAMPLE_DESCRIPTIONS)) for (const locale of loc
   }
   assert(review.browser.textOracle.first.pass && review.browser.textOracle.second.pass);
   assert.equal(review.browser.plotData.status, 'passed');
+  assert(!JSON.stringify(review).includes('/home/'), 'Private host path leaked into public receipt');
+  assert(!JSON.stringify(review).includes('reviews/translation-pilot'), 'Private evidence path leaked into public receipt');
   count++; console.log(`[PASS] ${lesson}/${locale}: hashes, names, Markdown invariants, code spans and review receipts`);
 }
 console.log(`${count} reviewed example editions verified without workbook execution.`);

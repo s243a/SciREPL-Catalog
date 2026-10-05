@@ -3204,9 +3204,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/en/patients-to-evidence.srwb",
-      "revision": 1,
-      "sha256": "80c529dd819cc536ec3b8a718e6adba96ea8adee2ee71fcd7d4ad3fc374796a2",
-      "size": 19374
+      "revision": 2,
+      "sha256": "91fcb454cdbf2e135e95fff03cdc59a3c201ed90319b8093cc2f129e2ef0fe4b",
+      "size": 19727
     },
     {
       "id": "simpsons-paradox-en",
@@ -3222,9 +3222,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/en/simpsons-paradox.srwb",
-      "revision": 1,
-      "sha256": "bb32d966c1ee1ec6f5372f621804a8121a08cdb0b976e89bce118449c168aac0",
-      "size": 12901
+      "revision": 2,
+      "sha256": "a99db8a614a1392f64ad4f1a5d00181a26c65bd3f4e67581de4b911e4299aacb",
+      "size": 12965
     },
     {
       "id": "markov-groups-en",
@@ -3276,9 +3276,1281 @@
       ],
       "format": "srwb",
       "path": "workbooks/en/breakfast-democracy.srwb",
+      "revision": 2,
+      "sha256": "d533c0520415d162e61981771e8cc890dc8ee7595e79be794726bba5b778eff4",
+      "size": 15065
+    },
+    {
+      "id": "select-risk-measures-ar",
+      "name": "من SELECT إلى مقاييس الخطر",
+      "description": "سجلات اصطناعية تحافظ على إجماليات تجربة SELECT المنشورة؛ احسب مقاييس الخطر الخام وNNT التقريبي، وميّز نسب الخطر عن نسب المخاطر.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "ar"
+      ],
+      "format": "srwb",
+      "path": "workbooks/ar/select-risk-measures.srwb",
       "revision": 1,
-      "sha256": "9bcbce31d8633a642967021824a776aaaf943846b133798fd034dfd740bcf448",
-      "size": 15063
+      "sha256": "2f27d53cc735e7ecfc9e380fc1c85d8ec7d2d3fa10e63508d70c7a2f4e6adc7a",
+      "size": 20770
+    },
+    {
+      "id": "select-risk-measures-bn",
+      "name": "SELECT থেকে ঝুঁকির পরিমাপ",
+      "description": "সিন্থেটিক রেকর্ড যা প্রকাশিত SELECT ট্রায়ালের সমন্বিত উপাত্ত সংরক্ষণ করে; স্থূল ঝুঁকির পরিমাপ এবং আনুমানিক NNT গণনা করুন, এবং হ্যাজার্ড অনুপাত থেকে ঝুঁকির অনুপাতকে আলাদা করুন।",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "bn"
+      ],
+      "format": "srwb",
+      "path": "workbooks/bn/select-risk-measures.srwb",
+      "revision": 1,
+      "sha256": "7baab93ea93633d9ecb46c5748a81df23ca86e78a2fff9b6ece575201199b126",
+      "size": 30132
+    },
+    {
+      "id": "select-risk-measures-de",
+      "name": "Von SELECT zu Risikomaßen",
+      "description": "Synthetische Datensätze, die publizierte Aggregate der SELECT-Studie bewahren; berechnen Sie rohe Risikomaße und eine approximative NNT und unterscheiden Sie Risikoverhältnisse von Hazard Ratios.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "de"
+      ],
+      "format": "srwb",
+      "path": "workbooks/de/select-risk-measures.srwb",
+      "revision": 1,
+      "sha256": "86f06ce382eeae9303f2182f27ce6112ad99b90cafd75269ac038f29a98c4e51",
+      "size": 16493
+    },
+    {
+      "id": "select-risk-measures-es",
+      "name": "De SELECT a las medidas de riesgo",
+      "description": "Registros sintéticos que preservan los agregados publicados del ensayo SELECT; calcule medidas de riesgo brutas y el NNT aproximado, y distinga las razones de riesgo de las hazard ratios.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "es"
+      ],
+      "format": "srwb",
+      "path": "workbooks/es/select-risk-measures.srwb",
+      "revision": 1,
+      "sha256": "e4fe96004146b576886377a076e105ca188f12fc4aa8ab56dad4adddc54e68eb",
+      "size": 16608
+    },
+    {
+      "id": "select-risk-measures-fr",
+      "name": "De SELECT aux mesures de risque",
+      "description": "Enregistrements synthétiques préservant les agrégats publiés de l'essai SELECT ; calculez les mesures de risque brutes et le NNT approximatif, et distinguez les rapports de risque des hazard ratios.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "fr"
+      ],
+      "format": "srwb",
+      "path": "workbooks/fr/select-risk-measures.srwb",
+      "revision": 1,
+      "sha256": "c5f13cdcff27fd6fd666837c211afe34952a2317f84323eb24142993a7181d73",
+      "size": 17396
+    },
+    {
+      "id": "select-risk-measures-hi",
+      "name": "SELECT से जोखिम मापों तक",
+      "description": "प्रकाशित SELECT ट्रायल के समग्र आंकड़ों को संरक्षित करने वाले सिंथेटिक रिकॉर्ड; अपरिष्कृत जोखिम मापों और अनुमानित NNT की गणना करें, तथा जोखिम अनुपातों और संकट अनुपातों में अंतर स्पष्ट करें।",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "hi"
+      ],
+      "format": "srwb",
+      "path": "workbooks/hi/select-risk-measures.srwb",
+      "revision": 1,
+      "sha256": "64b69dddaf972a1d3d6d2339e5df152cf7ec11ad9013a362c733e09dbbe4c46b",
+      "size": 29431
+    },
+    {
+      "id": "select-risk-measures-id",
+      "name": "Dari SELECT ke Ukuran Risiko",
+      "description": "Catatan sintetis yang mempertahankan agregat uji klinis SELECT yang dipublikasikan; hitung ukuran risiko kasar dan perkiraan NNT, serta bedakan rasio risiko dari hazard ratio.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "id"
+      ],
+      "format": "srwb",
+      "path": "workbooks/id/select-risk-measures.srwb",
+      "revision": 1,
+      "sha256": "396c6038b7fe4ca6dbf950e2d2af1901e55ebf4a8560e3017954cd25610ae01d",
+      "size": 15606
+    },
+    {
+      "id": "select-risk-measures-ja",
+      "name": "SELECTからリスク指標へ",
+      "description": "公表されたSELECT試験の集計値を保持した合成レコード。粗リスク指標とおおよそのNNTを計算し、リスク比とハザード比を区別します。",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "ja"
+      ],
+      "format": "srwb",
+      "path": "workbooks/ja/select-risk-measures.srwb",
+      "revision": 1,
+      "sha256": "672134dccf8e3e57da3af9e1e6e86a9197f15dc3ee158e924f2d875b026eb1c7",
+      "size": 17985
+    },
+    {
+      "id": "select-risk-measures-ko",
+      "name": "SELECT에서 위험 측도로",
+      "description": "발표된 SELECT 임상시험 집합 데이터를 보존하는 합성 레코드입니다. 조 위험 측도와 근사 NNT를 계산하고, 위험비(risk ratio)와 위험비(hazard ratio)를 구별합니다.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "ko"
+      ],
+      "format": "srwb",
+      "path": "workbooks/ko/select-risk-measures.srwb",
+      "revision": 1,
+      "sha256": "5a569c2f75dcf05035cf847887c04c0d7c7ef3cfd2af5bb909f51f35316f5d12",
+      "size": 16523
+    },
+    {
+      "id": "select-risk-measures-pt-BR",
+      "name": "Do SELECT às medidas de risco",
+      "description": "Registros sintéticos preservando os agregados publicados do ensaio SELECT; calcule medidas de risco brutas e NNT aproximado, e distinga razões de risco de hazard ratios.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "pt-BR"
+      ],
+      "format": "srwb",
+      "path": "workbooks/pt-BR/select-risk-measures.srwb",
+      "revision": 1,
+      "sha256": "668ffa548118136d65644def99c8238bcd68672095313e7e03dd8f032470411c",
+      "size": 16287
+    },
+    {
+      "id": "select-risk-measures-ru",
+      "name": "От SELECT к показателям риска",
+      "description": "Синтетические записи, сохраняющие опубликованные агрегированные данные исследования SELECT; рассчитайте грубые показатели риска и приближённый NNT, а также научитесь отличать отношения рисков (risk ratios) от отношений рисков (hazard ratios).",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "ru"
+      ],
+      "format": "srwb",
+      "path": "workbooks/ru/select-risk-measures.srwb",
+      "revision": 1,
+      "sha256": "e57c7b9555e8416c2d1f88d1508ef53be9b6971e1eff16db28b3e030bfeefde2",
+      "size": 26461
+    },
+    {
+      "id": "select-risk-measures-zh",
+      "name": "从 SELECT 到风险指标",
+      "description": "保留已发表 SELECT 试验汇总数据的合成记录；计算粗风险指标和近似 NNT，并区分风险比与风险率比。",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "zh"
+      ],
+      "format": "srwb",
+      "path": "workbooks/zh/select-risk-measures.srwb",
+      "revision": 1,
+      "sha256": "d1975ef5cdbb28beb4038ef553f7f1ec0783489f26eab3f926ca058cefc5555b",
+      "size": 13835
+    },
+    {
+      "id": "patients-to-evidence-ar",
+      "name": "من المرضى إلى الأدلة",
+      "description": "محاكاة تجربة وهمية مدتها 12 شهرًا، واستكشاف التباين في أخذ العينات وفترات الثقة التقريبية، ومقارنة التأثيرات المطلقة والنسبية مقابل عتبة سريرية مفترضة.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "ar"
+      ],
+      "format": "srwb",
+      "path": "workbooks/ar/patients-to-evidence.srwb",
+      "revision": 1,
+      "sha256": "b04d9e4db3529844bef61d5ce31cd09a32ff030f32aeb8bc944277a1d5fd82ae",
+      "size": 26270
+    },
+    {
+      "id": "patients-to-evidence-bn",
+      "name": "রোগী থেকে প্রমাণ",
+      "description": "একটি কাল্পনিক 12-মাসের ট্রায়াল সিমুলেট করুন, স্যাম্পলিংয়ের ভিন্নতা এবং আনুমানিক কনফিডেন্স ইন্টারভাল অন্বেষণ করুন, এবং একটি অনুমিত ক্লিনিকাল থ্রেশহোল্ডের বিপরীতে পরম ও আপেক্ষিক প্রভাব তুলনা করুন।",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "bn"
+      ],
+      "format": "srwb",
+      "path": "workbooks/bn/patients-to-evidence.srwb",
+      "revision": 1,
+      "sha256": "6a8df246b11d39d8acd1bc9f0bbbbf6cfa2d21b69fd07933c96c7f73e31beaf3",
+      "size": 37458
+    },
+    {
+      "id": "patients-to-evidence-de",
+      "name": "Von Patienten zu Evidenz",
+      "description": "Simulieren Sie eine fiktive 12-monatige Studie, untersuchen Sie Stichprobenvariation und approximative Konfidenzintervalle und vergleichen Sie absolute und relative Effekte mit einer angenommenen klinischen Schwelle.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "de"
+      ],
+      "format": "srwb",
+      "path": "workbooks/de/patients-to-evidence.srwb",
+      "revision": 1,
+      "sha256": "5c00fe9ee0bf17868639e2c16d6ddf46da039a32423ac8f7b84448cbe8a038f8",
+      "size": 22198
+    },
+    {
+      "id": "patients-to-evidence-es",
+      "name": "De los pacientes a la evidencia",
+      "description": "Simule un ensayo ficticio de 12 meses, explore la variación muestral y los intervalos de confianza aproximados, y compare los efectos absolutos y relativos frente a un umbral clínico supuesto.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "es"
+      ],
+      "format": "srwb",
+      "path": "workbooks/es/patients-to-evidence.srwb",
+      "revision": 1,
+      "sha256": "ef5ac83e392725722587f836fa773021d1b8f6952bcb8be49ac5ea65f25bdf3e",
+      "size": 22080
+    },
+    {
+      "id": "patients-to-evidence-fr",
+      "name": "Des patients aux données probantes",
+      "description": "Simuler un essai fictif de 12 mois, explorer la variation d’échantillonnage et les intervalles de confiance approximatifs, et comparer les effets absolus et relatifs par rapport à un seuil clinique supposé.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "fr"
+      ],
+      "format": "srwb",
+      "path": "workbooks/fr/patients-to-evidence.srwb",
+      "revision": 1,
+      "sha256": "d407c4852f999e96a3da52a30ab7d3807f23a8ea9638c93ab7b123076eadb304",
+      "size": 22815
+    },
+    {
+      "id": "patients-to-evidence-hi",
+      "name": "रोगियों से साक्ष्य तक",
+      "description": "एक काल्पनिक 12-महीने के परीक्षण का अनुकरण (सिम्युलेट) करें, सैंपलिंग भिन्नता और सन्निकट विश्वास अंतरालों का अन्वेषण करें, और एक कल्पित नैदानिक सीमा के विरुद्ध निरपेक्ष और सापेक्ष प्रभावों की तुलना करें।",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "hi"
+      ],
+      "format": "srwb",
+      "path": "workbooks/hi/patients-to-evidence.srwb",
+      "revision": 1,
+      "sha256": "35a4ab66a8bdef3814f8a62e9298022221858ebe0d8421bdbe0afa5cf7b588c8",
+      "size": 35951
+    },
+    {
+      "id": "patients-to-evidence-id",
+      "name": "Dari Pasien ke Bukti",
+      "description": "Simulasikan uji coba fiktif 12 bulan, pelajari variasi pengambilan sampel dan perkiraan interval kepercayaan, serta bandingkan efek absolut dan relatif terhadap ambang batas klinis yang diasumsikan.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "id"
+      ],
+      "format": "srwb",
+      "path": "workbooks/id/patients-to-evidence.srwb",
+      "revision": 1,
+      "sha256": "1a5cf17caa7abfcd70cfb3846520036be3f7930fd40bdf2fe7e6320858f94caa",
+      "size": 21030
+    },
+    {
+      "id": "patients-to-evidence-ja",
+      "name": "患者からエビデンスへ",
+      "description": "架空の12か月の臨床試験をシミュレーションし、標本変動と近似信頼区間を探究し、想定される臨床的閾値と絶対効果および相対効果を比較します。",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "ja"
+      ],
+      "format": "srwb",
+      "path": "workbooks/ja/patients-to-evidence.srwb",
+      "revision": 1,
+      "sha256": "4fd295ca378f6a33b00c11121b05dfdf95dcc03367d5bf7457e45a59f38baeb9",
+      "size": 23791
+    },
+    {
+      "id": "patients-to-evidence-ko",
+      "name": "환자에서 근거로",
+      "description": "가상의 12개월 임상시험을 시뮬레이션하고, 표본추출 변동과 근사 신뢰구간을 탐색하며, 가정한 임상적 임계값을 기준으로 절대 효과와 상대 효과를 비교합니다.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "ko"
+      ],
+      "format": "srwb",
+      "path": "workbooks/ko/patients-to-evidence.srwb",
+      "revision": 1,
+      "sha256": "a214fe19d8b26b2e4d7edda27b04586fda6355bf516c9b7ddc60e93e05c08f5f",
+      "size": 22162
+    },
+    {
+      "id": "patients-to-evidence-pt-BR",
+      "name": "Dos Pacientes às Evidências",
+      "description": "Simule um ensaio fictício de 12 meses, explore a variação amostral e intervalos de confiança aproximados, e compare efeitos absolutos e relativos em relação a um limiar clínico assumido.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "pt-BR"
+      ],
+      "format": "srwb",
+      "path": "workbooks/pt-BR/patients-to-evidence.srwb",
+      "revision": 1,
+      "sha256": "8c7681a51ab39dd2c4cc9a9e2e4f911feea4d9a0eb820308e5afcd2782073630",
+      "size": 21628
+    },
+    {
+      "id": "patients-to-evidence-ru",
+      "name": "От пациентов к доказательствам",
+      "description": "Смоделируйте вымышленное 12-месячное исследование, изучите выборочную вариабельность и приближенные доверительные интервалы, а также сравните абсолютные и относительные эффекты с предполагаемым клиническим порогом.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "ru"
+      ],
+      "format": "srwb",
+      "path": "workbooks/ru/patients-to-evidence.srwb",
+      "revision": 1,
+      "sha256": "4b1b4292b7afce831338282cf6081df88dd952d12f84538675c07d4015e9c3bb",
+      "size": 31705
+    },
+    {
+      "id": "patients-to-evidence-zh",
+      "name": "从患者到证据",
+      "description": "模拟一项虚构的 12 个月试验，探讨抽样变异和近似置信区间，并对照假定的临床阈值比较绝对效应与相对效应。",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "zh"
+      ],
+      "format": "srwb",
+      "path": "workbooks/zh/patients-to-evidence.srwb",
+      "revision": 1,
+      "sha256": "6f99a482a33047f6f00471caa772c6aeec1b5e8585b119aa0c9014ce82f2d1e1",
+      "size": 19209
+    },
+    {
+      "id": "simpsons-paradox-ar",
+      "name": "مفارقة سيمبسون (Simpson's Paradox)",
+      "description": "استخدم بيانات اصطناعية لتوضيح مفارقة سيمبسون (Simpson’s paradox)، وقارن معدلات النجاح الطبقية والمجمعة في R وJavaScript، وافصل بين الارتباط والسببية.",
+      "type": "workbook",
+      "kernels": [
+        "r",
+        "javascript"
+      ],
+      "locales": [
+        "ar"
+      ],
+      "format": "srwb",
+      "path": "workbooks/ar/simpsons-paradox.srwb",
+      "revision": 1,
+      "sha256": "38c639ef6b65b6f9890cf16921e51c5cbfc29c9c3466e26bdebf5448ec920228",
+      "size": 16657
+    },
+    {
+      "id": "simpsons-paradox-bn",
+      "name": "সিম্পসনস প্যারাডক্স",
+      "description": "সিন্থেটিক ডেটা ব্যবহার করে সিম্পসনস প্যারাডক্স প্রদর্শন করুন, R এবং JavaScript-এ স্তরীভূত ও সামগ্রিক (pooled) সাফল্যের হার তুলনা করুন এবং কার্যকারণ (causation) থেকে সংযোগ (association)-কে আলাদা করুন।",
+      "type": "workbook",
+      "kernels": [
+        "r",
+        "javascript"
+      ],
+      "locales": [
+        "bn"
+      ],
+      "format": "srwb",
+      "path": "workbooks/bn/simpsons-paradox.srwb",
+      "revision": 1,
+      "sha256": "d5d258fb32e41f644a8b69a0630cf50a2ac654c9a72bf10d5f5ae8e48d414582",
+      "size": 23364
+    },
+    {
+      "id": "simpsons-paradox-de",
+      "name": "Simpson-Paradoxon",
+      "description": "Verwenden Sie synthetische Daten, um das Simpson-Paradoxon zu demonstrieren, vergleichen Sie stratifizierte und gepoolte Erfolgsraten in R und JavaScript und trennen Sie Assoziation von Kausalität.",
+      "type": "workbook",
+      "kernels": [
+        "r",
+        "javascript"
+      ],
+      "locales": [
+        "de"
+      ],
+      "format": "srwb",
+      "path": "workbooks/de/simpsons-paradox.srwb",
+      "revision": 1,
+      "sha256": "07fe5278b064f1670543d7527606fe7a3681f23c29cc06c2e6c5ded7e32eef66",
+      "size": 14634
+    },
+    {
+      "id": "simpsons-paradox-es",
+      "name": "Paradoja de Simpson",
+      "description": "Use datos sintéticos para demostrar la paradoja de Simpson, compare las tasas de éxito estratificadas y combinadas en R y JavaScript, y separe la asociación de la causalidad.",
+      "type": "workbook",
+      "kernels": [
+        "r",
+        "javascript"
+      ],
+      "locales": [
+        "es"
+      ],
+      "format": "srwb",
+      "path": "workbooks/es/simpsons-paradox.srwb",
+      "revision": 1,
+      "sha256": "d2d866fc0fb2c5aa6a66952675b59380e19429d74828bb90ea65a03741e114ac",
+      "size": 14312
+    },
+    {
+      "id": "simpsons-paradox-fr",
+      "name": "Paradoxe de Simpson",
+      "description": "Utilisez des données synthétiques pour illustrer le paradoxe de Simpson, comparez les taux de réussite stratifiés et agrégés en R et JavaScript, et séparez association et causalité.",
+      "type": "workbook",
+      "kernels": [
+        "r",
+        "javascript"
+      ],
+      "locales": [
+        "fr"
+      ],
+      "format": "srwb",
+      "path": "workbooks/fr/simpsons-paradox.srwb",
+      "revision": 1,
+      "sha256": "03cf65e829b5fd932e62f15988d0711876c238b574ba81540b515d0cc2fb8cfe",
+      "size": 14791
+    },
+    {
+      "id": "simpsons-paradox-hi",
+      "name": "सिम्पसन का विरोधाभास",
+      "description": "सिम्पसन के विरोधाभास को प्रदर्शित करने के लिए सिंथेटिक डेटा का उपयोग करें, R और JavaScript में स्तरीकृत और एकत्रित सफलता दरों की तुलना करें, और सहसंबंध को कार्य-कारण से अलग करें।",
+      "type": "workbook",
+      "kernels": [
+        "r",
+        "javascript"
+      ],
+      "locales": [
+        "hi"
+      ],
+      "format": "srwb",
+      "path": "workbooks/hi/simpsons-paradox.srwb",
+      "revision": 1,
+      "sha256": "cb2fec3443b7c17388310b36360a9e4e7a70535f35ef0b8c54cff8da5f30d95e",
+      "size": 23604
+    },
+    {
+      "id": "simpsons-paradox-id",
+      "name": "Paradoks Simpson",
+      "description": "Gunakan data sintetis untuk mendemonstrasikan paradoks Simpson, membandingkan tingkat keberhasilan terstratifikasi dan gabungan di R dan JavaScript, serta memisahkan asosiasi dari kausalitas.",
+      "type": "workbook",
+      "kernels": [
+        "r",
+        "javascript"
+      ],
+      "locales": [
+        "id"
+      ],
+      "format": "srwb",
+      "path": "workbooks/id/simpsons-paradox.srwb",
+      "revision": 1,
+      "sha256": "37d14e31808ceff5d34ce662d52cb129222542aef9ea96d93fb894199a530504",
+      "size": 14173
+    },
+    {
+      "id": "simpsons-paradox-ja",
+      "name": "シンプソンのパラドックス",
+      "description": "合成データを用いてシンプソンのパラドックスを実証し、RとJavaScriptで層別化された成功率とプールされた成功率を比較して、相関と因果を区別します。",
+      "type": "workbook",
+      "kernels": [
+        "r",
+        "javascript"
+      ],
+      "locales": [
+        "ja"
+      ],
+      "format": "srwb",
+      "path": "workbooks/ja/simpsons-paradox.srwb",
+      "revision": 1,
+      "sha256": "bb19e5a4c7cdee45e72422671b9e1ba4bbc42bfdf2dbb034728fae9025803bcf",
+      "size": 15707
+    },
+    {
+      "id": "simpsons-paradox-ko",
+      "name": "심슨의 역설",
+      "description": "합성 데이터를 사용하여 심슨의 역설을 설명하고, R과 JavaScript에서 층화된 성공률과 통합된 성공률을 비교하며, 연관성과 인과관계를 구분합니다.",
+      "type": "workbook",
+      "kernels": [
+        "r",
+        "javascript"
+      ],
+      "locales": [
+        "ko"
+      ],
+      "format": "srwb",
+      "path": "workbooks/ko/simpsons-paradox.srwb",
+      "revision": 1,
+      "sha256": "2ac7b6e418d4f30d1060a185978dcd84287365fd01b0c475efe1624e4c04c30d",
+      "size": 14322
+    },
+    {
+      "id": "simpsons-paradox-pt-BR",
+      "name": "Paradoxo de Simpson",
+      "description": "Use dados sintéticos para demonstrar o paradoxo de Simpson, comparar taxas de sucesso estratificadas e agrupadas em R e JavaScript e separar associação de causalidade.",
+      "type": "workbook",
+      "kernels": [
+        "r",
+        "javascript"
+      ],
+      "locales": [
+        "pt-BR"
+      ],
+      "format": "srwb",
+      "path": "workbooks/pt-BR/simpsons-paradox.srwb",
+      "revision": 1,
+      "sha256": "04bc8147ee2b253dd2ce61b55b821d381e18ba39c619f0efe7ddc42ac5fd8ba9",
+      "size": 14096
+    },
+    {
+      "id": "simpsons-paradox-ru",
+      "name": "Парадокс Симпсона",
+      "description": "Используйте синтетические данные для демонстрации парадокса Симпсона, сравнения стратифицированных и объединенных показателей успешности в R и JavaScript и отделения ассоциации от причинно-следственной связи.",
+      "type": "workbook",
+      "kernels": [
+        "r",
+        "javascript"
+      ],
+      "locales": [
+        "ru"
+      ],
+      "format": "srwb",
+      "path": "workbooks/ru/simpsons-paradox.srwb",
+      "revision": 1,
+      "sha256": "8475ea04cb96f44af2110359a00d7bc9510b984c2116155d1300d15e601694a1",
+      "size": 20330
+    },
+    {
+      "id": "simpsons-paradox-zh",
+      "name": "辛普森悖论",
+      "description": "使用合成数据演示辛普森悖论，在 R 和 JavaScript 中比较分层与合并成功率，并将关联性与因果关系区分开来。",
+      "type": "workbook",
+      "kernels": [
+        "r",
+        "javascript"
+      ],
+      "locales": [
+        "zh"
+      ],
+      "format": "srwb",
+      "path": "workbooks/zh/simpsons-paradox.srwb",
+      "revision": 1,
+      "sha256": "3d3405aede0ae05edcc9e9cf15766a9a8434566df7a2fb77c1a565b0123cc2a6",
+      "size": 12549
+    },
+    {
+      "id": "markov-groups-ar",
+      "name": "زمر ماركوف: مسار عشوائي على حركات المكعب",
+      "description": "قم بنمذجة تدويرات أوجه مكعب روبيك كتبديلات تم التحقق منها، واستكشف القوى بمقاس أربعة، وميّز بين مسار عشوائي كسول ونموذج تصادفي لملصق واحد.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "ar"
+      ],
+      "format": "srwb",
+      "path": "workbooks/ar/markov-groups.srwb",
+      "revision": 1,
+      "sha256": "32ae93b94852178608d5b05ba0cc58f06a6abb31bb7ef8dd6d0bdeb40b510425",
+      "size": 18796
+    },
+    {
+      "id": "markov-groups-bn",
+      "name": "Markov Groups: কিউব চালের ওপর একটি র্যান্ডম ওয়াক",
+      "description": "Rubik’s Cube-এর ফেস টার্নগুলোকে যাচাইকৃত বিন্যাস (permutations) হিসেবে মডেল করুন, modulo four ঘাতগুলো অন্বেষণ করুন এবং একটি অলস (lazy) র্যান্ডম ওয়াককে এক-স্টিকার স্টোকাস্টিক মডেল থেকে আলাদা করুন।",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "bn"
+      ],
+      "format": "srwb",
+      "path": "workbooks/bn/markov-groups.srwb",
+      "revision": 1,
+      "sha256": "52e855bbf1c96867b2e5741d927a946ab4436d40130a8fc888157e2703f9198d",
+      "size": 25143
+    },
+    {
+      "id": "markov-groups-de",
+      "name": "Markov-Gruppen: Ein Random Walk auf Würfelzügen",
+      "description": "Modellieren Sie Drehungen der Seitenflächen des Zauberwürfels als verifizierte Permutationen, untersuchen Sie Potenzen modulo vier und unterscheiden Sie einen Lazy Random Walk von einem stochastischen Ein-Sticker-Modell.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "de"
+      ],
+      "format": "srwb",
+      "path": "workbooks/de/markov-groups.srwb",
+      "revision": 1,
+      "sha256": "0249405c4376361b99b3bcc376e0bb74fbb7f45a8d1adc9353c9e9cab713f53f",
+      "size": 16379
+    },
+    {
+      "id": "markov-groups-es",
+      "name": "Grupos de Markov: un paseo aleatorio sobre movimientos del cubo",
+      "description": "Modelar los giros de las caras del cubo de Rubik como permutaciones verificadas, explorar potencias módulo cuatro y distinguir un paseo aleatorio perezoso de un modelo estocástico de una sola pegatina.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "es"
+      ],
+      "format": "srwb",
+      "path": "workbooks/es/markov-groups.srwb",
+      "revision": 1,
+      "sha256": "4f2f21e1a58a3f6ee240137b0dc96fb6306cc309857cfee31426a3842278b847",
+      "size": 16157
+    },
+    {
+      "id": "markov-groups-fr",
+      "name": "Groupes de Markov : une marche aléatoire sur les mouvements du cube",
+      "description": "Modélisez les rotations de faces du Rubik’s Cube sous forme de permutations vérifiées, explorez les puissances modulo quatre, et distinguez une marche aléatoire avec paresse (« lazy ») d’un modèle stochastique à une étiquette.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "fr"
+      ],
+      "format": "srwb",
+      "path": "workbooks/fr/markov-groups.srwb",
+      "revision": 1,
+      "sha256": "c1eb3e111de428202fc3c043274922b22681a111214c74c2b74c09e949b42903",
+      "size": 16687
+    },
+    {
+      "id": "markov-groups-hi",
+      "name": "मार्कोव समूह: क्यूब चालों पर एक रैंडम वॉक",
+      "description": "रूबिक क्यूब के फलक घुमावों को सत्यापित क्रमपरिवर्तनों के रूप में मॉडल करें, मॉड्यूलो चार वाली घातों का अन्वेषण करें, और एक लेज़ी रैंडम वॉक तथा एक-स्टिकर स्टोकेस्टिक मॉडल के बीच अंतर स्पष्ट करें।",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "hi"
+      ],
+      "format": "srwb",
+      "path": "workbooks/hi/markov-groups.srwb",
+      "revision": 1,
+      "sha256": "1e41de6fbc91e68782fc6150ca0e752174609d86005fef9534fb0a433671ccea",
+      "size": 25177
+    },
+    {
+      "id": "markov-groups-id",
+      "name": "Grup Markov: Langkah Acak pada Gerakan Kubus",
+      "description": "Modelkan putaran sisi Kubus Rubik sebagai permutasi terverifikasi, pelajari perpangkatan modulo empat, dan bedakan langkah acak malas dari model stokastik satu stiker.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "id"
+      ],
+      "format": "srwb",
+      "path": "workbooks/id/markov-groups.srwb",
+      "revision": 1,
+      "sha256": "edaeaa67e4077ca8d0984282699a2beda29f4d5b23fb02bd140cb21741da2c74",
+      "size": 15705
+    },
+    {
+      "id": "markov-groups-ja",
+      "name": "マルコフ群: キューブの操作によるランダムウォーク",
+      "description": "ルービックキューブの面回転を検証済みの置換としてモデル化し、法を四とするべき乗を調べ、怠惰なランダムウォークと単一ステッカーの確率モデルを区別します。",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "ja"
+      ],
+      "format": "srwb",
+      "path": "workbooks/ja/markov-groups.srwb",
+      "revision": 1,
+      "sha256": "7c0af4e44aa1f91b242ab99a1bccc405210374149dea31b5ae6aa577da4833b4",
+      "size": 17783
+    },
+    {
+      "id": "markov-groups-ko",
+      "name": "마르코프 군: 큐브 회전에서의 무작위 보행",
+      "description": "루빅스 큐브의 면 회전을 검증된 치환으로 모델링하고, 법 넷에 대한 거듭제곱을 탐구하며, 게으른 무작위 보행과 단일 스티커 확률 모델을 구별합니다.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "ko"
+      ],
+      "format": "srwb",
+      "path": "workbooks/ko/markov-groups.srwb",
+      "revision": 1,
+      "sha256": "e84e38fd3da04201a25cb96f80e418b35439783e43973bba80d9be355cfe805c",
+      "size": 16678
+    },
+    {
+      "id": "markov-groups-pt-BR",
+      "name": "Grupos de Markov: um passeio aleatório sobre movimentos do cubo",
+      "description": "Modele giros de faces do Cubo Mágico como permutações verificadas, explore potências módulo quatro e distinga um passeio aleatório preguiçoso de um modelo estocástico de um adesivo.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "pt-BR"
+      ],
+      "format": "srwb",
+      "path": "workbooks/pt-BR/markov-groups.srwb",
+      "revision": 1,
+      "sha256": "87841219438b9cb2176d711f1ae19792e50ad63bce643bcbdfbe6a497244e451",
+      "size": 15971
+    },
+    {
+      "id": "markov-groups-ru",
+      "name": "Марковские группы: случайное блуждание по ходам кубика",
+      "description": "Моделируйте повороты граней кубика Рубика как верифицированные перестановки, исследуйте степени по модулю четыре и отличайте ленивое случайное блуждание от стохастической модели одной наклейки.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "ru"
+      ],
+      "format": "srwb",
+      "path": "workbooks/ru/markov-groups.srwb",
+      "revision": 1,
+      "sha256": "ae5213fd8e67d9ba7d5cbbdccd0e1250f5bd39f4a171869e063c63364da4b638",
+      "size": 21865
+    },
+    {
+      "id": "markov-groups-zh",
+      "name": "马尔可夫群：魔方动作上的随机游走",
+      "description": "将魔方转面建模为经过验证的置换，探索模四幂，并区分惰性随机游走与单贴纸随机模型。",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "zh"
+      ],
+      "format": "srwb",
+      "path": "workbooks/zh/markov-groups.srwb",
+      "revision": 1,
+      "sha256": "786fd803c58344c0a79f5f894d89839c690833ea2868800846cb9af7f5689bc3",
+      "size": 14438
+    },
+    {
+      "id": "cooling-plume-capture-ar",
+      "name": "تبريد المناجم المغمورة: مفاضلات المياه والطاقة",
+      "description": "نموذج تجريبي خيالي صريح بلغتَي Python وProlog يستكشف استعادة مكثفات سحابة البخار، وفحوصات التوازن الحراري، والتخزين الحراري في المناجم، ومفاضلات المياه والكهرباء في مقابل التبريد الجاف.",
+      "type": "workbook",
+      "kernels": [
+        "python",
+        "prolog"
+      ],
+      "locales": [
+        "ar"
+      ],
+      "format": "srwb",
+      "path": "workbooks/ar/cooling-plume-capture.srwb",
+      "revision": 1,
+      "sha256": "3561214151072a57483e337afbfb2ddc63f5c9d0d35e3e2ed0558adb06e178fc",
+      "size": 38293
+    },
+    {
+      "id": "cooling-plume-capture-bn",
+      "name": "প্লাবিত-খনি শীতলীকরণ: পানি–শক্তি ট্রেড-অফ",
+      "description": "একটি সুস্পষ্টভাবে কাল্পনিক Python–Prolog টয় মডেল প্লুম-কনডেনসেট পুনরুদ্ধার, তাপ-ভারসাম্য পরীক্ষা, খনির তাপ সঞ্চয় এবং ড্রাই কুলিংয়ের বিপরীতে পানি–বিদ্যুৎ ট্রেড-অফ অন্বেষণ করে।",
+      "type": "workbook",
+      "kernels": [
+        "python",
+        "prolog"
+      ],
+      "locales": [
+        "bn"
+      ],
+      "format": "srwb",
+      "path": "workbooks/bn/cooling-plume-capture.srwb",
+      "revision": 1,
+      "sha256": "513ccd389a6e44b7390be04cf8e42cce41fa75337b7b1da1fe50272ab42629f1",
+      "size": 48946
+    },
+    {
+      "id": "cooling-plume-capture-de",
+      "name": "Kühlung durch geflutete Bergwerke: Wasser–Energie-Zielkonflikte",
+      "description": "Ein ausdrücklich fiktives Python–Prolog-Spielzeugmodell untersucht die Schwadenkondensatrückgewinnung, Wärmebilanzprüfungen, die thermische Speicherung in Bergwerken und Wasser-Strom-Zielkonflikte gegenüber der Trockenkühlung.",
+      "type": "workbook",
+      "kernels": [
+        "python",
+        "prolog"
+      ],
+      "locales": [
+        "de"
+      ],
+      "format": "srwb",
+      "path": "workbooks/de/cooling-plume-capture.srwb",
+      "revision": 1,
+      "sha256": "4b566e63f4e6e6237aff4a3cdc62416f6e03393bd8a03054712ad476453d54ce",
+      "size": 33237
+    },
+    {
+      "id": "cooling-plume-capture-es",
+      "name": "Refrigeración mediante mina inundada: compromisos entre agua y energía",
+      "description": "Un modelo de juguete explícitamente ficticio en Python–Prolog explora la recuperación de condensado de la pluma, comprobaciones de balance térmico, almacenamiento térmico en la mina y los compromisos entre agua y electricidad frente a la refrigeración seca.",
+      "type": "workbook",
+      "kernels": [
+        "python",
+        "prolog"
+      ],
+      "locales": [
+        "es"
+      ],
+      "format": "srwb",
+      "path": "workbooks/es/cooling-plume-capture.srwb",
+      "revision": 1,
+      "sha256": "b41c4925178dd0a9caea48878e03f5c2f9962098f2da294b30b79ff2f9703baa",
+      "size": 33957
+    },
+    {
+      "id": "cooling-plume-capture-fr",
+      "name": "Refroidissement par mine inondée : compromis eau-énergie",
+      "description": "Un modèle simplifié explicitement fictif en Python–Prolog explore la récupération des condensats de panache, les vérifications de bilan thermique, le stockage thermique en mine et les compromis eau-électricité par rapport au refroidissement sec.",
+      "type": "workbook",
+      "kernels": [
+        "python",
+        "prolog"
+      ],
+      "locales": [
+        "fr"
+      ],
+      "format": "srwb",
+      "path": "workbooks/fr/cooling-plume-capture.srwb",
+      "revision": 1,
+      "sha256": "d4c387185f8f31ba5ff3f2a88ef70c422c2b1257ed52da021aa08ea286a33f0e",
+      "size": 34290
+    },
+    {
+      "id": "cooling-plume-capture-hi",
+      "name": "जलमग्न-खदान शीतलन: जल–ऊर्जा ट्रेड-ऑफ़",
+      "description": "एक स्पष्ट रूप से काल्पनिक Python–Prolog टॉय मॉडल प्लूम-कंडेनसेट रिकवरी, हीट-बैलेंस जांच, खदान थर्मल स्टोरेज, और ड्राई कूलिंग के मुकाबले जल–बिजली ट्रेड-ऑफ़ का अन्वेषण करता है।",
+      "type": "workbook",
+      "kernels": [
+        "python",
+        "prolog"
+      ],
+      "locales": [
+        "hi"
+      ],
+      "format": "srwb",
+      "path": "workbooks/hi/cooling-plume-capture.srwb",
+      "revision": 1,
+      "sha256": "4de583194bb5c197c69cf73088e5bea0e77fbe16935c5c598c362e740c471ee0",
+      "size": 45707
+    },
+    {
+      "id": "cooling-plume-capture-id",
+      "name": "Pendinginan Tambang Tergenang: Pertukaran Air–Energi",
+      "description": "Sebuah model mainan Python–Prolog fiktif secara eksplisit mengeksplorasi pemulihan kondensat kepulan, pemeriksaan neraca panas, penyimpanan termal tambang, dan pertukaran air–listrik terhadap pendinginan kering.",
+      "type": "workbook",
+      "kernels": [
+        "python",
+        "prolog"
+      ],
+      "locales": [
+        "id"
+      ],
+      "format": "srwb",
+      "path": "workbooks/id/cooling-plume-capture.srwb",
+      "revision": 1,
+      "sha256": "6af72fcf1dc35e844ad054928c6bcd32c95b8026e1d24b9e2aa58968ec30a0cb",
+      "size": 31734
+    },
+    {
+      "id": "cooling-plume-capture-ja",
+      "name": "水没鉱山冷却：水とエネルギーのトレードオフ",
+      "description": "明示的に架空のPython–Prologトイモデルを用いて、プルーム復水回収、熱収支の確認、鉱山蓄熱、および乾式冷却に対する水と電力のトレードオフを探究します。",
+      "type": "workbook",
+      "kernels": [
+        "python",
+        "prolog"
+      ],
+      "locales": [
+        "ja"
+      ],
+      "format": "srwb",
+      "path": "workbooks/ja/cooling-plume-capture.srwb",
+      "revision": 1,
+      "sha256": "cb5b7c61a559365c55f9aeae7f710471ee5224f097ffad2f2f5d1deb38bfe9f4",
+      "size": 33876
+    },
+    {
+      "id": "cooling-plume-capture-ko",
+      "name": "침수 광산 냉각: 물–에너지 트레이드오프",
+      "description": "명시적으로 가상인 Python–Prolog 토이 모델을 통해 플룸 응축수 회수, 열수지 점검, 광산 축열, 건식 냉각 대비 물–전기 트레이드오프를 탐구합니다.",
+      "type": "workbook",
+      "kernels": [
+        "python",
+        "prolog"
+      ],
+      "locales": [
+        "ko"
+      ],
+      "format": "srwb",
+      "path": "workbooks/ko/cooling-plume-capture.srwb",
+      "revision": 1,
+      "sha256": "481503fab9ee85680de5f75a54928555fc322dbd5f3d672342abd156474290b7",
+      "size": 32049
+    },
+    {
+      "id": "cooling-plume-capture-pt-BR",
+      "name": "Resfriamento por Mina Inundada: Trade-offs de Água–Energia",
+      "description": "Um modelo simplificado explicitamente fictício em Python–Prolog explora a recuperação de condensado da pluma, verificações de balanço térmico, armazenamento térmico em mina e trade-offs entre água e eletricidade em comparação com o resfriamento a seco.",
+      "type": "workbook",
+      "kernels": [
+        "python",
+        "prolog"
+      ],
+      "locales": [
+        "pt-BR"
+      ],
+      "format": "srwb",
+      "path": "workbooks/pt-BR/cooling-plume-capture.srwb",
+      "revision": 1,
+      "sha256": "653e226a3dd3bc9273ca011b6290a3c0de5a4bbc22a03c5709695e86868affdf",
+      "size": 33640
+    },
+    {
+      "id": "cooling-plume-capture-ru",
+      "name": "Охлаждение с использованием затопленной шахты: компромиссы между водой и энергией",
+      "description": "Подчеркнуто вымышленная учебная модель на Python–Prolog исследует улавливание конденсата из факела градирни, проверки теплового баланса, аккумулирование тепла в шахте и компромиссы между водой и электроэнергией в сравнении с сухим охлаждением.",
+      "type": "workbook",
+      "kernels": [
+        "python",
+        "prolog"
+      ],
+      "locales": [
+        "ru"
+      ],
+      "format": "srwb",
+      "path": "workbooks/ru/cooling-plume-capture.srwb",
+      "revision": 1,
+      "sha256": "289956c7803573cb7752a081da7690571ad9011a8110e24c477160851b7ade8e",
+      "size": 45392
+    },
+    {
+      "id": "cooling-plume-capture-zh",
+      "name": "淹没矿井冷却：水–能权衡",
+      "description": "一个明确虚构的 Python–Prolog 玩具模型，用于探索羽流冷凝水回收、热平衡核算、矿井蓄热以及相对于干式冷却的水–电权衡。",
+      "type": "workbook",
+      "kernels": [
+        "python",
+        "prolog"
+      ],
+      "locales": [
+        "zh"
+      ],
+      "format": "srwb",
+      "path": "workbooks/zh/cooling-plume-capture.srwb",
+      "revision": 1,
+      "sha256": "514ff9c3c61b5b4d1248fbb8bb30ab132bc26576b126c9c654f443374248c4e4",
+      "size": 29732
+    },
+    {
+      "id": "breakfast-democracy-ar",
+      "name": "ديمقراطية الإفطار: R → Python → Prolog",
+      "description": "استطلاع رأي تاريخي مثبت لتفضيلات وجبة الإفطار يمر عبر التحقق في R، وإحصاءات قواعد التصويت والتجميع في Python، والاستدلال في Prolog للتمييز بين دورات الأغلبية والفائز الإجمالي وفق كوندورسيه.",
+      "type": "workbook",
+      "kernels": [
+        "r",
+        "prolog",
+        "python"
+      ],
+      "locales": [
+        "ar"
+      ],
+      "format": "srwb",
+      "path": "workbooks/ar/breakfast-democracy.srwb",
+      "revision": 1,
+      "sha256": "5db440308fe3ec840b815ba876be4fa4eab2f0336b1c7b53ef3098fb11ffd607",
+      "size": 19146
+    },
+    {
+      "id": "breakfast-democracy-bn",
+      "name": "ব্রেকফাস্ট ডেমোক্রেসি: R → Python → Prolog",
+      "description": "একটি পিন করা ঐতিহাসিক ব্রেকফাস্ট-পছন্দের পোল R যাচাইকরণ, Python ভোটিং-নিয়ম গণনা ও ক্লাস্টারিং এবং একটি সামগ্রিক Condorcet বিজয়ী থেকে সংখ্যাগরিষ্ঠ চক্র আলাদা করতে Prolog যুক্তির মধ্য দিয়ে প্রবাহিত হয়।",
+      "type": "workbook",
+      "kernels": [
+        "r",
+        "prolog",
+        "python"
+      ],
+      "locales": [
+        "bn"
+      ],
+      "format": "srwb",
+      "path": "workbooks/bn/breakfast-democracy.srwb",
+      "revision": 1,
+      "sha256": "be816a28775e3335ad6092a8e930c7b0e7a18814df1d004f97057312d1128ea1",
+      "size": 25038
+    },
+    {
+      "id": "breakfast-democracy-de",
+      "name": "Frühstücksdemokratie: R → Python → Prolog",
+      "description": "Eine fixierte historische Umfrage zu Frühstückspräferenzen durchläuft eine R-Validierung, Python-Wahlregelzählungen und -Clustering sowie Prolog-Schlussfolgerungen, um Mehrheitszyklen von einem Gesamt-Condorcet-Gewinner zu unterscheiden.",
+      "type": "workbook",
+      "kernels": [
+        "r",
+        "prolog",
+        "python"
+      ],
+      "locales": [
+        "de"
+      ],
+      "format": "srwb",
+      "path": "workbooks/de/breakfast-democracy.srwb",
+      "revision": 1,
+      "sha256": "89a3e9ff96fb6ae640b5fefa98a6471eec39a35a74e6e961394a9fca05b0e684",
+      "size": 16597
+    },
+    {
+      "id": "breakfast-democracy-es",
+      "name": "Democracia del desayuno: R → Python → Prolog",
+      "description": "Una encuesta histórica fijada de preferencias de desayuno pasa por la validación en R, los recuentos de reglas de votación y la agrupación en Python, y el razonamiento en Prolog para distinguir los ciclos de mayoría de un ganador de Condorcet global.",
+      "type": "workbook",
+      "kernels": [
+        "r",
+        "prolog",
+        "python"
+      ],
+      "locales": [
+        "es"
+      ],
+      "format": "srwb",
+      "path": "workbooks/es/breakfast-democracy.srwb",
+      "revision": 1,
+      "sha256": "db618742da687b559cceae2ebe4517f7852ba49611762433e341a2d277fb2143",
+      "size": 16465
+    },
+    {
+      "id": "breakfast-democracy-fr",
+      "name": "Démocratie du petit-déjeuner : R → Python → Prolog",
+      "description": "Un sondage historique figé sur les préférences au petit-déjeuner passe par une validation en R, des décomptes de règles de vote et du clustering en Python, puis un raisonnement en Prolog pour distinguer les cycles majoritaires d'un vainqueur de Condorcet global.",
+      "type": "workbook",
+      "kernels": [
+        "r",
+        "prolog",
+        "python"
+      ],
+      "locales": [
+        "fr"
+      ],
+      "format": "srwb",
+      "path": "workbooks/fr/breakfast-democracy.srwb",
+      "revision": 1,
+      "sha256": "8c41d6b030f6bd8db7c4fea3a065a6cc23505e00ee5075e2dc33229174a25267",
+      "size": 16718
+    },
+    {
+      "id": "breakfast-democracy-hi",
+      "name": "ब्रेकफ़ास्ट डेमोक्रेसी: R → Python → Prolog",
+      "description": "एक पिन किया गया ऐतिहासिक नाश्ता-वरीयता सर्वेक्षण R सत्यापन, Python मतदान-नियम गणना और क्लस्टरिंग, तथा एक समग्र Condorcet विजेता से बहुमत चक्रों में अंतर करने के लिए Prolog तर्क के माध्यम से प्रवाहित होता है।",
+      "type": "workbook",
+      "kernels": [
+        "r",
+        "prolog",
+        "python"
+      ],
+      "locales": [
+        "hi"
+      ],
+      "format": "srwb",
+      "path": "workbooks/hi/breakfast-democracy.srwb",
+      "revision": 1,
+      "sha256": "1117c457f958444cec382248919dc09e42aa310ae857c174245c29e829402e0e",
+      "size": 24392
+    },
+    {
+      "id": "breakfast-democracy-id",
+      "name": "Demokrasi Sarapan: R → Python → Prolog",
+      "description": "Jajak pendapat preferensi sarapan historis yang disematkan mengalir melalui validasi R, penghitungan aturan pemungutan suara dan pengelompokan Python, serta penalaran Prolog untuk membedakan siklus mayoritas dari pemenang Condorcet secara keseluruhan.",
+      "type": "workbook",
+      "kernels": [
+        "r",
+        "prolog",
+        "python"
+      ],
+      "locales": [
+        "id"
+      ],
+      "format": "srwb",
+      "path": "workbooks/id/breakfast-democracy.srwb",
+      "revision": 1,
+      "sha256": "9817d1944e1ca4cad52ad2dd56bfbe451e0676c5c42d0628e417e4114bb30f23",
+      "size": 16037
+    },
+    {
+      "id": "breakfast-democracy-ja",
+      "name": "朝食の民主主義：R → Python → Prolog",
+      "description": "固定された歴史的な朝食の好みに関する世論調査データを、Rによる検証、Pythonによる投票ルールの集計とクラスタリング、およびPrologによる推論へと流し込み、多数派の循環と全体のコンドルセ勝者を区別します。",
+      "type": "workbook",
+      "kernels": [
+        "r",
+        "prolog",
+        "python"
+      ],
+      "locales": [
+        "ja"
+      ],
+      "format": "srwb",
+      "path": "workbooks/ja/breakfast-democracy.srwb",
+      "revision": 1,
+      "sha256": "ffb08ebf114ac93d4f844de2c52bfee93b81d86821ccb470529900ad7d8241ef",
+      "size": 18115
+    },
+    {
+      "id": "breakfast-democracy-ko",
+      "name": "아침 식사 민주주의: R → Python → Prolog",
+      "description": "고정된 역사적 아침 식사 선호도 투표 데이터가 R 검증, Python 투표 규칙 집계 및 군집화, Prolog 추론을 거쳐 다수 순환과 전체 콩도르세 승자를 구분합니다.",
+      "type": "workbook",
+      "kernels": [
+        "r",
+        "prolog",
+        "python"
+      ],
+      "locales": [
+        "ko"
+      ],
+      "format": "srwb",
+      "path": "workbooks/ko/breakfast-democracy.srwb",
+      "revision": 1,
+      "sha256": "ad67d3762510b8f240a9b4569b4e6c7d1bcf47eb42f4e19a21d0035b652a7a49",
+      "size": 16828
+    },
+    {
+      "id": "breakfast-democracy-pt-BR",
+      "name": "Democracia no Café da Manhã: R → Python → Prolog",
+      "description": "Uma pesquisa histórica fixada de preferências de café da manhã passa pela validação em R, contagens de regras de votação e agrupamento em Python e raciocínio em Prolog para distinguir ciclos de maioria de um vencedor de Condorcet geral.",
+      "type": "workbook",
+      "kernels": [
+        "r",
+        "prolog",
+        "python"
+      ],
+      "locales": [
+        "pt-BR"
+      ],
+      "format": "srwb",
+      "path": "workbooks/pt-BR/breakfast-democracy.srwb",
+      "revision": 1,
+      "sha256": "6c4e9b470924b0a3f3643a5ec409e0782a2db32f8a2c214d144bb4e043e897bb",
+      "size": 16357
+    },
+    {
+      "id": "breakfast-democracy-ru",
+      "name": "Демократия за завтраком: R → Python → Prolog",
+      "description": "Закрепленный исторический опрос о предпочтениях за завтраком проходит валидацию в R, подсчет по правилам голосования и кластеризацию в Python, а также логический вывод в Prolog для различения циклов большинства и общего победителя Кондорсе.",
+      "type": "workbook",
+      "kernels": [
+        "r",
+        "prolog",
+        "python"
+      ],
+      "locales": [
+        "ru"
+      ],
+      "format": "srwb",
+      "path": "workbooks/ru/breakfast-democracy.srwb",
+      "revision": 1,
+      "sha256": "f854f71ceb95d502e7bd08f8f1520b405269869c5bc2d5a1689ee06f8f3ae1e5",
+      "size": 22023
+    },
+    {
+      "id": "breakfast-democracy-zh",
+      "name": "早餐民主：R → Python → Prolog",
+      "description": "一份固定的历史早餐偏好民意调查流经 R 验证、Python 投票规则计数与聚类，以及 Prolog 推理，用以区分多数循环与全局孔多塞胜者。",
+      "type": "workbook",
+      "kernels": [
+        "r",
+        "prolog",
+        "python"
+      ],
+      "locales": [
+        "zh"
+      ],
+      "format": "srwb",
+      "path": "workbooks/zh/breakfast-democracy.srwb",
+      "revision": 1,
+      "sha256": "9cd3aac4eec9e8e8bf88c044ab532686de5e48512148295c8b81e0dc6458b193",
+      "size": 14835
     }
   ]
 }

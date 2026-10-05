@@ -29,6 +29,6 @@ jobs:
       - run: node tools/test-output-oracle.mjs
       - run: node tools/test-example-plot-data.mjs
       - run: node tools/translate-example-prose.mjs --self-test
-      - run: node tools/test-example-editions.mjs --locale en
-      - run: node tools/register-example-workbooks.mjs --locale en --check
+      - run: node tools/test-example-editions.mjs
+      - run: node tools/register-example-workbooks.mjs --check
       - run: node tools/build-index.mjs --check

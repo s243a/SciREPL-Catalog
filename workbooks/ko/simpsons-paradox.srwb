@@ -1,0 +1,51 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "심슨의 역설",
+    "cells": [
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "name": "intro",
+        "code": "# 심슨의 역설: 모든 집단이 전체와 일치하지 않을 때\n\n> **이 워크북의 모든 데이터는 수업 설명을 위해 만들어진 합성/가상 데이터입니다**. 실제 환자, 제품 또는 치료법은 포함되지 않습니다.\n\n## 학습 목표\n이 노트북을 마칠 때쯤이면 다음을 수행할 수 있어야 합니다:\n\n1. 심슨의 역설을 보여주는 작은 층화된 2×2 데이터셋을 구성합니다.\n2. 각 층 내에서 그리고 통합 후의 성공 비율과 **상대 위험도(RR = p_A / p_B)**를 계산합니다.\n3. 집계된 비교가 층 내 비교를 뒤집을 수 있는 **이유**(층 크기에 의한 교란 / 잠재 변수)를 설명합니다.\n4. 두 번째 언어(R 및 JavaScript)에서 동일한 숫자를 독립적으로 검증합니다.\n\n## 예측 질문 (계산 셀을 실행하기 전에 답하세요)\n치료법 A가 **모든 층에서** 치료법 B를 이긴다고 가정해 봅시다(더 높은 성공률, 모든 곳에서 RR > 1). 층을 무시하고 모든 데이터를 통합했을 때 치료법 A가 치료법 B보다 **더 나쁜** 결과로 나오는 것이 가능할까요?\n\n- 여러분의 추측(**예 / 아니오**)과 한 문장의 이유를 적어보세요.\n- *예*라고 답했다면, 이러한 역전 현상이 나타나려면 A와 B의 **층 크기**에 대해 무엇이 참이어야 할까요?\n- 다음 셀의 빈도를 확인한 후 손으로 직접 통합 비율을 계산해 보세요.\n\n## 런타임 및 실행 순서\n\n지정된 셀을 순서대로 실행하세요: `data` (R), `compute` (R), `viz` (R), 그다음 `js_check` (JavaScript). R 셀들은 런타임 변수를 공유하며, 저장된 셀을 보는 것은 그것을 실행하는 것과 같지 않습니다. 이 카탈로그 사본에는 저장된 출력이 포함되어 있지 않습니다.\n\nR 예제는 기본 R만 사용합니다: 패키지 설치가 필요하지 않지만, SciREPL이 처음에 webR 런타임을 다운로드하거나 초기화해야 할 수 있습니다. JavaScript는 브라우저에서 실행됩니다. JavaScript 셀은 원래의 고정된 빈도를 독립적으로 재계산하며, R 세션을 읽지 않습니다. 데이터셋을 변경하는 경우 두 언어를 비교하기 전에 두 언어의 입력 빈도와 검사를 모두 업데이트하세요."
+      },
+      {
+        "type": "code",
+        "language": "r",
+        "name": "data",
+        "code": "# ---- 합성 / 가상 데이터 (실제 데이터 아님) ----\n# 두 개 층; 두 치료법 A 및 B; 이진 결과 (성공/실패).\n# 각 층 내에서는 A > B이지만, 통합 시에는 B > A가 되도록 구성됨.\n# 메커니즘: A는 주로 Severe 환자(고위험)를 치료하고, B는 주로 Mild 환자를 치료함.\n\ndat <- data.frame(\n  stratum   = rep(c(\"Mild\", \"Severe\"), each = 4),\n  treatment = rep(rep(c(\"A\", \"B\"), each = 2), 2),\n  outcome   = rep(c(\"success\", \"failure\"), 4),\n  count = c(\n    # Mild 층\n    85, 15,       # A: 성공 85, 실패 15   -> p = 0.85  (n = 100)\n    350, 150,     # B: 성공 350, 실패 150 -> p = 0.70  (n = 500)\n    # Severe 층\n    30, 470,      # A: 성공 30, 실패 470  -> p = 0.06  (n = 500)\n    2,  98        # B:  성공 2, 실패 98   -> p = 0.02  (n = 100)\n  )\n)\ndat"
+      },
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "name": "pause",
+        "code": "## ⏸️ 일시 정지 — 예측하고 계산하기\n\n위의 데이터셋이 이제 정의되었습니다. **아직 다음 셀을 실행하지 마세요.**\n\n1. 빈도를 바탕으로 *Mild* 층과 *Severe* 층에서 A와 B의 성공 비율을 손으로 직접 계산해 보세요. 각 층에서 어느 치료법이 이기나요?\n2. 이제 통합합니다: 각 치료법에 대해 두 층에 걸친 **모든** 성공과 **모든** 실패를 합산하고, 통합 비율을 계산합니다. 전반적으로 어느 치료법이 이기나요?\n3. 세 가지 상대 위험도 RR = p_A / p_B(Mild, Severe, pooled)를 계산하세요. 그것들이 모두 같은 방향을 가리키나요?\n4. 정답을 확인하기 전에: *왜* A가 모든 곳에서 더 나아 보이는데 전반적으로는 더 나빠 보일까요? (힌트: 어느 치료법이 주로 **Severe** 환자를 치료하며, 그것이 전체 평균에 어떤 영향을 미칠까요?)\n\n예측한 내용을 적어둔 다음, 다음 셀을 실행하여 확인해 보세요."
+      },
+      {
+        "type": "code",
+        "language": "r",
+        "name": "compute",
+        "code": "# ---- 데이터셋으로부터 계산 (아래에 하드코딩된 내용 없음) ----\n\n# data 셀에서 층 도출: 이 셀 전에 data를 실행하세요.\nstrata <- unique(dat$stratum)\n\nget_p <- function(s, t) {\n  n_ok <- dat$count[dat$stratum == s & dat$treatment == t & dat$outcome == \"success\"]\n  n_no <- dat$count[dat$stratum == s & dat$treatment == t & dat$outcome == \"failure\"]\n  c(success = n_ok, failure = n_no, n = n_ok + n_no, p = n_ok / (n_ok + n_no))\n}\n\nrr <- function(pA, pB) pA / pB\n\n# --- 층 내 결과 ---\nfor (s in strata) {\n  a <- get_p(s, \"A\"); b <- get_p(s, \"B\")\n  cat(sprintf(\"--- 층: %s ---\\n\", s))\n  cat(sprintf(\"  A: 성공 = %d, 실패 = %d  (p_A = %.4f, n = %d)\\n\", a[\"success\"], a[\"failure\"], a[\"p\"], a[\"n\"]))\n  cat(sprintf(\"  B: 성공 = %d, 실패 = %d  (p_B = %.4f, n = %d)\\n\", b[\"success\"], b[\"failure\"], b[\"p\"], b[\"n\"]))\n  cat(sprintf(\"  %s에서의 RR(A/B) = %.4f\\n\\n\", s, rr(a[\"p\"], b[\"p\"])))\n}\n\n# --- 통합 결과 (층 병합) ---\nagg <- aggregate(count ~ treatment + outcome, data = dat, FUN = sum)\npooled <- function(t) {\n  s <- agg$count[agg$treatment == t & agg$outcome == \"success\"]\n  f <- agg$count[agg$treatment == t & agg$outcome == \"failure\"]\n  c(success = s, failure = f, n = s + f, p = s / (s + f))\n}\npA <- pooled(\"A\"); pB <- pooled(\"B\")\ncat(\"--- 통합 (층 병합됨) ---\\n\")\ncat(sprintf(\"  A: 성공 = %d, 실패 = %d  (p_A = %.4f, n = %d)\\n\", pA[\"success\"], pA[\"failure\"], pA[\"p\"], pA[\"n\"]))\ncat(sprintf(\"  B: 성공 = %d, 실패 = %d  (p_B = %.4f, n = %d)\\n\", pB[\"success\"], pB[\"failure\"], pB[\"p\"], pB[\"n\"]))\ncat(sprintf(\"  통합 RR(A/B) = %.4f\\n\\n\", rr(pA[\"p\"], pB[\"p\"])))\n\n# --- 역설 증명 ---\nrr_mild    <- rr(get_p(\"Mild\",   \"A\")[\"p\"], get_p(\"Mild\",   \"B\")[\"p\"])\nrr_severe  <- rr(get_p(\"Severe\", \"A\")[\"p\"], get_p(\"Severe\", \"B\")[\"p\"])\nrr_pooled  <- rr(pA[\"p\"], pB[\"p\"])\n\nstopifnot(\n  rr_mild   > 1,   # Mild 내에서 A가 B를 이김\n  rr_severe > 1,   # Severe 내에서 A가 B를 이김\n  rr_pooled < 1    # ... 그러나 전체적으로는 A가 B에 패함 -> 심슨의 역설\n)\ncat(\"✔ 모든 stopifnot 검사 통과: RR_mild > 1, RR_severe > 1, 그러나 RR_pooled < 1.\")"
+      },
+      {
+        "type": "code",
+        "language": "r",
+        "name": "viz",
+        "code": "# ---- 시각화: 층별 및 통합 성공률 (기본 R 전용) ----\n\nlabels <- c(\"Mild\", \"Severe\", \"통합\")\npA_v <- c(get_p(\"Mild\", \"A\")[\"p\"], get_p(\"Severe\", \"A\")[\"p\"], pA[\"p\"])\npB_v <- c(get_p(\"Mild\", \"B\")[\"p\"], get_p(\"Severe\", \"B\")[\"p\"], pB[\"p\"])\n\nm <- rbind(A = pA_v, B = pB_v)\ncolnames(m) <- labels\nop <- par(mar = c(4.1, 4.1, 4.1, 1.1))\nbarplot(m, beside = TRUE, ylim = c(0, 0.9),\n        col = c(\"#4472C4\", \"#ED7D31\"),\n        main = paste(strwrap(\"심슨의 역설: 집단별 성공률 (합성 데이터)\", width = 42), collapse = \"\\n\"), cex.main = 1.0,\n        ylab = \"성공 비율\", legend.text = c(\"치료법 A\", \"치료법 B\"),\n        args.legend = list(x = \"topright\", bty = \"n\"))\nabline(h = 0, col = \"grey40\")\npar(op)"
+      },
+      {
+        "type": "code",
+        "language": "javascript",
+        "name": "js_check",
+        "code": "// 기저 빈도로부터의 독립적인 재계산 (합성 데이터)\nconst counts = {\n  Mild:   { A: { s: 85,  f: 15 },  B: { s: 350, f: 150 } },\n  Severe: { A: { s: 30,  f: 470 }, B: { s: 2,   f: 98 } }\n};\n\nconst res = {};\nfor (const st of Object.keys(counts)) {\n  const g = counts[st];\n  for (const t of [\"A\", \"B\"]) g[t].p = g[t].s / (g[t].s + g[t].f);\n  res[st] = { A: g.A, B: g.B, RR: g.A.p / g.B.p };\n}\n\n// 층 전반의 성공과 실패를 합산하여 통합\nconst pooled = { A: { s: 0, f: 0 }, B: { s: 0, f: 0 } };\nfor (const st of Object.keys(counts)) {\n  pooled.A.s += counts[st].A.s; pooled.A.f += counts[st].A.f;\n  pooled.B.s += counts[st].B.s; pooled.B.f += counts[st].B.f;\n}\nfor (const t of [\"A\", \"B\"]) pooled[t].p = pooled[t].s / (pooled[t].s + pooled[t].f);\nres.Pooled = { A: pooled.A, B: pooled.B, RR: pooled.A.p / pooled.B.p };\n\n// 가독성 있는 요약\nconsole.log(\"독립적인 JavaScript 재계산 (합성 데이터):\");\nfor (const k of Object.keys(res)) {\n  const r = res[k];\n  console.log(\n    k.padEnd(7) +\n    `  p_A = ${r.A.p.toFixed(4)} (${r.A.s}/${r.A.s + r.A.f})` +\n    `  p_B = ${r.B.p.toFixed(4)} (${r.B.s}/${r.B.s + r.B.f})` +\n    `  RR = ${r.RR.toFixed(4)}`\n  );\n}\n\n// 원래의 고정된 빈도를 독립적으로 검사; 이는 R 상태를 읽지 않습니다.\nconst expect = {\n  Mild:   { pA: 85/100,  pB: 350/500 },\n  Severe: { pA: 30/500,  pB: 2/100 },\n  Pooled: { pA: 115/600, pB: 352/600 }\n};\nconst eps = 1e-12;\nfunction near(a, b) { return Math.abs(a - b) < eps; }\n\nif (!near(res.Mild.A.p,   expect.Mild.pA)   || !near(res.Mild.B.p,   expect.Mild.pB))   throw new Error(\"Mild 비율이 예상된 입력 빈도와 일치하지 않습니다\");\nif (!near(res.Severe.A.p, expect.Severe.pA) || !near(res.Severe.B.p, expect.Severe.pB)) throw new Error(\"Severe 비율이 예상된 입력 빈도와 일치하지 않습니다\");\nif (!near(res.Pooled.A.p, expect.Pooled.pA) || !near(res.Pooled.B.p, expect.Pooled.pB)) throw new Error(\"통합 비율이 예상된 입력 빈도와 일치하지 않습니다\");\nif (!(res.Mild.RR > 1 && res.Severe.RR > 1 && res.Pooled.RR < 1))\n  throw new Error(\"역설 구조가 재현되지 않음: 예상된 RR_mild > 1, RR_severe > 1, RR_pooled < 1\");\n\nconsole.log(\"\\n✔ 원래 빈도 기반의 JavaScript 재계산 및 역설 검사 통과.\");"
+      },
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "name": "explanation",
+        "code": "## 역전 현상이 일어나는 이유\n\n**역설.** 두 층 모두에서 A의 성공률이 B의 성공률을 능가합니다(각각 RR > 1). 하지만 층을 통합하면 B의 전체 비율이 A의 비율을 능가합니다. 두 서술 모두 동일한 데이터에 대해 참입니다 — 집계가 결론을 바꾸었습니다.\n\n**메커니즘: 중증도에 의한 교란.** 중증도는 치료 배정과 결과 모두를 형성하는 *잠재 변수*입니다:\n\n- Severe 환자는 **어느** 치료법에서도 매우 낮은 성공률을 보입니다(A는 6%, B는 2%).\n- 이 가상 코호트에서 **A는 주로 Severe 환자를 치료하는** 반면(600명 중 500명), **B는 주로 Mild 환자를 치료합니다**(600명 중 500명).\n- 따라서 A의 전체 평균은 과도한 Severe 환자 구성비로 인해 낮아지고, B의 평균은 Mild가 많은 구성비로 인해 높아집니다 — 비록 A가 *모든 층 내에서* 더 나은데도 말입니다.\n\n형식적으로, 각 치료법의 통합 비율은 층별 비율의 가중 평균입니다:\n\n$$p_T^{\\,pooled} = w_{T,\\text{Mild}}\\,p_{T,\\text{Mild}} + w_{T,\\text{Severe}}\\,p_{T,\\text{Severe}}, \\qquad w_{T,s} = \\frac{n_{T,s}}{n_T}$$\n\n가중치 $w_{T,s}$는 **치료법 간에 서로 다르므로**(A: Mild 가중치 1/6 대 B: 5/6), 통합된 차이는 층 내 연관성과 환자 구성비 차이를 혼합합니다. 가중치의 불균형이 층별 비율의 격차에 비해 충분히 크면 부호가 바뀝니다. 층화(또는 두 치료법을 동일한 층 가중치로 표준화)하면 *측정된 이 특정 환자 구성 왜곡*이 제거됩니다: 이는 **A가 이 가상 데이터의 모든 층에서 더 낫다는 것**을 보여줍니다. 이것이 그 자체로 \"치료 효과\"를 분리하거나 A가 인과적으로 더 낫다는 것을 증명하지는 **않습니다** — 인과적 결론을 내리려면 적절한 설계(예: 무작위 배정)와 이 두 변수 설명에 표현되지 않은 중증도 *외의* 교란 변수에 대한 가정이 필요합니다.\n\n**여기서 통합 비교가 오해의 소지가 있는 이유.** 통합된 숫자는 \"주어진 중증도의 환자에게 어느 치료법이 더 나은가?\" 대신 \"*이 특정 환자 구성에서* 어느 치료법이 더 좋은 성과를 내는가?\" — 누가 어디에 배정되었는지에 의해 좌우되는 질문 — 에 답합니다. 층화 비교 또는 공통 가중치 표준화 비교는 이렇게 측정된 환자 구성 왜곡을 층 내 연관성으로부터 분리합니다. 어느 비교도 그 자체로는 인과적 치료 효과를 확립하지 못합니다.\n\n## 세 가지 토론 질문\n\n1. **설계:** 이 합성 데이터셋에서 무작위 배정은 어떻게 체계적인 환자 구성 불균형을 줄일 수 있을까요? 층화 무작위 배정이 왜 도움이 될 수 있으며, 왜 우연에 의한 불균형이 여전히 발생할 수 있을까요?\n2. **해석:** 한 병원에서 새로운 치료법이 표준 치료법보다 *전체적인* 생존율이 더 높다고 보고합니다. 새로운 치료법이 더 낫다고 결론짓기 전에 어떤 층(연령, 기저 중증도, 동반 질환)을 확인하도록 요구하시겠습니까?\n3. **의사결정:** 통합 RR은 < 1이지만 각 층의 RR은 > 1입니다. 중증으로 알려진 한 명의 환자를 치료하는 임상의에게 어느 추정치가 더 적절하며, 그 이유는 무엇입니까? 해당 추정치를 치료 결정을 위한 인과적 지침으로 취급하기 전에 어떤 추가 증거(연구 설계, 기타 교란 변수, 재현성)가 필요할까요?"
+      }
+    ]
+  }
+}

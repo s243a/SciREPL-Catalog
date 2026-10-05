@@ -1,0 +1,57 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "SELECT에서 위험 측도로",
+    "cells": [
+      {
+        "type": "markdown",
+        "code": "# SELECT에서 위험 측도로 — 상대적 효과 대 절대적 효과에 대한 강의 실습\n\n> **⚠ 데이터 및 범위 공지 (먼저 읽으십시오)**\n> 이 노트북의 모든 환자 수준 레코드는 **합성 데이터**입니다. 식별자는 **결정론적이고 가상이며 고유성이 보장**되는 반면, 결과 배정과 행 순서는 각 군 내에서 무작위화되었습니다(고정된 시드). **실제 임상시험 참가자를 재구성하려는 어떠한 시도도 하지 않았습니다.** 집계된 사건 발생 수와 분모는 발표된 SELECT 임상시험 보고서(Lincoff et al., *NEJM* 2023; DOI 10.1056/NEJMoa2307563)에서만 가져왔습니다. 이 노트북은 **교육용 실습 과제이며, 의학적 조언이 아닙니다**.\n\n**학습 목표.** 이 실습을 마치면 다음을 수행할 수 있어야 합니다:\n1. 2×2 분할표에서 조 **사건 발생 비율**, **위험비**, **위험 차이**, **절대 위험 감소(ARR)** 및 **근사 NNT**를 계산할 수 있습니다.\n2. 조 위험비에 대한 근사 95% CI를 구성할 수 있습니다(Katz 로그 방법).\n3. 집계된 건수로 구한 **조 위험비가 발표된 위험비(hazard ratio)와 같지 않은 이유**를 설명할 수 있습니다.\n4. 치료 효과의 **상대적 효과 대 절대적 효과**를 비판적으로 해석하고 한계점(복합 평가변수, 추적 관찰 기간, 일반화 가능성, 누락된 결과)을 논의할 수 있습니다.\n\n**이 실습에 사용된 발표된 SELECT 집계값:**\n- 세마글루타이드: 참가자 8,803명 중 주요 복합 사건 569건.\n- 위약: 참가자 8,801명 중 주요 복합 사건 701건.\n- 발표된 첫 사건 발생까지의 시간 위험비(hazard ratio): 0.80 (95% CI 0.72–0.90).\n- 주요 복합 사건: 심혈관계 사망, 비치명적 심근경색 또는 비치명적 뇌졸중.\n- 평균 추적 관찰 기간: 39.8개월; 개별 추적 관찰 기간은 다양했음.\n- 임상시험 대상 집단: 당뇨병이 없고 확립된 심혈관 질환이 있으며 BMI 27 이상인 45세 이상의 성인.\n\n**실행 순서 및 요구사항.** Python 커널을 사용하십시오. `synthetic-data`, `analysis-solution`, `final-summary` 순으로 실행하십시오. 이 코드는 Python 표준 라이브러리만 사용하며, 패키지를 설치하거나 환자 데이터를 가져오지 않습니다. 무작위로 섞인 가상 행은 보고된 건수를 보존하므로, 무작위 시드를 변경해도 사건 수나 이러한 효과 추정치는 변경되지 않습니다.\n\n**계산 범위.** 무작위 배정된 참가자 수로 나눈 사건 수는 관찰된 추적 관찰 기간 동안의 조 사건 발생 비율입니다. 이는 동일한 시점에서 중도절단이 조정된 누적 위험이 아닙니다. 따라서 여기서 1/ARR은 강의용 근사 NNT이며, 발표되었거나 고정된 시점 기준의 생존 분석 추정치가 아닙니다.\n\n**주요 참고문헌:** [Lincoff et al., SELECT 보고서, NEJM 2023](https://www.nejm.org/doi/abs/10.1056/NEJMoa2307563); [Altman and Andersen, 시점별 NNT, BMJ 1999](https://www.bmj.com/content/319/7223/1492).",
+        "language": "markdown",
+        "name": "title-goals"
+      },
+      {
+        "type": "markdown",
+        "code": "## 학생 질문 — 합성 데이터로부터 이를 계산하십시오\n\n다음 셀에서 생성된 데이터셋을 사용하여 각 군에 대해 다음 항목에 답한 후, 군 간 측도를 계산하십시오:\n\n1. 세마글루타이드군과 위약군에서의 주요 복합 결과에 대한 **조 사건 발생 비율**.\n2. **조 위험비** (세마글루타이드 대 위약).\n3. **위험 차이** (세마글루타이드 − 위약), 백분율 포인트 단위.\n4. **절대 위험 감소(ARR)**, 백분율 포인트 단위.\n5. **조 근사 NNT** — 1/ARR (반올림하지 않은 값)과 통상적인 올림 정수 모두. 이러한 사건 건수가 특정 고정 시점에서의 중도절단 조정 NNT를 결정하지 못하는 이유를 기술하십시오.\n\n*심화:* 2×2 분할표 건수로부터 조 위험비에 대한 근사 95% 신뢰구간을 유도하고, 어떤 방법을 사용했는지 밝히십시오.\n\n해답 셀을 확인하기 전에 직접 손으로 풀거나 코드로 작성해 보십시오.",
+        "language": "markdown",
+        "name": "student-questions"
+      },
+      {
+        "type": "code",
+        "code": "# SELECT 임상시험을 위한 합성 환자 수준 데이터셋 (Lincoff et al., NEJM 2023, DOI 10.1056/NEJMoa2307563)\n# 모든 행은 가상/합성 데이터입니다: ID는 결정론적이며 고유성이 보장됩니다;\n# 결과 배정과 행 순서는 고정된 시드로 각 군 내에서 무작위화됩니다.\n# 정확한 군 분모와 사건 발생 수가 보존됩니다.\n# 의학적 조언이 아닙니다.\n\nimport random\nrng = random.Random(42)\n\nn_sema, n_placebo = 8803, 8801\ne_sema, e_placebo = 569, 701\n\ndef make_group(n, events, label):\n    # 영으로 채워진 순차 ID는 고유성을 보장합니다(구조적으로 충돌 없음)\n    ids = [f\"{label}-{i:06d}\" for i in range(1, n + 1)]\n    outcomes = [1] * events + [0] * (n - events)\n    rng.shuffle(outcomes)  # 군 내 결과 배정 무작위화\n    rows = [{\"id\": pid, \"treatment\": label, \"primary_outcome\": o}\n            for pid, o in zip(ids, outcomes)]\n    rng.shuffle(rows)  # 군 내 행 순서 무작위화\n    return rows\n\ndata = make_group(n_sema, e_sema, \"semaglutide\") + make_group(n_placebo, e_placebo, \"placebo\")\nrng.shuffle(data)\n\nprint(f\"총 합성 행 수: {len(data)} (정확한 분모 보존됨)\")\nprint(f\"고유 ID: {len({r['id'] for r in data})}\")\nprint(\"\\n처음 10개 행 샘플:\")\nfor r in data[:10]:\n    print(f\"  {r['id']:>18} | {r['treatment']:>12} | primary_outcome = {r['primary_outcome']}\")\n\n# 검증\nsema = [r for r in data if r[\"treatment\"] == \"semaglutide\"]\nplac = [r for r in data if r[\"treatment\"] == \"placebo\"]\nassert len(sema) == n_sema and len(plac) == n_placebo\nassert sum(r[\"primary_outcome\"] for r in sema) == e_sema\nassert sum(r[\"primary_outcome\"] for r in plac) == e_placebo\nassert len({r[\"id\"] for r in data}) == len(data), \"중복된 합성 ID가 감지되었습니다\"\nprint(\"\\n단언문 통과: 정확한 군 크기, 사건 수 및 고유 ID.\")",
+        "language": "python",
+        "name": "synthetic-data"
+      },
+      {
+        "type": "code",
+        "code": "# 분석 셀 — 하드코딩된 결과 없이 `data`에서 모든 답을 도출합니다.\n# 이 값들은 조 사건 발생 비율이며, 중도절단이 조정된 고정 시점 위험이 아닙니다.\nimport math\n\nsema = [r for r in data if r[\"treatment\"] == \"semaglutide\"]\nplac = [r for r in data if r[\"treatment\"] == \"placebo\"]\n\nn1, e1 = len(sema), sum(r[\"primary_outcome\"] for r in sema)\nn0, e0 = len(plac), sum(r[\"primary_outcome\"] for r in plac)\n\nassert n1 == 8803 and n0 == 8801\nassert e1 == 569 and e0 == 701\n\nrisk_sema   = e1 / n1\nrisk_placebo = e0 / n0\nrr  = risk_sema / risk_placebo\nrd  = risk_sema - risk_placebo          # 위험 차이 (세마글루타이드 - 위약)\narr = risk_placebo - risk_sema          # 절대 위험 감소\nnnt_approx = 1 / arr\nnnt_conv   = math.ceil(nnt_approx)\n\n# 2x2 건수에 대한 Katz 로그 방법을 통한 조 RR의 근사 95% CI\nse_log_rr = math.sqrt(1/e1 - 1/n1 + 1/e0 - 1/n0)\nrr_lo = math.exp(math.log(rr) - 1.96 * se_log_rr)\nrr_hi = math.exp(math.log(rr) + 1.96 * se_log_rr)\n\nprint(f\"조 사건 발생 비율 (세마글루타이드) = {risk_sema:.4%}\")\nprint(f\"조 사건 발생 비율 (위약)     = {risk_placebo:.4%}\")\nprint(f\"조 사건 발생 비율의 비 (RR) = {rr:.4f}\")\nprint(f\"위험 차이 (세마 - 위약) = {rd*100:+.3f} 백분율 포인트\")\nprint(f\"절대 위험 감소       = {arr*100:.3f} 백분율 포인트\")\nprint(f\"1/ARR (조 근사 NNT)       = {nnt_approx:.2f}\")\nprint(f\"통상적인 올림 NNT   = {nnt_conv}\")\nprint(f\"\\n조 RR에 대한 근사 95% CI (2x2 건수에 대한 Katz 로그 방법):\")\nprint(f\"  RR = {rr:.4f} (95% CI {rr_lo:.4f} – {rr_hi:.4f})\")\nprint(\"NNT는 집계된 건수로 구한 조 강의용 근사치이며,\")\nprint(\"동일한 시점에서 중도절단이 조정된 추정치가 아닙니다.\")",
+        "language": "python",
+        "name": "analysis-solution"
+      },
+      {
+        "type": "markdown",
+        "code": "## 조 위험비가 발표된 위험비(hazard ratio)가 아닌 이유\n\nSELECT 논문에서는 첫 사건 발생까지의 시간 분석을 통해 **위험비(hazard ratio) 0.80 (95% CI 0.72–0.90)**를 보고합니다. 그 수치는 이 실습에서 계산된 **조 사건 발생 비율의 비(≈0.81)**와 근본적으로 다릅니다:\n\n- **위험비(hazard ratio)**는 **각 사건의 발생 시점과 중도절단 패턴**(참가자의 추적 관찰이 언제 종료되는지)을 사용하는 Cox 유형 모델에서 비롯되며, 전체 추적 관찰 기간 동안의 순간 사건 *발생률*을 비교합니다.\n- 여기서 **조 위험비**는 최종 2×2 집계(군별 사건 수 / 참가자 수)만을 사용합니다. 사건이 *언제* 일어났는지, 추적 관찰이 *언제* 끝났는지는 무시합니다.\n- 본 실습에 제공된 발표된 SELECT 데이터에는 **사건 발생 시간과 중도절단 정보가 포함되어 있지 않으므로**, 이러한 집계 건수로부터 위험비(hazard ratio)(또는 그 신뢰구간)를 **재구성할 수 없습니다**. **우리는 의도적으로 사건 시간을 지어내지 않습니다** — 그러한 재구성은 위조가 될 것입니다.\n\n조 RR(0.8115)과 발표된 HR(0.80)은 여기서 수치상으로 가깝지만, 서로 다른 양을 측정하므로 일치할 필요는 없습니다. 특히 추적 관찰, 중도절단, 경쟁 위험 또는 시간에 따른 위험률 변화가 중요할 때, 이러한 집계 건수로는 발표된 위험비(hazard ratio)를 설명하거나 재구성할 수 없습니다.",
+        "language": "markdown",
+        "name": "hr-explanation"
+      },
+      {
+        "type": "markdown",
+        "code": "## 해석: 상대적 효과 대 절대적 효과\n\n**0.81**의 조 사건 발생 비율의 비는 관찰된 주요 복합 사건 비율이 위약군에 비해 세마글루타이드군에서 약 19% 낮았음을 의미합니다. 이 기술적 비율은 발표된 시간-사건 위험비(hazard ratio)가 아닙니다.\n\n**~1.5 백분율 포인트의 조 절대 위험 감소(ARR)**는 불확실성, 위해, 비용 및 환자 선호도와 함께 차이의 규모를 보여주는 데 도움이 됩니다:\n\n- 위약군의 조 사건 발생 비율 ≈ 7.97% → 세마글루타이드군 사건 발생 비율 ≈ 6.46%\n- 해당 차이(참가자 100명 중 ≈1.5명)의 역수는 **~67의 조 근사 NNT**입니다. 이는 제공된 사건 비율의 산술적 요약입니다. SELECT의 평균 추적 관찰 기간은 39.8개월이었으나, 추적 관찰 기간은 다양했습니다: 이 수치로는 39.8개월 또는 다른 어떤 고정된 시점에서의 중도절단 조정 NNT를 얻을 수 없습니다.\n\n**핵심 요점:** 기저 사건 발생률이 상대적으로 낮을 때, 큰 상대적 감소(19%)와 완만한 절대적 이익(1.5 포인트)이 공존할 수 있습니다. 항상 두 측도를 모두 보고하십시오 — 상대적 측도는 체감되는 이점을 과장할 수 있는 반면, 절대적 측도(ARR, NNT)는 이점의 실제 규모를 더 명확하게 보여줍니다.",
+        "language": "markdown",
+        "name": "interpretation"
+      },
+      {
+        "type": "markdown",
+        "code": "## 토론 질문\n\n1. **NNT는 추적 관찰 기간과 평가변수 정의에 따라 달라집니다.** ~67이라는 조 근사치는 제공된 임상시험 건수, 대상 집단 및 복합 평가변수를 설명하며, 고정 시점 생존 분석 추정치가 아닙니다. 추적 관찰 기간이 더 길어지거나 짧아지면, 혹은 평가변수가 더 좁아지면(예: 심혈관계 사망만 포함) ARR과 NNT는 어떻게 변할까요? 왜 NNT는 항상 추적 관찰 기간 및 평가변수와 *함께* 보고되어야 할까요?\n\n2. **복합 평가변수.** 주요 결과는 심혈관계 사망, 비치명적 MI 및 비치명적 뇌졸중을 통합합니다. 복합 평가변수의 장점(통계적 검정력, 임상적으로 일관된 결과)과 위험(중증도나 빈도가 불균등한 구성 요소가 결과를 주도함)은 무엇일까요?\n\n3. **원인별 사망률 대 전원인 사망률.** 특정 치료는 전원인 사망률을 변화시키지 않으면서 원인별 심혈관계 사망을 줄일 수 있습니다(예: 다른 원인으로 인한 사망이 그 감소분을 상쇄하거나, 특정 원인이 전체 사망에서 차지하는 비중이 작은 경우). 이득을 전달할 때 이 구분이 왜 중요하며, 왜 여기 제공된 2×2 분할표 건수로는 둘 다 평가할 수 없을까요? *참고: 이 실습에서는 사망률 수치를 제공하지 않으며, 어떠한 수치도 유추해서는 안 됩니다.*\n\n4. **안전성 및 중단.** 주요 평가변수로부터 도출된 이익 추정치만으로는 순이익을 확립할 수 없습니다. 이익과 위해를 비교 평가하기 전에 어떤 안전성, 내약성 및 중단 근거를 확인하고 싶으십니까? (이 실습에는 **이상사례 데이터가 포함되어 있지 않으며**, 어떠한 데이터도 조작해 내어서는 안 됩니다.)\n\n5. **일반화 가능성.** SELECT는 당뇨병이 없으며 과체중/비만 및 확립된 심혈관 질환이 있는 성인을 등록했습니다. 이러한 위험 측도는 누구에게 적용되며, 누구에게는 적용되지 않을 수 있을까요? 상대적 효과가 유사하더라도 다른 인구 집단에서의 기저 위험 차이가 ARR과 NNT를 어떻게 바꿀까요?\n\n6. **증거의 부재 ≠ 부재의 증거.** 보고된 이차 평가변수 또는 안전성 결과가 *누락*되었거나, *유의하지 않거나*, 수치적으로 불리하지만 신뢰구간이 넓은 경우, 그것이 왜 **숨겨진 위해의 증거가 되지 않는지**(숨겨진 이익의 증거도 아님) 설명하십시오. 어느 쪽이든 타당한 주장을 펼치기 위해 무엇(CI를 포함한 점 추정치, 적절한 검정력, 사전에 명시된 분석 등)이 필요할까요?",
+        "language": "markdown",
+        "name": "discussion-questions"
+      },
+      {
+        "type": "code",
+        "code": "# 최종 요약 — 빠른 참조를 위해 검증된 모든 결과를 종합합니다\nprint(\"=\" * 60)\nprint(\"SELECT 집계값 (합성 행) — 강의 요약\")\nprint(\"=\" * 60)\nprint(f\"보존된 분모: 세마글루타이드 n={len(sema)}, 위약 n={len(plac)}\")\nprint(f\"보존된 사건 발생 수: 세마글루타이드 e={e1}, 위약 e={e0}\")\nprint(f\"조 비율, 세마글루타이드: {risk_sema:.4%}\")\nprint(f\"조 비율, 위약: {risk_placebo:.4%}\")\nprint(f\"조 위험비  : {rr:.4f}  (근사 95% CI {rr_lo:.4f}–{rr_hi:.4f}, Katz 로그 방법)\")\nprint(f\"위험 차이   : {rd*100:+.3f} pp\")\nprint(f\"ARR               : {arr*100:.3f} pp\")\nprint(f\"NNT (조 근사): {nnt_approx:.2f}\")\nprint(f\"NNT (통상적): {nnt_conv}\")\nprint(\"-\" * 60)\nprint(\"한계점\")\nprint(\"- 환자 행, 행 순서 및 ID는 합성 데이터이며, 건수는 발표된 집계값입니다.\")\nprint(\"- 조 RR ≠ 발표된 HR (0.80, 95% CI 0.72–0.90): HR은 사건 발생까지의 시간\")\nprint(\"  및 중도절단 정보를 사용하므로 집계 건수만으로는 재구성할 수 없습니다.\")\nprint(\"- 평균 추적 관찰 기간은 39.8개월이었으며, 개별 추적 관찰 기간은 다양했습니다.\")\nprint(\"- NNT는 조 수치이며, 고정된 시점에서 중도절단이 조정된 값이 아닙니다.\")\nprint(\"- 안전성, 하위 집단 또는 이차 평가변수 데이터는 포함되지 않았습니다.\")\nprint(\"- 교육용 실습 과제일 뿐이며, 의학적 조언이 아닙니다.\")",
+        "language": "python",
+        "name": "final-summary"
+      }
+    ]
+  }
+}

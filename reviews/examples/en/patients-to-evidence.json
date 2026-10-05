@@ -4,12 +4,12 @@
   "locale": "en",
   "source": {
     "path": "workbooks/en/patients-to-evidence.srwb",
-    "sha256": "80c529dd819cc536ec3b8a718e6adba96ea8adee2ee71fcd7d4ad3fc374796a2"
+    "sha256": "91fcb454cdbf2e135e95fff03cdc59a3c201ed90319b8093cc2f129e2ef0fe4b"
   },
   "target": {
     "path": "workbooks/en/patients-to-evidence.srwb",
-    "sha256": "80c529dd819cc536ec3b8a718e6adba96ea8adee2ee71fcd7d4ad3fc374796a2",
-    "size": 19374,
+    "sha256": "91fcb454cdbf2e135e95fff03cdc59a3c201ed90319b8093cc2f129e2ef0fe4b",
+    "size": 19727,
     "title": "From Patients to Evidence",
     "description": "Simulate fictional randomized trials, examine confidence-interval coverage, and compare relative risk, absolute benefit and NNT. Educational, not medical advice."
   },
@@ -17,16 +17,16 @@
   "browser": {
     "status": "passed",
     "first": {
-      "exportSha256": "5c07ffc36e44473ae41f210116f8dbe9b64e73350ec6ea76adfe6853047e9998",
-      "reportSha256": "b4b413ecd9fd13b0c07e7a9d12dde2eba4e8edd797b1164d599fe5d379e3668a",
+      "exportSha256": "51fc4212a0811605131bcd1b38e367cfe651e0a4a8d4e2997395b217ee13c4ee",
+      "reportSha256": "6667d7b42d0ebc8f792576aecfdc7d1073dd8166b5027612b623fb4fc8994e48",
       "appVersion": "1.4.0",
       "cells": 13,
       "blockedRequests": 0,
       "pageErrors": 0
     },
     "second": {
-      "exportSha256": "24b4a9420bbebfaba009a39995e6823195a43e8e569508d1fb00ce004155c46e",
-      "reportSha256": "b4b413ecd9fd13b0c07e7a9d12dde2eba4e8edd797b1164d599fe5d379e3668a",
+      "exportSha256": "27ef646c8d616167b8fca64b02edf7654c8de3b392bbb8908c81e9a5857cd1d2",
+      "reportSha256": "6667d7b42d0ebc8f792576aecfdc7d1073dd8166b5027612b623fb4fc8994e48",
       "appVersion": "1.4.0",
       "cells": 13,
       "blockedRequests": 0,
@@ -34,16 +34,16 @@
     },
     "englishBaseline": [
       {
-        "exportSha256": "5c07ffc36e44473ae41f210116f8dbe9b64e73350ec6ea76adfe6853047e9998",
-        "reportSha256": "b4b413ecd9fd13b0c07e7a9d12dde2eba4e8edd797b1164d599fe5d379e3668a",
+        "exportSha256": "51fc4212a0811605131bcd1b38e367cfe651e0a4a8d4e2997395b217ee13c4ee",
+        "reportSha256": "6667d7b42d0ebc8f792576aecfdc7d1073dd8166b5027612b623fb4fc8994e48",
         "appVersion": "1.4.0",
         "cells": 13,
         "blockedRequests": 0,
         "pageErrors": 0
       },
       {
-        "exportSha256": "24b4a9420bbebfaba009a39995e6823195a43e8e569508d1fb00ce004155c46e",
-        "reportSha256": "b4b413ecd9fd13b0c07e7a9d12dde2eba4e8edd797b1164d599fe5d379e3668a",
+        "exportSha256": "27ef646c8d616167b8fca64b02edf7654c8de3b392bbb8908c81e9a5857cd1d2",
+        "reportSha256": "6667d7b42d0ebc8f792576aecfdc7d1073dd8166b5027612b623fb4fc8994e48",
         "appVersion": "1.4.0",
         "cells": 13,
         "blockedRequests": 0,
@@ -80,7 +80,13 @@
       "count": 2
     },
     "rasterCharts": null,
-    "renderedReview": "separate-controller-review-required"
+    "renderedReview": "controller-AI-reviewed",
+    "rendering": {
+      "status": "passed",
+      "scope": "Titles, axes, legends and glyphs visually checked in captured app renders; not native-language approval.",
+      "nativeSpeakerReview": "pending",
+      "note": "Full540px chart verified with settled export renders; earlier viewport-resize crops retained in private history."
+    }
   },
   "caveat": "Reviewed educational examples; stated limitations still apply."
 }

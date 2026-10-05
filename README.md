@@ -63,6 +63,12 @@ tools/build-index.mjs     recomputes sha256/size for every item from the files
 
 ## How the translations are made
 
+The six new science/data lessons have 72 machine-translated editions across
+12 non-English locales, alongside their English sources. **Native-speaker
+review is pending.** AI review, structural gates and browser tests check
+source fidelity and numerical behavior; they do not certify natural wording
+or specialist terminology. Corrections from readers are welcome.
+
 Every non-English edition comes from a supervised multi-agent pipeline —
 machine translation with per-action human-policy review and a mechanical
 verification gate. The process, its gates, and its economics are documented

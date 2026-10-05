@@ -32,7 +32,7 @@
         "type": "code",
         "language": "r",
         "name": "viz",
-        "code": "# ---- Visualization: success rates by stratum and pooled (base R only) ----\n\nlabels <- c(\"Mild\", \"Severe\", \"Pooled\")\npA_v <- c(get_p(\"Mild\", \"A\")[\"p\"], get_p(\"Severe\", \"A\")[\"p\"], pA[\"p\"])\npB_v <- c(get_p(\"Mild\", \"B\")[\"p\"], get_p(\"Severe\", \"B\")[\"p\"], pB[\"p\"])\n\nm <- rbind(A = pA_v, B = pB_v)\ncolnames(m) <- labels\nop <- par(mar = c(4.1, 4.1, 3.1, 1.1))\nbarplot(m, beside = TRUE, ylim = c(0, 0.9),\n        col = c(\"#4472C4\", \"#ED7D31\"),\n        main = \"Simpson's Paradox: success rate by group (synthetic data)\",\n        ylab = \"Success proportion\", legend.text = c(\"Treatment A\", \"Treatment B\"),\n        args.legend = list(x = \"topright\", bty = \"n\"))\nabline(h = 0, col = \"grey40\")\npar(op)"
+        "code": "# ---- Visualization: success rates by stratum and pooled (base R only) ----\n\nlabels <- c(\"Mild\", \"Severe\", \"Pooled\")\npA_v <- c(get_p(\"Mild\", \"A\")[\"p\"], get_p(\"Severe\", \"A\")[\"p\"], pA[\"p\"])\npB_v <- c(get_p(\"Mild\", \"B\")[\"p\"], get_p(\"Severe\", \"B\")[\"p\"], pB[\"p\"])\n\nm <- rbind(A = pA_v, B = pB_v)\ncolnames(m) <- labels\nop <- par(mar = c(4.1, 4.1, 4.1, 1.1))\nbarplot(m, beside = TRUE, ylim = c(0, 0.9),\n        col = c(\"#4472C4\", \"#ED7D31\"),\n        main = paste(strwrap(\"Simpson's Paradox: success rate by group (synthetic data)\", width = 42), collapse = \"\\n\"), cex.main = 1.0,\n        ylab = \"Success proportion\", legend.text = c(\"Treatment A\", \"Treatment B\"),\n        args.legend = list(x = \"topright\", bty = \"n\"))\nabline(h = 0, col = \"grey40\")\npar(op)"
       },
       {
         "type": "code",
