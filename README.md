@@ -21,11 +21,13 @@ https://github.com/s243a/SciREPL-Catalog
 Items from this catalog appear when you search. The curated built-in list is
 unaffected.
 
-> Catalog sources require a SciREPL version with the Sources panel (in
-> development). Until then this repository is content staging.
+> Catalog sources require a SciREPL version with the Sources panel.
+> The stable channel changes only when a catalog release is published;
+> staged additions on a development branch are not yet a stable release.
 
 ## Documentation
 
+- [docs/reviewed-examples.md](docs/reviewed-examples.md) — six staged science/data lessons, execution order, limitations and translation gates
 - [docs/translation-process.md](docs/translation-process.md) — how every translated edition is produced (both passes)
 - [docs/translation-pipeline-modes.md](docs/translation-pipeline-modes.md) — mechanical vs sandboxed-polish modes, worker access levels
 - [docs/locale-policy.md](docs/locale-policy.md) — what translates per locale; per-script identifier policy; the Arabic decision
@@ -45,8 +47,9 @@ tools/build-index.mjs     recomputes sha256/size for every item from the files
 - **Cell names stay in English** in translated editions. Names are
   load-bearing identifiers — `nb_read("cell_name", …)` references them from
   code cells, which translations must keep byte-identical — and a translated
-  workbook is only exempt from runtime re-testing because its executable
-  surface is provably unchanged. Translate markdown; leave names alone.
+  editions must preserve them. Markdown, comments and display text can
+  translate under the current two-phase pipeline; code/data tokens stay
+  unchanged, and output-bearing translations are re-tested in the app.
 - Item `locales` use BCP 47 tags (`en`, `ja`, `pt-BR`). A translated edition
   of a workbook is a **separate item** with its own id (e.g. `compute-pi-ja`),
   not a variant of the English one.
@@ -60,6 +63,12 @@ tools/build-index.mjs     recomputes sha256/size for every item from the files
 
 ## How the translations are made
 
+The six new science/data lessons have 72 machine-translated editions across
+12 non-English locales, alongside their English sources. **Native-speaker
+review is pending.** AI review, structural gates and browser tests check
+source fidelity and numerical behavior; they do not certify natural wording
+or specialist terminology. Corrections from readers are welcome.
+
 Every non-English edition comes from a supervised multi-agent pipeline —
 machine translation with per-action human-policy review and a mechanical
 verification gate. The process, its gates, and its economics are documented
@@ -69,13 +78,14 @@ in [docs/translation-process.md](docs/translation-process.md).
 
 1. Add or edit the artifact under `workbooks/` or `packages/`.
 2. Add or update its entry in `scirepl-catalog.json` (id, name, description,
-   type, kernels, locales, url, revision).
+   type, kernels, locales, path, revision for format 2.0).
 3. `node tools/build-index.mjs` — fills in `sha256` and `size` from the files.
 4. Commit and push. The app fetches the index via jsDelivr / raw.githubusercontent,
    both of which serve this repository with CORS headers.
 
-Artifact `url`s must point at `raw.githubusercontent.com/s243a/SciREPL-Catalog/main/...`
-(CORS-open, canonical). GitHub Release URLs do not work from the PWA.
+Format 2.0 artifact `path`s are repository-relative; the app resolves them
+against the pinned catalog source. Legacy format 1.0 uses raw GitHub URLs.
+See [distribution.md](docs/distribution.md) for stable releases and commit pins.
 
 ## Licence
 

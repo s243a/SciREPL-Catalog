@@ -1,0 +1,1836 @@
+{
+  "schema": 1,
+  "lesson": "select-risk-measures",
+  "locale": "ko",
+  "source": {
+    "path": "workbooks/en/select-risk-measures.srwb",
+    "sha256": "3df6189e8206d7a292a52f227b96e4a81680b6de515f6786e0788a83a4306147"
+  },
+  "target": {
+    "path": "workbooks/ko/select-risk-measures.srwb",
+    "sha256": "5a569c2f75dcf05035cf847887c04c0d7c7ef3cfd2af5bb909f51f35316f5d12",
+    "size": 16523,
+    "title": "SELECT에서 위험 측도로",
+    "description": "발표된 SELECT 임상시험 집합 데이터를 보존하는 합성 레코드입니다. 조 위험 측도와 근사 NNT를 계산하고, 위험비(risk ratio)와 위험비(hazard ratio)를 구별합니다."
+  },
+  "translation": {
+    "model": "gemini-3.8-flash-medium",
+    "contentAudit": {
+      "status": "passed",
+      "sourceSha256": "3df6189e8206d7a292a52f227b96e4a81680b6de515f6786e0788a83a4306147",
+      "targetSha256": "5a569c2f75dcf05035cf847887c04c0d7c7ef3cfd2af5bb909f51f35316f5d12",
+      "findings": [],
+      "errors": [],
+      "reviewMethod": "Previously passed AI/controller source-fidelity audit, preserved through verified presentation-only rebase where applicable; scoped final Bengali corrections independently adjudicated and re-gated.",
+      "provenance": {
+        "predecessorSourceSha256": "3df6189e8206d7a292a52f227b96e4a81680b6de515f6786e0788a83a4306147",
+        "predecessorTargetSha256": "5a569c2f75dcf05035cf847887c04c0d7c7ef3cfd2af5bb909f51f35316f5d12",
+        "predecessorAuditSha256": "3b68d9483b15c193f5de85eb33ffba710054e9f278a6c2478f1fca5a419c446d",
+        "sharedLayoutOnly": false
+      },
+      "nativeSpeakerReview": "pending",
+      "caveat": "AI/controller review, not native-speaker or qualified technical certification."
+    },
+    "policy": {
+      "locale": "ko",
+      "protectedTexts": [
+        "id",
+        "treatment",
+        "primary_outcome",
+        "semaglutide",
+        "placebo",
+        " | primary_outcome = "
+      ],
+      "protectedIds": [
+        "2:16:0",
+        "2:18:0",
+        "2:20:0",
+        "2:24:0",
+        "2:26:0",
+        "2:34:4",
+        "2:38:0",
+        "2:40:0",
+        "2:42:0",
+        "2:44:0",
+        "2:46:0",
+        "2:48:0",
+        "2:50:0",
+        "3:4:0",
+        "3:6:0",
+        "3:8:0",
+        "3:10:0",
+        "3:12:0",
+        "3:14:0"
+      ],
+      "widthOverrides": {},
+      "identifierRenames": false,
+      "cellNames": "English",
+      "nativeReviewCaveat": "Machine-translated; native-speaker review pending. Numerical/structural tests do not certify prose quality."
+    },
+    "keeps": {
+      "ids": [
+        "2:16:0",
+        "2:18:0",
+        "2:20:0",
+        "2:24:0",
+        "2:26:0",
+        "2:34:4",
+        "2:38:0",
+        "2:40:0",
+        "2:42:0",
+        "2:44:0",
+        "2:46:0",
+        "2:48:0",
+        "2:50:0",
+        "3:4:0",
+        "3:6:0",
+        "3:8:0",
+        "3:10:0",
+        "3:12:0",
+        "3:14:0",
+        "3:38:0",
+        "3:38:2",
+        "7:18:2",
+        "7:20:0",
+        "7:20:2"
+      ],
+      "texts": [
+        "id",
+        "treatment",
+        "primary_outcome",
+        "semaglutide",
+        "placebo",
+        " | primary_outcome = ",
+        "treatment",
+        "semaglutide",
+        "treatment",
+        "placebo",
+        "primary_outcome",
+        "primary_outcome",
+        "id",
+        "treatment",
+        "semaglutide",
+        "treatment",
+        "placebo",
+        "primary_outcome",
+        "primary_outcome",
+        "  RR = ",
+        " (95% CI ",
+        " pp",
+        "ARR               : ",
+        " pp"
+      ]
+    },
+    "manifest": {
+      "manifest_version": 1,
+      "produced_by": "derived",
+      "generator": "tools/span-derive.mjs",
+      "locale": "ko",
+      "source": {
+        "path": "workbooks/en/select-risk-measures.srwb",
+        "sha256": "3df6189e8206d7a292a52f227b96e4a81680b6de515f6786e0788a83a4306147"
+      },
+      "target": {
+        "path": "workbooks/ko/select-risk-measures.srwb",
+        "sha256": "5a569c2f75dcf05035cf847887c04c0d7c7ef3cfd2af5bb909f51f35316f5d12"
+      },
+      "spans": [
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 110
+            },
+            "text": "Synthetic patient-level dataset for the SELECT trial (Lincoff et al., NEJM 2023, DOI 10.1056/NEJMoa2307563)"
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 87
+            },
+            "text": "SELECT 임상시험을 위한 합성 환자 수준 데이터셋 (Lincoff et al., NEJM 2023, DOI 10.1056/NEJMoa2307563)"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 2,
+              "col": 1
+            },
+            "end": {
+              "line": 2,
+              "col": 81
+            },
+            "text": "All rows are FICTIONAL/SYNTHETIC: IDs are deterministic and guaranteed unique;"
+          },
+          "target_span": {
+            "start": {
+              "line": 2,
+              "col": 1
+            },
+            "end": {
+              "line": 2,
+              "col": 45
+            },
+            "text": "모든 행은 가상/합성 데이터입니다: ID는 결정론적이며 고유성이 보장됩니다;"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 3,
+              "col": 1
+            },
+            "end": {
+              "line": 3,
+              "col": 85
+            },
+            "text": "outcome assignment and row order are randomized within each arm with a fixed seed."
+          },
+          "target_span": {
+            "start": {
+              "line": 3,
+              "col": 1
+            },
+            "end": {
+              "line": 3,
+              "col": 40
+            },
+            "text": "결과 배정과 행 순서는 고정된 시드로 각 군 내에서 무작위화됩니다."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 4,
+              "col": 1
+            },
+            "end": {
+              "line": 4,
+              "col": 63
+            },
+            "text": "The exact group denominators and event counts are preserved."
+          },
+          "target_span": {
+            "start": {
+              "line": 4,
+              "col": 1
+            },
+            "end": {
+              "line": 4,
+              "col": 28
+            },
+            "text": "정확한 군 분모와 사건 발생 수가 보존됩니다."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 5,
+              "col": 1
+            },
+            "end": {
+              "line": 5,
+              "col": 22
+            },
+            "text": "NOT medical advice."
+          },
+          "target_span": {
+            "start": {
+              "line": 5,
+              "col": 1
+            },
+            "end": {
+              "line": 5,
+              "col": 16
+            },
+            "text": "의학적 조언이 아닙니다."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 14,
+              "col": 5
+            },
+            "end": {
+              "line": 14,
+              "col": 86
+            },
+            "text": "Sequential zero-padded IDs guarantee uniqueness (no collisions by construction)"
+          },
+          "target_span": {
+            "start": {
+              "line": 14,
+              "col": 5
+            },
+            "end": {
+              "line": 14,
+              "col": 45
+            },
+            "text": "영으로 채워진 순차 ID는 고유성을 보장합니다(구조적으로 충돌 없음)"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 17,
+              "col": 28
+            },
+            "end": {
+              "line": 17,
+              "col": 71
+            },
+            "text": "randomize outcome assignment within group"
+          },
+          "target_span": {
+            "start": {
+              "line": 17,
+              "col": 28
+            },
+            "end": {
+              "line": 17,
+              "col": 44
+            },
+            "text": "군 내 결과 배정 무작위화"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 20,
+              "col": 24
+            },
+            "end": {
+              "line": 20,
+              "col": 58
+            },
+            "text": "randomize row order within group"
+          },
+          "target_span": {
+            "start": {
+              "line": 20,
+              "col": 24
+            },
+            "end": {
+              "line": 20,
+              "col": 39
+            },
+            "text": "군 내 행 순서 무작위화"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 26,
+              "col": 9
+            },
+            "end": {
+              "line": 26,
+              "col": 73
+            },
+            "text": "Total synthetic rows: "
+          },
+          "target_span": {
+            "start": {
+              "line": 26,
+              "col": 9
+            },
+            "end": {
+              "line": 26,
+              "col": 43
+            },
+            "text": "총 합성 행 수: "
+          },
+          "placeholders": [
+            "{len(data)}"
+          ]
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 26,
+              "col": 9
+            },
+            "end": {
+              "line": 26,
+              "col": 73
+            },
+            "text": " (exact denominators preserved)"
+          },
+          "target_span": {
+            "start": {
+              "line": 26,
+              "col": 9
+            },
+            "end": {
+              "line": 26,
+              "col": 43
+            },
+            "text": " (정확한 분모 보존됨)"
+          },
+          "placeholders": [
+            "{len(data)}"
+          ]
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 27,
+              "col": 9
+            },
+            "end": {
+              "line": 27,
+              "col": 51
+            },
+            "text": "Unique IDs: "
+          },
+          "target_span": {
+            "start": {
+              "line": 27,
+              "col": 9
+            },
+            "end": {
+              "line": 27,
+              "col": 46
+            },
+            "text": "고유 ID: "
+          },
+          "placeholders": [
+            "{len({r['id'] for r in data})}"
+          ]
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 28,
+              "col": 8
+            },
+            "end": {
+              "line": 28,
+              "col": 34
+            },
+            "text": "\\nSample of first 10 rows:"
+          },
+          "target_span": {
+            "start": {
+              "line": 28,
+              "col": 8
+            },
+            "end": {
+              "line": 28,
+              "col": 22
+            },
+            "text": "\\n처음 10개 행 샘플:"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 32,
+              "col": 1
+            },
+            "end": {
+              "line": 32,
+              "col": 13
+            },
+            "text": "validation"
+          },
+          "target_span": {
+            "start": {
+              "line": 32,
+              "col": 1
+            },
+            "end": {
+              "line": 32,
+              "col": 5
+            },
+            "text": "검증"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 38,
+              "col": 52
+            },
+            "end": {
+              "line": 38,
+              "col": 84
+            },
+            "text": "duplicate synthetic IDs detected"
+          },
+          "target_span": {
+            "start": {
+              "line": 38,
+              "col": 52
+            },
+            "end": {
+              "line": 38,
+              "col": 70
+            },
+            "text": "중복된 합성 ID가 감지되었습니다"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 39,
+              "col": 8
+            },
+            "end": {
+              "line": 39,
+              "col": 77
+            },
+            "text": "\\nAssertions passed: exact group sizes, event counts, and unique IDs."
+          },
+          "target_span": {
+            "start": {
+              "line": 39,
+              "col": 8
+            },
+            "end": {
+              "line": 39,
+              "col": 41
+            },
+            "text": "\\n단언문 통과: 정확한 군 크기, 사건 수 및 고유 ID."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 74
+            },
+            "text": "Analysis cell — derives all answers from `data`, no hard-coded results."
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 43
+            },
+            "text": "분석 셀 — 하드코딩된 결과 없이 `data`에서 모든 답을 도출합니다."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "source_span": {
+            "start": {
+              "line": 2,
+              "col": 1
+            },
+            "end": {
+              "line": 2,
+              "col": 78
+            },
+            "text": "These are crude event proportions, not censoring-adjusted fixed-time risks."
+          },
+          "target_span": {
+            "start": {
+              "line": 2,
+              "col": 1
+            },
+            "end": {
+              "line": 2,
+              "col": 48
+            },
+            "text": "이 값들은 조 사건 발생 비율이며, 중도절단이 조정된 고정 시점 위험이 아닙니다."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "source_span": {
+            "start": {
+              "line": 17,
+              "col": 41
+            },
+            "end": {
+              "line": 17,
+              "col": 82
+            },
+            "text": "risk difference (semaglutide - placebo)"
+          },
+          "target_span": {
+            "start": {
+              "line": 17,
+              "col": 41
+            },
+            "end": {
+              "line": 17,
+              "col": 63
+            },
+            "text": "위험 차이 (세마글루타이드 - 위약)"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "source_span": {
+            "start": {
+              "line": 18,
+              "col": 41
+            },
+            "end": {
+              "line": 18,
+              "col": 66
+            },
+            "text": "absolute risk reduction"
+          },
+          "target_span": {
+            "start": {
+              "line": 18,
+              "col": 41
+            },
+            "end": {
+              "line": 18,
+              "col": 51
+            },
+            "text": "절대 위험 감소"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "source_span": {
+            "start": {
+              "line": 22,
+              "col": 1
+            },
+            "end": {
+              "line": 22,
+              "col": 76
+            },
+            "text": "Approximate 95% CI for crude RR via the Katz log method on the 2x2 counts"
+          },
+          "target_span": {
+            "start": {
+              "line": 22,
+              "col": 1
+            },
+            "end": {
+              "line": 22,
+              "col": 44
+            },
+            "text": "2x2 건수에 대한 Katz 로그 방법을 통한 조 RR의 근사 95% CI"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 27,
+              "col": 9
+            },
+            "end": {
+              "line": 27,
+              "col": 63
+            },
+            "text": "Crude event proportion (semaglutide) = "
+          },
+          "target_span": {
+            "start": {
+              "line": 27,
+              "col": 9
+            },
+            "end": {
+              "line": 27,
+              "col": 47
+            },
+            "text": "조 사건 발생 비율 (세마글루타이드) = "
+          },
+          "placeholders": [
+            "{risk_sema:.4%}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 28,
+              "col": 9
+            },
+            "end": {
+              "line": 28,
+              "col": 66
+            },
+            "text": "Crude event proportion (placebo)     = "
+          },
+          "target_span": {
+            "start": {
+              "line": 28,
+              "col": 9
+            },
+            "end": {
+              "line": 28,
+              "col": 49
+            },
+            "text": "조 사건 발생 비율 (위약)     = "
+          },
+          "placeholders": [
+            "{risk_placebo:.4%}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 29,
+              "col": 9
+            },
+            "end": {
+              "line": 29,
+              "col": 53
+            },
+            "text": "Crude event-proportion ratio (RR) = "
+          },
+          "target_span": {
+            "start": {
+              "line": 29,
+              "col": 9
+            },
+            "end": {
+              "line": 29,
+              "col": 38
+            },
+            "text": "조 사건 발생 비율의 비 (RR) = "
+          },
+          "placeholders": [
+            "{rr:.4f}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 30,
+              "col": 9
+            },
+            "end": {
+              "line": 30,
+              "col": 75
+            },
+            "text": "Risk difference (sema - placebo) = "
+          },
+          "target_span": {
+            "start": {
+              "line": 30,
+              "col": 9
+            },
+            "end": {
+              "line": 30,
+              "col": 48
+            },
+            "text": "위험 차이 (세마 - 위약) = "
+          },
+          "placeholders": [
+            "{rd*100:+.3f}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 30,
+              "col": 9
+            },
+            "end": {
+              "line": 30,
+              "col": 75
+            },
+            "text": " percentage points"
+          },
+          "target_span": {
+            "start": {
+              "line": 30,
+              "col": 9
+            },
+            "end": {
+              "line": 30,
+              "col": 48
+            },
+            "text": " 백분율 포인트"
+          },
+          "placeholders": [
+            "{rd*100:+.3f}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 31,
+              "col": 9
+            },
+            "end": {
+              "line": 31,
+              "col": 72
+            },
+            "text": "Absolute risk reduction       = "
+          },
+          "target_span": {
+            "start": {
+              "line": 31,
+              "col": 9
+            },
+            "end": {
+              "line": 31,
+              "col": 47
+            },
+            "text": "절대 위험 감소       = "
+          },
+          "placeholders": [
+            "{arr*100:.3f}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 31,
+              "col": 9
+            },
+            "end": {
+              "line": 31,
+              "col": 72
+            },
+            "text": " percentage points"
+          },
+          "target_span": {
+            "start": {
+              "line": 31,
+              "col": 9
+            },
+            "end": {
+              "line": 31,
+              "col": 47
+            },
+            "text": " 백분율 포인트"
+          },
+          "placeholders": [
+            "{arr*100:.3f}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 32,
+              "col": 9
+            },
+            "end": {
+              "line": 32,
+              "col": 63
+            },
+            "text": "1/ARR (crude approximate NNT)       = "
+          },
+          "target_span": {
+            "start": {
+              "line": 32,
+              "col": 9
+            },
+            "end": {
+              "line": 32,
+              "col": 50
+            },
+            "text": "1/ARR (조 근사 NNT)       = "
+          },
+          "placeholders": [
+            "{nnt_approx:.2f}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 33,
+              "col": 9
+            },
+            "end": {
+              "line": 33,
+              "col": 51
+            },
+            "text": "Conventional rounded-up NNT   = "
+          },
+          "target_span": {
+            "start": {
+              "line": 33,
+              "col": 9
+            },
+            "end": {
+              "line": 33,
+              "col": 35
+            },
+            "text": "통상적인 올림 NNT   = "
+          },
+          "placeholders": [
+            "{nnt_conv}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 34,
+              "col": 9
+            },
+            "end": {
+              "line": 34,
+              "col": 75
+            },
+            "text": "\\nApproximate 95% CI for crude RR (Katz log method on 2x2 counts):"
+          },
+          "target_span": {
+            "start": {
+              "line": 34,
+              "col": 9
+            },
+            "end": {
+              "line": 34,
+              "col": 54
+            },
+            "text": "\\n조 RR에 대한 근사 95% CI (2x2 건수에 대한 Katz 로그 방법):"
+          },
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "source_span": {
+            "start": {
+              "line": 36,
+              "col": 8
+            },
+            "end": {
+              "line": 36,
+              "col": 69
+            },
+            "text": "NNT is a crude classroom approximation from aggregate counts,"
+          },
+          "target_span": {
+            "start": {
+              "line": 36,
+              "col": 8
+            },
+            "end": {
+              "line": 36,
+              "col": 36
+            },
+            "text": "NNT는 집계된 건수로 구한 조 강의용 근사치이며,"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "source_span": {
+            "start": {
+              "line": 37,
+              "col": 8
+            },
+            "end": {
+              "line": 37,
+              "col": 67
+            },
+            "text": "not a censoring-adjusted estimate at a common time horizon."
+          },
+          "target_span": {
+            "start": {
+              "line": 37,
+              "col": 8
+            },
+            "end": {
+              "line": 37,
+              "col": 37
+            },
+            "text": "동일한 시점에서 중도절단이 조정된 추정치가 아닙니다."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 73
+            },
+            "text": "Final summary — consolidates all validated results for quick reference"
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 37
+            },
+            "text": "최종 요약 — 빠른 참조를 위해 검증된 모든 결과를 종합합니다"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "source_span": {
+            "start": {
+              "line": 3,
+              "col": 8
+            },
+            "end": {
+              "line": 3,
+              "col": 62
+            },
+            "text": "SELECT AGGREGATES (SYNTHETIC ROWS) — CLASSROOM SUMMARY"
+          },
+          "target_span": {
+            "start": {
+              "line": 3,
+              "col": 8
+            },
+            "end": {
+              "line": 3,
+              "col": 33
+            },
+            "text": "SELECT 집계값 (합성 행) — 강의 요약"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 5,
+              "col": 9
+            },
+            "end": {
+              "line": 5,
+              "col": 81
+            },
+            "text": "Denominators preserved: semaglutide n="
+          },
+          "target_span": {
+            "start": {
+              "line": 5,
+              "col": 9
+            },
+            "end": {
+              "line": 5,
+              "col": 56
+            },
+            "text": "보존된 분모: 세마글루타이드 n="
+          },
+          "placeholders": [
+            "{len(sema)}",
+            "{len(plac)}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 5,
+              "col": 9
+            },
+            "end": {
+              "line": 5,
+              "col": 81
+            },
+            "text": ", placebo n="
+          },
+          "target_span": {
+            "start": {
+              "line": 5,
+              "col": 9
+            },
+            "end": {
+              "line": 5,
+              "col": 56
+            },
+            "text": ", 위약 n="
+          },
+          "placeholders": [
+            "{len(sema)}",
+            "{len(plac)}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 6,
+              "col": 9
+            },
+            "end": {
+              "line": 6,
+              "col": 67
+            },
+            "text": "Event counts preserved: semaglutide e="
+          },
+          "target_span": {
+            "start": {
+              "line": 6,
+              "col": 9
+            },
+            "end": {
+              "line": 6,
+              "col": 47
+            },
+            "text": "보존된 사건 발생 수: 세마글루타이드 e="
+          },
+          "placeholders": [
+            "{e1}",
+            "{e0}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 6,
+              "col": 9
+            },
+            "end": {
+              "line": 6,
+              "col": 67
+            },
+            "text": ", placebo e="
+          },
+          "target_span": {
+            "start": {
+              "line": 6,
+              "col": 9
+            },
+            "end": {
+              "line": 6,
+              "col": 47
+            },
+            "text": ", 위약 e="
+          },
+          "placeholders": [
+            "{e1}",
+            "{e0}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 7,
+              "col": 9
+            },
+            "end": {
+              "line": 7,
+              "col": 55
+            },
+            "text": "Crude proportion, semaglutide: "
+          },
+          "target_span": {
+            "start": {
+              "line": 7,
+              "col": 9
+            },
+            "end": {
+              "line": 7,
+              "col": 39
+            },
+            "text": "조 비율, 세마글루타이드: "
+          },
+          "placeholders": [
+            "{risk_sema:.4%}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 8,
+              "col": 9
+            },
+            "end": {
+              "line": 8,
+              "col": 54
+            },
+            "text": "Crude proportion, placebo: "
+          },
+          "target_span": {
+            "start": {
+              "line": 8,
+              "col": 9
+            },
+            "end": {
+              "line": 8,
+              "col": 37
+            },
+            "text": "조 비율, 위약: "
+          },
+          "placeholders": [
+            "{risk_placebo:.4%}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 9,
+              "col": 9
+            },
+            "end": {
+              "line": 9,
+              "col": 95
+            },
+            "text": "Crude risk ratio  : "
+          },
+          "target_span": {
+            "start": {
+              "line": 9,
+              "col": 9
+            },
+            "end": {
+              "line": 9,
+              "col": 75
+            },
+            "text": "조 위험비  : "
+          },
+          "placeholders": [
+            "{rr:.4f}",
+            "{rr_lo:.4f}",
+            "{rr_hi:.4f}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 9,
+              "col": 9
+            },
+            "end": {
+              "line": 9,
+              "col": 95
+            },
+            "text": "  (approx 95% CI "
+          },
+          "target_span": {
+            "start": {
+              "line": 9,
+              "col": 9
+            },
+            "end": {
+              "line": 9,
+              "col": 75
+            },
+            "text": "  (근사 95% CI "
+          },
+          "placeholders": [
+            "{rr:.4f}",
+            "{rr_lo:.4f}",
+            "{rr_hi:.4f}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 9,
+              "col": 9
+            },
+            "end": {
+              "line": 9,
+              "col": 95
+            },
+            "text": ", Katz log method)"
+          },
+          "target_span": {
+            "start": {
+              "line": 9,
+              "col": 9
+            },
+            "end": {
+              "line": 9,
+              "col": 75
+            },
+            "text": ", Katz 로그 방법)"
+          },
+          "placeholders": [
+            "{rr:.4f}",
+            "{rr_lo:.4f}",
+            "{rr_hi:.4f}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 10,
+              "col": 9
+            },
+            "end": {
+              "line": 10,
+              "col": 45
+            },
+            "text": "Risk difference   : "
+          },
+          "target_span": {
+            "start": {
+              "line": 10,
+              "col": 9
+            },
+            "end": {
+              "line": 10,
+              "col": 35
+            },
+            "text": "위험 차이   : "
+          },
+          "placeholders": [
+            "{rd*100:+.3f}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 12,
+              "col": 9
+            },
+            "end": {
+              "line": 12,
+              "col": 45
+            },
+            "text": "NNT (crude approx): "
+          },
+          "target_span": {
+            "start": {
+              "line": 12,
+              "col": 9
+            },
+            "end": {
+              "line": 12,
+              "col": 37
+            },
+            "text": "NNT (조 근사): "
+          },
+          "placeholders": [
+            "{nnt_approx:.2f}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 13,
+              "col": 9
+            },
+            "end": {
+              "line": 13,
+              "col": 39
+            },
+            "text": "NNT (conventional): "
+          },
+          "target_span": {
+            "start": {
+              "line": 13,
+              "col": 9
+            },
+            "end": {
+              "line": 13,
+              "col": 30
+            },
+            "text": "NNT (통상적): "
+          },
+          "placeholders": [
+            "{nnt_conv}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "source_span": {
+            "start": {
+              "line": 15,
+              "col": 8
+            },
+            "end": {
+              "line": 15,
+              "col": 19
+            },
+            "text": "LIMITATIONS"
+          },
+          "target_span": {
+            "start": {
+              "line": 15,
+              "col": 8
+            },
+            "end": {
+              "line": 15,
+              "col": 11
+            },
+            "text": "한계점"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "source_span": {
+            "start": {
+              "line": 16,
+              "col": 8
+            },
+            "end": {
+              "line": 16,
+              "col": 90
+            },
+            "text": "- Patient rows, row order, and IDs are synthetic; counts are published aggregates."
+          },
+          "target_span": {
+            "start": {
+              "line": 16,
+              "col": 8
+            },
+            "end": {
+              "line": 16,
+              "col": 52
+            },
+            "text": "- 환자 행, 행 순서 및 ID는 합성 데이터이며, 건수는 발표된 집계값입니다."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "source_span": {
+            "start": {
+              "line": 17,
+              "col": 8
+            },
+            "end": {
+              "line": 17,
+              "col": 81
+            },
+            "text": "- Crude RR ≠ published HR (0.80, 95% CI 0.72–0.90): HR uses time-to-event"
+          },
+          "target_span": {
+            "start": {
+              "line": 17,
+              "col": 8
+            },
+            "end": {
+              "line": 17,
+              "col": 65
+            },
+            "text": "- 조 RR ≠ 발표된 HR (0.80, 95% CI 0.72–0.90): HR은 사건 발생까지의 시간"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "source_span": {
+            "start": {
+              "line": 18,
+              "col": 8
+            },
+            "end": {
+              "line": 18,
+              "col": 79
+            },
+            "text": "  and censoring info we cannot reconstruct from aggregate counts alone."
+          },
+          "target_span": {
+            "start": {
+              "line": 18,
+              "col": 8
+            },
+            "end": {
+              "line": 18,
+              "col": 49
+            },
+            "text": "  및 중도절단 정보를 사용하므로 집계 건수만으로는 재구성할 수 없습니다."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "source_span": {
+            "start": {
+              "line": 19,
+              "col": 8
+            },
+            "end": {
+              "line": 19,
+              "col": 76
+            },
+            "text": "- Mean follow-up was 39.8 months, with varying individual follow-up."
+          },
+          "target_span": {
+            "start": {
+              "line": 19,
+              "col": 8
+            },
+            "end": {
+              "line": 19,
+              "col": 55
+            },
+            "text": "- 평균 추적 관찰 기간은 39.8개월이었으며, 개별 추적 관찰 기간은 다양했습니다."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "source_span": {
+            "start": {
+              "line": 20,
+              "col": 8
+            },
+            "end": {
+              "line": 20,
+              "col": 67
+            },
+            "text": "- The NNT is crude, not censoring-adjusted at a fixed time."
+          },
+          "target_span": {
+            "start": {
+              "line": 20,
+              "col": 8
+            },
+            "end": {
+              "line": 20,
+              "col": 50
+            },
+            "text": "- NNT는 조 수치이며, 고정된 시점에서 중도절단이 조정된 값이 아닙니다."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "source_span": {
+            "start": {
+              "line": 21,
+              "col": 8
+            },
+            "end": {
+              "line": 21,
+              "col": 67
+            },
+            "text": "- No safety, subgroup, or secondary-endpoint data included."
+          },
+          "target_span": {
+            "start": {
+              "line": 21,
+              "col": 8
+            },
+            "end": {
+              "line": 21,
+              "col": 48
+            },
+            "text": "- 안전성, 하위 집단 또는 이차 평가변수 데이터는 포함되지 않았습니다."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "source_span": {
+            "start": {
+              "line": 22,
+              "col": 8
+            },
+            "end": {
+              "line": 22,
+              "col": 56
+            },
+            "text": "- Educational exercise only; not medical advice."
+          },
+          "target_span": {
+            "start": {
+              "line": 22,
+              "col": 8
+            },
+            "end": {
+              "line": 22,
+              "col": 39
+            },
+            "text": "- 교육용 실습 과제일 뿐이며, 의학적 조언이 아닙니다."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        }
+      ],
+      "exclusions": []
+    },
+    "nativeSpeakerReview": "pending"
+  },
+  "browser": {
+    "status": "passed",
+    "first": {
+      "exportSha256": "b20d69374bf48fbdf8b6831ee03c06b60d37fe1dd28a2262b7d46144fdee010b",
+      "reportSha256": "52a3d628e93753a407f9ba2a07b0cfce0fac2316e6759e1caba739b0ff574326",
+      "appVersion": "1.4.0",
+      "cells": 8,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "second": {
+      "exportSha256": "d3a4181163a7e5b2e7c47d0630246cd515a78736d0dd27124c25a1a9e0235e72",
+      "reportSha256": "52a3d628e93753a407f9ba2a07b0cfce0fac2316e6759e1caba739b0ff574326",
+      "appVersion": "1.4.0",
+      "cells": 8,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "englishBaseline": [
+      {
+        "exportSha256": "69956fb3cafbb841ee43cc77bd6f9fe050a1fe6ae7666d0db121f32837bea4a9",
+        "reportSha256": "5218fde195c9812aad70b39124d5f39ac1e80b084ecf5a4cc0acf324202efb18",
+        "appVersion": "1.4.0",
+        "cells": 8,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      },
+      {
+        "exportSha256": "f960e99a0e9732ae63bcb444b5ea60d0a7b6818542e61c856870117adc900151",
+        "reportSha256": "5218fde195c9812aad70b39124d5f39ac1e80b084ecf5a4cc0acf324202efb18",
+        "appVersion": "1.4.0",
+        "cells": 8,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      }
+    ],
+    "deterministic": true,
+    "textOracle": {
+      "first": {
+        "pass": true,
+        "failures": [],
+        "warnings": [
+          "cell 3: reaches_output:none span appears in output: \"절대 위험 감소\"",
+          "cell 7: reaches_output:none span appears in output: \"의학적 조언이 아닙니다.\""
+        ],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      },
+      "second": {
+        "pass": true,
+        "failures": [],
+        "warnings": [
+          "cell 3: reaches_output:none span appears in output: \"절대 위험 감소\"",
+          "cell 7: reaches_output:none span appears in output: \"의학적 조언이 아닙니다.\""
+        ],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      }
+    },
+    "plotData": {
+      "status": "passed",
+      "count": 0
+    },
+    "rasterCharts": null,
+    "renderedReview": "not-applicable"
+  },
+  "caveat": "Machine translated with Gemini and reviewed by AI/controller checks, including scoped corrections where needed. Native-speaker review is pending; structural and numerical checks do not certify prose quality."
+}

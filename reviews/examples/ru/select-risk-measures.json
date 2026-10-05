@@ -1,0 +1,1888 @@
+{
+  "schema": 1,
+  "lesson": "select-risk-measures",
+  "locale": "ru",
+  "source": {
+    "path": "workbooks/en/select-risk-measures.srwb",
+    "sha256": "3df6189e8206d7a292a52f227b96e4a81680b6de515f6786e0788a83a4306147"
+  },
+  "target": {
+    "path": "workbooks/ru/select-risk-measures.srwb",
+    "sha256": "e57c7b9555e8416c2d1f88d1508ef53be9b6971e1eff16db28b3e030bfeefde2",
+    "size": 26461,
+    "title": "От SELECT к показателям риска",
+    "description": "Синтетические записи, сохраняющие опубликованные агрегированные данные исследования SELECT; рассчитайте грубые показатели риска и приближённый NNT, а также научитесь отличать отношения рисков (risk ratios) от отношений рисков (hazard ratios)."
+  },
+  "translation": {
+    "model": "gemini-3.8-flash-medium",
+    "contentAudit": {
+      "status": "passed",
+      "sourceSha256": "3df6189e8206d7a292a52f227b96e4a81680b6de515f6786e0788a83a4306147",
+      "targetSha256": "e57c7b9555e8416c2d1f88d1508ef53be9b6971e1eff16db28b3e030bfeefde2",
+      "findings": [],
+      "errors": [],
+      "reviewMethod": "Previously passed AI/controller source-fidelity audit, preserved through verified presentation-only rebase where applicable; scoped final Bengali corrections independently adjudicated and re-gated.",
+      "provenance": {
+        "predecessorSourceSha256": "3df6189e8206d7a292a52f227b96e4a81680b6de515f6786e0788a83a4306147",
+        "predecessorTargetSha256": "e57c7b9555e8416c2d1f88d1508ef53be9b6971e1eff16db28b3e030bfeefde2",
+        "predecessorAuditSha256": "b62129e11cab292efa41c3d10f3f03d9309dbd9fb518d10245e820df5e2d2076",
+        "sharedLayoutOnly": false
+      },
+      "nativeSpeakerReview": "pending",
+      "caveat": "AI/controller review, not native-speaker or qualified technical certification."
+    },
+    "policy": {
+      "locale": "ru",
+      "protectedTexts": [
+        "id",
+        "treatment",
+        "primary_outcome",
+        "semaglutide",
+        "placebo",
+        " | primary_outcome = "
+      ],
+      "protectedIds": [
+        "2:16:0",
+        "2:18:0",
+        "2:20:0",
+        "2:24:0",
+        "2:26:0",
+        "2:34:4",
+        "2:38:0",
+        "2:40:0",
+        "2:42:0",
+        "2:44:0",
+        "2:46:0",
+        "2:48:0",
+        "2:50:0",
+        "3:4:0",
+        "3:6:0",
+        "3:8:0",
+        "3:10:0",
+        "3:12:0",
+        "3:14:0"
+      ],
+      "widthOverrides": {},
+      "identifierRenames": false,
+      "cellNames": "English",
+      "nativeReviewCaveat": "Machine-translated; native-speaker review pending. Numerical/structural tests do not certify prose quality."
+    },
+    "keeps": {
+      "ids": [
+        "2:16:0",
+        "2:18:0",
+        "2:20:0",
+        "2:24:0",
+        "2:26:0",
+        "2:34:4",
+        "2:38:0",
+        "2:40:0",
+        "2:42:0",
+        "2:44:0",
+        "2:46:0",
+        "2:48:0",
+        "2:50:0",
+        "3:4:0",
+        "3:6:0",
+        "3:8:0",
+        "3:10:0",
+        "3:12:0",
+        "3:14:0",
+        "3:38:0",
+        "3:38:2",
+        "7:20:0"
+      ],
+      "texts": [
+        "id",
+        "treatment",
+        "primary_outcome",
+        "semaglutide",
+        "placebo",
+        " | primary_outcome = ",
+        "treatment",
+        "semaglutide",
+        "treatment",
+        "placebo",
+        "primary_outcome",
+        "primary_outcome",
+        "id",
+        "treatment",
+        "semaglutide",
+        "treatment",
+        "placebo",
+        "primary_outcome",
+        "primary_outcome",
+        "  RR = ",
+        " (95% CI ",
+        "ARR               : "
+      ]
+    },
+    "manifest": {
+      "manifest_version": 1,
+      "produced_by": "derived",
+      "generator": "tools/span-derive.mjs",
+      "locale": "ru",
+      "source": {
+        "path": "workbooks/en/select-risk-measures.srwb",
+        "sha256": "3df6189e8206d7a292a52f227b96e4a81680b6de515f6786e0788a83a4306147"
+      },
+      "target": {
+        "path": "workbooks/ru/select-risk-measures.srwb",
+        "sha256": "e57c7b9555e8416c2d1f88d1508ef53be9b6971e1eff16db28b3e030bfeefde2"
+      },
+      "spans": [
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 110
+            },
+            "text": "Synthetic patient-level dataset for the SELECT trial (Lincoff et al., NEJM 2023, DOI 10.1056/NEJMoa2307563)"
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 128
+            },
+            "text": "Синтетический набор данных на уровне пациентов для исследования SELECT (Lincoff et al., NEJM 2023, DOI 10.1056/NEJMoa2307563)"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 2,
+              "col": 1
+            },
+            "end": {
+              "line": 2,
+              "col": 81
+            },
+            "text": "All rows are FICTIONAL/SYNTHETIC: IDs are deterministic and guaranteed unique;"
+          },
+          "target_span": {
+            "start": {
+              "line": 2,
+              "col": 1
+            },
+            "end": {
+              "line": 2,
+              "col": 110
+            },
+            "text": "Все строки являются ВЫМЫШЛЕННЫМИ/СИНТЕТИЧЕСКИМИ: идентификаторы детерминированы и гарантированно уникальны;"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 3,
+              "col": 1
+            },
+            "end": {
+              "line": 3,
+              "col": 85
+            },
+            "text": "outcome assignment and row order are randomized within each arm with a fixed seed."
+          },
+          "target_span": {
+            "start": {
+              "line": 3,
+              "col": 1
+            },
+            "end": {
+              "line": 3,
+              "col": 99
+            },
+            "text": "распределение исходов и порядок строк рандомизированы внутри каждой группы с фиксированным seed."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 4,
+              "col": 1
+            },
+            "end": {
+              "line": 4,
+              "col": 63
+            },
+            "text": "The exact group denominators and event counts are preserved."
+          },
+          "target_span": {
+            "start": {
+              "line": 4,
+              "col": 1
+            },
+            "end": {
+              "line": 4,
+              "col": 59
+            },
+            "text": "Точные знаменатели групп и количества событий сохранены."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 5,
+              "col": 1
+            },
+            "end": {
+              "line": 5,
+              "col": 22
+            },
+            "text": "NOT medical advice."
+          },
+          "target_span": {
+            "start": {
+              "line": 5,
+              "col": 1
+            },
+            "end": {
+              "line": 5,
+              "col": 41
+            },
+            "text": "НЕ является медицинской консультацией."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 14,
+              "col": 5
+            },
+            "end": {
+              "line": 14,
+              "col": 86
+            },
+            "text": "Sequential zero-padded IDs guarantee uniqueness (no collisions by construction)"
+          },
+          "target_span": {
+            "start": {
+              "line": 14,
+              "col": 5
+            },
+            "end": {
+              "line": 14,
+              "col": 117
+            },
+            "text": "Последовательные идентификаторы с ведущими нулями гарантируют уникальность (отсутствие коллизий по построению)"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 17,
+              "col": 28
+            },
+            "end": {
+              "line": 17,
+              "col": 71
+            },
+            "text": "randomize outcome assignment within group"
+          },
+          "target_span": {
+            "start": {
+              "line": 17,
+              "col": 28
+            },
+            "end": {
+              "line": 17,
+              "col": 81
+            },
+            "text": "рандомизировать распределение исходов внутри группы"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 20,
+              "col": 24
+            },
+            "end": {
+              "line": 20,
+              "col": 58
+            },
+            "text": "randomize row order within group"
+          },
+          "target_span": {
+            "start": {
+              "line": 20,
+              "col": 24
+            },
+            "end": {
+              "line": 20,
+              "col": 69
+            },
+            "text": "рандомизировать порядок строк внутри группы"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 26,
+              "col": 9
+            },
+            "end": {
+              "line": 26,
+              "col": 73
+            },
+            "text": "Total synthetic rows: "
+          },
+          "target_span": {
+            "start": {
+              "line": 26,
+              "col": 9
+            },
+            "end": {
+              "line": 26,
+              "col": 78
+            },
+            "text": "Всего синтетических строк: "
+          },
+          "placeholders": [
+            "{len(data)}"
+          ]
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 26,
+              "col": 9
+            },
+            "end": {
+              "line": 26,
+              "col": 73
+            },
+            "text": " (exact denominators preserved)"
+          },
+          "target_span": {
+            "start": {
+              "line": 26,
+              "col": 9
+            },
+            "end": {
+              "line": 26,
+              "col": 78
+            },
+            "text": " (точные знаменатели сохранены)"
+          },
+          "placeholders": [
+            "{len(data)}"
+          ]
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 27,
+              "col": 9
+            },
+            "end": {
+              "line": 27,
+              "col": 51
+            },
+            "text": "Unique IDs: "
+          },
+          "target_span": {
+            "start": {
+              "line": 27,
+              "col": 9
+            },
+            "end": {
+              "line": 27,
+              "col": 67
+            },
+            "text": "Уникальных идентификаторов: "
+          },
+          "placeholders": [
+            "{len({r['id'] for r in data})}"
+          ]
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 28,
+              "col": 8
+            },
+            "end": {
+              "line": 28,
+              "col": 34
+            },
+            "text": "\\nSample of first 10 rows:"
+          },
+          "target_span": {
+            "start": {
+              "line": 28,
+              "col": 8
+            },
+            "end": {
+              "line": 28,
+              "col": 34
+            },
+            "text": "\\nВыборка первых 10 строк:"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 32,
+              "col": 1
+            },
+            "end": {
+              "line": 32,
+              "col": 13
+            },
+            "text": "validation"
+          },
+          "target_span": {
+            "start": {
+              "line": 32,
+              "col": 1
+            },
+            "end": {
+              "line": 32,
+              "col": 12
+            },
+            "text": "валидация"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 38,
+              "col": 52
+            },
+            "end": {
+              "line": 38,
+              "col": 84
+            },
+            "text": "duplicate synthetic IDs detected"
+          },
+          "target_span": {
+            "start": {
+              "line": 38,
+              "col": 52
+            },
+            "end": {
+              "line": 38,
+              "col": 102
+            },
+            "text": "обнаружены дубликаты синтетических идентификаторов"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "synthetic-data",
+          "source_span": {
+            "start": {
+              "line": 39,
+              "col": 8
+            },
+            "end": {
+              "line": 39,
+              "col": 77
+            },
+            "text": "\\nAssertions passed: exact group sizes, event counts, and unique IDs."
+          },
+          "target_span": {
+            "start": {
+              "line": 39,
+              "col": 8
+            },
+            "end": {
+              "line": 39,
+              "col": 98
+            },
+            "text": "\\nПроверки пройдены: точные размеры групп, количества событий и уникальные идентификаторы."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 74
+            },
+            "text": "Analysis cell — derives all answers from `data`, no hard-coded results."
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 87
+            },
+            "text": "Ячейка анализа — получает все ответы из `data`, никаких жестко заданных результатов."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "source_span": {
+            "start": {
+              "line": 2,
+              "col": 1
+            },
+            "end": {
+              "line": 2,
+              "col": 78
+            },
+            "text": "These are crude event proportions, not censoring-adjusted fixed-time risks."
+          },
+          "target_span": {
+            "start": {
+              "line": 2,
+              "col": 1
+            },
+            "end": {
+              "line": 2,
+              "col": 107
+            },
+            "text": "Это грубые доли событий, а не скорректированные на цензурирование риски на фиксированный момент времени."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "source_span": {
+            "start": {
+              "line": 17,
+              "col": 41
+            },
+            "end": {
+              "line": 17,
+              "col": 82
+            },
+            "text": "risk difference (semaglutide - placebo)"
+          },
+          "target_span": {
+            "start": {
+              "line": 17,
+              "col": 41
+            },
+            "end": {
+              "line": 17,
+              "col": 81
+            },
+            "text": "разность рисков (семаглутид - плацебо)"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "source_span": {
+            "start": {
+              "line": 18,
+              "col": 41
+            },
+            "end": {
+              "line": 18,
+              "col": 66
+            },
+            "text": "absolute risk reduction"
+          },
+          "target_span": {
+            "start": {
+              "line": 18,
+              "col": 41
+            },
+            "end": {
+              "line": 18,
+              "col": 69
+            },
+            "text": "снижение абсолютного риска"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "source_span": {
+            "start": {
+              "line": 22,
+              "col": 1
+            },
+            "end": {
+              "line": 22,
+              "col": 76
+            },
+            "text": "Approximate 95% CI for crude RR via the Katz log method on the 2x2 counts"
+          },
+          "target_span": {
+            "start": {
+              "line": 22,
+              "col": 1
+            },
+            "end": {
+              "line": 22,
+              "col": 90
+            },
+            "text": "Приблизительный 95% CI для грубого RR по логарифмическому методу Каца для подсчетов 2x2"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 27,
+              "col": 9
+            },
+            "end": {
+              "line": 27,
+              "col": 63
+            },
+            "text": "Crude event proportion (semaglutide) = "
+          },
+          "target_span": {
+            "start": {
+              "line": 27,
+              "col": 9
+            },
+            "end": {
+              "line": 27,
+              "col": 59
+            },
+            "text": "Грубая доля событий (семаглутид) = "
+          },
+          "placeholders": [
+            "{risk_sema:.4%}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 28,
+              "col": 9
+            },
+            "end": {
+              "line": 28,
+              "col": 66
+            },
+            "text": "Crude event proportion (placebo)     = "
+          },
+          "target_span": {
+            "start": {
+              "line": 28,
+              "col": 9
+            },
+            "end": {
+              "line": 28,
+              "col": 66
+            },
+            "text": "Грубая доля событий (плацебо)        = "
+          },
+          "placeholders": [
+            "{risk_placebo:.4%}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 29,
+              "col": 9
+            },
+            "end": {
+              "line": 29,
+              "col": 53
+            },
+            "text": "Crude event-proportion ratio (RR) = "
+          },
+          "target_span": {
+            "start": {
+              "line": 29,
+              "col": 9
+            },
+            "end": {
+              "line": 29,
+              "col": 55
+            },
+            "text": "Грубое отношение долей событий (RR) = "
+          },
+          "placeholders": [
+            "{rr:.4f}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 30,
+              "col": 9
+            },
+            "end": {
+              "line": 30,
+              "col": 75
+            },
+            "text": "Risk difference (sema - placebo) = "
+          },
+          "target_span": {
+            "start": {
+              "line": 30,
+              "col": 9
+            },
+            "end": {
+              "line": 30,
+              "col": 76
+            },
+            "text": "Разность рисков (сема - плацебо) = "
+          },
+          "placeholders": [
+            "{rd*100:+.3f}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 30,
+              "col": 9
+            },
+            "end": {
+              "line": 30,
+              "col": 75
+            },
+            "text": " percentage points"
+          },
+          "target_span": {
+            "start": {
+              "line": 30,
+              "col": 9
+            },
+            "end": {
+              "line": 30,
+              "col": 76
+            },
+            "text": " процентных пунктов"
+          },
+          "placeholders": [
+            "{rd*100:+.3f}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 31,
+              "col": 9
+            },
+            "end": {
+              "line": 31,
+              "col": 72
+            },
+            "text": "Absolute risk reduction       = "
+          },
+          "target_span": {
+            "start": {
+              "line": 31,
+              "col": 9
+            },
+            "end": {
+              "line": 31,
+              "col": 76
+            },
+            "text": "Снижение абсолютного риска       = "
+          },
+          "placeholders": [
+            "{arr*100:.3f}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 31,
+              "col": 9
+            },
+            "end": {
+              "line": 31,
+              "col": 72
+            },
+            "text": " percentage points"
+          },
+          "target_span": {
+            "start": {
+              "line": 31,
+              "col": 9
+            },
+            "end": {
+              "line": 31,
+              "col": 76
+            },
+            "text": " процентных пунктов"
+          },
+          "placeholders": [
+            "{arr*100:.3f}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 32,
+              "col": 9
+            },
+            "end": {
+              "line": 32,
+              "col": 63
+            },
+            "text": "1/ARR (crude approximate NNT)       = "
+          },
+          "target_span": {
+            "start": {
+              "line": 32,
+              "col": 9
+            },
+            "end": {
+              "line": 32,
+              "col": 63
+            },
+            "text": "1/ARR (грубый приближенный NNT)     = "
+          },
+          "placeholders": [
+            "{nnt_approx:.2f}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 33,
+              "col": 9
+            },
+            "end": {
+              "line": 33,
+              "col": 51
+            },
+            "text": "Conventional rounded-up NNT   = "
+          },
+          "target_span": {
+            "start": {
+              "line": 33,
+              "col": 9
+            },
+            "end": {
+              "line": 33,
+              "col": 57
+            },
+            "text": "Общепринятый округленный вверх NNT  = "
+          },
+          "placeholders": [
+            "{nnt_conv}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 34,
+              "col": 9
+            },
+            "end": {
+              "line": 34,
+              "col": 75
+            },
+            "text": "\\nApproximate 95% CI for crude RR (Katz log method on 2x2 counts):"
+          },
+          "target_span": {
+            "start": {
+              "line": 34,
+              "col": 9
+            },
+            "end": {
+              "line": 34,
+              "col": 95
+            },
+            "text": "\\nПриблизительный 95% CI для грубого RR (логарифмический метод Каца по подсчетам 2x2):"
+          },
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "source_span": {
+            "start": {
+              "line": 36,
+              "col": 8
+            },
+            "end": {
+              "line": 36,
+              "col": 69
+            },
+            "text": "NNT is a crude classroom approximation from aggregate counts,"
+          },
+          "target_span": {
+            "start": {
+              "line": 36,
+              "col": 8
+            },
+            "end": {
+              "line": 36,
+              "col": 73
+            },
+            "text": "NNT — это грубое учебное приближение по агрегированным подсчетам,"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "analysis-solution",
+          "source_span": {
+            "start": {
+              "line": 37,
+              "col": 8
+            },
+            "end": {
+              "line": 37,
+              "col": 67
+            },
+            "text": "not a censoring-adjusted estimate at a common time horizon."
+          },
+          "target_span": {
+            "start": {
+              "line": 37,
+              "col": 8
+            },
+            "end": {
+              "line": 37,
+              "col": 85
+            },
+            "text": "а не скорректированная на цензурирование оценка на единый временной горизонт."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 73
+            },
+            "text": "Final summary — consolidates all validated results for quick reference"
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 81
+            },
+            "text": "Итоговая сводка — объединяет все проверенные результаты для быстрого обращения"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "source_span": {
+            "start": {
+              "line": 3,
+              "col": 8
+            },
+            "end": {
+              "line": 3,
+              "col": 62
+            },
+            "text": "SELECT AGGREGATES (SYNTHETIC ROWS) — CLASSROOM SUMMARY"
+          },
+          "target_span": {
+            "start": {
+              "line": 3,
+              "col": 8
+            },
+            "end": {
+              "line": 3,
+              "col": 76
+            },
+            "text": "АГРЕГИРОВАННЫЕ ДАННЫЕ SELECT (СИНТЕТИЧЕСКИЕ СТРОКИ) — УЧЕБНАЯ СВОДКА"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 5,
+              "col": 9
+            },
+            "end": {
+              "line": 5,
+              "col": 81
+            },
+            "text": "Denominators preserved: semaglutide n="
+          },
+          "target_span": {
+            "start": {
+              "line": 5,
+              "col": 9
+            },
+            "end": {
+              "line": 5,
+              "col": 79
+            },
+            "text": "Знаменатели сохранены: семаглутид n="
+          },
+          "placeholders": [
+            "{len(sema)}",
+            "{len(plac)}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 5,
+              "col": 9
+            },
+            "end": {
+              "line": 5,
+              "col": 81
+            },
+            "text": ", placebo n="
+          },
+          "target_span": {
+            "start": {
+              "line": 5,
+              "col": 9
+            },
+            "end": {
+              "line": 5,
+              "col": 79
+            },
+            "text": ", плацебо n="
+          },
+          "placeholders": [
+            "{len(sema)}",
+            "{len(plac)}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 6,
+              "col": 9
+            },
+            "end": {
+              "line": 6,
+              "col": 67
+            },
+            "text": "Event counts preserved: semaglutide e="
+          },
+          "target_span": {
+            "start": {
+              "line": 6,
+              "col": 9
+            },
+            "end": {
+              "line": 6,
+              "col": 72
+            },
+            "text": "Количества событий сохранены: семаглутид e="
+          },
+          "placeholders": [
+            "{e1}",
+            "{e0}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 6,
+              "col": 9
+            },
+            "end": {
+              "line": 6,
+              "col": 67
+            },
+            "text": ", placebo e="
+          },
+          "target_span": {
+            "start": {
+              "line": 6,
+              "col": 9
+            },
+            "end": {
+              "line": 6,
+              "col": 72
+            },
+            "text": ", плацебо e="
+          },
+          "placeholders": [
+            "{e1}",
+            "{e0}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 7,
+              "col": 9
+            },
+            "end": {
+              "line": 7,
+              "col": 55
+            },
+            "text": "Crude proportion, semaglutide: "
+          },
+          "target_span": {
+            "start": {
+              "line": 7,
+              "col": 9
+            },
+            "end": {
+              "line": 7,
+              "col": 49
+            },
+            "text": "Грубая доля, семаглутид: "
+          },
+          "placeholders": [
+            "{risk_sema:.4%}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 8,
+              "col": 9
+            },
+            "end": {
+              "line": 8,
+              "col": 54
+            },
+            "text": "Crude proportion, placebo: "
+          },
+          "target_span": {
+            "start": {
+              "line": 8,
+              "col": 9
+            },
+            "end": {
+              "line": 8,
+              "col": 49
+            },
+            "text": "Грубая доля, плацебо: "
+          },
+          "placeholders": [
+            "{risk_placebo:.4%}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 9,
+              "col": 9
+            },
+            "end": {
+              "line": 9,
+              "col": 95
+            },
+            "text": "Crude risk ratio  : "
+          },
+          "target_span": {
+            "start": {
+              "line": 9,
+              "col": 9
+            },
+            "end": {
+              "line": 9,
+              "col": 114
+            },
+            "text": "Грубое отношение рисков : "
+          },
+          "placeholders": [
+            "{rr:.4f}",
+            "{rr_lo:.4f}",
+            "{rr_hi:.4f}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 9,
+              "col": 9
+            },
+            "end": {
+              "line": 9,
+              "col": 95
+            },
+            "text": "  (approx 95% CI "
+          },
+          "target_span": {
+            "start": {
+              "line": 9,
+              "col": 9
+            },
+            "end": {
+              "line": 9,
+              "col": 114
+            },
+            "text": "  (приблиз. 95% CI "
+          },
+          "placeholders": [
+            "{rr:.4f}",
+            "{rr_lo:.4f}",
+            "{rr_hi:.4f}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 9,
+              "col": 9
+            },
+            "end": {
+              "line": 9,
+              "col": 95
+            },
+            "text": ", Katz log method)"
+          },
+          "target_span": {
+            "start": {
+              "line": 9,
+              "col": 9
+            },
+            "end": {
+              "line": 9,
+              "col": 114
+            },
+            "text": ", логарифмический метод Каца)"
+          },
+          "placeholders": [
+            "{rr:.4f}",
+            "{rr_lo:.4f}",
+            "{rr_hi:.4f}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 10,
+              "col": 9
+            },
+            "end": {
+              "line": 10,
+              "col": 45
+            },
+            "text": "Risk difference   : "
+          },
+          "target_span": {
+            "start": {
+              "line": 10,
+              "col": 9
+            },
+            "end": {
+              "line": 10,
+              "col": 47
+            },
+            "text": "Разность рисков   : "
+          },
+          "placeholders": [
+            "{rd*100:+.3f}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 10,
+              "col": 9
+            },
+            "end": {
+              "line": 10,
+              "col": 45
+            },
+            "text": " pp"
+          },
+          "target_span": {
+            "start": {
+              "line": 10,
+              "col": 9
+            },
+            "end": {
+              "line": 10,
+              "col": 47
+            },
+            "text": " п.п."
+          },
+          "placeholders": [
+            "{rd*100:+.3f}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 11,
+              "col": 9
+            },
+            "end": {
+              "line": 11,
+              "col": 45
+            },
+            "text": " pp"
+          },
+          "target_span": {
+            "start": {
+              "line": 11,
+              "col": 9
+            },
+            "end": {
+              "line": 11,
+              "col": 47
+            },
+            "text": " п.п."
+          },
+          "placeholders": [
+            "{arr*100:.3f}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 12,
+              "col": 9
+            },
+            "end": {
+              "line": 12,
+              "col": 45
+            },
+            "text": "NNT (crude approx): "
+          },
+          "target_span": {
+            "start": {
+              "line": 12,
+              "col": 9
+            },
+            "end": {
+              "line": 12,
+              "col": 48
+            },
+            "text": "NNT (грубое приближ.): "
+          },
+          "placeholders": [
+            "{nnt_approx:.2f}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 13,
+              "col": 9
+            },
+            "end": {
+              "line": 13,
+              "col": 39
+            },
+            "text": "NNT (conventional): "
+          },
+          "target_span": {
+            "start": {
+              "line": 13,
+              "col": 9
+            },
+            "end": {
+              "line": 13,
+              "col": 41
+            },
+            "text": "NNT (общепринятый)  : "
+          },
+          "placeholders": [
+            "{nnt_conv}"
+          ]
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "source_span": {
+            "start": {
+              "line": 15,
+              "col": 8
+            },
+            "end": {
+              "line": 15,
+              "col": 19
+            },
+            "text": "LIMITATIONS"
+          },
+          "target_span": {
+            "start": {
+              "line": 15,
+              "col": 8
+            },
+            "end": {
+              "line": 15,
+              "col": 19
+            },
+            "text": "ОГРАНИЧЕНИЯ"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "source_span": {
+            "start": {
+              "line": 16,
+              "col": 8
+            },
+            "end": {
+              "line": 16,
+              "col": 90
+            },
+            "text": "- Patient rows, row order, and IDs are synthetic; counts are published aggregates."
+          },
+          "target_span": {
+            "start": {
+              "line": 16,
+              "col": 8
+            },
+            "end": {
+              "line": 16,
+              "col": 132
+            },
+            "text": "- Строки пациентов, порядок строк и идентификаторы являются синтетическими; подсчеты — опубликованные агрегированные данные."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "source_span": {
+            "start": {
+              "line": 17,
+              "col": 8
+            },
+            "end": {
+              "line": 17,
+              "col": 81
+            },
+            "text": "- Crude RR ≠ published HR (0.80, 95% CI 0.72–0.90): HR uses time-to-event"
+          },
+          "target_span": {
+            "start": {
+              "line": 17,
+              "col": 8
+            },
+            "end": {
+              "line": 17,
+              "col": 97
+            },
+            "text": "- Грубое RR ≠ опубликованному HR (0.80, 95% CI 0.72–0.90): HR использует время до события"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "source_span": {
+            "start": {
+              "line": 18,
+              "col": 8
+            },
+            "end": {
+              "line": 18,
+              "col": 79
+            },
+            "text": "  and censoring info we cannot reconstruct from aggregate counts alone."
+          },
+          "target_span": {
+            "start": {
+              "line": 18,
+              "col": 8
+            },
+            "end": {
+              "line": 18,
+              "col": 109
+            },
+            "text": "  и информацию о цензурировании, которую мы не можем восстановить только по агрегированным подсчетам."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "source_span": {
+            "start": {
+              "line": 19,
+              "col": 8
+            },
+            "end": {
+              "line": 19,
+              "col": 76
+            },
+            "text": "- Mean follow-up was 39.8 months, with varying individual follow-up."
+          },
+          "target_span": {
+            "start": {
+              "line": 19,
+              "col": 8
+            },
+            "end": {
+              "line": 19,
+              "col": 127
+            },
+            "text": "- Средняя продолжительность наблюдения составляла 39.8 месяца; индивидуальная продолжительность наблюдения варьировала."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "source_span": {
+            "start": {
+              "line": 20,
+              "col": 8
+            },
+            "end": {
+              "line": 20,
+              "col": 67
+            },
+            "text": "- The NNT is crude, not censoring-adjusted at a fixed time."
+          },
+          "target_span": {
+            "start": {
+              "line": 20,
+              "col": 8
+            },
+            "end": {
+              "line": 20,
+              "col": 115
+            },
+            "text": "- Показатель NNT является грубым, а не скорректированным на цензурирование на фиксированный момент времени."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "source_span": {
+            "start": {
+              "line": 21,
+              "col": 8
+            },
+            "end": {
+              "line": 21,
+              "col": 67
+            },
+            "text": "- No safety, subgroup, or secondary-endpoint data included."
+          },
+          "target_span": {
+            "start": {
+              "line": 21,
+              "col": 8
+            },
+            "end": {
+              "line": 21,
+              "col": 86
+            },
+            "text": "- Данные о безопасности, подгруппах или вторичных конечных точках не включены."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "final-summary",
+          "source_span": {
+            "start": {
+              "line": 22,
+              "col": 8
+            },
+            "end": {
+              "line": 22,
+              "col": 56
+            },
+            "text": "- Educational exercise only; not medical advice."
+          },
+          "target_span": {
+            "start": {
+              "line": 22,
+              "col": 8
+            },
+            "end": {
+              "line": 22,
+              "col": 75
+            },
+            "text": "- Только учебное упражнение; не является медицинской консультацией."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        }
+      ],
+      "exclusions": []
+    },
+    "nativeSpeakerReview": "pending"
+  },
+  "browser": {
+    "status": "passed",
+    "first": {
+      "exportSha256": "19b588504259a6d30154fe8c4089d1407be3a2c79451ec6e26ec47c8af7f10a2",
+      "reportSha256": "8cbf5439043a8842f1f9277e95e5e0701cc97a58f99e4a6ed880ee75109fff24",
+      "appVersion": "1.4.0",
+      "cells": 8,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "second": {
+      "exportSha256": "74c9a674d27b367eb409ceea471d6cca48273dd95d83f1060563a565c1b1c582",
+      "reportSha256": "8cbf5439043a8842f1f9277e95e5e0701cc97a58f99e4a6ed880ee75109fff24",
+      "appVersion": "1.4.0",
+      "cells": 8,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "englishBaseline": [
+      {
+        "exportSha256": "69956fb3cafbb841ee43cc77bd6f9fe050a1fe6ae7666d0db121f32837bea4a9",
+        "reportSha256": "5218fde195c9812aad70b39124d5f39ac1e80b084ecf5a4cc0acf324202efb18",
+        "appVersion": "1.4.0",
+        "cells": 8,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      },
+      {
+        "exportSha256": "f960e99a0e9732ae63bcb444b5ea60d0a7b6818542e61c856870117adc900151",
+        "reportSha256": "5218fde195c9812aad70b39124d5f39ac1e80b084ecf5a4cc0acf324202efb18",
+        "appVersion": "1.4.0",
+        "cells": 8,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      }
+    ],
+    "deterministic": true,
+    "textOracle": {
+      "first": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      },
+      "second": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      }
+    },
+    "plotData": {
+      "status": "passed",
+      "count": 0
+    },
+    "rasterCharts": null,
+    "renderedReview": "not-applicable"
+  },
+  "caveat": "Machine translated with Gemini and reviewed by AI/controller checks, including scoped corrections where needed. Native-speaker review is pending; structural and numerical checks do not certify prose quality."
+}

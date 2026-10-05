@@ -1,0 +1,1065 @@
+{
+  "schema": 1,
+  "lesson": "markov-groups",
+  "locale": "zh",
+  "source": {
+    "path": "workbooks/en/markov-groups.srwb",
+    "sha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4"
+  },
+  "target": {
+    "path": "workbooks/zh/markov-groups.srwb",
+    "sha256": "786fd803c58344c0a79f5f894d89839c690833ea2868800846cb9af7f5689bc3",
+    "size": 14438,
+    "title": "马尔可夫群：魔方动作上的随机游走",
+    "description": "将魔方转面建模为经过验证的置换，探索模四幂，并区分惰性随机游走与单贴纸随机模型。"
+  },
+  "translation": {
+    "model": "gemini-3.8-flash-medium",
+    "contentAudit": {
+      "status": "passed",
+      "sourceSha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4",
+      "targetSha256": "786fd803c58344c0a79f5f894d89839c690833ea2868800846cb9af7f5689bc3",
+      "findings": [],
+      "errors": [],
+      "reviewMethod": "Previously passed AI/controller source-fidelity audit, preserved through verified presentation-only rebase where applicable; scoped final Bengali corrections independently adjudicated and re-gated.",
+      "provenance": {
+        "predecessorSourceSha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4",
+        "predecessorTargetSha256": "786fd803c58344c0a79f5f894d89839c690833ea2868800846cb9af7f5689bc3",
+        "predecessorAuditSha256": "1a87cf268e66add224bf2fe083de99e9ed33370745bfc4c463556ccdedf09568",
+        "sharedLayoutOnly": false
+      },
+      "nativeSpeakerReview": "pending",
+      "caveat": "AI/controller review, not native-speaker or qualified technical certification."
+    },
+    "policy": {
+      "locale": "zh",
+      "protectedTexts": [
+        "UDFBLR"
+      ],
+      "protectedIds": [
+        "2:1:0"
+      ],
+      "widthOverrides": {},
+      "identifierRenames": false,
+      "cellNames": "English",
+      "nativeReviewCaveat": "Machine-translated; native-speaker review pending. Numerical/structural tests do not certify prose quality."
+    },
+    "keeps": {
+      "ids": [
+        "2:1:0"
+      ],
+      "texts": [
+        "UDFBLR"
+      ]
+    },
+    "manifest": {
+      "manifest_version": 1,
+      "produced_by": "derived",
+      "generator": "tools/span-derive.mjs",
+      "locale": "zh",
+      "source": {
+        "path": "workbooks/en/markov-groups.srwb",
+        "sha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4"
+      },
+      "target": {
+        "path": "workbooks/zh/markov-groups.srwb",
+        "sha256": "786fd803c58344c0a79f5f894d89839c690833ea2868800846cb9af7f5689bc3"
+      },
+      "spans": [
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 7,
+              "col": 1
+            },
+            "end": {
+              "line": 7,
+              "col": 67
+            },
+            "text": "Five disjoint 4-cycles per clockwise face turn: two on the face,"
+          },
+          "target_span": {
+            "start": {
+              "line": 7,
+              "col": 1
+            },
+            "end": {
+              "line": 7,
+              "col": 31
+            },
+            "text": "每个顺时针面转动包含五个不相交的 4-轮换：两个在面上，"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 8,
+              "col": 1
+            },
+            "end": {
+              "line": 8,
+              "col": 69
+            },
+            "text": "three on the surrounding strips. Indices are zero-based positions."
+          },
+          "target_span": {
+            "start": {
+              "line": 8,
+              "col": 1
+            },
+            "end": {
+              "line": 8,
+              "col": 24
+            },
+            "text": "三个在周围边缘带上。索引为从零开始的位置。"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 205,
+              "col": 8
+            },
+            "end": {
+              "line": 205,
+              "col": 62
+            },
+            "text": "Return p: source position j moves to destination p[j]."
+          },
+          "target_span": {
+            "start": {
+              "line": 205,
+              "col": 8
+            },
+            "end": {
+              "line": 205,
+              "col": 32
+            },
+            "text": "返回 p：源位置 j 移动到目标位置 p[j]。"
+          },
+          "kind": "docstring",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 213,
+              "col": 8
+            },
+            "end": {
+              "line": 213,
+              "col": 51
+            },
+            "text": "Rows are destinations, columns are sources."
+          },
+          "target_span": {
+            "start": {
+              "line": 213,
+              "col": 8
+            },
+            "end": {
+              "line": 213,
+              "col": 23
+            },
+            "text": "行代表目标位置，列代表源位置。"
+          },
+          "kind": "docstring",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 216,
+              "col": 27
+            },
+            "end": {
+              "line": 216,
+              "col": 68
+            },
+            "text": "Expected a permutation of positions 0..53"
+          },
+          "target_span": {
+            "start": {
+              "line": 216,
+              "col": 27
+            },
+            "end": {
+              "line": 216,
+              "col": 41
+            },
+            "text": "预期位置 0..53 的置换"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 229,
+              "col": 27
+            },
+            "end": {
+              "line": 229,
+              "col": 73
+            },
+            "text": "Expected each sticker label 1..54 exactly once"
+          },
+          "target_span": {
+            "start": {
+              "line": 229,
+              "col": 27
+            },
+            "end": {
+              "line": 229,
+              "col": 48
+            },
+            "text": "预期每个贴纸标签 1..54 恰好出现一次"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 233,
+              "col": 8
+            },
+            "end": {
+              "line": 233,
+              "col": 67
+            },
+            "text": "Apply moves left to right; an apostrophe means the inverse."
+          },
+          "target_span": {
+            "start": {
+              "line": 233,
+              "col": 8
+            },
+            "end": {
+              "line": 233,
+              "col": 25
+            },
+            "text": "从左到右应用动作；撇号表示逆动作。"
+          },
+          "kind": "docstring",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 243,
+              "col": 31
+            },
+            "end": {
+              "line": 243,
+              "col": 45
+            },
+            "text": "Unknown move: "
+          },
+          "target_span": {
+            "start": {
+              "line": 243,
+              "col": 31
+            },
+            "end": {
+              "line": 243,
+              "col": 37
+            },
+            "text": "未知动作: "
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 248,
+              "col": 8
+            },
+            "end": {
+              "line": 248,
+              "col": 76
+            },
+            "text": "Return home-face letters as colour labels, not physical paint names."
+          },
+          "target_span": {
+            "start": {
+              "line": 248,
+              "col": 8
+            },
+            "end": {
+              "line": 248,
+              "col": 31
+            },
+            "text": "返回归属面字母作为颜色标签，而非物理涂料名称。"
+          },
+          "kind": "docstring",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 251,
+              "col": 8
+            },
+            "end": {
+              "line": 251,
+              "col": 74
+            },
+            "text": "Built six clockwise quarter-turn matrices with fixed face centres."
+          },
+          "target_span": {
+            "start": {
+              "line": 251,
+              "col": 8
+            },
+            "end": {
+              "line": 251,
+              "col": 32
+            },
+            "text": "构建了具有固定面中心的六个顺时针四分之一转矩阵。"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 63
+            },
+            "text": "Stage 2: verify properties that colours alone cannot reveal."
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 22
+            },
+            "text": "阶段 2：验证仅凭颜色无法揭示的性质。"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 4,
+              "col": 62
+            },
+            "end": {
+              "line": 4,
+              "col": 77
+            },
+            "text": ": not bijective"
+          },
+          "target_span": {
+            "start": {
+              "line": 4,
+              "col": 62
+            },
+            "end": {
+              "line": 4,
+              "col": 67
+            },
+            "text": ": 非双射"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 5,
+              "col": 57
+            },
+            "end": {
+              "line": 5,
+              "col": 71
+            },
+            "text": ": centre moved"
+          },
+          "target_span": {
+            "start": {
+              "line": 5,
+              "col": 57
+            },
+            "end": {
+              "line": 5,
+              "col": 63
+            },
+            "text": ": 中心移动"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 6,
+              "col": 53
+            },
+            "end": {
+              "line": 6,
+              "col": 72
+            },
+            "text": ": bad source column"
+          },
+          "target_span": {
+            "start": {
+              "line": 6,
+              "col": 53
+            },
+            "end": {
+              "line": 6,
+              "col": 59
+            },
+            "text": ": 源列错误"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 7,
+              "col": 53
+            },
+            "end": {
+              "line": 7,
+              "col": 74
+            },
+            "text": ": bad destination row"
+          },
+          "target_span": {
+            "start": {
+              "line": 7,
+              "col": 53
+            },
+            "end": {
+              "line": 7,
+              "col": 60
+            },
+            "text": ": 目标行错误"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 8,
+              "col": 81
+            },
+            "end": {
+              "line": 8,
+              "col": 111
+            },
+            "text": ": fourth power is not identity"
+          },
+          "target_span": {
+            "start": {
+              "line": 8,
+              "col": 81
+            },
+            "end": {
+              "line": 8,
+              "col": 91
+            },
+            "text": ": 四次幂非单位矩阵"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 9,
+              "col": 65
+            },
+            "end": {
+              "line": 9,
+              "col": 81
+            },
+            "text": ": inverse failed"
+          },
+          "target_span": {
+            "start": {
+              "line": 9,
+              "col": 65
+            },
+            "end": {
+              "line": 9,
+              "col": 71
+            },
+            "text": ": 求逆失败"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 12,
+              "col": 19
+            },
+            "end": {
+              "line": 12,
+              "col": 77
+            },
+            "text": ": bijection, fixed centres, four turns, and inverse passed"
+          },
+          "target_span": {
+            "start": {
+              "line": 12,
+              "col": 19
+            },
+            "end": {
+              "line": 12,
+              "col": 41
+            },
+            "text": ": 双射、固定中心、四次转动以及求逆测试通过"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 15,
+              "col": 8
+            },
+            "end": {
+              "line": 15,
+              "col": 53
+            },
+            "text": "All six moves passed. U and R do not commute."
+          },
+          "target_span": {
+            "start": {
+              "line": 15,
+              "col": 8
+            },
+            "end": {
+              "line": 15,
+              "col": 30
+            },
+            "text": "所有六个动作均已通过。U 和 R 不可交换。"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "show_turn",
+          "source_span": {
+            "start": {
+              "line": 2,
+              "col": 8
+            },
+            "end": {
+              "line": 2,
+              "col": 55
+            },
+            "text": "U cycles, shown as one-based sticker positions:"
+          },
+          "target_span": {
+            "start": {
+              "line": 2,
+              "col": 8
+            },
+            "end": {
+              "line": 2,
+              "col": 29
+            },
+            "text": "U 的轮换，显示为从一开始计数的贴纸位置："
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "show_turn",
+          "source_span": {
+            "start": {
+              "line": 6,
+              "col": 1
+            },
+            "end": {
+              "line": 6,
+              "col": 64
+            },
+            "text": "F is face index 2, so its top row is at positions 18, 19, 20."
+          },
+          "target_span": {
+            "start": {
+              "line": 6,
+              "col": 1
+            },
+            "end": {
+              "line": 6,
+              "col": 33
+            },
+            "text": "F 是面索引 2，因此其顶行位于位置 18, 19, 20。"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "show_turn",
+          "source_span": {
+            "start": {
+              "line": 8,
+              "col": 8
+            },
+            "end": {
+              "line": 8,
+              "col": 36
+            },
+            "text": "\\nF top row labels before U:"
+          },
+          "target_span": {
+            "start": {
+              "line": 8,
+              "col": 8
+            },
+            "end": {
+              "line": 8,
+              "col": 23
+            },
+            "text": "\\nU 之前的 F 顶行标签："
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "show_turn",
+          "source_span": {
+            "start": {
+              "line": 9,
+              "col": 8
+            },
+            "end": {
+              "line": 9,
+              "col": 34
+            },
+            "text": "F top row labels after U: "
+          },
+          "target_span": {
+            "start": {
+              "line": 9,
+              "col": 8
+            },
+            "end": {
+              "line": 9,
+              "col": 22
+            },
+            "text": "U 之后的 F 顶行标签： "
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "show_turn",
+          "source_span": {
+            "start": {
+              "line": 10,
+              "col": 8
+            },
+            "end": {
+              "line": 10,
+              "col": 36
+            },
+            "text": "Face-letter colours after U:"
+          },
+          "target_span": {
+            "start": {
+              "line": 10,
+              "col": 8
+            },
+            "end": {
+              "line": 10,
+              "col": 19
+            },
+            "text": "U 之后的面字母颜色："
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "show_turn",
+          "source_span": {
+            "start": {
+              "line": 11,
+              "col": 8
+            },
+            "end": {
+              "line": 11,
+              "col": 33
+            },
+            "text": "U then R equals R then U:"
+          },
+          "target_span": {
+            "start": {
+              "line": 11,
+              "col": 8
+            },
+            "end": {
+              "line": 11,
+              "col": 26
+            },
+            "text": "先 U 后 R 等于先 R 后 U："
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "random_walk",
+          "source_span": {
+            "start": {
+              "line": 8,
+              "col": 1
+            },
+            "end": {
+              "line": 8,
+              "col": 61
+            },
+            "text": "A distribution for the location of one particular sticker."
+          },
+          "target_span": {
+            "start": {
+              "line": 8,
+              "col": 1
+            },
+            "end": {
+              "line": 8,
+              "col": 15
+            },
+            "text": "单个特定贴纸位置的分布。"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "random_walk",
+          "source_span": {
+            "start": {
+              "line": 13,
+              "col": 8
+            },
+            "end": {
+              "line": 13,
+              "col": 52
+            },
+            "text": "One-sticker probability mass after one step:"
+          },
+          "target_span": {
+            "start": {
+              "line": 13,
+              "col": 8
+            },
+            "end": {
+              "line": 13,
+              "col": 21
+            },
+            "text": "一步后单个贴纸的概率质量："
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "random_walk",
+          "source_span": {
+            "start": {
+              "line": 15,
+              "col": 1
+            },
+            "end": {
+              "line": 15,
+              "col": 76
+            },
+            "text": "Sample a valid cube trajectory. The seed makes this example reproducible,"
+          },
+          "target_span": {
+            "start": {
+              "line": 15,
+              "col": 1
+            },
+            "end": {
+              "line": 15,
+              "col": 30
+            },
+            "text": "采样一条合法的魔方轨迹。随机种子使此示例具有可重现性，"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "random_walk",
+          "source_span": {
+            "start": {
+              "line": 16,
+              "col": 1
+            },
+            "end": {
+              "line": 16,
+              "col": 62
+            },
+            "text": "not uniformly mixed over all reachable cube configurations."
+          },
+          "target_span": {
+            "start": {
+              "line": 16,
+              "col": 1
+            },
+            "end": {
+              "line": 16,
+              "col": 20
+            },
+            "text": "而非在所有可达魔方构型上均匀混合。"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "random_walk",
+          "source_span": {
+            "start": {
+              "line": 22,
+              "col": 8
+            },
+            "end": {
+              "line": 22,
+              "col": 22
+            },
+            "text": "Sampled moves:"
+          },
+          "target_span": {
+            "start": {
+              "line": 22,
+              "col": 8
+            },
+            "end": {
+              "line": 22,
+              "col": 14
+            },
+            "text": "采样的动作："
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "random_walk",
+          "source_span": {
+            "start": {
+              "line": 23,
+              "col": 8
+            },
+            "end": {
+              "line": 23,
+              "col": 34
+            },
+            "text": "Final face-letter colours:"
+          },
+          "target_span": {
+            "start": {
+              "line": 23,
+              "col": 8
+            },
+            "end": {
+              "line": 23,
+              "col": 16
+            },
+            "text": "最终面字母颜色："
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "random_walk",
+          "source_span": {
+            "start": {
+              "line": 24,
+              "col": 8
+            },
+            "end": {
+              "line": 24,
+              "col": 75
+            },
+            "text": "The sampled path preserved every sticker label and all six centres."
+          },
+          "target_span": {
+            "start": {
+              "line": 24,
+              "col": 8
+            },
+            "end": {
+              "line": 24,
+              "col": 29
+            },
+            "text": "采样路径保留了每个贴纸标签和所有六个中心。"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        }
+      ],
+      "exclusions": []
+    },
+    "nativeSpeakerReview": "pending"
+  },
+  "browser": {
+    "status": "passed",
+    "first": {
+      "exportSha256": "3dbae3293874c2905ead275239e5139b34208d2d385ec3d2e1189e246afc1f9b",
+      "reportSha256": "9535271d567c4b1ccc476917203124cb124bb2ae0ba15c7b0c079d5db749c0df",
+      "appVersion": "1.4.0",
+      "cells": 9,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "second": {
+      "exportSha256": "e7b4a7b615df470de9bc4ec551e9a94745d6dd142cdff0c7d0e1b8e89b0aaf12",
+      "reportSha256": "9535271d567c4b1ccc476917203124cb124bb2ae0ba15c7b0c079d5db749c0df",
+      "appVersion": "1.4.0",
+      "cells": 9,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "englishBaseline": [
+      {
+        "exportSha256": "c9b5cebbf7e00eb178079a0610fb595c9158bd3bf0f9e0edbd4fe6ffa084b18c",
+        "reportSha256": "5d2d7fcf80037243115b986477f4acb1938af752fe0f8c37f9a0e651cc9ba4b2",
+        "appVersion": "1.4.0",
+        "cells": 9,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      },
+      {
+        "exportSha256": "ee691306c00a08037a2b7870fd8a96efffa7f36702b8957b16632645d2b73908",
+        "reportSha256": "5d2d7fcf80037243115b986477f4acb1938af752fe0f8c37f9a0e651cc9ba4b2",
+        "appVersion": "1.4.0",
+        "cells": 9,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      }
+    ],
+    "deterministic": true,
+    "textOracle": {
+      "first": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      },
+      "second": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      }
+    },
+    "plotData": {
+      "status": "passed",
+      "count": 0
+    },
+    "rasterCharts": null,
+    "renderedReview": "not-applicable"
+  },
+  "caveat": "Machine translated with Gemini and reviewed by AI/controller checks, including scoped corrections where needed. Native-speaker review is pending; structural and numerical checks do not certify prose quality."
+}

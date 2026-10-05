@@ -122,6 +122,41 @@ export function renderedText(text, formatSpec) {
   return t;
 }
 
+// Match a complete supported printf/Prolog-format template. Masking its
+// individual literal fragments loses pairing when the translated template
+// begins with a value ("%d rankings...") or adds a prefix before "~w".
+// Captured values remain opaque comparison data, never translation masks.
+function outputTemplate(text) {
+  const specs = [...text.matchAll(SPEC_RE)];
+  if (!specs.length || specs.some(m => !/^[%~]/.test(m[0]))) return null;
+  const escape = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  let regex = '', cursor = 0, captures = 0;
+  for (const match of specs) {
+    regex += escape(text.slice(cursor, match.index));
+    const spec = match[0];
+    if (spec === '%%') regex += '%';
+    else if (spec === '~~') regex += '~';
+    else if (/^~\d*n$/.test(spec)) regex += '\n';
+    else if (/^%[-+#0-9.*]*[diu]$/.test(spec) || /^~\d*d$/.test(spec)) {
+      regex += '([ +\\-]*[0-9]+)'; captures++;
+    } else if (/^%[-+#0-9.*]*[eEfFgG]$/.test(spec)) {
+      regex += '([ +\\-]*(?:[0-9]+(?:\\.[0-9]*)?|\\.[0-9]+)(?:[eE][+\\-]?[0-9]+)?|[ +\\-]*(?:[Ii]nf|[Nn]a[Nn]))'; captures++;
+    } else if (/^%[-+#0-9.*]*s$/.test(spec) || /^~\d*[wa]$/.test(spec)) {
+      regex += '([^\\n]*?)'; captures++;
+    } else return null; // An unsupported directive must fail closed.
+    cursor = match.index + spec.length;
+  }
+  regex += escape(text.slice(cursor));
+  // SciREPL trims terminal newlines from its saved output stream. Permit
+  // their absence only at the stream boundary, not between result lines.
+  const ending = /\n+$/.exec(regex)?.[0];
+  if (ending) regex = regex.slice(0, -ending.length) + '(?:' + escape(ending) + '|$)';
+  // Without a literal delimiter after a string value, a non-greedy capture
+  // could match empty text. The stream/line boundary bounds that last value.
+  if (!ending && /\(\[\^\\n\]\*\?\)$/.test(regex)) regex += '(?=\n|$)';
+  return { regex: new RegExp(regex, 'g'), captures };
+}
+
 export function judge(enRun, xxRun, manifest) {
   const failures = [];
   const warnings = [];
@@ -184,33 +219,71 @@ export function judge(enRun, xxRun, manifest) {
         // spec-bearing strings render with substituted values: mask their
         // LITERAL RUNS pairwise (specs split both sides identically — the
         // apply gate guarantees spec equality)
-        if (SPEC_RE.test(src)) {
-          const sa = src.split(SPEC_RE), sb = dst.split(SPEC_RE);
+        // Do not .test() the global regex: its lastIndex leaked between
+        // adjacent labels, making a short formatted label fail to mask.
+        const sa = src.split(SPEC_RE);
+        if (sa.length > 1) {
+          const sb = dst.split(SPEC_RE);
           if (sa.length === sb.length) {
             return sa.map((t, k) => ({ src: t, dst: sb[k] }))
-              .filter(x => (x.src.length >= 2 || x.dst.length >= 2) && x.src !== x.dst);
+              // Keep unchanged literal runs too: they shield fields such
+              // as "  (p_A = " from a shorter translated " = " run in a
+              // different sprintf label. Numeric substitutions stay out
+              // of these masks and are still compared byte-for-byte.
+              .filter(x => x.src.length >= 2 || x.dst.length >= 2);
           }
         }
         return [{ src, dst }];
       })
       .filter(x => x.src.length || x.dst.length)
       .sort((x, y) => y.src.length - x.src.length);
-    const applyMask = (base, pairs, tagPrefix) => {
-      let [ma, mb] = base;
-      pairs.forEach((sp, k) => {
-        const sentinel = `⟦${tagPrefix}${i}_${k}⟧`;
-        ma = ma.split(sp.src).join(sentinel);
-        mb = mb.split(sp.dst).join(sentinel);
-      });
-      return [ma, mb];
+    const applyMask = (base, pairs, templates, tagPrefix) => {
+      // Retain a shared identity, but choose longest-first separately on
+      // each side. A long English comment can translate to a short label
+      // that is also a substring of a longer translated stdout heading.
+      const indexed = pairs.map((sp, k) => ({ ...sp, sentinel: `⟦${tagPrefix}${i}_${k}⟧` }));
+      const mask = (text, side) => {
+        let segments = [{ text }];
+        for (const [k, sp] of templates.entries()) {
+          const template = outputTemplate(sp[side]);
+          if (!template) continue;
+          segments = segments.flatMap(segment => {
+            if (segment.opaque) return [segment];
+            const result = []; let cursor = 0;
+            for (const match of segment.text.matchAll(template.regex)) {
+              if (!match[0].length) continue;
+              result.push({ text: segment.text.slice(cursor, match.index) });
+              result.push({ opaque: true, text: `⟦${tagPrefix}F${i}_${k}⟧` +
+                Buffer.from(JSON.stringify(match.slice(1)), 'utf8').toString('base64url') + '⟦/F⟧' });
+              cursor = match.index + match[0].length;
+            }
+            result.push({ text: segment.text.slice(cursor) });
+            return result;
+          });
+        }
+        for (const sp of [...indexed].sort((x, y) => y[side].length - x[side].length)) {
+          if (!sp[side].length) continue;
+          segments = segments.map(segment => segment.opaque ? segment :
+            { text: segment.text.split(sp[side]).join(sp.sentinel) });
+        }
+        return segments.map(segment => segment.text).join('');
+      };
+      return [mask(base[0], 'src'), mask(base[1], 'dst')];
     };
     const maskable = stdoutSpans.concat(noneSpans);
-    const localPairs = expand(maskable.filter(sp => sp.cell_index === i));
-    const globalPairs = expand(maskable);
+    const templatesFor = list => list.map(sp => ({ src: renderedText(sp.source_span.text, sp.format_spec),
+      dst: renderedText(sp.target_span.text, sp.format_spec) }))
+      .filter(sp => outputTemplate(sp.src) && outputTemplate(sp.dst))
+      .sort((x, y) => y.src.length - x.src.length);
+    const local = maskable.filter(sp => sp.cell_index === i);
+    const localTemplates = templatesFor(local), globalTemplates = templatesFor(maskable);
+    const localPairs = expand(local), globalPairs = expand(maskable);
     let spansHere = localPairs;
-    [a, b] = applyMask([a, b], localPairs, 'S');
+    [a, b] = applyMask([a, b], localPairs, localTemplates, 'S');
     if (a !== b && globalPairs.length > localPairs.length) {
-      const [ga, gb] = applyMask([a, b], globalPairs, 'G');
+      // Retry from the original outputs so local opaque values cannot be
+      // reinterpreted as label text by a cross-cell mask.
+      const [ga, gb] = applyMask([en[i].join('\n'), xx[i].join('\n')], globalPairs, globalTemplates, 'G');
       if (ga === gb || ga.replace(/ {2,}/g, ' ') === gb.replace(/ {2,}/g, ' ')) {
         crossCellMasked.push(i);
         a = ga; b = gb;

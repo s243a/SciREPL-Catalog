@@ -1,0 +1,91 @@
+{
+  "schema": 1,
+  "lesson": "cooling-plume-capture",
+  "locale": "en",
+  "source": {
+    "path": "workbooks/en/cooling-plume-capture.srwb",
+    "sha256": "5bf2691a5b73522c382b48f96442c3a26c4e3770507b2ee871e0505001fb8977"
+  },
+  "target": {
+    "path": "workbooks/en/cooling-plume-capture.srwb",
+    "sha256": "5bf2691a5b73522c382b48f96442c3a26c4e3770507b2ee871e0505001fb8977",
+    "size": 30649,
+    "title": "Flooded-Mine Cooling: Water–Energy Trade-offs",
+    "description": "An explicitly fictional Python–Prolog toy model explores plume-condensate recovery, heat-balance checks, mine thermal storage, and water–electricity trade-offs against dry cooling."
+  },
+  "translation": null,
+  "browser": {
+    "status": "passed",
+    "first": {
+      "exportSha256": "783c3be245e87afc47399448a254f6c61e4dfa3b8abcbe4d576d394480be8615",
+      "reportSha256": "dce1a2b4759b2e7f4f2e5882af9296e4e7a3bb61abc863b5620d3b00abd286cc",
+      "appVersion": "1.4.0",
+      "cells": 7,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "second": {
+      "exportSha256": "4276b663b5d6d795886675a6db2e903a4fe8b1c903f0134bed4abc814830be39",
+      "reportSha256": "dce1a2b4759b2e7f4f2e5882af9296e4e7a3bb61abc863b5620d3b00abd286cc",
+      "appVersion": "1.4.0",
+      "cells": 7,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "englishBaseline": [
+      {
+        "exportSha256": "783c3be245e87afc47399448a254f6c61e4dfa3b8abcbe4d576d394480be8615",
+        "reportSha256": "dce1a2b4759b2e7f4f2e5882af9296e4e7a3bb61abc863b5620d3b00abd286cc",
+        "appVersion": "1.4.0",
+        "cells": 7,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      },
+      {
+        "exportSha256": "4276b663b5d6d795886675a6db2e903a4fe8b1c903f0134bed4abc814830be39",
+        "reportSha256": "dce1a2b4759b2e7f4f2e5882af9296e4e7a3bb61abc863b5620d3b00abd286cc",
+        "appVersion": "1.4.0",
+        "cells": 7,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      }
+    ],
+    "deterministic": true,
+    "textOracle": {
+      "first": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [
+          3,
+          5
+        ],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      },
+      "second": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [
+          3,
+          5
+        ],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      }
+    },
+    "plotData": {
+      "status": "passed",
+      "count": 5
+    },
+    "rasterCharts": null,
+    "renderedReview": "controller-AI-reviewed",
+    "rendering": {
+      "status": "passed",
+      "scope": "Titles, axes, legends and glyphs visually checked in captured app renders; not native-language approval.",
+      "nativeSpeakerReview": "pending"
+    }
+  },
+  "caveat": "Reviewed educational examples; stated limitations still apply."
+}

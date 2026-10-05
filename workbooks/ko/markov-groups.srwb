@@ -1,0 +1,63 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "마르코프 군: 큐브 회전에서의 무작위 보행",
+    "cells": [
+      {
+        "name": "intro",
+        "type": "markdown",
+        "language": "markdown",
+        "code": "# 마르코프 군: 큐브 회전에서의 무작위 보행\n\n이 단원에서는 세 가지 개념을 구분합니다:\n\n1. 유효한 큐브 회전은 스티커 위치의 **치환**입니다.\n2. 하나의 쿼터턴을 반복하면 지수가 **법 4**인 거듭제곱이 됩니다.\n3. 유효한 회전을 무작위로 선택하면 도달 가능한 큐브 상태에 대한 **마르코프 연쇄**가 생성됩니다.\n\n우리는 54개의 번호가 매겨진 스티커가 있는 표준 3×3×3 루빅스 큐브를 사용합니다. 레이블 `1..54`는 색상뿐만 아니라 개별 스티커를 식별합니다. 여섯 개 면의 중심은 모두 고정된 상태로 유지됩니다. 쿼터턴은 회전하는 면의 외부를 직접 바라볼 때 시계 방향입니다; [루빅스 공식 회전 가이드](https://rubiks.com/solve-guide)를 참조하세요.\n\n## 런타임 및 실행 순서\n\nPython 셀을 순서대로 실행하세요: `cube_moves`, `check_moves`, `show_turn`, 그다음 `random_walk`. 이 셀들은 Python 세션을 공유합니다. NumPy가 사용되는 유일한 패키지이며 SciREPL은 Pyodide 런타임과 함께 이를 로드합니다; 처음 사용할 때는 런타임 다운로드가 필요할 수 있습니다. AI 계정, 프롬프트 실행, 추가 패키지 설치 또는 외부 데이터는 필요하지 않습니다. 이 카탈로그 사본에는 저장된 출력이 없습니다.\n\n`check_moves`를 실행하기 전에 예측해 보세요: 어떤 스티커가 절대 위치를 바꾸지 않아야 하며, 쿼터턴을 몇 번 반복해야 모든 레이블이 복원될까요?"
+      },
+      {
+        "name": "coordinates",
+        "type": "markdown",
+        "language": "markdown",
+        "code": "## 1단계 — 배치 및 행렬 규칙 확정\n\n면의 순서는 **U, D, F, B, L, R**(up, down, front, back, left, right)입니다. 각 면은 외부에서 해당 면을 볼 때 행 우선 순서로 읽는 아홉 개의 연속된 **영 기반 위치**를 차지합니다:\n\n```\n0 1 2\n3 4 5\n6 7 8\n```\n\n특정 면에 대해 `9 * face_index`를 더합니다. 중심 위치는 `4, 13, 22, 31, 40, 49`입니다. 스티커 레이블은 일 기반이므로, 처음에 위치 `j`에 있는 레이블은 `j + 1`입니다.\n\n방향의 모호성을 제거하기 위해 좌표 x = right, y = up, z = front를 사용합니다. 표에서 “right”와 “up”은 면의 외부 뷰 도면에서의 방향입니다.\n\n| 면 | 외향 법선 | 도면상 오른쪽 | 도면상 위쪽 |\n| --- | --- | --- | --- |\n| U | (0, 1, 0) | (1, 0, 0) | (0, 0, -1) |\n| D | (0, -1, 0) | (1, 0, 0) | (0, 0, 1) |\n| F | (0, 0, 1) | (1, 0, 0) | (0, 1, 0) |\n| B | (0, 0, -1) | (-1, 0, 0) | (0, 1, 0) |\n| L | (-1, 0, 0) | (0, 0, 1) | (0, 1, 0) |\n| R | (1, 0, 0) | (0, 0, -1) | (0, 1, 0) |\n\n치환 `p`는 **출발 위치** `j`를 **도착 위치** `p[j]`에 매핑합니다. 열 상태 벡터 `s`에 대해 `P[p[j], j] = 1`로 설정합니다. 그러면 `s_next = P @ s`가 되며, 이는 동등하게 `s_next[p[j]] = s[j]`입니다. 행은 도착지이고 열은 출발지입니다. 다음 셀에서는 각각 출발지에서 도착지 순서로 작성된 서로소 순환치환을 사용합니다."
+      },
+      {
+        "name": "cube_moves",
+        "type": "code",
+        "language": "python",
+        "code": "import numpy as np\n\nN = 54\nFACE_NAMES = \"UDFBLR\"\nCENTRES = np.array([9 * f + 4 for f in range(6)])\n\n# 시계 방향 면 회전당 다섯 개의 서로소인 4-순환치환: 두 개는 면 위에 있고,\n# 세 개는 주변 띠 위에 있음. 인덱스는 영 기반 위치임.\nMOVE_CYCLES = {\n    \"U\": [\n        [\n            0,\n            2,\n            8,\n            6\n        ],\n        [\n            1,\n            5,\n            7,\n            3\n        ],\n        [\n            18,\n            36,\n            27,\n            45\n        ],\n        [\n            19,\n            37,\n            28,\n            46\n        ],\n        [\n            20,\n            38,\n            29,\n            47\n        ]\n    ],\n    \"D\": [\n        [\n            9,\n            11,\n            17,\n            15\n        ],\n        [\n            10,\n            14,\n            16,\n            12\n        ],\n        [\n            24,\n            51,\n            33,\n            42\n        ],\n        [\n            25,\n            52,\n            34,\n            43\n        ],\n        [\n            26,\n            53,\n            35,\n            44\n        ]\n    ],\n    \"F\": [\n        [\n            6,\n            45,\n            11,\n            44\n        ],\n        [\n            7,\n            48,\n            10,\n            41\n        ],\n        [\n            8,\n            51,\n            9,\n            38\n        ],\n        [\n            18,\n            20,\n            26,\n            24\n        ],\n        [\n            19,\n            23,\n            25,\n            21\n        ]\n    ],\n    \"B\": [\n        [\n            0,\n            42,\n            17,\n            47\n        ],\n        [\n            1,\n            39,\n            16,\n            50\n        ],\n        [\n            2,\n            36,\n            15,\n            53\n        ],\n        [\n            27,\n            29,\n            35,\n            33\n        ],\n        [\n            28,\n            32,\n            34,\n            30\n        ]\n    ],\n    \"L\": [\n        [\n            0,\n            18,\n            9,\n            35\n        ],\n        [\n            3,\n            21,\n            12,\n            32\n        ],\n        [\n            6,\n            24,\n            15,\n            29\n        ],\n        [\n            36,\n            38,\n            44,\n            42\n        ],\n        [\n            37,\n            41,\n            43,\n            39\n        ]\n    ],\n    \"R\": [\n        [\n            2,\n            33,\n            11,\n            20\n        ],\n        [\n            5,\n            30,\n            14,\n            23\n        ],\n        [\n            8,\n            27,\n            17,\n            26\n        ],\n        [\n            45,\n            47,\n            53,\n            51\n        ],\n        [\n            46,\n            50,\n            52,\n            48\n        ]\n    ]\n}\n\ndef turn_perm(name):\n    \"\"\"p를 반환: 출발 위치 j가 도착 위치 p[j]로 이동합니다.\"\"\"\n    p = np.arange(N)\n    for cycle in MOVE_CYCLES[name]:\n        for source, destination in zip(cycle, cycle[1:] + cycle[:1]):\n            p[source] = destination\n    return p\n\ndef perm_matrix(p):\n    \"\"\"행은 도착지이고, 열은 출발지입니다.\"\"\"\n    p = np.asarray(p)\n    if p.shape != (N,) or not np.array_equal(np.sort(p), np.arange(N)):\n        raise ValueError(\"위치 0..53의 치환이 필요합니다\")\n    P = np.zeros((N, N), dtype=int)\n    P[p, np.arange(N)] = 1\n    return P\n\nPERMS = {name: turn_perm(name) for name in FACE_NAMES}\nM = {name: perm_matrix(PERMS[name]) for name in FACE_NAMES}\nIDENTITY = np.eye(N, dtype=int)\nSOLVED = np.arange(1, N + 1)\n\ndef sticker_state(state):\n    values = np.asarray(state)\n    if values.shape != (N,) or not np.array_equal(np.sort(values), SOLVED):\n        raise ValueError(\"각 스티커 레이블 1..54가 정확히 한 번씩 필요합니다\")\n    return values.astype(int, copy=True)\n\ndef apply(state, *moves):\n    \"\"\"회전을 왼쪽에서 오른쪽으로 적용합니다; 아포스트로피는 역원을 의미합니다.\"\"\"\n    result = sticker_state(state)\n    for move in moves:\n        if move == \"I\":\n            continue\n        if move in M:\n            matrix = M[move]\n        elif move.endswith(\"'\") and move[:-1] in M:\n            matrix = M[move[:-1]].T\n        else:\n            raise ValueError(\"알 수 없는 회전: \" + move)\n        result = matrix @ result\n    return result\n\ndef stickers_to_colours(state):\n    \"\"\"실제 페인트 이름이 아닌 홈 면 문자를 색상 레이블로 반환합니다.\"\"\"\n    return [FACE_NAMES[(int(label) - 1) // 9] for label in sticker_state(state)]\n\nprint(\"고정된 면 중심을 가진 여섯 개의 시계 방향 쿼터턴 행렬을 구축했습니다.\")"
+      },
+      {
+        "name": "check_moves",
+        "type": "code",
+        "language": "python",
+        "code": "# 2단계: 색상만으로는 드러나지 않는 특성 검증.\nfor name in FACE_NAMES:\n    p, matrix = PERMS[name], M[name]\n    assert np.array_equal(np.sort(p), np.arange(N)), name + \": 전단사가 아님\"\n    assert np.array_equal(p[CENTRES], CENTRES), name + \": 중심이 이동함\"\n    assert np.all(matrix.sum(axis=0) == 1), name + \": 잘못된 출발지 열\"\n    assert np.all(matrix.sum(axis=1) == 1), name + \": 잘못된 도착지 행\"\n    assert np.array_equal(np.linalg.matrix_power(matrix, 4), IDENTITY), name + \": 네제곱이 항등원이 아님\"\n    assert np.array_equal(matrix.T @ matrix, IDENTITY), name + \": 역원 실패\"\n    assert np.array_equal(apply(SOLVED, name, name, name, name), SOLVED)\n    assert np.array_equal(apply(SOLVED, name, name + \"'\"), SOLVED)\n    print(name + \": 전단사, 고정된 중심, 네 번의 회전 및 역원 통과\")\n\nassert not np.array_equal(M[\"U\"] @ M[\"R\"], M[\"R\"] @ M[\"U\"])\nprint(\"여섯 개의 회전이 모두 통과했습니다. U와 R은 교환되지 않습니다.\")"
+      },
+      {
+        "name": "cycles",
+        "type": "markdown",
+        "language": "markdown",
+        "code": "## 3단계 — 원, 순환치환 및 모듈러 연산\n\n모든 면 회전은 다섯 개의 서로소인 **4-순환치환**을 포함합니다. 예를 들어, 해당 면의 모서리는 하나의 4-순환치환을 형성하고 네 개의 모서리가 아닌 에지 스티커는 또 다른 순환치환을 형성합니다. 중심은 고정되어 있습니다.\n\n나열된 하나의 순환치환을 원 둘레의 네 위치로 그려보세요. 쿼터턴 한 번은 한 걸음 전진하고, 두 번의 회전은 두 걸음 전진하며, 네 번의 회전은 시작 위치로 돌아옵니다. 고정된 회전 `P`에 대해 `P^k = P^(k mod 4)`입니다. 그 역원은 `P^3 = P.T`이고, 반 바퀴 회전은 `P^2`입니다.\n\n이것은 위수가 4인 순환 부분군입니다. 이것이 큐브 군 전체를 모듈러 연산으로 만들지는 **않습니다**: 서로 다른 면 회전은 교환될 필요가 없습니다. 열 벡터를 사용할 때 “U, 그다음 R”은 `M[\"R\"] @ M[\"U\"] @ s`이며, 역순 행렬 곱이 아닙니다. 다음 셀에서 동일한 두 회전을 반대 순서로 비교해 보세요."
+      },
+      {
+        "name": "show_turn",
+        "type": "code",
+        "language": "python",
+        "code": "after_u = apply(SOLVED, \"U\")\nprint(\"일 기반 스티커 위치로 표시된 U 순환치환:\")\nfor cycle in MOVE_CYCLES[\"U\"]:\n    print(\" -> \".join(str(position + 1) for position in cycle + cycle[:1]))\n\n# F는 면 인덱스 2이므로, 맨 윗행은 위치 18, 19, 20에 있습니다.\nfront_top = np.arange(18, 21)\nprint(\"\\nU 이전의 F 맨 윗행 레이블:\", SOLVED[front_top].tolist())\nprint(\"U 이후의 F 맨 윗행 레이블: \", after_u[front_top].tolist())\nprint(\"U 이후의 면 문자 색상:\", stickers_to_colours(after_u))\nprint(\"U, 그다음 R이 R, 그다음 U와 같음:\",\n      np.array_equal(apply(SOLVED, \"U\", \"R\"), apply(SOLVED, \"R\", \"U\")))\nassert not np.array_equal(apply(SOLVED, \"U\", \"R\"), apply(SOLVED, \"R\", \"U\"))"
+      },
+      {
+        "name": "markov_bridge",
+        "type": "markdown",
+        "language": "markdown",
+        "code": "## 4단계 — 무작위로 회전 선택하기\n\n마르코프 연쇄는 오직 현재 상태만을 사용하여 다음 상태의 확률을 지정합니다. **13가지 선택지** 중에서 균등하게 선택합니다: 가만히 있기(`I`), 여섯 개의 쿼터턴, 그리고 이들의 여섯 개 역원. 선택된 회전을 현재 큐브 상태에 적용합니다.\n\n역회전은 동일한 확률을 가지므로 이 보행은 대칭적입니다. 가만히 있기는 보행을 게으르게 만들어 오직 쿼터턴으로만 이루어진 보행의 홀짝성 교대를 방지합니다. 이러한 생성원들로 도달 가능한 큐브 상태의 유한 집합에서 균등 분포는 정상 분포입니다; 도달 가능성과 자체 루프는 기약성과 비주기성을 제공합니다. 이것이 짧은 무작위 시퀀스가 균등하게 혼합된다는 것을 의미하거나 혼합 시간을 확립하는 것은 **아닙니다**.\n\n평균 `T = (I + sum(P + P.T)) / 13` 역시 유용하지만, 이는 모든 큐브 배치에 대한 전이 행렬이 아니라 **54×54 단일 스티커 위치 모델**일 뿐입니다. 열 확률 벡터를 사용하면 `T`의 열의 합은 1이고 `x_next = T @ x`입니다. 여기서 `T`는 대칭이므로 행의 합도 1입니다. 중심 스티커는 자신의 위치에 머무르며, 모든 스티커가 모든 위치를 방문할 수 있는 것은 아닙니다.\n\n확률적 평균은 유효한 결정론적 큐브 회전이 아닙니다: 레이블 벡터를 평균하면 소수 레이블이 생성될 수 있습니다. 큐브 상태를 얻으려면 실제로 선택된 치환을 적용하세요; `T`는 확률 분포용으로만 사용하세요."
+      },
+      {
+        "name": "random_walk",
+        "type": "code",
+        "language": "python",
+        "code": "MOVE_OPTIONS = [\"I\", \"U\", \"U'\", \"D\", \"D'\", \"F\", \"F'\", \"B\", \"B'\", \"L\", \"L'\", \"R\", \"R'\"]\nT = (IDENTITY + sum((M[name] + M[name].T for name in FACE_NAMES), np.zeros((N, N), dtype=int))) / len(MOVE_OPTIONS)\nassert np.all(T >= 0)\nassert np.allclose(T.sum(axis=0), 1)\nassert np.allclose(T.sum(axis=1), 1)\nassert np.allclose(T, T.T)\n\n# 특정 스티커 하나의 위치에 대한 분포.\nlocation_probability = np.zeros(N)\nlocation_probability[0] = 1\nafter_one_step = T @ location_probability\nassert np.isclose(after_one_step.sum(), 1)\nprint(\"한 걸음 후의 단일 스티커 확률 질량:\", round(float(after_one_step.sum()), 6))\n\n# 유효한 큐브 궤적을 표본 추출합니다. 시드는 이 예제를 재현 가능하게 만듭니다,\n# 도달 가능한 모든 큐브 배치에 대해 균등하게 혼합된 것은 아닙니다.\nrng = np.random.default_rng(7)\nmoves = rng.choice(MOVE_OPTIONS, size=12).tolist()\nwalk_state = apply(SOLVED, *moves)\nassert np.array_equal(np.sort(walk_state), SOLVED)\nassert np.array_equal(walk_state[CENTRES], SOLVED[CENTRES])\nprint(\"표본 추출된 회전:\", \" \".join(moves))\nprint(\"최종 면 문자 색상:\", stickers_to_colours(walk_state))\nprint(\"표본 추출된 경로는 모든 스티커 레이블과 여섯 개의 중심을 모두 보존했습니다.\")"
+      },
+      {
+        "name": "takeaways",
+        "type": "markdown",
+        "language": "markdown",
+        "code": "## 이해도 확인\n\n1. 색상만 확인하는 것으로는 한 면 내에서의 일부 잘못된 치환을 발견하지 못하는 이유가 무엇일까요?\n2. 왜 쿼터턴은 중심을 고정하고 `P^4 = I`를 만족해야 할까요?\n3. 왜 “U, 그다음 R”에 대한 행렬 곱은 시간의 역순으로 작성될까요?\n4. 왜 법 4는 한 면 회전의 거듭제곱은 설명하지만, 서로 다른 면 회전의 임의의 시퀀스는 설명하지 못할까요?\n5. 54×54 확률 행렬은 무엇을 설명하나요? 왜 이것이 전체 큐브 상태 마르코프 연쇄가 아닐까요?\n6. 왜 재현 가능한 12단계 무작위 보행이 균등한 뒤섞임을 증명하지 못할까요?\n\n전체 큐브 군은 여섯 개의 면 회전으로 생성되며, 역회전은 이미 세제곱으로 얻을 수 있습니다. 우리는 U, R, F만으로 전체 군을 생성한다고 주장하지 않습니다: 이 셋 모두 반대편 D–B–L 코너를 건드리지 않은 채로 둡니다.\n\n**핵심 교훈:** 유효한 치환, 그것의 순환 거듭제곱, 그리고 회전의 확률 혼합을 구별하세요. 이들은 서로 연결된 개념이지 상호 교환 가능한 대상이 아닙니다."
+      }
+    ]
+  }
+}

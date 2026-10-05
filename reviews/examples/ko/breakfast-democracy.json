@@ -1,0 +1,1140 @@
+{
+  "schema": 1,
+  "lesson": "breakfast-democracy",
+  "locale": "ko",
+  "source": {
+    "path": "workbooks/en/breakfast-democracy.srwb",
+    "sha256": "d533c0520415d162e61981771e8cc890dc8ee7595e79be794726bba5b778eff4"
+  },
+  "target": {
+    "path": "workbooks/ko/breakfast-democracy.srwb",
+    "sha256": "ad67d3762510b8f240a9b4569b4e6c7d1bcf47eb42f4e19a21d0035b652a7a49",
+    "size": 16828,
+    "title": "아침 식사 민주주의: R → Python → Prolog",
+    "description": "고정된 역사적 아침 식사 선호도 투표 데이터가 R 검증, Python 투표 규칙 집계 및 군집화, Prolog 추론을 거쳐 다수 순환과 전체 콩도르세 승자를 구분합니다."
+  },
+  "translation": {
+    "model": "gemini-3.8-flash-medium",
+    "contentAudit": {
+      "status": "passed",
+      "sourceSha256": "d533c0520415d162e61981771e8cc890dc8ee7595e79be794726bba5b778eff4",
+      "targetSha256": "ad67d3762510b8f240a9b4569b4e6c7d1bcf47eb42f4e19a21d0035b652a7a49",
+      "findings": [],
+      "errors": [],
+      "reviewMethod": "Previously passed AI/controller source-fidelity audit, preserved through verified presentation-only rebase where applicable; scoped final Bengali corrections independently adjudicated and re-gated.",
+      "provenance": {
+        "predecessorSourceSha256": "9bcbce31d8633a642967021824a776aaaf943846b133798fd034dfd740bcf448",
+        "predecessorTargetSha256": "535b3119f9b6857f4d4fa0347f4690866886acce4e79819b68bb431e18a389c6",
+        "predecessorAuditSha256": "08a506fda4628b46a8e9c0110e66bed80c7ab2622350fa27a8c720749d6e10f4",
+        "sharedLayoutOnly": true,
+        "sharedLayoutProjectionSha256": "0f3081e2e6dc247c2830a8bee082fa8ea48db3dc675e4d1dd53288a704f3a9f5"
+      },
+      "nativeSpeakerReview": "pending",
+      "caveat": "AI/controller review, not native-speaker or qualified technical certification."
+    },
+    "policy": {
+      "locale": "ko",
+      "protectedTexts": [
+        "https://raw.githubusercontent.com/PrefLib/PrefLib-Data/6e2e9dcef5ee624383e3e2031f741728dd64d032/datasets/00035%20-%20breakfast/00035-00000004.soc",
+        "/shared/breakfast_source.soc",
+        "75c0e89696e16ac7e6bb2a946943f529",
+        "UTF-8",
+        "^# ALTERNATIVE NAME",
+        "^# ALTERNATIVE NAME ([0-9]+):.*",
+        "^# ALTERNATIVE NAME [0-9]+: ",
+        "^[0-9]+:[[:space:]]*",
+        "list",
+        "rank_",
+        "/shared/breakfast_ballots.csv",
+        "/shared/breakfast_foods.csv",
+        "Toast pop-up",
+        "Buttered toast",
+        "English muffin",
+        "Jelly donut",
+        "Cinnamon toast",
+        "Blueberry muffin",
+        "Hard rolls",
+        "Toast + marmalade",
+        "Toast + jelly",
+        "Toast + margarine",
+        "Cinnamon bun",
+        "Danish pastry",
+        "Glazed donut",
+        "Coffee cake",
+        "Corn muffin",
+        "rb",
+        "7013ed36716e5a2b0c2d7813b0da9cd272cf1bfe90eb66d7d8311485a6a32db0",
+        "id",
+        "name",
+        "food(",
+        "beats(",
+        "taste_bloc(",
+        "rule_winner(plurality,",
+        "rule_winner(borda,",
+        "rule_winner(condorcet,",
+        "pairwise_model",
+        ".code",
+        ":- dynamic model/1.\\nmodel([",
+        ":- dynamic model/1."
+      ],
+      "protectedIds": [
+        "1:2:0",
+        "1:4:0",
+        "1:6:0",
+        "1:12:0",
+        "1:16:0",
+        "1:18:0",
+        "1:20:0",
+        "1:24:0",
+        "1:34:0",
+        "1:40:0",
+        "1:42:0",
+        "1:44:0",
+        "1:46:0",
+        "1:48:0",
+        "1:50:0",
+        "1:52:0",
+        "1:54:0",
+        "1:56:0",
+        "1:58:0",
+        "1:60:0",
+        "1:62:0",
+        "1:64:0",
+        "1:66:0",
+        "1:68:0",
+        "1:70:0",
+        "1:72:0",
+        "1:74:0",
+        "1:76:0",
+        "4:3:0",
+        "4:5:0",
+        "4:7:0",
+        "4:11:0",
+        "4:15:0",
+        "4:17:0",
+        "4:19:0",
+        "4:25:0",
+        "4:45:0",
+        "4:47:0",
+        "4:49:0",
+        "4:53:0",
+        "4:55:0",
+        "4:57:0",
+        "4:59:0",
+        "4:61:0",
+        "4:63:0",
+        "6:5:0"
+      ],
+      "widthOverrides": {},
+      "identifierRenames": false,
+      "cellNames": "English",
+      "nativeReviewCaveat": "Machine-translated; native-speaker review pending. Numerical/structural tests do not certify prose quality."
+    },
+    "keeps": {
+      "ids": [
+        "1:2:0",
+        "1:4:0",
+        "1:6:0",
+        "1:12:0",
+        "1:16:0",
+        "1:18:0",
+        "1:20:0",
+        "1:24:0",
+        "1:34:0",
+        "1:40:0",
+        "1:42:0",
+        "1:44:0",
+        "1:46:0",
+        "1:48:0",
+        "1:50:0",
+        "1:52:0",
+        "1:54:0",
+        "1:56:0",
+        "1:58:0",
+        "1:60:0",
+        "1:62:0",
+        "1:64:0",
+        "1:66:0",
+        "1:68:0",
+        "1:70:0",
+        "1:72:0",
+        "1:74:0",
+        "1:76:0",
+        "4:3:0",
+        "4:5:0",
+        "4:7:0",
+        "4:11:0",
+        "4:15:0",
+        "4:17:0",
+        "4:19:0",
+        "4:25:0",
+        "4:45:0",
+        "4:47:0",
+        "4:49:0",
+        "4:53:0",
+        "4:55:0",
+        "4:57:0",
+        "4:59:0",
+        "4:61:0",
+        "4:63:0",
+        "6:5:0"
+      ],
+      "texts": [
+        "https://raw.githubusercontent.com/PrefLib/PrefLib-Data/6e2e9dcef5ee624383e3e2031f741728dd64d032/datasets/00035%20-%20breakfast/00035-00000004.soc",
+        "/shared/breakfast_source.soc",
+        "75c0e89696e16ac7e6bb2a946943f529",
+        "UTF-8",
+        "UTF-8",
+        "^# ALTERNATIVE NAME",
+        "^# ALTERNATIVE NAME ([0-9]+):.*",
+        "^# ALTERNATIVE NAME [0-9]+: ",
+        "^[0-9]+:[[:space:]]*",
+        "list",
+        "rank_",
+        "/shared/breakfast_ballots.csv",
+        "/shared/breakfast_foods.csv",
+        "Toast pop-up",
+        "Buttered toast",
+        "English muffin",
+        "Jelly donut",
+        "Cinnamon toast",
+        "Blueberry muffin",
+        "Hard rolls",
+        "Toast + marmalade",
+        "Toast + jelly",
+        "Toast + margarine",
+        "Cinnamon bun",
+        "Danish pastry",
+        "Glazed donut",
+        "Coffee cake",
+        "Corn muffin",
+        "/shared/breakfast_source.soc",
+        "rb",
+        "7013ed36716e5a2b0c2d7813b0da9cd272cf1bfe90eb66d7d8311485a6a32db0",
+        "/shared/breakfast_foods.csv",
+        "id",
+        "name",
+        "/shared/breakfast_ballots.csv",
+        "rank_",
+        "food(",
+        "beats(",
+        "taste_bloc(",
+        "rule_winner(plurality,",
+        "rule_winner(borda,",
+        "rule_winner(condorcet,",
+        "pairwise_model",
+        ".code",
+        ":- dynamic model/1.\\nmodel([",
+        ":- dynamic model/1."
+      ]
+    },
+    "manifest": {
+      "manifest_version": 1,
+      "produced_by": "derived",
+      "generator": "tools/span-derive.mjs",
+      "locale": "ko",
+      "source": {
+        "path": "workbooks/en/breakfast-democracy.srwb",
+        "sha256": "d533c0520415d162e61981771e8cc890dc8ee7595e79be794726bba5b778eff4"
+      },
+      "target": {
+        "path": "workbooks/ko/breakfast-democracy.srwb",
+        "sha256": "ad67d3762510b8f240a9b4569b4e6c7d1bcf47eb42f4e19a21d0035b652a7a49"
+      },
+      "spans": [
+        {
+          "cell_index": 1,
+          "cell_name": "fetch_breakfast_votes",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 74
+            },
+            "text": "This immutable source pin is data, not executable R/Python/Prolog code."
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 51
+            },
+            "text": "이 불변 소스 핀은 실행 가능한 R/Python/Prolog 코드가 아닌 데이터입니다."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "fetch_breakfast_votes",
+          "source_span": {
+            "start": {
+              "line": 4,
+              "col": 53
+            },
+            "end": {
+              "line": 4,
+              "col": 96
+            },
+            "text": "canonical LF text; base-R integrity check"
+          },
+          "target_span": {
+            "start": {
+              "line": 4,
+              "col": 53
+            },
+            "end": {
+              "line": 4,
+              "col": 77
+            },
+            "text": "정규 LF 텍스트; 기본 R 무결성 검사"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "fetch_breakfast_votes",
+          "source_span": {
+            "start": {
+              "line": 6,
+              "col": 1
+            },
+            "end": {
+              "line": 6,
+              "col": 79
+            },
+            "text": "Reuse a validated cached source. Never silently fall back to different data."
+          },
+          "target_span": {
+            "start": {
+              "line": 6,
+              "col": 1
+            },
+            "end": {
+              "line": 6,
+              "col": 43
+            },
+            "text": "검증된 캐시 소스를 재사용합니다. 다른 데이터로 조용히 대체하지 마세요."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "fetch_breakfast_votes",
+          "source_span": {
+            "start": {
+              "line": 13,
+              "col": 11
+            },
+            "end": {
+              "line": 13,
+              "col": 69
+            },
+            "text": "Pinned dataset hash mismatch; stop and inspect the source."
+          },
+          "target_span": {
+            "start": {
+              "line": 13,
+              "col": 11
+            },
+            "end": {
+              "line": 13,
+              "col": 43
+            },
+            "text": "고정된 데이터셋 해시 불일치; 중단하고 소스를 검사하세요."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "fetch_breakfast_votes",
+          "source_span": {
+            "start": {
+              "line": 51,
+              "col": 30
+            },
+            "end": {
+              "line": 51,
+              "col": 48
+            },
+            "text": "First-choice votes"
+          },
+          "target_span": {
+            "start": {
+              "line": 51,
+              "col": 30
+            },
+            "end": {
+              "line": 51,
+              "col": 41
+            },
+            "text": "첫 번째 선택 득표수"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "fetch_breakfast_votes",
+          "source_span": {
+            "start": {
+              "line": 52,
+              "col": 17
+            },
+            "end": {
+              "line": 52,
+              "col": 51
+            },
+            "text": "What should accompany cold cereal?"
+          },
+          "target_span": {
+            "start": {
+              "line": 52,
+              "col": 17
+            },
+            "end": {
+              "line": 52,
+              "col": 39
+            },
+            "text": "차가운 시리얼에 무엇을 곁들여야 할까요?"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "fetch_breakfast_votes",
+          "source_span": {
+            "start": {
+              "line": 53,
+              "col": 14
+            },
+            "end": {
+              "line": 53,
+              "col": 59
+            },
+            "text": "Validated %d complete rankings of %d foods.\\n"
+          },
+          "target_span": {
+            "start": {
+              "line": 53,
+              "col": 14
+            },
+            "end": {
+              "line": 53,
+              "col": 44
+            },
+            "text": "%d개의 완전한 순위(%d개 음식)를 검증했습니다.\\n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "learn_preferences",
+          "source_span": {
+            "start": {
+              "line": 3,
+              "col": 1
+            },
+            "end": {
+              "line": 3,
+              "col": 74
+            },
+            "text": "The R cell stores canonical LF source bytes; verify SHA-256 before use."
+          },
+          "target_span": {
+            "start": {
+              "line": 3,
+              "col": 1
+            },
+            "end": {
+              "line": 3,
+              "col": 52
+            },
+            "text": "R 셀은 정규 LF 소스 바이트를 저장합니다. 사용하기 전에 SHA-256을 검증하세요."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "learn_preferences",
+          "source_span": {
+            "start": {
+              "line": 7,
+              "col": 23
+            },
+            "end": {
+              "line": 7,
+              "col": 105
+            },
+            "text": "Pinned dataset SHA-256 mismatch; run fetch_breakfast_votes and inspect the source."
+          },
+          "target_span": {
+            "start": {
+              "line": 7,
+              "col": 23
+            },
+            "end": {
+              "line": 7,
+              "col": 83
+            },
+            "text": "고정된 데이터셋 SHA-256 불일치; fetch_breakfast_votes를 실행하고 소스를 검사하세요."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "learn_preferences",
+          "source_span": {
+            "start": {
+              "line": 16,
+              "col": 23
+            },
+            "end": {
+              "line": 16,
+              "col": 68
+            },
+            "text": "Expected the pinned 42-voter, 15-food dataset"
+          },
+          "target_span": {
+            "start": {
+              "line": 16,
+              "col": 23
+            },
+            "end": {
+              "line": 16,
+              "col": 55
+            },
+            "text": "고정된 42명 투표자, 15개 음식 데이터셋을 예상했습니다"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "learn_preferences",
+          "source_span": {
+            "start": {
+              "line": 19,
+              "col": 23
+            },
+            "end": {
+              "line": 19,
+              "col": 82
+            },
+            "text": "Every ballot must be a complete permutation of the food IDs"
+          },
+          "target_span": {
+            "start": {
+              "line": 19,
+              "col": 23
+            },
+            "end": {
+              "line": 19,
+              "col": 52
+            },
+            "text": "모든 투표용지는 음식 ID의 완전한 순열이어야 합니다"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "learn_preferences",
+          "source_span": {
+            "start": {
+              "line": 30,
+              "col": 1
+            },
+            "end": {
+              "line": 30,
+              "col": 68
+            },
+            "text": "Three taste profiles, learned locally with deterministic k-means."
+          },
+          "target_span": {
+            "start": {
+              "line": 30,
+              "col": 1
+            },
+            "end": {
+              "line": 30,
+              "col": 40
+            },
+            "text": "결정론적 k-means로 로컬에서 학습된 세 가지 맛 프로필입니다."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "learn_preferences",
+          "source_span": {
+            "start": {
+              "line": 42,
+              "col": 55
+            },
+            "end": {
+              "line": 42,
+              "col": 89
+            },
+            "text": "retain an empty cluster's center"
+          },
+          "target_span": {
+            "start": {
+              "line": 42,
+              "col": 55
+            },
+            "end": {
+              "line": 42,
+              "col": 68
+            },
+            "text": "빈 군집의 중심 유지"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "learn_preferences",
+          "source_span": {
+            "start": {
+              "line": 57,
+              "col": 1
+            },
+            "end": {
+              "line": 57,
+              "col": 75
+            },
+            "text": "Keep all tied plurality/Borda winners instead of choosing the lowest ID."
+          },
+          "target_span": {
+            "start": {
+              "line": 57,
+              "col": 1
+            },
+            "end": {
+              "line": 57,
+              "col": 47
+            },
+            "text": "가장 낮은 ID를 선택하는 대신 동점인 모든 다수득표/보르다 승자를 유지합니다."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "learn_preferences",
+          "source_span": {
+            "start": {
+              "line": 65,
+              "col": 8
+            },
+            "end": {
+              "line": 65,
+              "col": 28
+            },
+            "text": "Plurality winner(s):"
+          },
+          "target_span": {
+            "start": {
+              "line": 65,
+              "col": 8
+            },
+            "end": {
+              "line": 65,
+              "col": 19
+            },
+            "text": "다수득표 승자(들):"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "learn_preferences",
+          "source_span": {
+            "start": {
+              "line": 66,
+              "col": 8
+            },
+            "end": {
+              "line": 66,
+              "col": 28
+            },
+            "text": "Borda winner(s)    :"
+          },
+          "target_span": {
+            "start": {
+              "line": 66,
+              "col": 8
+            },
+            "end": {
+              "line": 66,
+              "col": 22
+            },
+            "text": "보르다 승자(들)    :"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "learn_preferences",
+          "source_span": {
+            "start": {
+              "line": 67,
+              "col": 8
+            },
+            "end": {
+              "line": 67,
+              "col": 26
+            },
+            "text": "Condorcet winner :"
+          },
+          "target_span": {
+            "start": {
+              "line": 67,
+              "col": 8
+            },
+            "end": {
+              "line": 67,
+              "col": 17
+            },
+            "text": "콩도르세 승자 :"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "learn_preferences",
+          "source_span": {
+            "start": {
+              "line": 67,
+              "col": 72
+            },
+            "end": {
+              "line": 67,
+              "col": 76
+            },
+            "text": "none"
+          },
+          "target_span": {
+            "start": {
+              "line": 67,
+              "col": 63
+            },
+            "end": {
+              "line": 67,
+              "col": 65
+            },
+            "text": "없음"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "learn_preferences",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 70,
+              "col": 13
+            },
+            "end": {
+              "line": 70,
+              "col": 64
+            },
+            "text": "Taste bloc "
+          },
+          "target_span": {
+            "start": {
+              "line": 70,
+              "col": 13
+            },
+            "end": {
+              "line": 70,
+              "col": 58
+            },
+            "text": "맛 집단 "
+          },
+          "placeholders": [
+            "{k+1}",
+            "{(labels == k).sum():2d}"
+          ]
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "learn_preferences",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 70,
+              "col": 13
+            },
+            "end": {
+              "line": 70,
+              "col": 64
+            },
+            "text": " voters):"
+          },
+          "target_span": {
+            "start": {
+              "line": 70,
+              "col": 13
+            },
+            "end": {
+              "line": 70,
+              "col": 58
+            },
+            "text": " 명의 투표자):"
+          },
+          "placeholders": [
+            "{k+1}",
+            "{(labels == k).sum():2d}"
+          ]
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "learn_preferences",
+          "source_span": {
+            "start": {
+              "line": 71,
+              "col": 8
+            },
+            "end": {
+              "line": 71,
+              "col": 48
+            },
+            "text": "Named pairwise model written for Prolog."
+          },
+          "target_span": {
+            "start": {
+              "line": 71,
+              "col": 8
+            },
+            "end": {
+              "line": 71,
+              "col": 38
+            },
+            "text": "Prolog를 위한 명명된 쌍별 모델이 작성되었습니다."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "find_majority_cycle",
+          "source_span": {
+            "start": {
+              "line": 12,
+              "col": 17
+            },
+            "end": {
+              "line": 12,
+              "col": 82
+            },
+            "text": "Run fetch_breakfast_votes and learn_preferences before this cell."
+          },
+          "target_span": {
+            "start": {
+              "line": 12,
+              "col": 17
+            },
+            "end": {
+              "line": 12,
+              "col": 73
+            },
+            "text": "이 셀 전에 fetch_breakfast_votes 및 learn_preferences를 실행하세요."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "find_majority_cycle",
+          "source_span": {
+            "start": {
+              "line": 21,
+              "col": 17
+            },
+            "end": {
+              "line": 21,
+              "col": 63
+            },
+            "text": "No strict three-food majority cycle was found."
+          },
+          "target_span": {
+            "start": {
+              "line": 21,
+              "col": 17
+            },
+            "end": {
+              "line": 21,
+              "col": 45
+            },
+            "text": "엄격한 세 가지 음식 다수 순환을 찾지 못했습니다."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "find_majority_cycle",
+          "source_span": {
+            "start": {
+              "line": 24,
+              "col": 13
+            },
+            "end": {
+              "line": 24,
+              "col": 58
+            },
+            "text": "ROCK-PAPER-SCISSORS, SERVED FOR BREAKFAST~n~n"
+          },
+          "target_span": {
+            "start": {
+              "line": 24,
+              "col": 13
+            },
+            "end": {
+              "line": 24,
+              "col": 34
+            },
+            "text": "아침 식사로 제공되는 가위바위보~n~n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "find_majority_cycle",
+          "source_span": {
+            "start": {
+              "line": 25,
+              "col": 13
+            },
+            "end": {
+              "line": 25,
+              "col": 38
+            },
+            "text": "~w beats ~w by ~d votes~n"
+          },
+          "target_span": {
+            "start": {
+              "line": 25,
+              "col": 13
+            },
+            "end": {
+              "line": 25,
+              "col": 38
+            },
+            "text": "~w이(가) ~w을(를) ~d표 차로 이김~n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "find_majority_cycle",
+          "source_span": {
+            "start": {
+              "line": 26,
+              "col": 13
+            },
+            "end": {
+              "line": 26,
+              "col": 38
+            },
+            "text": "~w beats ~w by ~d votes~n"
+          },
+          "target_span": {
+            "start": {
+              "line": 26,
+              "col": 13
+            },
+            "end": {
+              "line": 26,
+              "col": 38
+            },
+            "text": "~w이(가) ~w을(를) ~d표 차로 이김~n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "find_majority_cycle",
+          "source_span": {
+            "start": {
+              "line": 27,
+              "col": 13
+            },
+            "end": {
+              "line": 27,
+              "col": 40
+            },
+            "text": "~w beats ~w by ~d votes~n~n"
+          },
+          "target_span": {
+            "start": {
+              "line": 27,
+              "col": 13
+            },
+            "end": {
+              "line": 27,
+              "col": 40
+            },
+            "text": "~w이(가) ~w을(를) ~d표 차로 이김~n~n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "find_majority_cycle",
+          "source_span": {
+            "start": {
+              "line": 29,
+              "col": 43
+            },
+            "end": {
+              "line": 29,
+              "col": 58
+            },
+            "text": "~w winner: ~w~n"
+          },
+          "target_span": {
+            "start": {
+              "line": 29,
+              "col": 43
+            },
+            "end": {
+              "line": 29,
+              "col": 54
+            },
+            "text": "~w 승자: ~w~n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        }
+      ],
+      "exclusions": []
+    },
+    "nativeSpeakerReview": "pending"
+  },
+  "browser": {
+    "status": "passed",
+    "first": {
+      "exportSha256": "5b9d5bb6d963071999f68db964f9226ec9203c5ff67e742886641d42fbff1684",
+      "reportSha256": "c47ae3e9abd7f4497113d5ebae3b7fcc0748f21b4b6324bfbae6231639982486",
+      "appVersion": "1.4.0",
+      "cells": 9,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "second": {
+      "exportSha256": "1026ca9fb2d57d419606a6410054d1eb2b74ab2550c7f66a2c31f30b19b72288",
+      "reportSha256": "c47ae3e9abd7f4497113d5ebae3b7fcc0748f21b4b6324bfbae6231639982486",
+      "appVersion": "1.4.0",
+      "cells": 9,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "englishBaseline": [
+      {
+        "exportSha256": "1968eebedf4d368b281fd687be8b1cf7185016441155e950a2d2993e328a09e6",
+        "reportSha256": "b4f80eb448ea52f9f40bd84887e063e7d7db6a62c4091a5dff6abe416abec1d0",
+        "appVersion": "1.4.0",
+        "cells": 9,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      },
+      {
+        "exportSha256": "2eef01bb5f928cd3500afb0e341fc092b9e4add8ecd2a1741fc6688c651b39b1",
+        "reportSha256": "b4f80eb448ea52f9f40bd84887e063e7d7db6a62c4091a5dff6abe416abec1d0",
+        "appVersion": "1.4.0",
+        "cells": 9,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      }
+    ],
+    "deterministic": true,
+    "textOracle": {
+      "first": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      },
+      "second": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      }
+    },
+    "plotData": {
+      "status": "passed",
+      "count": 0
+    },
+    "rasterCharts": {
+      "decoded": true,
+      "count": 1,
+      "caveat": "R raster rendering checked separately; numerical checks use unchanged executable tokens and the lesson’s independent count/vote checks."
+    },
+    "renderedReview": "controller-AI-reviewed",
+    "rendering": {
+      "status": "passed",
+      "scope": "Titles, axes, legends and glyphs visually checked in captured app renders; not native-language approval.",
+      "nativeSpeakerReview": "pending"
+    }
+  },
+  "caveat": "Machine translated with Gemini and reviewed by AI/controller checks, including scoped corrections where needed. Native-speaker review is pending; structural and numerical checks do not certify prose quality."
+}

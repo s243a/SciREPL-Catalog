@@ -1,0 +1,1488 @@
+{
+  "schema": 1,
+  "lesson": "simpsons-paradox",
+  "locale": "ko",
+  "source": {
+    "path": "workbooks/en/simpsons-paradox.srwb",
+    "sha256": "a99db8a614a1392f64ad4f1a5d00181a26c65bd3f4e67581de4b911e4299aacb"
+  },
+  "target": {
+    "path": "workbooks/ko/simpsons-paradox.srwb",
+    "sha256": "2ac7b6e418d4f30d1060a185978dcd84287365fd01b0c475efe1624e4c04c30d",
+    "size": 14322,
+    "title": "심슨의 역설",
+    "description": "합성 데이터를 사용하여 심슨의 역설을 설명하고, R과 JavaScript에서 층화된 성공률과 통합된 성공률을 비교하며, 연관성과 인과관계를 구분합니다."
+  },
+  "translation": {
+    "model": "gemini-3.8-flash-medium",
+    "contentAudit": {
+      "status": "passed",
+      "sourceSha256": "a99db8a614a1392f64ad4f1a5d00181a26c65bd3f4e67581de4b911e4299aacb",
+      "targetSha256": "2ac7b6e418d4f30d1060a185978dcd84287365fd01b0c475efe1624e4c04c30d",
+      "findings": [],
+      "errors": [],
+      "reviewMethod": "Previously passed AI/controller source-fidelity audit, preserved through verified presentation-only rebase where applicable; scoped final Bengali corrections independently adjudicated and re-gated.",
+      "provenance": {
+        "predecessorSourceSha256": "bb32d966c1ee1ec6f5372f621804a8121a08cdb0b976e89bce118449c168aac0",
+        "predecessorTargetSha256": "085ae95220d767b17e5ffb28e96a89a27767a268631a94c5a022b60723874ebb",
+        "predecessorAuditSha256": "f91db9e9cc4cc92715f048ac4db1e51b97810d4e4c4e39013d4fd9d84b3e391f",
+        "sharedLayoutOnly": true,
+        "sharedLayoutProjectionSha256": "42806a90e76bd346990350c76bbe538329025dd81f9b6bccc941a209b2d8fca5"
+      },
+      "nativeSpeakerReview": "pending",
+      "caveat": "AI/controller review, not native-speaker or qualified technical certification."
+    },
+    "policy": {
+      "locale": "ko",
+      "protectedTexts": [
+        "Mild",
+        "Severe",
+        "success",
+        "failure",
+        "stratum",
+        "treatment",
+        "outcome",
+        "count"
+      ],
+      "protectedIds": [
+        "1:8:0",
+        "1:10:0",
+        "1:16:0",
+        "1:18:0",
+        "3:4:0",
+        "3:6:0",
+        "3:18:0",
+        "3:20:0",
+        "3:28:0",
+        "3:30:0",
+        "3:44:0",
+        "3:46:0",
+        "3:56:0",
+        "3:58:0",
+        "3:66:0",
+        "3:68:0",
+        "3:82:0",
+        "3:88:0",
+        "3:94:0",
+        "3:100:0",
+        "4:2:0",
+        "4:4:0",
+        "4:8:0",
+        "4:14:0",
+        "4:22:0",
+        "4:28:0"
+      ],
+      "widthOverrides": {},
+      "identifierRenames": false,
+      "cellNames": "English",
+      "nativeReviewCaveat": "Machine-translated; native-speaker review pending. Numerical/structural tests do not certify prose quality."
+    },
+    "keeps": {
+      "ids": [
+        "1:8:0",
+        "1:10:0",
+        "1:16:0",
+        "1:18:0",
+        "3:4:0",
+        "3:6:0",
+        "3:18:0",
+        "3:20:0",
+        "3:28:0",
+        "3:30:0",
+        "3:44:0",
+        "3:46:0",
+        "3:56:0",
+        "3:58:0",
+        "3:66:0",
+        "3:68:0",
+        "3:82:0",
+        "3:88:0",
+        "3:94:0",
+        "3:100:0",
+        "4:2:0",
+        "4:4:0",
+        "4:8:0",
+        "4:14:0",
+        "4:22:0",
+        "4:28:0",
+        "4:38:0",
+        "4:50:0",
+        "4:54:0",
+        "5:16:0",
+        "5:18:0",
+        "5:20:0"
+      ],
+      "texts": [
+        "Mild",
+        "Severe",
+        "success",
+        "failure",
+        "success",
+        "failure",
+        "success",
+        "failure",
+        "success",
+        "failure",
+        "success",
+        "failure",
+        "success",
+        "failure",
+        "success",
+        "failure",
+        "Mild",
+        "Mild",
+        "Severe",
+        "Severe",
+        "Mild",
+        "Severe",
+        "Mild",
+        "Severe",
+        "Mild",
+        "Severe",
+        "#ED7D31",
+        "topright",
+        "grey40",
+        "  p_A = ${r.A.p.toFixed(4)} (${r.A.s}/${r.A.s + r.A.f})",
+        "  p_B = ${r.B.p.toFixed(4)} (${r.B.s}/${r.B.s + r.B.f})",
+        "  RR = ${r.RR.toFixed(4)}"
+      ]
+    },
+    "manifest": {
+      "manifest_version": 1,
+      "produced_by": "derived",
+      "generator": "tools/span-derive.mjs",
+      "locale": "ko",
+      "source": {
+        "path": "workbooks/en/simpsons-paradox.srwb",
+        "sha256": "a99db8a614a1392f64ad4f1a5d00181a26c65bd3f4e67581de4b911e4299aacb"
+      },
+      "target": {
+        "path": "workbooks/ko/simpsons-paradox.srwb",
+        "sha256": "2ac7b6e418d4f30d1060a185978dcd84287365fd01b0c475efe1624e4c04c30d"
+      },
+      "spans": [
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 50
+            },
+            "text": "---- SYNTHETIC / FICTIONAL DATA (not real) ----"
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 36
+            },
+            "text": "---- 합성 / 가상 데이터 (실제 데이터 아님) ----"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 2,
+              "col": 1
+            },
+            "end": {
+              "line": 2,
+              "col": 72
+            },
+            "text": "Two strata; two treatments A and B; binary outcome (success/failure)."
+          },
+          "target_span": {
+            "start": {
+              "line": 2,
+              "col": 1
+            },
+            "end": {
+              "line": 2,
+              "col": 37
+            },
+            "text": "두 개 층; 두 치료법 A 및 B; 이진 결과 (성공/실패)."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 3,
+              "col": 1
+            },
+            "end": {
+              "line": 3,
+              "col": 72
+            },
+            "text": "Constructed so that A > B within each stratum, but B > A when pooled."
+          },
+          "target_span": {
+            "start": {
+              "line": 3,
+              "col": 1
+            },
+            "end": {
+              "line": 3,
+              "col": 44
+            },
+            "text": "각 층 내에서는 A > B이지만, 통합 시에는 B > A가 되도록 구성됨."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 4,
+              "col": 1
+            },
+            "end": {
+              "line": 4,
+              "col": 89
+            },
+            "text": "Mechanism: A treats mostly Severe patients (high-risk), B treats mostly Mild patients."
+          },
+          "target_span": {
+            "start": {
+              "line": 4,
+              "col": 1
+            },
+            "end": {
+              "line": 4,
+              "col": 56
+            },
+            "text": "메커니즘: A는 주로 Severe 환자(고위험)를 치료하고, B는 주로 Mild 환자를 치료함."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 11,
+              "col": 5
+            },
+            "end": {
+              "line": 11,
+              "col": 19
+            },
+            "text": "Mild stratum"
+          },
+          "target_span": {
+            "start": {
+              "line": 11,
+              "col": 5
+            },
+            "end": {
+              "line": 11,
+              "col": 13
+            },
+            "text": "Mild 층"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 12,
+              "col": 19
+            },
+            "end": {
+              "line": 12,
+              "col": 71
+            },
+            "text": "A: 85 success, 15 failure   -> p = 0.85  (n = 100)"
+          },
+          "target_span": {
+            "start": {
+              "line": 12,
+              "col": 19
+            },
+            "end": {
+              "line": 12,
+              "col": 61
+            },
+            "text": "A: 성공 85, 실패 15   -> p = 0.85  (n = 100)"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 13,
+              "col": 19
+            },
+            "end": {
+              "line": 13,
+              "col": 71
+            },
+            "text": "B: 350 success, 150 failure -> p = 0.70  (n = 500)"
+          },
+          "target_span": {
+            "start": {
+              "line": 13,
+              "col": 19
+            },
+            "end": {
+              "line": 13,
+              "col": 61
+            },
+            "text": "B: 성공 350, 실패 150 -> p = 0.70  (n = 500)"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 14,
+              "col": 5
+            },
+            "end": {
+              "line": 14,
+              "col": 21
+            },
+            "text": "Severe stratum"
+          },
+          "target_span": {
+            "start": {
+              "line": 14,
+              "col": 5
+            },
+            "end": {
+              "line": 14,
+              "col": 15
+            },
+            "text": "Severe 층"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 15,
+              "col": 19
+            },
+            "end": {
+              "line": 15,
+              "col": 71
+            },
+            "text": "A: 30 success, 470 failure  -> p = 0.06  (n = 500)"
+          },
+          "target_span": {
+            "start": {
+              "line": 15,
+              "col": 19
+            },
+            "end": {
+              "line": 15,
+              "col": 61
+            },
+            "text": "A: 성공 30, 실패 470  -> p = 0.06  (n = 500)"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 16,
+              "col": 19
+            },
+            "end": {
+              "line": 16,
+              "col": 71
+            },
+            "text": "B:  2 success, 98 failure   -> p = 0.02  (n = 100)"
+          },
+          "target_span": {
+            "start": {
+              "line": 16,
+              "col": 19
+            },
+            "end": {
+              "line": 16,
+              "col": 61
+            },
+            "text": "B:  성공 2, 실패 98   -> p = 0.02  (n = 100)"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 68
+            },
+            "text": "---- Computation from the dataset (nothing hard-coded below) ----"
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 42
+            },
+            "text": "---- 데이터셋으로부터 계산 (아래에 하드코딩된 내용 없음) ----"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 3,
+              "col": 1
+            },
+            "end": {
+              "line": 3,
+              "col": 63
+            },
+            "text": "Derive strata from the data cell: run data before this cell."
+          },
+          "target_span": {
+            "start": {
+              "line": 3,
+              "col": 1
+            },
+            "end": {
+              "line": 3,
+              "col": 37
+            },
+            "text": "data 셀에서 층 도출: 이 셀 전에 data를 실행하세요."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 14,
+              "col": 1
+            },
+            "end": {
+              "line": 14,
+              "col": 33
+            },
+            "text": "--- Within-stratum results ---"
+          },
+          "target_span": {
+            "start": {
+              "line": 14,
+              "col": 1
+            },
+            "end": {
+              "line": 14,
+              "col": 17
+            },
+            "text": "--- 층 내 결과 ---"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 17,
+              "col": 16
+            },
+            "end": {
+              "line": 17,
+              "col": 37
+            },
+            "text": "--- Stratum: %s ---\\n"
+          },
+          "target_span": {
+            "start": {
+              "line": 17,
+              "col": 16
+            },
+            "end": {
+              "line": 17,
+              "col": 31
+            },
+            "text": "--- 층: %s ---\\n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 18,
+              "col": 16
+            },
+            "end": {
+              "line": 18,
+              "col": 71
+            },
+            "text": "  A: success = %d, failure = %d  (p_A = %.4f, n = %d)\\n"
+          },
+          "target_span": {
+            "start": {
+              "line": 18,
+              "col": 16
+            },
+            "end": {
+              "line": 18,
+              "col": 61
+            },
+            "text": "  A: 성공 = %d, 실패 = %d  (p_A = %.4f, n = %d)\\n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 19,
+              "col": 16
+            },
+            "end": {
+              "line": 19,
+              "col": 71
+            },
+            "text": "  B: success = %d, failure = %d  (p_B = %.4f, n = %d)\\n"
+          },
+          "target_span": {
+            "start": {
+              "line": 19,
+              "col": 16
+            },
+            "end": {
+              "line": 19,
+              "col": 61
+            },
+            "text": "  B: 성공 = %d, 실패 = %d  (p_B = %.4f, n = %d)\\n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 20,
+              "col": 16
+            },
+            "end": {
+              "line": 20,
+              "col": 42
+            },
+            "text": "  RR(A/B) in %s = %.4f\\n\\n"
+          },
+          "target_span": {
+            "start": {
+              "line": 20,
+              "col": 16
+            },
+            "end": {
+              "line": 20,
+              "col": 42
+            },
+            "text": "  %s에서의 RR(A/B) = %.4f\\n\\n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 23,
+              "col": 1
+            },
+            "end": {
+              "line": 23,
+              "col": 48
+            },
+            "text": "--- Pooled results (collapse over strata) ---"
+          },
+          "target_span": {
+            "start": {
+              "line": 23,
+              "col": 1
+            },
+            "end": {
+              "line": 23,
+              "col": 23
+            },
+            "text": "--- 통합 결과 (층 병합) ---"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 31,
+              "col": 6
+            },
+            "end": {
+              "line": 31,
+              "col": 41
+            },
+            "text": "--- Pooled (strata collapsed) ---\\n"
+          },
+          "target_span": {
+            "start": {
+              "line": 31,
+              "col": 6
+            },
+            "end": {
+              "line": 31,
+              "col": 26
+            },
+            "text": "--- 통합 (층 병합됨) ---\\n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 32,
+              "col": 14
+            },
+            "end": {
+              "line": 32,
+              "col": 69
+            },
+            "text": "  A: success = %d, failure = %d  (p_A = %.4f, n = %d)\\n"
+          },
+          "target_span": {
+            "start": {
+              "line": 32,
+              "col": 14
+            },
+            "end": {
+              "line": 32,
+              "col": 59
+            },
+            "text": "  A: 성공 = %d, 실패 = %d  (p_A = %.4f, n = %d)\\n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 33,
+              "col": 14
+            },
+            "end": {
+              "line": 33,
+              "col": 69
+            },
+            "text": "  B: success = %d, failure = %d  (p_B = %.4f, n = %d)\\n"
+          },
+          "target_span": {
+            "start": {
+              "line": 33,
+              "col": 14
+            },
+            "end": {
+              "line": 33,
+              "col": 59
+            },
+            "text": "  B: 성공 = %d, 실패 = %d  (p_B = %.4f, n = %d)\\n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 34,
+              "col": 14
+            },
+            "end": {
+              "line": 34,
+              "col": 41
+            },
+            "text": "  Pooled RR(A/B) = %.4f\\n\\n"
+          },
+          "target_span": {
+            "start": {
+              "line": 34,
+              "col": 14
+            },
+            "end": {
+              "line": 34,
+              "col": 37
+            },
+            "text": "  통합 RR(A/B) = %.4f\\n\\n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 36,
+              "col": 1
+            },
+            "end": {
+              "line": 36,
+              "col": 32
+            },
+            "text": "--- Proofs of the paradox ---"
+          },
+          "target_span": {
+            "start": {
+              "line": 36,
+              "col": 1
+            },
+            "end": {
+              "line": 36,
+              "col": 16
+            },
+            "text": "--- 역설 증명 ---"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 42,
+              "col": 20
+            },
+            "end": {
+              "line": 42,
+              "col": 43
+            },
+            "text": "A beats B within Mild"
+          },
+          "target_span": {
+            "start": {
+              "line": 42,
+              "col": 20
+            },
+            "end": {
+              "line": 42,
+              "col": 39
+            },
+            "text": "Mild 내에서 A가 B를 이김"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 43,
+              "col": 20
+            },
+            "end": {
+              "line": 43,
+              "col": 45
+            },
+            "text": "A beats B within Severe"
+          },
+          "target_span": {
+            "start": {
+              "line": 43,
+              "col": 20
+            },
+            "end": {
+              "line": 43,
+              "col": 41
+            },
+            "text": "Severe 내에서 A가 B를 이김"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 44,
+              "col": 20
+            },
+            "end": {
+              "line": 44,
+              "col": 71
+            },
+            "text": "... yet A loses to B overall -> Simpson's paradox"
+          },
+          "target_span": {
+            "start": {
+              "line": 44,
+              "col": 20
+            },
+            "end": {
+              "line": 44,
+              "col": 55
+            },
+            "text": "... 그러나 전체적으로는 A가 B에 패함 -> 심슨의 역설"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 46,
+              "col": 6
+            },
+            "end": {
+              "line": 46,
+              "col": 83
+            },
+            "text": "✔ All stopifnot checks passed: RR_mild > 1, RR_severe > 1, but RR_pooled < 1."
+          },
+          "target_span": {
+            "start": {
+              "line": 46,
+              "col": 6
+            },
+            "end": {
+              "line": 46,
+              "col": 74
+            },
+            "text": "✔ 모든 stopifnot 검사 통과: RR_mild > 1, RR_severe > 1, 그러나 RR_pooled < 1."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "viz",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 77
+            },
+            "text": "---- Visualization: success rates by stratum and pooled (base R only) ----"
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 39
+            },
+            "text": "---- 시각화: 층별 및 통합 성공률 (기본 R 전용) ----"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "viz",
+          "source_span": {
+            "start": {
+              "line": 3,
+              "col": 32
+            },
+            "end": {
+              "line": 3,
+              "col": 38
+            },
+            "text": "Pooled"
+          },
+          "target_span": {
+            "start": {
+              "line": 3,
+              "col": 32
+            },
+            "end": {
+              "line": 3,
+              "col": 34
+            },
+            "text": "통합"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "viz",
+          "source_span": {
+            "start": {
+              "line": 12,
+              "col": 31
+            },
+            "end": {
+              "line": 12,
+              "col": 88
+            },
+            "text": "Simpson's Paradox: success rate by group (synthetic data)"
+          },
+          "target_span": {
+            "start": {
+              "line": 12,
+              "col": 31
+            },
+            "end": {
+              "line": 12,
+              "col": 55
+            },
+            "text": "심슨의 역설: 집단별 성공률 (합성 데이터)"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "viz",
+          "source_span": {
+            "start": {
+              "line": 13,
+              "col": 17
+            },
+            "end": {
+              "line": 13,
+              "col": 35
+            },
+            "text": "Success proportion"
+          },
+          "target_span": {
+            "start": {
+              "line": 13,
+              "col": 17
+            },
+            "end": {
+              "line": 13,
+              "col": 22
+            },
+            "text": "성공 비율"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "viz",
+          "source_span": {
+            "start": {
+              "line": 13,
+              "col": 55
+            },
+            "end": {
+              "line": 13,
+              "col": 66
+            },
+            "text": "Treatment A"
+          },
+          "target_span": {
+            "start": {
+              "line": 13,
+              "col": 42
+            },
+            "end": {
+              "line": 13,
+              "col": 47
+            },
+            "text": "치료법 A"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "viz",
+          "source_span": {
+            "start": {
+              "line": 13,
+              "col": 70
+            },
+            "end": {
+              "line": 13,
+              "col": 81
+            },
+            "text": "Treatment B"
+          },
+          "target_span": {
+            "start": {
+              "line": 13,
+              "col": 51
+            },
+            "end": {
+              "line": 13,
+              "col": 56
+            },
+            "text": "치료법 B"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 73
+            },
+            "text": "Independent recalculation from the underlying counts (SYNTHETIC data)"
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 31
+            },
+            "text": "기저 빈도로부터의 독립적인 재계산 (합성 데이터)"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 14,
+              "col": 1
+            },
+            "end": {
+              "line": 14,
+              "col": 56
+            },
+            "text": "Pool by summing successes and failures across strata"
+          },
+          "target_span": {
+            "start": {
+              "line": 14,
+              "col": 1
+            },
+            "end": {
+              "line": 14,
+              "col": 25
+            },
+            "text": "층 전반의 성공과 실패를 합산하여 통합"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 23,
+              "col": 1
+            },
+            "end": {
+              "line": 23,
+              "col": 20
+            },
+            "text": "Readable summary"
+          },
+          "target_span": {
+            "start": {
+              "line": 23,
+              "col": 1
+            },
+            "end": {
+              "line": 23,
+              "col": 13
+            },
+            "text": "가독성 있는 요약"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 24,
+              "col": 14
+            },
+            "end": {
+              "line": 24,
+              "col": 68
+            },
+            "text": "Independent JavaScript recalculation (synthetic data):"
+          },
+          "target_span": {
+            "start": {
+              "line": 24,
+              "col": 14
+            },
+            "end": {
+              "line": 24,
+              "col": 43
+            },
+            "text": "독립적인 JavaScript 재계산 (합성 데이터):"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 35,
+              "col": 1
+            },
+            "end": {
+              "line": 35,
+              "col": 78
+            },
+            "text": "Check the original fixed counts independently; this does not read R state."
+          },
+          "target_span": {
+            "start": {
+              "line": 35,
+              "col": 1
+            },
+            "end": {
+              "line": 35,
+              "col": 43
+            },
+            "text": "원래의 고정된 빈도를 독립적으로 검사; 이는 R 상태를 읽지 않습니다."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 44,
+              "col": 106
+            },
+            "end": {
+              "line": 44,
+              "col": 162
+            },
+            "text": "Mild proportions disagree with the expected input counts"
+          },
+          "target_span": {
+            "start": {
+              "line": 44,
+              "col": 106
+            },
+            "end": {
+              "line": 44,
+              "col": 135
+            },
+            "text": "Mild 비율이 예상된 입력 빈도와 일치하지 않습니다"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 45,
+              "col": 106
+            },
+            "end": {
+              "line": 45,
+              "col": 164
+            },
+            "text": "Severe proportions disagree with the expected input counts"
+          },
+          "target_span": {
+            "start": {
+              "line": 45,
+              "col": 106
+            },
+            "end": {
+              "line": 45,
+              "col": 137
+            },
+            "text": "Severe 비율이 예상된 입력 빈도와 일치하지 않습니다"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 46,
+              "col": 106
+            },
+            "end": {
+              "line": 46,
+              "col": 164
+            },
+            "text": "Pooled proportions disagree with the expected input counts"
+          },
+          "target_span": {
+            "start": {
+              "line": 46,
+              "col": 106
+            },
+            "end": {
+              "line": 46,
+              "col": 133
+            },
+            "text": "통합 비율이 예상된 입력 빈도와 일치하지 않습니다"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 48,
+              "col": 20
+            },
+            "end": {
+              "line": 48,
+              "col": 104
+            },
+            "text": "Paradox structure not reproduced: expected RR_mild > 1, RR_severe > 1, RR_pooled < 1"
+          },
+          "target_span": {
+            "start": {
+              "line": 48,
+              "col": 20
+            },
+            "end": {
+              "line": 48,
+              "col": 81
+            },
+            "text": "역설 구조가 재현되지 않음: 예상된 RR_mild > 1, RR_severe > 1, RR_pooled < 1"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 50,
+              "col": 14
+            },
+            "end": {
+              "line": 50,
+              "col": 84
+            },
+            "text": "\\n✔ Original-count JavaScript recalculation and paradox checks passed."
+          },
+          "target_span": {
+            "start": {
+              "line": 50,
+              "col": 14
+            },
+            "end": {
+              "line": 50,
+              "col": 54
+            },
+            "text": "\\n✔ 원래 빈도 기반의 JavaScript 재계산 및 역설 검사 통과."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        }
+      ],
+      "exclusions": []
+    },
+    "nativeSpeakerReview": "pending"
+  },
+  "browser": {
+    "status": "passed",
+    "first": {
+      "exportSha256": "f9158b003e6ddc362b73513b0e602d0aad95961c4bc1692f988aa5805cf9c1c7",
+      "reportSha256": "601d65a431277f40c665fdf9f2c450d4413d5c018412bf0ceb1445b26253b6e4",
+      "appVersion": "1.4.0",
+      "cells": 7,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "second": {
+      "exportSha256": "c051faf90b4b8d1d147fef0af0f0c283b6791b9c7997909116aad10d2eb609e1",
+      "reportSha256": "601d65a431277f40c665fdf9f2c450d4413d5c018412bf0ceb1445b26253b6e4",
+      "appVersion": "1.4.0",
+      "cells": 7,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "englishBaseline": [
+      {
+        "exportSha256": "715a787cba3b5f4805a616c22b636b3c35db086fcfb69ce5c3ec184307e8d095",
+        "reportSha256": "341ef72fc46e69193b5f49ddc7d217fcb3445bf4c3580789c0c36bded7da45fc",
+        "appVersion": "1.4.0",
+        "cells": 7,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      },
+      {
+        "exportSha256": "8bfe8c73d93d967c96ca4e6921a494859abdcc20208f0fc12b02f63cd6f2b711",
+        "reportSha256": "341ef72fc46e69193b5f49ddc7d217fcb3445bf4c3580789c0c36bded7da45fc",
+        "appVersion": "1.4.0",
+        "cells": 7,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      }
+    ],
+    "deterministic": true,
+    "textOracle": {
+      "first": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      },
+      "second": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      }
+    },
+    "plotData": {
+      "status": "passed",
+      "count": 0
+    },
+    "rasterCharts": {
+      "decoded": true,
+      "count": 1,
+      "caveat": "R raster rendering checked separately; numerical checks use unchanged executable tokens and the lesson’s independent count/vote checks."
+    },
+    "renderedReview": "controller-AI-reviewed",
+    "rendering": {
+      "status": "passed",
+      "scope": "Titles, axes, legends and glyphs visually checked in captured app renders; not native-language approval.",
+      "nativeSpeakerReview": "pending"
+    }
+  },
+  "caveat": "Machine translated with Gemini and reviewed by AI/controller checks, including scoped corrections where needed. Native-speaker review is pending; structural and numerical checks do not certify prose quality."
+}

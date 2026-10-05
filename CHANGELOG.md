@@ -3,6 +3,41 @@
 Notable changes to the SciREPL Catalog: content added, conventions adopted,
 and work deliberately deferred.
 
+## 2026-10-04 — reviewed examples (staging)
+
+- Completed the six-lesson rollout: 72 machine-translated editions across
+  ar, bn, de, es, fr, hi, id, ja, ko, pt-BR, ru and zh, with localized searchable
+  titles/descriptions. Native-speaker review remains pending for every edition;
+  publication with that caveat is owner-authorized, not native approval.
+- Applied the same chart-layout improvements to English and every translation:
+  wrapped Simpson titles, more room for Breakfast's bottom axis, and wrapped
+  dual-axis Patients labels. Only those three English artifact revisions rise
+  to 2; new translated entries start at revision 1.
+- Final receipts pin the promoted bytes, regenerated span/KEEP data, two actual
+  browser executions, numerical comparisons and controller-rendered review.
+  Earlier failed transports and review holds remain preserved locally.
+- Added six reviewed English lessons: SELECT risk measures, trial evidence,
+  Simpson's paradox, cube permutations/Markov walks, fictional plume
+  cooling, and breakfast voting. Stripped saved AI/output/device metadata.
+- Corrected the cube moves against an independent physical rotation
+  oracle; clarified the one-sticker versus full-state Markov distinction.
+- Distinguished hazard ratios from crude risks/NNT and marked the trial
+  data fictional; added uncertainty, zero-SE and rerun-order checks.
+- Corrected cooling heat/moisture accounting and invalid prose-as-code;
+  added conservation and same-weather comparisons with explicit caveats.
+  Distinguished its makeup-plus-electricity water metric from consumptive
+  use rather than treating blowdown as automatically consumed water.
+- Breakfast fetches a pinned, hashed historical PrefLib source rather than
+  redistributing the separately licensed dataset.
+- Added clean-profile browser checks, repeat-run/output comparison,
+  plot-data invariants and compact source-hashed review receipts.
+- Gemini supplied machine drafts and reviews; scoped AI/controller corrections
+  resolved remaining source-fidelity issues. Incomplete/failed editions are
+  not registered, and machine checks never stand in for native approval.
+- Fixed format-2.0 index validation and a stateful placeholder-regex issue
+  in the differential output oracle, with regressions. No app release,
+  model/API settings, or catalog release tag changed.
+
 ## 2026-08-13
 
 ### Added

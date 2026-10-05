@@ -1,0 +1,89 @@
+{
+  "schema": 1,
+  "lesson": "simpsons-paradox",
+  "locale": "en",
+  "source": {
+    "path": "workbooks/en/simpsons-paradox.srwb",
+    "sha256": "a99db8a614a1392f64ad4f1a5d00181a26c65bd3f4e67581de4b911e4299aacb"
+  },
+  "target": {
+    "path": "workbooks/en/simpsons-paradox.srwb",
+    "sha256": "a99db8a614a1392f64ad4f1a5d00181a26c65bd3f4e67581de4b911e4299aacb",
+    "size": 12965,
+    "title": "Simpson's Paradox",
+    "description": "Build a synthetic Simpson reversal, independently check stratified and pooled comparisons in R and JavaScript, and separate association from causation."
+  },
+  "translation": null,
+  "browser": {
+    "status": "passed",
+    "first": {
+      "exportSha256": "715a787cba3b5f4805a616c22b636b3c35db086fcfb69ce5c3ec184307e8d095",
+      "reportSha256": "341ef72fc46e69193b5f49ddc7d217fcb3445bf4c3580789c0c36bded7da45fc",
+      "appVersion": "1.4.0",
+      "cells": 7,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "second": {
+      "exportSha256": "8bfe8c73d93d967c96ca4e6921a494859abdcc20208f0fc12b02f63cd6f2b711",
+      "reportSha256": "341ef72fc46e69193b5f49ddc7d217fcb3445bf4c3580789c0c36bded7da45fc",
+      "appVersion": "1.4.0",
+      "cells": 7,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "englishBaseline": [
+      {
+        "exportSha256": "715a787cba3b5f4805a616c22b636b3c35db086fcfb69ce5c3ec184307e8d095",
+        "reportSha256": "341ef72fc46e69193b5f49ddc7d217fcb3445bf4c3580789c0c36bded7da45fc",
+        "appVersion": "1.4.0",
+        "cells": 7,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      },
+      {
+        "exportSha256": "8bfe8c73d93d967c96ca4e6921a494859abdcc20208f0fc12b02f63cd6f2b711",
+        "reportSha256": "341ef72fc46e69193b5f49ddc7d217fcb3445bf4c3580789c0c36bded7da45fc",
+        "appVersion": "1.4.0",
+        "cells": 7,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      }
+    ],
+    "deterministic": true,
+    "textOracle": {
+      "first": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      },
+      "second": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      }
+    },
+    "plotData": {
+      "status": "passed",
+      "count": 0
+    },
+    "rasterCharts": {
+      "decoded": true,
+      "count": 1,
+      "caveat": "R raster rendering checked separately; numerical checks use unchanged executable tokens and the lesson’s independent count/vote checks."
+    },
+    "renderedReview": "controller-AI-reviewed",
+    "rendering": {
+      "status": "passed",
+      "scope": "Titles, axes, legends and glyphs visually checked in captured app renders; not native-language approval.",
+      "nativeSpeakerReview": "pending"
+    }
+  },
+  "caveat": "Reviewed educational examples; stated limitations still apply."
+}

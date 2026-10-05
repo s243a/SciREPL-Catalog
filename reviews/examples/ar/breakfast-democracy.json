@@ -1,0 +1,1140 @@
+{
+  "schema": 1,
+  "lesson": "breakfast-democracy",
+  "locale": "ar",
+  "source": {
+    "path": "workbooks/en/breakfast-democracy.srwb",
+    "sha256": "d533c0520415d162e61981771e8cc890dc8ee7595e79be794726bba5b778eff4"
+  },
+  "target": {
+    "path": "workbooks/ar/breakfast-democracy.srwb",
+    "sha256": "5db440308fe3ec840b815ba876be4fa4eab2f0336b1c7b53ef3098fb11ffd607",
+    "size": 19146,
+    "title": "ديمقراطية الإفطار: R → Python → Prolog",
+    "description": "استطلاع رأي تاريخي مثبت لتفضيلات وجبة الإفطار يمر عبر التحقق في R، وإحصاءات قواعد التصويت والتجميع في Python، والاستدلال في Prolog للتمييز بين دورات الأغلبية والفائز الإجمالي وفق كوندورسيه."
+  },
+  "translation": {
+    "model": "gemini-3.8-flash-medium",
+    "contentAudit": {
+      "status": "passed",
+      "sourceSha256": "d533c0520415d162e61981771e8cc890dc8ee7595e79be794726bba5b778eff4",
+      "targetSha256": "5db440308fe3ec840b815ba876be4fa4eab2f0336b1c7b53ef3098fb11ffd607",
+      "findings": [],
+      "errors": [],
+      "reviewMethod": "Previously passed AI/controller source-fidelity audit, preserved through verified presentation-only rebase where applicable; scoped final Bengali corrections independently adjudicated and re-gated.",
+      "provenance": {
+        "predecessorSourceSha256": "9bcbce31d8633a642967021824a776aaaf943846b133798fd034dfd740bcf448",
+        "predecessorTargetSha256": "afd45880dcae89ca0880c0ae4993fcd2847e1558bc891783617195c4691748e6",
+        "predecessorAuditSha256": "a0a22250b3880fec2ccd77f420afd786ab0e4d95ba5211a023e891b61a99fcf4",
+        "sharedLayoutOnly": true,
+        "sharedLayoutProjectionSha256": "ba1bc4a59a52c18d2bfaf5588ec0b6e9ef60c8b15ef1dcf13c334d06eb404c44"
+      },
+      "nativeSpeakerReview": "pending",
+      "caveat": "AI/controller review, not native-speaker or qualified technical certification."
+    },
+    "policy": {
+      "locale": "ar",
+      "protectedTexts": [
+        "https://raw.githubusercontent.com/PrefLib/PrefLib-Data/6e2e9dcef5ee624383e3e2031f741728dd64d032/datasets/00035%20-%20breakfast/00035-00000004.soc",
+        "/shared/breakfast_source.soc",
+        "75c0e89696e16ac7e6bb2a946943f529",
+        "UTF-8",
+        "^# ALTERNATIVE NAME",
+        "^# ALTERNATIVE NAME ([0-9]+):.*",
+        "^# ALTERNATIVE NAME [0-9]+: ",
+        "^[0-9]+:[[:space:]]*",
+        "list",
+        "rank_",
+        "/shared/breakfast_ballots.csv",
+        "/shared/breakfast_foods.csv",
+        "Toast pop-up",
+        "Buttered toast",
+        "English muffin",
+        "Jelly donut",
+        "Cinnamon toast",
+        "Blueberry muffin",
+        "Hard rolls",
+        "Toast + marmalade",
+        "Toast + jelly",
+        "Toast + margarine",
+        "Cinnamon bun",
+        "Danish pastry",
+        "Glazed donut",
+        "Coffee cake",
+        "Corn muffin",
+        "rb",
+        "7013ed36716e5a2b0c2d7813b0da9cd272cf1bfe90eb66d7d8311485a6a32db0",
+        "id",
+        "name",
+        "food(",
+        "beats(",
+        "taste_bloc(",
+        "rule_winner(plurality,",
+        "rule_winner(borda,",
+        "rule_winner(condorcet,",
+        "pairwise_model",
+        ".code",
+        ":- dynamic model/1.\\nmodel([",
+        ":- dynamic model/1."
+      ],
+      "protectedIds": [
+        "1:2:0",
+        "1:4:0",
+        "1:6:0",
+        "1:12:0",
+        "1:16:0",
+        "1:18:0",
+        "1:20:0",
+        "1:24:0",
+        "1:34:0",
+        "1:40:0",
+        "1:42:0",
+        "1:44:0",
+        "1:46:0",
+        "1:48:0",
+        "1:50:0",
+        "1:52:0",
+        "1:54:0",
+        "1:56:0",
+        "1:58:0",
+        "1:60:0",
+        "1:62:0",
+        "1:64:0",
+        "1:66:0",
+        "1:68:0",
+        "1:70:0",
+        "1:72:0",
+        "1:74:0",
+        "1:76:0",
+        "4:3:0",
+        "4:5:0",
+        "4:7:0",
+        "4:11:0",
+        "4:15:0",
+        "4:17:0",
+        "4:19:0",
+        "4:25:0",
+        "4:45:0",
+        "4:47:0",
+        "4:49:0",
+        "4:53:0",
+        "4:55:0",
+        "4:57:0",
+        "4:59:0",
+        "4:61:0",
+        "4:63:0",
+        "6:5:0"
+      ],
+      "widthOverrides": {},
+      "identifierRenames": false,
+      "cellNames": "English",
+      "nativeReviewCaveat": "Machine-translated; native-speaker review pending. Numerical/structural tests do not certify prose quality."
+    },
+    "keeps": {
+      "ids": [
+        "1:2:0",
+        "1:4:0",
+        "1:6:0",
+        "1:12:0",
+        "1:16:0",
+        "1:18:0",
+        "1:20:0",
+        "1:24:0",
+        "1:34:0",
+        "1:40:0",
+        "1:42:0",
+        "1:44:0",
+        "1:46:0",
+        "1:48:0",
+        "1:50:0",
+        "1:52:0",
+        "1:54:0",
+        "1:56:0",
+        "1:58:0",
+        "1:60:0",
+        "1:62:0",
+        "1:64:0",
+        "1:66:0",
+        "1:68:0",
+        "1:70:0",
+        "1:72:0",
+        "1:74:0",
+        "1:76:0",
+        "4:3:0",
+        "4:5:0",
+        "4:7:0",
+        "4:11:0",
+        "4:15:0",
+        "4:17:0",
+        "4:19:0",
+        "4:25:0",
+        "4:45:0",
+        "4:47:0",
+        "4:49:0",
+        "4:53:0",
+        "4:55:0",
+        "4:57:0",
+        "4:59:0",
+        "4:61:0",
+        "4:63:0",
+        "6:5:0"
+      ],
+      "texts": [
+        "https://raw.githubusercontent.com/PrefLib/PrefLib-Data/6e2e9dcef5ee624383e3e2031f741728dd64d032/datasets/00035%20-%20breakfast/00035-00000004.soc",
+        "/shared/breakfast_source.soc",
+        "75c0e89696e16ac7e6bb2a946943f529",
+        "UTF-8",
+        "UTF-8",
+        "^# ALTERNATIVE NAME",
+        "^# ALTERNATIVE NAME ([0-9]+):.*",
+        "^# ALTERNATIVE NAME [0-9]+: ",
+        "^[0-9]+:[[:space:]]*",
+        "list",
+        "rank_",
+        "/shared/breakfast_ballots.csv",
+        "/shared/breakfast_foods.csv",
+        "Toast pop-up",
+        "Buttered toast",
+        "English muffin",
+        "Jelly donut",
+        "Cinnamon toast",
+        "Blueberry muffin",
+        "Hard rolls",
+        "Toast + marmalade",
+        "Toast + jelly",
+        "Toast + margarine",
+        "Cinnamon bun",
+        "Danish pastry",
+        "Glazed donut",
+        "Coffee cake",
+        "Corn muffin",
+        "/shared/breakfast_source.soc",
+        "rb",
+        "7013ed36716e5a2b0c2d7813b0da9cd272cf1bfe90eb66d7d8311485a6a32db0",
+        "/shared/breakfast_foods.csv",
+        "id",
+        "name",
+        "/shared/breakfast_ballots.csv",
+        "rank_",
+        "food(",
+        "beats(",
+        "taste_bloc(",
+        "rule_winner(plurality,",
+        "rule_winner(borda,",
+        "rule_winner(condorcet,",
+        "pairwise_model",
+        ".code",
+        ":- dynamic model/1.\\nmodel([",
+        ":- dynamic model/1."
+      ]
+    },
+    "manifest": {
+      "manifest_version": 1,
+      "produced_by": "derived",
+      "generator": "tools/span-derive.mjs",
+      "locale": "ar",
+      "source": {
+        "path": "workbooks/en/breakfast-democracy.srwb",
+        "sha256": "d533c0520415d162e61981771e8cc890dc8ee7595e79be794726bba5b778eff4"
+      },
+      "target": {
+        "path": "workbooks/ar/breakfast-democracy.srwb",
+        "sha256": "5db440308fe3ec840b815ba876be4fa4eab2f0336b1c7b53ef3098fb11ffd607"
+      },
+      "spans": [
+        {
+          "cell_index": 1,
+          "cell_name": "fetch_breakfast_votes",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 74
+            },
+            "text": "This immutable source pin is data, not executable R/Python/Prolog code."
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 93
+            },
+            "text": "هذا التثبيت المصدري غير القابل للتغيير هو بيانات، وليس كود R/Python/Prolog قابلًا للتنفيذ."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "fetch_breakfast_votes",
+          "source_span": {
+            "start": {
+              "line": 4,
+              "col": 53
+            },
+            "end": {
+              "line": 4,
+              "col": 96
+            },
+            "text": "canonical LF text; base-R integrity check"
+          },
+          "target_span": {
+            "start": {
+              "line": 4,
+              "col": 53
+            },
+            "end": {
+              "line": 4,
+              "col": 84
+            },
+            "text": "نص LF قياسي؛ فحص تكامل base-R"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "fetch_breakfast_votes",
+          "source_span": {
+            "start": {
+              "line": 6,
+              "col": 1
+            },
+            "end": {
+              "line": 6,
+              "col": 79
+            },
+            "text": "Reuse a validated cached source. Never silently fall back to different data."
+          },
+          "target_span": {
+            "start": {
+              "line": 6,
+              "col": 1
+            },
+            "end": {
+              "line": 6,
+              "col": 89
+            },
+            "text": "إعادة استخدام مصدر مخزن مؤقتًا تم التحقق منه. عدم الرجوع بصمت أبدًا إلى بيانات مختلفة."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "fetch_breakfast_votes",
+          "source_span": {
+            "start": {
+              "line": 13,
+              "col": 11
+            },
+            "end": {
+              "line": 13,
+              "col": 69
+            },
+            "text": "Pinned dataset hash mismatch; stop and inspect the source."
+          },
+          "target_span": {
+            "start": {
+              "line": 13,
+              "col": 11
+            },
+            "end": {
+              "line": 13,
+              "col": 71
+            },
+            "text": "عدم تطابق في هاش مجموعة البيانات المثبتة؛ توقف وافحص المصدر."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "fetch_breakfast_votes",
+          "source_span": {
+            "start": {
+              "line": 51,
+              "col": 30
+            },
+            "end": {
+              "line": 51,
+              "col": 48
+            },
+            "text": "First-choice votes"
+          },
+          "target_span": {
+            "start": {
+              "line": 51,
+              "col": 30
+            },
+            "end": {
+              "line": 51,
+              "col": 48
+            },
+            "text": "أصوات الخيار الأول"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "fetch_breakfast_votes",
+          "source_span": {
+            "start": {
+              "line": 52,
+              "col": 17
+            },
+            "end": {
+              "line": 52,
+              "col": 51
+            },
+            "text": "What should accompany cold cereal?"
+          },
+          "target_span": {
+            "start": {
+              "line": 52,
+              "col": 17
+            },
+            "end": {
+              "line": 52,
+              "col": 59
+            },
+            "text": "ما الذي يجب أن يرافق حبوب الإفطار الباردة؟"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "fetch_breakfast_votes",
+          "source_span": {
+            "start": {
+              "line": 53,
+              "col": 14
+            },
+            "end": {
+              "line": 53,
+              "col": 59
+            },
+            "text": "Validated %d complete rankings of %d foods.\\n"
+          },
+          "target_span": {
+            "start": {
+              "line": 53,
+              "col": 14
+            },
+            "end": {
+              "line": 53,
+              "col": 64
+            },
+            "text": "تم التحقق من %d ترتيبًا كاملًا لـ %d من الأطعمة.\\n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "learn_preferences",
+          "source_span": {
+            "start": {
+              "line": 3,
+              "col": 1
+            },
+            "end": {
+              "line": 3,
+              "col": 74
+            },
+            "text": "The R cell stores canonical LF source bytes; verify SHA-256 before use."
+          },
+          "target_span": {
+            "start": {
+              "line": 3,
+              "col": 1
+            },
+            "end": {
+              "line": 3,
+              "col": 78
+            },
+            "text": "تخزن خلية R بايتات المصدر بتنسيق LF القياسي؛ تحقق من SHA-256 قبل الاستخدام."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "learn_preferences",
+          "source_span": {
+            "start": {
+              "line": 7,
+              "col": 23
+            },
+            "end": {
+              "line": 7,
+              "col": 105
+            },
+            "text": "Pinned dataset SHA-256 mismatch; run fetch_breakfast_votes and inspect the source."
+          },
+          "target_span": {
+            "start": {
+              "line": 7,
+              "col": 23
+            },
+            "end": {
+              "line": 7,
+              "col": 110
+            },
+            "text": "عدم تطابق في SHA-256 لمجموعة البيانات المثبتة؛ شغّل fetch_breakfast_votes وافحص المصدر."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "learn_preferences",
+          "source_span": {
+            "start": {
+              "line": 16,
+              "col": 23
+            },
+            "end": {
+              "line": 16,
+              "col": 68
+            },
+            "text": "Expected the pinned 42-voter, 15-food dataset"
+          },
+          "target_span": {
+            "start": {
+              "line": 16,
+              "col": 23
+            },
+            "end": {
+              "line": 16,
+              "col": 93
+            },
+            "text": "كان من المتوقع مجموعة البيانات المثبتة المكونة من 42 مصوتًا و15 طعامًا"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "learn_preferences",
+          "source_span": {
+            "start": {
+              "line": 19,
+              "col": 23
+            },
+            "end": {
+              "line": 19,
+              "col": 82
+            },
+            "text": "Every ballot must be a complete permutation of the food IDs"
+          },
+          "target_span": {
+            "start": {
+              "line": 19,
+              "col": 23
+            },
+            "end": {
+              "line": 19,
+              "col": 82
+            },
+            "text": "يجب أن تكون كل بطاقة اقتراع تبديلًا كاملًا لمعرّفات الأطعمة"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "learn_preferences",
+          "source_span": {
+            "start": {
+              "line": 30,
+              "col": 1
+            },
+            "end": {
+              "line": 30,
+              "col": 68
+            },
+            "text": "Three taste profiles, learned locally with deterministic k-means."
+          },
+          "target_span": {
+            "start": {
+              "line": 30,
+              "col": 1
+            },
+            "end": {
+              "line": 30,
+              "col": 69
+            },
+            "text": "ثلاثة ملفات تعريف للذوق، تم تعلمها محليًا باستخدام k-means الحتمي."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "learn_preferences",
+          "source_span": {
+            "start": {
+              "line": 42,
+              "col": 55
+            },
+            "end": {
+              "line": 42,
+              "col": 89
+            },
+            "text": "retain an empty cluster's center"
+          },
+          "target_span": {
+            "start": {
+              "line": 42,
+              "col": 55
+            },
+            "end": {
+              "line": 42,
+              "col": 82
+            },
+            "text": "الاحتفاظ بمركز عنقود فارغ"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "learn_preferences",
+          "source_span": {
+            "start": {
+              "line": 57,
+              "col": 1
+            },
+            "end": {
+              "line": 57,
+              "col": 75
+            },
+            "text": "Keep all tied plurality/Borda winners instead of choosing the lowest ID."
+          },
+          "target_span": {
+            "start": {
+              "line": 57,
+              "col": 1
+            },
+            "end": {
+              "line": 57,
+              "col": 87
+            },
+            "text": "الاحتفاظ بجميع الفائزين المتعادلين في التعددية/بوردا بدلًا من اختيار المعرّف الأدنى."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "learn_preferences",
+          "source_span": {
+            "start": {
+              "line": 65,
+              "col": 8
+            },
+            "end": {
+              "line": 65,
+              "col": 28
+            },
+            "text": "Plurality winner(s):"
+          },
+          "target_span": {
+            "start": {
+              "line": 65,
+              "col": 8
+            },
+            "end": {
+              "line": 65,
+              "col": 36
+            },
+            "text": "الفائز (الفائزون) بالتعددية:"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "learn_preferences",
+          "source_span": {
+            "start": {
+              "line": 66,
+              "col": 8
+            },
+            "end": {
+              "line": 66,
+              "col": 28
+            },
+            "text": "Borda winner(s)    :"
+          },
+          "target_span": {
+            "start": {
+              "line": 66,
+              "col": 8
+            },
+            "end": {
+              "line": 66,
+              "col": 37
+            },
+            "text": "الفائز (الفائزون) ببوردا    :"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "learn_preferences",
+          "source_span": {
+            "start": {
+              "line": 67,
+              "col": 8
+            },
+            "end": {
+              "line": 67,
+              "col": 26
+            },
+            "text": "Condorcet winner :"
+          },
+          "target_span": {
+            "start": {
+              "line": 67,
+              "col": 8
+            },
+            "end": {
+              "line": 67,
+              "col": 27
+            },
+            "text": "الفائز بكوندورسيه :"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "learn_preferences",
+          "source_span": {
+            "start": {
+              "line": 67,
+              "col": 72
+            },
+            "end": {
+              "line": 67,
+              "col": 76
+            },
+            "text": "none"
+          },
+          "target_span": {
+            "start": {
+              "line": 67,
+              "col": 73
+            },
+            "end": {
+              "line": 67,
+              "col": 80
+            },
+            "text": "لا يوجد"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "learn_preferences",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 70,
+              "col": 13
+            },
+            "end": {
+              "line": 70,
+              "col": 64
+            },
+            "text": "Taste bloc "
+          },
+          "target_span": {
+            "start": {
+              "line": 70,
+              "col": 13
+            },
+            "end": {
+              "line": 70,
+              "col": 69
+            },
+            "text": "كتلة الذوق "
+          },
+          "placeholders": [
+            "{k+1}",
+            "{(labels == k).sum():2d}"
+          ]
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "learn_preferences",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 70,
+              "col": 13
+            },
+            "end": {
+              "line": 70,
+              "col": 64
+            },
+            "text": " voters):"
+          },
+          "target_span": {
+            "start": {
+              "line": 70,
+              "col": 13
+            },
+            "end": {
+              "line": 70,
+              "col": 69
+            },
+            "text": " من المصوتين):"
+          },
+          "placeholders": [
+            "{k+1}",
+            "{(labels == k).sum():2d}"
+          ]
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "learn_preferences",
+          "source_span": {
+            "start": {
+              "line": 71,
+              "col": 8
+            },
+            "end": {
+              "line": 71,
+              "col": 48
+            },
+            "text": "Named pairwise model written for Prolog."
+          },
+          "target_span": {
+            "start": {
+              "line": 71,
+              "col": 8
+            },
+            "end": {
+              "line": 71,
+              "col": 58
+            },
+            "text": "تمت كتابة نموذج المقارنة الزوجية المسمى لـ Prolog."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "find_majority_cycle",
+          "source_span": {
+            "start": {
+              "line": 12,
+              "col": 17
+            },
+            "end": {
+              "line": 12,
+              "col": 82
+            },
+            "text": "Run fetch_breakfast_votes and learn_preferences before this cell."
+          },
+          "target_span": {
+            "start": {
+              "line": 12,
+              "col": 17
+            },
+            "end": {
+              "line": 12,
+              "col": 78
+            },
+            "text": "شغّل fetch_breakfast_votes وlearn_preferences قبل هذه الخلية."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "find_majority_cycle",
+          "source_span": {
+            "start": {
+              "line": 21,
+              "col": 17
+            },
+            "end": {
+              "line": 21,
+              "col": 63
+            },
+            "text": "No strict three-food majority cycle was found."
+          },
+          "target_span": {
+            "start": {
+              "line": 21,
+              "col": 17
+            },
+            "end": {
+              "line": 21,
+              "col": 63
+            },
+            "text": "لم يُعثر على دورة أغلبية صارمة من ثلاثة أطعمة."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "find_majority_cycle",
+          "source_span": {
+            "start": {
+              "line": 24,
+              "col": 13
+            },
+            "end": {
+              "line": 24,
+              "col": 58
+            },
+            "text": "ROCK-PAPER-SCISSORS, SERVED FOR BREAKFAST~n~n"
+          },
+          "target_span": {
+            "start": {
+              "line": 24,
+              "col": 13
+            },
+            "end": {
+              "line": 24,
+              "col": 48
+            },
+            "text": "حجر-ورقة-مقص، تُقدم على الإفطار~n~n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "find_majority_cycle",
+          "source_span": {
+            "start": {
+              "line": 25,
+              "col": 13
+            },
+            "end": {
+              "line": 25,
+              "col": 38
+            },
+            "text": "~w beats ~w by ~d votes~n"
+          },
+          "target_span": {
+            "start": {
+              "line": 25,
+              "col": 13
+            },
+            "end": {
+              "line": 25,
+              "col": 45
+            },
+            "text": "~w يهزم ~w بفارق ~d من الأصوات~n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "find_majority_cycle",
+          "source_span": {
+            "start": {
+              "line": 26,
+              "col": 13
+            },
+            "end": {
+              "line": 26,
+              "col": 38
+            },
+            "text": "~w beats ~w by ~d votes~n"
+          },
+          "target_span": {
+            "start": {
+              "line": 26,
+              "col": 13
+            },
+            "end": {
+              "line": 26,
+              "col": 45
+            },
+            "text": "~w يهزم ~w بفارق ~d من الأصوات~n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "find_majority_cycle",
+          "source_span": {
+            "start": {
+              "line": 27,
+              "col": 13
+            },
+            "end": {
+              "line": 27,
+              "col": 40
+            },
+            "text": "~w beats ~w by ~d votes~n~n"
+          },
+          "target_span": {
+            "start": {
+              "line": 27,
+              "col": 13
+            },
+            "end": {
+              "line": 27,
+              "col": 47
+            },
+            "text": "~w يهزم ~w بفارق ~d من الأصوات~n~n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "find_majority_cycle",
+          "source_span": {
+            "start": {
+              "line": 29,
+              "col": 43
+            },
+            "end": {
+              "line": 29,
+              "col": 58
+            },
+            "text": "~w winner: ~w~n"
+          },
+          "target_span": {
+            "start": {
+              "line": 29,
+              "col": 43
+            },
+            "end": {
+              "line": 29,
+              "col": 61
+            },
+            "text": "الفائز بـ ~w: ~w~n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        }
+      ],
+      "exclusions": []
+    },
+    "nativeSpeakerReview": "pending"
+  },
+  "browser": {
+    "status": "passed",
+    "first": {
+      "exportSha256": "abff854de3ccd085d1801f82a077b04804be75a3b26332ac970948df50ffafea",
+      "reportSha256": "9c07b831779a50d47d24cfdf675f89d97cb0449ba54b734405896ad379db5b22",
+      "appVersion": "1.4.0",
+      "cells": 9,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "second": {
+      "exportSha256": "baa84fd853e9e66caaea1e79164ea6a84fa64035cf6718a8e416785a98f51f2d",
+      "reportSha256": "9c07b831779a50d47d24cfdf675f89d97cb0449ba54b734405896ad379db5b22",
+      "appVersion": "1.4.0",
+      "cells": 9,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "englishBaseline": [
+      {
+        "exportSha256": "1968eebedf4d368b281fd687be8b1cf7185016441155e950a2d2993e328a09e6",
+        "reportSha256": "b4f80eb448ea52f9f40bd84887e063e7d7db6a62c4091a5dff6abe416abec1d0",
+        "appVersion": "1.4.0",
+        "cells": 9,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      },
+      {
+        "exportSha256": "2eef01bb5f928cd3500afb0e341fc092b9e4add8ecd2a1741fc6688c651b39b1",
+        "reportSha256": "b4f80eb448ea52f9f40bd84887e063e7d7db6a62c4091a5dff6abe416abec1d0",
+        "appVersion": "1.4.0",
+        "cells": 9,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      }
+    ],
+    "deterministic": true,
+    "textOracle": {
+      "first": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      },
+      "second": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      }
+    },
+    "plotData": {
+      "status": "passed",
+      "count": 0
+    },
+    "rasterCharts": {
+      "decoded": true,
+      "count": 1,
+      "caveat": "R raster rendering checked separately; numerical checks use unchanged executable tokens and the lesson’s independent count/vote checks."
+    },
+    "renderedReview": "controller-AI-reviewed",
+    "rendering": {
+      "status": "passed",
+      "scope": "Titles, axes, legends and glyphs visually checked in captured app renders; not native-language approval.",
+      "nativeSpeakerReview": "pending"
+    }
+  },
+  "caveat": "Machine translated with Gemini and reviewed by AI/controller checks, including scoped corrections where needed. Native-speaker review is pending; structural and numerical checks do not certify prose quality."
+}

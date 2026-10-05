@@ -1,0 +1,92 @@
+{
+  "schema": 1,
+  "lesson": "patients-to-evidence",
+  "locale": "en",
+  "source": {
+    "path": "workbooks/en/patients-to-evidence.srwb",
+    "sha256": "91fcb454cdbf2e135e95fff03cdc59a3c201ed90319b8093cc2f129e2ef0fe4b"
+  },
+  "target": {
+    "path": "workbooks/en/patients-to-evidence.srwb",
+    "sha256": "91fcb454cdbf2e135e95fff03cdc59a3c201ed90319b8093cc2f129e2ef0fe4b",
+    "size": 19727,
+    "title": "From Patients to Evidence",
+    "description": "Simulate fictional randomized trials, examine confidence-interval coverage, and compare relative risk, absolute benefit and NNT. Educational, not medical advice."
+  },
+  "translation": null,
+  "browser": {
+    "status": "passed",
+    "first": {
+      "exportSha256": "51fc4212a0811605131bcd1b38e367cfe651e0a4a8d4e2997395b217ee13c4ee",
+      "reportSha256": "6667d7b42d0ebc8f792576aecfdc7d1073dd8166b5027612b623fb4fc8994e48",
+      "appVersion": "1.4.0",
+      "cells": 13,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "second": {
+      "exportSha256": "27ef646c8d616167b8fca64b02edf7654c8de3b392bbb8908c81e9a5857cd1d2",
+      "reportSha256": "6667d7b42d0ebc8f792576aecfdc7d1073dd8166b5027612b623fb4fc8994e48",
+      "appVersion": "1.4.0",
+      "cells": 13,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "englishBaseline": [
+      {
+        "exportSha256": "51fc4212a0811605131bcd1b38e367cfe651e0a4a8d4e2997395b217ee13c4ee",
+        "reportSha256": "6667d7b42d0ebc8f792576aecfdc7d1073dd8166b5027612b623fb4fc8994e48",
+        "appVersion": "1.4.0",
+        "cells": 13,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      },
+      {
+        "exportSha256": "27ef646c8d616167b8fca64b02edf7654c8de3b392bbb8908c81e9a5857cd1d2",
+        "reportSha256": "6667d7b42d0ebc8f792576aecfdc7d1073dd8166b5027612b623fb4fc8994e48",
+        "appVersion": "1.4.0",
+        "cells": 13,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      }
+    ],
+    "deterministic": true,
+    "textOracle": {
+      "first": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [
+          4,
+          6
+        ],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      },
+      "second": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [
+          4,
+          6
+        ],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      }
+    },
+    "plotData": {
+      "status": "passed",
+      "count": 2
+    },
+    "rasterCharts": null,
+    "renderedReview": "controller-AI-reviewed",
+    "rendering": {
+      "status": "passed",
+      "scope": "Titles, axes, legends and glyphs visually checked in captured app renders; not native-language approval.",
+      "nativeSpeakerReview": "pending",
+      "note": "Full540px chart verified with settled export renders; earlier viewport-resize crops retained in private history."
+    }
+  },
+  "caveat": "Reviewed educational examples; stated limitations still apply."
+}

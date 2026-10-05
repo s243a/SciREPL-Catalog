@@ -1,0 +1,1488 @@
+{
+  "schema": 1,
+  "lesson": "simpsons-paradox",
+  "locale": "ru",
+  "source": {
+    "path": "workbooks/en/simpsons-paradox.srwb",
+    "sha256": "a99db8a614a1392f64ad4f1a5d00181a26c65bd3f4e67581de4b911e4299aacb"
+  },
+  "target": {
+    "path": "workbooks/ru/simpsons-paradox.srwb",
+    "sha256": "8475ea04cb96f44af2110359a00d7bc9510b984c2116155d1300d15e601694a1",
+    "size": 20330,
+    "title": "Парадокс Симпсона",
+    "description": "Используйте синтетические данные для демонстрации парадокса Симпсона, сравнения стратифицированных и объединенных показателей успешности в R и JavaScript и отделения ассоциации от причинно-следственной связи."
+  },
+  "translation": {
+    "model": "gemini-3.8-flash-medium",
+    "contentAudit": {
+      "status": "passed",
+      "sourceSha256": "a99db8a614a1392f64ad4f1a5d00181a26c65bd3f4e67581de4b911e4299aacb",
+      "targetSha256": "8475ea04cb96f44af2110359a00d7bc9510b984c2116155d1300d15e601694a1",
+      "findings": [],
+      "errors": [],
+      "reviewMethod": "Previously passed AI/controller source-fidelity audit, preserved through verified presentation-only rebase where applicable; scoped final Bengali corrections independently adjudicated and re-gated.",
+      "provenance": {
+        "predecessorSourceSha256": "bb32d966c1ee1ec6f5372f621804a8121a08cdb0b976e89bce118449c168aac0",
+        "predecessorTargetSha256": "da7a8093be7922fb22c331b3524697107ac904f5bb676acdf00fad1d27583369",
+        "predecessorAuditSha256": "45a7a42881e58e355d2f78ba389cfbe8472be35d7cc7b0d3f685bc0679983277",
+        "sharedLayoutOnly": true,
+        "sharedLayoutProjectionSha256": "6b414231fd51925b51bae06703c9f9e0c84d667fc4fe122a4d234049dd76e321"
+      },
+      "nativeSpeakerReview": "pending",
+      "caveat": "AI/controller review, not native-speaker or qualified technical certification."
+    },
+    "policy": {
+      "locale": "ru",
+      "protectedTexts": [
+        "Mild",
+        "Severe",
+        "success",
+        "failure",
+        "stratum",
+        "treatment",
+        "outcome",
+        "count"
+      ],
+      "protectedIds": [
+        "1:8:0",
+        "1:10:0",
+        "1:16:0",
+        "1:18:0",
+        "3:4:0",
+        "3:6:0",
+        "3:18:0",
+        "3:20:0",
+        "3:28:0",
+        "3:30:0",
+        "3:44:0",
+        "3:46:0",
+        "3:56:0",
+        "3:58:0",
+        "3:66:0",
+        "3:68:0",
+        "3:82:0",
+        "3:88:0",
+        "3:94:0",
+        "3:100:0",
+        "4:2:0",
+        "4:4:0",
+        "4:8:0",
+        "4:14:0",
+        "4:22:0",
+        "4:28:0"
+      ],
+      "widthOverrides": {},
+      "identifierRenames": false,
+      "cellNames": "English",
+      "nativeReviewCaveat": "Machine-translated; native-speaker review pending. Numerical/structural tests do not certify prose quality."
+    },
+    "keeps": {
+      "ids": [
+        "1:8:0",
+        "1:10:0",
+        "1:16:0",
+        "1:18:0",
+        "3:4:0",
+        "3:6:0",
+        "3:18:0",
+        "3:20:0",
+        "3:28:0",
+        "3:30:0",
+        "3:44:0",
+        "3:46:0",
+        "3:56:0",
+        "3:58:0",
+        "3:66:0",
+        "3:68:0",
+        "3:82:0",
+        "3:88:0",
+        "3:94:0",
+        "3:100:0",
+        "4:2:0",
+        "4:4:0",
+        "4:8:0",
+        "4:14:0",
+        "4:22:0",
+        "4:28:0",
+        "4:38:0",
+        "4:50:0",
+        "4:54:0",
+        "5:16:0",
+        "5:18:0",
+        "5:20:0"
+      ],
+      "texts": [
+        "Mild",
+        "Severe",
+        "success",
+        "failure",
+        "success",
+        "failure",
+        "success",
+        "failure",
+        "success",
+        "failure",
+        "success",
+        "failure",
+        "success",
+        "failure",
+        "success",
+        "failure",
+        "Mild",
+        "Mild",
+        "Severe",
+        "Severe",
+        "Mild",
+        "Severe",
+        "Mild",
+        "Severe",
+        "Mild",
+        "Severe",
+        "#ED7D31",
+        "topright",
+        "grey40",
+        "  p_A = ${r.A.p.toFixed(4)} (${r.A.s}/${r.A.s + r.A.f})",
+        "  p_B = ${r.B.p.toFixed(4)} (${r.B.s}/${r.B.s + r.B.f})",
+        "  RR = ${r.RR.toFixed(4)}"
+      ]
+    },
+    "manifest": {
+      "manifest_version": 1,
+      "produced_by": "derived",
+      "generator": "tools/span-derive.mjs",
+      "locale": "ru",
+      "source": {
+        "path": "workbooks/en/simpsons-paradox.srwb",
+        "sha256": "a99db8a614a1392f64ad4f1a5d00181a26c65bd3f4e67581de4b911e4299aacb"
+      },
+      "target": {
+        "path": "workbooks/ru/simpsons-paradox.srwb",
+        "sha256": "8475ea04cb96f44af2110359a00d7bc9510b984c2116155d1300d15e601694a1"
+      },
+      "spans": [
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 50
+            },
+            "text": "---- SYNTHETIC / FICTIONAL DATA (not real) ----"
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 61
+            },
+            "text": "---- СИНТЕТИЧЕСКИЕ / ВЫМЫШЛЕННЫЕ ДАННЫЕ (не реальные) ----"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 2,
+              "col": 1
+            },
+            "end": {
+              "line": 2,
+              "col": 72
+            },
+            "text": "Two strata; two treatments A and B; binary outcome (success/failure)."
+          },
+          "target_span": {
+            "start": {
+              "line": 2,
+              "col": 1
+            },
+            "end": {
+              "line": 2,
+              "col": 65
+            },
+            "text": "Две страты; два лечения A и B; бинарный исход (успех/неудача)."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 3,
+              "col": 1
+            },
+            "end": {
+              "line": 3,
+              "col": 72
+            },
+            "text": "Constructed so that A > B within each stratum, but B > A when pooled."
+          },
+          "target_span": {
+            "start": {
+              "line": 3,
+              "col": 1
+            },
+            "end": {
+              "line": 3,
+              "col": 75
+            },
+            "text": "Построено так, что A > B внутри каждой страты, но B > A при объединении."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 4,
+              "col": 1
+            },
+            "end": {
+              "line": 4,
+              "col": 89
+            },
+            "text": "Mechanism: A treats mostly Severe patients (high-risk), B treats mostly Mild patients."
+          },
+          "target_span": {
+            "start": {
+              "line": 4,
+              "col": 1
+            },
+            "end": {
+              "line": 4,
+              "col": 109
+            },
+            "text": "Механизм: A лечит преимущественно пациентов Severe (высокий риск), B лечит преимущественно пациентов Mild."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 11,
+              "col": 5
+            },
+            "end": {
+              "line": 11,
+              "col": 19
+            },
+            "text": "Mild stratum"
+          },
+          "target_span": {
+            "start": {
+              "line": 11,
+              "col": 5
+            },
+            "end": {
+              "line": 11,
+              "col": 18
+            },
+            "text": "Страта Mild"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 12,
+              "col": 19
+            },
+            "end": {
+              "line": 12,
+              "col": 71
+            },
+            "text": "A: 85 success, 15 failure   -> p = 0.85  (n = 100)"
+          },
+          "target_span": {
+            "start": {
+              "line": 12,
+              "col": 19
+            },
+            "end": {
+              "line": 12,
+              "col": 70
+            },
+            "text": "A: 85 успехов, 15 неудач   -> p = 0.85  (n = 100)"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 13,
+              "col": 19
+            },
+            "end": {
+              "line": 13,
+              "col": 71
+            },
+            "text": "B: 350 success, 150 failure -> p = 0.70  (n = 500)"
+          },
+          "target_span": {
+            "start": {
+              "line": 13,
+              "col": 19
+            },
+            "end": {
+              "line": 13,
+              "col": 70
+            },
+            "text": "B: 350 успехов, 150 неудач -> p = 0.70  (n = 500)"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 14,
+              "col": 5
+            },
+            "end": {
+              "line": 14,
+              "col": 21
+            },
+            "text": "Severe stratum"
+          },
+          "target_span": {
+            "start": {
+              "line": 14,
+              "col": 5
+            },
+            "end": {
+              "line": 14,
+              "col": 20
+            },
+            "text": "Страта Severe"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 15,
+              "col": 19
+            },
+            "end": {
+              "line": 15,
+              "col": 71
+            },
+            "text": "A: 30 success, 470 failure  -> p = 0.06  (n = 500)"
+          },
+          "target_span": {
+            "start": {
+              "line": 15,
+              "col": 19
+            },
+            "end": {
+              "line": 15,
+              "col": 70
+            },
+            "text": "A: 30 успехов, 470 неудач  -> p = 0.06  (n = 500)"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 16,
+              "col": 19
+            },
+            "end": {
+              "line": 16,
+              "col": 71
+            },
+            "text": "B:  2 success, 98 failure   -> p = 0.02  (n = 100)"
+          },
+          "target_span": {
+            "start": {
+              "line": 16,
+              "col": 19
+            },
+            "end": {
+              "line": 16,
+              "col": 69
+            },
+            "text": "B:  2 успеха, 98 неудач   -> p = 0.02  (n = 100)"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 68
+            },
+            "text": "---- Computation from the dataset (nothing hard-coded below) ----"
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 83
+            },
+            "text": "---- Вычисления на основе набора данных (ниже нет жестко заданных значений) ----"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 3,
+              "col": 1
+            },
+            "end": {
+              "line": 3,
+              "col": 63
+            },
+            "text": "Derive strata from the data cell: run data before this cell."
+          },
+          "target_span": {
+            "start": {
+              "line": 3,
+              "col": 1
+            },
+            "end": {
+              "line": 3,
+              "col": 69
+            },
+            "text": "Получение страт из ячейки data: запустите data перед этой ячейкой."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 14,
+              "col": 1
+            },
+            "end": {
+              "line": 14,
+              "col": 33
+            },
+            "text": "--- Within-stratum results ---"
+          },
+          "target_span": {
+            "start": {
+              "line": 14,
+              "col": 1
+            },
+            "end": {
+              "line": 14,
+              "col": 34
+            },
+            "text": "--- Результаты внутри страт ---"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 17,
+              "col": 16
+            },
+            "end": {
+              "line": 17,
+              "col": 37
+            },
+            "text": "--- Stratum: %s ---\\n"
+          },
+          "target_span": {
+            "start": {
+              "line": 17,
+              "col": 16
+            },
+            "end": {
+              "line": 17,
+              "col": 36
+            },
+            "text": "--- Страта: %s ---\\n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 18,
+              "col": 16
+            },
+            "end": {
+              "line": 18,
+              "col": 71
+            },
+            "text": "  A: success = %d, failure = %d  (p_A = %.4f, n = %d)\\n"
+          },
+          "target_span": {
+            "start": {
+              "line": 18,
+              "col": 16
+            },
+            "end": {
+              "line": 18,
+              "col": 69
+            },
+            "text": "  A: успех = %d, неудача = %d  (p_A = %.4f, n = %d)\\n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 19,
+              "col": 16
+            },
+            "end": {
+              "line": 19,
+              "col": 71
+            },
+            "text": "  B: success = %d, failure = %d  (p_B = %.4f, n = %d)\\n"
+          },
+          "target_span": {
+            "start": {
+              "line": 19,
+              "col": 16
+            },
+            "end": {
+              "line": 19,
+              "col": 69
+            },
+            "text": "  B: успех = %d, неудача = %d  (p_B = %.4f, n = %d)\\n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 20,
+              "col": 16
+            },
+            "end": {
+              "line": 20,
+              "col": 42
+            },
+            "text": "  RR(A/B) in %s = %.4f\\n\\n"
+          },
+          "target_span": {
+            "start": {
+              "line": 20,
+              "col": 16
+            },
+            "end": {
+              "line": 20,
+              "col": 41
+            },
+            "text": "  RR(A/B) в %s = %.4f\\n\\n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 23,
+              "col": 1
+            },
+            "end": {
+              "line": 23,
+              "col": 48
+            },
+            "text": "--- Pooled results (collapse over strata) ---"
+          },
+          "target_span": {
+            "start": {
+              "line": 23,
+              "col": 1
+            },
+            "end": {
+              "line": 23,
+              "col": 56
+            },
+            "text": "--- Объединенные результаты (сведение по стратам) ---"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 31,
+              "col": 6
+            },
+            "end": {
+              "line": 31,
+              "col": 41
+            },
+            "text": "--- Pooled (strata collapsed) ---\\n"
+          },
+          "target_span": {
+            "start": {
+              "line": 31,
+              "col": 6
+            },
+            "end": {
+              "line": 31,
+              "col": 52
+            },
+            "text": "--- Объединенные данные (страты сведены) ---\\n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 32,
+              "col": 14
+            },
+            "end": {
+              "line": 32,
+              "col": 69
+            },
+            "text": "  A: success = %d, failure = %d  (p_A = %.4f, n = %d)\\n"
+          },
+          "target_span": {
+            "start": {
+              "line": 32,
+              "col": 14
+            },
+            "end": {
+              "line": 32,
+              "col": 67
+            },
+            "text": "  A: успех = %d, неудача = %d  (p_A = %.4f, n = %d)\\n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 33,
+              "col": 14
+            },
+            "end": {
+              "line": 33,
+              "col": 69
+            },
+            "text": "  B: success = %d, failure = %d  (p_B = %.4f, n = %d)\\n"
+          },
+          "target_span": {
+            "start": {
+              "line": 33,
+              "col": 14
+            },
+            "end": {
+              "line": 33,
+              "col": 67
+            },
+            "text": "  B: успех = %d, неудача = %d  (p_B = %.4f, n = %d)\\n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 34,
+              "col": 14
+            },
+            "end": {
+              "line": 34,
+              "col": 41
+            },
+            "text": "  Pooled RR(A/B) = %.4f\\n\\n"
+          },
+          "target_span": {
+            "start": {
+              "line": 34,
+              "col": 14
+            },
+            "end": {
+              "line": 34,
+              "col": 47
+            },
+            "text": "  Объединенный RR(A/B) = %.4f\\n\\n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 36,
+              "col": 1
+            },
+            "end": {
+              "line": 36,
+              "col": 32
+            },
+            "text": "--- Proofs of the paradox ---"
+          },
+          "target_span": {
+            "start": {
+              "line": 36,
+              "col": 1
+            },
+            "end": {
+              "line": 36,
+              "col": 35
+            },
+            "text": "--- Доказательства парадокса ---"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 42,
+              "col": 20
+            },
+            "end": {
+              "line": 42,
+              "col": 43
+            },
+            "text": "A beats B within Mild"
+          },
+          "target_span": {
+            "start": {
+              "line": 42,
+              "col": 20
+            },
+            "end": {
+              "line": 42,
+              "col": 49
+            },
+            "text": "A превосходит B внутри Mild"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 43,
+              "col": 20
+            },
+            "end": {
+              "line": 43,
+              "col": 45
+            },
+            "text": "A beats B within Severe"
+          },
+          "target_span": {
+            "start": {
+              "line": 43,
+              "col": 20
+            },
+            "end": {
+              "line": 43,
+              "col": 51
+            },
+            "text": "A превосходит B внутри Severe"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 44,
+              "col": 20
+            },
+            "end": {
+              "line": 44,
+              "col": 71
+            },
+            "text": "... yet A loses to B overall -> Simpson's paradox"
+          },
+          "target_span": {
+            "start": {
+              "line": 44,
+              "col": 20
+            },
+            "end": {
+              "line": 44,
+              "col": 70
+            },
+            "text": "... но A уступает B в целом -> парадокс Симпсона"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 46,
+              "col": 6
+            },
+            "end": {
+              "line": 46,
+              "col": 83
+            },
+            "text": "✔ All stopifnot checks passed: RR_mild > 1, RR_severe > 1, but RR_pooled < 1."
+          },
+          "target_span": {
+            "start": {
+              "line": 46,
+              "col": 6
+            },
+            "end": {
+              "line": 46,
+              "col": 86
+            },
+            "text": "✔ Все проверки stopifnot пройдены: RR_mild > 1, RR_severe > 1, но RR_pooled < 1."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "viz",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 77
+            },
+            "text": "---- Visualization: success rates by stratum and pooled (base R only) ----"
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 96
+            },
+            "text": "---- Визуализация: показатели успеха по стратам и в объединенном виде (только базовый R) ----"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "viz",
+          "source_span": {
+            "start": {
+              "line": 3,
+              "col": 32
+            },
+            "end": {
+              "line": 3,
+              "col": 38
+            },
+            "text": "Pooled"
+          },
+          "target_span": {
+            "start": {
+              "line": 3,
+              "col": 32
+            },
+            "end": {
+              "line": 3,
+              "col": 44
+            },
+            "text": "Объединенные"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "viz",
+          "source_span": {
+            "start": {
+              "line": 12,
+              "col": 31
+            },
+            "end": {
+              "line": 12,
+              "col": 88
+            },
+            "text": "Simpson's Paradox: success rate by group (synthetic data)"
+          },
+          "target_span": {
+            "start": {
+              "line": 12,
+              "col": 31
+            },
+            "end": {
+              "line": 12,
+              "col": 105
+            },
+            "text": "Парадокс Симпсона: доля успешных исходов по группам (синтетические данные)"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "viz",
+          "source_span": {
+            "start": {
+              "line": 13,
+              "col": 17
+            },
+            "end": {
+              "line": 13,
+              "col": 35
+            },
+            "text": "Success proportion"
+          },
+          "target_span": {
+            "start": {
+              "line": 13,
+              "col": 17
+            },
+            "end": {
+              "line": 13,
+              "col": 38
+            },
+            "text": "Доля успешных исходов"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "viz",
+          "source_span": {
+            "start": {
+              "line": 13,
+              "col": 55
+            },
+            "end": {
+              "line": 13,
+              "col": 66
+            },
+            "text": "Treatment A"
+          },
+          "target_span": {
+            "start": {
+              "line": 13,
+              "col": 58
+            },
+            "end": {
+              "line": 13,
+              "col": 67
+            },
+            "text": "Лечение A"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "viz",
+          "source_span": {
+            "start": {
+              "line": 13,
+              "col": 70
+            },
+            "end": {
+              "line": 13,
+              "col": 81
+            },
+            "text": "Treatment B"
+          },
+          "target_span": {
+            "start": {
+              "line": 13,
+              "col": 71
+            },
+            "end": {
+              "line": 13,
+              "col": 80
+            },
+            "text": "Лечение B"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 73
+            },
+            "text": "Independent recalculation from the underlying counts (SYNTHETIC data)"
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 69
+            },
+            "text": "Независимый пересчет по исходным подсчетам (СИНТЕТИЧЕСКИЕ данные)"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 14,
+              "col": 1
+            },
+            "end": {
+              "line": 14,
+              "col": 56
+            },
+            "text": "Pool by summing successes and failures across strata"
+          },
+          "target_span": {
+            "start": {
+              "line": 14,
+              "col": 1
+            },
+            "end": {
+              "line": 14,
+              "col": 62
+            },
+            "text": "Объединение путем суммирования успехов и неудач по стратам"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 23,
+              "col": 1
+            },
+            "end": {
+              "line": 23,
+              "col": 20
+            },
+            "text": "Readable summary"
+          },
+          "target_span": {
+            "start": {
+              "line": 23,
+              "col": 1
+            },
+            "end": {
+              "line": 23,
+              "col": 24
+            },
+            "text": "Удобочитаемая сводка"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 24,
+              "col": 14
+            },
+            "end": {
+              "line": 24,
+              "col": 68
+            },
+            "text": "Independent JavaScript recalculation (synthetic data):"
+          },
+          "target_span": {
+            "start": {
+              "line": 24,
+              "col": 14
+            },
+            "end": {
+              "line": 24,
+              "col": 72
+            },
+            "text": "Независимый пересчет на JavaScript (синтетические данные):"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 35,
+              "col": 1
+            },
+            "end": {
+              "line": 35,
+              "col": 78
+            },
+            "text": "Check the original fixed counts independently; this does not read R state."
+          },
+          "target_span": {
+            "start": {
+              "line": 35,
+              "col": 1
+            },
+            "end": {
+              "line": 35,
+              "col": 86
+            },
+            "text": "Независимая проверка исходных фиксированных подсчетов; состояние R не считывается."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 44,
+              "col": 106
+            },
+            "end": {
+              "line": 44,
+              "col": 162
+            },
+            "text": "Mild proportions disagree with the expected input counts"
+          },
+          "target_span": {
+            "start": {
+              "line": 44,
+              "col": 106
+            },
+            "end": {
+              "line": 44,
+              "col": 165
+            },
+            "text": "Доли для Mild не совпадают с ожидаемыми входными подсчетами"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 45,
+              "col": 106
+            },
+            "end": {
+              "line": 45,
+              "col": 164
+            },
+            "text": "Severe proportions disagree with the expected input counts"
+          },
+          "target_span": {
+            "start": {
+              "line": 45,
+              "col": 106
+            },
+            "end": {
+              "line": 45,
+              "col": 167
+            },
+            "text": "Доли для Severe не совпадают с ожидаемыми входными подсчетами"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 46,
+              "col": 106
+            },
+            "end": {
+              "line": 46,
+              "col": 164
+            },
+            "text": "Pooled proportions disagree with the expected input counts"
+          },
+          "target_span": {
+            "start": {
+              "line": 46,
+              "col": 106
+            },
+            "end": {
+              "line": 46,
+              "col": 169
+            },
+            "text": "Объединенные доли не совпадают с ожидаемыми входными подсчетами"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 48,
+              "col": 20
+            },
+            "end": {
+              "line": 48,
+              "col": 104
+            },
+            "text": "Paradox structure not reproduced: expected RR_mild > 1, RR_severe > 1, RR_pooled < 1"
+          },
+          "target_span": {
+            "start": {
+              "line": 48,
+              "col": 20
+            },
+            "end": {
+              "line": 48,
+              "col": 110
+            },
+            "text": "Структура парадокса не воспроизведена: ожидалось RR_mild > 1, RR_severe > 1, RR_pooled < 1"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 50,
+              "col": 14
+            },
+            "end": {
+              "line": 50,
+              "col": 84
+            },
+            "text": "\\n✔ Original-count JavaScript recalculation and paradox checks passed."
+          },
+          "target_span": {
+            "start": {
+              "line": 50,
+              "col": 14
+            },
+            "end": {
+              "line": 50,
+              "col": 105
+            },
+            "text": "\\n✔ Независимый пересчет по исходным подсчетам на JavaScript и проверки парадокса пройдены."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        }
+      ],
+      "exclusions": []
+    },
+    "nativeSpeakerReview": "pending"
+  },
+  "browser": {
+    "status": "passed",
+    "first": {
+      "exportSha256": "05f5d52b57feef043ebffe92dbfee8222b27a69a420a49b5ad4f62ea3ba509cf",
+      "reportSha256": "b79d2e76a26dc86346ae823a1e4e405227637a21ce9d37e50edb73df3de74040",
+      "appVersion": "1.4.0",
+      "cells": 7,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "second": {
+      "exportSha256": "8181bdb4869e94c0251001692e03bdf8d4c443095829db5bfc67ab00ecff75c2",
+      "reportSha256": "b79d2e76a26dc86346ae823a1e4e405227637a21ce9d37e50edb73df3de74040",
+      "appVersion": "1.4.0",
+      "cells": 7,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "englishBaseline": [
+      {
+        "exportSha256": "715a787cba3b5f4805a616c22b636b3c35db086fcfb69ce5c3ec184307e8d095",
+        "reportSha256": "341ef72fc46e69193b5f49ddc7d217fcb3445bf4c3580789c0c36bded7da45fc",
+        "appVersion": "1.4.0",
+        "cells": 7,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      },
+      {
+        "exportSha256": "8bfe8c73d93d967c96ca4e6921a494859abdcc20208f0fc12b02f63cd6f2b711",
+        "reportSha256": "341ef72fc46e69193b5f49ddc7d217fcb3445bf4c3580789c0c36bded7da45fc",
+        "appVersion": "1.4.0",
+        "cells": 7,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      }
+    ],
+    "deterministic": true,
+    "textOracle": {
+      "first": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      },
+      "second": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      }
+    },
+    "plotData": {
+      "status": "passed",
+      "count": 0
+    },
+    "rasterCharts": {
+      "decoded": true,
+      "count": 1,
+      "caveat": "R raster rendering checked separately; numerical checks use unchanged executable tokens and the lesson’s independent count/vote checks."
+    },
+    "renderedReview": "controller-AI-reviewed",
+    "rendering": {
+      "status": "passed",
+      "scope": "Titles, axes, legends and glyphs visually checked in captured app renders; not native-language approval.",
+      "nativeSpeakerReview": "pending"
+    }
+  },
+  "caveat": "Machine translated with Gemini and reviewed by AI/controller checks, including scoped corrections where needed. Native-speaker review is pending; structural and numerical checks do not certify prose quality."
+}

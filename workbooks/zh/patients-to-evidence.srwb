@@ -1,0 +1,87 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "从患者到证据",
+    "cells": [
+      {
+        "type": "markdown",
+        "code": "# 从患者到证据\n\n**学习目标**\n1. 模拟一项随机试验，并区分**真实生成概率**与**观察到的样本估计值**。\n2. 计算核心效应指标：风险差、绝对风险降低（ARR）、风险比（RR）、相对风险降低（RRR）和需治疗人数（NNT）。\n3. 理解**抽样变异**、95% 置信区间及其正确的频率学派解释。\n4. 理解为什么当基线风险改变时，相同的**相对**风险可能意味着截然不同的**绝对**获益。\n5. 将*与零的统计相容性*与*临床重要性*区分开来（假定的说明性阈值 = 0.02 绝对降低）。\n\n> ⚠️ 所有数据均为**合成数据**，仅供教学使用。**不构成医疗建议。**\n\n**运行环境与运行顺序。** 使用 SciREPL 的 Python (Pyodide) 内核。按顺序运行代码单元格：`one-trial-simulation` → `coverage-simulation` → `baseline-risk-plot` → `compatibility-analysis`。NumPy 在 SciREPL 的 Python 运行时中可用，且 SciREPL 提供了 `mplot` 辅助工具，用于生成带有浏览器渲染标签的交互式 Plotly 图表。本工作簿不需要安装 Matplotlib 或 `micropip` 包，也不进行任何工作簿发起的下载或上传。`mplot` 辅助工具由应用提供，不是原生纯 Python 脚本的一部分。\n\n该虚构模型假设随访 12 个月完整，且各组内为独立的二元结局。这是一项算术/统计教学练习，不是任何实际治疗或医疗决策的证据。",
+        "language": "markdown",
+        "name": "title-goals"
+      },
+      {
+        "type": "markdown",
+        "code": "## 1 · 单次试验\n\n虚构试验：**每组 500 名患者**，12 个月住院风险\n- 对照组：真实概率 **0.12**\n- 治疗组：真实概率 **0.08**\n\n大自然“知晓”这些**生成概率**。而我们分析人员只能看到**观察到的计数**——这些随机抽样结果不会刚好落在 0.12 和 0.08。下方的单次试验估计值是根据观察到的计数计算得出的。已知的生成概率用于检验置信区间覆盖率，并单独用于说明在不同基线风险情境下假定恒定的风险比。",
+        "language": "markdown",
+        "name": "one-trial-context"
+      },
+      {
+        "type": "code",
+        "code": "import numpy as np\nfrom math import ceil\n\nSEED = 42\nN = 500          # 每组患者数\nP_C, P_T = 0.12, 0.08   # 真实生成概率\nMCID = 0.02      # 假定的说明性最小临床重要降低\n\nassert isinstance(N, int) and N > 0\nassert 0 <= P_C <= 1 and 0 <= P_T <= 1\n\nrng = np.random.default_rng(SEED)\nev_c = int(rng.binomial(N, P_C))   # 观察到的住院数，对照组\nev_t = int(rng.binomial(N, P_T))   # 观察到的住院数，治疗组\n\n# --- 观察到的估计值（分析人员实际看到的内容）---\nr_c, r_t = ev_c / N, ev_t / N\nrisk_difference = r_t - r_c            # 治疗组减去对照组（此处负值表示治疗更好）\narr = r_c - r_t                        # 绝对风险降低 = -(risk_difference)，正值 = 获益\nrr  = r_t / r_c if r_c > 0 else np.nan\nrrr = 1 - rr if r_c > 0 else np.nan\nnnt = 1 / arr if arr > 0 else np.inf   # 若 ARR <= 0 则无有限的有益 NNT\nnnh = 1 / (-arr) if arr < 0 else np.inf # 若 ARR < 0 则为需危害人数\nse  = np.sqrt(r_c * (1 - r_c) / N + r_t * (1 - r_t) / N)  # ARR 的观察数据 SE\nci  = (arr - 1.96 * se, arr + 1.96 * se)                  # ARR 的 95% CI\n\nprint(f\"真实生成概率 : 对照组 {P_C:.3f}，治疗组 {P_T:.3f}\")\nprint(f\"观察到的事件数 (n={N}/组)   : 对照组 {ev_c}，治疗组 {ev_t}\")\nprint(\"-\" * 56)\nprint(f\"观察到的风险，对照组        : {r_c:.3f}  (真实 {P_C:.3f})\")\nprint(f\"观察到的风险，治疗组      : {r_t:.3f}  (真实 {P_T:.3f})\")\nprint(f\"风险差 (T - C)                 : {risk_difference:+.3f}  (负值 = 治疗组事件更少)\")\nprint(f\"绝对风险降低 (ARR)             : {arr:.3f}   (= -(风险差)，正值 = 获益)\")\nprint(f\"风险比 (RR)                   : {rr:.3f}\")\nprint(f\"相对风险降低 (RRR)             : {rrr:.1%}\")\nif np.isfinite(nnt):\n    print(f\"获益 NNT（未取整）              : {nnt:.1f}\")\nelse:\n    print(\"获益 NNT（未取整）   : 无有限的获益 NNT (ARR <= 0)\")\nif arr > 0:\n    print(f\"获益 NNT（向上取整）          : {ceil(nnt)}\")\nelif arr < 0:\n    print(f\"NNH（未取整；治疗有害）: {nnh:.1f}\")\nelse:\n    print(\"ARR 为零：既无有限的获益 NNT 也无有限的 NNH。\")\nprint(f\"ARR 的 SE（观察数据）: {se:.4f}\")\nprint(f\"ARR 的 95% CI            : ({ci[0]:+.3f}, {ci[1]:+.3f})\")",
+        "language": "python",
+        "name": "one-trial-simulation"
+      },
+      {
+        "type": "markdown",
+        "code": "## 2 · 抽样变异与 95% 置信区间\n\n一次试验就是一次抽样。多次重复整个 1000 名患者的试验会产生不同的观察到的 ARR——这是**抽样变异**，而不是生物学发生了变化。\n\n**95% 置信区间**来自一个目标为 95% 长期覆盖率的程序。本工作簿采用**近似 Wald 程序**：实际覆盖率可能与 95% 有所偏差，尤其是在小样本或概率接近 0 或 1 时。任何单个区间要么包含真实 ARR，要么不包含。在真实研究中，我们通常不知道是哪一种；而在本次模拟中，生成概率是已知的，因此我们可以进行核对。频率学派的解释**并不是**“真实值落在这个区间内的概率为 95%”。\n\n在有限次数的模拟试验中，估计的覆盖率也会由于蒙特卡罗抽样而发生波动。应将其与名义上的 95% 目标进行比较，而不是预期正好达到 95%。",
+        "language": "markdown",
+        "name": "sampling-variation-explanation"
+      },
+      {
+        "type": "code",
+        "code": "import numpy as np\n\n# 风险差的近似 Wald 95% CI。\n# 对本示例的计数是合理的；不是精确的覆盖保证。\ndef one_trial(r):\n    c = r.binomial(N, P_C) / N\n    t = r.binomial(N, P_T) / N\n    d = c - t\n    se_i = np.sqrt(c * (1 - c) / N + t * (1 - t) / N)\n    return d, (d - 1.96 * se_i, d + 1.96 * se_i)\n\nN_SIMS = 2000\nr = np.random.default_rng(7)\nres = [one_trial(r) for _ in range(N_SIMS)]\narrs = np.array([d for d, _ in res])\ncovers = np.array([lo <= P_C - P_T <= hi for _, (lo, hi) in res])\nTRUE_ARR = P_C - P_T\nlo, hi = ci\n\nprint(f\"我们的试验 (种子 {SEED}): 观察到的 ARR = {arr:+.3f}, 95% CI = ({lo:+.3f}, {hi:+.3f})\")\nif lo <= TRUE_ARR <= hi:\n    print(f\"真实 ARR = {TRUE_ARR:.3f} -> 我们的 CI 包含它\")\nelse:\n    print(f\"真实 ARR = {TRUE_ARR:.3f} -> 我们的 CI 不包含它\")\nprint(f\"名义 95% CI 程序在 {N_SIMS} 次模拟试验中的估计覆盖率: {covers.mean():.1%}\")\nprint(\"95% 是名义目标，而不是此 Wald 近似的精确保证。\")\nprint(\"估计的覆盖率在有限次模拟中也存在蒙特卡罗变异。\")\n\n# 精确匹配原始 40 柱直方图；不要使用 Plotly 自动分箱。\nhist_counts, hist_edges = np.histogram(arrs, bins=40)\nhist_centers = (hist_edges[:-1] + hist_edges[1:]) / 2\nhist_widths = np.diff(hist_edges)\nmplot(\n    [{\"type\": \"bar\", \"x\": hist_centers, \"y\": hist_counts,\n      \"width\": hist_widths.tolist(), \"marker\": {\"color\": \"#7fb3d5\"},\n      \"showlegend\": False}],\n    title=f\"ARR 的抽样变异 ({N_SIMS} 次试验)\",\n    xlabel=\"模拟试验中观察到的 ARR\",\n    ylabel=\"试验次数\",\n    layout={\n        \"bargap\": 0,\n        \"showlegend\": True,\n        \"legend\": {\"font\": {\"size\": 10}},\n        \"shapes\": [\n            {\"type\": \"line\", \"xref\": \"x\", \"yref\": \"paper\",\n             \"x0\": float(TRUE_ARR), \"x1\": float(TRUE_ARR), \"y0\": 0, \"y1\": 1,\n             \"line\": {\"color\": \"darkgreen\", \"width\": 2},\n             \"showlegend\": True, \"name\": f\"真实 ARR = {TRUE_ARR:.3f}\"},\n            {\"type\": \"line\", \"xref\": \"x\", \"yref\": \"paper\",\n             \"x0\": 0, \"x1\": 0, \"y0\": 0, \"y1\": 1,\n             \"line\": {\"color\": \"crimson\", \"width\": 2, \"dash\": \"dash\"},\n             \"showlegend\": True, \"name\": \"无效应 (0)\"},\n            {\"type\": \"rect\", \"xref\": \"x\", \"yref\": \"paper\",\n             \"x0\": float(lo), \"x1\": float(hi), \"y0\": 0, \"y1\": 1,\n             \"line\": {\"width\": 0}, \"fillcolor\": \"rgba(128,128,128,0.15)\",\n             \"layer\": \"below\", \"showlegend\": True, \"name\": \"我们试验的 95% CI\"},\n        ],\n    },\n)",
+        "language": "python",
+        "name": "coverage-simulation"
+      },
+      {
+        "type": "markdown",
+        "code": "## 3 · 相同的相对风险，不同的绝对获益\n\n本简化练习**假设不同人群之间的生成风险比恒定**；实际的相对效应在不同人群之间可能存在差异。在该假设下，绝对获益仍然取决于结局在基线时的常见程度：将 RR 固定在已知的生成值 $P_T/P_C = 0.08/0.12 \\approx 0.667$，高风险人群在绝对数值上的获益远大于低风险人群——且需要治疗的患者人数也少得多。\n\n$$\\text{ARR} = p_C(1 - \\text{RR}), \\qquad \\text{NNT} = 1/\\text{ARR}$$\n\n> **简化教学假设：** 我们将 0.667 的生成 RR 视为跨人群固定、已知的常数。在现实中，治疗的相对效应可能会随着基线风险和患者特征而变化——本节只分离出算术关系，并非实证主张。",
+        "language": "markdown",
+        "name": "constant-rr-explanation"
+      },
+      {
+        "type": "code",
+        "code": "import numpy as np\nimport textwrap\n\ndef _risk_wrap_label(text, width):\n    return \"<br>\".join(textwrap.wrap(str(text), width=width, break_long_words=False, break_on_hyphens=False))\n\n\nrr_known = P_T / P_C                     # 固定已知的生成 RR = 0.08/0.12 ≈ 0.667\nbaselines = np.array([0.02, 0.05, 0.12, 0.20, 0.30])\narrs_b = baselines * (1 - rr_known)\nnnts_b = 1 / arrs_b\n\nprint(f\"固定已知的生成 RR = {rr_known:.3f} 跨所有情境\")\nprint(f\"{'基线风险':>13} | {'ARR':>6} | {'NNT':>6}\")\nprint(\"-\" * 33)\nfor b, a, n in zip(baselines, arrs_b, nnts_b):\n    print(f\"{b:>13.2f} | {a:>6.3f} | {n:>6.1f}\")\n\nmplot(\n    [\n        {\"x\": baselines, \"y\": arrs_b, \"mode\": \"lines+markers\",\n         \"line\": {\"color\": \"#2874a6\"}, \"marker\": {\"symbol\": \"circle\"},\n         \"name\": \"ARR = p_C(1−RR)\"},\n        {\"x\": baselines, \"y\": nnts_b, \"mode\": \"lines+markers\", \"yaxis\": \"y2\",\n         \"line\": {\"color\": \"#b03a2e\", \"dash\": \"dash\"},\n         \"marker\": {\"symbol\": \"square\"}, \"name\": \"NNT = 1/ARR\"},\n    ],\n    title=_risk_wrap_label(\"一个（假定恒定的）RR，多种绝对获益\", 45),\n    xlabel=_risk_wrap_label(\"对照组基线 12 个月风险 (p_C)\", 48),\n    ylabel=_risk_wrap_label(\"绝对风险降低\", 24),\n    layout={\n        \"height\": 540,\n        \"margin\": {\"t\": 100, \"r\": 110, \"b\": 100, \"l\": 90},\n        \"yaxis\": {\"automargin\": True, \"title\": {\"text\": _risk_wrap_label(\"绝对风险降低\", 24), \"font\": {\"color\": \"#2874a6\"}}},\n        \"yaxis2\": {\"automargin\": True, \"title\": {\"text\": _risk_wrap_label(\"需治疗人数\", 24), \"font\": {\"color\": \"#b03a2e\"}},\n                  \"overlaying\": \"y\", \"side\": \"right\"},\n        \"legend\": {\"orientation\": \"v\", \"x\": 0.98, \"y\": 0.98,\n                   \"xanchor\": \"right\", \"yanchor\": \"top\",\n                   \"bgcolor\": \"rgba(22,27,34,0.85)\", \"font\": {\"size\": 10}},\n        \"shapes\": [\n            {\"type\": \"line\", \"xref\": \"paper\", \"yref\": \"y\",\n             \"x0\": 0, \"x1\": 1, \"y0\": float(MCID), \"y1\": float(MCID),\n             \"line\": {\"color\": \"orange\", \"width\": 1.5, \"dash\": \"dash\"},\n             \"showlegend\": True, \"name\": \"假定的 MCID 0.02\"},\n        ],\n    },\n)",
+        "language": "python",
+        "name": "baseline-risk-plot"
+      },
+      {
+        "type": "markdown",
+        "code": "## 4 · 与零相容 ≠ 临床上不重要\n\n两个常被混淆的不同问题：\n\n- **与零的统计相容性：** “无效应”是否属于与我们的数据合理相容的数值？（95% CI 是否包含 0？p 值是多少？）\n- **临床相关性：** 该效应是否大到足以引起重视？这里我们使用一个**假定的**最小临床重要差异（MCID）0.02——这是我们为作说明而设定的值，而非由数据确立的值。\n\n单纯一个 p 值无法很好地回答这两个问题，并且跨越假定的 MCID 也不能确定重要性：危害、患者偏好和成本依然很重要。下面我们将 CI 与零刻度线以及 MCID 刻度线**两者**进行比较。",
+        "language": "markdown",
+        "name": "compatibility-explanation"
+      },
+      {
+        "type": "code",
+        "code": "import numpy as np\nfrom math import erfc, sqrt\n\nlo, hi = ci\nprint(f\"观察到的 ARR = {arr:+.3f}, 95% CI = ({lo:+.3f}, {hi:+.3f})\")\n\nif not np.isfinite(se) or se <= 0:\n    print(\"正态近似检验未定义，因为 SE 为零。\")\n    print(\"退化的 Wald 区间并不是确定性的可靠证据。\")\n    print(\"请使用适用于稀疏或边界事件计数的区间/检验。\")\nelse:\n    z_stat = arr / se\n    p_two = erfc(abs(z_stat) / sqrt(2))  # 稳健的双侧正态尾部概率\n    includes_zero = lo <= 0 <= hi\n    above_mcid = lo > MCID\n\n    print(f\"z = {z_stat:.2f}，双侧近似 p = {p_two:.3g}\")\n    print(f\"CI 包含 0（与无效应相容）: {includes_zero}\")\n    print(f\"CI 完全高于假定的 MCID {MCID:.3f}: {above_mcid}\")\n    print(\"-\" * 60)\n    if includes_zero:\n        print(\"无效应属于与该近似 CI 相容的数值之一。\")\n        print(\"这并不是无效应的证明：请检查 CI 的完整范围。\")\n    else:\n        print(\"在所述模型下，零在该近似 CI 之外。\")\n        print(\"CI 的符号和范围描述了相容的效应量大小。\")\n\n    if above_mcid:\n        print(\"整个近似 CI 均超过假定的临床阈值。\")\n    elif hi < MCID:\n        print(\"整个近似 CI 均低于假定的临床阈值。\")\n    else:\n        print(\"近似 CI 包含假定的临床阈值：\")\n        print(\"数据未能明确判定该阈值比较。\")\n\n    print(\"MCID 是为作说明而假定的，而非由这些数据确立的。\")\n    print(\"临床重要性还取决于害处、患者偏好，\")\n    print(\"以及成本，而本模拟并未体现这些因素。\")",
+        "language": "python",
+        "name": "compatibility-analysis"
+      },
+      {
+        "type": "markdown",
+        "code": "### ✅ 检查点\n\n两种新药在住院方面均显示出 **50% 的相对风险降低**。\n\n- 药物 A 在 **20%** 的基线 12 个月风险人群中进行了测试。\n- 药物 B 在基线风险为 **2%** 的人群中进行了测试。\n\n在不进行任何精确计算的情况下：哪种药物的绝对获益更大，使用药物 B 大约需要治疗多少名患者才能预防一次住院，以及这对于仅通过相对风险来评价药物说明了什么？\n\n*（答案在下一单元格中 — 先自行尝试！）*",
+        "language": "markdown",
+        "name": "checkpoint"
+      },
+      {
+        "type": "markdown",
+        "code": "### 🔑 检查点答案\n\n- **药物 A：** ARR = 0.20 × 0.50 = **0.10** → NNT = **10**。\n- **药物 B：** ARR = 0.02 × 0.50 = **0.01** → NNT = **100**。\n\n尽管相对风险相同，药物 A 的绝对获益却是**十倍之大**。仅根据相对风险来判断（“两者都将风险降低了一半！”）会掩盖药物 B 的获益可能微小到可能被成本、负担或害处所抵消的事实——取决于基线风险，相同的*相对*效应可能意味着截然不同的*绝对*价值。",
+        "language": "markdown",
+        "name": "checkpoint-answer"
+      },
+      {
+        "type": "markdown",
+        "code": "### ✍️ 读者练习\n\n以 `one-trial-simulation`（单元格 3）为模板，使用相同的种子（`SEED = 42`）、`N = 500` 和 `P_C, P_T = 0.12, 0.08`：\n\n1. 将种子改为 `2024`，并重新计算观察到的 ARR、RR 和 NNT。它们变化了多少？\n2. 将样本量减半至 `N = 250`（保持种子 42）。首先重新运行 `one-trial-simulation`，然后重新运行 `coverage-simulation`（单元格 5）、`baseline-risk-plot` 和 `compatibility-analysis`。95% CI 的宽度发生了什么变化？\n3. 选做：通过尝试几个种子，找出是否有任何种子生成的 CI *未覆盖*真实的 ARR 0.040。如果覆盖率接近名义上的 95% 目标，在许多种子中，你预期这种情况大约多久发生一次？\n\n提示：更改 `SEED` 或 `N`（在 `one-trial-simulation` 中），然后依次重新运行该单元格以及后续的代码单元格。更改单元格的文本并不会重新计算其保存的内核变量。在其他条件相同的情况下，预期的 CI 宽度大致与 $1/\\sqrt{N}$ 成比例缩放；各个随机试验可能会有所不同。",
+        "language": "markdown",
+        "name": "reader-exercise"
+      },
+      {
+        "type": "markdown",
+        "code": "### ⚠️ 本工作簿的局限性\n\n- **合成数据。** 本试验是一项已知概率的模拟；真实的试验会引入此处未建模的复杂现实情况（失访、依从性不佳、破盲）。\n- **仅二元结局。** 住院在 12 个月内被视为“是/否”；没有竞争风险、删失或至事件发生时间分析。\n- **正态近似 CI。** 这是风险差的名义 95% Wald 区间，而非精确的覆盖保证。稀疏或边界计数需要合适的方法，例如两个独立比例的基于得分的区间。通用的 bootstrap 在接近零事件时并不自动可靠。\n- **无多重性或设计问题。** 我们忽略了多个终点、中期分析、分配隐藏和预先注册——所有这些对于真实试验的可信度都至关重要。\n- **仅频率学派框架。** 没有贝叶斯后验或决策分析视角，且“临床重要性”是假定的，而非源自患者偏好或成本效益。\n- **特定时间与人群的 NNT。** 这些是针对该模拟人群和 12 个月住院结局的点估计值。NNT 在不同随访期和亚组之间可能有所不同；本工作簿不提供 NNT 置信区间。如果估计的 ARR 为负，代码报告的是需危害人数（NNH），而不是有益的 NNT。\n\n**提醒：** 合成数据，仅供教学使用 — **不构成医疗建议**。\n\n**主要统计参考文献：** [Altman and Andersen, NNT for time-to-event outcomes, BMJ 1999](https://www.bmj.com/content/319/7223/1492)；[Wang and Hutson, Smooth bootstrap-based confidence intervals, Journal of Applied Statistics 2013](https://pmc.ncbi.nlm.nih.gov/articles/PMC4789773/)。",
+        "language": "markdown",
+        "name": "limitations"
+      }
+    ]
+  }
+}

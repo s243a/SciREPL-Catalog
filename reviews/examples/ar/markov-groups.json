@@ -1,0 +1,1065 @@
+{
+  "schema": 1,
+  "lesson": "markov-groups",
+  "locale": "ar",
+  "source": {
+    "path": "workbooks/en/markov-groups.srwb",
+    "sha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4"
+  },
+  "target": {
+    "path": "workbooks/ar/markov-groups.srwb",
+    "sha256": "32ae93b94852178608d5b05ba0cc58f06a6abb31bb7ef8dd6d0bdeb40b510425",
+    "size": 18796,
+    "title": "زمر ماركوف: مسار عشوائي على حركات المكعب",
+    "description": "قم بنمذجة تدويرات أوجه مكعب روبيك كتبديلات تم التحقق منها، واستكشف القوى بمقاس أربعة، وميّز بين مسار عشوائي كسول ونموذج تصادفي لملصق واحد."
+  },
+  "translation": {
+    "model": "gemini-3.8-flash-medium",
+    "contentAudit": {
+      "status": "passed",
+      "sourceSha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4",
+      "targetSha256": "32ae93b94852178608d5b05ba0cc58f06a6abb31bb7ef8dd6d0bdeb40b510425",
+      "findings": [],
+      "errors": [],
+      "reviewMethod": "Previously passed AI/controller source-fidelity audit, preserved through verified presentation-only rebase where applicable; scoped final Bengali corrections independently adjudicated and re-gated.",
+      "provenance": {
+        "predecessorSourceSha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4",
+        "predecessorTargetSha256": "32ae93b94852178608d5b05ba0cc58f06a6abb31bb7ef8dd6d0bdeb40b510425",
+        "predecessorAuditSha256": "7619462c400d56af0f2d4b32a0dbb41f03f1b141af666fa765d2c5f02ac51077",
+        "sharedLayoutOnly": false
+      },
+      "nativeSpeakerReview": "pending",
+      "caveat": "AI/controller review, not native-speaker or qualified technical certification."
+    },
+    "policy": {
+      "locale": "ar",
+      "protectedTexts": [
+        "UDFBLR"
+      ],
+      "protectedIds": [
+        "2:1:0"
+      ],
+      "widthOverrides": {},
+      "identifierRenames": false,
+      "cellNames": "English",
+      "nativeReviewCaveat": "Machine-translated; native-speaker review pending. Numerical/structural tests do not certify prose quality."
+    },
+    "keeps": {
+      "ids": [
+        "2:1:0"
+      ],
+      "texts": [
+        "UDFBLR"
+      ]
+    },
+    "manifest": {
+      "manifest_version": 1,
+      "produced_by": "derived",
+      "generator": "tools/span-derive.mjs",
+      "locale": "ar",
+      "source": {
+        "path": "workbooks/en/markov-groups.srwb",
+        "sha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4"
+      },
+      "target": {
+        "path": "workbooks/ar/markov-groups.srwb",
+        "sha256": "32ae93b94852178608d5b05ba0cc58f06a6abb31bb7ef8dd6d0bdeb40b510425"
+      },
+      "spans": [
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 7,
+              "col": 1
+            },
+            "end": {
+              "line": 7,
+              "col": 67
+            },
+            "text": "Five disjoint 4-cycles per clockwise face turn: two on the face,"
+          },
+          "target_span": {
+            "start": {
+              "line": 7,
+              "col": 1
+            },
+            "end": {
+              "line": 7,
+              "col": 90
+            },
+            "text": "خمس دورات رباعية (4-cycles) منفصلة لكل تدوير وجه باتجاه عقارب الساعة: اثنتان على الوجه،"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 8,
+              "col": 1
+            },
+            "end": {
+              "line": 8,
+              "col": 69
+            },
+            "text": "three on the surrounding strips. Indices are zero-based positions."
+          },
+          "target_span": {
+            "start": {
+              "line": 8,
+              "col": 1
+            },
+            "end": {
+              "line": 8,
+              "col": 76
+            },
+            "text": "وثلاث على الأشرطة المحيطة. الفهارس هي مواضع مبنية على الصفر (zero-based)."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 205,
+              "col": 8
+            },
+            "end": {
+              "line": 205,
+              "col": 62
+            },
+            "text": "Return p: source position j moves to destination p[j]."
+          },
+          "target_span": {
+            "start": {
+              "line": 205,
+              "col": 8
+            },
+            "end": {
+              "line": 205,
+              "col": 53
+            },
+            "text": "إرجاع p: ينتقل موضع المصدر j إلى الوجهة p[j]."
+          },
+          "kind": "docstring",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 213,
+              "col": 8
+            },
+            "end": {
+              "line": 213,
+              "col": 51
+            },
+            "text": "Rows are destinations, columns are sources."
+          },
+          "target_span": {
+            "start": {
+              "line": 213,
+              "col": 8
+            },
+            "end": {
+              "line": 213,
+              "col": 47
+            },
+            "text": "الصفوف هي الوجهات، والأعمدة هي المصادر."
+          },
+          "kind": "docstring",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 216,
+              "col": 27
+            },
+            "end": {
+              "line": 216,
+              "col": 68
+            },
+            "text": "Expected a permutation of positions 0..53"
+          },
+          "target_span": {
+            "start": {
+              "line": 216,
+              "col": 27
+            },
+            "end": {
+              "line": 216,
+              "col": 52
+            },
+            "text": "توقع تبديلة للمواضع 0..53"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 229,
+              "col": 27
+            },
+            "end": {
+              "line": 229,
+              "col": 73
+            },
+            "text": "Expected each sticker label 1..54 exactly once"
+          },
+          "target_span": {
+            "start": {
+              "line": 229,
+              "col": 27
+            },
+            "end": {
+              "line": 229,
+              "col": 68
+            },
+            "text": "توقع كل تسمية ملصق 1..54 مرة واحدة بالضبط"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 233,
+              "col": 8
+            },
+            "end": {
+              "line": 233,
+              "col": 67
+            },
+            "text": "Apply moves left to right; an apostrophe means the inverse."
+          },
+          "target_span": {
+            "start": {
+              "line": 233,
+              "col": 8
+            },
+            "end": {
+              "line": 233,
+              "col": 72
+            },
+            "text": "تطبيق الحركات من اليسار إلى اليمين؛ الفاصلة العليا تعني المعكوس."
+          },
+          "kind": "docstring",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 243,
+              "col": 31
+            },
+            "end": {
+              "line": 243,
+              "col": 45
+            },
+            "text": "Unknown move: "
+          },
+          "target_span": {
+            "start": {
+              "line": 243,
+              "col": 31
+            },
+            "end": {
+              "line": 243,
+              "col": 48
+            },
+            "text": "حركة غير معروفة: "
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 248,
+              "col": 8
+            },
+            "end": {
+              "line": 248,
+              "col": 76
+            },
+            "text": "Return home-face letters as colour labels, not physical paint names."
+          },
+          "target_span": {
+            "start": {
+              "line": 248,
+              "col": 8
+            },
+            "end": {
+              "line": 248,
+              "col": 70
+            },
+            "text": "إرجاع أحرف الوجه الأصلي كتسميات ألوان، وليس كأسماء طلاء مادية."
+          },
+          "kind": "docstring",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 251,
+              "col": 8
+            },
+            "end": {
+              "line": 251,
+              "col": 74
+            },
+            "text": "Built six clockwise quarter-turn matrices with fixed face centres."
+          },
+          "target_span": {
+            "start": {
+              "line": 251,
+              "col": 8
+            },
+            "end": {
+              "line": 251,
+              "col": 77
+            },
+            "text": "تم بناء ست مصفوفات لربع دورة باتجاه عقارب الساعة مع مراكز أوجه ثابتة."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 63
+            },
+            "text": "Stage 2: verify properties that colours alone cannot reveal."
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 70
+            },
+            "text": "المرحلة 2: التحقق من الخصائص التي لا يمكن للألوان وحدها الكشف عنها."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 4,
+              "col": 62
+            },
+            "end": {
+              "line": 4,
+              "col": 77
+            },
+            "text": ": not bijective"
+          },
+          "target_span": {
+            "start": {
+              "line": 4,
+              "col": 62
+            },
+            "end": {
+              "line": 4,
+              "col": 75
+            },
+            "text": ": ليس تقابلاً"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 5,
+              "col": 57
+            },
+            "end": {
+              "line": 5,
+              "col": 71
+            },
+            "text": ": centre moved"
+          },
+          "target_span": {
+            "start": {
+              "line": 5,
+              "col": 57
+            },
+            "end": {
+              "line": 5,
+              "col": 70
+            },
+            "text": ": تحرك المركز"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 6,
+              "col": 53
+            },
+            "end": {
+              "line": 6,
+              "col": 72
+            },
+            "text": ": bad source column"
+          },
+          "target_span": {
+            "start": {
+              "line": 6,
+              "col": 53
+            },
+            "end": {
+              "line": 6,
+              "col": 73
+            },
+            "text": ": عمود مصدر غير صالح"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 7,
+              "col": 53
+            },
+            "end": {
+              "line": 7,
+              "col": 74
+            },
+            "text": ": bad destination row"
+          },
+          "target_span": {
+            "start": {
+              "line": 7,
+              "col": 53
+            },
+            "end": {
+              "line": 7,
+              "col": 71
+            },
+            "text": ": صف وجهة غير صالح"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 8,
+              "col": 81
+            },
+            "end": {
+              "line": 8,
+              "col": 111
+            },
+            "text": ": fourth power is not identity"
+          },
+          "target_span": {
+            "start": {
+              "line": 8,
+              "col": 81
+            },
+            "end": {
+              "line": 8,
+              "col": 115
+            },
+            "text": ": القوة الرابعة ليست مصفوفة الوحدة"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 9,
+              "col": 65
+            },
+            "end": {
+              "line": 9,
+              "col": 81
+            },
+            "text": ": inverse failed"
+          },
+          "target_span": {
+            "start": {
+              "line": 9,
+              "col": 65
+            },
+            "end": {
+              "line": 9,
+              "col": 78
+            },
+            "text": ": فشل المعكوس"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 12,
+              "col": 19
+            },
+            "end": {
+              "line": 12,
+              "col": 77
+            },
+            "text": ": bijection, fixed centres, four turns, and inverse passed"
+          },
+          "target_span": {
+            "start": {
+              "line": 12,
+              "col": 19
+            },
+            "end": {
+              "line": 12,
+              "col": 85
+            },
+            "text": ": تم اجتياز التقابل، والمراكز الثابتة، وأربع دورات، والمعكوس بنجاح"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 15,
+              "col": 8
+            },
+            "end": {
+              "line": 15,
+              "col": 53
+            },
+            "text": "All six moves passed. U and R do not commute."
+          },
+          "target_span": {
+            "start": {
+              "line": 15,
+              "col": 8
+            },
+            "end": {
+              "line": 15,
+              "col": 59
+            },
+            "text": "اجتازت جميع الحركات الست بنجاح. U وR غير تبادليتين."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "show_turn",
+          "source_span": {
+            "start": {
+              "line": 2,
+              "col": 8
+            },
+            "end": {
+              "line": 2,
+              "col": 55
+            },
+            "text": "U cycles, shown as one-based sticker positions:"
+          },
+          "target_span": {
+            "start": {
+              "line": 2,
+              "col": 8
+            },
+            "end": {
+              "line": 2,
+              "col": 67
+            },
+            "text": "دورات U، معروضة كمواضع ملصقات مبنية على الواحد (one-based):"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "show_turn",
+          "source_span": {
+            "start": {
+              "line": 6,
+              "col": 1
+            },
+            "end": {
+              "line": 6,
+              "col": 64
+            },
+            "text": "F is face index 2, so its top row is at positions 18, 19, 20."
+          },
+          "target_span": {
+            "start": {
+              "line": 6,
+              "col": 1
+            },
+            "end": {
+              "line": 6,
+              "col": 68
+            },
+            "text": "F هو فهرس الوجه 2، لذا فإن صفه العلوي يقع عند المواضع 18، 19، 20."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "show_turn",
+          "source_span": {
+            "start": {
+              "line": 8,
+              "col": 8
+            },
+            "end": {
+              "line": 8,
+              "col": 36
+            },
+            "text": "\\nF top row labels before U:"
+          },
+          "target_span": {
+            "start": {
+              "line": 8,
+              "col": 8
+            },
+            "end": {
+              "line": 8,
+              "col": 40
+            },
+            "text": "\\nتسميات الصف العلوي لـ F قبل U:"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "show_turn",
+          "source_span": {
+            "start": {
+              "line": 9,
+              "col": 8
+            },
+            "end": {
+              "line": 9,
+              "col": 34
+            },
+            "text": "F top row labels after U: "
+          },
+          "target_span": {
+            "start": {
+              "line": 9,
+              "col": 8
+            },
+            "end": {
+              "line": 9,
+              "col": 39
+            },
+            "text": "تسميات الصف العلوي لـ F بعد U: "
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "show_turn",
+          "source_span": {
+            "start": {
+              "line": 10,
+              "col": 8
+            },
+            "end": {
+              "line": 10,
+              "col": 36
+            },
+            "text": "Face-letter colours after U:"
+          },
+          "target_span": {
+            "start": {
+              "line": 10,
+              "col": 8
+            },
+            "end": {
+              "line": 10,
+              "col": 32
+            },
+            "text": "ألوان أحرف الأوجه بعد U:"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "show_turn",
+          "source_span": {
+            "start": {
+              "line": 11,
+              "col": 8
+            },
+            "end": {
+              "line": 11,
+              "col": 33
+            },
+            "text": "U then R equals R then U:"
+          },
+          "target_span": {
+            "start": {
+              "line": 11,
+              "col": 8
+            },
+            "end": {
+              "line": 11,
+              "col": 28
+            },
+            "text": "U ثم R يساوي R ثم U:"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "random_walk",
+          "source_span": {
+            "start": {
+              "line": 8,
+              "col": 1
+            },
+            "end": {
+              "line": 8,
+              "col": 61
+            },
+            "text": "A distribution for the location of one particular sticker."
+          },
+          "target_span": {
+            "start": {
+              "line": 8,
+              "col": 1
+            },
+            "end": {
+              "line": 8,
+              "col": 30
+            },
+            "text": "توزيع لموقع ملصق معين واحد."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "random_walk",
+          "source_span": {
+            "start": {
+              "line": 13,
+              "col": 8
+            },
+            "end": {
+              "line": 13,
+              "col": 52
+            },
+            "text": "One-sticker probability mass after one step:"
+          },
+          "target_span": {
+            "start": {
+              "line": 13,
+              "col": 8
+            },
+            "end": {
+              "line": 13,
+              "col": 49
+            },
+            "text": "كتلة احتمال الملصق الواحد بعد خطوة واحدة:"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "random_walk",
+          "source_span": {
+            "start": {
+              "line": 15,
+              "col": 1
+            },
+            "end": {
+              "line": 15,
+              "col": 76
+            },
+            "text": "Sample a valid cube trajectory. The seed makes this example reproducible,"
+          },
+          "target_span": {
+            "start": {
+              "line": 15,
+              "col": 1
+            },
+            "end": {
+              "line": 15,
+              "col": 74
+            },
+            "text": "أخذ عينة لمسار مكعب صالح. تجعل البذرة (seed) هذا المثال قابلاً للتكرار،"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "random_walk",
+          "source_span": {
+            "start": {
+              "line": 16,
+              "col": 1
+            },
+            "end": {
+              "line": 16,
+              "col": 62
+            },
+            "text": "not uniformly mixed over all reachable cube configurations."
+          },
+          "target_span": {
+            "start": {
+              "line": 16,
+              "col": 1
+            },
+            "end": {
+              "line": 16,
+              "col": 74
+            },
+            "text": "وليس ممزوجًا بشكل منتظم عبر جميع تكوينات المكعب التي يمكن الوصول إليها."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "random_walk",
+          "source_span": {
+            "start": {
+              "line": 22,
+              "col": 8
+            },
+            "end": {
+              "line": 22,
+              "col": 22
+            },
+            "text": "Sampled moves:"
+          },
+          "target_span": {
+            "start": {
+              "line": 22,
+              "col": 8
+            },
+            "end": {
+              "line": 22,
+              "col": 31
+            },
+            "text": "الحركات المأخوذة كعينة:"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "random_walk",
+          "source_span": {
+            "start": {
+              "line": 23,
+              "col": 8
+            },
+            "end": {
+              "line": 23,
+              "col": 34
+            },
+            "text": "Final face-letter colours:"
+          },
+          "target_span": {
+            "start": {
+              "line": 23,
+              "col": 8
+            },
+            "end": {
+              "line": 23,
+              "col": 35
+            },
+            "text": "ألوان أحرف الأوجه النهائية:"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "random_walk",
+          "source_span": {
+            "start": {
+              "line": 24,
+              "col": 8
+            },
+            "end": {
+              "line": 24,
+              "col": 75
+            },
+            "text": "The sampled path preserved every sticker label and all six centres."
+          },
+          "target_span": {
+            "start": {
+              "line": 24,
+              "col": 8
+            },
+            "end": {
+              "line": 24,
+              "col": 76
+            },
+            "text": "حافظ المسار المأخوذ كعينة على كل تسمية ملصق وعلى جميع المراكز الستة."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        }
+      ],
+      "exclusions": []
+    },
+    "nativeSpeakerReview": "pending"
+  },
+  "browser": {
+    "status": "passed",
+    "first": {
+      "exportSha256": "4ed945526ccfc39a5856f7315331159381c8d83a0b95cd962ff61b0028bdbe23",
+      "reportSha256": "cd9d4549bc0585d135cc191b9fcd26a1df3775bf64ac13b9bcd998a44c298e68",
+      "appVersion": "1.4.0",
+      "cells": 9,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "second": {
+      "exportSha256": "17ce474a963ca032ea9c0a390f31f7bfec43c056c8e25b9bbbe74e8eb59ce5e1",
+      "reportSha256": "cd9d4549bc0585d135cc191b9fcd26a1df3775bf64ac13b9bcd998a44c298e68",
+      "appVersion": "1.4.0",
+      "cells": 9,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "englishBaseline": [
+      {
+        "exportSha256": "c9b5cebbf7e00eb178079a0610fb595c9158bd3bf0f9e0edbd4fe6ffa084b18c",
+        "reportSha256": "5d2d7fcf80037243115b986477f4acb1938af752fe0f8c37f9a0e651cc9ba4b2",
+        "appVersion": "1.4.0",
+        "cells": 9,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      },
+      {
+        "exportSha256": "ee691306c00a08037a2b7870fd8a96efffa7f36702b8957b16632645d2b73908",
+        "reportSha256": "5d2d7fcf80037243115b986477f4acb1938af752fe0f8c37f9a0e651cc9ba4b2",
+        "appVersion": "1.4.0",
+        "cells": 9,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      }
+    ],
+    "deterministic": true,
+    "textOracle": {
+      "first": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      },
+      "second": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      }
+    },
+    "plotData": {
+      "status": "passed",
+      "count": 0
+    },
+    "rasterCharts": null,
+    "renderedReview": "not-applicable"
+  },
+  "caveat": "Machine translated with Gemini and reviewed by AI/controller checks, including scoped corrections where needed. Native-speaker review is pending; structural and numerical checks do not certify prose quality."
+}

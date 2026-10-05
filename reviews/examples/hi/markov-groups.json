@@ -1,0 +1,1065 @@
+{
+  "schema": 1,
+  "lesson": "markov-groups",
+  "locale": "hi",
+  "source": {
+    "path": "workbooks/en/markov-groups.srwb",
+    "sha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4"
+  },
+  "target": {
+    "path": "workbooks/hi/markov-groups.srwb",
+    "sha256": "1e41de6fbc91e68782fc6150ca0e752174609d86005fef9534fb0a433671ccea",
+    "size": 25177,
+    "title": "मार्कोव समूह: क्यूब चालों पर एक रैंडम वॉक",
+    "description": "रूबिक क्यूब के फलक घुमावों को सत्यापित क्रमपरिवर्तनों के रूप में मॉडल करें, मॉड्यूलो चार वाली घातों का अन्वेषण करें, और एक लेज़ी रैंडम वॉक तथा एक-स्टिकर स्टोकेस्टिक मॉडल के बीच अंतर स्पष्ट करें।"
+  },
+  "translation": {
+    "model": "gemini-3.8-flash-medium",
+    "contentAudit": {
+      "status": "passed",
+      "sourceSha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4",
+      "targetSha256": "1e41de6fbc91e68782fc6150ca0e752174609d86005fef9534fb0a433671ccea",
+      "findings": [],
+      "errors": [],
+      "reviewMethod": "Previously passed AI/controller source-fidelity audit, preserved through verified presentation-only rebase where applicable; scoped final Bengali corrections independently adjudicated and re-gated.",
+      "provenance": {
+        "predecessorSourceSha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4",
+        "predecessorTargetSha256": "1e41de6fbc91e68782fc6150ca0e752174609d86005fef9534fb0a433671ccea",
+        "predecessorAuditSha256": "bc9ce91045b56f92704878372e9d1d52ab7968918ea15676f1cdb0cce4a0f0d8",
+        "sharedLayoutOnly": false
+      },
+      "nativeSpeakerReview": "pending",
+      "caveat": "AI/controller review, not native-speaker or qualified technical certification."
+    },
+    "policy": {
+      "locale": "hi",
+      "protectedTexts": [
+        "UDFBLR"
+      ],
+      "protectedIds": [
+        "2:1:0"
+      ],
+      "widthOverrides": {},
+      "identifierRenames": false,
+      "cellNames": "English",
+      "nativeReviewCaveat": "Machine-translated; native-speaker review pending. Numerical/structural tests do not certify prose quality."
+    },
+    "keeps": {
+      "ids": [
+        "2:1:0"
+      ],
+      "texts": [
+        "UDFBLR"
+      ]
+    },
+    "manifest": {
+      "manifest_version": 1,
+      "produced_by": "derived",
+      "generator": "tools/span-derive.mjs",
+      "locale": "hi",
+      "source": {
+        "path": "workbooks/en/markov-groups.srwb",
+        "sha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4"
+      },
+      "target": {
+        "path": "workbooks/hi/markov-groups.srwb",
+        "sha256": "1e41de6fbc91e68782fc6150ca0e752174609d86005fef9534fb0a433671ccea"
+      },
+      "spans": [
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 7,
+              "col": 1
+            },
+            "end": {
+              "line": 7,
+              "col": 67
+            },
+            "text": "Five disjoint 4-cycles per clockwise face turn: two on the face,"
+          },
+          "target_span": {
+            "start": {
+              "line": 7,
+              "col": 1
+            },
+            "end": {
+              "line": 7,
+              "col": 70
+            },
+            "text": "प्रत्येक दक्षिणावर्त फलक घुमाव में पाँच असंयुक्त 4-चक्र: दो फलक पर,"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 8,
+              "col": 1
+            },
+            "end": {
+              "line": 8,
+              "col": 69
+            },
+            "text": "three on the surrounding strips. Indices are zero-based positions."
+          },
+          "target_span": {
+            "start": {
+              "line": 8,
+              "col": 1
+            },
+            "end": {
+              "line": 8,
+              "col": 65
+            },
+            "text": "तीन आस-पास की पट्टियों पर। सूचकांक शून्य-आधारित स्थितियाँ हैं।"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 205,
+              "col": 8
+            },
+            "end": {
+              "line": 205,
+              "col": 62
+            },
+            "text": "Return p: source position j moves to destination p[j]."
+          },
+          "target_span": {
+            "start": {
+              "line": 205,
+              "col": 8
+            },
+            "end": {
+              "line": 205,
+              "col": 56
+            },
+            "text": "p लौटाएं: स्रोत स्थिति j गंतव्य p[j] पर जाती है।"
+          },
+          "kind": "docstring",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 213,
+              "col": 8
+            },
+            "end": {
+              "line": 213,
+              "col": 51
+            },
+            "text": "Rows are destinations, columns are sources."
+          },
+          "target_span": {
+            "start": {
+              "line": 213,
+              "col": 8
+            },
+            "end": {
+              "line": 213,
+              "col": 45
+            },
+            "text": "पंक्तियाँ गंतव्य हैं, कॉलम स्रोत हैं।"
+          },
+          "kind": "docstring",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 216,
+              "col": 27
+            },
+            "end": {
+              "line": 216,
+              "col": 68
+            },
+            "text": "Expected a permutation of positions 0..53"
+          },
+          "target_span": {
+            "start": {
+              "line": 216,
+              "col": 27
+            },
+            "end": {
+              "line": 216,
+              "col": 72
+            },
+            "text": "स्थितियों 0..53 के क्रमपरिवर्तन की अपेक्षा थी"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 229,
+              "col": 27
+            },
+            "end": {
+              "line": 229,
+              "col": 73
+            },
+            "text": "Expected each sticker label 1..54 exactly once"
+          },
+          "target_span": {
+            "start": {
+              "line": 229,
+              "col": 27
+            },
+            "end": {
+              "line": 229,
+              "col": 76
+            },
+            "text": "प्रत्येक स्टिकर लेबल 1..54 ठीक एक बार अपेक्षित था"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 233,
+              "col": 8
+            },
+            "end": {
+              "line": 233,
+              "col": 67
+            },
+            "text": "Apply moves left to right; an apostrophe means the inverse."
+          },
+          "target_span": {
+            "start": {
+              "line": 233,
+              "col": 8
+            },
+            "end": {
+              "line": 233,
+              "col": 73
+            },
+            "text": "चालों को बाएँ से दाएँ लागू करें; एपॉस्ट्रॉफी का अर्थ प्रतिलोम है।"
+          },
+          "kind": "docstring",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 243,
+              "col": 31
+            },
+            "end": {
+              "line": 243,
+              "col": 45
+            },
+            "text": "Unknown move: "
+          },
+          "target_span": {
+            "start": {
+              "line": 243,
+              "col": 31
+            },
+            "end": {
+              "line": 243,
+              "col": 43
+            },
+            "text": "अज्ञात चाल: "
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 248,
+              "col": 8
+            },
+            "end": {
+              "line": 248,
+              "col": 76
+            },
+            "text": "Return home-face letters as colour labels, not physical paint names."
+          },
+          "target_span": {
+            "start": {
+              "line": 248,
+              "col": 8
+            },
+            "end": {
+              "line": 248,
+              "col": 88
+            },
+            "text": "होम-फेस अक्षरों को रंग लेबल के रूप में लौटाएं, भौतिक पेंट नामों के रूप में नहीं।"
+          },
+          "kind": "docstring",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 251,
+              "col": 8
+            },
+            "end": {
+              "line": 251,
+              "col": 74
+            },
+            "text": "Built six clockwise quarter-turn matrices with fixed face centres."
+          },
+          "target_span": {
+            "start": {
+              "line": 251,
+              "col": 8
+            },
+            "end": {
+              "line": 251,
+              "col": 79
+            },
+            "text": "स्थिर फलक केंद्रों के साथ छह दक्षिणावर्त चौथाई-घुमाव मैट्रिक्स बनाए गए।"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 63
+            },
+            "text": "Stage 2: verify properties that colours alone cannot reveal."
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 72
+            },
+            "text": "चरण 2: उन गुणों को सत्यापित करें जिन्हें केवल रंग प्रकट नहीं कर सकते।"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 4,
+              "col": 62
+            },
+            "end": {
+              "line": 4,
+              "col": 77
+            },
+            "text": ": not bijective"
+          },
+          "target_span": {
+            "start": {
+              "line": 4,
+              "col": 62
+            },
+            "end": {
+              "line": 4,
+              "col": 82
+            },
+            "text": ": बाइजेक्टिव नहीं है"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 5,
+              "col": 57
+            },
+            "end": {
+              "line": 5,
+              "col": 71
+            },
+            "text": ": centre moved"
+          },
+          "target_span": {
+            "start": {
+              "line": 5,
+              "col": 57
+            },
+            "end": {
+              "line": 5,
+              "col": 84
+            },
+            "text": ": केंद्र स्थानांतरित हो गया"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 6,
+              "col": 53
+            },
+            "end": {
+              "line": 6,
+              "col": 72
+            },
+            "text": ": bad source column"
+          },
+          "target_span": {
+            "start": {
+              "line": 6,
+              "col": 53
+            },
+            "end": {
+              "line": 6,
+              "col": 72
+            },
+            "text": ": अमान्य स्रोत कॉलम"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 7,
+              "col": 53
+            },
+            "end": {
+              "line": 7,
+              "col": 74
+            },
+            "text": ": bad destination row"
+          },
+          "target_span": {
+            "start": {
+              "line": 7,
+              "col": 53
+            },
+            "end": {
+              "line": 7,
+              "col": 75
+            },
+            "text": ": अमान्य गंतव्य पंक्ति"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 8,
+              "col": 81
+            },
+            "end": {
+              "line": 8,
+              "col": 111
+            },
+            "text": ": fourth power is not identity"
+          },
+          "target_span": {
+            "start": {
+              "line": 8,
+              "col": 81
+            },
+            "end": {
+              "line": 8,
+              "col": 109
+            },
+            "text": ": चौथी घात आइडेंटिटी नहीं है"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 9,
+              "col": 65
+            },
+            "end": {
+              "line": 9,
+              "col": 81
+            },
+            "text": ": inverse failed"
+          },
+          "target_span": {
+            "start": {
+              "line": 9,
+              "col": 65
+            },
+            "end": {
+              "line": 9,
+              "col": 84
+            },
+            "text": ": प्रतिलोम विफल रहा"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 12,
+              "col": 19
+            },
+            "end": {
+              "line": 12,
+              "col": 77
+            },
+            "text": ": bijection, fixed centres, four turns, and inverse passed"
+          },
+          "target_span": {
+            "start": {
+              "line": 12,
+              "col": 19
+            },
+            "end": {
+              "line": 12,
+              "col": 76
+            },
+            "text": ": बाइजेक्शन, स्थिर केंद्र, चार घुमाव, और प्रतिलोम पास हुए"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "check_moves",
+          "source_span": {
+            "start": {
+              "line": 15,
+              "col": 8
+            },
+            "end": {
+              "line": 15,
+              "col": 53
+            },
+            "text": "All six moves passed. U and R do not commute."
+          },
+          "target_span": {
+            "start": {
+              "line": 15,
+              "col": 8
+            },
+            "end": {
+              "line": 15,
+              "col": 59
+            },
+            "text": "सभी छह चालें पास हुईं। U और R क्रमविनिमेय नहीं हैं।"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "show_turn",
+          "source_span": {
+            "start": {
+              "line": 2,
+              "col": 8
+            },
+            "end": {
+              "line": 2,
+              "col": 55
+            },
+            "text": "U cycles, shown as one-based sticker positions:"
+          },
+          "target_span": {
+            "start": {
+              "line": 2,
+              "col": 8
+            },
+            "end": {
+              "line": 2,
+              "col": 63
+            },
+            "text": "U चक्र, एक-आधारित स्टिकर स्थितियों के रूप में दिखाए गए:"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "show_turn",
+          "source_span": {
+            "start": {
+              "line": 6,
+              "col": 1
+            },
+            "end": {
+              "line": 6,
+              "col": 64
+            },
+            "text": "F is face index 2, so its top row is at positions 18, 19, 20."
+          },
+          "target_span": {
+            "start": {
+              "line": 6,
+              "col": 1
+            },
+            "end": {
+              "line": 6,
+              "col": 74
+            },
+            "text": "F फलक सूचकांक 2 है, इसलिए इसकी शीर्ष पंक्ति स्थितियाँ 18, 19, 20 पर है।"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "show_turn",
+          "source_span": {
+            "start": {
+              "line": 8,
+              "col": 8
+            },
+            "end": {
+              "line": 8,
+              "col": 36
+            },
+            "text": "\\nF top row labels before U:"
+          },
+          "target_span": {
+            "start": {
+              "line": 8,
+              "col": 8
+            },
+            "end": {
+              "line": 8,
+              "col": 40
+            },
+            "text": "\\nU से पहले F शीर्ष पंक्ति लेबल:"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "show_turn",
+          "source_span": {
+            "start": {
+              "line": 9,
+              "col": 8
+            },
+            "end": {
+              "line": 9,
+              "col": 34
+            },
+            "text": "F top row labels after U: "
+          },
+          "target_span": {
+            "start": {
+              "line": 9,
+              "col": 8
+            },
+            "end": {
+              "line": 9,
+              "col": 38
+            },
+            "text": "U के बाद F शीर्ष पंक्ति लेबल: "
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "show_turn",
+          "source_span": {
+            "start": {
+              "line": 10,
+              "col": 8
+            },
+            "end": {
+              "line": 10,
+              "col": 36
+            },
+            "text": "Face-letter colours after U:"
+          },
+          "target_span": {
+            "start": {
+              "line": 10,
+              "col": 8
+            },
+            "end": {
+              "line": 10,
+              "col": 31
+            },
+            "text": "U के बाद फलक-अक्षर रंग:"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "show_turn",
+          "source_span": {
+            "start": {
+              "line": 11,
+              "col": 8
+            },
+            "end": {
+              "line": 11,
+              "col": 33
+            },
+            "text": "U then R equals R then U:"
+          },
+          "target_span": {
+            "start": {
+              "line": 11,
+              "col": 8
+            },
+            "end": {
+              "line": 11,
+              "col": 37
+            },
+            "text": "U फिर R, R फिर U के बराबर है:"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "random_walk",
+          "source_span": {
+            "start": {
+              "line": 8,
+              "col": 1
+            },
+            "end": {
+              "line": 8,
+              "col": 61
+            },
+            "text": "A distribution for the location of one particular sticker."
+          },
+          "target_span": {
+            "start": {
+              "line": 8,
+              "col": 1
+            },
+            "end": {
+              "line": 8,
+              "col": 44
+            },
+            "text": "एक विशेष स्टिकर के स्थान के लिए एक वितरण।"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "random_walk",
+          "source_span": {
+            "start": {
+              "line": 13,
+              "col": 8
+            },
+            "end": {
+              "line": 13,
+              "col": 52
+            },
+            "text": "One-sticker probability mass after one step:"
+          },
+          "target_span": {
+            "start": {
+              "line": 13,
+              "col": 8
+            },
+            "end": {
+              "line": 13,
+              "col": 52
+            },
+            "text": "एक चरण के बाद एक-स्टिकर प्रायिकता द्रव्यमान:"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "random_walk",
+          "source_span": {
+            "start": {
+              "line": 15,
+              "col": 1
+            },
+            "end": {
+              "line": 15,
+              "col": 76
+            },
+            "text": "Sample a valid cube trajectory. The seed makes this example reproducible,"
+          },
+          "target_span": {
+            "start": {
+              "line": 15,
+              "col": 1
+            },
+            "end": {
+              "line": 15,
+              "col": 81
+            },
+            "text": "एक वैध क्यूब प्रक्षेपवक्र का नमूना लें। सीड इस उदाहरण को पुनरुत्पादक बनाता है,"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "random_walk",
+          "source_span": {
+            "start": {
+              "line": 16,
+              "col": 1
+            },
+            "end": {
+              "line": 16,
+              "col": 62
+            },
+            "text": "not uniformly mixed over all reachable cube configurations."
+          },
+          "target_span": {
+            "start": {
+              "line": 16,
+              "col": 1
+            },
+            "end": {
+              "line": 16,
+              "col": 66
+            },
+            "text": "सभी पहुँचने योग्य क्यूब विन्यासों में समान रूप से मिश्रित नहीं।"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "random_walk",
+          "source_span": {
+            "start": {
+              "line": 22,
+              "col": 8
+            },
+            "end": {
+              "line": 22,
+              "col": 22
+            },
+            "text": "Sampled moves:"
+          },
+          "target_span": {
+            "start": {
+              "line": 22,
+              "col": 8
+            },
+            "end": {
+              "line": 22,
+              "col": 23
+            },
+            "text": "नमूनाकृत चालें:"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "random_walk",
+          "source_span": {
+            "start": {
+              "line": 23,
+              "col": 8
+            },
+            "end": {
+              "line": 23,
+              "col": 34
+            },
+            "text": "Final face-letter colours:"
+          },
+          "target_span": {
+            "start": {
+              "line": 23,
+              "col": 8
+            },
+            "end": {
+              "line": 23,
+              "col": 28
+            },
+            "text": "अंतिम फलक-अक्षर रंग:"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 7,
+          "cell_name": "random_walk",
+          "source_span": {
+            "start": {
+              "line": 24,
+              "col": 8
+            },
+            "end": {
+              "line": 24,
+              "col": 75
+            },
+            "text": "The sampled path preserved every sticker label and all six centres."
+          },
+          "target_span": {
+            "start": {
+              "line": 24,
+              "col": 8
+            },
+            "end": {
+              "line": 24,
+              "col": 79
+            },
+            "text": "नमूनाकृत पथ ने प्रत्येक स्टिकर लेबल और सभी छह केंद्रों को संरक्षित रखा।"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        }
+      ],
+      "exclusions": []
+    },
+    "nativeSpeakerReview": "pending"
+  },
+  "browser": {
+    "status": "passed",
+    "first": {
+      "exportSha256": "c0a1b5b88a16db82e3f65d448259e5e0f38d3459f6730a7168057d13001afa01",
+      "reportSha256": "fa9f266c4a2930f774418f1aa1e4b219e0e5c8063f178845e48596109fb34679",
+      "appVersion": "1.4.0",
+      "cells": 9,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "second": {
+      "exportSha256": "98680d87e91bde30be409cebb4931dcd1486890a3da612560f27385bdcb6e6cd",
+      "reportSha256": "fa9f266c4a2930f774418f1aa1e4b219e0e5c8063f178845e48596109fb34679",
+      "appVersion": "1.4.0",
+      "cells": 9,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "englishBaseline": [
+      {
+        "exportSha256": "c9b5cebbf7e00eb178079a0610fb595c9158bd3bf0f9e0edbd4fe6ffa084b18c",
+        "reportSha256": "5d2d7fcf80037243115b986477f4acb1938af752fe0f8c37f9a0e651cc9ba4b2",
+        "appVersion": "1.4.0",
+        "cells": 9,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      },
+      {
+        "exportSha256": "ee691306c00a08037a2b7870fd8a96efffa7f36702b8957b16632645d2b73908",
+        "reportSha256": "5d2d7fcf80037243115b986477f4acb1938af752fe0f8c37f9a0e651cc9ba4b2",
+        "appVersion": "1.4.0",
+        "cells": 9,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      }
+    ],
+    "deterministic": true,
+    "textOracle": {
+      "first": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      },
+      "second": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      }
+    },
+    "plotData": {
+      "status": "passed",
+      "count": 0
+    },
+    "rasterCharts": null,
+    "renderedReview": "not-applicable"
+  },
+  "caveat": "Machine translated with Gemini and reviewed by AI/controller checks, including scoped corrections where needed. Native-speaker review is pending; structural and numerical checks do not certify prose quality."
+}

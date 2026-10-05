@@ -1,0 +1,63 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "朝食の民主主義：R → Python → Prolog",
+    "cells": [
+      {
+        "code": "# 朝食の民主主義\n\n集団が**BよりA**を、**CよりB**を好み、それでもなお**AよりC**を好むことはあり得るでしょうか？\n\nこのワークブックでは、公開されている朝食の好みに関するデータセットを三つの言語で追跡します：\n\n1. **R** が15種類の食品に対する42件の完全な順位付けをダウンロードして検証し、第一希望をプロットします。\n2. **Python** がデータのSHA-256を検証し、小さな決定論的k-meansモデルで順位ベクトルをグループ化して、名前付きソースセルにペアワイズのファクトを書き込みます。\n3. **Prolog** がそのソースセルを読み込み、じゃんけんスタイルの多数派の循環を探索します。\n\n## 実行順序と要件\n\n**fetch_breakfast_votes → learn_preferences → find_majority_cycle** を実行してください。間にある `pairwise_model` セルは名前付きのデータ/ソースキャリアです。Pythonがこれを上書きするため、生成後に実行する必要はありません。すべてのセルを上から下へ順番に実行することでも動作します。\n\nSciREPLはbase R、NumPy、およびカーネル間で共有されるファイルシステムと名前付きセルのAPIを提供します。最初のRの実行では、固定された一つの公開データファイル（約2.6 KB）を取得するために **raw.githubusercontent.com** へのインターネットアクセスが必要です。アプリがネットワークの同意またはホストの許可リストへの登録を要求した場合は、その要求を確認してください。ダウンロードされたテキストがコードとして実行されることはなく、AIサービスは呼び出されず、APIキーも不要です。初回のランタイムインストールには個別のダウンロードが必要となる場合があります。\n\nRは `/shared/breakfast_source.soc`、`breakfast_ballots.csv`、および `breakfast_foods.csv` を書き込みます。Pythonは名前付きの `pairwise_model` セルのみを更新します。保存されたSHA-256検証済みのソースファイルは以降の実行で再利用されるため、オフラインで実行できます。データキャリアの名前を変更したり、データセットの列名を変更したりしないでください。\n\nこのデータは、Green & Rao (1972) による **juice, cold cereal, beverage** のコンテキストであり、PrefLibによってデジタル化されたものです。これら42人の回答者は歴史的な便宜的サンプルであり、現代の朝食の好みを代表する調査ではありません。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "intro"
+      },
+      {
+        "code": "# この不変のソースピンはデータであり、実行可能なR/Python/Prologコードではありません。\nurl <- \"https://raw.githubusercontent.com/PrefLib/PrefLib-Data/6e2e9dcef5ee624383e3e2031f741728dd64d032/datasets/00035%20-%20breakfast/00035-00000004.soc\"\nsource_file <- \"/shared/breakfast_source.soc\"\nexpected_md5 <- \"75c0e89696e16ac7e6bb2a946943f529\"  # canonical LFテキスト。base-Rの整合性チェック\n\n# 検証済みのキャッシュされたソースを再利用します。別のデータへ暗黙的にフォールバックしないでください。\ncached_ok <- file.exists(source_file) &&\n  identical(unname(tools::md5sum(source_file)), expected_md5)\nif (!cached_ok) {\n  lines <- readLines(url, warn = FALSE, encoding = \"UTF-8\")\n  writeLines(lines, source_file, useBytes = TRUE)\n  if (!identical(unname(tools::md5sum(source_file)), expected_md5))\n    stop(\"ピン留めされたデータセットのハッシュが一致しません。停止してソースを確認してください。\")\n}\nlines <- readLines(source_file, warn = FALSE, encoding = \"UTF-8\")\n\nname_lines <- grep(\"^# ALTERNATIVE NAME\", lines, value = TRUE)\nfood_ids <- as.integer(sub(\"^# ALTERNATIVE NAME ([0-9]+):.*\", \"\\\\1\", name_lines))\nfood_names <- sub(\"^# ALTERNATIVE NAME [0-9]+: \", \"\", name_lines)\nnames(food_names) <- food_ids\n\nballot_lines <- grep(\"^[0-9]+:\", lines, value = TRUE)\ncounts <- as.integer(sub(\":.*\", \"\", ballot_lines))\norders <- lapply(sub(\"^[0-9]+:[[:space:]]*\", \"\", ballot_lines),\n                 function(x) as.integer(strsplit(x, \",\")[[1]]))\nstopifnot(length(food_ids) == 15L, identical(sort(food_ids), seq_len(15L)),\n          !anyDuplicated(food_ids), length(orders) == length(counts),\n          all(!is.na(counts)), all(counts > 0L), sum(counts) == 42L)\nstopifnot(all(vapply(orders, function(x) identical(sort(x), seq_len(15L)), logical(1))))\nexpanded <- vector(\"list\", sum(counts)); k <- 1L\nfor (i in seq_along(orders)) for (j in seq_len(counts[i])) {\n  expanded[[k]] <- orders[[i]]; k <- k + 1L\n}\nballots <- do.call(rbind, expanded)\ncolnames(ballots) <- paste0(\"rank_\", seq_len(ncol(ballots)))\n\nwrite.csv(as.data.frame(ballots), \"/shared/breakfast_ballots.csv\", row.names = FALSE)\nwrite.csv(data.frame(id = food_ids, name = unname(food_names)),\n          \"/shared/breakfast_foods.csv\", row.names = FALSE)\n\nfirst <- sort(table(ballots[, 1]), decreasing = TRUE)\ntop <- head(first, 7)\nshort_names <- c(\"Toast pop-up\", \"Buttered toast\", \"English muffin\", \"Jelly donut\",\n                 \"Cinnamon toast\", \"Blueberry muffin\", \"Hard rolls\", \"Toast + marmalade\",\n                 \"Toast + jelly\", \"Toast + margarine\", \"Cinnamon bun\", \"Danish pastry\",\n                 \"Glazed donut\", \"Coffee cake\", \"Corn muffin\")\nnames(short_names) <- food_ids\nlabels <- short_names[names(top)]\npar(mar = c(5.1, 10, 3, 1))\nbarplot(rev(top), names.arg = rev(labels), horiz = TRUE, las = 1, col = \"#e8872d\",\n        border = NA, xlab = \"第一希望の得票数\",\n        main = \"cold cerealに何を添えるべきですか？\")\ncat(sprintf(\"%d件の完全な順位付け（%d種類の食品）を検証しました。\\n\", nrow(ballots), ncol(ballots)))",
+        "type": "code",
+        "language": "r",
+        "name": "fetch_breakfast_votes"
+      },
+      {
+        "code": "## Python: 好みのプロファイルを学習し、直接対決の勝利数を集計する\n\nPythonはRによって作成されたファイルを読み込みます。ごく小さな決定論的 **k-means** モデルが類似した順位付けをグループ化する一方で、ペアワイズ比較によってPrologが推論を行うためのファクトが名前付き `pairwise_model` セルに作成されます。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "profiles_description"
+      },
+      {
+        "code": ":- dynamic model/1.\nmodel([]).",
+        "type": "code",
+        "language": "prolog",
+        "name": "pairwise_model"
+      },
+      {
+        "code": "import csv, hashlib, numpy as np\n\n# Rセルはcanonical LFのソースバイトを保存します。使用前にSHA-256を検証してください。\nwith open(\"/shared/breakfast_source.soc\", \"rb\") as f:\n    source_bytes = f.read()\nif hashlib.sha256(source_bytes).hexdigest() != \"7013ed36716e5a2b0c2d7813b0da9cd272cf1bfe90eb66d7d8311485a6a32db0\":\n    raise ValueError(\"ピン留めされたデータセットのSHA-256が一致しません。fetch_breakfast_votesを実行してソースを確認してください。\")\n\nwith open(\"/shared/breakfast_foods.csv\", newline=\"\") as f:\n    foods = {int(r[\"id\"]): r[\"name\"] for r in csv.DictReader(f)}\nwith open(\"/shared/breakfast_ballots.csv\", newline=\"\") as f:\n    rows = list(csv.DictReader(f))\n\nm = len(foods)\nif sorted(foods) != list(range(1, 16)) or len(rows) != 42:\n    raise ValueError(\"ピン留めされた42人の投票者、15種類の食品のデータセットが必要です\")\nrankings = np.array([[int(r[f\"rank_{j}\"]) for j in range(1, m + 1)] for r in rows])\nif rankings.shape != (42, m) or not np.all(np.sort(rankings, axis=1) == np.arange(1, m + 1)):\n    raise ValueError(\"すべての投票は食品IDの完全な順列でなければなりません\")\npositions = np.empty_like(rankings)\nfor voter, order in enumerate(rankings):\n    positions[voter, order - 1] = np.arange(m)\n\nwins = (positions[:, :, None] < positions[:, None, :]).sum(axis=0)\nmargin = wins - wins.T\nplurality = np.bincount(rankings[:, 0], minlength=m + 1)[1:]\nborda = (m - 1 - positions).sum(axis=0)\ncondorcet = [i for i in range(m) if np.all(np.delete(wins[i], i) > len(rows) / 2)]\n\n# 決定論的k-meansを用いてローカルで学習された三つの好みのプロファイル。\nX = (m - 1 - positions) / (m - 1)\nseeds = [0]\nwhile len(seeds) < 3:\n    nearest = np.min(((X[:, None, :] - X[seeds][None, :, :]) ** 2).sum(axis=2), axis=1)\n    seeds.append(int(np.argmax(nearest)))\ncentroids = X[seeds].copy()\nfor _ in range(30):\n    labels = ((X[:, None, :] - centroids[None, :, :]) ** 2).sum(axis=2).argmin(axis=1)\n    updated = centroids.copy()\n    for k in range(3):\n        if np.any(labels == k):\n            updated[k] = X[labels == k].mean(axis=0)  # 空のクラスターの中心を保持する\n    if np.allclose(updated, centroids): break\n    centroids = updated\n\ndef prolog_atom(text):\n    return \"'\" + text.replace(\"\\\\\", \"\\\\\\\\\").replace(\"'\", \"''\") + \"'\"\n\nfacts = [f\"food({i},{prolog_atom(foods[i])})\" for i in range(1, m + 1)]\nfor a in range(m):\n    for b in range(m):\n        if margin[a, b] > 0:\n            facts.append(f\"beats({a+1},{b+1},{int(margin[a,b])})\")\nfor k in range(3):\n    favourite = int(np.argmax(centroids[k])) + 1\n    facts.append(f\"taste_bloc({k+1},{int((labels == k).sum())},{favourite})\")\n# 最小IDを選択する代わりに、同点となったすべての最多得票/ボルダ勝者を保持する。\nfacts += [\n    *[f\"rule_winner(plurality,{i+1})\" for i in np.flatnonzero(plurality == plurality.max())],\n    *[f\"rule_winner(borda,{i+1})\" for i in np.flatnonzero(borda == borda.max())],\n    *[f\"rule_winner(condorcet,{i+1})\" for i in condorcet]\n]\nnb_write(\"pairwise_model\", \".code\", \":- dynamic model/1.\\nmodel([\" + \",\".join(facts) + \"]).\")\n\nprint(\"最多得票勝者:\", \", \".join(foods[int(i)+1] for i in np.flatnonzero(plurality == plurality.max())))\nprint(\"ボルダ勝者          :\", \", \".join(foods[int(i)+1] for i in np.flatnonzero(borda == borda.max())))\nprint(\"コンドルセ勝者 :\", foods[condorcet[0] + 1] if condorcet else \"なし\")\nfor k in range(3):\n    top = np.argsort(centroids[k])[::-1][:3] + 1\n    print(f\"好みのグループ {k+1} ({(labels == k).sum():2d} 人の投票者):\", \", \".join(foods[int(i)] for i in top))\nprint(\"Prolog向けの名前付きペアワイズモデルが書き込まれました。\")",
+        "type": "code",
+        "language": "python",
+        "name": "learn_preferences"
+      },
+      {
+        "code": "## Prolog: 多数派の循環を見つける\n\nPrologはPythonの名前付き `pairwise_model` ソースセルを読み込みます。各 `beats(A, B, Margin)` エッジは、Aに投票した人数ではなく、厳密な多数派の選好と得票差を記録します。Prologは有向サイクルを閉じる三つのエッジを探索し、最小エッジマージンが最大となるサイクルを報告します。\n\n一部の食品間における循環は、全体のコンドルセ勝者と共存することができます。k-meansによる好みのプロファイルは独立した探索的要約であり、多数派エッジの構築や投票ルールの勝者の決定には一切関与しません。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "prolog_description"
+      },
+      {
+        "code": ":- dynamic food/2, beats/3, taste_bloc/3, rule_winner/2.\n\nmajority_cycle(A, B, C, AB, BC, CA) :-\n    beats(A, B, AB), beats(B, C, BC), beats(C, A, CA),\n    A < B, A < C.\n\n\\+ \\+ (\n    user:nb_read('pairwise_model', '.code', _ModelSource),\n    split_string(_ModelSource, \"\\n\", \"\\r\", [\":- dynamic model/1.\", _ModelText]),\n    term_string(model(_Facts), _ModelText),\n    ( _Facts == []\n    -> writeln(\"このセルの前に fetch_breakfast_votes と learn_preferences を実行してください。\"), fail\n    ;  true ),\n    retractall(food(_,_)), retractall(beats(_,_,_)),\n    retractall(taste_bloc(_,_,_)), retractall(rule_winner(_,_)),\n    maplist(assertz, _Facts),\n    findall(_Key-cycle(_A,_B,_C,_AB,_BC,_CA),\n            (majority_cycle(_A,_B,_C,_AB,_BC,_CA), _Min is min(_AB,min(_BC,_CA)), _Key is -_Min),\n            _Cycles),\n    ( _Cycles == []\n    -> writeln(\"厳密な三つの食品による多数派の循環は見つかりませんでした。\"), fail\n    ;  keysort(_Cycles, [_-cycle(_A,_B,_C,_AB,_BC,_CA)|_]) ),\n    food(_A, _NA), food(_B, _NB), food(_C, _NC),\n    format(\"朝食に供されるじゃんけん~n~n\", []),\n    format(\"~w が ~w に ~d 票差で勝利~n\", [_NA, _NB, _AB]),\n    format(\"~w が ~w に ~d 票差で勝利~n\", [_NB, _NC, _BC]),\n    format(\"~w が ~w に ~d 票差で勝利~n~n\", [_NC, _NA, _CA]),\n    forall(rule_winner(_Rule, _Winner),\n           (food(_Winner, _Name), format(\"~w 勝者: ~w~n\", [_Rule, _Name])))\n).",
+        "type": "code",
+        "language": "prolog",
+        "name": "find_majority_cycle"
+      },
+      {
+        "code": "## これが示すこと—そして示さないこと\n\n各回答者は完全で内部的に推移的な順位付けを提供しましたが、**一部の**食品間での多数派比較は循環を形成します。元の固定されたデータには全体のコンドルセ勝者も存在します。残りの食品間に循環が存在していても、その食品は直接対決ですべての他の食品に勝利します。最多得票の勝者はボルダ勝者やコンドルセ勝者とは異なっており、集計ルールが重要であることを示しています。\n\nこれは**コンドルセのパラドックス**（多数派の選好は必ずしも推移的であるとは限らない）の具体的な実例です。これ自体は**アローの不可能性定理**の証明ではありません。アローの定理は、少なくとも三つの選択肢と制限のない個人の順位付けを持つ、完全かつ推移的な社会的順位付けに関するものです。パレート全会一致性、無関係な選択肢からの独立性、および非独裁性を同時に満たすそのような集計ルールは存在しません。\n\nk-meansグループはこれらの順位ベクトルの決定論的な記述であり、発見された生物学的カテゴリーや予測モデル、あるいはより広範な母集団における安定した選好の証拠ではありません。それらは三つのクラスターの選択、数値的な順位のエンコーディング、ユークリッド距離、および初期化に依存しています。\n\n有益な結論は、投票が無意味であるということではありません。集計ルールやモデリングの選択にはトレードオフが存在し、それらは明示的かつ検証可能であるべきだということです。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "interpretation"
+      },
+      {
+        "code": "### データ、出所、およびライセンス\n\n**データセット:** [PrefLib 朝食項目、シリーズ 00035](https://preflib.github.io/PrefLib-Jekyll/dataset/00035)、ファイル `00035-00000004.soc` (juice, cold cereal, beverage)。ソースには15種類の食品に対する42人の回答者からの順位付けが含まれています。\n\n**不変のソースコミット:** [PrefLib/PrefLib-Data](https://github.com/PrefLib/PrefLib-Data) 内の `6e2e9dcef5ee624383e3e2031f741728dd64d032`。Rセルはこの固定されたファイルのみをダウンロードし、base Rを使用してそのcanonical-LF MD5を検証し、ローカルにキャッシュします。Pythonは結果を計算する前に正規ソースの **SHA-256** を検証します: `7013ed36716e5a2b0c2d7813b0da9cd272cf1bfe90eb66d7d8311485a6a32db0`。これらの整合性チェックは、変更された入力や不正な形式の入力を気付かずに分析することを防ぎます。これらはデータに対する署名や独立した保証ではありません。\n\n**必要な引用:** Paul E. Green and Vithala R. Rao, *Applied Multidimensional Scaling: A Comparison of Approaches and Algorithms*. Holt, Rinehart and Winston, 1972. デジタル化クレジット: PrefLibの記録によるDominik Peters。\n\n**アップストリームのライセンス:** [PrefLib-Data リポジトリのライセンス](https://github.com/PrefLib/PrefLib-Data/blob/6e2e9dcef5ee624383e3e2031f741728dd64d032/LICENSE) は GPL-3.0 です。このワークブックはそのデータセットを同梱したり再ライセンスしたりしません。ダウンロードしたファイルを別途再配布する場合は、その出所、ライセンス、および必要な引用を保持してください。\n\n最初のデータ取得では、通常のHTTPSリクエストがGitHubの公開RAWファイルホストに送信され、ホストは通常の要求/ネットワークメタデータを受信する可能性があります。そのダウンロード後、分析はSciREPL内でローカルに実行されます。ユーザーの投票内容やワークブックのコンテンツがアップロードされることはありません。",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "data_citation"
+      }
+    ]
+  }
+}

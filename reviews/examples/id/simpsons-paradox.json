@@ -1,0 +1,1461 @@
+{
+  "schema": 1,
+  "lesson": "simpsons-paradox",
+  "locale": "id",
+  "source": {
+    "path": "workbooks/en/simpsons-paradox.srwb",
+    "sha256": "a99db8a614a1392f64ad4f1a5d00181a26c65bd3f4e67581de4b911e4299aacb"
+  },
+  "target": {
+    "path": "workbooks/id/simpsons-paradox.srwb",
+    "sha256": "37d14e31808ceff5d34ce662d52cb129222542aef9ea96d93fb894199a530504",
+    "size": 14173,
+    "title": "Paradoks Simpson",
+    "description": "Gunakan data sintetis untuk mendemonstrasikan paradoks Simpson, membandingkan tingkat keberhasilan terstratifikasi dan gabungan di R dan JavaScript, serta memisahkan asosiasi dari kausalitas."
+  },
+  "translation": {
+    "model": "gemini-3.8-flash-medium",
+    "contentAudit": {
+      "status": "passed",
+      "sourceSha256": "a99db8a614a1392f64ad4f1a5d00181a26c65bd3f4e67581de4b911e4299aacb",
+      "targetSha256": "37d14e31808ceff5d34ce662d52cb129222542aef9ea96d93fb894199a530504",
+      "findings": [],
+      "errors": [],
+      "reviewMethod": "Previously passed AI/controller source-fidelity audit, preserved through verified presentation-only rebase where applicable; scoped final Bengali corrections independently adjudicated and re-gated.",
+      "provenance": {
+        "predecessorSourceSha256": "bb32d966c1ee1ec6f5372f621804a8121a08cdb0b976e89bce118449c168aac0",
+        "predecessorTargetSha256": "637d369443134b4fd6f7c3abd31b156a7fae6a77aaaf428f163c628214887fa2",
+        "predecessorAuditSha256": "e4f9aee820d230147169c9ced063ca1a4299e9c47ece3e146884dfb74c5be481",
+        "sharedLayoutOnly": true,
+        "sharedLayoutProjectionSha256": "b1715653da819dc2432d5c88e4f44eab4f2760b6e1ec1f2246f4f2541d755bcb"
+      },
+      "nativeSpeakerReview": "pending",
+      "caveat": "AI/controller review, not native-speaker or qualified technical certification."
+    },
+    "policy": {
+      "locale": "id",
+      "protectedTexts": [
+        "Mild",
+        "Severe",
+        "success",
+        "failure",
+        "stratum",
+        "treatment",
+        "outcome",
+        "count"
+      ],
+      "protectedIds": [
+        "1:8:0",
+        "1:10:0",
+        "1:16:0",
+        "1:18:0",
+        "3:4:0",
+        "3:6:0",
+        "3:18:0",
+        "3:20:0",
+        "3:28:0",
+        "3:30:0",
+        "3:44:0",
+        "3:46:0",
+        "3:56:0",
+        "3:58:0",
+        "3:66:0",
+        "3:68:0",
+        "3:82:0",
+        "3:88:0",
+        "3:94:0",
+        "3:100:0",
+        "4:2:0",
+        "4:4:0",
+        "4:8:0",
+        "4:14:0",
+        "4:22:0",
+        "4:28:0"
+      ],
+      "widthOverrides": {},
+      "identifierRenames": false,
+      "cellNames": "English",
+      "nativeReviewCaveat": "Machine-translated; native-speaker review pending. Numerical/structural tests do not certify prose quality."
+    },
+    "keeps": {
+      "ids": [
+        "1:8:0",
+        "1:10:0",
+        "1:16:0",
+        "1:18:0",
+        "3:4:0",
+        "3:6:0",
+        "3:18:0",
+        "3:20:0",
+        "3:28:0",
+        "3:30:0",
+        "3:44:0",
+        "3:46:0",
+        "3:56:0",
+        "3:58:0",
+        "3:66:0",
+        "3:68:0",
+        "3:82:0",
+        "3:88:0",
+        "3:94:0",
+        "3:100:0",
+        "4:2:0",
+        "4:4:0",
+        "4:8:0",
+        "4:14:0",
+        "4:22:0",
+        "4:28:0",
+        "4:38:0",
+        "4:50:0",
+        "4:54:0",
+        "5:16:0",
+        "5:18:0",
+        "5:20:0",
+        "3:14:0"
+      ],
+      "texts": [
+        "Mild",
+        "Severe",
+        "success",
+        "failure",
+        "success",
+        "failure",
+        "success",
+        "failure",
+        "success",
+        "failure",
+        "success",
+        "failure",
+        "success",
+        "failure",
+        "success",
+        "failure",
+        "Mild",
+        "Mild",
+        "Severe",
+        "Severe",
+        "Mild",
+        "Severe",
+        "Mild",
+        "Severe",
+        "Mild",
+        "Severe",
+        "#ED7D31",
+        "topright",
+        "grey40",
+        "  p_A = ${r.A.p.toFixed(4)} (${r.A.s}/${r.A.s + r.A.f})",
+        "  p_B = ${r.B.p.toFixed(4)} (${r.B.s}/${r.B.s + r.B.f})",
+        "  RR = ${r.RR.toFixed(4)}",
+        "--- Stratum: %s ---\\n"
+      ]
+    },
+    "manifest": {
+      "manifest_version": 1,
+      "produced_by": "derived",
+      "generator": "tools/span-derive.mjs",
+      "locale": "id",
+      "source": {
+        "path": "workbooks/en/simpsons-paradox.srwb",
+        "sha256": "a99db8a614a1392f64ad4f1a5d00181a26c65bd3f4e67581de4b911e4299aacb"
+      },
+      "target": {
+        "path": "workbooks/id/simpsons-paradox.srwb",
+        "sha256": "37d14e31808ceff5d34ce662d52cb129222542aef9ea96d93fb894199a530504"
+      },
+      "spans": [
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 50
+            },
+            "text": "---- SYNTHETIC / FICTIONAL DATA (not real) ----"
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 49
+            },
+            "text": "---- DATA SINTETIS / FIKTIF (tidak nyata) ----"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 2,
+              "col": 1
+            },
+            "end": {
+              "line": 2,
+              "col": 72
+            },
+            "text": "Two strata; two treatments A and B; binary outcome (success/failure)."
+          },
+          "target_span": {
+            "start": {
+              "line": 2,
+              "col": 1
+            },
+            "end": {
+              "line": 2,
+              "col": 75
+            },
+            "text": "Dua strata; dua perlakuan A dan B; hasil biner (keberhasilan/kegagalan)."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 3,
+              "col": 1
+            },
+            "end": {
+              "line": 3,
+              "col": 72
+            },
+            "text": "Constructed so that A > B within each stratum, but B > A when pooled."
+          },
+          "target_span": {
+            "start": {
+              "line": 3,
+              "col": 1
+            },
+            "end": {
+              "line": 3,
+              "col": 99
+            },
+            "text": "Disusun sedemikian rupa sehingga A > B di dalam setiap stratum, tetapi B > A ketika digabungkan."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 4,
+              "col": 1
+            },
+            "end": {
+              "line": 4,
+              "col": 89
+            },
+            "text": "Mechanism: A treats mostly Severe patients (high-risk), B treats mostly Mild patients."
+          },
+          "target_span": {
+            "start": {
+              "line": 4,
+              "col": 1
+            },
+            "end": {
+              "line": 4,
+              "col": 109
+            },
+            "text": "Mekanisme: A merawat sebagian besar pasien Severe (berisiko tinggi), B merawat sebagian besar pasien Mild."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 11,
+              "col": 5
+            },
+            "end": {
+              "line": 11,
+              "col": 19
+            },
+            "text": "Mild stratum"
+          },
+          "target_span": {
+            "start": {
+              "line": 11,
+              "col": 5
+            },
+            "end": {
+              "line": 11,
+              "col": 19
+            },
+            "text": "Stratum Mild"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 12,
+              "col": 19
+            },
+            "end": {
+              "line": 12,
+              "col": 71
+            },
+            "text": "A: 85 success, 15 failure   -> p = 0.85  (n = 100)"
+          },
+          "target_span": {
+            "start": {
+              "line": 12,
+              "col": 19
+            },
+            "end": {
+              "line": 12,
+              "col": 78
+            },
+            "text": "A: 85 keberhasilan, 15 kegagalan   -> p = 0.85  (n = 100)"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 13,
+              "col": 19
+            },
+            "end": {
+              "line": 13,
+              "col": 71
+            },
+            "text": "B: 350 success, 150 failure -> p = 0.70  (n = 500)"
+          },
+          "target_span": {
+            "start": {
+              "line": 13,
+              "col": 19
+            },
+            "end": {
+              "line": 13,
+              "col": 78
+            },
+            "text": "B: 350 keberhasilan, 150 kegagalan -> p = 0.70  (n = 500)"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 14,
+              "col": 5
+            },
+            "end": {
+              "line": 14,
+              "col": 21
+            },
+            "text": "Severe stratum"
+          },
+          "target_span": {
+            "start": {
+              "line": 14,
+              "col": 5
+            },
+            "end": {
+              "line": 14,
+              "col": 21
+            },
+            "text": "Stratum Severe"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 15,
+              "col": 19
+            },
+            "end": {
+              "line": 15,
+              "col": 71
+            },
+            "text": "A: 30 success, 470 failure  -> p = 0.06  (n = 500)"
+          },
+          "target_span": {
+            "start": {
+              "line": 15,
+              "col": 19
+            },
+            "end": {
+              "line": 15,
+              "col": 78
+            },
+            "text": "A: 30 keberhasilan, 470 kegagalan  -> p = 0.06  (n = 500)"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "data",
+          "source_span": {
+            "start": {
+              "line": 16,
+              "col": 19
+            },
+            "end": {
+              "line": 16,
+              "col": 71
+            },
+            "text": "B:  2 success, 98 failure   -> p = 0.02  (n = 100)"
+          },
+          "target_span": {
+            "start": {
+              "line": 16,
+              "col": 19
+            },
+            "end": {
+              "line": 16,
+              "col": 78
+            },
+            "text": "B:  2 keberhasilan, 98 kegagalan   -> p = 0.02  (n = 100)"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 68
+            },
+            "text": "---- Computation from the dataset (nothing hard-coded below) ----"
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 77
+            },
+            "text": "---- Komputasi dari dataset (tidak ada yang di-hardcode di bawah ini) ----"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 3,
+              "col": 1
+            },
+            "end": {
+              "line": 3,
+              "col": 63
+            },
+            "text": "Derive strata from the data cell: run data before this cell."
+          },
+          "target_span": {
+            "start": {
+              "line": 3,
+              "col": 1
+            },
+            "end": {
+              "line": 3,
+              "col": 64
+            },
+            "text": "Dapatkan strata dari sel data: jalankan data sebelum sel ini."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 14,
+              "col": 1
+            },
+            "end": {
+              "line": 14,
+              "col": 33
+            },
+            "text": "--- Within-stratum results ---"
+          },
+          "target_span": {
+            "start": {
+              "line": 14,
+              "col": 1
+            },
+            "end": {
+              "line": 14,
+              "col": 33
+            },
+            "text": "--- Hasil di dalam stratum ---"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 18,
+              "col": 16
+            },
+            "end": {
+              "line": 18,
+              "col": 71
+            },
+            "text": "  A: success = %d, failure = %d  (p_A = %.4f, n = %d)\\n"
+          },
+          "target_span": {
+            "start": {
+              "line": 18,
+              "col": 16
+            },
+            "end": {
+              "line": 18,
+              "col": 78
+            },
+            "text": "  A: keberhasilan = %d, kegagalan = %d  (p_A = %.4f, n = %d)\\n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 19,
+              "col": 16
+            },
+            "end": {
+              "line": 19,
+              "col": 71
+            },
+            "text": "  B: success = %d, failure = %d  (p_B = %.4f, n = %d)\\n"
+          },
+          "target_span": {
+            "start": {
+              "line": 19,
+              "col": 16
+            },
+            "end": {
+              "line": 19,
+              "col": 78
+            },
+            "text": "  B: keberhasilan = %d, kegagalan = %d  (p_B = %.4f, n = %d)\\n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 20,
+              "col": 16
+            },
+            "end": {
+              "line": 20,
+              "col": 42
+            },
+            "text": "  RR(A/B) in %s = %.4f\\n\\n"
+          },
+          "target_span": {
+            "start": {
+              "line": 20,
+              "col": 16
+            },
+            "end": {
+              "line": 20,
+              "col": 42
+            },
+            "text": "  RR(A/B) di %s = %.4f\\n\\n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 23,
+              "col": 1
+            },
+            "end": {
+              "line": 23,
+              "col": 48
+            },
+            "text": "--- Pooled results (collapse over strata) ---"
+          },
+          "target_span": {
+            "start": {
+              "line": 23,
+              "col": 1
+            },
+            "end": {
+              "line": 23,
+              "col": 50
+            },
+            "text": "--- Hasil gabungan (agregasi lintas strata) ---"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 31,
+              "col": 6
+            },
+            "end": {
+              "line": 31,
+              "col": 41
+            },
+            "text": "--- Pooled (strata collapsed) ---\\n"
+          },
+          "target_span": {
+            "start": {
+              "line": 31,
+              "col": 6
+            },
+            "end": {
+              "line": 31,
+              "col": 41
+            },
+            "text": "--- Gabungan (strata dilebur) ---\\n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 32,
+              "col": 14
+            },
+            "end": {
+              "line": 32,
+              "col": 69
+            },
+            "text": "  A: success = %d, failure = %d  (p_A = %.4f, n = %d)\\n"
+          },
+          "target_span": {
+            "start": {
+              "line": 32,
+              "col": 14
+            },
+            "end": {
+              "line": 32,
+              "col": 76
+            },
+            "text": "  A: keberhasilan = %d, kegagalan = %d  (p_A = %.4f, n = %d)\\n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 33,
+              "col": 14
+            },
+            "end": {
+              "line": 33,
+              "col": 69
+            },
+            "text": "  B: success = %d, failure = %d  (p_B = %.4f, n = %d)\\n"
+          },
+          "target_span": {
+            "start": {
+              "line": 33,
+              "col": 14
+            },
+            "end": {
+              "line": 33,
+              "col": 76
+            },
+            "text": "  B: keberhasilan = %d, kegagalan = %d  (p_B = %.4f, n = %d)\\n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 34,
+              "col": 14
+            },
+            "end": {
+              "line": 34,
+              "col": 41
+            },
+            "text": "  Pooled RR(A/B) = %.4f\\n\\n"
+          },
+          "target_span": {
+            "start": {
+              "line": 34,
+              "col": 14
+            },
+            "end": {
+              "line": 34,
+              "col": 43
+            },
+            "text": "  RR(A/B) gabungan = %.4f\\n\\n"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 36,
+              "col": 1
+            },
+            "end": {
+              "line": 36,
+              "col": 32
+            },
+            "text": "--- Proofs of the paradox ---"
+          },
+          "target_span": {
+            "start": {
+              "line": 36,
+              "col": 1
+            },
+            "end": {
+              "line": 36,
+              "col": 31
+            },
+            "text": "--- Bukti-bukti paradoks ---"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 42,
+              "col": 20
+            },
+            "end": {
+              "line": 42,
+              "col": 43
+            },
+            "text": "A beats B within Mild"
+          },
+          "target_span": {
+            "start": {
+              "line": 42,
+              "col": 20
+            },
+            "end": {
+              "line": 42,
+              "col": 51
+            },
+            "text": "A mengungguli B di dalam Mild"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 43,
+              "col": 20
+            },
+            "end": {
+              "line": 43,
+              "col": 45
+            },
+            "text": "A beats B within Severe"
+          },
+          "target_span": {
+            "start": {
+              "line": 43,
+              "col": 20
+            },
+            "end": {
+              "line": 43,
+              "col": 53
+            },
+            "text": "A mengungguli B di dalam Severe"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 44,
+              "col": 20
+            },
+            "end": {
+              "line": 44,
+              "col": 71
+            },
+            "text": "... yet A loses to B overall -> Simpson's paradox"
+          },
+          "target_span": {
+            "start": {
+              "line": 44,
+              "col": 20
+            },
+            "end": {
+              "line": 44,
+              "col": 85
+            },
+            "text": "... namun A kalah dari B secara keseluruhan -> paradoks Simpson"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compute",
+          "source_span": {
+            "start": {
+              "line": 46,
+              "col": 6
+            },
+            "end": {
+              "line": 46,
+              "col": 83
+            },
+            "text": "✔ All stopifnot checks passed: RR_mild > 1, RR_severe > 1, but RR_pooled < 1."
+          },
+          "target_span": {
+            "start": {
+              "line": 46,
+              "col": 6
+            },
+            "end": {
+              "line": 46,
+              "col": 92
+            },
+            "text": "✔ Semua pemeriksaan stopifnot lolos: RR_mild > 1, RR_severe > 1, tetapi RR_pooled < 1."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "viz",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 77
+            },
+            "text": "---- Visualization: success rates by stratum and pooled (base R only) ----"
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 94
+            },
+            "text": "---- Visualisasi: tingkat keberhasilan berdasarkan stratum dan gabungan (hanya base R) ----"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "viz",
+          "source_span": {
+            "start": {
+              "line": 3,
+              "col": 32
+            },
+            "end": {
+              "line": 3,
+              "col": 38
+            },
+            "text": "Pooled"
+          },
+          "target_span": {
+            "start": {
+              "line": 3,
+              "col": 32
+            },
+            "end": {
+              "line": 3,
+              "col": 40
+            },
+            "text": "Gabungan"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "viz",
+          "source_span": {
+            "start": {
+              "line": 12,
+              "col": 31
+            },
+            "end": {
+              "line": 12,
+              "col": 88
+            },
+            "text": "Simpson's Paradox: success rate by group (synthetic data)"
+          },
+          "target_span": {
+            "start": {
+              "line": 12,
+              "col": 31
+            },
+            "end": {
+              "line": 12,
+              "col": 106
+            },
+            "text": "Paradoks Simpson: tingkat keberhasilan berdasarkan kelompok (data sintetis)"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "viz",
+          "source_span": {
+            "start": {
+              "line": 13,
+              "col": 17
+            },
+            "end": {
+              "line": 13,
+              "col": 35
+            },
+            "text": "Success proportion"
+          },
+          "target_span": {
+            "start": {
+              "line": 13,
+              "col": 17
+            },
+            "end": {
+              "line": 13,
+              "col": 38
+            },
+            "text": "Proporsi keberhasilan"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "viz",
+          "source_span": {
+            "start": {
+              "line": 13,
+              "col": 55
+            },
+            "end": {
+              "line": 13,
+              "col": 66
+            },
+            "text": "Treatment A"
+          },
+          "target_span": {
+            "start": {
+              "line": 13,
+              "col": 58
+            },
+            "end": {
+              "line": 13,
+              "col": 69
+            },
+            "text": "Perlakuan A"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 4,
+          "cell_name": "viz",
+          "source_span": {
+            "start": {
+              "line": 13,
+              "col": 70
+            },
+            "end": {
+              "line": 13,
+              "col": 81
+            },
+            "text": "Treatment B"
+          },
+          "target_span": {
+            "start": {
+              "line": 13,
+              "col": 73
+            },
+            "end": {
+              "line": 13,
+              "col": 84
+            },
+            "text": "Perlakuan B"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 73
+            },
+            "text": "Independent recalculation from the underlying counts (SYNTHETIC data)"
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 76
+            },
+            "text": "Penghitungan ulang independen dari jumlah hitungan dasar (data SINTETIS)"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 14,
+              "col": 1
+            },
+            "end": {
+              "line": 14,
+              "col": 56
+            },
+            "text": "Pool by summing successes and failures across strata"
+          },
+          "target_span": {
+            "start": {
+              "line": 14,
+              "col": 1
+            },
+            "end": {
+              "line": 14,
+              "col": 78
+            },
+            "text": "Gabungkan dengan menjumlahkan keberhasilan dan kegagalan di seluruh strata"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 23,
+              "col": 1
+            },
+            "end": {
+              "line": 23,
+              "col": 20
+            },
+            "text": "Readable summary"
+          },
+          "target_span": {
+            "start": {
+              "line": 23,
+              "col": 1
+            },
+            "end": {
+              "line": 23,
+              "col": 31
+            },
+            "text": "Ringkasan yang mudah dibaca"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 24,
+              "col": 14
+            },
+            "end": {
+              "line": 24,
+              "col": 68
+            },
+            "text": "Independent JavaScript recalculation (synthetic data):"
+          },
+          "target_span": {
+            "start": {
+              "line": 24,
+              "col": 14
+            },
+            "end": {
+              "line": 24,
+              "col": 71
+            },
+            "text": "Penghitungan ulang JavaScript independen (data sintetis):"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 35,
+              "col": 1
+            },
+            "end": {
+              "line": 35,
+              "col": 78
+            },
+            "text": "Check the original fixed counts independently; this does not read R state."
+          },
+          "target_span": {
+            "start": {
+              "line": 35,
+              "col": 1
+            },
+            "end": {
+              "line": 35,
+              "col": 85
+            },
+            "text": "Periksa jumlah hitungan tetap asli secara independen; ini tidak membaca status R."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 44,
+              "col": 106
+            },
+            "end": {
+              "line": 44,
+              "col": 162
+            },
+            "text": "Mild proportions disagree with the expected input counts"
+          },
+          "target_span": {
+            "start": {
+              "line": 44,
+              "col": 106
+            },
+            "end": {
+              "line": 44,
+              "col": 179
+            },
+            "text": "Proporsi Mild tidak sesuai dengan jumlah hitungan masukan yang diharapkan"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 45,
+              "col": 106
+            },
+            "end": {
+              "line": 45,
+              "col": 164
+            },
+            "text": "Severe proportions disagree with the expected input counts"
+          },
+          "target_span": {
+            "start": {
+              "line": 45,
+              "col": 106
+            },
+            "end": {
+              "line": 45,
+              "col": 181
+            },
+            "text": "Proporsi Severe tidak sesuai dengan jumlah hitungan masukan yang diharapkan"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 46,
+              "col": 106
+            },
+            "end": {
+              "line": 46,
+              "col": 164
+            },
+            "text": "Pooled proportions disagree with the expected input counts"
+          },
+          "target_span": {
+            "start": {
+              "line": 46,
+              "col": 106
+            },
+            "end": {
+              "line": 46,
+              "col": 183
+            },
+            "text": "Proporsi gabungan tidak sesuai dengan jumlah hitungan masukan yang diharapkan"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 48,
+              "col": 20
+            },
+            "end": {
+              "line": 48,
+              "col": 104
+            },
+            "text": "Paradox structure not reproduced: expected RR_mild > 1, RR_severe > 1, RR_pooled < 1"
+          },
+          "target_span": {
+            "start": {
+              "line": 48,
+              "col": 20
+            },
+            "end": {
+              "line": 48,
+              "col": 110
+            },
+            "text": "Struktur paradoks tidak tereproduksi: diharapkan RR_mild > 1, RR_severe > 1, RR_pooled < 1"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "js_check",
+          "source_span": {
+            "start": {
+              "line": 50,
+              "col": 14
+            },
+            "end": {
+              "line": 50,
+              "col": 84
+            },
+            "text": "\\n✔ Original-count JavaScript recalculation and paradox checks passed."
+          },
+          "target_span": {
+            "start": {
+              "line": 50,
+              "col": 14
+            },
+            "end": {
+              "line": 50,
+              "col": 100
+            },
+            "text": "\\n✔ Penghitungan ulang JavaScript jumlah hitungan asli dan pemeriksaan paradoks lolos."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        }
+      ],
+      "exclusions": []
+    },
+    "nativeSpeakerReview": "pending"
+  },
+  "browser": {
+    "status": "passed",
+    "first": {
+      "exportSha256": "f744055008a432b24c3c0b2567101169c939054fcccf83334870f7d743b22c6c",
+      "reportSha256": "f39b646204dedeb6262ec4ddf15bd0468f4460b091cf6dfc7354d1c051bf0326",
+      "appVersion": "1.4.0",
+      "cells": 7,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "second": {
+      "exportSha256": "ad7cd9d63fc311b3876bea574113eb43bb2ada9ed0ec57ab8b55f44d6b65208d",
+      "reportSha256": "f39b646204dedeb6262ec4ddf15bd0468f4460b091cf6dfc7354d1c051bf0326",
+      "appVersion": "1.4.0",
+      "cells": 7,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "englishBaseline": [
+      {
+        "exportSha256": "715a787cba3b5f4805a616c22b636b3c35db086fcfb69ce5c3ec184307e8d095",
+        "reportSha256": "341ef72fc46e69193b5f49ddc7d217fcb3445bf4c3580789c0c36bded7da45fc",
+        "appVersion": "1.4.0",
+        "cells": 7,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      },
+      {
+        "exportSha256": "8bfe8c73d93d967c96ca4e6921a494859abdcc20208f0fc12b02f63cd6f2b711",
+        "reportSha256": "341ef72fc46e69193b5f49ddc7d217fcb3445bf4c3580789c0c36bded7da45fc",
+        "appVersion": "1.4.0",
+        "cells": 7,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      }
+    ],
+    "deterministic": true,
+    "textOracle": {
+      "first": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      },
+      "second": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      }
+    },
+    "plotData": {
+      "status": "passed",
+      "count": 0
+    },
+    "rasterCharts": {
+      "decoded": true,
+      "count": 1,
+      "caveat": "R raster rendering checked separately; numerical checks use unchanged executable tokens and the lesson’s independent count/vote checks."
+    },
+    "renderedReview": "controller-AI-reviewed",
+    "rendering": {
+      "status": "passed",
+      "scope": "Titles, axes, legends and glyphs visually checked in captured app renders; not native-language approval.",
+      "nativeSpeakerReview": "pending"
+    }
+  },
+  "caveat": "Machine translated with Gemini and reviewed by AI/controller checks, including scoped corrections where needed. Native-speaker review is pending; structural and numerical checks do not certify prose quality."
+}

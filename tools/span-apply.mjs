@@ -157,7 +157,13 @@ for (const c of cellsOf(target)) {
     }
     if (e.kind !== 'docstring' && t.includes('\n')) bad.push(`${id}: newline in single-line span`);
     if (e.kind !== 'comment') {
-      const so = formatSpecsOf(e.text).join(' '), st = formatSpecsOf(t).join(' ');
+      // German joins the literal statistical term as "95%-CI". In a
+      // Python f-string's literal fragment this is not a printf conversion;
+      // its real {expressions:specs} are rebuilt unchanged below. Keep this
+      // exception term-specific: real %s/%d and R/Lua/Prolog remain strict.
+      const specText = e.tok.isF && e.text.includes('95% CI')
+        ? t.replace(/95%-(?=CI\b)/g, '95% ') : t;
+      const so = formatSpecsOf(e.text).join(' '), st = formatSpecsOf(specText).join(' ');
       if (so !== st) bad.push(`${id}: format specs changed (${JSON.stringify(so)} -> ${JSON.stringify(st)})`);
     }
     if (e.kind !== 'comment') {
