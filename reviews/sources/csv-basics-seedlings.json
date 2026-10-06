@@ -1,0 +1,36 @@
+{
+  "schema": 1,
+  "lesson": "csv-basics-seedlings",
+  "locale": "en",
+  "status": "source-prepared/runtime-review-pending",
+  "source": {
+    "repository": "https://github.com/s243a/SciREPL",
+    "commit": "175d5721016553ee5d4a748805cff70b74b5ae7e",
+    "path": "www/workbooks/csv-basics-seedlings.srwb",
+    "sha256": "9d48768fd656f5034b7aac899fc08f8faf3caae651fcab4b6538ad72e7cbc098"
+  },
+  "target": {
+    "path": "workbooks/en/csv-basics-seedlings.srwb",
+    "sha256": "6dba9b786223a9e5401fb7a90210991beb7f6917aaa3d47b394943c49fded3cd",
+    "size": 3832
+  },
+  "transformation": {
+    "recipe": "csv-starter-metadata-and-two-markdown-appendices-v1",
+    "metadata": "Whitelist format/version/notebook name and cell type/language/name/code; assign only the two originally missing Markdown names.",
+    "prose": "Append tutorial link to cell 0 and explicit overwrite/rerun warning to cell 4; preserve all original prose.",
+    "executableCodeUnchanged": true,
+    "originalCodeCellNamesUnchanged": true,
+    "runOrderUnchanged": true,
+    "codeSha256": {
+      "create_csv": "607b37a787bb9766c12c9c65fcc59ad7fff2eb21f77bb73c9680f729784f69d9",
+      "read_csv": "69763e0eaade34fd0b1bba35ea2596983ad9e4d3dc40544d10c174bdef4ecbf5",
+      "compare_groups": "485310ec13a0e148010f2f48ed3e3c77081da35d3602fbd7108fa4c9ee76b574"
+    }
+  },
+  "tutorialUrl": "https://s243a.github.io/SciREPL/help/files-export/tutorial/",
+  "fictionalData": true,
+  "browserReview": "pending",
+  "translation": "not-started",
+  "nativeSpeakerApproval": false,
+  "caveat": "Preparation and offline checks do not constitute browser verification or native-language approval."
+}

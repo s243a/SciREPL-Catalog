@@ -1,0 +1,39 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "أساسيات CSV: أطوال الشتلات",
+    "cells": [
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "name": "title-goals",
+        "code": "# أساسيات CSV: أطوال الشتلات\n\nيستخدم دفتر المبتدئين هذا قياسات **خيالية** للشتلات. شغّل خلايا Python الثلاث بالترتيب: أنشئ ملف CSV محلياً، واقرأه، ثم قارن متوسطات المجموعات. لا يتطلب سوى مكتبة Python القياسية: دون الحاجة إلى حساب، أو مفتاح AI، أو تثبيت حزم، أو تنزيل مجموعات بيانات.\n\nملف CSV هو جدول نصي عادي. يمثل كل صف شتلة واحدة؛ وتحدد الأعمدة مجموعتها وطولها بالسنتيمتر. هذه القياسات الستة المختلقة مخصصة للتعلم، وليست دليلاً على أن أحد ظروف النمو يسبب اختلافاً.\n\nللحصول على شرح إرشادي، اقرأ [دليل استيراد/تصدير CSV](https://s243a.github.io/SciREPL/help/files-export/tutorial/)."
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "create_csv",
+        "code": "import csv\nfrom pathlib import Path\n\npath = Path('/shared/data/seedling-heights.csv')\npath.parent.mkdir(parents=True, exist_ok=True)\nmeasurements = [\n    {'group': 'light', 'height_cm': 12},\n    {'group': 'light', 'height_cm': 14},\n    {'group': 'light', 'height_cm': 13},\n    {'group': 'shade', 'height_cm': 7},\n    {'group': 'shade', 'height_cm': 9},\n    {'group': 'shade', 'height_cm': 8},\n]\nwith path.open('w', newline='', encoding='utf-8') as file:\n    writer = csv.DictWriter(file, fieldnames=['group', 'height_cm'])\n    writer.writeheader()\n    writer.writerows(measurements)\nprint(f'تم حفظ {len(measurements)} صفوف خيالية في {path}')"
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "read_csv",
+        "code": "import csv\nfrom pathlib import Path\n\npath = Path('/shared/data/seedling-heights.csv')\nwith path.open(newline='', encoding='utf-8') as file:\n    rows = list(csv.DictReader(file))\nprint(f'تمت قراءة {len(rows)} صفوف من {path.name}')\nfor row in rows:\n    print(f\"{row['group']:>5}: {row['height_cm']} cm\")"
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "compare_groups",
+        "code": "import csv\nfrom pathlib import Path\nfrom statistics import mean\n\npath = Path('/shared/data/seedling-heights.csv')\nwith path.open(newline='', encoding='utf-8') as file:\n    rows = list(csv.DictReader(file))\nlight = [float(row['height_cm']) for row in rows if row['group'] == 'light']\nshade = [float(row['height_cm']) for row in rows if row['group'] == 'shade']\nprint(f'متوسط الضوء: {mean(light):.1f} cm')\nprint(f'متوسط الظل: {mean(shade):.1f} cm')\nprint(f'الفرق: {mean(light) - mean(shade):.1f} cm')"
+      },
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "name": "try-a-change",
+        "code": "## جرّب إجراء تغيير\n\nعدّل الخلية البرمجية الأولى: غيّر قيمة طول واحدة، ثم شغّلها مجدداً. شغّل خليتي القراءة والمقارنة مرة أخرى لرؤية النتائج الجديدة. يبقى الملف الموجود في `/shared/data/seedling-heights.csv` محفوظاً في نظام الملفات الافتراضي المحلي لـ SciREPL.\n\nيمكنك أيضاً استيراد ملف CSV مختلف عبر **Menu → Import File**. سيظهر ضمن `/shared/data/`؛ غيّر `path` في خلايا القراءة إلى اسم ملفه بدقة. لا تفترض أن ملف `.srwb` المصدَّر يتضمن ملف CSV المنفصل: اختر **Package (archive)** وحدد كلاً من دفتر العمل وملف CSV عندما تحتاج إلى نقلهما معاً.\n\n**تحذير الكتابة الفوقية وإعادة التشغيل:** يؤدي تشغيل `create_csv` إلى فتح `/shared/data/seedling-heights.csv` في وضع الكتابة واستبدال أي ملف موجود مسبقاً في ذلك المسار، بما في ذلك تعديلاتك على ملف CSV. احفظ نسخة احتياطية من أي ملف تريد الاحتفاظ به قبل تشغيلها. بعد تغيير ملف CSV، أعِد تشغيل `read_csv` و `compare_groups` بالترتيب؛ فالنتائج المعروضة سابقاً لا تتحدث تلقائياً."
+      }
+    ]
+  }
+}

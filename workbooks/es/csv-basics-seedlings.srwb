@@ -1,0 +1,39 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "Conceptos básicos de CSV: alturas de plántulas",
+    "cells": [
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "name": "title-goals",
+        "code": "# Conceptos básicos de CSV: alturas de plántulas\n\nEste cuaderno para principiantes utiliza mediciones **ficticias** de plántulas. Ejecuta las tres celdas de Python en orden: crea un archivo CSV local, vuelve a leerlo y luego compara los promedios de los grupos. Solo necesita la biblioteca estándar de Python: sin cuenta, clave de IA, instalación de paquetes ni descarga de conjuntos de datos.\n\nUn CSV es una tabla de texto sin formato. Cada fila es una plántula; las columnas son su grupo y su altura en centímetros. Estas seis mediciones inventadas son para el aprendizaje, no evidencia de que una condición de cultivo cause una diferencia.\n\nPara una guía paso a paso, lee el [tutorial de importación/exportación de CSV](https://s243a.github.io/SciREPL/help/files-export/tutorial/)."
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "create_csv",
+        "code": "import csv\nfrom pathlib import Path\n\npath = Path('/shared/data/seedling-heights.csv')\npath.parent.mkdir(parents=True, exist_ok=True)\nmeasurements = [\n    {'group': 'light', 'height_cm': 12},\n    {'group': 'light', 'height_cm': 14},\n    {'group': 'light', 'height_cm': 13},\n    {'group': 'shade', 'height_cm': 7},\n    {'group': 'shade', 'height_cm': 9},\n    {'group': 'shade', 'height_cm': 8},\n]\nwith path.open('w', newline='', encoding='utf-8') as file:\n    writer = csv.DictWriter(file, fieldnames=['group', 'height_cm'])\n    writer.writeheader()\n    writer.writerows(measurements)\nprint(f'Se guardaron {len(measurements)} filas ficticias en {path}')"
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "read_csv",
+        "code": "import csv\nfrom pathlib import Path\n\npath = Path('/shared/data/seedling-heights.csv')\nwith path.open(newline='', encoding='utf-8') as file:\n    rows = list(csv.DictReader(file))\nprint(f'Se leyeron {len(rows)} filas de {path.name}')\nfor row in rows:\n    print(f\"{row['group']:>5}: {row['height_cm']} cm\")"
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "compare_groups",
+        "code": "import csv\nfrom pathlib import Path\nfrom statistics import mean\n\npath = Path('/shared/data/seedling-heights.csv')\nwith path.open(newline='', encoding='utf-8') as file:\n    rows = list(csv.DictReader(file))\nlight = [float(row['height_cm']) for row in rows if row['group'] == 'light']\nshade = [float(row['height_cm']) for row in rows if row['group'] == 'shade']\nprint(f'Promedio de luz: {mean(light):.1f} cm')\nprint(f'Promedio de sombra: {mean(shade):.1f} cm')\nprint(f'Diferencia: {mean(light) - mean(shade):.1f} cm')"
+      },
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "name": "try-a-change",
+        "code": "## Prueba un cambio\n\nEdita la primera celda de código: cambia una altura y luego ejecútala de nuevo. Ejecuta de nuevo las celdas de lectura y comparación para ver los nuevos resultados. El archivo en `/shared/data/seedling-heights.csv` persiste en el sistema de archivos virtual local de SciREPL.\n\nTambién puedes importar un CSV diferente a través de **Menú → Importar archivo**. Aparecerá en `/shared/data/`; cambia `path` en las celdas de lectura por su nombre de archivo exacto. No asumas que un `.srwb` exportado incluye el archivo CSV independiente: elige **Paquete (archivo)** y selecciona tanto el cuaderno como el CSV cuando necesites moverlos juntos.\n\n**Advertencia de sobrescritura y reejecución:** ejecutar `create_csv` abre `/shared/data/seedling-heights.csv` en modo de escritura y reemplaza cualquier archivo que ya se encuentre en esa ruta, incluidas tus ediciones del CSV. Haz una copia de seguridad de cualquier archivo que quieras conservar antes de ejecutarlo. Después de cambiar el CSV, vuelve a ejecutar `read_csv` y `compare_groups` en orden; la salida mostrada anteriormente no se actualiza automáticamente."
+      }
+    ]
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "lesson": "csv-basics-seedlings",
+  "locale": "en",
+  "source": {
+    "path": "workbooks/en/csv-basics-seedlings.srwb",
+    "sha256": "6dba9b786223a9e5401fb7a90210991beb7f6917aaa3d47b394943c49fded3cd"
+  },
+  "target": {
+    "path": "workbooks/en/csv-basics-seedlings.srwb",
+    "sha256": "6dba9b786223a9e5401fb7a90210991beb7f6917aaa3d47b394943c49fded3cd",
+    "size": 3832,
+    "title": "CSV Basics: Seedling Heights",
+    "description": "Create, read and compare six fictional seedling-height rows in a CSV file, then inspect or edit the file through Files & Storage. Running the writer overwrites the example path; the lesson includes a backup and rerun warning."
+  },
+  "translation": null,
+  "browser": {
+    "status": "passed",
+    "first": {
+      "exportSha256": "9a3c8f36d735e3b883daab3c7ac747f9d119a55974d8f0433afe6a1cc1305be8",
+      "reportSha256": "54580ce3771dacb67c6e9a4dc3a5f345f690d309bbe777c3ae19f8df61980fc2",
+      "appVersion": "1.4.0",
+      "cells": 5,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "second": {
+      "exportSha256": "f80ceef934b788d58565b2fd820e799f33d86b76136af9ad404bec4c4ac9e27c",
+      "reportSha256": "54580ce3771dacb67c6e9a4dc3a5f345f690d309bbe777c3ae19f8df61980fc2",
+      "appVersion": "1.4.0",
+      "cells": 5,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "englishBaseline": [
+      {
+        "exportSha256": "9a3c8f36d735e3b883daab3c7ac747f9d119a55974d8f0433afe6a1cc1305be8",
+        "reportSha256": "54580ce3771dacb67c6e9a4dc3a5f345f690d309bbe777c3ae19f8df61980fc2",
+        "appVersion": "1.4.0",
+        "cells": 5,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      },
+      {
+        "exportSha256": "f80ceef934b788d58565b2fd820e799f33d86b76136af9ad404bec4c4ac9e27c",
+        "reportSha256": "54580ce3771dacb67c6e9a4dc3a5f345f690d309bbe777c3ae19f8df61980fc2",
+        "appVersion": "1.4.0",
+        "cells": 5,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      }
+    ],
+    "deterministic": true,
+    "textOracle": {
+      "first": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      },
+      "second": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      }
+    },
+    "plotData": {
+      "status": "passed",
+      "count": 0
+    },
+    "rasterCharts": null,
+    "renderedReview": "not-applicable"
+  },
+  "caveat": "Reviewed educational examples; stated limitations still apply."
+}

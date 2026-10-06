@@ -1,0 +1,1570 @@
+{
+  "schema": 1,
+  "lesson": "oil-shocks-demand",
+  "locale": "ru",
+  "source": {
+    "path": "workbooks/en/oil-shocks-demand.srwb",
+    "sha256": "535bb4534caf0b78793ba518033b8407e0b3407b04942582b33ab8423ef26cc5"
+  },
+  "target": {
+    "path": "workbooks/ru/oil-shocks-demand.srwb",
+    "sha256": "278aef52d2efa17865153f23a7fd177b0c8349fec4d26d6ee31a6bba6be22c70",
+    "size": 28234,
+    "title": "Нефтяные шоки: кривые спроса, замещение и сценарии",
+    "description": "Отделите локальную эластичность спроса от сдвигов кривой спроса в наглядной модели нефтяного рынка Китая и остального мира, сравните сценарии перебоев с поставками и сохраните учебный пример дисперсии европейского колл-опциона. Обучающий анализ чувствительности, а не подогнанный прогноз или инвестиционная рекомендация."
+  },
+  "translation": {
+    "model": "gemini-3.8-flash-medium",
+    "contentAudit": {
+      "sourceSha256": "535bb4534caf0b78793ba518033b8407e0b3407b04942582b33ab8423ef26cc5",
+      "targetSha256": "278aef52d2efa17865153f23a7fd177b0c8349fec4d26d6ee31a6bba6be22c70",
+      "status": "passed",
+      "findings": [],
+      "errors": [],
+      "nativeSpeakerReview": "pending",
+      "caveat": "Controller exact-English heading/narrative and specified short-residue audit, not native-speaker fluency review."
+    },
+    "policy": {
+      "locale": "ru",
+      "protectedTexts": [
+        "equal_eta",
+        "flexible_china",
+        "baseline_shift",
+        "reserve_flow",
+        "key",
+        "label",
+        "a_china",
+        "eta_china",
+        "reserve",
+        "x",
+        "y",
+        "mode",
+        "lines",
+        "markers",
+        "name",
+        "line",
+        "dash",
+        "marker",
+        "size",
+        "height",
+        "margin",
+        "t",
+        "b",
+        "l",
+        "r",
+        "xaxis",
+        "yaxis",
+        "automargin",
+        "legend",
+        "orientation",
+        "h",
+        "font",
+        "<br>"
+      ],
+      "protectedIds": [
+        "3:1:0",
+        "3:7:0",
+        "3:9:0",
+        "3:11:0",
+        "3:19:0",
+        "3:21:0",
+        "3:23:0",
+        "3:25:0",
+        "3:27:0",
+        "3:29:0",
+        "3:37:0",
+        "3:39:0",
+        "3:41:0",
+        "3:43:0",
+        "3:45:0",
+        "3:55:0",
+        "3:57:0",
+        "3:67:0",
+        "3:69:0",
+        "3:71:0",
+        "3:73:0",
+        "3:75:0",
+        "3:77:0",
+        "3:83:0",
+        "3:85:0",
+        "5:12:0",
+        "5:14:0",
+        "5:16:0",
+        "5:20:0",
+        "5:22:0",
+        "5:24:0",
+        "5:26:0",
+        "5:28:0",
+        "5:30:0",
+        "5:34:0",
+        "5:36:0",
+        "5:38:0",
+        "5:40:0",
+        "5:42:0",
+        "5:44:0",
+        "5:48:0",
+        "5:50:0",
+        "5:52:0",
+        "5:54:0",
+        "5:56:0",
+        "5:58:0",
+        "5:62:0",
+        "5:64:0",
+        "5:66:0",
+        "6:1:0",
+        "6:3:0",
+        "6:5:0",
+        "6:7:0",
+        "6:13:0",
+        "6:15:0",
+        "6:17:0",
+        "6:19:0",
+        "6:27:0",
+        "6:29:0",
+        "6:39:0",
+        "6:41:0",
+        "6:43:0",
+        "6:45:0",
+        "6:47:0",
+        "6:49:0",
+        "6:55:0",
+        "6:57:0",
+        "6:61:0",
+        "6:63:0",
+        "6:65:0",
+        "6:67:0",
+        "9:5:0",
+        "9:7:0",
+        "9:9:0",
+        "9:19:0",
+        "9:21:0",
+        "9:31:0",
+        "9:33:0",
+        "9:35:0",
+        "9:37:0",
+        "9:39:0",
+        "9:41:0",
+        "9:47:0",
+        "9:49:0"
+      ],
+      "widthOverrides": {},
+      "descriptionSeed": "Separate local demand elasticity from demand-curve shifts in an illustrative China/rest-of-world oil model, compare supply-disruption scenarios, and retain a textbook European-call variance example. Educational sensitivity analysis, not a fitted forecast or investment advice.",
+      "identifierRenames": false,
+      "cellNames": [
+        "title-goals",
+        "original-model-diagnostic",
+        "elasticity-context",
+        "curve-comparison",
+        "regional-model-context",
+        "regional-model",
+        "scenario-comparison",
+        "scenario-interpretation",
+        "option-context",
+        "option-variance",
+        "reader-exercise",
+        "sources-limitations"
+      ],
+      "nativeReviewCaveat": "Machine translated with Gemini draft and a fresh same-model independent review, not native-speaker review. Static gates prove structural safety, not prose quality. Browser/runtime and rendered-output review are controller-owned and pending."
+    },
+    "keeps": {
+      "ids": [
+        "3:1:0",
+        "3:7:0",
+        "3:9:0",
+        "3:11:0",
+        "3:19:0",
+        "3:21:0",
+        "3:23:0",
+        "3:25:0",
+        "3:27:0",
+        "3:29:0",
+        "3:37:0",
+        "3:39:0",
+        "3:41:0",
+        "3:43:0",
+        "3:45:0",
+        "3:55:0",
+        "3:57:0",
+        "3:67:0",
+        "3:69:0",
+        "3:71:0",
+        "3:73:0",
+        "3:75:0",
+        "3:77:0",
+        "3:83:0",
+        "3:85:0",
+        "5:12:0",
+        "5:14:0",
+        "5:16:0",
+        "5:20:0",
+        "5:22:0",
+        "5:24:0",
+        "5:26:0",
+        "5:28:0",
+        "5:30:0",
+        "5:34:0",
+        "5:36:0",
+        "5:38:0",
+        "5:40:0",
+        "5:42:0",
+        "5:44:0",
+        "5:48:0",
+        "5:50:0",
+        "5:52:0",
+        "5:54:0",
+        "5:56:0",
+        "5:58:0",
+        "5:62:0",
+        "5:64:0",
+        "5:66:0",
+        "6:1:0",
+        "6:3:0",
+        "6:5:0",
+        "6:7:0",
+        "6:13:0",
+        "6:15:0",
+        "6:17:0",
+        "6:19:0",
+        "6:27:0",
+        "6:29:0",
+        "6:39:0",
+        "6:41:0",
+        "6:43:0",
+        "6:45:0",
+        "6:47:0",
+        "6:49:0",
+        "6:55:0",
+        "6:57:0",
+        "6:61:0",
+        "6:63:0",
+        "6:65:0",
+        "6:67:0",
+        "9:5:0",
+        "9:7:0",
+        "9:9:0",
+        "9:19:0",
+        "9:21:0",
+        "9:31:0",
+        "9:33:0",
+        "9:35:0",
+        "9:37:0",
+        "9:39:0",
+        "9:41:0",
+        "9:47:0",
+        "9:49:0"
+      ],
+      "texts": [
+        "<br>",
+        "mode",
+        "lines",
+        "name",
+        "mode",
+        "lines",
+        "line",
+        "dash",
+        "dash",
+        "name",
+        "mode",
+        "markers",
+        "marker",
+        "size",
+        "name",
+        "height",
+        "margin",
+        "xaxis",
+        "automargin",
+        "yaxis",
+        "automargin",
+        "legend",
+        "orientation",
+        "font",
+        "size",
+        "key",
+        "equal_eta",
+        "label",
+        "a_china",
+        "eta_china",
+        "reserve",
+        "key",
+        "flexible_china",
+        "label",
+        "a_china",
+        "eta_china",
+        "reserve",
+        "key",
+        "baseline_shift",
+        "label",
+        "a_china",
+        "eta_china",
+        "reserve",
+        "key",
+        "reserve_flow",
+        "label",
+        "a_china",
+        "eta_china",
+        "reserve",
+        "reserve",
+        "a_china",
+        "eta_china",
+        "key",
+        "mode",
+        "lines",
+        "name",
+        "label",
+        "height",
+        "margin",
+        "xaxis",
+        "automargin",
+        "yaxis",
+        "automargin",
+        "legend",
+        "orientation",
+        "font",
+        "size",
+        "reserve",
+        "a_china",
+        "eta_china",
+        "label",
+        "mode",
+        "lines",
+        "name",
+        "height",
+        "margin",
+        "xaxis",
+        "automargin",
+        "yaxis",
+        "automargin",
+        "legend",
+        "orientation",
+        "font",
+        "size"
+      ]
+    },
+    "manifest": {
+      "manifest_version": 1,
+      "produced_by": "derived",
+      "generator": "tools/span-derive.mjs",
+      "locale": "ru",
+      "source": {
+        "path": "workbooks/en/oil-shocks-demand.srwb",
+        "sha256": "535bb4534caf0b78793ba518033b8407e0b3407b04942582b33ab8423ef26cc5"
+      },
+      "target": {
+        "path": "workbooks/ru/oil-shocks-demand.srwb",
+        "sha256": "278aef52d2efa17865153f23a7fd177b0c8349fec4d26d6ee31a6bba6be22c70"
+      },
+      "spans": [
+        {
+          "cell_index": 3,
+          "cell_name": "curve-comparison",
+          "source_span": {
+            "start": {
+              "line": 24,
+              "col": 24
+            },
+            "end": {
+              "line": 24,
+              "col": 43
+            },
+            "text": "Constant elasticity"
+          },
+          "target_span": {
+            "start": {
+              "line": 24,
+              "col": 24
+            },
+            "end": {
+              "line": 24,
+              "col": 47
+            },
+            "text": "Постоянная эластичность"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "curve-comparison",
+          "source_span": {
+            "start": {
+              "line": 26,
+              "col": 24
+            },
+            "end": {
+              "line": 26,
+              "col": 60
+            },
+            "text": "Linear demand: same local elasticity"
+          },
+          "target_span": {
+            "start": {
+              "line": 26,
+              "col": 24
+            },
+            "end": {
+              "line": 26,
+              "col": 68
+            },
+            "text": "Линейный спрос: та же локальная эластичность"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "curve-comparison",
+          "source_span": {
+            "start": {
+              "line": 28,
+              "col": 24
+            },
+            "end": {
+              "line": 28,
+              "col": 37
+            },
+            "text": "Shared anchor"
+          },
+          "target_span": {
+            "start": {
+              "line": 28,
+              "col": 24
+            },
+            "end": {
+              "line": 28,
+              "col": 44
+            },
+            "text": "Общая точка привязки"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "curve-comparison",
+          "source_span": {
+            "start": {
+              "line": 29,
+              "col": 20
+            },
+            "end": {
+              "line": 29,
+              "col": 75
+            },
+            "text": "One anchor and local elasticity, different whole curves"
+          },
+          "target_span": {
+            "start": {
+              "line": 29,
+              "col": 20
+            },
+            "end": {
+              "line": 29,
+              "col": 87
+            },
+            "text": "Одна точка привязки и локальная эластичность, разные кривые целиком"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "curve-comparison",
+          "source_span": {
+            "start": {
+              "line": 30,
+              "col": 21
+            },
+            "end": {
+              "line": 30,
+              "col": 56
+            },
+            "text": "Illustrative price (USD per barrel)"
+          },
+          "target_span": {
+            "start": {
+              "line": 30,
+              "col": 21
+            },
+            "end": {
+              "line": 30,
+              "col": 57
+            },
+            "text": "Иллюстративная цена (USD за баррель)"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "curve-comparison",
+          "source_span": {
+            "start": {
+              "line": 31,
+              "col": 21
+            },
+            "end": {
+              "line": 31,
+              "col": 68
+            },
+            "text": "Illustrative quantity (million barrels per day)"
+          },
+          "target_span": {
+            "start": {
+              "line": 31,
+              "col": 21
+            },
+            "end": {
+              "line": 31,
+              "col": 69
+            },
+            "text": "Иллюстративный объем (миллионов баррелей в день)"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "curve-comparison",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 35,
+              "col": 9
+            },
+            "end": {
+              "line": 35,
+              "col": 58
+            },
+            "text": "Shared local elasticity at the anchor: "
+          },
+          "target_span": {
+            "start": {
+              "line": 35,
+              "col": 9
+            },
+            "end": {
+              "line": 35,
+              "col": 66
+            },
+            "text": "Общая локальная эластичность в точке привязки: "
+          },
+          "placeholders": [
+            "{-ETA:.2f}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "curve-comparison",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 36,
+              "col": 9
+            },
+            "end": {
+              "line": 36,
+              "col": 113
+            },
+            "text": "At three times the anchor price: constant "
+          },
+          "target_span": {
+            "start": {
+              "line": 36,
+              "col": 9
+            },
+            "end": {
+              "line": 36,
+              "col": 115
+            },
+            "text": "При трехкратной цене привязки: постоянный "
+          },
+          "placeholders": [
+            "{constant_demand(3*P0):.2f}",
+            "{linear_demand(3*P0):.2f}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "curve-comparison",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 36,
+              "col": 9
+            },
+            "end": {
+              "line": 36,
+              "col": 113
+            },
+            "text": ", linear "
+          },
+          "target_span": {
+            "start": {
+              "line": 36,
+              "col": 9
+            },
+            "end": {
+              "line": 36,
+              "col": 115
+            },
+            "text": ", линейный "
+          },
+          "placeholders": [
+            "{constant_demand(3*P0):.2f}",
+            "{linear_demand(3*P0):.2f}"
+          ]
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "regional-model",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 67
+            },
+            "text": "All numerical settings are illustrative sensitivity assumptions."
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 96
+            },
+            "text": "Все числовые параметры являются иллюстративными предположениями для анализа чувствительности."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "regional-model",
+          "source_span": {
+            "start": {
+              "line": 16,
+              "col": 27
+            },
+            "end": {
+              "line": 16,
+              "col": 58
+            },
+            "text": "Scenario inputs must be finite."
+          },
+          "target_span": {
+            "start": {
+              "line": 16,
+              "col": 27
+            },
+            "end": {
+              "line": 16,
+              "col": 76
+            },
+            "text": "Входные параметры сценария должны быть конечными."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "regional-model",
+          "source_span": {
+            "start": {
+              "line": 19,
+              "col": 27
+            },
+            "end": {
+              "line": 19,
+              "col": 72
+            },
+            "text": "Scenario inputs are outside the model domain."
+          },
+          "target_span": {
+            "start": {
+              "line": 19,
+              "col": 27
+            },
+            "end": {
+              "line": 19,
+              "col": 95
+            },
+            "text": "Входные параметры сценария находятся вне области определения модели."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "regional-model",
+          "source_span": {
+            "start": {
+              "line": 22,
+              "col": 5
+            },
+            "end": {
+              "line": 22,
+              "col": 84
+            },
+            "text": "A finite declared bracket: edits that escape it fail rather than extrapolate."
+          },
+          "target_span": {
+            "start": {
+              "line": 22,
+              "col": 5
+            },
+            "end": {
+              "line": 22,
+              "col": 114
+            },
+            "text": "Конечный объявленный интервал: изменения, выходящие за его пределы, вызывают ошибку, а не экстраполируются."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "regional-model",
+          "source_span": {
+            "start": {
+              "line": 25,
+              "col": 27
+            },
+            "end": {
+              "line": 25,
+              "col": 81
+            },
+            "text": "No equilibrium in the declared positive-price bracket."
+          },
+          "target_span": {
+            "start": {
+              "line": 25,
+              "col": 27
+            },
+            "end": {
+              "line": 25,
+              "col": 92
+            },
+            "text": "В объявленном интервале положительных цен равновесие отсутствует."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "regional-model",
+          "source_span": {
+            "start": {
+              "line": 35,
+              "col": 27
+            },
+            "end": {
+              "line": 35,
+              "col": 84
+            },
+            "text": "Equilibrium must have finite positive price and quantity."
+          },
+          "target_span": {
+            "start": {
+              "line": 35,
+              "col": 27
+            },
+            "end": {
+              "line": 35,
+              "col": 87
+            },
+            "text": "Равновесие должно иметь конечные положительные цену и объем."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "regional-model",
+          "source_span": {
+            "start": {
+              "line": 39,
+              "col": 36
+            },
+            "end": {
+              "line": 39,
+              "col": 60
+            },
+            "text": "Same regional elasticity"
+          },
+          "target_span": {
+            "start": {
+              "line": 39,
+              "col": 36
+            },
+            "end": {
+              "line": 39,
+              "col": 72
+            },
+            "text": "Одинаковая региональная эластичность"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "regional-model",
+          "source_span": {
+            "start": {
+              "line": 40,
+              "col": 41
+            },
+            "end": {
+              "line": 40,
+              "col": 72
+            },
+            "text": "Higher assumed China elasticity"
+          },
+          "target_span": {
+            "start": {
+              "line": 40,
+              "col": 41
+            },
+            "end": {
+              "line": 40,
+              "col": 88
+            },
+            "text": "Более высокая предполагаемая эластичность Китая"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "regional-model",
+          "source_span": {
+            "start": {
+              "line": 41,
+              "col": 41
+            },
+            "end": {
+              "line": 41,
+              "col": 70
+            },
+            "text": "China baseline demand reduced"
+          },
+          "target_span": {
+            "start": {
+              "line": 41,
+              "col": 41
+            },
+            "end": {
+              "line": 41,
+              "col": 67
+            },
+            "text": "Базовый спрос Китая снижен"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "regional-model",
+          "source_span": {
+            "start": {
+              "line": 42,
+              "col": 39
+            },
+            "end": {
+              "line": 42,
+              "col": 70
+            },
+            "text": "Reserve release added to supply"
+          },
+          "target_span": {
+            "start": {
+              "line": 42,
+              "col": 39
+            },
+            "end": {
+              "line": 42,
+              "col": 85
+            },
+            "text": "Высвобождение резервов добавлено к предложению"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "regional-model",
+          "source_span": {
+            "start": {
+              "line": 44,
+              "col": 8
+            },
+            "end": {
+              "line": 44,
+              "col": 83
+            },
+            "text": "Regional allocations and elasticities are assumed, not empirical estimates."
+          },
+          "target_span": {
+            "start": {
+              "line": 44,
+              "col": 8
+            },
+            "end": {
+              "line": 44,
+              "col": 104
+            },
+            "text": "Региональные распределения и эластичности являются предположениями, а не эмпирическими оценками."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "regional-model",
+          "source_span": {
+            "start": {
+              "line": 45,
+              "col": 8
+            },
+            "end": {
+              "line": 45,
+              "col": 88
+            },
+            "text": "China baseline reduction and reserve flow are separate, one-at-a-time scenarios."
+          },
+          "target_span": {
+            "start": {
+              "line": 45,
+              "col": 8
+            },
+            "end": {
+              "line": 45,
+              "col": 117
+            },
+            "text": "Снижение базового спроса Китая и высвобождение резервов — это отдельные сценарии, рассматриваемые по очереди."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "scenario-comparison",
+          "source_span": {
+            "start": {
+              "line": 11,
+              "col": 23
+            },
+            "end": {
+              "line": 11,
+              "col": 81
+            },
+            "text": "Illustrative equilibrium sensitivity, not a price forecast"
+          },
+          "target_span": {
+            "start": {
+              "line": 11,
+              "col": 23
+            },
+            "end": {
+              "line": 11,
+              "col": 83
+            },
+            "text": "Иллюстративная чувствительность равновесия, а не прогноз цен"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "scenario-comparison",
+          "source_span": {
+            "start": {
+              "line": 12,
+              "col": 24
+            },
+            "end": {
+              "line": 12,
+              "col": 75
+            },
+            "text": "Assumed supply disruption (million barrels per day)"
+          },
+          "target_span": {
+            "start": {
+              "line": 12,
+              "col": 24
+            },
+            "end": {
+              "line": 12,
+              "col": 86
+            },
+            "text": "Предполагаемые перебои в поставках (миллионов баррелей в день)"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "scenario-comparison",
+          "source_span": {
+            "start": {
+              "line": 13,
+              "col": 24
+            },
+            "end": {
+              "line": 13,
+              "col": 58
+            },
+            "text": "Equilibrium price (USD per barrel)"
+          },
+          "target_span": {
+            "start": {
+              "line": 13,
+              "col": 24
+            },
+            "end": {
+              "line": 13,
+              "col": 57
+            },
+            "text": "Равновесная цена (USD за баррель)"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "scenario-comparison",
+          "source_span": {
+            "start": {
+              "line": 18,
+              "col": 8
+            },
+            "end": {
+              "line": 18,
+              "col": 59
+            },
+            "text": "Equilibria under a 4 million-barrel/day disruption:"
+          },
+          "target_span": {
+            "start": {
+              "line": 18,
+              "col": 8
+            },
+            "end": {
+              "line": 18,
+              "col": 69
+            },
+            "text": "Равновесия при перебое поставок в 4 миллиона баррелей в день:"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "scenario-comparison",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 21,
+              "col": 33
+            },
+            "end": {
+              "line": 21,
+              "col": 106
+            },
+            "text": ": price "
+          },
+          "target_span": {
+            "start": {
+              "line": 21,
+              "col": 33
+            },
+            "end": {
+              "line": 21,
+              "col": 106
+            },
+            "text": ": цена "
+          },
+          "placeholders": [
+            "{p:.2f}",
+            "{q:.2f}",
+            "{residual:.2e}"
+          ]
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "scenario-comparison",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 21,
+              "col": 33
+            },
+            "end": {
+              "line": 21,
+              "col": 106
+            },
+            "text": ", quantity "
+          },
+          "target_span": {
+            "start": {
+              "line": 21,
+              "col": 33
+            },
+            "end": {
+              "line": 21,
+              "col": 106
+            },
+            "text": ", объем "
+          },
+          "placeholders": [
+            "{p:.2f}",
+            "{q:.2f}",
+            "{residual:.2e}"
+          ]
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "scenario-comparison",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 21,
+              "col": 33
+            },
+            "end": {
+              "line": 21,
+              "col": 106
+            },
+            "text": ", excess-demand residual "
+          },
+          "target_span": {
+            "start": {
+              "line": 21,
+              "col": 33
+            },
+            "end": {
+              "line": 21,
+              "col": 106
+            },
+            "text": ", невязка избыточного спроса "
+          },
+          "placeholders": [
+            "{p:.2f}",
+            "{q:.2f}",
+            "{residual:.2e}"
+          ]
+        },
+        {
+          "cell_index": 9,
+          "cell_name": "option-variance",
+          "source_span": {
+            "start": {
+              "line": 17,
+              "col": 27
+            },
+            "end": {
+              "line": 17,
+              "col": 54
+            },
+            "text": "Black-Scholes European call"
+          },
+          "target_span": {
+            "start": {
+              "line": 17,
+              "col": 27
+            },
+            "end": {
+              "line": 17,
+              "col": 65
+            },
+            "text": "Европейский колл-опцион Блэка — Шоулза"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 9,
+          "cell_name": "option-variance",
+          "source_span": {
+            "start": {
+              "line": 18,
+              "col": 23
+            },
+            "end": {
+              "line": 18,
+              "col": 67
+            },
+            "text": "Textbook European call value versus variance"
+          },
+          "target_span": {
+            "start": {
+              "line": 18,
+              "col": 23
+            },
+            "end": {
+              "line": 18,
+              "col": 93
+            },
+            "text": "Учебная стоимость европейского колл-опциона в зависимости от дисперсии"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 9,
+          "cell_name": "option-variance",
+          "source_span": {
+            "start": {
+              "line": 19,
+              "col": 24
+            },
+            "end": {
+              "line": 19,
+              "col": 48
+            },
+            "text": "Variance (sigma squared)"
+          },
+          "target_span": {
+            "start": {
+              "line": 19,
+              "col": 24
+            },
+            "end": {
+              "line": 19,
+              "col": 52
+            },
+            "text": "Дисперсия (сигма в квадрате)"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 9,
+          "cell_name": "option-variance",
+          "source_span": {
+            "start": {
+              "line": 19,
+              "col": 69
+            },
+            "end": {
+              "line": 19,
+              "col": 85
+            },
+            "text": "Call model value"
+          },
+          "target_span": {
+            "start": {
+              "line": 19,
+              "col": 73
+            },
+            "end": {
+              "line": 19,
+              "col": 105
+            },
+            "text": "Модельная стоимость колл-опциона"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 9,
+          "cell_name": "option-variance",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 23,
+              "col": 9
+            },
+            "end": {
+              "line": 23,
+              "col": 143
+            },
+            "text": "As variance rises from "
+          },
+          "target_span": {
+            "start": {
+              "line": 23,
+              "col": 9
+            },
+            "end": {
+              "line": 23,
+              "col": 156
+            },
+            "text": "По мере роста дисперсии с "
+          },
+          "placeholders": [
+            "{variance[0]:.4f}",
+            "{variance[-1]:.2f}",
+            "{call_price[0]:.2f}",
+            "{call_price[-1]:.2f}"
+          ]
+        },
+        {
+          "cell_index": 9,
+          "cell_name": "option-variance",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 23,
+              "col": 9
+            },
+            "end": {
+              "line": 23,
+              "col": 143
+            },
+            "text": " to "
+          },
+          "target_span": {
+            "start": {
+              "line": 23,
+              "col": 9
+            },
+            "end": {
+              "line": 23,
+              "col": 156
+            },
+            "text": " до "
+          },
+          "placeholders": [
+            "{variance[0]:.4f}",
+            "{variance[-1]:.2f}",
+            "{call_price[0]:.2f}",
+            "{call_price[-1]:.2f}"
+          ]
+        },
+        {
+          "cell_index": 9,
+          "cell_name": "option-variance",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 23,
+              "col": 9
+            },
+            "end": {
+              "line": 23,
+              "col": 143
+            },
+            "text": ", the call value rises from "
+          },
+          "target_span": {
+            "start": {
+              "line": 23,
+              "col": 9
+            },
+            "end": {
+              "line": 23,
+              "col": 156
+            },
+            "text": ", стоимость колл-опциона возрастает с "
+          },
+          "placeholders": [
+            "{variance[0]:.4f}",
+            "{variance[-1]:.2f}",
+            "{call_price[0]:.2f}",
+            "{call_price[-1]:.2f}"
+          ]
+        },
+        {
+          "cell_index": 9,
+          "cell_name": "option-variance",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 23,
+              "col": 9
+            },
+            "end": {
+              "line": 23,
+              "col": 143
+            },
+            "text": " to "
+          },
+          "target_span": {
+            "start": {
+              "line": 23,
+              "col": 9
+            },
+            "end": {
+              "line": 23,
+              "col": 156
+            },
+            "text": " до "
+          },
+          "placeholders": [
+            "{variance[0]:.4f}",
+            "{variance[-1]:.2f}",
+            "{call_price[0]:.2f}",
+            "{call_price[-1]:.2f}"
+          ]
+        }
+      ],
+      "exclusions": []
+    },
+    "nativeSpeakerReview": "pending"
+  },
+  "browser": {
+    "status": "passed",
+    "first": {
+      "exportSha256": "079f3eaf628d92a583fed20e60695461631177f2a8142e1a4eaa747a07e0c09e",
+      "reportSha256": "84acc0a76246fef9c80b0a25dd1031d7e5d488ed991a214511a5d3e8d029f9d4",
+      "appVersion": "1.4.0",
+      "cells": 12,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "second": {
+      "exportSha256": "46218a4fc72e1644add6c388d336c91817731d2ff4b405c41f0b5d188f38afbe",
+      "reportSha256": "84acc0a76246fef9c80b0a25dd1031d7e5d488ed991a214511a5d3e8d029f9d4",
+      "appVersion": "1.4.0",
+      "cells": 12,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "englishBaseline": [
+      {
+        "exportSha256": "35503efd683bbb8005aa162729a274b7712daf13e4dc26f24ec9744f71c00721",
+        "reportSha256": "1bb8072766e98220be03b801d8c5dd4dff43ba37da575eb84a823769d4497c2f",
+        "appVersion": "1.4.0",
+        "cells": 12,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      },
+      {
+        "exportSha256": "38066e853648d7456239dba6dd202140f22e10711c3fc0409451892f72f97923",
+        "reportSha256": "1bb8072766e98220be03b801d8c5dd4dff43ba37da575eb84a823769d4497c2f",
+        "appVersion": "1.4.0",
+        "cells": 12,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      }
+    ],
+    "deterministic": true,
+    "textOracle": {
+      "first": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [
+          3,
+          6,
+          9
+        ],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      },
+      "second": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [
+          3,
+          6,
+          9
+        ],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      }
+    },
+    "plotData": {
+      "status": "passed",
+      "count": 3
+    },
+    "rasterCharts": null,
+    "renderedReview": "controller-AI-reviewed",
+    "rendering": {
+      "status": "passed",
+      "scope": "Titles, axes, legends and glyphs visually checked in captured app renders; not native-language approval.",
+      "nativeSpeakerReview": "pending",
+      "captures": [
+        {
+          "reportSha256": "84acc0a76246fef9c80b0a25dd1031d7e5d488ed991a214511a5d3e8d029f9d4",
+          "pngs": [
+            {
+              "index": 0,
+              "sha256": "b46c52b918edd4f48e1d42016f654e95b8c27ffb36bee450adba6914672c537f",
+              "width": 654,
+              "height": 541
+            },
+            {
+              "index": 1,
+              "sha256": "c8ed5cef59fe9fd3fe08ab6cbae68eef353ac78c108f30b4c9b3739b81095acd",
+              "width": 654,
+              "height": 591
+            },
+            {
+              "index": 2,
+              "sha256": "8e3c40bcb441b62d485b7aa95a9956ac7e05529b3e780e39899071b717da68c7",
+              "width": 654,
+              "height": 501
+            }
+          ]
+        },
+        {
+          "reportSha256": "84acc0a76246fef9c80b0a25dd1031d7e5d488ed991a214511a5d3e8d029f9d4",
+          "pngs": [
+            {
+              "index": 0,
+              "sha256": "b46c52b918edd4f48e1d42016f654e95b8c27ffb36bee450adba6914672c537f",
+              "width": 654,
+              "height": 541
+            },
+            {
+              "index": 1,
+              "sha256": "c8ed5cef59fe9fd3fe08ab6cbae68eef353ac78c108f30b4c9b3739b81095acd",
+              "width": 654,
+              "height": 591
+            },
+            {
+              "index": 2,
+              "sha256": "8e3c40bcb441b62d485b7aa95a9956ac7e05529b3e780e39899071b717da68c7",
+              "width": 654,
+              "height": 501
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "caveat": "Machine translated with Gemini and reviewed by AI/controller checks, including scoped corrections where needed. Native-speaker review is pending; structural and numerical checks do not certify prose quality."
+}

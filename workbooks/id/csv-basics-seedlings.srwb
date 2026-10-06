@@ -1,0 +1,39 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "Dasar-Dasar CSV: Tinggi Bibit",
+    "cells": [
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "name": "title-goals",
+        "code": "# Dasar-Dasar CSV: Tinggi Bibit\n\nBuku kerja pemula ini menggunakan pengukuran bibit **fiktif**. Jalankan ketiga sel Python secara berurutan: buat berkas CSV lokal, baca kembali, lalu bandingkan rata-rata kelompok. Ini hanya membutuhkan pustaka standar Python: tanpa akun, kunci AI, penginstalan paket, atau pengunduhan himpunan data.\n\nCSV adalah tabel teks biasa. Setiap baris adalah satu bibit; kolom-kolomnya adalah kelompok dan tingginya dalam sentimeter. Enam pengukuran rekaan ini ditujukan untuk pembelajaran, bukan bukti bahwa satu kondisi pertumbuhan menyebabkan perbedaan.\n\nUntuk panduan langkah demi langkah, baca [tutorial impor/ekspor CSV](https://s243a.github.io/SciREPL/help/files-export/tutorial/)."
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "create_csv",
+        "code": "import csv\nfrom pathlib import Path\n\npath = Path('/shared/data/seedling-heights.csv')\npath.parent.mkdir(parents=True, exist_ok=True)\nmeasurements = [\n    {'group': 'light', 'height_cm': 12},\n    {'group': 'light', 'height_cm': 14},\n    {'group': 'light', 'height_cm': 13},\n    {'group': 'shade', 'height_cm': 7},\n    {'group': 'shade', 'height_cm': 9},\n    {'group': 'shade', 'height_cm': 8},\n]\nwith path.open('w', newline='', encoding='utf-8') as file:\n    writer = csv.DictWriter(file, fieldnames=['group', 'height_cm'])\n    writer.writeheader()\n    writer.writerows(measurements)\nprint(f'Menyimpan {len(measurements)} baris fiktif ke {path}')"
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "read_csv",
+        "code": "import csv\nfrom pathlib import Path\n\npath = Path('/shared/data/seedling-heights.csv')\nwith path.open(newline='', encoding='utf-8') as file:\n    rows = list(csv.DictReader(file))\nprint(f'Membaca {len(rows)} baris dari {path.name}')\nfor row in rows:\n    print(f\"{row['group']:>5}: {row['height_cm']} cm\")"
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "compare_groups",
+        "code": "import csv\nfrom pathlib import Path\nfrom statistics import mean\n\npath = Path('/shared/data/seedling-heights.csv')\nwith path.open(newline='', encoding='utf-8') as file:\n    rows = list(csv.DictReader(file))\nlight = [float(row['height_cm']) for row in rows if row['group'] == 'light']\nshade = [float(row['height_cm']) for row in rows if row['group'] == 'shade']\nprint(f'Rata-rata cahaya: {mean(light):.1f} cm')\nprint(f'Rata-rata naungan: {mean(shade):.1f} cm')\nprint(f'Selisih: {mean(light) - mean(shade):.1f} cm')"
+      },
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "name": "try-a-change",
+        "code": "## Coba lakukan perubahan\n\nEdit sel kode pertama: ubah satu nilai tinggi, lalu jalankan lagi. Jalankan kembali sel pembacaan dan perbandingan untuk melihat hasil yang baru. Berkas di `/shared/data/seedling-heights.csv` tetap ada di sistem berkas virtual lokal SciREPL.\n\nAnda juga dapat mengimpor CSV yang berbeda melalui **Menu → Impor Berkas**. Berkas tersebut akan muncul di bawah `/shared/data/`; ubah `path` pada sel pembacaan ke nama berkas yang tepat. Jangan mengasumsikan bahwa `.srwb` yang diekspor menyertakan berkas CSV terpisah: pilih **Paket (arsip)** dan pilih buku kerja maupun CSV saat Anda perlu memindahkannya bersama-sama.\n\n**Peringatan penimpaan dan penjalanan ulang:** Menjalankan `create_csv` akan membuka `/shared/data/seedling-heights.csv` dalam mode tulis dan menggantikan berkas apa pun yang sudah ada di jalur tersebut, termasuk hasil editan CSV Anda. Cadangkan berkas apa pun yang ingin Anda simpan sebelum menjalankannya. Setelah mengubah CSV, jalankan ulang `read_csv` dan `compare_groups` secara berurutan; keluaran yang ditampilkan sebelumnya tidak diperbarui secara otomatis."
+      }
+    ]
+  }
+}

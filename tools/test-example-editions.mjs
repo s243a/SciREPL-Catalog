@@ -78,6 +78,24 @@ for (const lesson of Object.keys(EXAMPLE_DESCRIPTIONS)) for (const locale of loc
   }
   assert(review.browser.textOracle.first.pass && review.browser.textOracle.second.pass);
   assert.equal(review.browser.plotData.status, 'passed');
+  if (lesson === 'oil-shocks-demand') {
+    assert.equal(review.browser.plotData.count, 3);
+    assert.equal(review.browser.renderedReview, 'controller-AI-reviewed');
+    const rendering = review.browser.rendering;
+    assert.equal(rendering.status, 'passed');
+    assert.equal(rendering.nativeSpeakerReview, 'pending');
+    assert.equal(rendering.captures.length, 2);
+    for (const [index, capture] of rendering.captures.entries()) {
+      assert.equal(capture.reportSha256, index === 0 ? review.browser.first.reportSha256 : review.browser.second.reportSha256);
+      assert.equal(capture.pngs.length, 3);
+      for (const [plotIndex, png] of capture.pngs.entries()) {
+        assert.equal(png.index, plotIndex);
+        assert.match(png.sha256, /^[a-f0-9]{64}$/);
+        assert(Number.isInteger(png.width) && png.width > 0);
+        assert(Number.isInteger(png.height) && png.height > 0);
+      }
+    }
+  }
   assert(!JSON.stringify(review).includes('/home/'), 'Private host path leaked into public receipt');
   assert(!JSON.stringify(review).includes('reviews/translation-pilot'), 'Private evidence path leaked into public receipt');
   count++; console.log(`[PASS] ${lesson}/${locale}: hashes, names, Markdown invariants, code spans and review receipts`);

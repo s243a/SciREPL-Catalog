@@ -27,7 +27,7 @@ unaffected.
 
 ## Documentation
 
-- [docs/reviewed-examples.md](docs/reviewed-examples.md) — six staged science/data lessons, execution order, limitations and translation gates
+- [docs/reviewed-examples.md](docs/reviewed-examples.md) — science/data lessons, execution order, limitations and translation gates
 - [docs/translation-process.md](docs/translation-process.md) — how every translated edition is produced (both passes)
 - [docs/translation-pipeline-modes.md](docs/translation-pipeline-modes.md) — mechanical vs sandboxed-polish modes, worker access levels
 - [docs/locale-policy.md](docs/locale-policy.md) — what translates per locale; per-script identifier policy; the Arabic decision
@@ -63,7 +63,7 @@ tools/build-index.mjs     recomputes sha256/size for every item from the files
 
 ## How the translations are made
 
-The six new science/data lessons have 72 machine-translated editions across
+The eight reviewed science/data lessons have 96 machine-translated editions across
 12 non-English locales, alongside their English sources. **Native-speaker
 review is pending.** AI review, structural gates and browser tests check
 source fidelity and numerical behavior; they do not certify natural wording

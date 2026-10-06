@@ -1,0 +1,39 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "CSVの基本: 苗の草丈",
+    "cells": [
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "name": "title-goals",
+        "code": "# CSVの基本: 苗の草丈\n\nこの初心者向けワークブックでは、**架空の**苗の測定値を使用します。ローカルのCSVファイルを作成し、それを読み戻し、グループ平均を比較するという順序で、三つのPythonセルを実行してください。必要なのはPythonの標準ライブラリのみで、アカウント、AIキー、パッケージのインストール、データセットのダウンロードは不要です。\n\nCSVはプレーンテキストの表です。各行が一株の苗であり、列はそのグループとセンチメートル単位の草丈です。これら六つの架空の測定値は学習用であり、特定の育成条件が違いを生み出している証拠ではありません。\n\nガイド付きウォークスルーについては、[CSVインポート/エクスポートチュートリアル](https://s243a.github.io/SciREPL/help/files-export/tutorial/)をお読みください。"
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "create_csv",
+        "code": "import csv\nfrom pathlib import Path\n\npath = Path('/shared/data/seedling-heights.csv')\npath.parent.mkdir(parents=True, exist_ok=True)\nmeasurements = [\n    {'group': 'light', 'height_cm': 12},\n    {'group': 'light', 'height_cm': 14},\n    {'group': 'light', 'height_cm': 13},\n    {'group': 'shade', 'height_cm': 7},\n    {'group': 'shade', 'height_cm': 9},\n    {'group': 'shade', 'height_cm': 8},\n]\nwith path.open('w', newline='', encoding='utf-8') as file:\n    writer = csv.DictWriter(file, fieldnames=['group', 'height_cm'])\n    writer.writeheader()\n    writer.writerows(measurements)\nprint(f'保存完了: {len(measurements)} 件の架空の行、保存先: {path}')"
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "read_csv",
+        "code": "import csv\nfrom pathlib import Path\n\npath = Path('/shared/data/seedling-heights.csv')\nwith path.open(newline='', encoding='utf-8') as file:\n    rows = list(csv.DictReader(file))\nprint(f'読み込み完了: {len(rows)} 行、読み込み元: {path.name}')\nfor row in rows:\n    print(f\"{row['group']:>5}: {row['height_cm']} cm\")"
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "compare_groups",
+        "code": "import csv\nfrom pathlib import Path\nfrom statistics import mean\n\npath = Path('/shared/data/seedling-heights.csv')\nwith path.open(newline='', encoding='utf-8') as file:\n    rows = list(csv.DictReader(file))\nlight = [float(row['height_cm']) for row in rows if row['group'] == 'light']\nshade = [float(row['height_cm']) for row in rows if row['group'] == 'shade']\nprint(f'Lightの平均: {mean(light):.1f} cm')\nprint(f'Shadeの平均: {mean(shade):.1f} cm')\nprint(f'差: {mean(light) - mean(shade):.1f} cm')"
+      },
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "name": "try-a-change",
+        "code": "## 変更を試す\n\n最初のコードセルを編集します。草丈の数値を一つ変更し、再度実行してください。新しい結果を確認するために、読み込みセルと比較セルを再度実行します。`/shared/data/seedling-heights.csv` にあるファイルは、SciREPLのローカル仮想ファイルシステム内に永続化されます。\n\n**Menu → Import File** から別のCSVをインポートすることもできます。インポートしたファイルは `/shared/data/` の下に表示されます。読み込みセルの `path` をその正確なファイル名に変更してください。エクスポートされた `.srwb` に独立したCSVファイルが含まれているとは想定しないでください。両方を一緒に移動する必要がある場合は、**Package (archive)** を選択し、ワークブックとCSVの両方を選択してください。\n\n**上書きと再実行の警告:** `create_csv` を実行すると、`/shared/data/seedling-heights.csv` が書き込みモードで開かれ、CSVの編集内容を含め、そのパスに既に存在するファイルが置き換えられます。実行する前に、保持しておきたいファイルをバックアップしてください。CSVを変更した後は、`read_csv` と `compare_groups` を順に再実行してください。以前に表示された出力は自動的には更新されません。"
+      }
+    ]
+  }
+}

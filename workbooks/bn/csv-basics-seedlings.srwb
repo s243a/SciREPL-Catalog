@@ -1,0 +1,39 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "CSV-এর প্রাথমিক ধারণা: চারাগাছের উচ্চতা",
+    "cells": [
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "name": "title-goals",
+        "code": "# CSV-এর প্রাথমিক ধারণা: চারাগাছের উচ্চতা\n\nএই প্রাথমিক পর্যায়ের ওয়ার্কবুকটিতে **কাল্পনিক** চারাগাছের পরিমাপ ব্যবহার করা হয়েছে। তিনটি Python সেল ক্রমানুসারে চালান: একটি স্থানীয় CSV ফাইল তৈরি করুন, সেটি পুনরায় পড়ুন, তারপর দলের গড় তুলনা করুন। এর জন্য কেবল Python-এর স্ট্যান্ডার্ড লাইব্রেরি প্রয়োজন: কোনো অ্যাকাউন্ট, AI কী, প্যাকেজ ইনস্টল বা ডেটাসেট ডাউনলোডের প্রয়োজন নেই।\n\nএকটি CSV হলো একটি প্লেইন-টেক্সট টেবিল। প্রতিটি সারি হলো একটি চারাগাছ; কলামগুলো হলো এর দল এবং সেন্টিমিটারে উচ্চতা। এই ছয়টি কাল্পনিক পরিমাপ শেখার জন্য, কোনো একটি বৃদ্ধির পরিস্থিতি কোনো পার্থক্য তৈরি করে তার প্রমাণ নয়।\n\nএকটি নির্দেশিত সহায়িকার জন্য, [CSV আমদানি/রপ্তানি টিউটোরিয়াল](https://s243a.github.io/SciREPL/help/files-export/tutorial/) পড়ুন।"
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "create_csv",
+        "code": "import csv\nfrom pathlib import Path\n\npath = Path('/shared/data/seedling-heights.csv')\npath.parent.mkdir(parents=True, exist_ok=True)\nmeasurements = [\n    {'group': 'light', 'height_cm': 12},\n    {'group': 'light', 'height_cm': 14},\n    {'group': 'light', 'height_cm': 13},\n    {'group': 'shade', 'height_cm': 7},\n    {'group': 'shade', 'height_cm': 9},\n    {'group': 'shade', 'height_cm': 8},\n]\nwith path.open('w', newline='', encoding='utf-8') as file:\n    writer = csv.DictWriter(file, fieldnames=['group', 'height_cm'])\n    writer.writeheader()\n    writer.writerows(measurements)\nprint(f'সংরক্ষিত হয়েছে {len(measurements)} টি কাল্পনিক সারি এই পাথে: {path}')"
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "read_csv",
+        "code": "import csv\nfrom pathlib import Path\n\npath = Path('/shared/data/seedling-heights.csv')\nwith path.open(newline='', encoding='utf-8') as file:\n    rows = list(csv.DictReader(file))\nprint(f'পড়া হয়েছে {len(rows)} টি সারি এই ফাইল থেকে: {path.name}')\nfor row in rows:\n    print(f\"{row['group']:>5}: {row['height_cm']} cm\")"
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "compare_groups",
+        "code": "import csv\nfrom pathlib import Path\nfrom statistics import mean\n\npath = Path('/shared/data/seedling-heights.csv')\nwith path.open(newline='', encoding='utf-8') as file:\n    rows = list(csv.DictReader(file))\nlight = [float(row['height_cm']) for row in rows if row['group'] == 'light']\nshade = [float(row['height_cm']) for row in rows if row['group'] == 'shade']\nprint(f'আলোর গড়: {mean(light):.1f} cm')\nprint(f'ছায়ার গড়: {mean(shade):.1f} cm')\nprint(f'পার্থক্য: {mean(light) - mean(shade):.1f} cm')"
+      },
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "name": "try-a-change",
+        "code": "## একটি পরিবর্তন চেষ্টা করে দেখুন\n\nপ্রথম কোড সেলটি সম্পাদনা করুন: একটি উচ্চতা পরিবর্তন করুন, তারপর এটি পুনরায় চালান। নতুন ফলাফল দেখতে পড়ার এবং তুলনার সেলগুলো পুনরায় চালান। `/shared/data/seedling-heights.csv`-এর ফাইলটি SciREPL-এর স্থানীয় ভার্চুয়াল ফাইলসিস্টেমে সংরক্ষিত থাকে।\n\nআপনি **Menu → Import File**-এর মাধ্যমে একটি ভিন্ন CSV-ও আমদানি করতে পারেন। এটি `/shared/data/`-এর অধীনে প্রদর্শিত হবে; পড়ার সেলগুলোতে `path`-কে এর সঠিক ফাইলনামে পরিবর্তন করুন। ধরে নেবেন না যে একটি এক্সপোর্ট করা `.srwb` আলাদা CSV ফাইলটিকে অন্তর্ভুক্ত করে: যখন আপনার এগুলোকে একসাথে স্থানান্তর করতে হবে তখন **Package (archive)** বেছে নিন এবং ওয়ার্কবুক ও CSV উভয়টিই নির্বাচন করুন।\n\n**ওভাররাইট এবং পুনরায় চালানোর সতর্কতা:** `create_csv` চালালে তা `/shared/data/seedling-heights.csv`-কে রাইট মোডে খোলে এবং সেই পাথে ইতিমধ্যে থাকা যেকোনো ফাইল প্রতিস্থাপন করে, যার মধ্যে আপনার CSV সম্পাদনাও অন্তর্ভুক্ত। এটি চালানোর আগে আপনি রাখতে চান এমন যেকোনো ফাইলের ব্যাকআপ নিন। CSV পরিবর্তন করার পর, ক্রমানুসারে `read_csv` এবং `compare_groups` পুনরায় চালান; পূর্বে প্রদর্শিত আউটপুট স্বয়ংক্রিয়ভাবে আপডেট হয় না।"
+      }
+    ]
+  }
+}

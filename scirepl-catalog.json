@@ -4551,6 +4551,448 @@
       "revision": 1,
       "sha256": "9cd3aac4eec9e8e8bf88c044ab532686de5e48512148295c8b81e0dc6458b193",
       "size": 14835
+    },
+    {
+      "id": "oil-shocks-demand-en",
+      "name": "Oil Shocks: Demand Curves, Substitution and Scenarios",
+      "description": "Separate local demand elasticity from demand-curve shifts in an illustrative China/rest-of-world oil model, compare supply-disruption scenarios, and retain a textbook European-call variance example. Educational sensitivity analysis, not a fitted forecast or investment advice.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "en"
+      ],
+      "format": "srwb",
+      "path": "workbooks/en/oil-shocks-demand.srwb",
+      "revision": 1,
+      "sha256": "535bb4534caf0b78793ba518033b8407e0b3407b04942582b33ab8423ef26cc5",
+      "size": 17082
+    },
+    {
+      "id": "oil-shocks-demand-ar",
+      "name": "صدمات النفط: منحنيات الطلب والإحلال والسيناريوهات",
+      "description": "فصل مرونة الطلب المحلية عن تحولات منحنى الطلب في نموذج توضيحي للنفط يضم الصين/بقية العالم، ومقارنة سيناريوهات انقطاع الإمدادات، والاحتفاظ بمثال قياسي لتباين خيار الشراء الأوروبي. تحليل حساسية تعليمي، وليس توقعات ملائمة أو نصيحة استثمارية.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "ar"
+      ],
+      "format": "srwb",
+      "path": "workbooks/ar/oil-shocks-demand.srwb",
+      "revision": 1,
+      "sha256": "b54576144a95e629abb96ba210dd7dd0d9d321ae48e5ca5381072f29e452cc27",
+      "size": 23337
+    },
+    {
+      "id": "oil-shocks-demand-bn",
+      "name": "তেলের অভিঘাত: চাহিদারেখা, প্রতিস্থাপন এবং দৃশ্যপট",
+      "description": "একটি দৃষ্টান্তমূলক চীন/বিশ্বের অবশিষ্ট অংশের তেলের মডেলে চাহিদারেখার স্থানান্তর থেকে স্থানীয় চাহিদা স্থিতিস্থাপকতাকে পৃথক করুন, সরবরাহ-বিঘ্ন দৃশ্যপটগুলির তুলনা করুন এবং একটি পাঠ্যপুস্তকের ইউরোপীয়-কলের ভেদাঙ্কের উদাহরণ ধরে রাখুন। শিক্ষামূলক সংবেদনশীলতা বিশ্লেষণ, কোনো মানানসই পূর্বাভাস বা বিনিয়োগ সংক্রান্ত পরামর্শ নয়।",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "bn"
+      ],
+      "format": "srwb",
+      "path": "workbooks/bn/oil-shocks-demand.srwb",
+      "revision": 1,
+      "sha256": "fd063f61aa6d4db578388f2f90211177c56ba95b34a2c8b8dca11798b8ede21d",
+      "size": 32624
+    },
+    {
+      "id": "oil-shocks-demand-de",
+      "name": "Ölschocks: Nachfragekurven, Substitution und Szenarien",
+      "description": "Trennen Sie in einem anschaulichen Ölmodell für China und den Rest der Welt die lokale Nachfrageelastizität von Verschiebungen der Nachfragekurve, vergleichen Sie Angebotsstörungsszenarien und behalten Sie ein lehrbuchartiges Varianzbeispiel für eine europäische Kaufoption bei. Pädagogische Sensitivitätsanalyse, keine angepasste Prognose oder Anlageberatung.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "de"
+      ],
+      "format": "srwb",
+      "path": "workbooks/de/oil-shocks-demand.srwb",
+      "revision": 1,
+      "sha256": "cf3a0057ae7dcd259937bb11425ea53f11b4c0edf29131099b50ce0ce73083b7",
+      "size": 19328
+    },
+    {
+      "id": "oil-shocks-demand-es",
+      "name": "Choques petroleros: curvas de demanda, sustitución y escenarios",
+      "description": "Distinga la elasticidad local de la demanda de los desplazamientos de la curva de demanda en un modelo ilustrativo del petróleo para China y el resto del mundo, compare escenarios de perturbación de la oferta y conserve un ejemplo clásico de libro de texto sobre la varianza de una opción de compra europea. Análisis de sensibilidad educativo, no un pronóstico ajustado ni asesoramiento de inversión.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "es"
+      ],
+      "format": "srwb",
+      "path": "workbooks/es/oil-shocks-demand.srwb",
+      "revision": 1,
+      "sha256": "6c95fa4acba900c101a1988c650e7272c5b7385635f8a1d2e0ddaecda1b13f38",
+      "size": 19813
+    },
+    {
+      "id": "oil-shocks-demand-fr",
+      "name": "Chocs pétroliers : courbes de demande, substitution et scénarios",
+      "description": "Distinguer l'élasticité locale de la demande des déplacements de la courbe de demande dans un modèle pétrolier illustratif Chine/reste du monde, comparer des scénarios de rupture d'approvisionnement et conserver un exemple classique de variance pour une option d'achat européenne. Analyse de sensibilité pédagogique, et non prévision ajustée ou conseil en investissement.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "fr"
+      ],
+      "format": "srwb",
+      "path": "workbooks/fr/oil-shocks-demand.srwb",
+      "revision": 1,
+      "sha256": "e076fcbac1201331a5998e0958fd8f49db7a2a597bd6126211f1862a27774eb4",
+      "size": 20057
+    },
+    {
+      "id": "oil-shocks-demand-hi",
+      "name": "तेल के झटके: मांग वक्र, प्रतिस्थापन और परिदृश्य",
+      "description": "एक उदाहरणात्मक चीन/शेष-विश्व तेल मॉडल में स्थानीय मांग लोच को मांग-वक्र के विस्थापन से अलग करें, आपूर्ति-बाधा परिदृश्यों की तुलना करें, और एक पाठ्यपुस्तक यूरोपीय-कॉल प्रसरण उदाहरण को बनाए रखें। शैक्षणिक संवेदनशीलता विश्लेषण, कोई फिट किया गया पूर्वानुमान या निवेश सलाह नहीं।",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "hi"
+      ],
+      "format": "srwb",
+      "path": "workbooks/hi/oil-shocks-demand.srwb",
+      "revision": 1,
+      "sha256": "7650212f1d1c473c5ffa84e6b6ff1778e2f872eb09842f45d811ea72dcfed583",
+      "size": 30538
+    },
+    {
+      "id": "oil-shocks-demand-id",
+      "name": "Guncangan Minyak: Kurva Permintaan, Substitusi, dan Skenario",
+      "description": "Pisahkan elastisitas permintaan lokal dari pergeseran kurva permintaan dalam model minyak ilustratif Tiongkok/wilayah dunia lainnya, bandingkan skenario disrupsi pasokan, dan pertahankan contoh varians call Eropa dari buku teks. Analisis sensitivitas edukatif, bukan prakiraan hasil pencocokan atau saran investasi.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "id"
+      ],
+      "format": "srwb",
+      "path": "workbooks/id/oil-shocks-demand.srwb",
+      "revision": 1,
+      "sha256": "146d9018d68eed2400be8102293d57086fe55ea2a4766c29cf547cd1ee336e35",
+      "size": 18509
+    },
+    {
+      "id": "oil-shocks-demand-ja",
+      "name": "オイルショック：需要曲線、代替、およびシナリオ",
+      "description": "例示的な中国／世界その他の石油モデルにおいて局所的な需要の価格弾力性と需要曲線のシフトを区別し、供給途絶シナリオを比較して、教科書的なヨーロピアン・コールの分散の例を保持します。教育的な感応度分析であり、フィッティングされた予測や投資助言ではありません。",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "ja"
+      ],
+      "format": "srwb",
+      "path": "workbooks/ja/oil-shocks-demand.srwb",
+      "revision": 1,
+      "sha256": "dabf51705b98620b455451dbe7b6b8cde4836ccdbd8cb494a8d1b154b636cdf3",
+      "size": 20919
+    },
+    {
+      "id": "oil-shocks-demand-ko",
+      "name": "석유 충격: 수요 곡선, 대체 및 시나리오",
+      "description": "설명을 위한 중국/기타 세계 석유 모델에서 국소 수요 탄력성과 수요 곡선 이동을 구분하고, 공급 차질 시나리오를 비교하며, 교과서적인 유럽형 콜 옵션 분산 예시를 유지합니다. 피팅된 예측이나 투자 조언이 아닌 교육용 민감도 분석입니다.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "ko"
+      ],
+      "format": "srwb",
+      "path": "workbooks/ko/oil-shocks-demand.srwb",
+      "revision": 1,
+      "sha256": "fb671817cce848f6d26701d5e36e8e69fe584dcfd25c0a9fed237d9ef882d26f",
+      "size": 19354
+    },
+    {
+      "id": "oil-shocks-demand-pt-BR",
+      "name": "Choques do Petróleo: Curvas de Demanda, Substituição e Cenários",
+      "description": "Separe a elasticidade local da demanda de deslocamentos da curva de demanda em um modelo ilustrativo de petróleo da China/resto do mundo, compare cenários de interrupção de oferta e retenha um exemplo clássico de variância de opção de compra europeia. Análise de sensibilidade educacional, não uma previsão ajustada ou recomendação de investimento.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "pt-BR"
+      ],
+      "format": "srwb",
+      "path": "workbooks/pt-BR/oil-shocks-demand.srwb",
+      "revision": 1,
+      "sha256": "ab6efda82d726c041ed6ef170c987b605be388b50d64e3ce185ae144c9ab9868",
+      "size": 19182
+    },
+    {
+      "id": "oil-shocks-demand-ru",
+      "name": "Нефтяные шоки: кривые спроса, замещение и сценарии",
+      "description": "Отделите локальную эластичность спроса от сдвигов кривой спроса в наглядной модели нефтяного рынка Китая и остального мира, сравните сценарии перебоев с поставками и сохраните учебный пример дисперсии европейского колл-опциона. Обучающий анализ чувствительности, а не подогнанный прогноз или инвестиционная рекомендация.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "ru"
+      ],
+      "format": "srwb",
+      "path": "workbooks/ru/oil-shocks-demand.srwb",
+      "revision": 1,
+      "sha256": "278aef52d2efa17865153f23a7fd177b0c8349fec4d26d6ee31a6bba6be22c70",
+      "size": 28234
+    },
+    {
+      "id": "oil-shocks-demand-zh",
+      "name": "石油冲击：需求曲线、替代与情景",
+      "description": "在一个用于说明的中国/世界其他地区石油模型中，区分局部需求弹性与需求曲线移动，对比供应中断情景，并保留一个教科书式的欧式看涨期权方差示例。本内容为教学敏感性分析，而非拟合预测或投资建议。",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "zh"
+      ],
+      "format": "srwb",
+      "path": "workbooks/zh/oil-shocks-demand.srwb",
+      "revision": 1,
+      "sha256": "d2d1b37e42a1674893b70a5c8806f1e197da1ccea1f0437b782b0e62d0314c86",
+      "size": 16429
+    },
+    {
+      "id": "csv-basics-seedlings-en",
+      "name": "CSV Basics: Seedling Heights",
+      "description": "Create, read and compare six fictional seedling-height rows in a CSV file, then inspect or edit the file through Files & Storage. Running the writer overwrites the example path; the lesson includes a backup and rerun warning.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "en"
+      ],
+      "format": "srwb",
+      "path": "workbooks/en/csv-basics-seedlings.srwb",
+      "revision": 1,
+      "sha256": "6dba9b786223a9e5401fb7a90210991beb7f6917aaa3d47b394943c49fded3cd",
+      "size": 3832
+    },
+    {
+      "id": "csv-basics-seedlings-ar",
+      "name": "أساسيات CSV: أطوال الشتلات",
+      "description": "أنشئ ستة صفوف خيالية لأطوال الشتلات في ملف CSV واقرأها وقارن بينها، ثم عاين الملف أو عدّله عبر Files & Storage. يؤدي تشغيل برنامج الكتابة إلى الكتابة فوق مسار المثال؛ ويتضمن الدرس تحذيراً بشأن النسخ الاحتياطي وإعادة التشغيل.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "ar"
+      ],
+      "format": "srwb",
+      "path": "workbooks/ar/csv-basics-seedlings.srwb",
+      "revision": 1,
+      "sha256": "cf216fe66e2d2bae64be4bf7127cf2ee1f2e79af99ed6b024f92823e3ba2d11a",
+      "size": 4761
+    },
+    {
+      "id": "csv-basics-seedlings-bn",
+      "name": "CSV-এর প্রাথমিক ধারণা: চারাগাছের উচ্চতা",
+      "description": "একটি CSV ফাইলে চারাগাছের উচ্চতার ছয়টি কাল্পনিক সারি তৈরি করুন, পড়ুন এবং তুলনা করুন, তারপর Files & Storage-এর মাধ্যমে ফাইলটি পরিদর্শন বা সম্পাদনা করুন। রাইটারটি চালালে উদাহরণের পাথটি ওভাররাইট হয়ে যায়; পাঠটিতে ব্যাকআপ এবং পুনরায় চালানোর সতর্কতা অন্তর্ভুক্ত রয়েছে।",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "bn"
+      ],
+      "format": "srwb",
+      "path": "workbooks/bn/csv-basics-seedlings.srwb",
+      "revision": 1,
+      "sha256": "1f427714467ea8fbc96e18ac94f466466b085f7703a6693dd4953493ea7443b7",
+      "size": 6782
+    },
+    {
+      "id": "csv-basics-seedlings-de",
+      "name": "CSV-Grundlagen: Sämlingshöhen",
+      "description": "Erstellen, lesen und vergleichen Sie sechs fiktive Zeilen mit Sämlingshöhen in einer CSV-Datei und untersuchen oder bearbeiten Sie die Datei anschließend über Files & Storage. Das Ausführen des Writers überschreibt den Beispielpfad; die Lektion enthält eine Warnung zum Sichern und erneuten Ausführen.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "de"
+      ],
+      "format": "srwb",
+      "path": "workbooks/de/csv-basics-seedlings.srwb",
+      "revision": 1,
+      "sha256": "58783828ee84469c9b6ba9603a86e237f6af49e0f2e65f805714d33e87331e95",
+      "size": 4371
+    },
+    {
+      "id": "csv-basics-seedlings-es",
+      "name": "Conceptos básicos de CSV: alturas de plántulas",
+      "description": "Crea, lee y compara seis filas ficticias de alturas de plántulas en un archivo CSV, luego inspecciona o edita el archivo a través de Archivos y almacenamiento. Ejecutar el escritor sobrescribe la ruta de ejemplo; la lección incluye una advertencia de copia de seguridad y reejecución.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "es"
+      ],
+      "format": "srwb",
+      "path": "workbooks/es/csv-basics-seedlings.srwb",
+      "revision": 1,
+      "sha256": "b23cc9a0e27b6f4195b8190bc3d9f986e00d5e37187da96a1f242f09437aa9ee",
+      "size": 4221
+    },
+    {
+      "id": "csv-basics-seedlings-fr",
+      "name": "Bases du CSV : hauteurs de semis",
+      "description": "Créez, lisez et comparez six lignes fictives de hauteurs de semis dans un fichier CSV, puis inspectez ou modifiez le fichier via Files & Storage. L'exécution du script d'écriture écrase le chemin d'exemple ; la leçon comprend un avertissement concernant la sauvegarde et la réexécution.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "fr"
+      ],
+      "format": "srwb",
+      "path": "workbooks/fr/csv-basics-seedlings.srwb",
+      "revision": 1,
+      "sha256": "546ef0cd8b4d890b7f2b248b541fad3cd4d885b2a9dfeec195ef868a7402060f",
+      "size": 4331
+    },
+    {
+      "id": "csv-basics-seedlings-hi",
+      "name": "CSV बेसिक्स: पौधों की ऊँचाई",
+      "description": "एक CSV फ़ाइल में छह काल्पनिक पौधों की ऊँचाई वाली पंक्तियों को बनाएँ, पढ़ें और उनकी तुलना करें, फिर Files & Storage के माध्यम से फ़ाइल का निरीक्षण करें या उसे संपादित करें। राइटर चलाने से उदाहरण पाथ ओवरराइट हो जाता है; इस पाठ में बैकअप और दोबारा चलाने की चेतावनी शामिल है।",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "hi"
+      ],
+      "format": "srwb",
+      "path": "workbooks/hi/csv-basics-seedlings.srwb",
+      "revision": 1,
+      "sha256": "22933e2a6b14972ca9c321b517aed912df6fc0187bfc291337a69fc1624e097b",
+      "size": 6365
+    },
+    {
+      "id": "csv-basics-seedlings-id",
+      "name": "Dasar-Dasar CSV: Tinggi Bibit",
+      "description": "Buat, baca, dan bandingkan enam baris tinggi bibit fiktif dalam sebuah berkas CSV, lalu periksa atau edit berkas tersebut melalui Berkas & Penyimpanan. Menjalankan fungsi penulis akan menimpa jalur contoh; pelajaran ini menyertakan peringatan pencadangan dan penjalanan ulang.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "id"
+      ],
+      "format": "srwb",
+      "path": "workbooks/id/csv-basics-seedlings.srwb",
+      "revision": 1,
+      "sha256": "9e5ab44f2e38733862f14a947495eb998efa5004035e4acc0504c873e308adfa",
+      "size": 4077
+    },
+    {
+      "id": "csv-basics-seedlings-ja",
+      "name": "CSVの基本: 苗の草丈",
+      "description": "CSVファイル内で架空の苗の草丈データ六行を作成、読み込み、比較したあと、Files & Storageからそのファイルを検査または編集します。書き込み処理を実行するとサンプルのパスが上書きされます。本レッスンにはバックアップと再実行に関する警告が含まれています。",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "ja"
+      ],
+      "format": "srwb",
+      "path": "workbooks/ja/csv-basics-seedlings.srwb",
+      "revision": 1,
+      "sha256": "4cb22067c15f074812e96c9886ccc4677e9f85ab67a41c421c14c9bf71eac4f4",
+      "size": 4720
+    },
+    {
+      "id": "csv-basics-seedlings-ko",
+      "name": "CSV 기초: 모종 높이",
+      "description": "CSV 파일에서 여섯 개의 가상 모종 높이 행을 생성, 읽기 및 비교한 후 파일 및 저장소를 통해 파일을 살펴보거나 편집합니다. 작성기를 실행하면 예제 경로를 덮어쓰며, 단원에 백업 및 재실행 경고가 포함되어 있습니다.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "ko"
+      ],
+      "format": "srwb",
+      "path": "workbooks/ko/csv-basics-seedlings.srwb",
+      "revision": 1,
+      "sha256": "a08764ab8e289e4db101fc12a059ff28042550b73b9391df2d820a1c95c88906",
+      "size": 4326
+    },
+    {
+      "id": "csv-basics-seedlings-pt-BR",
+      "name": "Fundamentos de CSV: Alturas de Plântulas",
+      "description": "Crie, leia e compare seis linhas fictícias de alturas de plântulas em um arquivo CSV e, em seguida, inspecione ou edite o arquivo por meio de Files & Storage. Executar o gravador sobrescreve o caminho de exemplo; a lição inclui um aviso de backup e nova execução.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "pt-BR"
+      ],
+      "format": "srwb",
+      "path": "workbooks/pt-BR/csv-basics-seedlings.srwb",
+      "revision": 1,
+      "sha256": "e960716020d009772f3d89bb20e6f1d37a0a6f261f2377ad5a000afe6ab11f41",
+      "size": 4141
+    },
+    {
+      "id": "csv-basics-seedlings-ru",
+      "name": "Основы CSV: высота сеянцев",
+      "description": "Создайте, прочитайте и сравните шесть вымышленных строк с высотой сеянцев в файле CSV, затем просмотрите или отредактируйте файл через Files & Storage. Запуск записи перезаписывает путь примера; урок содержит предупреждение о резервном копировании и повторном запуске.",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "ru"
+      ],
+      "format": "srwb",
+      "path": "workbooks/ru/csv-basics-seedlings.srwb",
+      "revision": 1,
+      "sha256": "0066921cdc0619758ce2085e6bd2e408d9052b1049baa2c87e3e38c3e6ab3275",
+      "size": 5558
+    },
+    {
+      "id": "csv-basics-seedlings-zh",
+      "name": "CSV 基础：幼苗高度",
+      "description": "在 CSV 文件中创建、读取并比较六行虚构的幼苗高度数据，然后通过“文件与存储”查看或编辑该文件。运行写入代码会覆盖示例路径；本课包含备份与重新运行警告。",
+      "type": "workbook",
+      "kernels": [
+        "python"
+      ],
+      "locales": [
+        "zh"
+      ],
+      "format": "srwb",
+      "path": "workbooks/zh/csv-basics-seedlings.srwb",
+      "revision": 1,
+      "sha256": "1c9c7bacdf4d3e6b54324a9c12d70c9cb6faf2ad609278ca610800ac9e22dadc",
+      "size": 3862
     }
   ]
 }

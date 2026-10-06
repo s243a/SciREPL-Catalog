@@ -1,0 +1,1570 @@
+{
+  "schema": 1,
+  "lesson": "oil-shocks-demand",
+  "locale": "ko",
+  "source": {
+    "path": "workbooks/en/oil-shocks-demand.srwb",
+    "sha256": "535bb4534caf0b78793ba518033b8407e0b3407b04942582b33ab8423ef26cc5"
+  },
+  "target": {
+    "path": "workbooks/ko/oil-shocks-demand.srwb",
+    "sha256": "fb671817cce848f6d26701d5e36e8e69fe584dcfd25c0a9fed237d9ef882d26f",
+    "size": 19354,
+    "title": "석유 충격: 수요 곡선, 대체 및 시나리오",
+    "description": "설명을 위한 중국/기타 세계 석유 모델에서 국소 수요 탄력성과 수요 곡선 이동을 구분하고, 공급 차질 시나리오를 비교하며, 교과서적인 유럽형 콜 옵션 분산 예시를 유지합니다. 피팅된 예측이나 투자 조언이 아닌 교육용 민감도 분석입니다."
+  },
+  "translation": {
+    "model": "gemini-3.8-flash-medium",
+    "contentAudit": {
+      "sourceSha256": "535bb4534caf0b78793ba518033b8407e0b3407b04942582b33ab8423ef26cc5",
+      "targetSha256": "fb671817cce848f6d26701d5e36e8e69fe584dcfd25c0a9fed237d9ef882d26f",
+      "status": "passed",
+      "findings": [],
+      "errors": [],
+      "nativeSpeakerReview": "pending",
+      "caveat": "Controller exact-English heading/narrative and specified short-residue audit, not native-speaker fluency review."
+    },
+    "policy": {
+      "locale": "ko",
+      "protectedTexts": [
+        "equal_eta",
+        "flexible_china",
+        "baseline_shift",
+        "reserve_flow",
+        "key",
+        "label",
+        "a_china",
+        "eta_china",
+        "reserve",
+        "x",
+        "y",
+        "mode",
+        "lines",
+        "markers",
+        "name",
+        "line",
+        "dash",
+        "marker",
+        "size",
+        "height",
+        "margin",
+        "t",
+        "b",
+        "l",
+        "r",
+        "xaxis",
+        "yaxis",
+        "automargin",
+        "legend",
+        "orientation",
+        "h",
+        "font",
+        "<br>"
+      ],
+      "protectedIds": [
+        "3:1:0",
+        "3:7:0",
+        "3:9:0",
+        "3:11:0",
+        "3:19:0",
+        "3:21:0",
+        "3:23:0",
+        "3:25:0",
+        "3:27:0",
+        "3:29:0",
+        "3:37:0",
+        "3:39:0",
+        "3:41:0",
+        "3:43:0",
+        "3:45:0",
+        "3:55:0",
+        "3:57:0",
+        "3:67:0",
+        "3:69:0",
+        "3:71:0",
+        "3:73:0",
+        "3:75:0",
+        "3:77:0",
+        "3:83:0",
+        "3:85:0",
+        "5:12:0",
+        "5:14:0",
+        "5:16:0",
+        "5:20:0",
+        "5:22:0",
+        "5:24:0",
+        "5:26:0",
+        "5:28:0",
+        "5:30:0",
+        "5:34:0",
+        "5:36:0",
+        "5:38:0",
+        "5:40:0",
+        "5:42:0",
+        "5:44:0",
+        "5:48:0",
+        "5:50:0",
+        "5:52:0",
+        "5:54:0",
+        "5:56:0",
+        "5:58:0",
+        "5:62:0",
+        "5:64:0",
+        "5:66:0",
+        "6:1:0",
+        "6:3:0",
+        "6:5:0",
+        "6:7:0",
+        "6:13:0",
+        "6:15:0",
+        "6:17:0",
+        "6:19:0",
+        "6:27:0",
+        "6:29:0",
+        "6:39:0",
+        "6:41:0",
+        "6:43:0",
+        "6:45:0",
+        "6:47:0",
+        "6:49:0",
+        "6:55:0",
+        "6:57:0",
+        "6:61:0",
+        "6:63:0",
+        "6:65:0",
+        "6:67:0",
+        "9:5:0",
+        "9:7:0",
+        "9:9:0",
+        "9:19:0",
+        "9:21:0",
+        "9:31:0",
+        "9:33:0",
+        "9:35:0",
+        "9:37:0",
+        "9:39:0",
+        "9:41:0",
+        "9:47:0",
+        "9:49:0"
+      ],
+      "widthOverrides": {},
+      "descriptionSeed": "Separate local demand elasticity from demand-curve shifts in an illustrative China/rest-of-world oil model, compare supply-disruption scenarios, and retain a textbook European-call variance example. Educational sensitivity analysis, not a fitted forecast or investment advice.",
+      "identifierRenames": false,
+      "cellNames": [
+        "title-goals",
+        "original-model-diagnostic",
+        "elasticity-context",
+        "curve-comparison",
+        "regional-model-context",
+        "regional-model",
+        "scenario-comparison",
+        "scenario-interpretation",
+        "option-context",
+        "option-variance",
+        "reader-exercise",
+        "sources-limitations"
+      ],
+      "nativeReviewCaveat": "Machine translated with Gemini draft and a fresh same-model independent review, not native-speaker review. Static gates prove structural safety, not prose quality. Browser/runtime and rendered-output review are controller-owned and pending."
+    },
+    "keeps": {
+      "ids": [
+        "3:1:0",
+        "3:7:0",
+        "3:9:0",
+        "3:11:0",
+        "3:19:0",
+        "3:21:0",
+        "3:23:0",
+        "3:25:0",
+        "3:27:0",
+        "3:29:0",
+        "3:37:0",
+        "3:39:0",
+        "3:41:0",
+        "3:43:0",
+        "3:45:0",
+        "3:55:0",
+        "3:57:0",
+        "3:67:0",
+        "3:69:0",
+        "3:71:0",
+        "3:73:0",
+        "3:75:0",
+        "3:77:0",
+        "3:83:0",
+        "3:85:0",
+        "5:12:0",
+        "5:14:0",
+        "5:16:0",
+        "5:20:0",
+        "5:22:0",
+        "5:24:0",
+        "5:26:0",
+        "5:28:0",
+        "5:30:0",
+        "5:34:0",
+        "5:36:0",
+        "5:38:0",
+        "5:40:0",
+        "5:42:0",
+        "5:44:0",
+        "5:48:0",
+        "5:50:0",
+        "5:52:0",
+        "5:54:0",
+        "5:56:0",
+        "5:58:0",
+        "5:62:0",
+        "5:64:0",
+        "5:66:0",
+        "6:1:0",
+        "6:3:0",
+        "6:5:0",
+        "6:7:0",
+        "6:13:0",
+        "6:15:0",
+        "6:17:0",
+        "6:19:0",
+        "6:27:0",
+        "6:29:0",
+        "6:39:0",
+        "6:41:0",
+        "6:43:0",
+        "6:45:0",
+        "6:47:0",
+        "6:49:0",
+        "6:55:0",
+        "6:57:0",
+        "6:61:0",
+        "6:63:0",
+        "6:65:0",
+        "6:67:0",
+        "9:5:0",
+        "9:7:0",
+        "9:9:0",
+        "9:19:0",
+        "9:21:0",
+        "9:31:0",
+        "9:33:0",
+        "9:35:0",
+        "9:37:0",
+        "9:39:0",
+        "9:41:0",
+        "9:47:0",
+        "9:49:0"
+      ],
+      "texts": [
+        "<br>",
+        "mode",
+        "lines",
+        "name",
+        "mode",
+        "lines",
+        "line",
+        "dash",
+        "dash",
+        "name",
+        "mode",
+        "markers",
+        "marker",
+        "size",
+        "name",
+        "height",
+        "margin",
+        "xaxis",
+        "automargin",
+        "yaxis",
+        "automargin",
+        "legend",
+        "orientation",
+        "font",
+        "size",
+        "key",
+        "equal_eta",
+        "label",
+        "a_china",
+        "eta_china",
+        "reserve",
+        "key",
+        "flexible_china",
+        "label",
+        "a_china",
+        "eta_china",
+        "reserve",
+        "key",
+        "baseline_shift",
+        "label",
+        "a_china",
+        "eta_china",
+        "reserve",
+        "key",
+        "reserve_flow",
+        "label",
+        "a_china",
+        "eta_china",
+        "reserve",
+        "reserve",
+        "a_china",
+        "eta_china",
+        "key",
+        "mode",
+        "lines",
+        "name",
+        "label",
+        "height",
+        "margin",
+        "xaxis",
+        "automargin",
+        "yaxis",
+        "automargin",
+        "legend",
+        "orientation",
+        "font",
+        "size",
+        "reserve",
+        "a_china",
+        "eta_china",
+        "label",
+        "mode",
+        "lines",
+        "name",
+        "height",
+        "margin",
+        "xaxis",
+        "automargin",
+        "yaxis",
+        "automargin",
+        "legend",
+        "orientation",
+        "font",
+        "size"
+      ]
+    },
+    "manifest": {
+      "manifest_version": 1,
+      "produced_by": "derived",
+      "generator": "tools/span-derive.mjs",
+      "locale": "ko",
+      "source": {
+        "path": "workbooks/en/oil-shocks-demand.srwb",
+        "sha256": "535bb4534caf0b78793ba518033b8407e0b3407b04942582b33ab8423ef26cc5"
+      },
+      "target": {
+        "path": "workbooks/ko/oil-shocks-demand.srwb",
+        "sha256": "fb671817cce848f6d26701d5e36e8e69fe584dcfd25c0a9fed237d9ef882d26f"
+      },
+      "spans": [
+        {
+          "cell_index": 3,
+          "cell_name": "curve-comparison",
+          "source_span": {
+            "start": {
+              "line": 24,
+              "col": 24
+            },
+            "end": {
+              "line": 24,
+              "col": 43
+            },
+            "text": "Constant elasticity"
+          },
+          "target_span": {
+            "start": {
+              "line": 24,
+              "col": 24
+            },
+            "end": {
+              "line": 24,
+              "col": 30
+            },
+            "text": "일정 탄력성"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "curve-comparison",
+          "source_span": {
+            "start": {
+              "line": 26,
+              "col": 24
+            },
+            "end": {
+              "line": 26,
+              "col": 60
+            },
+            "text": "Linear demand: same local elasticity"
+          },
+          "target_span": {
+            "start": {
+              "line": 26,
+              "col": 24
+            },
+            "end": {
+              "line": 26,
+              "col": 41
+            },
+            "text": "선형 수요: 동일한 국소 탄력성"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "curve-comparison",
+          "source_span": {
+            "start": {
+              "line": 28,
+              "col": 24
+            },
+            "end": {
+              "line": 28,
+              "col": 37
+            },
+            "text": "Shared anchor"
+          },
+          "target_span": {
+            "start": {
+              "line": 28,
+              "col": 24
+            },
+            "end": {
+              "line": 28,
+              "col": 30
+            },
+            "text": "공유된 앵커"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "curve-comparison",
+          "source_span": {
+            "start": {
+              "line": 29,
+              "col": 20
+            },
+            "end": {
+              "line": 29,
+              "col": 75
+            },
+            "text": "One anchor and local elasticity, different whole curves"
+          },
+          "target_span": {
+            "start": {
+              "line": 29,
+              "col": 20
+            },
+            "end": {
+              "line": 29,
+              "col": 47
+            },
+            "text": "하나의 앵커와 국소 탄력성, 서로 다른 전체 곡선"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "curve-comparison",
+          "source_span": {
+            "start": {
+              "line": 30,
+              "col": 21
+            },
+            "end": {
+              "line": 30,
+              "col": 56
+            },
+            "text": "Illustrative price (USD per barrel)"
+          },
+          "target_span": {
+            "start": {
+              "line": 30,
+              "col": 21
+            },
+            "end": {
+              "line": 30,
+              "col": 40
+            },
+            "text": "설명을 위한 가격 (배럴당 USD)"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "curve-comparison",
+          "source_span": {
+            "start": {
+              "line": 31,
+              "col": 21
+            },
+            "end": {
+              "line": 31,
+              "col": 68
+            },
+            "text": "Illustrative quantity (million barrels per day)"
+          },
+          "target_span": {
+            "start": {
+              "line": 31,
+              "col": 21
+            },
+            "end": {
+              "line": 31,
+              "col": 41
+            },
+            "text": "설명을 위한 수량 (하루 백만 배럴)"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "curve-comparison",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 35,
+              "col": 9
+            },
+            "end": {
+              "line": 35,
+              "col": 58
+            },
+            "text": "Shared local elasticity at the anchor: "
+          },
+          "target_span": {
+            "start": {
+              "line": 35,
+              "col": 9
+            },
+            "end": {
+              "line": 35,
+              "col": 37
+            },
+            "text": "앵커에서의 공유된 국소 탄력성: "
+          },
+          "placeholders": [
+            "{-ETA:.2f}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "curve-comparison",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 36,
+              "col": 9
+            },
+            "end": {
+              "line": 36,
+              "col": 113
+            },
+            "text": "At three times the anchor price: constant "
+          },
+          "target_span": {
+            "start": {
+              "line": 36,
+              "col": 9
+            },
+            "end": {
+              "line": 36,
+              "col": 84
+            },
+            "text": "앵커 가격의 세 배에서: 일정 "
+          },
+          "placeholders": [
+            "{constant_demand(3*P0):.2f}",
+            "{linear_demand(3*P0):.2f}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "curve-comparison",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 36,
+              "col": 9
+            },
+            "end": {
+              "line": 36,
+              "col": 113
+            },
+            "text": ", linear "
+          },
+          "target_span": {
+            "start": {
+              "line": 36,
+              "col": 9
+            },
+            "end": {
+              "line": 36,
+              "col": 84
+            },
+            "text": ", 선형 "
+          },
+          "placeholders": [
+            "{constant_demand(3*P0):.2f}",
+            "{linear_demand(3*P0):.2f}"
+          ]
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "regional-model",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 67
+            },
+            "text": "All numerical settings are illustrative sensitivity assumptions."
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 30
+            },
+            "text": "모든 수치 설정은 설명을 위한 민감도 가정입니다."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "regional-model",
+          "source_span": {
+            "start": {
+              "line": 16,
+              "col": 27
+            },
+            "end": {
+              "line": 16,
+              "col": 58
+            },
+            "text": "Scenario inputs must be finite."
+          },
+          "target_span": {
+            "start": {
+              "line": 16,
+              "col": 27
+            },
+            "end": {
+              "line": 16,
+              "col": 46
+            },
+            "text": "시나리오 입력값은 유한해야 합니다."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "regional-model",
+          "source_span": {
+            "start": {
+              "line": 19,
+              "col": 27
+            },
+            "end": {
+              "line": 19,
+              "col": 72
+            },
+            "text": "Scenario inputs are outside the model domain."
+          },
+          "target_span": {
+            "start": {
+              "line": 19,
+              "col": 27
+            },
+            "end": {
+              "line": 19,
+              "col": 52
+            },
+            "text": "시나리오 입력값이 모델 정의역을 벗어났습니다."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "regional-model",
+          "source_span": {
+            "start": {
+              "line": 22,
+              "col": 5
+            },
+            "end": {
+              "line": 22,
+              "col": 84
+            },
+            "text": "A finite declared bracket: edits that escape it fail rather than extrapolate."
+          },
+          "target_span": {
+            "start": {
+              "line": 22,
+              "col": 5
+            },
+            "end": {
+              "line": 22,
+              "col": 46
+            },
+            "text": "유한하게 선언된 구간: 이를 벗어나는 수정은 외삽되지 않고 실패합니다."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "regional-model",
+          "source_span": {
+            "start": {
+              "line": 25,
+              "col": 27
+            },
+            "end": {
+              "line": 25,
+              "col": 81
+            },
+            "text": "No equilibrium in the declared positive-price bracket."
+          },
+          "target_span": {
+            "start": {
+              "line": 25,
+              "col": 27
+            },
+            "end": {
+              "line": 25,
+              "col": 55
+            },
+            "text": "선언된 양의 가격 구간에 균형이 존재하지 않습니다."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "regional-model",
+          "source_span": {
+            "start": {
+              "line": 35,
+              "col": 27
+            },
+            "end": {
+              "line": 35,
+              "col": 84
+            },
+            "text": "Equilibrium must have finite positive price and quantity."
+          },
+          "target_span": {
+            "start": {
+              "line": 35,
+              "col": 27
+            },
+            "end": {
+              "line": 35,
+              "col": 54
+            },
+            "text": "균형은 유한한 양의 가격과 수량을 가져야 합니다."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "regional-model",
+          "source_span": {
+            "start": {
+              "line": 39,
+              "col": 36
+            },
+            "end": {
+              "line": 39,
+              "col": 60
+            },
+            "text": "Same regional elasticity"
+          },
+          "target_span": {
+            "start": {
+              "line": 39,
+              "col": 36
+            },
+            "end": {
+              "line": 39,
+              "col": 46
+            },
+            "text": "동일한 지역 탄력성"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "regional-model",
+          "source_span": {
+            "start": {
+              "line": 40,
+              "col": 41
+            },
+            "end": {
+              "line": 40,
+              "col": 72
+            },
+            "text": "Higher assumed China elasticity"
+          },
+          "target_span": {
+            "start": {
+              "line": 40,
+              "col": 41
+            },
+            "end": {
+              "line": 40,
+              "col": 56
+            },
+            "text": "더 높게 가정한 중국 탄력성"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "regional-model",
+          "source_span": {
+            "start": {
+              "line": 41,
+              "col": 41
+            },
+            "end": {
+              "line": 41,
+              "col": 70
+            },
+            "text": "China baseline demand reduced"
+          },
+          "target_span": {
+            "start": {
+              "line": 41,
+              "col": 41
+            },
+            "end": {
+              "line": 41,
+              "col": 52
+            },
+            "text": "중국 기준 수요 감소"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "regional-model",
+          "source_span": {
+            "start": {
+              "line": 42,
+              "col": 39
+            },
+            "end": {
+              "line": 42,
+              "col": 70
+            },
+            "text": "Reserve release added to supply"
+          },
+          "target_span": {
+            "start": {
+              "line": 42,
+              "col": 39
+            },
+            "end": {
+              "line": 42,
+              "col": 53
+            },
+            "text": "공급에 추가된 비축유 방출"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "regional-model",
+          "source_span": {
+            "start": {
+              "line": 44,
+              "col": 8
+            },
+            "end": {
+              "line": 44,
+              "col": 83
+            },
+            "text": "Regional allocations and elasticities are assumed, not empirical estimates."
+          },
+          "target_span": {
+            "start": {
+              "line": 44,
+              "col": 8
+            },
+            "end": {
+              "line": 44,
+              "col": 44
+            },
+            "text": "지역별 배분과 탄력성은 가정된 것이며, 실증적 추정치가 아닙니다."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 5,
+          "cell_name": "regional-model",
+          "source_span": {
+            "start": {
+              "line": 45,
+              "col": 8
+            },
+            "end": {
+              "line": 45,
+              "col": 88
+            },
+            "text": "China baseline reduction and reserve flow are separate, one-at-a-time scenarios."
+          },
+          "target_span": {
+            "start": {
+              "line": 45,
+              "col": 8
+            },
+            "end": {
+              "line": 45,
+              "col": 53
+            },
+            "text": "중국 기준치 감소와 비축유 유량은 별개의, 한 번에 하나씩 다루는 시나리오입니다."
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "scenario-comparison",
+          "source_span": {
+            "start": {
+              "line": 11,
+              "col": 23
+            },
+            "end": {
+              "line": 11,
+              "col": 81
+            },
+            "text": "Illustrative equilibrium sensitivity, not a price forecast"
+          },
+          "target_span": {
+            "start": {
+              "line": 11,
+              "col": 23
+            },
+            "end": {
+              "line": 11,
+              "col": 51
+            },
+            "text": "설명을 위한 균형 민감도이며, 가격 예측이 아닙니다"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "scenario-comparison",
+          "source_span": {
+            "start": {
+              "line": 12,
+              "col": 24
+            },
+            "end": {
+              "line": 12,
+              "col": 75
+            },
+            "text": "Assumed supply disruption (million barrels per day)"
+          },
+          "target_span": {
+            "start": {
+              "line": 12,
+              "col": 24
+            },
+            "end": {
+              "line": 12,
+              "col": 44
+            },
+            "text": "가정된 공급 차질 (하루 백만 배럴)"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "scenario-comparison",
+          "source_span": {
+            "start": {
+              "line": 13,
+              "col": 24
+            },
+            "end": {
+              "line": 13,
+              "col": 58
+            },
+            "text": "Equilibrium price (USD per barrel)"
+          },
+          "target_span": {
+            "start": {
+              "line": 13,
+              "col": 24
+            },
+            "end": {
+              "line": 13,
+              "col": 39
+            },
+            "text": "균형 가격 (배럴당 USD)"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "scenario-comparison",
+          "source_span": {
+            "start": {
+              "line": 18,
+              "col": 8
+            },
+            "end": {
+              "line": 18,
+              "col": 59
+            },
+            "text": "Equilibria under a 4 million-barrel/day disruption:"
+          },
+          "target_span": {
+            "start": {
+              "line": 18,
+              "col": 8
+            },
+            "end": {
+              "line": 18,
+              "col": 29
+            },
+            "text": "하루 4백만 배럴 차질 하에서의 균형:"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "scenario-comparison",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 21,
+              "col": 33
+            },
+            "end": {
+              "line": 21,
+              "col": 106
+            },
+            "text": ": price "
+          },
+          "target_span": {
+            "start": {
+              "line": 21,
+              "col": 33
+            },
+            "end": {
+              "line": 21,
+              "col": 82
+            },
+            "text": ": 가격 "
+          },
+          "placeholders": [
+            "{p:.2f}",
+            "{q:.2f}",
+            "{residual:.2e}"
+          ]
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "scenario-comparison",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 21,
+              "col": 33
+            },
+            "end": {
+              "line": 21,
+              "col": 106
+            },
+            "text": ", quantity "
+          },
+          "target_span": {
+            "start": {
+              "line": 21,
+              "col": 33
+            },
+            "end": {
+              "line": 21,
+              "col": 82
+            },
+            "text": ", 수량 "
+          },
+          "placeholders": [
+            "{p:.2f}",
+            "{q:.2f}",
+            "{residual:.2e}"
+          ]
+        },
+        {
+          "cell_index": 6,
+          "cell_name": "scenario-comparison",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 21,
+              "col": 33
+            },
+            "end": {
+              "line": 21,
+              "col": 106
+            },
+            "text": ", excess-demand residual "
+          },
+          "target_span": {
+            "start": {
+              "line": 21,
+              "col": 33
+            },
+            "end": {
+              "line": 21,
+              "col": 82
+            },
+            "text": ", 초과수요 잔차 "
+          },
+          "placeholders": [
+            "{p:.2f}",
+            "{q:.2f}",
+            "{residual:.2e}"
+          ]
+        },
+        {
+          "cell_index": 9,
+          "cell_name": "option-variance",
+          "source_span": {
+            "start": {
+              "line": 17,
+              "col": 27
+            },
+            "end": {
+              "line": 17,
+              "col": 54
+            },
+            "text": "Black-Scholes European call"
+          },
+          "target_span": {
+            "start": {
+              "line": 17,
+              "col": 27
+            },
+            "end": {
+              "line": 17,
+              "col": 38
+            },
+            "text": "블랙-숄즈 유럽형 콜"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 9,
+          "cell_name": "option-variance",
+          "source_span": {
+            "start": {
+              "line": 18,
+              "col": 23
+            },
+            "end": {
+              "line": 18,
+              "col": 67
+            },
+            "text": "Textbook European call value versus variance"
+          },
+          "target_span": {
+            "start": {
+              "line": 18,
+              "col": 23
+            },
+            "end": {
+              "line": 18,
+              "col": 41
+            },
+            "text": "교과서적 유럽형 콜 가치 대 분산"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 9,
+          "cell_name": "option-variance",
+          "source_span": {
+            "start": {
+              "line": 19,
+              "col": 24
+            },
+            "end": {
+              "line": 19,
+              "col": 48
+            },
+            "text": "Variance (sigma squared)"
+          },
+          "target_span": {
+            "start": {
+              "line": 19,
+              "col": 24
+            },
+            "end": {
+              "line": 19,
+              "col": 35
+            },
+            "text": "분산 (시그마 제곱)"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 9,
+          "cell_name": "option-variance",
+          "source_span": {
+            "start": {
+              "line": 19,
+              "col": 69
+            },
+            "end": {
+              "line": 19,
+              "col": 85
+            },
+            "text": "Call model value"
+          },
+          "target_span": {
+            "start": {
+              "line": 19,
+              "col": 56
+            },
+            "end": {
+              "line": 19,
+              "col": 63
+            },
+            "text": "콜 모델 가치"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 9,
+          "cell_name": "option-variance",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 23,
+              "col": 9
+            },
+            "end": {
+              "line": 23,
+              "col": 143
+            },
+            "text": "As variance rises from "
+          },
+          "target_span": {
+            "start": {
+              "line": 23,
+              "col": 9
+            },
+            "end": {
+              "line": 23,
+              "col": 124
+            },
+            "text": "분산이 "
+          },
+          "placeholders": [
+            "{variance[0]:.4f}",
+            "{variance[-1]:.2f}",
+            "{call_price[0]:.2f}",
+            "{call_price[-1]:.2f}"
+          ]
+        },
+        {
+          "cell_index": 9,
+          "cell_name": "option-variance",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 23,
+              "col": 9
+            },
+            "end": {
+              "line": 23,
+              "col": 143
+            },
+            "text": " to "
+          },
+          "target_span": {
+            "start": {
+              "line": 23,
+              "col": 9
+            },
+            "end": {
+              "line": 23,
+              "col": 124
+            },
+            "text": " 에서 "
+          },
+          "placeholders": [
+            "{variance[0]:.4f}",
+            "{variance[-1]:.2f}",
+            "{call_price[0]:.2f}",
+            "{call_price[-1]:.2f}"
+          ]
+        },
+        {
+          "cell_index": 9,
+          "cell_name": "option-variance",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 23,
+              "col": 9
+            },
+            "end": {
+              "line": 23,
+              "col": 143
+            },
+            "text": ", the call value rises from "
+          },
+          "target_span": {
+            "start": {
+              "line": 23,
+              "col": 9
+            },
+            "end": {
+              "line": 23,
+              "col": 124
+            },
+            "text": "로 상승함에 따라, 콜 가치는 "
+          },
+          "placeholders": [
+            "{variance[0]:.4f}",
+            "{variance[-1]:.2f}",
+            "{call_price[0]:.2f}",
+            "{call_price[-1]:.2f}"
+          ]
+        },
+        {
+          "cell_index": 9,
+          "cell_name": "option-variance",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 23,
+              "col": 9
+            },
+            "end": {
+              "line": 23,
+              "col": 143
+            },
+            "text": " to "
+          },
+          "target_span": {
+            "start": {
+              "line": 23,
+              "col": 9
+            },
+            "end": {
+              "line": 23,
+              "col": 124
+            },
+            "text": " 에서 다음 값으로 상승: "
+          },
+          "placeholders": [
+            "{variance[0]:.4f}",
+            "{variance[-1]:.2f}",
+            "{call_price[0]:.2f}",
+            "{call_price[-1]:.2f}"
+          ]
+        }
+      ],
+      "exclusions": []
+    },
+    "nativeSpeakerReview": "pending"
+  },
+  "browser": {
+    "status": "passed",
+    "first": {
+      "exportSha256": "e5153e7bb8a54f2bf67e49f0ff72bb692dd9d4f8f2db4c58be802a97b0ccc897",
+      "reportSha256": "a793b0bc83c9c2c4f18a2cdbbf439e98e3f501a4348be1abdc8a1c18b6f0b4d4",
+      "appVersion": "1.4.0",
+      "cells": 12,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "second": {
+      "exportSha256": "a1110f170bd99892298892f31cf9204425907f88f219eb9488a8288947de4601",
+      "reportSha256": "a793b0bc83c9c2c4f18a2cdbbf439e98e3f501a4348be1abdc8a1c18b6f0b4d4",
+      "appVersion": "1.4.0",
+      "cells": 12,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "englishBaseline": [
+      {
+        "exportSha256": "35503efd683bbb8005aa162729a274b7712daf13e4dc26f24ec9744f71c00721",
+        "reportSha256": "1bb8072766e98220be03b801d8c5dd4dff43ba37da575eb84a823769d4497c2f",
+        "appVersion": "1.4.0",
+        "cells": 12,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      },
+      {
+        "exportSha256": "38066e853648d7456239dba6dd202140f22e10711c3fc0409451892f72f97923",
+        "reportSha256": "1bb8072766e98220be03b801d8c5dd4dff43ba37da575eb84a823769d4497c2f",
+        "appVersion": "1.4.0",
+        "cells": 12,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      }
+    ],
+    "deterministic": true,
+    "textOracle": {
+      "first": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [
+          3,
+          6,
+          9
+        ],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      },
+      "second": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [
+          3,
+          6,
+          9
+        ],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      }
+    },
+    "plotData": {
+      "status": "passed",
+      "count": 3
+    },
+    "rasterCharts": null,
+    "renderedReview": "controller-AI-reviewed",
+    "rendering": {
+      "status": "passed",
+      "scope": "Titles, axes, legends and glyphs visually checked in captured app renders; not native-language approval.",
+      "nativeSpeakerReview": "pending",
+      "captures": [
+        {
+          "reportSha256": "a793b0bc83c9c2c4f18a2cdbbf439e98e3f501a4348be1abdc8a1c18b6f0b4d4",
+          "pngs": [
+            {
+              "index": 0,
+              "sha256": "e71d3facd472aaa9623a69d91cb12d1f9da05c83340f0c066310508e1c8ebc7f",
+              "width": 654,
+              "height": 541
+            },
+            {
+              "index": 1,
+              "sha256": "fe89fa879497ba0481f4ee6954680292032e5adaf0b6f84884cd536b383715e7",
+              "width": 654,
+              "height": 591
+            },
+            {
+              "index": 2,
+              "sha256": "3f65e95ecb940d114b8705772cac0da0fd272d3b53a7dff6f1db7393e3111ccd",
+              "width": 654,
+              "height": 501
+            }
+          ]
+        },
+        {
+          "reportSha256": "a793b0bc83c9c2c4f18a2cdbbf439e98e3f501a4348be1abdc8a1c18b6f0b4d4",
+          "pngs": [
+            {
+              "index": 0,
+              "sha256": "e71d3facd472aaa9623a69d91cb12d1f9da05c83340f0c066310508e1c8ebc7f",
+              "width": 654,
+              "height": 541
+            },
+            {
+              "index": 1,
+              "sha256": "fe89fa879497ba0481f4ee6954680292032e5adaf0b6f84884cd536b383715e7",
+              "width": 654,
+              "height": 591
+            },
+            {
+              "index": 2,
+              "sha256": "3f65e95ecb940d114b8705772cac0da0fd272d3b53a7dff6f1db7393e3111ccd",
+              "width": 654,
+              "height": 501
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "caveat": "Machine translated with Gemini and reviewed by AI/controller checks, including scoped corrections where needed. Native-speaker review is pending; structural and numerical checks do not certify prose quality."
+}

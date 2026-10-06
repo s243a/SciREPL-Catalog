@@ -1,0 +1,81 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "オイルショック：需要曲線、代替、およびシナリオ",
+    "cells": [
+      {
+        "code": "# オイルショック：需要曲線、代替、およびシナリオ\n\nこれはオフラインの例示的な経済学のレッスンであり、原油価格の予測や投資助言ではありません。以下のモデルの数量、地域別の配分、弾力性、供給パラメータはすべて教育用の想定値であり、中国や世界その他についての測定された推計値ではありません。\n\n局所的な価格弾力性と需要曲線全体、価格反応と需要シフト、市場シナリオと因果的証拠を区別することを学びます。最後のセクションでは、元のワークブックにあった独立したヨーロピアン・コールの分散の実証を保持しています。石油デリバティブの価格付けを行うものではありません。\n\n実行順序：Pythonセルを上から下へと実行します。NumPyおよび`mplot`はアプリから提供されており、Matplotlibや`micropip`パッケージのインストールは不要です。ワークブック主導のダウンロード、アップロード、ファイルの書き込みはありません。\n",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "title-goals"
+      },
+      {
+        "code": "## 元の石油モデルが行っていたこと\n\n提供されたエクスポートの石油に関する説明とコードは、セル 5 および 6（一始まり、いずれも名前なし）でした。月次の`demand_growth`、回復した供給、および戦略備蓄の放出を適用し、その後、ショック反応係数、想定されたアンカーへの引き戻し、加法的なリスク項を用いて価格を更新していました。需要は結果として生じる価格に反応しませんでした。中国固有の変数、EV、公共交通機関、自転車、または再生可能エネルギーの変数は存在しませんでした。\n\n`elasticities`と名付けられた配列は、インフレ調整後のドル建て価格の急騰をパーセンテージポイント単位の供給途絶で除算していました。その中央値`beta`の単位は、無次元の需要弾力性ではなく、バレルあたり・パーセンテージポイントあたりのドルでした。CPI調整は、供給、需要、在庫、あるいは期待によって引き起こされた価格変化を分離しません。いくつかの過去の価格変動から、それらの要因を確定したり、需要曲線を同定したりすることはできません。\n\nこの版では、三つのMCPスモークテストセル、保存された出力、およびエクスポートのメタデータを削除しています。出所不明の日付付き価格系列および四か月の予測を、明示的な均衡感応度演習に置き換えています。元のファイルは変更されていません。\n",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "original-model-diagnostic"
+      },
+      {
+        "code": "## 局所的な傾きは曲線全体を決定しない\n\n価格弾力性は $\\varepsilon(P) = \\frac{dQ}{dP}\\frac{P}{Q}$ であり、無次元のパーセンテージ応答です。右下がりの需要には、正の大きさ `η = -ε` を使用します。\n\n以下の両方の曲線は `P0 = 70`、`Q0 = 100` を通り、`ε(P0) = -0.20` を持ちます：\n\n$$\nQ_{CE}(P)=Q_0(P/P_0)^{-\\eta},\\qquad\nQ_L(P)=Q_0[1-\\eta(P/P_0-1)].\n$$\n\n定弾力性は曲線の形状に関する仮定であり、εはどこでも一定のままです。線形曲線はアンカーにおいて同じ接線を持ちますが、その弾力性はその点から離れるにつれて変化します。その数量が正となる定義域は `0 < P < P0*(1 + 1/eta)` であり、その境界を超えて外挿してはなりません。どちらの関数形も、一つの局所的な弾力性の観測値だけからは同定されません。\n",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "elasticity-context"
+      },
+      {
+        "code": "import numpy as np\nimport textwrap\n\ndef oil_wrap(text, width=42):\n    return \"<br>\".join(textwrap.wrap(str(text), width=width,\n                                   break_long_words=False, break_on_hyphens=False))\n\nP0, Q0, ETA = 70.0, 100.0, 0.20\nprices = np.linspace(0.4 * P0, 3.0 * P0, 160)\n\ndef constant_demand(p):\n    return Q0 * (np.asarray(p) / P0) ** (-ETA)\n\ndef linear_demand(p):\n    return Q0 * (1.0 - ETA * (np.asarray(p) / P0 - 1.0))\n\nq_constant = constant_demand(prices)\nq_linear = linear_demand(prices)\nassert np.all(prices > 0) and np.all(q_linear > 0)\nassert constant_demand(P0) == linear_demand(P0) == Q0\n\nmplot([\n    {\"x\": prices, \"y\": q_constant, \"mode\": \"lines\",\n     \"name\": oil_wrap(\"定弾力性\")},\n    {\"x\": prices, \"y\": q_linear, \"mode\": \"lines\", \"line\": {\"dash\": \"dash\"},\n     \"name\": oil_wrap(\"線形需要：同じ局所弾力性\")},\n    {\"x\": [P0], \"y\": [Q0], \"mode\": \"markers\", \"marker\": {\"size\": 10},\n     \"name\": oil_wrap(\"共通のアンカー\")},\n], title=oil_wrap(\"一つのアンカーと局所弾力性、異なる曲線全体\"),\n   xlabel=oil_wrap(\"例示的な価格（USD／バレル）\"),\n   ylabel=oil_wrap(\"例示的な数量（百万バレル／日）\", 27),\n   layout={\"height\": 540, \"margin\": {\"t\": 105, \"b\": 110, \"l\": 110, \"r\": 35},\n           \"xaxis\": {\"automargin\": True}, \"yaxis\": {\"automargin\": True},\n           \"legend\": {\"orientation\": \"h\", \"y\": -0.24, \"font\": {\"size\": 10}}})\nprint(f\"アンカーにおける共通の局所弾力性: {-ETA:.2f}\")\nprint(f\"アンカー価格の三倍において：定弾力性 {constant_demand(3*P0):.2f}, 線形 {linear_demand(3*P0):.2f}.\")\n",
+        "type": "code",
+        "language": "python",
+        "name": "curve-comparison"
+      },
+      {
+        "code": "## 地域別需要：価格の柔軟性とベースラインのシフト\n\n二つの例示的な地域について、`Q_i(P) = A_i*(P/P0)**(-eta_i)`を使用します。`P0`において、`A_i`はベースライン需要です。任意の配分は `A_China = 15` および `A_rest = 85` 百万バレル／日であり、これらは推計値や測定されたシェアではありません。大きさ `eta_China = 0.20` または `0.50`、および `eta_rest = 0.20` は感応度の仮定であり、中国のほうが価格弾力性が高いという証拠ではありません。\n\nより高い弾力性の仮定は、固定された曲線に沿ったより強い反応を表します。対照的に、EV保有台数、効率性の向上、または恒久的なモーダルシフトは、弾力性が変化しない場合であっても、すべての価格において`A_China`を引き下げる可能性があります。価格主導の代替も短期的な反応性に影響を与える可能性があり、それを推計するにはデータと指定された時間軸が必要です。公共交通機関や自転車の利用しやすさは考えられるメカニズムですが、ここでは測定された制御変数ではありません。\n\n供給は `S(P) = Q0*(P/P0)**GAMMA - disruption + reserve` であり、想定値は `GAMMA = 0.10` です。途絶と備蓄は百万バレル／日単位の同時のフローであり、ストック量ではありません。区間を指定した二分法を使用して、地域の総需要が利用可能な供給と等しくなる価格を求めます。このトイ・モデルの均衡には、時間予測、リスクプレミアムの動学、または在庫の制約はありません。\n",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "regional-model-context"
+      },
+      {
+        "code": "# すべての数値設定は例示的な感応度の仮定です。\nA_CHINA, A_REST = 15.0, 85.0\nETA_REST, GAMMA = 0.20, 0.10\n\ndef regional_demand(p, a_china, eta_china):\n    return (a_china * (p / P0) ** (-eta_china)\n            + A_REST * (p / P0) ** (-ETA_REST))\n\ndef available_supply(p, disruption, reserve, gamma=GAMMA):\n    return Q0 * (p / P0) ** gamma - disruption + reserve\n\ndef equilibrium(disruption, reserve=0.0, a_china=A_CHINA,\n                eta_china=ETA_REST, gamma=GAMMA):\n    values = [disruption, reserve, a_china, eta_china, gamma]\n    if not all(np.isfinite(v) for v in values):\n        raise ValueError(\"シナリオの入力値は有限でなければなりません。\")\n    if (disruption < 0 or reserve < 0 or a_china <= 0\n            or eta_china <= 0 or gamma < 0):\n        raise ValueError(\"シナリオの入力値がモデルの定義域外です。\")\n    def excess(p):\n        return regional_demand(p, a_china, eta_china) - available_supply(p, disruption, reserve, gamma)\n    # 宣言された有限の区間：そこから逸脱する編集は外挿されずに失敗します。\n    lo, hi = 0.2 * P0, 5.0 * P0\n    if excess(lo) < 0 or excess(hi) > 0:\n        raise ValueError(\"宣言された正の価格区間に均衡が存在しません。\")\n    for _ in range(90):\n        mid = (lo + hi) / 2.0\n        if excess(mid) > 0:\n            lo = mid\n        else:\n            hi = mid\n    p = (lo + hi) / 2.0\n    q = regional_demand(p, a_china, eta_china)\n    if not (np.isfinite(p) and np.isfinite(q) and p > 0 and q > 0):\n        raise ValueError(\"均衡は有限な正の価格および数量でなければなりません。\")\n    return p, q, excess(p)\n\nSCENARIOS = [\n    {\"key\": \"equal_eta\", \"label\": \"同一の地域弾力性\", \"a_china\": A_CHINA, \"eta_china\": 0.20, \"reserve\": 0.0},\n    {\"key\": \"flexible_china\", \"label\": \"より高く想定された中国の弾力性\", \"a_china\": A_CHINA, \"eta_china\": 0.50, \"reserve\": 0.0},\n    {\"key\": \"baseline_shift\", \"label\": \"中国のベースライン需要削減\", \"a_china\": 14.0, \"eta_china\": 0.20, \"reserve\": 0.0},\n    {\"key\": \"reserve_flow\", \"label\": \"供給に追加された備蓄放出\", \"a_china\": A_CHINA, \"eta_china\": 0.20, \"reserve\": 1.0},\n]\nprint(\"地域別の配分および弾力性は想定値であり、実証的な推計値ではありません。\")\nprint(\"中国のベースライン削減と備蓄フローは、それぞれ独立した一度に一つずつのシナリオです。\")\n",
+        "type": "code",
+        "language": "python",
+        "name": "regional-model"
+      },
+      {
+        "code": "disruptions = np.linspace(0.0, 6.0, 31)\nscenario_results, scenario_traces = {}, []\nfor scenario in SCENARIOS:\n    results = [equilibrium(float(d), scenario[\"reserve\"], scenario[\"a_china\"], scenario[\"eta_china\"])\n               for d in disruptions]\n    scenario_results[scenario[\"key\"]] = results\n    scenario_traces.append({\"x\": disruptions, \"y\": [result[0] for result in results],\n                            \"mode\": \"lines\", \"name\": oil_wrap(scenario[\"label\"], 27)})\n\nmplot(scenario_traces,\n      title=oil_wrap(\"例示的な均衡感応度であり、価格予測ではありません\"),\n      xlabel=oil_wrap(\"想定される供給途絶（百万バレル／日）\"),\n      ylabel=oil_wrap(\"均衡価格（USD／バレル）\", 27),\n      layout={\"height\": 590, \"margin\": {\"t\": 105, \"b\": 155, \"l\": 100, \"r\": 35},\n              \"xaxis\": {\"automargin\": True}, \"yaxis\": {\"automargin\": True},\n              \"legend\": {\"orientation\": \"h\", \"y\": -0.28, \"font\": {\"size\": 10}}})\n\nprint(\"4 百万バレル／日の途絶における均衡:\")\nfor scenario in SCENARIOS:\n    p, q, residual = equilibrium(4.0, scenario[\"reserve\"], scenario[\"a_china\"], scenario[\"eta_china\"])\n    print(scenario[\"label\"] + f\": 価格 {p:.2f}, 数量 {q:.2f}, 超過需要の残差 {residual:.2e}.\")\n",
+        "type": "code",
+        "language": "python",
+        "name": "scenario-comparison"
+      },
+      {
+        "code": "## これらを条件付きの比較として読む\n\n`P0`を上回る価格では、中国の想定弾力性を引き上げると需要が減少し、このモデルにおける途絶による価格上昇が緩和されます。`P0`を下回る価格では、同じくより弾力的な曲線は需要の減少ではなく増加を予測します。弾力性の変更はアンカーを中心に反応性を回転させるものであり、一様な需要削減ではありません。\n\n中国のベースラインを`15`から`14`に引き下げると、その曲線は下方にシフトします。代わりに`1`百万バレル／日の備蓄放出を行うと、利用可能な供給が上方にシフトします。どちらも均衡価格を引き下げる可能性がありますが、新しい価格において需要と生産が反応するため、その数量と価格が同一である必要はありません。グラフは一度に一つの仮定を変更しており、観測された過去の下落を中国、備蓄、または和平への期待に帰するものではありません。\n\n再生可能エネルギー電力と輸送の代替は、互換性のある数量ではありません。EVや電動公共交通機関は、電力がどのように発電されるかに関わらず、石油を動力源とする移動を代替できます。再生可能エネルギーはその電力の供給と排出量を変化させ、直接的な石油火力発電が存在する場所ではそれを代替できます。回避された同一の石油消費量を、EVの効果と再生可能エネルギー電力の効果の双方として二重に差し引いてはなりません。石油化学原料、航空、貨物輸送、およびその他の用途は、実証モデルにおいて個別の扱いが必要です。\n",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "scenario-interpretation"
+      },
+      {
+        "code": "## 独立した実証：ヨーロピアン・コールと分散\n\n元のエクスポートのセル 4（一始まり）は、ブラック・ショールズのヨーロピアン・コールの例でした。ここでは固定された `S = 100`、`K = 100`、`r = 0.05`、`T = 1`、および分散グリッドを保持しています。この教科書的な演習は、一定のボラティリティを持つ対数正規分布の原資産、摩擦のない連続ヘッジ、配当なし、およびモデルの無リスク金利を仮定しています。原油に合わせてキャリブレーションされておらず、地域モデルも組み込まれておらず、石油デリバティブの予測でもありません。\n\nx軸はボラティリティ`sigma`ではなく、分散`sigma**2`です。他の入力値を固定した場合、不確実性の増大はこのコールのモデル価値を高めます。これは、実際のデリバティブの価格設定に誤りがあることや、取引に適していることを立証するものではありません。\n",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "option-context"
+      },
+      {
+        "code": "from math import erf, sqrt, log, exp\n\nS, K, r, T = 100.0, 100.0, 0.05, 1.0\nvariance = np.linspace(0.0001, 0.25, 150)\nvolatility = np.sqrt(variance)\n\ndef norm_cdf(x):\n    return 0.5 * (1.0 + erf(x / sqrt(2.0)))\n\ndef black_scholes_call(sigma):\n    d1 = (log(S / K) + (r + 0.5 * sigma**2) * T) / (sigma * sqrt(T))\n    d2 = d1 - sigma * sqrt(T)\n    return S * norm_cdf(d1) - K * exp(-r * T) * norm_cdf(d2)\n\ncall_price = np.array([black_scholes_call(float(sigma)) for sigma in volatility])\nmplot([{\"x\": variance, \"y\": call_price, \"mode\": \"lines\",\n        \"name\": oil_wrap(\"ブラック・ショールズのヨーロピアン・コール\")}],\n      title=oil_wrap(\"教科書的なヨーロピアン・コール価値対分散\"),\n      xlabel=oil_wrap(\"分散（sigmaの二乗）\"), ylabel=oil_wrap(\"コールのモデル価値\"),\n      layout={\"height\": 500, \"margin\": {\"t\": 95, \"b\": 95, \"l\": 85, \"r\": 35},\n              \"xaxis\": {\"automargin\": True}, \"yaxis\": {\"automargin\": True},\n              \"legend\": {\"orientation\": \"h\", \"y\": -0.22, \"font\": {\"size\": 10}}})\nprint(f\"分散が {variance[0]:.4f} から {variance[-1]:.2f}へ上昇するにつれて、コール価値は {call_price[0]:.2f} から {call_price[-1]:.2f}.\")\n",
+        "type": "code",
+        "language": "python",
+        "name": "option-variance"
+      },
+      {
+        "code": "## 読者への演習問題\n\n1. `curve-comparison`において、`ETA`を半分にします。両方の曲線が依然として同じアンカーと局所的な弾力性を共有していることを確認してください。遠く離れた予測において、それらはどのように異なりますか？\n2. `regional-model`において、`eta_china`を変更せずに`a_china`を減らし、次に`eta_china`のみを変更します。それらの介入がなぜ異なるのかを説明してください。\n3. `equilibrium(0.0)`を`P0, Q0`と比較します。途絶を加え、次に同じ量の備蓄フローを加えます。なぜベースラインの均衡に戻るはずなのでしょうか？\n4. `equilibrium`の呼び出しにおいて、供給弾力性`gamma`をゼロに設定します。両方の地域の需要弾力性が`eta`と等しい場合、利用可能な供給が正であり価格が宣言された区間内にあるという条件下で、独立した解 `P = P0*((a_china + A_REST)/(Q0 - disruption + reserve))**(1/eta)` を確認してください。\n5. 弾力性と代替を区別するのに、どのような地域別の燃料消費、保有車両数、移動、所得、小売価格、供給のデータが役立つでしょうか？なぜEVの販売台数単体では、既存車両群の燃料節約量が分からないのでしょうか？\n",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "reader-exercise"
+      },
+      {
+        "code": "## 証拠、境界、および来歴\n\n2026年六月17日に公開されたIEAの[2026年六月 石油市場レポート](https://www.iea.org/reports/oil-market-report-june-2026)では、価格の下落とともに石油需要の低迷と米国・イラン間の和平合意への期待が記されていました。その日付付きの記述は背景情報であり、各メカニズムがどの程度寄与したかの証明ではなく、現在の見通しでもありません。その価格をモデルのキャリブレーションとして再利用することはありません。\n\n[世界EV展望 2026](https://www.iea.org/reports/global-ev-outlook-2026/outlook-for-electric-mobility-chap-9-11)は、`2025`年に中国のEV保有台数が約`1`百万バレル／日を代替したと推計しました。代替とは、EVによる移動と同等の内燃機関／ハイブリッドによる移動を比較したものであり、その量の前年比での実測された減少ではありません。[世界エネルギーレビュー 2026](https://www.iea.org/reports/global-energy-review-2026/oil)は、石油化学原料の需要増加とともに、`2025`年の中国におけるガソリン／軽油需要がほぼ横ばいであったと述べています。輸送用燃料の必要性の減少が、自動的に石油総需要の減少を意味するわけではありません。\n\nこの静的な二地域モデルでは、製品のボトルネック、税金、タイムラグ、所得、不確実性、内生的な技術導入、生産者戦略、予備生産能力、および在庫の枯渇が省略されています。これは想定された曲線を解くものであり、因果的または実証的な推計問題ではありません。備蓄フローは、ストックの予算がなければ無期限に継続することはできません。価格と結果は例示的なものであり、財務アドバイスではありません。\n\nプロンプトを用いない来歴：ユーザーから提供された`Oil_Sholes.srwb`エクスポートのソースセルから改編。元のエクスポートのSHA-256：`69541aba9650a357eb109f1a1087130d9357f2d0262ad5e03c278e35ba695b4d`。保存されたAIの会話、プロンプト、アカウントデータ、または出力は一切再配布されません。\n",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "sources-limitations"
+      }
+    ]
+  }
+}
