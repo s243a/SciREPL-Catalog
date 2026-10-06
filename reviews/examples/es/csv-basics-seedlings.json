@@ -1,0 +1,469 @@
+{
+  "schema": 1,
+  "lesson": "csv-basics-seedlings",
+  "locale": "es",
+  "source": {
+    "path": "workbooks/en/csv-basics-seedlings.srwb",
+    "sha256": "6dba9b786223a9e5401fb7a90210991beb7f6917aaa3d47b394943c49fded3cd"
+  },
+  "target": {
+    "path": "workbooks/es/csv-basics-seedlings.srwb",
+    "sha256": "b23cc9a0e27b6f4195b8190bc3d9f986e00d5e37187da96a1f242f09437aa9ee",
+    "size": 4221,
+    "title": "Conceptos básicos de CSV: alturas de plántulas",
+    "description": "Crea, lee y compara seis filas ficticias de alturas de plántulas en un archivo CSV, luego inspecciona o edita el archivo a través de Archivos y almacenamiento. Ejecutar el escritor sobrescribe la ruta de ejemplo; la lección incluye una advertencia de copia de seguridad y reejecución."
+  },
+  "translation": {
+    "model": "gemini-3.8-flash-medium",
+    "contentAudit": {
+      "sourceSha256": "6dba9b786223a9e5401fb7a90210991beb7f6917aaa3d47b394943c49fded3cd",
+      "targetSha256": "b23cc9a0e27b6f4195b8190bc3d9f986e00d5e37187da96a1f242f09437aa9ee",
+      "status": "passed",
+      "findings": [],
+      "errors": [],
+      "nativeSpeakerReview": "pending",
+      "caveat": "Controller exact-English heading/narrative and specified short-residue audit, not native-speaker fluency review."
+    },
+    "policy": {
+      "locale": "es",
+      "protectedTexts": [
+        "/shared/data/seedling-heights.csv",
+        "group",
+        "height_cm",
+        "light",
+        "shade",
+        "utf-8",
+        " cm"
+      ],
+      "protectedIds": [
+        "1:1:0",
+        "1:3:0",
+        "1:5:0",
+        "1:7:0",
+        "1:9:0",
+        "1:11:0",
+        "1:13:0",
+        "1:15:0",
+        "1:17:0",
+        "1:19:0",
+        "1:21:0",
+        "1:23:0",
+        "1:25:0",
+        "1:27:0",
+        "1:29:0",
+        "1:31:0",
+        "1:33:0",
+        "1:35:0",
+        "1:37:0",
+        "1:43:0",
+        "1:45:0",
+        "1:47:0",
+        "2:1:0",
+        "2:5:0",
+        "2:9:3",
+        "3:1:0",
+        "3:5:0",
+        "3:7:0",
+        "3:9:0",
+        "3:11:0",
+        "3:13:0",
+        "3:15:0",
+        "3:17:0",
+        "3:19:2",
+        "3:21:2",
+        "3:23:2"
+      ],
+      "widthOverrides": {},
+      "descriptionSeed": "Create, read and compare six fictional seedling-height rows in a CSV file, then inspect or edit the file through Files & Storage. Running the writer overwrites the example path; the lesson includes a backup and rerun warning.",
+      "identifierRenames": false,
+      "cellNames": [
+        "title-goals",
+        "create_csv",
+        "read_csv",
+        "compare_groups",
+        "try-a-change"
+      ],
+      "nativeReviewCaveat": "Machine translated with Gemini draft and a fresh same-model independent review, not native-speaker review. Static gates prove structural safety, not prose quality. Browser/runtime and rendered-output review are controller-owned and pending."
+    },
+    "keeps": {
+      "ids": [
+        "1:1:0",
+        "1:3:0",
+        "1:5:0",
+        "1:7:0",
+        "1:9:0",
+        "1:11:0",
+        "1:13:0",
+        "1:15:0",
+        "1:17:0",
+        "1:19:0",
+        "1:21:0",
+        "1:23:0",
+        "1:25:0",
+        "1:27:0",
+        "1:29:0",
+        "1:31:0",
+        "1:33:0",
+        "1:35:0",
+        "1:37:0",
+        "1:43:0",
+        "1:45:0",
+        "1:47:0",
+        "2:1:0",
+        "2:5:0",
+        "2:9:3",
+        "3:1:0",
+        "3:5:0",
+        "3:7:0",
+        "3:9:0",
+        "3:11:0",
+        "3:13:0",
+        "3:15:0",
+        "3:17:0",
+        "3:19:2",
+        "3:21:2",
+        "3:23:2"
+      ],
+      "texts": [
+        "/shared/data/seedling-heights.csv",
+        "group",
+        "light",
+        "height_cm",
+        "group",
+        "light",
+        "height_cm",
+        "group",
+        "light",
+        "height_cm",
+        "group",
+        "shade",
+        "height_cm",
+        "group",
+        "shade",
+        "height_cm",
+        "group",
+        "shade",
+        "height_cm",
+        "utf-8",
+        "group",
+        "height_cm",
+        "/shared/data/seedling-heights.csv",
+        "utf-8",
+        " cm",
+        "/shared/data/seedling-heights.csv",
+        "utf-8",
+        "height_cm",
+        "group",
+        "light",
+        "height_cm",
+        "group",
+        "shade",
+        " cm",
+        " cm",
+        " cm"
+      ]
+    },
+    "manifest": {
+      "manifest_version": 1,
+      "produced_by": "derived",
+      "generator": "tools/span-derive.mjs",
+      "locale": "es",
+      "source": {
+        "path": "workbooks/en/csv-basics-seedlings.srwb",
+        "sha256": "6dba9b786223a9e5401fb7a90210991beb7f6917aaa3d47b394943c49fded3cd"
+      },
+      "target": {
+        "path": "workbooks/es/csv-basics-seedlings.srwb",
+        "sha256": "b23cc9a0e27b6f4195b8190bc3d9f986e00d5e37187da96a1f242f09437aa9ee"
+      },
+      "spans": [
+        {
+          "cell_index": 1,
+          "cell_name": "create_csv",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 18,
+              "col": 9
+            },
+            "end": {
+              "line": 18,
+              "col": 59
+            },
+            "text": "Saved "
+          },
+          "target_span": {
+            "start": {
+              "line": 18,
+              "col": 9
+            },
+            "end": {
+              "line": 18,
+              "col": 67
+            },
+            "text": "Se guardaron "
+          },
+          "placeholders": [
+            "{len(measurements)}",
+            "{path}"
+          ]
+        },
+        {
+          "cell_index": 1,
+          "cell_name": "create_csv",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 18,
+              "col": 9
+            },
+            "end": {
+              "line": 18,
+              "col": 59
+            },
+            "text": " fictional rows to "
+          },
+          "target_span": {
+            "start": {
+              "line": 18,
+              "col": 9
+            },
+            "end": {
+              "line": 18,
+              "col": 67
+            },
+            "text": " filas ficticias en "
+          },
+          "placeholders": [
+            "{len(measurements)}",
+            "{path}"
+          ]
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "read_csv",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 7,
+              "col": 9
+            },
+            "end": {
+              "line": 7,
+              "col": 47
+            },
+            "text": "Read "
+          },
+          "target_span": {
+            "start": {
+              "line": 7,
+              "col": 9
+            },
+            "end": {
+              "line": 7,
+              "col": 52
+            },
+            "text": "Se leyeron "
+          },
+          "placeholders": [
+            "{len(rows)}",
+            "{path.name}"
+          ]
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "read_csv",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 7,
+              "col": 9
+            },
+            "end": {
+              "line": 7,
+              "col": 47
+            },
+            "text": " rows from "
+          },
+          "target_span": {
+            "start": {
+              "line": 7,
+              "col": 9
+            },
+            "end": {
+              "line": 7,
+              "col": 52
+            },
+            "text": " filas de "
+          },
+          "placeholders": [
+            "{len(rows)}",
+            "{path.name}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compare_groups",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 10,
+              "col": 9
+            },
+            "end": {
+              "line": 10,
+              "col": 41
+            },
+            "text": "Light mean: "
+          },
+          "target_span": {
+            "start": {
+              "line": 10,
+              "col": 9
+            },
+            "end": {
+              "line": 10,
+              "col": 46
+            },
+            "text": "Promedio de luz: "
+          },
+          "placeholders": [
+            "{mean(light):.1f}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compare_groups",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 11,
+              "col": 9
+            },
+            "end": {
+              "line": 11,
+              "col": 41
+            },
+            "text": "Shade mean: "
+          },
+          "target_span": {
+            "start": {
+              "line": 11,
+              "col": 9
+            },
+            "end": {
+              "line": 11,
+              "col": 49
+            },
+            "text": "Promedio de sombra: "
+          },
+          "placeholders": [
+            "{mean(shade):.1f}"
+          ]
+        },
+        {
+          "cell_index": 3,
+          "cell_name": "compare_groups",
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "source_span": {
+            "start": {
+              "line": 12,
+              "col": 9
+            },
+            "end": {
+              "line": 12,
+              "col": 55
+            },
+            "text": "Difference: "
+          },
+          "target_span": {
+            "start": {
+              "line": 12,
+              "col": 9
+            },
+            "end": {
+              "line": 12,
+              "col": 55
+            },
+            "text": "Diferencia: "
+          },
+          "placeholders": [
+            "{mean(light) - mean(shade):.1f}"
+          ]
+        }
+      ],
+      "exclusions": []
+    },
+    "nativeSpeakerReview": "pending"
+  },
+  "browser": {
+    "status": "passed",
+    "first": {
+      "exportSha256": "07bf0145a50915d805016916831690a0105c0acfd6983f0acbcaaae3942fa366",
+      "reportSha256": "2af6728bcb35040675d8930d466f28f5a190e83edb03254e8fb12e05ffc140ac",
+      "appVersion": "1.4.0",
+      "cells": 5,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "second": {
+      "exportSha256": "89ee137ff93179f2978b854b190db27914609f8a91c0e7db561736b0fa333a6d",
+      "reportSha256": "2af6728bcb35040675d8930d466f28f5a190e83edb03254e8fb12e05ffc140ac",
+      "appVersion": "1.4.0",
+      "cells": 5,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "englishBaseline": [
+      {
+        "exportSha256": "9a3c8f36d735e3b883daab3c7ac747f9d119a55974d8f0433afe6a1cc1305be8",
+        "reportSha256": "54580ce3771dacb67c6e9a4dc3a5f345f690d309bbe777c3ae19f8df61980fc2",
+        "appVersion": "1.4.0",
+        "cells": 5,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      },
+      {
+        "exportSha256": "f80ceef934b788d58565b2fd820e799f33d86b76136af9ad404bec4c4ac9e27c",
+        "reportSha256": "54580ce3771dacb67c6e9a4dc3a5f345f690d309bbe777c3ae19f8df61980fc2",
+        "appVersion": "1.4.0",
+        "cells": 5,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      }
+    ],
+    "deterministic": true,
+    "textOracle": {
+      "first": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      },
+      "second": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      }
+    },
+    "plotData": {
+      "status": "passed",
+      "count": 0
+    },
+    "rasterCharts": null,
+    "renderedReview": "not-applicable"
+  },
+  "caveat": "Machine translated with Gemini and reviewed by AI/controller checks, including scoped corrections where needed. Native-speaker review is pending; structural and numerical checks do not certify prose quality."
+}

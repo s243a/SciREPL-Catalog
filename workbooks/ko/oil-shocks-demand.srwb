@@ -1,0 +1,81 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "석유 충격: 수요 곡선, 대체 및 시나리오",
+    "cells": [
+      {
+        "code": "# 석유 충격: 수요 곡선, 대체 및 시나리오\n\n이것은 유가 예측이나 투자 조언이 아니며, 설명을 위한 오프라인 경제학 수업입니다. 아래의 모든 모델 수량, 지역별 배분, 탄력성 및 공급 매개변수는 교육 목적으로 가정한 것이며, 중국이나 기타 세계에 대해 측정된 추정치는 전혀 없습니다.\n\n국소 가격 탄력성과 전체 수요 곡선, 가격 반응과 수요 이동, 시장 시나리오와 인과적 증거를 구별하는 법을 배웁니다. 마지막 섹션은 원본 워크북의 별도 유럽형 콜 옵션 분산 시연을 보존하며, 석유 파생상품의 가격을 책정하지 않습니다.\n\n실행 순서: Python 셀을 위에서 아래로 실행하십시오. NumPy와 `mplot`은 앱에서 제공되므로, Matplotlib 또는 `micropip` 패키지를 설치할 필요가 없습니다. 워크북에서 시작되는 다운로드, 업로드 또는 파일 쓰기는 없습니다.\n",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "title-goals"
+      },
+      {
+        "code": "## 원래 석유 모델이 수행한 작업\n\n제공된 내보내기의 석유 설명과 코드는 5번 및 6번 셀(일 기반, 둘 다 이름 없음)이었습니다. 이는 월별 `demand_growth`를 부과하고, 공급 및 전략비축유 방출을 복원한 다음, 충격 반응 계수, 가정된 앵커로의 수렴 및 가산적 위험 항을 사용하여 가격을 업데이트했습니다. 수요는 그 결과로 발생한 가격에 반응하지 않았습니다. 중국 관련 변수, EV, 대중교통, 자전거 또는 재생 가능 전력 변수는 없었습니다.\n\n`elasticities`라는 이름의 배열은 인플레이션을 반영하여 조정한 달러 가격 급등폭을 백분율 포인트 단위의 공급 차질로 나누었습니다. 그 중앙값 `beta`의 단위는 무차원 수요 탄력성이 아니라 백분율 포인트당 배럴당 달러였습니다. CPI 조정은 공급, 수요, 재고 또는 기대치로 인한 가격 변화를 구분하지 못합니다. 소수의 과거 가격 변동만으로는 그러한 원인을 규명하거나 수요 곡선을 식별할 수 없습니다.\n\n이번 판에서는 세 개의 MCP 스모크 테스트 셀, 저장된 출력 및 내보내기 메타데이터를 제거합니다. 출처가 불분명한 날짜별 가격 시계열과 네 달간의 전망을 명시적인 균형 민감도 연습으로 대체합니다. 원본 파일은 변경되지 않습니다.\n",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "original-model-diagnostic"
+      },
+      {
+        "code": "## 국소적 기울기가 전체 곡선을 결정하지 않는다\n\n가격 탄력성은 $\\varepsilon(P) = \\frac{dQ}{dP}\\frac{P}{Q}$이며, 이는 무차원의 백분율 반응입니다. 우하향하는 수요의 경우 양의 크기인 `η = -ε`를 사용합니다.\n\n아래의 두 곡선은 모두 `P0 = 70`, `Q0 = 100`을 지나며 `ε(P0) = -0.20`을 가집니다:\n\n$$\nQ_{CE}(P)=Q_0(P/P_0)^{-\\eta},\\qquad\nQ_L(P)=Q_0[1-\\eta(P/P_0-1)].\n$$\n\n일정한 탄력성은 곡선 형태에 대한 가정입니다. 즉, ε가 모든 곳에서 고정된 상태를 유지합니다. 선형 곡선은 앵커에서 동일한 접선을 갖지만, 해당 지점에서 벗어나면 탄력성이 변합니다. 이것의 양의 수량 정의역은 `0 < P < P0*(1 + 1/eta)`이며, 해당 경계를 벗어나 외삽해서는 안 됩니다. 두 함수 형태 모두 단 하나의 국소 탄력성 관측값만으로는 식별되지 않습니다.\n",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "elasticity-context"
+      },
+      {
+        "code": "import numpy as np\nimport textwrap\n\ndef oil_wrap(text, width=42):\n    return \"<br>\".join(textwrap.wrap(str(text), width=width,\n                                   break_long_words=False, break_on_hyphens=False))\n\nP0, Q0, ETA = 70.0, 100.0, 0.20\nprices = np.linspace(0.4 * P0, 3.0 * P0, 160)\n\ndef constant_demand(p):\n    return Q0 * (np.asarray(p) / P0) ** (-ETA)\n\ndef linear_demand(p):\n    return Q0 * (1.0 - ETA * (np.asarray(p) / P0 - 1.0))\n\nq_constant = constant_demand(prices)\nq_linear = linear_demand(prices)\nassert np.all(prices > 0) and np.all(q_linear > 0)\nassert constant_demand(P0) == linear_demand(P0) == Q0\n\nmplot([\n    {\"x\": prices, \"y\": q_constant, \"mode\": \"lines\",\n     \"name\": oil_wrap(\"일정 탄력성\")},\n    {\"x\": prices, \"y\": q_linear, \"mode\": \"lines\", \"line\": {\"dash\": \"dash\"},\n     \"name\": oil_wrap(\"선형 수요: 동일한 국소 탄력성\")},\n    {\"x\": [P0], \"y\": [Q0], \"mode\": \"markers\", \"marker\": {\"size\": 10},\n     \"name\": oil_wrap(\"공유된 앵커\")},\n], title=oil_wrap(\"하나의 앵커와 국소 탄력성, 서로 다른 전체 곡선\"),\n   xlabel=oil_wrap(\"설명을 위한 가격 (배럴당 USD)\"),\n   ylabel=oil_wrap(\"설명을 위한 수량 (하루 백만 배럴)\", 27),\n   layout={\"height\": 540, \"margin\": {\"t\": 105, \"b\": 110, \"l\": 110, \"r\": 35},\n           \"xaxis\": {\"automargin\": True}, \"yaxis\": {\"automargin\": True},\n           \"legend\": {\"orientation\": \"h\", \"y\": -0.24, \"font\": {\"size\": 10}}})\nprint(f\"앵커에서의 공유된 국소 탄력성: {-ETA:.2f}\")\nprint(f\"앵커 가격의 세 배에서: 일정 {constant_demand(3*P0):.2f}, 선형 {linear_demand(3*P0):.2f}.\")\n",
+        "type": "code",
+        "language": "python",
+        "name": "curve-comparison"
+      },
+      {
+        "code": "## 지역 수요: 가격 신축성 대 기준치 이동\n\n설명을 위한 두 지역에 대해 `Q_i(P) = A_i*(P/P0)**(-eta_i)`를 사용합니다. `P0`에서 `A_i`는 기준 수요입니다. 임의의 배분은 하루 `A_China = 15` 및 `A_rest = 85`백만 배럴이며, 이는 추정치나 측정된 점유율이 아닙니다. `eta_China = 0.20` 또는 `0.50` 및 `eta_rest = 0.20`이라는 크기는 민감도 가정일 뿐, 중국의 가격 탄력성이 더 높다는 증거가 아닙니다.\n\n더 높은 탄력성 가정은 고정된 곡선을 따른 더 강한 반응을 나타냅니다. 반면 전기차(EV) 보급, 효율성 개선 또는 지속적인 수단 전환은 탄력성이 변하지 않더라도 모든 가격대에서 `A_China`를 낮출 수 있습니다. 가격에 따른 전환 역시 단기 반응성에 영향을 미칠 수 있으며, 이를 추정하려면 데이터와 명시된 시간 지평이 필요합니다. 대중교통 및 자전거 접근성은 가능한 메커니즘일 뿐, 여기에서 측정된 통제 변수가 아닙니다.\n\n공급은 가정한 `GAMMA = 0.10`을 적용하여 `S(P) = Q0*(P/P0)**GAMMA - disruption + reserve`입니다. 차질(disruption)과 비축유(reserve)는 재고량이 아니라 하루 백만 배럴 단위의 동시 발생 유량입니다. 구간 이분법을 사용하여 전체 지역 수요가 가용 공급과 일치하는 가격을 찾으십시오. 이 단순화된 균형 모델에는 시간 예측, 위험 프리미엄 역학 또는 재고 제약이 없습니다.\n",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "regional-model-context"
+      },
+      {
+        "code": "# 모든 수치 설정은 설명을 위한 민감도 가정입니다.\nA_CHINA, A_REST = 15.0, 85.0\nETA_REST, GAMMA = 0.20, 0.10\n\ndef regional_demand(p, a_china, eta_china):\n    return (a_china * (p / P0) ** (-eta_china)\n            + A_REST * (p / P0) ** (-ETA_REST))\n\ndef available_supply(p, disruption, reserve, gamma=GAMMA):\n    return Q0 * (p / P0) ** gamma - disruption + reserve\n\ndef equilibrium(disruption, reserve=0.0, a_china=A_CHINA,\n                eta_china=ETA_REST, gamma=GAMMA):\n    values = [disruption, reserve, a_china, eta_china, gamma]\n    if not all(np.isfinite(v) for v in values):\n        raise ValueError(\"시나리오 입력값은 유한해야 합니다.\")\n    if (disruption < 0 or reserve < 0 or a_china <= 0\n            or eta_china <= 0 or gamma < 0):\n        raise ValueError(\"시나리오 입력값이 모델 정의역을 벗어났습니다.\")\n    def excess(p):\n        return regional_demand(p, a_china, eta_china) - available_supply(p, disruption, reserve, gamma)\n    # 유한하게 선언된 구간: 이를 벗어나는 수정은 외삽되지 않고 실패합니다.\n    lo, hi = 0.2 * P0, 5.0 * P0\n    if excess(lo) < 0 or excess(hi) > 0:\n        raise ValueError(\"선언된 양의 가격 구간에 균형이 존재하지 않습니다.\")\n    for _ in range(90):\n        mid = (lo + hi) / 2.0\n        if excess(mid) > 0:\n            lo = mid\n        else:\n            hi = mid\n    p = (lo + hi) / 2.0\n    q = regional_demand(p, a_china, eta_china)\n    if not (np.isfinite(p) and np.isfinite(q) and p > 0 and q > 0):\n        raise ValueError(\"균형은 유한한 양의 가격과 수량을 가져야 합니다.\")\n    return p, q, excess(p)\n\nSCENARIOS = [\n    {\"key\": \"equal_eta\", \"label\": \"동일한 지역 탄력성\", \"a_china\": A_CHINA, \"eta_china\": 0.20, \"reserve\": 0.0},\n    {\"key\": \"flexible_china\", \"label\": \"더 높게 가정한 중국 탄력성\", \"a_china\": A_CHINA, \"eta_china\": 0.50, \"reserve\": 0.0},\n    {\"key\": \"baseline_shift\", \"label\": \"중국 기준 수요 감소\", \"a_china\": 14.0, \"eta_china\": 0.20, \"reserve\": 0.0},\n    {\"key\": \"reserve_flow\", \"label\": \"공급에 추가된 비축유 방출\", \"a_china\": A_CHINA, \"eta_china\": 0.20, \"reserve\": 1.0},\n]\nprint(\"지역별 배분과 탄력성은 가정된 것이며, 실증적 추정치가 아닙니다.\")\nprint(\"중국 기준치 감소와 비축유 유량은 별개의, 한 번에 하나씩 다루는 시나리오입니다.\")\n",
+        "type": "code",
+        "language": "python",
+        "name": "regional-model"
+      },
+      {
+        "code": "disruptions = np.linspace(0.0, 6.0, 31)\nscenario_results, scenario_traces = {}, []\nfor scenario in SCENARIOS:\n    results = [equilibrium(float(d), scenario[\"reserve\"], scenario[\"a_china\"], scenario[\"eta_china\"])\n               for d in disruptions]\n    scenario_results[scenario[\"key\"]] = results\n    scenario_traces.append({\"x\": disruptions, \"y\": [result[0] for result in results],\n                            \"mode\": \"lines\", \"name\": oil_wrap(scenario[\"label\"], 27)})\n\nmplot(scenario_traces,\n      title=oil_wrap(\"설명을 위한 균형 민감도이며, 가격 예측이 아닙니다\"),\n      xlabel=oil_wrap(\"가정된 공급 차질 (하루 백만 배럴)\"),\n      ylabel=oil_wrap(\"균형 가격 (배럴당 USD)\", 27),\n      layout={\"height\": 590, \"margin\": {\"t\": 105, \"b\": 155, \"l\": 100, \"r\": 35},\n              \"xaxis\": {\"automargin\": True}, \"yaxis\": {\"automargin\": True},\n              \"legend\": {\"orientation\": \"h\", \"y\": -0.28, \"font\": {\"size\": 10}}})\n\nprint(\"하루 4백만 배럴 차질 하에서의 균형:\")\nfor scenario in SCENARIOS:\n    p, q, residual = equilibrium(4.0, scenario[\"reserve\"], scenario[\"a_china\"], scenario[\"eta_china\"])\n    print(scenario[\"label\"] + f\": 가격 {p:.2f}, 수량 {q:.2f}, 초과수요 잔차 {residual:.2e}.\")\n",
+        "type": "code",
+        "language": "python",
+        "name": "scenario-comparison"
+      },
+      {
+        "code": "## 조건부 비교로 읽기\n\n`P0`를 초과하는 가격에서는 중국의 가정한 탄력성을 높이면 이 모델에서 중국의 수요가 감소하고 차질로 인한 가격 상승이 둔화됩니다. `P0` 미만에서는 탄력성이 더 높은 동일한 곡선이 더 적은 수요가 아니라 더 많은 수요를 예측합니다. 탄력성을 변경하면 앵커를 중심으로 반응성이 회전하며, 이는 균일한 수요 감소가 아닙니다.\n\n중국의 기준치를 `15`에서 `14`로 줄이면 곡선이 아래로 이동합니다. 반면 하루 `1`백만 배럴의 비축유 방출은 가용 공급을 위로 이동시킵니다. 각각 균형 가격을 낮출 수 있지만, 새로운 가격에서 수요와 생산이 반응하기 때문에 이들의 수량과 가격이 동일할 필요는 없습니다. 이 차트는 한 번에 하나의 가정만 변경하며, 관측된 과거의 하락을 중국, 비축유 또는 평화 기대로 귀인하지 않습니다.\n\n재생 가능 전기와 수송 대체는 상호 교환 가능한 수량이 아닙니다. 전기차와 전기 대중교통은 전기가 어떻게 생산되는지와 무관하게 석유 기반 이동을 대체할 수 있습니다. 재생 에너지는 해당 전기의 공급과 배출량을 변화시키며, 직접적인 석유 화력 발전이 존재하는 경우 이를 대체할 수 있습니다. 동일하게 절감된 석유를 전기차 효과와 재생 가능 전력 효과 양쪽으로 두 번 차감하지 마십시오. 석유화학 원료, 항공, 화물 및 기타 용도는 실증 모델에서 별도로 다루어야 합니다.\n",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "scenario-interpretation"
+      },
+      {
+        "code": "## 별도 시연: 유럽형 콜 옵션 및 분산\n\n원본 내보내기의 4번 셀(일 기반)은 블랙-숄즈(Black–Scholes) 유럽형 콜 옵션 예시였습니다. 여기서는 고정된 `S = 100`, `K = 100`, `r = 0.05`, `T = 1` 및 분산 격자를 유지합니다. 이 교과서적인 연습은 일정한 변동성을 갖는 로그정규 기초자산, 마찰 없는 연속 헤지, 배당 없음 및 모델의 무위험 이자율을 가정합니다. 이는 원유에 맞춰 보정되지 않았으며, 지역 모델을 통합하지도 않고, 석유 파생상품 예측도 아닙니다.\n\nx축은 변동성 `sigma`가 아니라 분산 `sigma**2`입니다. 다른 입력값이 고정된 상태에서 불확실성이 커지면 이 콜 옵션의 모델 가치가 상승합니다. 이것이 실제 파생상품의 가격이 잘못 책정되었거나 거래하기에 적합하다는 것을 입증하지는 않습니다.\n",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "option-context"
+      },
+      {
+        "code": "from math import erf, sqrt, log, exp\n\nS, K, r, T = 100.0, 100.0, 0.05, 1.0\nvariance = np.linspace(0.0001, 0.25, 150)\nvolatility = np.sqrt(variance)\n\ndef norm_cdf(x):\n    return 0.5 * (1.0 + erf(x / sqrt(2.0)))\n\ndef black_scholes_call(sigma):\n    d1 = (log(S / K) + (r + 0.5 * sigma**2) * T) / (sigma * sqrt(T))\n    d2 = d1 - sigma * sqrt(T)\n    return S * norm_cdf(d1) - K * exp(-r * T) * norm_cdf(d2)\n\ncall_price = np.array([black_scholes_call(float(sigma)) for sigma in volatility])\nmplot([{\"x\": variance, \"y\": call_price, \"mode\": \"lines\",\n        \"name\": oil_wrap(\"블랙-숄즈 유럽형 콜\")}],\n      title=oil_wrap(\"교과서적 유럽형 콜 가치 대 분산\"),\n      xlabel=oil_wrap(\"분산 (시그마 제곱)\"), ylabel=oil_wrap(\"콜 모델 가치\"),\n      layout={\"height\": 500, \"margin\": {\"t\": 95, \"b\": 95, \"l\": 85, \"r\": 35},\n              \"xaxis\": {\"automargin\": True}, \"yaxis\": {\"automargin\": True},\n              \"legend\": {\"orientation\": \"h\", \"y\": -0.22, \"font\": {\"size\": 10}}})\nprint(f\"분산이 {variance[0]:.4f} 에서 {variance[-1]:.2f}로 상승함에 따라, 콜 가치는 {call_price[0]:.2f} 에서 다음 값으로 상승: {call_price[-1]:.2f}.\")\n",
+        "type": "code",
+        "language": "python",
+        "name": "option-variance"
+      },
+      {
+        "code": "## 독자 연습\n\n1. `curve-comparison`에서 `ETA`를 절반으로 줄이십시오. 두 곡선이 여전히 동일한 앵커와 국소 탄력성을 공유하는지 확인하십시오. 둘의 먼 예측값은 어떻게 다릅니까?\n2. `regional-model`에서 `eta_china`를 변경하지 않고 `a_china`를 줄인 다음, `eta_china`만 변경하십시오. 이러한 개입이 왜 다른지 설명하십시오.\n3. `equilibrium(0.0)`을 `P0, Q0`과 비교하십시오. 차질을 추가한 다음 동일한 비축유 유량을 추가하십시오. 왜 기준 균형으로 돌아와야 합니까?\n4. `equilibrium` 호출에서 공급 탄력성 `gamma`를 영으로 설정하십시오. 두 지역의 수요 탄력성이 모두 `eta`와 같을 때, 가용 공급이 양수이고 가격이 선언된 구간 내에 있다면 독립적인 해인 `P = P0*((a_china + A_REST)/(Q0 - disruption + reserve))**(1/eta)`를 확인하십시오.\n5. 지역별 어떤 연료 사용, 차량 보유량, 이동, 소득, 소매 가격 및 공급 데이터가 탄력성과 대체를 구별하는 데 도움이 됩니까? 왜 EV 판매량만으로는 기존 차량군의 연료 절감량을 알 수 없습니까?\n",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "reader-exercise"
+      },
+      {
+        "code": "## 증거, 한계 및 출처\n\n2026년 유월 17일에 발표된 IEA의 [2026년 유월 석유 시장 보고서](https://www.iea.org/reports/oil-market-report-june-2026)는 유가 하락과 함께 흔들리는 석유 수요 및 미국-이란 평화 협정에 대한 기대를 기술했습니다. 해당 날짜의 설명은 맥락일 뿐 각 메커니즘이 얼마나 기여했는지에 대한 증거가 아니며, 현재의 전망도 아닙니다. 우리는 해당 가격을 모델 보정에 재사용하지 않습니다.\n\n[글로벌 EV 전망 2026](https://www.iea.org/reports/global-ev-outlook-2026/outlook-for-electric-mobility-chap-9-11)에서는 `2025`년에 중국의 전기차(EV) 보급이 하루 약 `1`백만 배럴을 대체한 것으로 추정했습니다. 대체는 전기차 이동을 동등한 내연기관/하이브리드 이동과 비교하는 것이며, 해당 양만큼 전년 대비 감소한 것으로 측정된 것은 아닙니다. [글로벌 에너지 리뷰 2026](https://www.iea.org/reports/global-energy-review-2026/oil)에서는 석유화학 원료 사용량 증가와 함께 `2025`년 중국의 휘발유/디젤 수요가 거의 변하지 않았다고 기술했습니다. 수송용 연료 수요 감소가 총 석유 수요 감소를 자동으로 의미하지는 않습니다.\n\n이 정적인 두 지역 모델은 제품 병목 현상, 세금, 시차, 소득, 불확실성, 내생적 기술 채택, 생산자 전략, 유휴 생산 능력 및 재고 고갈을 생략합니다. 이는 인과적이거나 실증적인 추정 문제가 아니라 가정한 곡선을 해결합니다. 비축유 유량은 재고 예산 없이 무한정 지속될 수 없습니다. 가격과 결과는 설명을 위한 것이며 재정적 조언이 아닙니다.\n\n프롬프트 없는 출처: 사용자가 제공한 `Oil_Sholes.srwb` 내보내기의 소스 셀에서 각색되었습니다. 원본 내보내기 SHA-256: `69541aba9650a357eb109f1a1087130d9357f2d0262ad5e03c278e35ba695b4d`. 저장된 AI 대화, 프롬프트, 계정 데이터 또는 결과물은 재배포되지 않습니다.\n",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "sources-limitations"
+      }
+    ]
+  }
+}

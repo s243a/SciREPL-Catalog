@@ -25,6 +25,8 @@ jobs:
       - run: node tools/test-example-risk.mjs
       - run: node tools/test-example-markov.mjs
       - run: node tools/test-example-cooling.mjs
+      - run: node tools/test-example-oil.mjs
+      - run: node tools/test-csv-basics-workbook.mjs
       - run: node tools/test-span-tools.mjs
       - run: node tools/test-output-oracle.mjs
       - run: node tools/test-example-plot-data.mjs

@@ -89,7 +89,7 @@ const first = judge(enA.exported, a.exported, manifest), second = judge(enB.expo
 assert(first.pass, first.failures.join('\n')); assert(second.pass, second.failures.join('\n'));
 // Older reports did not collect plots. Refuse claiming plot-data verification
 // for lessons that have chart cells unless all four captures are present.
-const hasPlots = ['patients-to-evidence', 'cooling-plume-capture'].includes(lesson);
+const hasPlots = ['patients-to-evidence', 'cooling-plume-capture', 'oil-shocks-demand'].includes(lesson);
 if (hasPlots) for (const record of [enA, enB, a, b]) assert(record.report.plots?.length, 'Re-run with plot capture enabled');
 const rasterChart = ['simpsons-paradox', 'breakfast-democracy'].includes(lesson);
 if (rasterChart) for (const record of [enA, enB, a, b]) assert(record.report.images?.length, 'Re-run with R image decode check enabled');

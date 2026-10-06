@@ -1,0 +1,39 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "Основы CSV: высота сеянцев",
+    "cells": [
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "name": "title-goals",
+        "code": "# Основы CSV: высота сеянцев\n\nЭтот учебный блокнот для начинающих использует **вымышленные** измерения сеянцев. Запустите три ячейки Python по порядку: создайте локальный файл CSV, прочитайте его обратно, затем сравните средние значения по группам. Для работы требуется только стандартная библиотека Python: никакой учетной записи, ключа ИИ, установки пакетов или загрузки набора данных.\n\nCSV — это текстовая таблица. Каждая строка представляет собой один сеянец; столбцы — это его группа и высота в сантиметрах. Эти шесть вымышленных измерений предназначены для обучения, а не в качестве доказательства того, что одно условие выращивания приводит к различиям.\n\nДля ознакомления с пошаговым руководством прочитайте [руководство по импорту/экспорту CSV](https://s243a.github.io/SciREPL/help/files-export/tutorial/)."
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "create_csv",
+        "code": "import csv\nfrom pathlib import Path\n\npath = Path('/shared/data/seedling-heights.csv')\npath.parent.mkdir(parents=True, exist_ok=True)\nmeasurements = [\n    {'group': 'light', 'height_cm': 12},\n    {'group': 'light', 'height_cm': 14},\n    {'group': 'light', 'height_cm': 13},\n    {'group': 'shade', 'height_cm': 7},\n    {'group': 'shade', 'height_cm': 9},\n    {'group': 'shade', 'height_cm': 8},\n]\nwith path.open('w', newline='', encoding='utf-8') as file:\n    writer = csv.DictWriter(file, fieldnames=['group', 'height_cm'])\n    writer.writeheader()\n    writer.writerows(measurements)\nprint(f'Сохранено {len(measurements)} вымышленных строк в {path}')"
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "read_csv",
+        "code": "import csv\nfrom pathlib import Path\n\npath = Path('/shared/data/seedling-heights.csv')\nwith path.open(newline='', encoding='utf-8') as file:\n    rows = list(csv.DictReader(file))\nprint(f'Прочитано {len(rows)} строк из {path.name}')\nfor row in rows:\n    print(f\"{row['group']:>5}: {row['height_cm']} cm\")"
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "compare_groups",
+        "code": "import csv\nfrom pathlib import Path\nfrom statistics import mean\n\npath = Path('/shared/data/seedling-heights.csv')\nwith path.open(newline='', encoding='utf-8') as file:\n    rows = list(csv.DictReader(file))\nlight = [float(row['height_cm']) for row in rows if row['group'] == 'light']\nshade = [float(row['height_cm']) for row in rows if row['group'] == 'shade']\nprint(f'Среднее (свет): {mean(light):.1f} cm')\nprint(f'Среднее (тень): {mean(shade):.1f} cm')\nprint(f'Разница: {mean(light) - mean(shade):.1f} cm')"
+      },
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "name": "try-a-change",
+        "code": "## Попробуйте внести изменения\n\nОтредактируйте первую ячейку с кодом: измените одну высоту, затем запустите ее снова. Запустите ячейки чтения и сравнения еще раз, чтобы увидеть новые результаты. Файл по пути `/shared/data/seedling-heights.csv` сохраняется в локальной виртуальной файловой системе SciREPL.\n\nВы также можете импортировать другой CSV через **Menu → Import File**. Он появится в `/shared/data/`; измените `path` в ячейках чтения на его точное имя файла. Не предполагайте, что экспортированный `.srwb` включает отдельный файл CSV: выберите **Package (archive)** и выберите как блокнот, так и CSV, когда вам нужно перенести их вместе.\n\n**Предупреждение о перезаписи и повторном запуске:** Запуск `create_csv` открывает `/shared/data/seedling-heights.csv` в режиме записи и заменяет любой файл, уже находящийся по этому пути, включая ваши изменения в CSV. Создайте резервную копию любого файла, который вы хотите сохранить, перед его запуском. После изменения CSV перезапустите `read_csv` и `compare_groups` по порядку; ранее отображенный вывод не обновляется автоматически."
+      }
+    ]
+  }
+}

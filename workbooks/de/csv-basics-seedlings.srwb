@@ -1,0 +1,39 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "CSV-Grundlagen: Sämlingshöhen",
+    "cells": [
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "name": "title-goals",
+        "code": "# CSV-Grundlagen: Sämlingshöhen\n\nDieses Einsteiger-Arbeitsbuch verwendet **fiktive** Sämlingsmessungen. Führen Sie die drei Python-Zellen der Reihe nach aus: Erstellen Sie eine lokale CSV-Datei, lesen Sie sie wieder ein und vergleichen Sie anschließend die Gruppendurchschnitte. Es wird lediglich die Standardbibliothek von Python benötigt: kein Konto, kein KI-Schlüssel, keine Paketinstallation oder Datensatz-Download.\n\nEine CSV-Datei ist eine Nur-Text-Tabelle. Jede Zeile stellt einen Sämling dar; die Spalten sind seine Gruppe und Höhe in Zentimetern. Diese sechs ausgedachten Messungen dienen dem Lernen und sind kein Beweis dafür, dass eine Wachstumsbedingung einen Unterschied bewirkt.\n\nFür eine geführte Anleitung lesen Sie das [CSV-Import/Export-Tutorial](https://s243a.github.io/SciREPL/help/files-export/tutorial/)."
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "create_csv",
+        "code": "import csv\nfrom pathlib import Path\n\npath = Path('/shared/data/seedling-heights.csv')\npath.parent.mkdir(parents=True, exist_ok=True)\nmeasurements = [\n    {'group': 'light', 'height_cm': 12},\n    {'group': 'light', 'height_cm': 14},\n    {'group': 'light', 'height_cm': 13},\n    {'group': 'shade', 'height_cm': 7},\n    {'group': 'shade', 'height_cm': 9},\n    {'group': 'shade', 'height_cm': 8},\n]\nwith path.open('w', newline='', encoding='utf-8') as file:\n    writer = csv.DictWriter(file, fieldnames=['group', 'height_cm'])\n    writer.writeheader()\n    writer.writerows(measurements)\nprint(f'Gespeichert {len(measurements)} fiktive Zeilen in {path}')"
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "read_csv",
+        "code": "import csv\nfrom pathlib import Path\n\npath = Path('/shared/data/seedling-heights.csv')\nwith path.open(newline='', encoding='utf-8') as file:\n    rows = list(csv.DictReader(file))\nprint(f'Gelesen {len(rows)} Zeilen aus {path.name}')\nfor row in rows:\n    print(f\"{row['group']:>5}: {row['height_cm']} cm\")"
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "compare_groups",
+        "code": "import csv\nfrom pathlib import Path\nfrom statistics import mean\n\npath = Path('/shared/data/seedling-heights.csv')\nwith path.open(newline='', encoding='utf-8') as file:\n    rows = list(csv.DictReader(file))\nlight = [float(row['height_cm']) for row in rows if row['group'] == 'light']\nshade = [float(row['height_cm']) for row in rows if row['group'] == 'shade']\nprint(f'Mittelwert Licht: {mean(light):.1f} cm')\nprint(f'Mittelwert Schatten: {mean(shade):.1f} cm')\nprint(f'Differenz: {mean(light) - mean(shade):.1f} cm')"
+      },
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "name": "try-a-change",
+        "code": "## Probieren Sie eine Änderung aus\n\nBearbeiten Sie die erste Codezelle: Ändern Sie eine Höhe und führen Sie sie erneut aus. Führen Sie die Lese- und Vergleichszellen erneut aus, um die neuen Ergebnisse zu sehen. Die Datei unter `/shared/data/seedling-heights.csv` bleibt im lokalen virtuellen Dateisystem von SciREPL erhalten.\n\nSie können auch eine andere CSV-Datei über **Menu → Import File** importieren. Sie erscheint unter `/shared/data/`; ändern Sie den `path` in den Lesezellen auf ihren genauen Dateinamen. Gehen Sie nicht davon aus, dass eine exportierte `.srwb`-Datei die separate CSV-Datei enthält: Wählen Sie **Package (archive)** und wählen Sie sowohl das Arbeitsbuch als auch die CSV-Datei aus, wenn Sie diese zusammen verschieben müssen.\n\n**Warnung zum Überschreiben und erneuten Ausführen:** Das Ausführen von `create_csv` öffnet `/shared/data/seedling-heights.csv` im Schreibmodus und ersetzt jede Datei, die sich bereits unter diesem Pfad befindet, einschließlich Ihrer CSV-Bearbeitungen. Sichern Sie jede Datei, die Sie behalten möchten, bevor Sie sie ausführen. Führen Sie nach dem Ändern der CSV-Datei `read_csv` und `compare_groups` der Reihe nach erneut aus; zuvor angezeigte Ausgaben werden nicht automatisch aktualisiert."
+      }
+    ]
+  }
+}

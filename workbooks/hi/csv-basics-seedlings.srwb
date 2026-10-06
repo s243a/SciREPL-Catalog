@@ -1,0 +1,39 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "CSV बेसिक्स: पौधों की ऊँचाई",
+    "cells": [
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "name": "title-goals",
+        "code": "# CSV बेसिक्स: पौधों की ऊँचाई\n\nयह शुरुआती वर्कबुक **काल्पनिक** पौधों के मापों का उपयोग करती है। क्रम से तीन Python सेल चलाएँ: एक स्थानीय CSV फ़ाइल बनाएँ, इसे वापस पढ़ें, फिर समूह के औसतों की तुलना करें। इसके लिए केवल Python की मानक लाइब्रेरी की आवश्यकता है: किसी खाते, AI कुंजी, पैकेज इंस्टॉलेशन, या डेटासेट डाउनलोड की ज़रूरत नहीं है।\n\nCSV एक प्लेन-टेक्स्ट टेबल है। प्रत्येक पंक्ति एक पौधा है; कॉलम इसका समूह और सेंटीमीटर में ऊँचाई हैं। ये छह काल्पनिक माप सीखने के लिए हैं, न कि इस बात का प्रमाण कि विकास की एक स्थिति से कोई अंतर आता है।\n\nनिर्देशित वॉकथ्रू के लिए, [CSV आयात/निर्यात ट्यूटोरियल](https://s243a.github.io/SciREPL/help/files-export/tutorial/) पढ़ें।"
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "create_csv",
+        "code": "import csv\nfrom pathlib import Path\n\npath = Path('/shared/data/seedling-heights.csv')\npath.parent.mkdir(parents=True, exist_ok=True)\nmeasurements = [\n    {'group': 'light', 'height_cm': 12},\n    {'group': 'light', 'height_cm': 14},\n    {'group': 'light', 'height_cm': 13},\n    {'group': 'shade', 'height_cm': 7},\n    {'group': 'shade', 'height_cm': 9},\n    {'group': 'shade', 'height_cm': 8},\n]\nwith path.open('w', newline='', encoding='utf-8') as file:\n    writer = csv.DictWriter(file, fieldnames=['group', 'height_cm'])\n    writer.writeheader()\n    writer.writerows(measurements)\nprint(f'सहेजी गईं {len(measurements)} काल्पनिक पंक्तियाँ इसमें: {path}')"
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "read_csv",
+        "code": "import csv\nfrom pathlib import Path\n\npath = Path('/shared/data/seedling-heights.csv')\nwith path.open(newline='', encoding='utf-8') as file:\n    rows = list(csv.DictReader(file))\nprint(f'पढ़ी गईं {len(rows)} पंक्तियाँ इससे: {path.name}')\nfor row in rows:\n    print(f\"{row['group']:>5}: {row['height_cm']} cm\")"
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "compare_groups",
+        "code": "import csv\nfrom pathlib import Path\nfrom statistics import mean\n\npath = Path('/shared/data/seedling-heights.csv')\nwith path.open(newline='', encoding='utf-8') as file:\n    rows = list(csv.DictReader(file))\nlight = [float(row['height_cm']) for row in rows if row['group'] == 'light']\nshade = [float(row['height_cm']) for row in rows if row['group'] == 'shade']\nprint(f'प्रकाश माध्य: {mean(light):.1f} cm')\nprint(f'छाया माध्य: {mean(shade):.1f} cm')\nprint(f'अंतर: {mean(light) - mean(shade):.1f} cm')"
+      },
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "name": "try-a-change",
+        "code": "## कोई बदलाव करके देखें\n\nपहले कोड सेल को संपादित करें: एक ऊँचाई बदलें, फिर इसे फिर से चलाएँ। नए परिणाम देखने के लिए पढ़ने और तुलना करने वाले सेल फिर से चलाएँ। `/shared/data/seedling-heights.csv` पर मौजूद फ़ाइल SciREPL के स्थानीय वर्चुअल फ़ाइल सिस्टम में बनी रहती है।\n\nआप **Menu → Import File** के माध्यम से एक अलग CSV भी आयात कर सकते हैं। यह `/shared/data/` के अंतर्गत दिखाई देगी; पढ़ने वाले सेल में `path` को इसके सटीक फ़ाइल नाम में बदलें। यह मान न लें कि निर्यात की गई `.srwb` में अलग CSV फ़ाइल शामिल है: जब आपको उन्हें एक साथ ले जाने की आवश्यकता हो, तो **Package (archive)** चुनें और वर्कबुक तथा CSV दोनों का चयन करें।\n\n**ओवरराइट और दोबारा चलाने की चेतावनी:** `create_csv` को चलाने पर `/shared/data/seedling-heights.csv` राइट मोड में खुलती है और उस पाथ पर पहले से मौजूद किसी भी फ़ाइल को बदल देती है, जिसमें आपके द्वारा किए गए CSV संपादन भी शामिल हैं। इसे चलाने से पहले किसी भी फ़ाइल का बैकअप लें जिसे आप सुरक्षित रखना चाहते हैं। CSV बदलने के बाद, `read_csv` और `compare_groups` को क्रम से दोबारा चलाएँ; पहले से प्रदर्शित आउटपुट स्वचालित रूप से अपडेट नहीं होता है।"
+      }
+    ]
+  }
+}

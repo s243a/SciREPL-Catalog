@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/** Register only the six reviewed lessons, preserving every unrelated item.
+/** Register only the controller-owned reviewed inventory, preserving every unrelated item.
  * node tools/register-example-workbooks.mjs [--check] [--locale en]
  * Default: require all 13 locales. Translation metadata comes from the
  * controller's gated receipts, not inferred from file names or AI claims.

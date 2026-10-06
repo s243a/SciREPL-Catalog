@@ -1,0 +1,141 @@
+{
+  "schema": 1,
+  "lesson": "oil-shocks-demand",
+  "locale": "en",
+  "source": {
+    "path": "workbooks/en/oil-shocks-demand.srwb",
+    "sha256": "535bb4534caf0b78793ba518033b8407e0b3407b04942582b33ab8423ef26cc5"
+  },
+  "target": {
+    "path": "workbooks/en/oil-shocks-demand.srwb",
+    "sha256": "535bb4534caf0b78793ba518033b8407e0b3407b04942582b33ab8423ef26cc5",
+    "size": 17082,
+    "title": "Oil Shocks: Demand Curves, Substitution and Scenarios",
+    "description": "Separate local demand elasticity from demand-curve shifts in an illustrative China/rest-of-world oil model, compare supply-disruption scenarios, and retain a textbook European-call variance example. Educational sensitivity analysis, not a fitted forecast or investment advice."
+  },
+  "translation": null,
+  "browser": {
+    "status": "passed",
+    "first": {
+      "exportSha256": "35503efd683bbb8005aa162729a274b7712daf13e4dc26f24ec9744f71c00721",
+      "reportSha256": "1bb8072766e98220be03b801d8c5dd4dff43ba37da575eb84a823769d4497c2f",
+      "appVersion": "1.4.0",
+      "cells": 12,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "second": {
+      "exportSha256": "38066e853648d7456239dba6dd202140f22e10711c3fc0409451892f72f97923",
+      "reportSha256": "1bb8072766e98220be03b801d8c5dd4dff43ba37da575eb84a823769d4497c2f",
+      "appVersion": "1.4.0",
+      "cells": 12,
+      "blockedRequests": 0,
+      "pageErrors": 0
+    },
+    "englishBaseline": [
+      {
+        "exportSha256": "35503efd683bbb8005aa162729a274b7712daf13e4dc26f24ec9744f71c00721",
+        "reportSha256": "1bb8072766e98220be03b801d8c5dd4dff43ba37da575eb84a823769d4497c2f",
+        "appVersion": "1.4.0",
+        "cells": 12,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      },
+      {
+        "exportSha256": "38066e853648d7456239dba6dd202140f22e10711c3fc0409451892f72f97923",
+        "reportSha256": "1bb8072766e98220be03b801d8c5dd4dff43ba37da575eb84a823769d4497c2f",
+        "appVersion": "1.4.0",
+        "cells": 12,
+        "blockedRequests": 0,
+        "pageErrors": 0
+      }
+    ],
+    "deterministic": true,
+    "textOracle": {
+      "first": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [
+          3,
+          6,
+          9
+        ],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      },
+      "second": {
+        "pass": true,
+        "failures": [],
+        "warnings": [],
+        "plotCells": [
+          3,
+          6,
+          9
+        ],
+        "layoutShifted": [],
+        "crossCellMasked": []
+      }
+    },
+    "plotData": {
+      "status": "passed",
+      "count": 3
+    },
+    "rasterCharts": null,
+    "renderedReview": "controller-AI-reviewed",
+    "rendering": {
+      "status": "passed",
+      "scope": "Titles, axes, legends and glyphs visually checked in captured app renders; not native-language approval.",
+      "nativeSpeakerReview": "pending",
+      "captures": [
+        {
+          "reportSha256": "1bb8072766e98220be03b801d8c5dd4dff43ba37da575eb84a823769d4497c2f",
+          "pngs": [
+            {
+              "index": 0,
+              "sha256": "e112674350103d4d2a7b82e867cb87589c1d7b4878e6c160498aab6d6522b3a6",
+              "width": 654,
+              "height": 541
+            },
+            {
+              "index": 1,
+              "sha256": "aec9c17b73ecff2d615da40bb835b72e2301012939e12ef37ee9e023fc999969",
+              "width": 654,
+              "height": 591
+            },
+            {
+              "index": 2,
+              "sha256": "87e8f46c0798ff380c2daac22368046f0baef8b5580d45b2280646584c773765",
+              "width": 654,
+              "height": 501
+            }
+          ]
+        },
+        {
+          "reportSha256": "1bb8072766e98220be03b801d8c5dd4dff43ba37da575eb84a823769d4497c2f",
+          "pngs": [
+            {
+              "index": 0,
+              "sha256": "e112674350103d4d2a7b82e867cb87589c1d7b4878e6c160498aab6d6522b3a6",
+              "width": 654,
+              "height": 541
+            },
+            {
+              "index": 1,
+              "sha256": "aec9c17b73ecff2d615da40bb835b72e2301012939e12ef37ee9e023fc999969",
+              "width": 654,
+              "height": 591
+            },
+            {
+              "index": 2,
+              "sha256": "87e8f46c0798ff380c2daac22368046f0baef8b5580d45b2280646584c773765",
+              "width": 654,
+              "height": 501
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "caveat": "Reviewed educational examples; stated limitations still apply."
+}

@@ -1,0 +1,81 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "石油冲击：需求曲线、替代与情景",
+    "cells": [
+      {
+        "code": "# 石油冲击：需求曲线、替代与情景\n\n这是一堂离线的、用于说明的经济学课程，并非油价预测或投资建议。下方每个模型量、区域分配、弹性和供应参数均为教学假设；没有一个是针对中国或世界其他地区的实测估计值。\n\n学会区分局部价格弹性与整条需求曲线、价格反应与需求移动，以及市场情景与因果证据。最后一节保留了原始工作簿中独立的欧式看涨期权方差演示；它并不对石油衍生品进行定价。\n\n运行顺序：自顶向下执行 Python 单元格。NumPy 和 `mplot` 由应用提供；无需安装 Matplotlib 或 `micropip` 软件包。不存在工作簿发起的下载、上传或文件写入。\n",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "title-goals"
+      },
+      {
+        "code": "## 原始石油模型的作用\n\n所提供导出的石油说明和代码位于单元格 5 和 6（基于一；均未命名）。它施加了按月的 `demand_growth`，恢复了供应与战略储备释放，随后利用冲击响应系数、向假定锚点的拉动以及一个相加风险项来更新价格。需求并未对由此产生的价格作出反应。其中没有特定于中国、电动汽车、公共交通、自行车或可再生能源电力的变量。\n\n名为 `elasticities` 的数组将经通胀调整后的美元价格跳升除以百分点供应中断。其中位数 `beta` 的单位是每桶每百分点美元，而非无量纲的需求弹性。CPI 调整并不能区分由供应、需求、库存或预期引起的价格变化。少数历史价格变动无法确立这些因果关系或识别需求曲线。\n\n本版本移除了三个 MCP 冒烟测试单元格、保存的输出和导出元数据。它用明确的均衡敏感性练习取代了无来源的带日期价格序列和四个月的预测。原始文件保持不变。\n",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "original-model-diagnostic"
+      },
+      {
+        "code": "## 局部斜率并不能决定整条曲线\n\n价格弹性为 $\\varepsilon(P) = \\frac{dQ}{dP}\\frac{P}{Q}$：一个无量纲的百分比反应。对于向下倾斜的需求，使用正量值 `η = -ε`。\n\n下方两条曲线均穿过 `P0 = 70`、`Q0 = 100` 并具有 `ε(P0) = -0.20`：\n\n$$\nQ_{CE}(P)=Q_0(P/P_0)^{-\\eta},\\qquad\nQ_L(P)=Q_0[1-\\eta(P/P_0-1)].\n$$\n\n恒定弹性是一种曲线形状假设：ε 在各处保持固定。线性曲线在锚点处具有相同的切线，但离开该点后其弹性会发生变化。其正数量定义域为 `0 < P < P0*(1 + 1/eta)`；绝不能外推到该边界之外。这两种函数形式都无法通过单次局部弹性观测来识别。\n",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "elasticity-context"
+      },
+      {
+        "code": "import numpy as np\nimport textwrap\n\ndef oil_wrap(text, width=42):\n    return \"<br>\".join(textwrap.wrap(str(text), width=width,\n                                   break_long_words=False, break_on_hyphens=False))\n\nP0, Q0, ETA = 70.0, 100.0, 0.20\nprices = np.linspace(0.4 * P0, 3.0 * P0, 160)\n\ndef constant_demand(p):\n    return Q0 * (np.asarray(p) / P0) ** (-ETA)\n\ndef linear_demand(p):\n    return Q0 * (1.0 - ETA * (np.asarray(p) / P0 - 1.0))\n\nq_constant = constant_demand(prices)\nq_linear = linear_demand(prices)\nassert np.all(prices > 0) and np.all(q_linear > 0)\nassert constant_demand(P0) == linear_demand(P0) == Q0\n\nmplot([\n    {\"x\": prices, \"y\": q_constant, \"mode\": \"lines\",\n     \"name\": oil_wrap(\"恒定弹性\")},\n    {\"x\": prices, \"y\": q_linear, \"mode\": \"lines\", \"line\": {\"dash\": \"dash\"},\n     \"name\": oil_wrap(\"线性需求：相同的局部弹性\")},\n    {\"x\": [P0], \"y\": [Q0], \"mode\": \"markers\", \"marker\": {\"size\": 10},\n     \"name\": oil_wrap(\"共享锚点\")},\n], title=oil_wrap(\"同一个锚点与局部弹性，不同的整条曲线\"),\n   xlabel=oil_wrap(\"说明性价格（美元/桶）\"),\n   ylabel=oil_wrap(\"说明性数量（百万桶/日）\", 27),\n   layout={\"height\": 540, \"margin\": {\"t\": 105, \"b\": 110, \"l\": 110, \"r\": 35},\n           \"xaxis\": {\"automargin\": True}, \"yaxis\": {\"automargin\": True},\n           \"legend\": {\"orientation\": \"h\", \"y\": -0.24, \"font\": {\"size\": 10}}})\nprint(f\"锚点处的共享局部弹性： {-ETA:.2f}\")\nprint(f\"在三倍锚点价格处：恒定 {constant_demand(3*P0):.2f}，线性 {linear_demand(3*P0):.2f}.\")\n",
+        "type": "code",
+        "language": "python",
+        "name": "curve-comparison"
+      },
+      {
+        "code": "## 区域需求：价格灵活性与基准移动\n\n对于两个说明性区域，使用 `Q_i(P) = A_i*(P/P0)**(-eta_i)`。在 `P0` 处，`A_i` 为基准需求。任意分配为 `A_China = 15` 以及 `A_rest = 85` 百万桶/日；这些并非估计值或实测份额。量值 `eta_China = 0.20` 或 `0.50` 以及 `eta_rest = 0.20` 为敏感性假设，并非中国更具价格弹性的证据。\n\n更高的假设弹性代表沿着固定曲线有更强的反应。电动汽车车队、效率提升或持久的出行方式转变反而可以在每个价格水平下降低 `A_China`，即使弹性保持不变。价格驱动的转换也会影响短期反应能力；对此进行估计需要数据和明确的时间跨度。公共交通和自行车的普及是可能的机制，在此并非实测的控制变量。\n\n供应为 `S(P) = Q0*(P/P0)**GAMMA - disruption + reserve`，假定 `GAMMA = 0.10`。中断和储备是单位为百万桶/日的当期流量，而非库存总量。使用区间二分法找出区域总需求等于可用供应的价格。在这个简易玩具均衡中，不存在时间预测、风险溢价动态或库存约束。\n",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "regional-model-context"
+      },
+      {
+        "code": "# 所有数值设定均为用于说明的敏感性假设。\nA_CHINA, A_REST = 15.0, 85.0\nETA_REST, GAMMA = 0.20, 0.10\n\ndef regional_demand(p, a_china, eta_china):\n    return (a_china * (p / P0) ** (-eta_china)\n            + A_REST * (p / P0) ** (-ETA_REST))\n\ndef available_supply(p, disruption, reserve, gamma=GAMMA):\n    return Q0 * (p / P0) ** gamma - disruption + reserve\n\ndef equilibrium(disruption, reserve=0.0, a_china=A_CHINA,\n                eta_china=ETA_REST, gamma=GAMMA):\n    values = [disruption, reserve, a_china, eta_china, gamma]\n    if not all(np.isfinite(v) for v in values):\n        raise ValueError(\"情景输入必须为有限值。\")\n    if (disruption < 0 or reserve < 0 or a_china <= 0\n            or eta_china <= 0 or gamma < 0):\n        raise ValueError(\"情景输入超出了模型定义域。\")\n    def excess(p):\n        return regional_demand(p, a_china, eta_china) - available_supply(p, disruption, reserve, gamma)\n    # 声明的有限区间：超出该区间的修改将直接报错，而非进行外推。\n    lo, hi = 0.2 * P0, 5.0 * P0\n    if excess(lo) < 0 or excess(hi) > 0:\n        raise ValueError(\"在声明的正价格区间内不存在均衡。\")\n    for _ in range(90):\n        mid = (lo + hi) / 2.0\n        if excess(mid) > 0:\n            lo = mid\n        else:\n            hi = mid\n    p = (lo + hi) / 2.0\n    q = regional_demand(p, a_china, eta_china)\n    if not (np.isfinite(p) and np.isfinite(q) and p > 0 and q > 0):\n        raise ValueError(\"均衡价格和数量必须为有限正数。\")\n    return p, q, excess(p)\n\nSCENARIOS = [\n    {\"key\": \"equal_eta\", \"label\": \"相同的区域弹性\", \"a_china\": A_CHINA, \"eta_china\": 0.20, \"reserve\": 0.0},\n    {\"key\": \"flexible_china\", \"label\": \"更高的假设中国弹性\", \"a_china\": A_CHINA, \"eta_china\": 0.50, \"reserve\": 0.0},\n    {\"key\": \"baseline_shift\", \"label\": \"中国基准需求降低\", \"a_china\": 14.0, \"eta_china\": 0.20, \"reserve\": 0.0},\n    {\"key\": \"reserve_flow\", \"label\": \"储备释放增加至供应\", \"a_china\": A_CHINA, \"eta_china\": 0.20, \"reserve\": 1.0},\n]\nprint(\"区域分配和弹性均为假设，而非实证估计值。\")\nprint(\"中国基准削减与储备流量是各自独立的、一次仅改变一个的情景。\")\n",
+        "type": "code",
+        "language": "python",
+        "name": "regional-model"
+      },
+      {
+        "code": "disruptions = np.linspace(0.0, 6.0, 31)\nscenario_results, scenario_traces = {}, []\nfor scenario in SCENARIOS:\n    results = [equilibrium(float(d), scenario[\"reserve\"], scenario[\"a_china\"], scenario[\"eta_china\"])\n               for d in disruptions]\n    scenario_results[scenario[\"key\"]] = results\n    scenario_traces.append({\"x\": disruptions, \"y\": [result[0] for result in results],\n                            \"mode\": \"lines\", \"name\": oil_wrap(scenario[\"label\"], 27)})\n\nmplot(scenario_traces,\n      title=oil_wrap(\"说明性均衡敏感性，而非价格预测\"),\n      xlabel=oil_wrap(\"假定的供应中断（百万桶/日）\"),\n      ylabel=oil_wrap(\"均衡价格（美元/桶）\", 27),\n      layout={\"height\": 590, \"margin\": {\"t\": 105, \"b\": 155, \"l\": 100, \"r\": 35},\n              \"xaxis\": {\"automargin\": True}, \"yaxis\": {\"automargin\": True},\n              \"legend\": {\"orientation\": \"h\", \"y\": -0.28, \"font\": {\"size\": 10}}})\n\nprint(\"4 百万桶/日中断下的均衡：\")\nfor scenario in SCENARIOS:\n    p, q, residual = equilibrium(4.0, scenario[\"reserve\"], scenario[\"a_china\"], scenario[\"eta_china\"])\n    print(scenario[\"label\"] + f\"：价格 {p:.2f}，数量 {q:.2f}，超额需求残差 {residual:.2e}.\")\n",
+        "type": "code",
+        "language": "python",
+        "name": "scenario-comparison"
+      },
+      {
+        "code": "## 将这些理解为条件对比\n\n在高于 `P0` 的价格下，在该模型中提高中国的假设弹性会降低其需求，并抑制供应中断导致的价格上涨。在低于 `P0` 时，同一条更具弹性的曲线预测的需求更大，而不是更小。改变弹性会围绕锚点旋转反应度；它并非均匀的需求缩减。\n\n将中国的基准从 `15` 降至 `14` 会使其曲线下移。而 `1` 百万桶/日的储备释放则会使可用供应上移。两者都能降低均衡价格，但它们的数量和价格未必相同，因为需求和生产会在新价格下作出反应。图表一次只改变一个假设；它并不将观察到的历史下跌归因于中国、储备或和平预期。\n\n可再生电力和交通替代不是可以互换的量。无论电力如何产生，电动汽车和电动公共交通都可以替代燃油出行；可再生能源改变了该电力的供应和排放，并可以在存在燃油发电的地方替代直接燃油发电。不要将同一笔避免的石油作为电动汽车效应和可再生能源电力效应扣除两次。石化原料、航空、货运和其他用途在经验模型中需要单独处理。\n",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "scenario-interpretation"
+      },
+      {
+        "code": "## 独立演示：欧式看涨期权与方差\n\n原始导出的单元格 4（基于一）是一个 Black–Scholes 欧式看涨期权示例。我们保留其固定的 `S = 100`、`K = 100`、`r = 0.05`、`T = 1` 以及方差网格。这一教科书式的练习假设标的资产呈对数正态分布且波动率恒定、无摩擦连续对冲、无股息以及模型的无风险利率。它未针对原油进行校准，未纳入区域模型，也并非石油衍生品预测。\n\nx 轴为方差 `sigma**2`，而非波动率 `sigma`。在其他输入固定的情况下，更高的不确定性会提高该看涨期权的模型价值。这并不能证明实际衍生品被错误定价或适合交易。\n",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "option-context"
+      },
+      {
+        "code": "from math import erf, sqrt, log, exp\n\nS, K, r, T = 100.0, 100.0, 0.05, 1.0\nvariance = np.linspace(0.0001, 0.25, 150)\nvolatility = np.sqrt(variance)\n\ndef norm_cdf(x):\n    return 0.5 * (1.0 + erf(x / sqrt(2.0)))\n\ndef black_scholes_call(sigma):\n    d1 = (log(S / K) + (r + 0.5 * sigma**2) * T) / (sigma * sqrt(T))\n    d2 = d1 - sigma * sqrt(T)\n    return S * norm_cdf(d1) - K * exp(-r * T) * norm_cdf(d2)\n\ncall_price = np.array([black_scholes_call(float(sigma)) for sigma in volatility])\nmplot([{\"x\": variance, \"y\": call_price, \"mode\": \"lines\",\n        \"name\": oil_wrap(\"Black-Scholes 欧式看涨期权\")}],\n      title=oil_wrap(\"教科书式欧式看涨期权价值与方差\"),\n      xlabel=oil_wrap(\"方差（sigma 平方）\"), ylabel=oil_wrap(\"看涨期权模型价值\"),\n      layout={\"height\": 500, \"margin\": {\"t\": 95, \"b\": 95, \"l\": 85, \"r\": 35},\n              \"xaxis\": {\"automargin\": True}, \"yaxis\": {\"automargin\": True},\n              \"legend\": {\"orientation\": \"h\", \"y\": -0.22, \"font\": {\"size\": 10}}})\nprint(f\"随着方差从 {variance[0]:.4f} 上升至 {variance[-1]:.2f}，看涨期权价值从 {call_price[0]:.2f} 上升至 {call_price[-1]:.2f}.\")\n",
+        "type": "code",
+        "language": "python",
+        "name": "option-variance"
+      },
+      {
+        "code": "## 读者练习\n\n1. 在 `curve-comparison` 中，将 `ETA` 减半。检查两条曲线是否仍共享相同的锚点和局部弹性。它们的远端预测有何不同？\n2. 在 `regional-model` 中，在不改变 `eta_china` 的情况下减少 `a_china`，然后仅改变 `eta_china`。解释为什么这些干预措施有所不同。\n3. 将 `equilibrium(0.0)` 与 `P0, Q0` 进行比较。加入中断，随后加入相同的储备流量。为什么基准均衡应当恢复？\n4. 在对 `equilibrium` 的调用中将供应弹性 `gamma` 设为零。当两个区域的需求弹性均等于 `eta` 时，检查独立解 `P = P0*((a_china + A_REST)/(Q0 - disruption + reserve))**(1/eta)`，前提是可用供应为正且价格在声明的区间内。\n5. 哪些区域燃料使用、车辆保有量、出行、收入、零售价格和供应数据有助于区分弹性与替代？为什么仅凭电动汽车销量无法说明现有车队的节油量？\n",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "reader-exercise"
+      },
+      {
+        "code": "## 证据、边界与出处\n\nIEA 的[2026 年六月石油市场报告](https://www.iea.org/reports/oil-market-report-june-2026)（发布于 2026 年六月 17 日）描述了疲软的石油需求以及对美伊和平协议的预期与价格下跌相伴出现。那一特定日期的记述属于背景信息，并非各机制贡献大小的证据，也非当前的展望。我们并未将其价格重新用作模型校准。\n\n[2026 年全球电动汽车展望](https://www.iea.org/reports/global-ev-outlook-2026/outlook-for-electric-mobility-chap-9-11)估计，中国的电动汽车车队在 `2025` 年替代了约 `1` 百万桶/日的石油。替代是将电动汽车出行与等效的燃油/混合动力出行进行比较；它并非实测的同比下降该数量。[2026 年全球能源评论](https://www.iea.org/reports/global-energy-review-2026/oil)描述了 `2025` 年中国汽油/柴油需求几乎没有变化，与此同时石化原料的使用有所增长。对交通燃料需求的减少并不自动意味着石油总需求下降。\n\n这个静态的双区域模型忽略了产品瓶颈、税收、滞后、收入、不确定性、内生技术采用、生产商策略、备用产能和库存消耗。它求解的是假定的曲线，而非因果或实证估计问题。如果没有库存预算，储备流量无法无限期持续。价格和结果仅供说明，并非财务建议。\n\n无提示词出处：改编自用户提供的 `Oil_Sholes.srwb` 导出的源单元格。原始导出 SHA-256：`69541aba9650a357eb109f1a1087130d9357f2d0262ad5e03c278e35ba695b4d`。未重新分发任何保存的 AI 对话、提示词、账户数据或输出。\n",
+        "type": "markdown",
+        "language": "markdown",
+        "name": "sources-limitations"
+      }
+    ]
+  }
+}

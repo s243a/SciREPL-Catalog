@@ -1,0 +1,39 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "CSV 基础：幼苗高度",
+    "cells": [
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "name": "title-goals",
+        "code": "# CSV 基础：幼苗高度\n\n本初学者工作簿使用**虚构的**幼苗测量数据。按顺序运行这三个 Python 单元格：创建本地 CSV 文件，重新读取该文件，然后比较组平均值。它仅需要 Python 标准库：无需账户、AI 密钥、安装软件包或下载数据集。\n\nCSV 是一种纯文本表格。每一行代表一株幼苗；各列是其组别和以厘米为单位的高度。这六个虚构的测量数据仅供学习使用，不能作为某种生长条件导致差异的证据。\n\n有关分步演练，请阅读 [CSV 导入/导出教程](https://s243a.github.io/SciREPL/help/files-export/tutorial/)。"
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "create_csv",
+        "code": "import csv\nfrom pathlib import Path\n\npath = Path('/shared/data/seedling-heights.csv')\npath.parent.mkdir(parents=True, exist_ok=True)\nmeasurements = [\n    {'group': 'light', 'height_cm': 12},\n    {'group': 'light', 'height_cm': 14},\n    {'group': 'light', 'height_cm': 13},\n    {'group': 'shade', 'height_cm': 7},\n    {'group': 'shade', 'height_cm': 9},\n    {'group': 'shade', 'height_cm': 8},\n]\nwith path.open('w', newline='', encoding='utf-8') as file:\n    writer = csv.DictWriter(file, fieldnames=['group', 'height_cm'])\n    writer.writeheader()\n    writer.writerows(measurements)\nprint(f'已保存 {len(measurements)} 行虚构数据至 {path}')"
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "read_csv",
+        "code": "import csv\nfrom pathlib import Path\n\npath = Path('/shared/data/seedling-heights.csv')\nwith path.open(newline='', encoding='utf-8') as file:\n    rows = list(csv.DictReader(file))\nprint(f'已读取 {len(rows)} 行，来自 {path.name}')\nfor row in rows:\n    print(f\"{row['group']:>5}: {row['height_cm']} cm\")"
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "compare_groups",
+        "code": "import csv\nfrom pathlib import Path\nfrom statistics import mean\n\npath = Path('/shared/data/seedling-heights.csv')\nwith path.open(newline='', encoding='utf-8') as file:\n    rows = list(csv.DictReader(file))\nlight = [float(row['height_cm']) for row in rows if row['group'] == 'light']\nshade = [float(row['height_cm']) for row in rows if row['group'] == 'shade']\nprint(f'光照平均值: {mean(light):.1f} cm')\nprint(f'遮阴平均值: {mean(shade):.1f} cm')\nprint(f'差值: {mean(light) - mean(shade):.1f} cm')"
+      },
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "name": "try-a-change",
+        "code": "## 尝试修改\n\n编辑第一个代码单元格：更改一处高度，然后再次运行。再次运行读取和比较单元格以查看新结果。位于 `/shared/data/seedling-heights.csv` 的文件会保留在 SciREPL 的本地虚拟文件系统中。\n\n你也可以通过 **菜单 → 导入文件** 导入不同的 CSV。它将显示在 `/shared/data/` 下；将读取单元格中的 `path` 更改为其确切的文件名。不要假定导出的 `.srwb` 包含单独的 CSV 文件：当需要将它们一起移动时，请选择 **打包（归档）** 并同时选中工作簿和 CSV。\n\n**覆盖与重新运行警告：** 运行 `create_csv` 会以写入模式打开 `/shared/data/seedling-heights.csv` 并替换该路径下已存在的任何文件，包括你对 CSV 的修改。在运行它之前，请备份所有想要保留的文件。修改 CSV 后，按顺序重新运行 `read_csv` 和 `compare_groups`；先前显示的输出不会自动更新。"
+      }
+    ]
+  }
+}

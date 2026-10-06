@@ -1,0 +1,39 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "Fundamentos de CSV: Alturas de Plântulas",
+    "cells": [
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "name": "title-goals",
+        "code": "# Fundamentos de CSV: Alturas de Plântulas\n\nEsta pasta de trabalho para iniciantes usa medições **fictícias** de plântulas. Execute as três células Python em ordem: crie um arquivo CSV local, leia-o novamente e compare as médias dos grupos. Requer apenas a biblioteca padrão do Python: nenhuma conta, chave de IA, instalação de pacotes ou download de conjunto de dados.\n\nUm CSV é uma tabela de texto simples. Cada linha é uma plântula; as colunas são seu grupo e altura em centímetros. Essas seis medições inventadas são para aprendizado, não evidência de que uma condição de cultivo cause diferença.\n\nPara um passo a passo guiado, leia o [tutorial de importação/exportação de CSV](https://s243a.github.io/SciREPL/help/files-export/tutorial/)."
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "create_csv",
+        "code": "import csv\nfrom pathlib import Path\n\npath = Path('/shared/data/seedling-heights.csv')\npath.parent.mkdir(parents=True, exist_ok=True)\nmeasurements = [\n    {'group': 'light', 'height_cm': 12},\n    {'group': 'light', 'height_cm': 14},\n    {'group': 'light', 'height_cm': 13},\n    {'group': 'shade', 'height_cm': 7},\n    {'group': 'shade', 'height_cm': 9},\n    {'group': 'shade', 'height_cm': 8},\n]\nwith path.open('w', newline='', encoding='utf-8') as file:\n    writer = csv.DictWriter(file, fieldnames=['group', 'height_cm'])\n    writer.writeheader()\n    writer.writerows(measurements)\nprint(f'Salvas {len(measurements)} linhas fictícias em {path}')"
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "read_csv",
+        "code": "import csv\nfrom pathlib import Path\n\npath = Path('/shared/data/seedling-heights.csv')\nwith path.open(newline='', encoding='utf-8') as file:\n    rows = list(csv.DictReader(file))\nprint(f'Lidas {len(rows)} linhas de {path.name}')\nfor row in rows:\n    print(f\"{row['group']:>5}: {row['height_cm']} cm\")"
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "compare_groups",
+        "code": "import csv\nfrom pathlib import Path\nfrom statistics import mean\n\npath = Path('/shared/data/seedling-heights.csv')\nwith path.open(newline='', encoding='utf-8') as file:\n    rows = list(csv.DictReader(file))\nlight = [float(row['height_cm']) for row in rows if row['group'] == 'light']\nshade = [float(row['height_cm']) for row in rows if row['group'] == 'shade']\nprint(f'Média da luz: {mean(light):.1f} cm')\nprint(f'Média da sombra: {mean(shade):.1f} cm')\nprint(f'Diferença: {mean(light) - mean(shade):.1f} cm')"
+      },
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "name": "try-a-change",
+        "code": "## Experimente uma alteração\n\nEdite a primeira célula de código: altere uma altura e execute-a novamente. Execute as células de leitura e comparação novamente para ver os novos resultados. O arquivo em `/shared/data/seedling-heights.csv` persiste no sistema de arquivos virtual local do SciREPL.\n\nVocê também pode importar um CSV diferente por meio de **Menu → Import File**. Ele aparecerá em `/shared/data/`; altere o `path` nas células de leitura para o nome exato do arquivo. Não presuma que um `.srwb` exportado inclua o arquivo CSV separado: escolha **Package (archive)** e selecione a pasta de trabalho e o CSV quando precisar movê-los juntos.\n\n**Aviso de sobrescrita e nova execução:** Executar `create_csv` abre `/shared/data/seedling-heights.csv` em modo de gravação e substitui qualquer arquivo que já esteja nesse caminho, incluindo suas edições no CSV. Faça backup de qualquer arquivo que queira manter antes de executá-lo. Após alterar o CSV, execute novamente `read_csv` e `compare_groups` em ordem; a saída exibida anteriormente não é atualizada automaticamente."
+      }
+    ]
+  }
+}

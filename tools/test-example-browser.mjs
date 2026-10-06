@@ -114,6 +114,24 @@ if se > 0:
      py.runPython('import json as _risk_test_json\n_risk_plot_payloads = _risk_test_json.loads(' + JSON.stringify(JSON.stringify(payloads)) + ')\n' + checks);
     }, { payloads, checks: PATIENTS_PLOT_INVARIANTS });
    }
+   if (path.basename(file) === 'oil-shocks-demand.srwb') {
+    const { OIL_NUMERICAL_INVARIANTS } = await import('./test-example-oil.mjs');
+    const payloads = await page.evaluate(() => window.__EXAMPLE_PLOTS);
+    await page.evaluate(({ payloads, checks }) => {
+     const py = window.kernelManager.getKernel('python').getPyodide();
+     py.runPython('import json as _oil_test_json\n_oil_plot_payloads = _oil_test_json.loads(' + JSON.stringify(JSON.stringify(payloads)) + ')\n' + checks);
+    }, { payloads, checks: OIL_NUMERICAL_INVARIANTS });
+   }
+   if (path.basename(file) === 'csv-basics-seedlings.srwb') {
+    await page.evaluate(() => window.kernelManager.getKernel('python').getPyodide().runPython(`
+assert path.as_posix() == '/shared/data/seedling-heights.csv'
+assert path.read_bytes() == b'group,height_cm\\r\\nlight,12\\r\\nlight,14\\r\\nlight,13\\r\\nshade,7\\r\\nshade,9\\r\\nshade,8\\r\\n'
+assert len(rows) == 6
+assert light == [12.0, 14.0, 13.0] and shade == [7.0, 9.0, 8.0]
+assert mean(light) == 13.0 and mean(shade) == 8.0
+assert mean(light) - mean(shade) == 5.0
+`));
+   }
    if (errors.length || network.some(n => !n.allowed)) throw new Error('Page/network failures: ' + JSON.stringify({ errors, network: network.filter(n => !n.allowed) }));
    if (evidence) {
     const stem = file.replaceAll('/', '__').replace(/\.srwb$/, '') + (scenario ? '__' + scenario : '');
