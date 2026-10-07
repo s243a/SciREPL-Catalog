@@ -59,6 +59,14 @@ and work deliberately deferred.
   the unchanged math in its proper order while Arabic prose stays RTL. The
   original translation snapshot is preserved; this controller rendering
   refinement uses zero additional model requests.
+- Clarified the probability update in all 13 editions: the general equation
+  works for any starting distribution; selecting column j explicitly requires
+  a one-hot distribution at j, and the code's j=0 is only an example. Concrete
+  SOLVED[0]=1 and SOLVED[5]=6 examples distinguish position indices from labels.
+  This small controller-authored correction makes no model requests, changes
+  no Python, and retains the completed translation/rendering evidence as
+  historical records. Fresh rendering and regression evidence is separate.
+  Only the 13 Markov item revisions advance again, to 5, with updated hashes.
 
 ## 2026-10-04 — reviewed examples (staging)
 

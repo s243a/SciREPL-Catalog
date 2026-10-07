@@ -1,0 +1,152 @@
+{
+  "allPassed": true,
+  "scope": "Offline inspected English NumPy cells; locale structure only",
+  "predecessorCommit": "017ea7eed65a9dc7875aa5b8c59df489114facbd",
+  "numpyVersion": "2.2.6",
+  "localeStructure": [
+    {
+      "locale": "en",
+      "sha256": "fb6ce124924e450253c7539691590e9d22806a7c62f6e9057328ac3eb71b3989",
+      "predecessorSha256": "c69cca69b060b196107fe0489b0f25cb8ddf5f0d7cca253fcfbb4bbf2179f478",
+      "cells": 13,
+      "preservationPassed": true
+    },
+    {
+      "locale": "ar",
+      "sha256": "59041df24d67d4dc2ee3191ae7054206c575846b34420341fbefe00173db9ffa",
+      "predecessorSha256": "038746d83aa7b6efe8b27c9b1a230fa386fa519cfdc5e8b89e077caebc6a3358",
+      "cells": 13,
+      "preservationPassed": true
+    },
+    {
+      "locale": "bn",
+      "sha256": "9cd8d796ca4898bd54f6eb11ef87b615fbc49db9f7a5fb49ed8dac856718f3b5",
+      "predecessorSha256": "77f631cab2f72f5d2fe5ff14e4583529cfd769ed7b5ad1633b6470be701e341b",
+      "cells": 13,
+      "preservationPassed": true
+    },
+    {
+      "locale": "de",
+      "sha256": "c25bfb8a4b8abf2329c03ffcb90fb991ba261d095d6ca17998cfabb4b1dc683e",
+      "predecessorSha256": "e215872d30afddbde9665b05f84a819dbd811753325d0e23f4cadac758078b8a",
+      "cells": 13,
+      "preservationPassed": true
+    },
+    {
+      "locale": "es",
+      "sha256": "f181ce83a5af17da98fb17eccf5cbd203a52fb5c9fd7629caa63ee3a3e35da72",
+      "predecessorSha256": "2ddf73fa366ef2243835d107125079342e13bc4ef1f812b71e47bc65b973194f",
+      "cells": 13,
+      "preservationPassed": true
+    },
+    {
+      "locale": "fr",
+      "sha256": "e23b91e42717244207a64e74a0655072153ffec797149b3dfdf6fb71ca543485",
+      "predecessorSha256": "fd6078baccfa01fe3f6122c7f5f98398113f81f030ea1aec18cd09fb31adbaf7",
+      "cells": 13,
+      "preservationPassed": true
+    },
+    {
+      "locale": "hi",
+      "sha256": "f98b29ec7dcafa2711b7a4f3f95c0d52304fc516fc0ee5a3a5eeb546b10642fa",
+      "predecessorSha256": "bf1cde7e1608862293efbf0893e6a97e6ec2a5f99a281374dc00c9e02f907760",
+      "cells": 13,
+      "preservationPassed": true
+    },
+    {
+      "locale": "id",
+      "sha256": "041935bc573b93f21b3807a1f3f92da6d18bb0ad235a4fd64e09d44d1351e5fe",
+      "predecessorSha256": "cd967307b0dd47d7a8f226bca856fc442ec786f55be5f282c960d8a5b266da94",
+      "cells": 13,
+      "preservationPassed": true
+    },
+    {
+      "locale": "ja",
+      "sha256": "fc8eb7b346f564967eb0fd2f52a928c5f4e63c1589ea7d539d42798274313049",
+      "predecessorSha256": "a8d0eac240bb81f4a3e82ddb51f23e031e30b5490e995a142021748d00ea5101",
+      "cells": 13,
+      "preservationPassed": true
+    },
+    {
+      "locale": "ko",
+      "sha256": "8000a9d170b78b0c1091efb5e7566e4f25e2a2a02364580fe5f3952c107df6f8",
+      "predecessorSha256": "006f06dec04bea3eb7c4a7b370255209635bcc692aa99cda31b8665f746b1fa9",
+      "cells": 13,
+      "preservationPassed": true
+    },
+    {
+      "locale": "pt-BR",
+      "sha256": "13eeae09e682cb26086257962a29d1ba89c33151d6795f8fafc070761f10c839",
+      "predecessorSha256": "811dc86847f60ea39914dfb1c56dea9a87737f05b86b5fe1cc38454c3e43f1e5",
+      "cells": 13,
+      "preservationPassed": true
+    },
+    {
+      "locale": "ru",
+      "sha256": "bea3632c389279db6c050a8817898b8d16a2a084bb630c8cfb5f7a3ca9ba5389",
+      "predecessorSha256": "a8254e7d9dff89d990ddc169ba31399b8a092d3a387058b78f99977b30268ff1",
+      "cells": 13,
+      "preservationPassed": true
+    },
+    {
+      "locale": "zh",
+      "sha256": "d51ae6f405ac013cc143b946fb5e2304a5a9fd2b9298297e78b28b0c0ea15ec1",
+      "predecessorSha256": "65de72ed03c63e4b9b2829e8249bd6a61ee6557503201e91f304dc717a3ab4ec",
+      "cells": 13,
+      "preservationPassed": true
+    }
+  ],
+  "matrixExactToOldSum": true,
+  "seededTrajectoryExact": true,
+  "splitOutputsExact": true,
+  "twoStepOrderedEnumerationPassed": true,
+  "negativeRegressions": 2,
+  "firstColumn": [
+    {
+      "position": 0,
+      "choicesOutOf13": 7
+    },
+    {
+      "position": 2,
+      "choicesOutOf13": 1
+    },
+    {
+      "position": 6,
+      "choicesOutOf13": 1
+    },
+    {
+      "position": 18,
+      "choicesOutOf13": 1
+    },
+    {
+      "position": 35,
+      "choicesOutOf13": 1
+    },
+    {
+      "position": 42,
+      "choicesOutOf13": 1
+    },
+    {
+      "position": 47,
+      "choicesOutOf13": 1
+    }
+  ],
+  "sampledMoves": [
+    "R'",
+    "B'",
+    "B'",
+    "R",
+    "B",
+    "L'",
+    "L'",
+    "U'",
+    "I",
+    "D",
+    "D",
+    "R"
+  ],
+  "limits": [
+    "No browser/Pyodide runtime initialized",
+    "No network, model, installation or Git writes"
+  ]
+}

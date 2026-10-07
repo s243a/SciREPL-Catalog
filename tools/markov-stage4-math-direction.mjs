@@ -1,7 +1,7 @@
 // Controller-owned rendered scaffolding, never model-proposed HTML. Arabic
 // display math gets an exact LTR container; every other byte stays unchanged.
 import assert from 'node:assert/strict';
-import { MARKOV_STAGE4_PARTS, loadStage4Parts } from './markov-stage4.mjs';
+import { MARKOV_STAGE4_PARTS, loadStage4Parts, assertStage4Parts } from './markov-stage4.mjs';
 
 export const STAGE4_MATH_OPEN = '<div dir="ltr">\n\n';
 export const STAGE4_MATH_CLOSE = '\n\n</div>';
@@ -13,7 +13,7 @@ const ORDER = ['intro', 'coordinates', 'cube_moves', 'check_moves', 'cycles', 's
   'trajectory_bridge', 'random_walk', 'takeaways'];
 const LOCALES = ['en', 'ar', 'bn', 'de', 'es', 'fr', 'hi', 'id', 'ja', 'ko', 'pt-BR', 'ru', 'zh'];
 
-export function applyStage4MathDirection(book, locale, { reverse = false } = {}) {
+export function applyStage4MathDirection(book, locale, { reverse = false, sourceParts = loadStage4Parts() } = {}) {
   assert(LOCALES.includes(locale), 'Unknown Stage 4 locale');
   assert.equal(typeof reverse, 'boolean');
   const result = structuredClone(book);
@@ -21,7 +21,7 @@ export function applyStage4MathDirection(book, locale, { reverse = false } = {})
   assert.equal(book?.format, 'srwb');
   assert.deepEqual(book?.notebook?.cells?.map(cell => cell.name), ORDER,
     'Arabic math refinement requires the exact thirteen-cell Stage 4 order');
-  const source = loadStage4Parts();
+  const source = assertStage4Parts(sourceParts);
   let total = 0;
   for (const [i, part] of MARKOV_STAGE4_PARTS.entries()) {
     const cell = result.notebook.cells[part.index];

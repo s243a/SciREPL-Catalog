@@ -4,12 +4,12 @@
   "locale": "id",
   "source": {
     "path": "workbooks/en/markov-groups.srwb",
-    "sha256": "777bdf582a23c6e588932a56ec6b14ca086d8574619ffe4f026f1c9b3c17d878"
+    "sha256": "fb6ce124924e450253c7539691590e9d22806a7c62f6e9057328ac3eb71b3989"
   },
   "target": {
     "path": "workbooks/id/markov-groups.srwb",
-    "sha256": "4bc7170cc481027ea6421511f1d6a58b647b434d79f7268733eae5fb9f83b0ae",
-    "size": 31868,
+    "sha256": "041935bc573b93f21b3807a1f3f92da6d18bb0ad235a4fd64e09d44d1351e5fe",
+    "size": 32583,
     "title": "Grup Markov: Langkah Acak pada Gerakan Kubus",
     "description": "Modelkan putaran sisi Kubus Rubik sebagai permutasi terverifikasi, pelajari perpangkatan modulo empat, dan bedakan langkah acak malas dari model stokastik satu stiker."
   },
@@ -17,8 +17,8 @@
     "model": "gemini-3.8-flash-medium",
     "contentAudit": {
       "status": "passed",
-      "sourceSha256": "777bdf582a23c6e588932a56ec6b14ca086d8574619ffe4f026f1c9b3c17d878",
-      "targetSha256": "4bc7170cc481027ea6421511f1d6a58b647b434d79f7268733eae5fb9f83b0ae",
+      "sourceSha256": "fb6ce124924e450253c7539691590e9d22806a7c62f6e9057328ac3eb71b3989",
+      "targetSha256": "041935bc573b93f21b3807a1f3f92da6d18bb0ad235a4fd64e09d44d1351e5fe",
       "findings": [],
       "errors": [],
       "reviewMethod": "Prior prose audits retained. Only the three new Stage 4 Markdown fields received bounded review; existing localized comments and output labels were mechanically preserved.",
@@ -32,7 +32,20 @@
         "modelProseApproved": true
       },
       "nativeSpeakerReview": "pending",
-      "caveat": "AI/controller review, not native-speaker or qualified technical certification."
+      "caveat": "AI/controller review, not native-speaker or qualified technical certification.",
+      "clarificationProvenance": {
+        "predecessorCommit": "1d8e5fd1e0a3c1970cf87947697b724ee5dd5501",
+        "predecessorSourceSha256": "777bdf582a23c6e588932a56ec6b14ca086d8574619ffe4f026f1c9b3c17d878",
+        "predecessorTargetSha256": "4bc7170cc481027ea6421511f1d6a58b647b434d79f7268733eae5fb9f83b0ae",
+        "priorAuditSha256": "f81e8ca094ba4c7cba416640e823d5e49d30dd28d966e31adc9dc79cadddc0e7",
+        "cell": "sticker_bridge",
+        "index": 8,
+        "method": "controller-authored-localized-probability-clarification",
+        "modelRequests": 0,
+        "unchangedPythonAndOtherMarkdown": true,
+        "changedDisplayFormulaBlocks": 2,
+        "nativeSpeakerReview": "pending"
+      }
     },
     "policy": {
       "locale": "id",
@@ -62,11 +75,11 @@
       "locale": "id",
       "source": {
         "path": "workbooks/en/markov-groups.srwb",
-        "sha256": "777bdf582a23c6e588932a56ec6b14ca086d8574619ffe4f026f1c9b3c17d878"
+        "sha256": "fb6ce124924e450253c7539691590e9d22806a7c62f6e9057328ac3eb71b3989"
       },
       "target": {
         "path": "workbooks/id/markov-groups.srwb",
-        "sha256": "4bc7170cc481027ea6421511f1d6a58b647b434d79f7268733eae5fb9f83b0ae"
+        "sha256": "041935bc573b93f21b3807a1f3f92da6d18bb0ad235a4fd64e09d44d1351e5fe"
       },
       "spans": [
         {
@@ -2180,6 +2193,64 @@
       "numpyVersion": "2.2.6",
       "executedLocale": "en",
       "scope": "Actual English Python executed locally; all locale structures/syntax checked and preserved code/labels verified mechanically. No Python app runtime, Android or Pro runtime.",
+      "pythonAppRuntime": "not-run"
+    }
+  },
+  "probabilityClarification": {
+    "predecessorCommit": "1d8e5fd1e0a3c1970cf87947697b724ee5dd5501",
+    "predecessorSourceSha256": "777bdf582a23c6e588932a56ec6b14ca086d8574619ffe4f026f1c9b3c17d878",
+    "predecessorTargetSha256": "4bc7170cc481027ea6421511f1d6a58b647b434d79f7268733eae5fb9f83b0ae",
+    "sourceSha256": "fb6ce124924e450253c7539691590e9d22806a7c62f6e9057328ac3eb71b3989",
+    "targetSha256": "041935bc573b93f21b3807a1f3f92da6d18bb0ad235a4fd64e09d44d1351e5fe",
+    "cell": "sticker_bridge",
+    "index": 8,
+    "cells": 13,
+    "predecessorCellSha256": "635ef2481a64d9522da10b86cfd70842d9a6431b7dd66e9ebf39e81a0789b00c",
+    "currentCellSha256": "4eb2127991cd82e02d21f0b08614d7a2f4a750b8470166aecb3e072840f8da8c",
+    "sourceProse": {
+      "path": "tools/markov-stage4-text.json",
+      "predecessorSha256": "fb747a1baf537a2e7f8f5b39edfa370f67259957757a58a8ffa9d0e283d3c908",
+      "sha256": "88935f077ae7525216240b70c60dc1eb3a7077d8bb26e1c8d1cbf6b543516574"
+    },
+    "method": "controller-authored-localized-probability-clarification",
+    "modelRequests": 0,
+    "modelProseApproved": false,
+    "nativeSpeakerReview": "pending",
+    "unchangedPythonAndOtherMarkdown": true,
+    "unchangedMetadataAndFormulaCount": true,
+    "changedDisplayFormulaBlocks": 2,
+    "historicalEvidence": {
+      "predecessorReceiptSha256": "adb851a0c29d5f8a1246e5812ef7ca8f4c8a21aea8b3a5d1bf8425c6266a7fbc",
+      "retainedFields": [
+        "browser",
+        "coordinateUpdate",
+        "cyclesUpdate",
+        "layoutUpdate",
+        "stage4Update"
+      ]
+    },
+    "rendering": {
+      "status": "passed",
+      "path": "reviews/markov-probability-rendering.json",
+      "sha256": "3b56b0e0498dca6bc9b90afac6342f049506f58be6b0343cd2c50edb1018104f",
+      "workbookSha256": "041935bc573b93f21b3807a1f3f92da6d18bb0ad235a4fd64e09d44d1351e5fe",
+      "platform": "Free Chromium browser",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "scope": "Actual workbook import, Markdown/KaTeX render, export/reimport in fresh Chromium",
+      "pythonExecuted": false
+    },
+    "runtime": {
+      "status": "passed",
+      "path": "reviews/markov-probability-runtime.json",
+      "sha256": "c4f04db13e33f38a6ddc7f09be3cb5a166c198ab05037876d49c17a1ad88b24b",
+      "workbookSha256": "041935bc573b93f21b3807a1f3f92da6d18bb0ad235a4fd64e09d44d1351e5fe",
+      "platform": "local-preinstalled-NumPy",
+      "numpyVersion": "2.2.6",
+      "executedLocale": "en",
+      "scope": "Inspected English Python rechecked locally; locale structure and exact clarification checked mechanically. No Python app runtime, Android or Pro runtime.",
       "pythonAppRuntime": "not-run"
     }
   }

@@ -380,8 +380,13 @@ check('Readable transition construction counts alternatives rather than composin
 check('One-hot code and TeX make the single-sticker observable explicit', () => {
   assert.match(named('sticker_step'), /location_probability = np\.zeros\(N\)\nlocation_probability\[0\] = 1\nafter_one_step = T @ location_probability/);
   assert(named('sticker_bridge').includes('`T[:, 0]`'));
-  assert(named('sticker_bridge').includes('x_j^{(0)}=\\begin{cases}'));
-  assert(named('sticker_bridge').includes('x_d^{(1)}=\\sum_{j=0}^{53}T_{d,j}x_j^{(0)}=T_{d,0}'));
+  assert(named('sticker_bridge').includes('x_i^{(0)}=\\begin{cases}1,&i=j'));
+  assert(named('sticker_bridge').includes('x_d^{(1)}=\\sum_{i=0}^{53}T_{d,i}x_i^{(0)}.'));
+  assert(named('sticker_bridge').includes('\\Longrightarrow\\quad x_d^{(1)}=T_{d,j}'));
+  assert(!named('sticker_bridge').includes('=T_{d,0}'));
+  assert(named('sticker_bridge').includes('**any starting probability distribution**'));
+  assert(named('sticker_bridge').includes('**one-hot at position `j`**'));
+  assert(named('sticker_bridge').includes('`SOLVED[0] = 1` and `SOLVED[5] = 6`'));
   const formulas = ['markov_bridge', 'sticker_bridge', 'trajectory_bridge']
     .flatMap(name => [...named(name).matchAll(/\$\$[\s\S]*?\$\$/g)]);
   assert.equal(formulas.length, 4);

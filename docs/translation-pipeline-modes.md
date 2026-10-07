@@ -120,6 +120,15 @@ controller rendering correction, not model-approved HTML or a prose rewrite:
 the pre-wrapper generation snapshot/hash is retained, no further model
 request is made, and final checks require RTL prose with LTR math.
 
+The subsequent owner-requested probability clarification is a separate,
+controller-authored update pinned to `1d8e5fd1e0a3c1970cf87947697b724ee5dd5501`.
+It replaces only the `sticker_bridge` explanation in all 13 editions, making
+the general update and one-hot-at-j condition explicit and distinguishing
+position indices from sticker labels. No model request is made; all code and
+other Markdown remain unchanged. The completed Stage 4 campaign and its
+four-formula rendering reports stay historical, with separate current
+clarification receipts and native-language review still pending.
+
 ## Mode B inputs: give the polisher both versions
 
 The polish prompt should include the ENGLISH source cells alongside the

@@ -4,12 +4,12 @@
   "locale": "es",
   "source": {
     "path": "workbooks/en/markov-groups.srwb",
-    "sha256": "777bdf582a23c6e588932a56ec6b14ca086d8574619ffe4f026f1c9b3c17d878"
+    "sha256": "fb6ce124924e450253c7539691590e9d22806a7c62f6e9057328ac3eb71b3989"
   },
   "target": {
     "path": "workbooks/es/markov-groups.srwb",
-    "sha256": "ced40d7b836203b7fd7a6596eb400b9066c0c86760586f921c3d01e770ee8515",
-    "size": 33074,
+    "sha256": "f181ce83a5af17da98fb17eccf5cbd203a52fb5c9fd7629caa63ee3a3e35da72",
+    "size": 33765,
     "title": "Grupos de Markov: un paseo aleatorio sobre movimientos del cubo",
     "description": "Modelar los giros de las caras del cubo de Rubik como permutaciones verificadas, explorar potencias módulo cuatro y distinguir un paseo aleatorio perezoso de un modelo estocástico de una sola pegatina."
   },
@@ -17,8 +17,8 @@
     "model": "gemini-3.8-flash-medium",
     "contentAudit": {
       "status": "passed",
-      "sourceSha256": "777bdf582a23c6e588932a56ec6b14ca086d8574619ffe4f026f1c9b3c17d878",
-      "targetSha256": "ced40d7b836203b7fd7a6596eb400b9066c0c86760586f921c3d01e770ee8515",
+      "sourceSha256": "fb6ce124924e450253c7539691590e9d22806a7c62f6e9057328ac3eb71b3989",
+      "targetSha256": "f181ce83a5af17da98fb17eccf5cbd203a52fb5c9fd7629caa63ee3a3e35da72",
       "findings": [],
       "errors": [],
       "reviewMethod": "Prior prose audits retained. Only the three new Stage 4 Markdown fields received bounded review; existing localized comments and output labels were mechanically preserved.",
@@ -32,7 +32,20 @@
         "modelProseApproved": true
       },
       "nativeSpeakerReview": "pending",
-      "caveat": "AI/controller review, not native-speaker or qualified technical certification."
+      "caveat": "AI/controller review, not native-speaker or qualified technical certification.",
+      "clarificationProvenance": {
+        "predecessorCommit": "1d8e5fd1e0a3c1970cf87947697b724ee5dd5501",
+        "predecessorSourceSha256": "777bdf582a23c6e588932a56ec6b14ca086d8574619ffe4f026f1c9b3c17d878",
+        "predecessorTargetSha256": "ced40d7b836203b7fd7a6596eb400b9066c0c86760586f921c3d01e770ee8515",
+        "priorAuditSha256": "a6aa3efa015fa2acd8c477c6e2ddcb30e3cc7a0b096b761cf01a52b6867a2086",
+        "cell": "sticker_bridge",
+        "index": 8,
+        "method": "controller-authored-localized-probability-clarification",
+        "modelRequests": 0,
+        "unchangedPythonAndOtherMarkdown": true,
+        "changedDisplayFormulaBlocks": 2,
+        "nativeSpeakerReview": "pending"
+      }
     },
     "policy": {
       "locale": "es",
@@ -62,11 +75,11 @@
       "locale": "es",
       "source": {
         "path": "workbooks/en/markov-groups.srwb",
-        "sha256": "777bdf582a23c6e588932a56ec6b14ca086d8574619ffe4f026f1c9b3c17d878"
+        "sha256": "fb6ce124924e450253c7539691590e9d22806a7c62f6e9057328ac3eb71b3989"
       },
       "target": {
         "path": "workbooks/es/markov-groups.srwb",
-        "sha256": "ced40d7b836203b7fd7a6596eb400b9066c0c86760586f921c3d01e770ee8515"
+        "sha256": "f181ce83a5af17da98fb17eccf5cbd203a52fb5c9fd7629caa63ee3a3e35da72"
       },
       "spans": [
         {
@@ -2180,6 +2193,64 @@
       "numpyVersion": "2.2.6",
       "executedLocale": "en",
       "scope": "Actual English Python executed locally; all locale structures/syntax checked and preserved code/labels verified mechanically. No Python app runtime, Android or Pro runtime.",
+      "pythonAppRuntime": "not-run"
+    }
+  },
+  "probabilityClarification": {
+    "predecessorCommit": "1d8e5fd1e0a3c1970cf87947697b724ee5dd5501",
+    "predecessorSourceSha256": "777bdf582a23c6e588932a56ec6b14ca086d8574619ffe4f026f1c9b3c17d878",
+    "predecessorTargetSha256": "ced40d7b836203b7fd7a6596eb400b9066c0c86760586f921c3d01e770ee8515",
+    "sourceSha256": "fb6ce124924e450253c7539691590e9d22806a7c62f6e9057328ac3eb71b3989",
+    "targetSha256": "f181ce83a5af17da98fb17eccf5cbd203a52fb5c9fd7629caa63ee3a3e35da72",
+    "cell": "sticker_bridge",
+    "index": 8,
+    "cells": 13,
+    "predecessorCellSha256": "43b2a5083451cb6df6834ccffcdd1bd3a0707e32a45b0110309f3a434aaf98f7",
+    "currentCellSha256": "aaff3b84a70ed9a48ecf209d9aa9ea3345d82395023a661b02e1bb0de97f5679",
+    "sourceProse": {
+      "path": "tools/markov-stage4-text.json",
+      "predecessorSha256": "fb747a1baf537a2e7f8f5b39edfa370f67259957757a58a8ffa9d0e283d3c908",
+      "sha256": "88935f077ae7525216240b70c60dc1eb3a7077d8bb26e1c8d1cbf6b543516574"
+    },
+    "method": "controller-authored-localized-probability-clarification",
+    "modelRequests": 0,
+    "modelProseApproved": false,
+    "nativeSpeakerReview": "pending",
+    "unchangedPythonAndOtherMarkdown": true,
+    "unchangedMetadataAndFormulaCount": true,
+    "changedDisplayFormulaBlocks": 2,
+    "historicalEvidence": {
+      "predecessorReceiptSha256": "bc7b2dbb9a1cef2aac714016530e88cbc471b893dcbbf11b28146c967ec99c27",
+      "retainedFields": [
+        "browser",
+        "coordinateUpdate",
+        "cyclesUpdate",
+        "layoutUpdate",
+        "stage4Update"
+      ]
+    },
+    "rendering": {
+      "status": "passed",
+      "path": "reviews/markov-probability-rendering.json",
+      "sha256": "3b56b0e0498dca6bc9b90afac6342f049506f58be6b0343cd2c50edb1018104f",
+      "workbookSha256": "f181ce83a5af17da98fb17eccf5cbd203a52fb5c9fd7629caa63ee3a3e35da72",
+      "platform": "Free Chromium browser",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "scope": "Actual workbook import, Markdown/KaTeX render, export/reimport in fresh Chromium",
+      "pythonExecuted": false
+    },
+    "runtime": {
+      "status": "passed",
+      "path": "reviews/markov-probability-runtime.json",
+      "sha256": "c4f04db13e33f38a6ddc7f09be3cb5a166c198ab05037876d49c17a1ad88b24b",
+      "workbookSha256": "f181ce83a5af17da98fb17eccf5cbd203a52fb5c9fd7629caa63ee3a3e35da72",
+      "platform": "local-preinstalled-NumPy",
+      "numpyVersion": "2.2.6",
+      "executedLocale": "en",
+      "scope": "Inspected English Python rechecked locally; locale structure and exact clarification checked mechanically. No Python app runtime, Android or Pro runtime.",
       "pythonAppRuntime": "not-run"
     }
   }

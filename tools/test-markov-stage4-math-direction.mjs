@@ -37,7 +37,7 @@ export function testStage4MathDirection() {
     book => { book.notebook.cells[6].code = book.notebook.cells[6].code.replace(STAGE4_MATH_OPEN, '<div dir="rtl">\n\n'); },
     book => { book.notebook.cells[6].code = book.notebook.cells[6].code.replace(STAGE4_MATH_CLOSE, '\n</div>'); },
     book => { book.notebook.cells[6].code += '\n' + STAGE4_MATH_OPEN + '$$x=1$$' + STAGE4_MATH_CLOSE; },
-    book => { book.notebook.cells[8].code = book.notebook.cells[8].code.replace('T_{d,0}', 'T_{0,d}'); },
+    book => { book.notebook.cells[8].code = book.notebook.cells[8].code.replace('T_{d,j}', 'T_{j,d}'); },
     book => { book.notebook.cells[10].code += '<section>Unknown wrapper</section>'; }]) {
     const broken = structuredClone(wrapped); mutate(broken);
     check(() => assert.throws(() => applyStage4MathDirection(broken, 'ar', { reverse: true })));

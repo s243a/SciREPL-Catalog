@@ -1,0 +1,80 @@
+{
+  "en": {
+    "labels": "Choose **sticker label 1**, initially at zero-based position **0**. `SOLVED` stores the solved cube's sticker labels: `SOLVED = [1, 2, ..., 54]`. The index is a position; the value is the label occupying it. For example, `SOLVED[0] = 1` and `SOLVED[5] = 6`. Thus `SOLVED[j]` identifies a sticker at position `j`, whereas `location_probability[j]` is the probability that our chosen sticker occupies that position. Same vector length, different meanings.",
+    "general": "Write `location_probability` as `x` in the equations, with superscripts counting steps. For **any starting probability distribution**, the update is:",
+    "conditional": "If the starting position is certainly `j`, the distribution is **one-hot at position `j`**: entry `j` is 1 and every other entry is zero. Only that column contributes, so the result is column `j` of `T`:",
+    "example": "The code uses the particular case `j = 0`: `location_probability[0] = 1`. Therefore `after_one_step = T @ location_probability` equals `T[:, 0]`. In NumPy, `:` means all rows, so this selects the first column. That equality relies on this starting distribution; an uncertain starting position instead gives a weighted combination of columns."
+  },
+  "ar": {
+    "labels": "اختر **الملصق ذي التسمية 1**، الموجود في البداية عند الموضع ذي الفهرس الصفري **0**. تخزّن `SOLVED` تسميات ملصقات المكعب المحلول: `SOLVED = [1, 2, ..., 54]`. الفهرس هو موضع، والقيمة هي تسمية الملصق الموجود فيه. مثلاً، `SOLVED[0] = 1` و`SOLVED[5] = 6`. لذلك تحدّد `SOLVED[j]` الملصق الموجود عند الموضع `j`، بينما تمثّل `location_probability[j]` احتمال وجود ملصقنا المختار عند ذلك الموضع. طول المتجهين واحد، لكن معناهما مختلف.",
+    "general": "نكتب `location_probability` على صورة `x` في المعادلات، وتعدّ المؤشرات العلوية الخطوات. لأي **توزيع احتمالي ابتدائي**، تكون قاعدة التحديث:",
+    "conditional": "إذا كان الموضع الابتدائي هو `j` بالتأكيد، يكون التوزيع **أحادي التفعيل عند الموضع `j`**: المدخلة `j` تساوي 1 وجميع المدخلات الأخرى تساوي صفراً. لا يساهم إلا ذلك العمود، فتكون النتيجة العمود `j` من `T`:",
+    "example": "تستخدم الشفرة الحالة الخاصة `j = 0`: حيث `location_probability[0] = 1`. لذلك يساوي `after_one_step = T @ location_probability` العمود `T[:, 0]`. في NumPy، تعني `:` جميع الصفوف، ولذلك يختار هذا التعبير العمود الأول. تعتمد هذه المساواة على ذلك التوزيع الابتدائي؛ أما عدم اليقين في الموضع الابتدائي فيعطي مزيجاً موزوناً من الأعمدة."
+  },
+  "bn": {
+    "labels": "**স্টিকার লেবেল 1** বেছে নিন, যা প্রথমে শূন্য-ভিত্তিক অবস্থান **0**-তে থাকে। `SOLVED` সমাধান করা ঘনকের স্টিকার লেবেল রাখে: `SOLVED = [1, 2, ..., 54]`। সূচকটি অবস্থান; মানটি সেই অবস্থানে থাকা স্টিকারের লেবেল। যেমন, `SOLVED[0] = 1` এবং `SOLVED[5] = 6`। তাই `SOLVED[j]` অবস্থান `j`-তে থাকা স্টিকারকে চিহ্নিত করে, আর `location_probability[j]` হলো আমাদের নির্বাচিত স্টিকারটি সেই অবস্থানে থাকার সম্ভাবনা। ভেক্টরের দৈর্ঘ্য একই, কিন্তু অর্থ আলাদা।",
+    "general": "সমীকরণে `location_probability`-কে `x` লিখি, যেখানে ঊর্ধ্বসূচক ধাপ গোনে। **যেকোনো প্রাথমিক সম্ভাবনা বণ্টনের** জন্য হালনাগাদের নিয়ম:",
+    "conditional": "প্রাথমিক অবস্থান নিশ্চিতভাবে `j` হলে বণ্টনটি **অবস্থান `j`-তে ওয়ান-হট**: `j` উপাদানটি 1 এবং অন্য সব উপাদান শূন্য। শুধু সেই কলাম অবদান রাখে, তাই ফল হলো `T`-এর `j` কলাম:",
+    "example": "কোডে বিশেষ ক্ষেত্র `j = 0` ব্যবহার করা হয়েছে: `location_probability[0] = 1`। তাই `after_one_step = T @ location_probability` সমান `T[:, 0]`। NumPy-তে `:` মানে সব সারি, তাই এটি প্রথম কলাম বেছে নেয়। এই সমতা ওই প্রাথমিক বণ্টনের ওপর নির্ভর করে; প্রাথমিক অবস্থান অনিশ্চিত হলে কলামগুলোর একটি ভারযুক্ত সমন্বয় পাওয়া যায়।"
+  },
+  "de": {
+    "labels": "Wählen Sie **Stickerkennzeichnung 1**, anfangs an der nullbasierten Position **0**. `SOLVED` enthält die Stickerkennzeichnungen des gelösten Würfels: `SOLVED = [1, 2, ..., 54]`. Der Index ist eine Position; der Wert ist die Kennzeichnung des dort liegenden Stickers. Beispielsweise gilt `SOLVED[0] = 1` und `SOLVED[5] = 6`. Somit bezeichnet `SOLVED[j]` einen Sticker an Position `j`, während `location_probability[j]` die Wahrscheinlichkeit angibt, dass unser ausgewählter Sticker diese Position einnimmt. Gleiche Vektorlänge, unterschiedliche Bedeutungen.",
+    "general": "In den Gleichungen schreiben wir `location_probability` als `x`; die hochgestellten Indizes zählen die Schritte. Für **jede anfängliche Wahrscheinlichkeitsverteilung** gilt:",
+    "conditional": "Ist die Anfangsposition sicher `j`, ist die Verteilung **One-Hot an Position `j`**: Eintrag `j` ist 1, alle anderen Einträge sind null. Nur diese Spalte trägt bei; das Ergebnis ist daher Spalte `j` von `T`:",
+    "example": "Der Code verwendet den Sonderfall `j = 0`: `location_probability[0] = 1`. Deshalb ist `after_one_step = T @ location_probability` gleich `T[:, 0]`. In NumPy bedeutet `:` alle Zeilen; damit wird die erste Spalte ausgewählt. Diese Gleichheit hängt von dieser Anfangsverteilung ab; eine unsichere Anfangsposition ergibt stattdessen eine gewichtete Kombination von Spalten."
+  },
+  "es": {
+    "labels": "Elige la **etiqueta de pegatina 1**, inicialmente en la posición **0**, con índices desde cero. `SOLVED` almacena las etiquetas del cubo resuelto: `SOLVED = [1, 2, ..., 54]`. El índice es una posición; el valor es la etiqueta de la pegatina que la ocupa. Por ejemplo, `SOLVED[0] = 1` y `SOLVED[5] = 6`. Así, `SOLVED[j]` identifica una pegatina en la posición `j`, mientras que `location_probability[j]` es la probabilidad de que nuestra pegatina elegida ocupe esa posición. Misma longitud de vector, significados distintos.",
+    "general": "En las ecuaciones escribimos `location_probability` como `x`, con superíndices que cuentan los pasos. Para **cualquier distribución inicial de probabilidad**, la actualización es:",
+    "conditional": "Si la posición inicial es con certeza `j`, la distribución es **one-hot en la posición `j`**: la entrada `j` es 1 y todas las demás son cero. Solo contribuye esa columna, por lo que el resultado es la columna `j` de `T`:",
+    "example": "El código utiliza el caso particular `j = 0`: `location_probability[0] = 1`. Por tanto, `after_one_step = T @ location_probability` es igual a `T[:, 0]`. En NumPy, `:` significa todas las filas, así que selecciona la primera columna. Esa igualdad depende de esta distribución inicial; una posición inicial incierta produce una combinación ponderada de columnas."
+  },
+  "fr": {
+    "labels": "Choisissez l'**étiquette de sticker 1**, initialement à la position **0**, avec des indices commençant à zéro. `SOLVED` contient les étiquettes du cube résolu : `SOLVED = [1, 2, ..., 54]`. L'indice est une position ; la valeur est l'étiquette du sticker qui l'occupe. Par exemple, `SOLVED[0] = 1` et `SOLVED[5] = 6`. Ainsi, `SOLVED[j]` identifie un sticker à la position `j`, tandis que `location_probability[j]` donne la probabilité que notre sticker choisi occupe cette position. Même longueur de vecteur, significations différentes.",
+    "general": "Dans les équations, nous notons `location_probability` par `x`, avec des exposants qui comptent les étapes. Pour **toute distribution de probabilité initiale**, la mise à jour est :",
+    "conditional": "Si la position initiale est certainement `j`, la distribution est **one-hot à la position `j`** : l'entrée `j` vaut 1 et toutes les autres valent zéro. Seule cette colonne contribue ; le résultat est donc la colonne `j` de `T` :",
+    "example": "Le code utilise le cas particulier `j = 0` : `location_probability[0] = 1`. Ainsi, `after_one_step = T @ location_probability` est égal à `T[:, 0]`. Dans NumPy, `:` signifie toutes les lignes ; cela sélectionne donc la première colonne. Cette égalité dépend de cette distribution initiale ; une position initiale incertaine donne plutôt une combinaison pondérée de colonnes."
+  },
+  "hi": {
+    "labels": "**स्टिकर लेबल 1** चुनें, जो शुरू में शून्य-आधारित स्थिति **0** पर है। `SOLVED` हल किए गए घन के स्टिकर लेबल रखता है: `SOLVED = [1, 2, ..., 54]`। सूचकांक एक स्थिति है; मान उस स्थिति पर मौजूद स्टिकर का लेबल है। उदाहरण के लिए, `SOLVED[0] = 1` और `SOLVED[5] = 6`। इसलिए `SOLVED[j]` स्थिति `j` के स्टिकर की पहचान करता है, जबकि `location_probability[j]` हमारे चुने हुए स्टिकर के उस स्थिति पर होने की प्रायिकता है। वेक्टर की लंबाई समान है, लेकिन अर्थ अलग हैं।",
+    "general": "समीकरणों में `location_probability` को `x` लिखते हैं, जहाँ ऊपरी सूचकांक चरण गिनते हैं। **किसी भी प्रारंभिक प्रायिकता वितरण** के लिए अद्यतन का नियम है:",
+    "conditional": "यदि प्रारंभिक स्थिति निश्चित रूप से `j` है, तो वितरण **स्थिति `j` पर वन-हॉट** है: प्रविष्टि `j` का मान 1 और बाकी सभी का मान शून्य है। केवल वही स्तंभ योगदान देता है, इसलिए परिणाम `T` का स्तंभ `j` है:",
+    "example": "कोड विशेष स्थिति `j = 0` का उपयोग करता है: `location_probability[0] = 1`। इसलिए `after_one_step = T @ location_probability`, `T[:, 0]` के बराबर है। NumPy में `:` का अर्थ सभी पंक्तियाँ है, इसलिए यह पहला स्तंभ चुनता है। यह समानता इसी प्रारंभिक वितरण पर निर्भर है; अनिश्चित प्रारंभिक स्थिति से स्तंभों का भारित संयोजन मिलता है।"
+  },
+  "id": {
+    "labels": "Pilih **label stiker 1**, yang awalnya berada di posisi **0** dengan indeks mulai dari nol. `SOLVED` menyimpan label stiker kubus yang sudah terselesaikan: `SOLVED = [1, 2, ..., 54]`. Indeks menunjukkan posisi; nilainya adalah label stiker yang menempatinya. Misalnya, `SOLVED[0] = 1` dan `SOLVED[5] = 6`. Jadi, `SOLVED[j]` mengidentifikasi stiker pada posisi `j`, sedangkan `location_probability[j]` adalah probabilitas bahwa stiker pilihan kita menempati posisi itu. Panjang vektornya sama, tetapi maknanya berbeda.",
+    "general": "Dalam persamaan, tulis `location_probability` sebagai `x`, dengan superskrip yang menghitung langkah. Untuk **distribusi probabilitas awal apa pun**, pembaruannya adalah:",
+    "conditional": "Jika posisi awal pasti `j`, distribusinya **one-hot pada posisi `j`**: entri `j` bernilai 1 dan semua entri lainnya nol. Hanya kolom itu yang berkontribusi, sehingga hasilnya adalah kolom `j` dari `T`:",
+    "example": "Kode menggunakan kasus khusus `j = 0`: `location_probability[0] = 1`. Karena itu, `after_one_step = T @ location_probability` sama dengan `T[:, 0]`. Dalam NumPy, `:` berarti semua baris, sehingga ini memilih kolom pertama. Kesamaan ini bergantung pada distribusi awal tersebut; posisi awal yang tidak pasti menghasilkan kombinasi berbobot dari beberapa kolom."
+  },
+  "ja": {
+    "labels": "初期状態でゼロ基準の位置 **0** にある**ステッカーラベル 1** を選びます。`SOLVED` は完成状態のキューブのステッカーラベルを格納します：`SOLVED = [1, 2, ..., 54]`。添字は位置を表し、値はそこにあるステッカーのラベルです。例えば、`SOLVED[0] = 1`、`SOLVED[5] = 6` です。したがって、`SOLVED[j]` は位置 `j` のステッカーを識別し、`location_probability[j]` は選んだステッカーがその位置にある確率を表します。ベクトルの長さは同じでも、意味は異なります。",
+    "general": "数式では `location_probability` を `x` と表し、上付き文字でステップ数を数えます。**どのような初期確率分布でも**、更新式は次のとおりです：",
+    "conditional": "初期位置が確実に `j` なら、分布は**位置 `j` のワンホット**です：成分 `j` は 1、それ以外はすべてゼロです。その列だけが寄与するため、結果は `T` の列 `j` になります：",
+    "example": "コードは特別な場合 `j = 0` を使います：`location_probability[0] = 1`。そのため、`after_one_step = T @ location_probability` は `T[:, 0]` に等しくなります。NumPy の `:` はすべての行を意味するので、これは最初の列を選択します。この等式はこの初期分布に依存します。初期位置が不確かな場合には、複数の列の重み付き組合せになります。"
+  },
+  "ko": {
+    "labels": "처음에 영부터 세는 위치 **0**에 있는 **스티커 라벨 1**을 선택합니다. `SOLVED`에는 맞춰진 큐브의 스티커 라벨이 들어 있습니다: `SOLVED = [1, 2, ..., 54]`. 인덱스는 위치이고, 값은 그 위치를 차지하는 스티커의 라벨입니다. 예를 들어 `SOLVED[0] = 1`, `SOLVED[5] = 6`입니다. 따라서 `SOLVED[j]`는 위치 `j`의 스티커를 식별하고, `location_probability[j]`는 선택한 스티커가 그 위치에 있을 확률입니다. 벡터의 길이는 같지만 의미는 다릅니다.",
+    "general": "수식에서는 `location_probability`를 `x`로 쓰고, 위 첨자로 단계 수를 표시합니다. **어떤 초기 확률분포에도** 다음 갱신식을 적용합니다:",
+    "conditional": "초기 위치가 확실히 `j`이면 분포는 **위치 `j`의 원-핫 분포**입니다: 성분 `j`는 1이고 나머지는 모두 영입니다. 그 열만 기여하므로 결과는 `T`의 열 `j`입니다:",
+    "example": "코드는 특수한 경우 `j = 0`을 사용합니다: `location_probability[0] = 1`. 따라서 `after_one_step = T @ location_probability`는 `T[:, 0]`과 같습니다. NumPy에서 `:`는 모든 행을 뜻하므로 첫 번째 열을 선택합니다. 이 등식은 해당 초기 분포에 의존하며, 초기 위치가 불확실하면 여러 열의 가중 조합이 됩니다."
+  },
+  "pt-BR": {
+    "labels": "Escolha a **etiqueta de adesivo 1**, inicialmente na posição **0**, com índices começando em zero. `SOLVED` armazena as etiquetas do cubo resolvido: `SOLVED = [1, 2, ..., 54]`. O índice é uma posição; o valor é a etiqueta do adesivo que a ocupa. Por exemplo, `SOLVED[0] = 1` e `SOLVED[5] = 6`. Assim, `SOLVED[j]` identifica um adesivo na posição `j`, enquanto `location_probability[j]` é a probabilidade de o adesivo escolhido ocupar essa posição. Mesmo comprimento de vetor, significados diferentes.",
+    "general": "Nas equações, escrevemos `location_probability` como `x`, com sobrescritos contando os passos. Para **qualquer distribuição inicial de probabilidade**, a atualização é:",
+    "conditional": "Se a posição inicial é certamente `j`, a distribuição é **one-hot na posição `j`**: a entrada `j` vale 1 e todas as outras valem zero. Apenas essa coluna contribui, portanto o resultado é a coluna `j` de `T`:",
+    "example": "O código usa o caso particular `j = 0`: `location_probability[0] = 1`. Portanto, `after_one_step = T @ location_probability` é igual a `T[:, 0]`. No NumPy, `:` significa todas as linhas, então seleciona a primeira coluna. Essa igualdade depende dessa distribuição inicial; uma posição inicial incerta produz uma combinação ponderada de colunas."
+  },
+  "ru": {
+    "labels": "Выберите **метку наклейки 1**, изначально находящуюся в позиции **0** при нумерации с нуля. `SOLVED` хранит метки наклеек собранного куба: `SOLVED = [1, 2, ..., 54]`. Индекс — это позиция, а значение — метка находящейся там наклейки. Например, `SOLVED[0] = 1` и `SOLVED[5] = 6`. Таким образом, `SOLVED[j]` определяет наклейку в позиции `j`, а `location_probability[j]` — вероятность того, что выбранная наклейка занимает эту позицию. Длина векторов одинакова, смысл различен.",
+    "general": "В уравнениях обозначим `location_probability` как `x`, а верхними индексами будем считать шаги. Для **любого начального распределения вероятностей** правило обновления имеет вид:",
+    "conditional": "Если начальная позиция точно равна `j`, распределение **one-hot в позиции `j`**: элемент `j` равен 1, а все остальные — нулю. Вклад даёт только этот столбец, поэтому результат — столбец `j` матрицы `T`:",
+    "example": "В коде используется частный случай `j = 0`: `location_probability[0] = 1`. Поэтому `after_one_step = T @ location_probability` равно `T[:, 0]`. В NumPy `:` означает все строки, так что выбирается первый столбец. Это равенство зависит от данного начального распределения; неопределённая начальная позиция даёт взвешенную комбинацию столбцов."
+  },
+  "zh": {
+    "labels": "选择初始位于零基位置 **0** 的**贴纸标签 1**。`SOLVED` 保存复原魔方的贴纸标签：`SOLVED = [1, 2, ..., 54]`。索引表示位置，值表示占据该位置的贴纸标签。例如，`SOLVED[0] = 1`，`SOLVED[5] = 6`。因此，`SOLVED[j]` 标识位置 `j` 上的贴纸，而 `location_probability[j]` 表示所选贴纸位于该位置的概率。向量长度相同，含义不同。",
+    "general": "在方程中，将 `location_probability` 写作 `x`，用上标计数步数。对于**任何初始概率分布**，更新规则都是：",
+    "conditional": "如果初始位置确定为 `j`，分布就是**位置 `j` 上的独热分布**：分量 `j` 为 1，其他分量全部为零。只有这一列有贡献，因此结果是 `T` 的第 `j` 列：",
+    "example": "代码使用特例 `j = 0`：`location_probability[0] = 1`。因此，`after_one_step = T @ location_probability` 等于 `T[:, 0]`。在 NumPy 中，`:` 表示所有行，所以这里选取第一列。这一等式依赖于这个初始分布；如果初始位置不确定，就会得到若干列的加权组合。"
+  }
+}

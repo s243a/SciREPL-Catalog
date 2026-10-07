@@ -4,12 +4,12 @@
   "locale": "ja",
   "source": {
     "path": "workbooks/en/markov-groups.srwb",
-    "sha256": "777bdf582a23c6e588932a56ec6b14ca086d8574619ffe4f026f1c9b3c17d878"
+    "sha256": "fb6ce124924e450253c7539691590e9d22806a7c62f6e9057328ac3eb71b3989"
   },
   "target": {
     "path": "workbooks/ja/markov-groups.srwb",
-    "sha256": "1fff2e2e1c60309f0669b4ecec6167d2fab25bd90d894b363142ab01f5963032",
-    "size": 37048,
+    "sha256": "fc8eb7b346f564967eb0fd2f52a928c5f4e63c1589ea7d539d42798274313049",
+    "size": 37770,
     "title": "マルコフ群: キューブの操作によるランダムウォーク",
     "description": "ルービックキューブの面回転を検証済みの置換としてモデル化し、法を四とするべき乗を調べ、怠惰なランダムウォークと単一ステッカーの確率モデルを区別します。"
   },
@@ -17,8 +17,8 @@
     "model": "Gemini draft; independent manual adjudication",
     "contentAudit": {
       "status": "passed",
-      "sourceSha256": "777bdf582a23c6e588932a56ec6b14ca086d8574619ffe4f026f1c9b3c17d878",
-      "targetSha256": "1fff2e2e1c60309f0669b4ecec6167d2fab25bd90d894b363142ab01f5963032",
+      "sourceSha256": "fb6ce124924e450253c7539691590e9d22806a7c62f6e9057328ac3eb71b3989",
+      "targetSha256": "fc8eb7b346f564967eb0fd2f52a928c5f4e63c1589ea7d539d42798274313049",
       "findings": [],
       "errors": [],
       "reviewMethod": "Prior prose audits retained. Only the three new Stage 4 Markdown fields received bounded review; existing localized comments and output labels were mechanically preserved.",
@@ -32,7 +32,20 @@
         "modelProseApproved": true
       },
       "nativeSpeakerReview": "pending",
-      "caveat": "AI/controller review, not native-speaker or qualified technical certification."
+      "caveat": "AI/controller review, not native-speaker or qualified technical certification.",
+      "clarificationProvenance": {
+        "predecessorCommit": "1d8e5fd1e0a3c1970cf87947697b724ee5dd5501",
+        "predecessorSourceSha256": "777bdf582a23c6e588932a56ec6b14ca086d8574619ffe4f026f1c9b3c17d878",
+        "predecessorTargetSha256": "1fff2e2e1c60309f0669b4ecec6167d2fab25bd90d894b363142ab01f5963032",
+        "priorAuditSha256": "9995ee93dde1d1317e2ae6d40159b79f6e6391f2767af08a47597b5f42f56a0f",
+        "cell": "sticker_bridge",
+        "index": 8,
+        "method": "controller-authored-localized-probability-clarification",
+        "modelRequests": 0,
+        "unchangedPythonAndOtherMarkdown": true,
+        "changedDisplayFormulaBlocks": 2,
+        "nativeSpeakerReview": "pending"
+      }
     },
     "policy": {
       "locale": "ja",
@@ -62,11 +75,11 @@
       "locale": "ja",
       "source": {
         "path": "workbooks/en/markov-groups.srwb",
-        "sha256": "777bdf582a23c6e588932a56ec6b14ca086d8574619ffe4f026f1c9b3c17d878"
+        "sha256": "fb6ce124924e450253c7539691590e9d22806a7c62f6e9057328ac3eb71b3989"
       },
       "target": {
         "path": "workbooks/ja/markov-groups.srwb",
-        "sha256": "1fff2e2e1c60309f0669b4ecec6167d2fab25bd90d894b363142ab01f5963032"
+        "sha256": "fc8eb7b346f564967eb0fd2f52a928c5f4e63c1589ea7d539d42798274313049"
       },
       "spans": [
         {
@@ -2180,6 +2193,64 @@
       "numpyVersion": "2.2.6",
       "executedLocale": "en",
       "scope": "Actual English Python executed locally; all locale structures/syntax checked and preserved code/labels verified mechanically. No Python app runtime, Android or Pro runtime.",
+      "pythonAppRuntime": "not-run"
+    }
+  },
+  "probabilityClarification": {
+    "predecessorCommit": "1d8e5fd1e0a3c1970cf87947697b724ee5dd5501",
+    "predecessorSourceSha256": "777bdf582a23c6e588932a56ec6b14ca086d8574619ffe4f026f1c9b3c17d878",
+    "predecessorTargetSha256": "1fff2e2e1c60309f0669b4ecec6167d2fab25bd90d894b363142ab01f5963032",
+    "sourceSha256": "fb6ce124924e450253c7539691590e9d22806a7c62f6e9057328ac3eb71b3989",
+    "targetSha256": "fc8eb7b346f564967eb0fd2f52a928c5f4e63c1589ea7d539d42798274313049",
+    "cell": "sticker_bridge",
+    "index": 8,
+    "cells": 13,
+    "predecessorCellSha256": "eb891f52c53b3e4234f7302e952501ad8e3ea84147af35ae107a3d84f120117b",
+    "currentCellSha256": "ebe424e7dbeb761c5b1f372cc1b941257a04b10b2f970c8886e77c00367e028f",
+    "sourceProse": {
+      "path": "tools/markov-stage4-text.json",
+      "predecessorSha256": "fb747a1baf537a2e7f8f5b39edfa370f67259957757a58a8ffa9d0e283d3c908",
+      "sha256": "88935f077ae7525216240b70c60dc1eb3a7077d8bb26e1c8d1cbf6b543516574"
+    },
+    "method": "controller-authored-localized-probability-clarification",
+    "modelRequests": 0,
+    "modelProseApproved": false,
+    "nativeSpeakerReview": "pending",
+    "unchangedPythonAndOtherMarkdown": true,
+    "unchangedMetadataAndFormulaCount": true,
+    "changedDisplayFormulaBlocks": 2,
+    "historicalEvidence": {
+      "predecessorReceiptSha256": "625ff203a33912427655644cbf69d45e8da0b5b1708f4ceb935a54116bd83674",
+      "retainedFields": [
+        "browser",
+        "coordinateUpdate",
+        "cyclesUpdate",
+        "layoutUpdate",
+        "stage4Update"
+      ]
+    },
+    "rendering": {
+      "status": "passed",
+      "path": "reviews/markov-probability-rendering.json",
+      "sha256": "3b56b0e0498dca6bc9b90afac6342f049506f58be6b0343cd2c50edb1018104f",
+      "workbookSha256": "fc8eb7b346f564967eb0fd2f52a928c5f4e63c1589ea7d539d42798274313049",
+      "platform": "Free Chromium browser",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "scope": "Actual workbook import, Markdown/KaTeX render, export/reimport in fresh Chromium",
+      "pythonExecuted": false
+    },
+    "runtime": {
+      "status": "passed",
+      "path": "reviews/markov-probability-runtime.json",
+      "sha256": "c4f04db13e33f38a6ddc7f09be3cb5a166c198ab05037876d49c17a1ad88b24b",
+      "workbookSha256": "fc8eb7b346f564967eb0fd2f52a928c5f4e63c1589ea7d539d42798274313049",
+      "platform": "local-preinstalled-NumPy",
+      "numpyVersion": "2.2.6",
+      "executedLocale": "en",
+      "scope": "Inspected English Python rechecked locally; locale structure and exact clarification checked mechanically. No Python app runtime, Android or Pro runtime.",
       "pythonAppRuntime": "not-run"
     }
   }

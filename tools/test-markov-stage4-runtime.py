@@ -138,6 +138,18 @@ def check_distribution(namespace):
     check(np.array_equal(matrix, matrix.T), "Equal turn/inverse weighting is not symmetric")
     check(np.array_equal(initial, np.eye(54)[0]), "Initial distribution is not position-0 one-hot")
     check(np.array_equal(after, matrix[:, 0]), "One-hot update is not the first column")
+    # The general rule works for every source position and uncertain starts.
+    for source in range(54):
+        one_hot = np.zeros(54)
+        one_hot[source] = 1
+        check(np.array_equal(matrix @ one_hot, matrix[:, source]),
+              f"One-hot at position {source} did not select its own column")
+    uncertain = np.zeros(54)
+    uncertain[0], uncertain[5] = 0.25, 0.75
+    check(np.allclose(matrix @ uncertain, 0.25 * matrix[:, 0] + 0.75 * matrix[:, 5]),
+          "General probability update did not form the weighted column combination")
+    check(namespace["SOLVED"][0] == 1 and namespace["SOLVED"][5] == 6,
+          "Position-indexed solved labels differ from the prose examples")
     destinations = np.flatnonzero(after).tolist()
     check(destinations == [0, 2, 6, 18, 35, 42, 47], "Unexpected first-step destinations")
     check(after[0] == 7 / 13 and all(after[d] == 1 / 13 for d in destinations if d != 0),
