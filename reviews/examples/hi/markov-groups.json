@@ -4,12 +4,12 @@
   "locale": "hi",
   "source": {
     "path": "workbooks/en/markov-groups.srwb",
-    "sha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c"
+    "sha256": "c69cca69b060b196107fe0489b0f25cb8ddf5f0d7cca253fcfbb4bbf2179f478"
   },
   "target": {
     "path": "workbooks/hi/markov-groups.srwb",
-    "sha256": "7efee4664503882a24b7f22e33f3baf3a64e25c514c70f65733a24049100c858",
-    "size": 37763,
+    "sha256": "bf1cde7e1608862293efbf0893e6a97e6ec2a5f99a281374dc00c9e02f907760",
+    "size": 48364,
     "title": "मार्कोव समूह: क्यूब चालों पर एक रैंडम वॉक",
     "description": "रूबिक क्यूब के फलक घुमावों को सत्यापित क्रमपरिवर्तनों के रूप में मॉडल करें, मॉड्यूलो चार वाली घातों का अन्वेषण करें, और एक लेज़ी रैंडम वॉक तथा एक-स्टिकर स्टोकेस्टिक मॉडल के बीच अंतर स्पष्ट करें।"
   },
@@ -17,16 +17,16 @@
     "model": "gemini-3.8-flash-medium",
     "contentAudit": {
       "status": "passed",
-      "sourceSha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c",
-      "targetSha256": "7efee4664503882a24b7f22e33f3baf3a64e25c514c70f65733a24049100c858",
+      "sourceSha256": "c69cca69b060b196107fe0489b0f25cb8ddf5f0d7cca253fcfbb4bbf2179f478",
+      "targetSha256": "bf1cde7e1608862293efbf0893e6a97e6ec2a5f99a281374dc00c9e02f907760",
       "findings": [],
       "errors": [],
-      "reviewMethod": "Prior audits retained for unchanged cells; cycles-only prose received the identified bounded review and exact KEEP/data gates.",
+      "reviewMethod": "Prior prose audits retained; only the new addenda received bounded review. Comments reuse localized Markdown labels under controller review.",
       "provenance": {
-        "predecessorSourceSha256": "b3795f36599216da86e653e8776127d82f6088ac10e5d8ac358c96a549257ef3",
-        "predecessorTargetSha256": "6e372cfb3ddf996d7b074efae586a278d18b46a9a7336550287d3c526516e47d",
-        "priorAuditSha256": "b2d020865c7fd6a160525cde3b0d1f9447755edf875998d120c5ce52399d99ae",
-        "cyclesUpdateOnly": true
+        "predecessorSourceSha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c",
+        "predecessorTargetSha256": "7efee4664503882a24b7f22e33f3baf3a64e25c514c70f65733a24049100c858",
+        "priorAuditSha256": "ed08d1d35d6f4a676cb7155524a6343ab32e3f2c5d9ecfd7d064f0815b7a16d4",
+        "layoutAddendaAndCommentsOnly": true
       },
       "nativeSpeakerReview": "pending",
       "caveat": "AI/controller review, not native-speaker or qualified technical certification."
@@ -59,11 +59,11 @@
       "locale": "hi",
       "source": {
         "path": "workbooks/en/markov-groups.srwb",
-        "sha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c"
+        "sha256": "c69cca69b060b196107fe0489b0f25cb8ddf5f0d7cca253fcfbb4bbf2179f478"
       },
       "target": {
         "path": "workbooks/hi/markov-groups.srwb",
-        "sha256": "7efee4664503882a24b7f22e33f3baf3a64e25c514c70f65733a24049100c858"
+        "sha256": "bf1cde7e1608862293efbf0893e6a97e6ec2a5f99a281374dc00c9e02f907760"
       },
       "spans": [
         {
@@ -129,22 +129,892 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 205,
+              "line": 11,
+              "col": 9
+            },
+            "end": {
+              "line": 11,
+              "col": 29
+            },
+            "text": "U: Corner stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 11,
+              "col": 9
+            },
+            "end": {
+              "line": 11,
+              "col": 28
+            },
+            "text": "U: कोने के स्टिकर"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 18,
+              "col": 9
+            },
+            "end": {
+              "line": 18,
+              "col": 34
+            },
+            "text": "U: Edge-middle stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 18,
+              "col": 9
+            },
+            "end": {
+              "line": 18,
+              "col": 35
+            },
+            "text": "U: किनारे-मध्य के स्टिकर"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 25,
+              "col": 9
+            },
+            "end": {
+              "line": 25,
+              "col": 42
+            },
+            "text": "Strip cycles: F → L → B → R → F"
+          },
+          "target_span": {
+            "start": {
+              "line": 25,
+              "col": 9
+            },
+            "end": {
+              "line": 25,
+              "col": 40
+            },
+            "text": "पट्टी चक्र: F → L → B → R → F"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 32,
+              "col": 9
+            },
+            "end": {
+              "line": 32,
+              "col": 42
+            },
+            "text": "Strip cycles: F → L → B → R → F"
+          },
+          "target_span": {
+            "start": {
+              "line": 32,
+              "col": 9
+            },
+            "end": {
+              "line": 32,
+              "col": 40
+            },
+            "text": "पट्टी चक्र: F → L → B → R → F"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 39,
+              "col": 9
+            },
+            "end": {
+              "line": 39,
+              "col": 42
+            },
+            "text": "Strip cycles: F → L → B → R → F"
+          },
+          "target_span": {
+            "start": {
+              "line": 39,
+              "col": 9
+            },
+            "end": {
+              "line": 39,
+              "col": 40
+            },
+            "text": "पट्टी चक्र: F → L → B → R → F"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 48,
+              "col": 9
+            },
+            "end": {
+              "line": 48,
+              "col": 29
+            },
+            "text": "D: Corner stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 48,
+              "col": 9
+            },
+            "end": {
+              "line": 48,
+              "col": 28
+            },
+            "text": "D: कोने के स्टिकर"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 55,
+              "col": 9
+            },
+            "end": {
+              "line": 55,
+              "col": 34
+            },
+            "text": "D: Edge-middle stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 55,
+              "col": 9
+            },
+            "end": {
+              "line": 55,
+              "col": 35
+            },
+            "text": "D: किनारे-मध्य के स्टिकर"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 62,
+              "col": 9
+            },
+            "end": {
+              "line": 62,
+              "col": 42
+            },
+            "text": "Strip cycles: F → R → B → L → F"
+          },
+          "target_span": {
+            "start": {
+              "line": 62,
+              "col": 9
+            },
+            "end": {
+              "line": 62,
+              "col": 40
+            },
+            "text": "पट्टी चक्र: F → R → B → L → F"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 69,
+              "col": 9
+            },
+            "end": {
+              "line": 69,
+              "col": 42
+            },
+            "text": "Strip cycles: F → R → B → L → F"
+          },
+          "target_span": {
+            "start": {
+              "line": 69,
+              "col": 9
+            },
+            "end": {
+              "line": 69,
+              "col": 40
+            },
+            "text": "पट्टी चक्र: F → R → B → L → F"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 76,
+              "col": 9
+            },
+            "end": {
+              "line": 76,
+              "col": 42
+            },
+            "text": "Strip cycles: F → R → B → L → F"
+          },
+          "target_span": {
+            "start": {
+              "line": 76,
+              "col": 9
+            },
+            "end": {
+              "line": 76,
+              "col": 40
+            },
+            "text": "पट्टी चक्र: F → R → B → L → F"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 85,
+              "col": 9
+            },
+            "end": {
+              "line": 85,
+              "col": 42
+            },
+            "text": "Strip cycles: U → R → D → L → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 85,
+              "col": 9
+            },
+            "end": {
+              "line": 85,
+              "col": 40
+            },
+            "text": "पट्टी चक्र: U → R → D → L → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 92,
+              "col": 9
+            },
+            "end": {
+              "line": 92,
+              "col": 42
+            },
+            "text": "Strip cycles: U → R → D → L → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 92,
+              "col": 9
+            },
+            "end": {
+              "line": 92,
+              "col": 40
+            },
+            "text": "पट्टी चक्र: U → R → D → L → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 99,
+              "col": 9
+            },
+            "end": {
+              "line": 99,
+              "col": 42
+            },
+            "text": "Strip cycles: U → R → D → L → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 99,
+              "col": 9
+            },
+            "end": {
+              "line": 99,
+              "col": 40
+            },
+            "text": "पट्टी चक्र: U → R → D → L → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 106,
+              "col": 9
+            },
+            "end": {
+              "line": 106,
+              "col": 29
+            },
+            "text": "F: Corner stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 106,
+              "col": 9
+            },
+            "end": {
+              "line": 106,
+              "col": 28
+            },
+            "text": "F: कोने के स्टिकर"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 113,
+              "col": 9
+            },
+            "end": {
+              "line": 113,
+              "col": 34
+            },
+            "text": "F: Edge-middle stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 113,
+              "col": 9
+            },
+            "end": {
+              "line": 113,
+              "col": 35
+            },
+            "text": "F: किनारे-मध्य के स्टिकर"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 122,
+              "col": 9
+            },
+            "end": {
+              "line": 122,
+              "col": 42
+            },
+            "text": "Strip cycles: U → L → D → R → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 122,
+              "col": 9
+            },
+            "end": {
+              "line": 122,
+              "col": 40
+            },
+            "text": "पट्टी चक्र: U → L → D → R → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 129,
+              "col": 9
+            },
+            "end": {
+              "line": 129,
+              "col": 42
+            },
+            "text": "Strip cycles: U → L → D → R → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 129,
+              "col": 9
+            },
+            "end": {
+              "line": 129,
+              "col": 40
+            },
+            "text": "पट्टी चक्र: U → L → D → R → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 136,
+              "col": 9
+            },
+            "end": {
+              "line": 136,
+              "col": 42
+            },
+            "text": "Strip cycles: U → L → D → R → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 136,
+              "col": 9
+            },
+            "end": {
+              "line": 136,
+              "col": 40
+            },
+            "text": "पट्टी चक्र: U → L → D → R → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 143,
+              "col": 9
+            },
+            "end": {
+              "line": 143,
+              "col": 29
+            },
+            "text": "B: Corner stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 143,
+              "col": 9
+            },
+            "end": {
+              "line": 143,
+              "col": 28
+            },
+            "text": "B: कोने के स्टिकर"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 150,
+              "col": 9
+            },
+            "end": {
+              "line": 150,
+              "col": 34
+            },
+            "text": "B: Edge-middle stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 150,
+              "col": 9
+            },
+            "end": {
+              "line": 150,
+              "col": 35
+            },
+            "text": "B: किनारे-मध्य के स्टिकर"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 159,
+              "col": 9
+            },
+            "end": {
+              "line": 159,
+              "col": 42
+            },
+            "text": "Strip cycles: U → F → D → B → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 159,
+              "col": 9
+            },
+            "end": {
+              "line": 159,
+              "col": 40
+            },
+            "text": "पट्टी चक्र: U → F → D → B → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 166,
+              "col": 9
+            },
+            "end": {
+              "line": 166,
+              "col": 42
+            },
+            "text": "Strip cycles: U → F → D → B → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 166,
+              "col": 9
+            },
+            "end": {
+              "line": 166,
+              "col": 40
+            },
+            "text": "पट्टी चक्र: U → F → D → B → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 173,
+              "col": 9
+            },
+            "end": {
+              "line": 173,
+              "col": 42
+            },
+            "text": "Strip cycles: U → F → D → B → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 173,
+              "col": 9
+            },
+            "end": {
+              "line": 173,
+              "col": 40
+            },
+            "text": "पट्टी चक्र: U → F → D → B → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 180,
+              "col": 9
+            },
+            "end": {
+              "line": 180,
+              "col": 29
+            },
+            "text": "L: Corner stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 180,
+              "col": 9
+            },
+            "end": {
+              "line": 180,
+              "col": 28
+            },
+            "text": "L: कोने के स्टिकर"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 187,
+              "col": 9
+            },
+            "end": {
+              "line": 187,
+              "col": 34
+            },
+            "text": "L: Edge-middle stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 187,
+              "col": 9
+            },
+            "end": {
+              "line": 187,
+              "col": 35
+            },
+            "text": "L: किनारे-मध्य के स्टिकर"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 196,
+              "col": 9
+            },
+            "end": {
+              "line": 196,
+              "col": 42
+            },
+            "text": "Strip cycles: U → B → D → F → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 196,
+              "col": 9
+            },
+            "end": {
+              "line": 196,
+              "col": 40
+            },
+            "text": "पट्टी चक्र: U → B → D → F → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 203,
+              "col": 9
+            },
+            "end": {
+              "line": 203,
+              "col": 42
+            },
+            "text": "Strip cycles: U → B → D → F → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 203,
+              "col": 9
+            },
+            "end": {
+              "line": 203,
+              "col": 40
+            },
+            "text": "पट्टी चक्र: U → B → D → F → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 210,
+              "col": 9
+            },
+            "end": {
+              "line": 210,
+              "col": 42
+            },
+            "text": "Strip cycles: U → B → D → F → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 210,
+              "col": 9
+            },
+            "end": {
+              "line": 210,
+              "col": 40
+            },
+            "text": "पट्टी चक्र: U → B → D → F → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 217,
+              "col": 9
+            },
+            "end": {
+              "line": 217,
+              "col": 29
+            },
+            "text": "R: Corner stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 217,
+              "col": 9
+            },
+            "end": {
+              "line": 217,
+              "col": 28
+            },
+            "text": "R: कोने के स्टिकर"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 224,
+              "col": 9
+            },
+            "end": {
+              "line": 224,
+              "col": 34
+            },
+            "text": "R: Edge-middle stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 224,
+              "col": 9
+            },
+            "end": {
+              "line": 224,
+              "col": 35
+            },
+            "text": "R: किनारे-मध्य के स्टिकर"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 235,
               "col": 8
             },
             "end": {
-              "line": 205,
+              "line": 235,
               "col": 62
             },
             "text": "Return p: source position j moves to destination p[j]."
           },
           "target_span": {
             "start": {
-              "line": 205,
+              "line": 235,
               "col": 8
             },
             "end": {
-              "line": 205,
+              "line": 235,
               "col": 56
             },
             "text": "p लौटाएं: स्रोत स्थिति j गंतव्य p[j] पर जाती है।"
@@ -158,22 +1028,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 213,
+              "line": 243,
               "col": 8
             },
             "end": {
-              "line": 213,
+              "line": 243,
               "col": 51
             },
             "text": "Rows are destinations, columns are sources."
           },
           "target_span": {
             "start": {
-              "line": 213,
+              "line": 243,
               "col": 8
             },
             "end": {
-              "line": 213,
+              "line": 243,
               "col": 45
             },
             "text": "पंक्तियाँ गंतव्य हैं, कॉलम स्रोत हैं।"
@@ -187,22 +1057,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 216,
+              "line": 246,
               "col": 27
             },
             "end": {
-              "line": 216,
+              "line": 246,
               "col": 68
             },
             "text": "Expected a permutation of positions 0..53"
           },
           "target_span": {
             "start": {
-              "line": 216,
+              "line": 246,
               "col": 27
             },
             "end": {
-              "line": 216,
+              "line": 246,
               "col": 72
             },
             "text": "स्थितियों 0..53 के क्रमपरिवर्तन की अपेक्षा थी"
@@ -216,22 +1086,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 229,
+              "line": 259,
               "col": 27
             },
             "end": {
-              "line": 229,
+              "line": 259,
               "col": 73
             },
             "text": "Expected each sticker label 1..54 exactly once"
           },
           "target_span": {
             "start": {
-              "line": 229,
+              "line": 259,
               "col": 27
             },
             "end": {
-              "line": 229,
+              "line": 259,
               "col": 76
             },
             "text": "प्रत्येक स्टिकर लेबल 1..54 ठीक एक बार अपेक्षित था"
@@ -245,22 +1115,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 233,
+              "line": 263,
               "col": 8
             },
             "end": {
-              "line": 233,
+              "line": 263,
               "col": 67
             },
             "text": "Apply moves left to right; an apostrophe means the inverse."
           },
           "target_span": {
             "start": {
-              "line": 233,
+              "line": 263,
               "col": 8
             },
             "end": {
-              "line": 233,
+              "line": 263,
               "col": 73
             },
             "text": "चालों को बाएँ से दाएँ लागू करें; एपॉस्ट्रॉफी का अर्थ प्रतिलोम है।"
@@ -274,22 +1144,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 243,
+              "line": 273,
               "col": 31
             },
             "end": {
-              "line": 243,
+              "line": 273,
               "col": 45
             },
             "text": "Unknown move: "
           },
           "target_span": {
             "start": {
-              "line": 243,
+              "line": 273,
               "col": 31
             },
             "end": {
-              "line": 243,
+              "line": 273,
               "col": 43
             },
             "text": "अज्ञात चाल: "
@@ -303,22 +1173,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 248,
+              "line": 278,
               "col": 8
             },
             "end": {
-              "line": 248,
+              "line": 278,
               "col": 76
             },
             "text": "Return home-face letters as colour labels, not physical paint names."
           },
           "target_span": {
             "start": {
-              "line": 248,
+              "line": 278,
               "col": 8
             },
             "end": {
-              "line": 248,
+              "line": 278,
               "col": 88
             },
             "text": "होम-फेस अक्षरों को रंग लेबल के रूप में लौटाएं, भौतिक पेंट नामों के रूप में नहीं।"
@@ -332,22 +1202,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 251,
+              "line": 281,
               "col": 8
             },
             "end": {
-              "line": 251,
+              "line": 281,
               "col": 74
             },
             "text": "Built six clockwise quarter-turn matrices with fixed face centres."
           },
           "target_span": {
             "start": {
-              "line": 251,
+              "line": 281,
               "col": 8
             },
             "end": {
-              "line": 251,
+              "line": 281,
               "col": 79
             },
             "text": "स्थिर फलक केंद्रों के साथ छह दक्षिणावर्त चौथाई-घुमाव मैट्रिक्स बनाए गए।"
@@ -1063,7 +1933,7 @@
     "scope": "prior-revision-runtime",
     "checkedSourceSha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4",
     "checkedTargetSha256": "1e41de6fbc91e68782fc6150ca0e752174609d86005fef9534fb0a433671ccea",
-    "caveat": "Historical executable runs predate the coordinates/cycles Markdown updates; no fresh Python app-runtime run is claimed. Current Markdown import/render checks are recorded separately."
+    "caveat": "Historical executable runs predate the Markdown updates and authorized comment insertions. Current Python changes are comments only; no fresh Python app-runtime run is claimed. Current Markdown import/render checks are separate."
   },
   "caveat": "Machine translated with Gemini and reviewed by AI/controller checks, including scoped corrections where needed. Native-speaker review is pending; structural and numerical checks do not certify prose quality.",
   "coordinateUpdate": {
@@ -1128,6 +1998,71 @@
         "width": 320,
         "height": 844
       }
+    }
+  },
+  "layoutUpdate": {
+    "predecessorCommit": "35b7527e607e089e14deb60ef28ef5e21abd4bee",
+    "predecessorSourceSha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c",
+    "predecessorTargetSha256": "7efee4664503882a24b7f22e33f3baf3a64e25c514c70f65733a24049100c858",
+    "generationSourceSha256": "9153e99a56bc85fdb70879b41b2e073543979c71a24fe33930a419d6ca143f3f",
+    "generationTargetSha256": "78a8e11366d1e9842463bea429746e754045154eaee2cb6f4fc858dbff53ef8e",
+    "sourceSha256": "c69cca69b060b196107fe0489b0f25cb8ddf5f0d7cca253fcfbb4bbf2179f478",
+    "targetSha256": "bf1cde7e1608862293efbf0893e6a97e6ec2a5f99a281374dc00c9e02f907760",
+    "addenda": [
+      {
+        "cell": "coordinates",
+        "index": 1,
+        "prefixCodeUnits": 6356,
+        "preservedPrefixSha256": "9030478d9c86b72c3116f0fc2eb64f417fe99b3a370bb4b04628073fdd99e6ea",
+        "appendedTextSha256": "316298315f6fb15e09924f13227257b7f5cda976ac8f3c410b9117bbd239a51e",
+        "currentCellSha256": "5524c35ad28f07e20a123f98f713690f2019564d02cd7f2e47f32db218cc1964"
+      },
+      {
+        "cell": "cycles",
+        "index": 4,
+        "prefixCodeUnits": 2433,
+        "preservedPrefixSha256": "9cb7f6cdc8fa18d0e87723fd2e098b5836f391bb6b0d97a2a615be8949639f87",
+        "appendedTextSha256": "5af24a76160da0ecd5d2bc2841ef8cd226170bb1ecd0916697909108ef327fb4",
+        "currentCellSha256": "c7b7f8f66378ba9631d22a75fc24916ca4202e8ecfc68311314267e42a00bd2e"
+      }
+    ],
+    "unchangedPriorMarkdownAndSvg": true,
+    "method": "Gemini-draft-and-fresh-same-model-review",
+    "model": "gemini-3.8-flash-medium",
+    "modelProseApproved": true,
+    "modelReviewScope": "supplied-new-Markdown-addenda-only",
+    "requests": {
+      "draft": 1,
+      "freshReview": 1,
+      "repair": 0
+    },
+    "nativeSpeakerReview": "pending",
+    "headerRefinement": null,
+    "comments": {
+      "method": "controller-reused-localized-Markdown-labels",
+      "cell": "cube_moves",
+      "count": 30,
+      "labels": {
+        "corner": "कोने के स्टिकर",
+        "edge": "किनारे-मध्य के स्टिकर",
+        "strip": "पट्टी चक्र"
+      },
+      "generationCellSha256": "63cded0091cb2869ca586d09fe667b85615795d12e492070262da6c122669d3d",
+      "finalCellSha256": "e9e366d8bf206fe58312ee00dbd0fad974cf95cf51765e990831af6e6a50607e",
+      "unchangedNumericCyclesAndRemainingPython": true,
+      "nativeSpeakerReview": "pending"
+    },
+    "rendering": {
+      "status": "passed",
+      "path": "reviews/markov-layout-rendering.json",
+      "sha256": "5e1d6112e69fec0c619a948671a55634ff2a3f972b8b47441105b6834556f000",
+      "workbookSha256": "bf1cde7e1608862293efbf0893e6a97e6ec2a5f99a281374dc00c9e02f907760",
+      "platform": "Free Chromium browser",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "scope": "Current source Markdown import/render/export only"
     }
   }
 }

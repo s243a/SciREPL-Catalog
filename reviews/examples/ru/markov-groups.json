@@ -4,12 +4,12 @@
   "locale": "ru",
   "source": {
     "path": "workbooks/en/markov-groups.srwb",
-    "sha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c"
+    "sha256": "c69cca69b060b196107fe0489b0f25cb8ddf5f0d7cca253fcfbb4bbf2179f478"
   },
   "target": {
     "path": "workbooks/ru/markov-groups.srwb",
-    "sha256": "c8bf67742c782ccb6069f45238c6671fa91d9bda45b63126b1874949d4f72435",
-    "size": 32511,
+    "sha256": "a8254e7d9dff89d990ddc169ba31399b8a092d3a387058b78f99977b30268ff1",
+    "size": 41005,
     "title": "Марковские группы: случайное блуждание по ходам кубика",
     "description": "Моделируйте повороты граней кубика Рубика как верифицированные перестановки, исследуйте степени по модулю четыре и отличайте ленивое случайное блуждание от стохастической модели одной наклейки."
   },
@@ -17,16 +17,16 @@
     "model": "gemini-3.8-flash-medium",
     "contentAudit": {
       "status": "passed",
-      "sourceSha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c",
-      "targetSha256": "c8bf67742c782ccb6069f45238c6671fa91d9bda45b63126b1874949d4f72435",
+      "sourceSha256": "c69cca69b060b196107fe0489b0f25cb8ddf5f0d7cca253fcfbb4bbf2179f478",
+      "targetSha256": "a8254e7d9dff89d990ddc169ba31399b8a092d3a387058b78f99977b30268ff1",
       "findings": [],
       "errors": [],
-      "reviewMethod": "Prior audits retained for unchanged cells; cycles-only prose received the identified bounded review and exact KEEP/data gates.",
+      "reviewMethod": "Prior prose audits retained; only the new addenda received bounded review. Comments reuse localized Markdown labels under controller review.",
       "provenance": {
-        "predecessorSourceSha256": "b3795f36599216da86e653e8776127d82f6088ac10e5d8ac358c96a549257ef3",
-        "predecessorTargetSha256": "7d00bf7427fb981116507edbf078587a3076a3e2bfe7983072013f3ad36ba281",
-        "priorAuditSha256": "9c3a50df1bb631bccebd355c08b86ec3fe5004b5dea8de5d5f9692d8eab62c13",
-        "cyclesUpdateOnly": true
+        "predecessorSourceSha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c",
+        "predecessorTargetSha256": "c8bf67742c782ccb6069f45238c6671fa91d9bda45b63126b1874949d4f72435",
+        "priorAuditSha256": "8126b3b4d0a612054fc56e66418b13de2a2913ca1482fe9e4e8cc5aeaeb28982",
+        "layoutAddendaAndCommentsOnly": true
       },
       "nativeSpeakerReview": "pending",
       "caveat": "AI/controller review, not native-speaker or qualified technical certification."
@@ -59,11 +59,11 @@
       "locale": "ru",
       "source": {
         "path": "workbooks/en/markov-groups.srwb",
-        "sha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c"
+        "sha256": "c69cca69b060b196107fe0489b0f25cb8ddf5f0d7cca253fcfbb4bbf2179f478"
       },
       "target": {
         "path": "workbooks/ru/markov-groups.srwb",
-        "sha256": "c8bf67742c782ccb6069f45238c6671fa91d9bda45b63126b1874949d4f72435"
+        "sha256": "a8254e7d9dff89d990ddc169ba31399b8a092d3a387058b78f99977b30268ff1"
       },
       "spans": [
         {
@@ -129,22 +129,892 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 205,
+              "line": 11,
+              "col": 9
+            },
+            "end": {
+              "line": 11,
+              "col": 29
+            },
+            "text": "U: Corner stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 11,
+              "col": 9
+            },
+            "end": {
+              "line": 11,
+              "col": 30
+            },
+            "text": "U: Угловые наклейки"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 18,
+              "col": 9
+            },
+            "end": {
+              "line": 18,
+              "col": 34
+            },
+            "text": "U: Edge-middle stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 18,
+              "col": 9
+            },
+            "end": {
+              "line": 18,
+              "col": 37
+            },
+            "text": "U: Наклейки середины ребер"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 25,
+              "col": 9
+            },
+            "end": {
+              "line": 25,
+              "col": 42
+            },
+            "text": "Strip cycles: F → L → B → R → F"
+          },
+          "target_span": {
+            "start": {
+              "line": 25,
+              "col": 9
+            },
+            "end": {
+              "line": 25,
+              "col": 41
+            },
+            "text": "Циклы полос: F → L → B → R → F"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 32,
+              "col": 9
+            },
+            "end": {
+              "line": 32,
+              "col": 42
+            },
+            "text": "Strip cycles: F → L → B → R → F"
+          },
+          "target_span": {
+            "start": {
+              "line": 32,
+              "col": 9
+            },
+            "end": {
+              "line": 32,
+              "col": 41
+            },
+            "text": "Циклы полос: F → L → B → R → F"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 39,
+              "col": 9
+            },
+            "end": {
+              "line": 39,
+              "col": 42
+            },
+            "text": "Strip cycles: F → L → B → R → F"
+          },
+          "target_span": {
+            "start": {
+              "line": 39,
+              "col": 9
+            },
+            "end": {
+              "line": 39,
+              "col": 41
+            },
+            "text": "Циклы полос: F → L → B → R → F"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 48,
+              "col": 9
+            },
+            "end": {
+              "line": 48,
+              "col": 29
+            },
+            "text": "D: Corner stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 48,
+              "col": 9
+            },
+            "end": {
+              "line": 48,
+              "col": 30
+            },
+            "text": "D: Угловые наклейки"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 55,
+              "col": 9
+            },
+            "end": {
+              "line": 55,
+              "col": 34
+            },
+            "text": "D: Edge-middle stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 55,
+              "col": 9
+            },
+            "end": {
+              "line": 55,
+              "col": 37
+            },
+            "text": "D: Наклейки середины ребер"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 62,
+              "col": 9
+            },
+            "end": {
+              "line": 62,
+              "col": 42
+            },
+            "text": "Strip cycles: F → R → B → L → F"
+          },
+          "target_span": {
+            "start": {
+              "line": 62,
+              "col": 9
+            },
+            "end": {
+              "line": 62,
+              "col": 41
+            },
+            "text": "Циклы полос: F → R → B → L → F"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 69,
+              "col": 9
+            },
+            "end": {
+              "line": 69,
+              "col": 42
+            },
+            "text": "Strip cycles: F → R → B → L → F"
+          },
+          "target_span": {
+            "start": {
+              "line": 69,
+              "col": 9
+            },
+            "end": {
+              "line": 69,
+              "col": 41
+            },
+            "text": "Циклы полос: F → R → B → L → F"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 76,
+              "col": 9
+            },
+            "end": {
+              "line": 76,
+              "col": 42
+            },
+            "text": "Strip cycles: F → R → B → L → F"
+          },
+          "target_span": {
+            "start": {
+              "line": 76,
+              "col": 9
+            },
+            "end": {
+              "line": 76,
+              "col": 41
+            },
+            "text": "Циклы полос: F → R → B → L → F"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 85,
+              "col": 9
+            },
+            "end": {
+              "line": 85,
+              "col": 42
+            },
+            "text": "Strip cycles: U → R → D → L → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 85,
+              "col": 9
+            },
+            "end": {
+              "line": 85,
+              "col": 41
+            },
+            "text": "Циклы полос: U → R → D → L → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 92,
+              "col": 9
+            },
+            "end": {
+              "line": 92,
+              "col": 42
+            },
+            "text": "Strip cycles: U → R → D → L → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 92,
+              "col": 9
+            },
+            "end": {
+              "line": 92,
+              "col": 41
+            },
+            "text": "Циклы полос: U → R → D → L → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 99,
+              "col": 9
+            },
+            "end": {
+              "line": 99,
+              "col": 42
+            },
+            "text": "Strip cycles: U → R → D → L → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 99,
+              "col": 9
+            },
+            "end": {
+              "line": 99,
+              "col": 41
+            },
+            "text": "Циклы полос: U → R → D → L → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 106,
+              "col": 9
+            },
+            "end": {
+              "line": 106,
+              "col": 29
+            },
+            "text": "F: Corner stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 106,
+              "col": 9
+            },
+            "end": {
+              "line": 106,
+              "col": 30
+            },
+            "text": "F: Угловые наклейки"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 113,
+              "col": 9
+            },
+            "end": {
+              "line": 113,
+              "col": 34
+            },
+            "text": "F: Edge-middle stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 113,
+              "col": 9
+            },
+            "end": {
+              "line": 113,
+              "col": 37
+            },
+            "text": "F: Наклейки середины ребер"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 122,
+              "col": 9
+            },
+            "end": {
+              "line": 122,
+              "col": 42
+            },
+            "text": "Strip cycles: U → L → D → R → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 122,
+              "col": 9
+            },
+            "end": {
+              "line": 122,
+              "col": 41
+            },
+            "text": "Циклы полос: U → L → D → R → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 129,
+              "col": 9
+            },
+            "end": {
+              "line": 129,
+              "col": 42
+            },
+            "text": "Strip cycles: U → L → D → R → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 129,
+              "col": 9
+            },
+            "end": {
+              "line": 129,
+              "col": 41
+            },
+            "text": "Циклы полос: U → L → D → R → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 136,
+              "col": 9
+            },
+            "end": {
+              "line": 136,
+              "col": 42
+            },
+            "text": "Strip cycles: U → L → D → R → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 136,
+              "col": 9
+            },
+            "end": {
+              "line": 136,
+              "col": 41
+            },
+            "text": "Циклы полос: U → L → D → R → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 143,
+              "col": 9
+            },
+            "end": {
+              "line": 143,
+              "col": 29
+            },
+            "text": "B: Corner stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 143,
+              "col": 9
+            },
+            "end": {
+              "line": 143,
+              "col": 30
+            },
+            "text": "B: Угловые наклейки"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 150,
+              "col": 9
+            },
+            "end": {
+              "line": 150,
+              "col": 34
+            },
+            "text": "B: Edge-middle stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 150,
+              "col": 9
+            },
+            "end": {
+              "line": 150,
+              "col": 37
+            },
+            "text": "B: Наклейки середины ребер"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 159,
+              "col": 9
+            },
+            "end": {
+              "line": 159,
+              "col": 42
+            },
+            "text": "Strip cycles: U → F → D → B → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 159,
+              "col": 9
+            },
+            "end": {
+              "line": 159,
+              "col": 41
+            },
+            "text": "Циклы полос: U → F → D → B → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 166,
+              "col": 9
+            },
+            "end": {
+              "line": 166,
+              "col": 42
+            },
+            "text": "Strip cycles: U → F → D → B → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 166,
+              "col": 9
+            },
+            "end": {
+              "line": 166,
+              "col": 41
+            },
+            "text": "Циклы полос: U → F → D → B → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 173,
+              "col": 9
+            },
+            "end": {
+              "line": 173,
+              "col": 42
+            },
+            "text": "Strip cycles: U → F → D → B → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 173,
+              "col": 9
+            },
+            "end": {
+              "line": 173,
+              "col": 41
+            },
+            "text": "Циклы полос: U → F → D → B → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 180,
+              "col": 9
+            },
+            "end": {
+              "line": 180,
+              "col": 29
+            },
+            "text": "L: Corner stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 180,
+              "col": 9
+            },
+            "end": {
+              "line": 180,
+              "col": 30
+            },
+            "text": "L: Угловые наклейки"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 187,
+              "col": 9
+            },
+            "end": {
+              "line": 187,
+              "col": 34
+            },
+            "text": "L: Edge-middle stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 187,
+              "col": 9
+            },
+            "end": {
+              "line": 187,
+              "col": 37
+            },
+            "text": "L: Наклейки середины ребер"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 196,
+              "col": 9
+            },
+            "end": {
+              "line": 196,
+              "col": 42
+            },
+            "text": "Strip cycles: U → B → D → F → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 196,
+              "col": 9
+            },
+            "end": {
+              "line": 196,
+              "col": 41
+            },
+            "text": "Циклы полос: U → B → D → F → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 203,
+              "col": 9
+            },
+            "end": {
+              "line": 203,
+              "col": 42
+            },
+            "text": "Strip cycles: U → B → D → F → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 203,
+              "col": 9
+            },
+            "end": {
+              "line": 203,
+              "col": 41
+            },
+            "text": "Циклы полос: U → B → D → F → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 210,
+              "col": 9
+            },
+            "end": {
+              "line": 210,
+              "col": 42
+            },
+            "text": "Strip cycles: U → B → D → F → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 210,
+              "col": 9
+            },
+            "end": {
+              "line": 210,
+              "col": 41
+            },
+            "text": "Циклы полос: U → B → D → F → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 217,
+              "col": 9
+            },
+            "end": {
+              "line": 217,
+              "col": 29
+            },
+            "text": "R: Corner stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 217,
+              "col": 9
+            },
+            "end": {
+              "line": 217,
+              "col": 30
+            },
+            "text": "R: Угловые наклейки"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 224,
+              "col": 9
+            },
+            "end": {
+              "line": 224,
+              "col": 34
+            },
+            "text": "R: Edge-middle stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 224,
+              "col": 9
+            },
+            "end": {
+              "line": 224,
+              "col": 37
+            },
+            "text": "R: Наклейки середины ребер"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 235,
               "col": 8
             },
             "end": {
-              "line": 205,
+              "line": 235,
               "col": 62
             },
             "text": "Return p: source position j moves to destination p[j]."
           },
           "target_span": {
             "start": {
-              "line": 205,
+              "line": 235,
               "col": 8
             },
             "end": {
-              "line": 205,
+              "line": 235,
               "col": 77
             },
             "text": "Возвращает p: исходная позиция j перемещается в целевую позицию p[j]."
@@ -158,22 +1028,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 213,
+              "line": 243,
               "col": 8
             },
             "end": {
-              "line": 213,
+              "line": 243,
               "col": 51
             },
             "text": "Rows are destinations, columns are sources."
           },
           "target_span": {
             "start": {
-              "line": 213,
+              "line": 243,
               "col": 8
             },
             "end": {
-              "line": 213,
+              "line": 243,
               "col": 53
             },
             "text": "Строки — целевые позиции, столбцы — исходные."
@@ -187,22 +1057,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 216,
+              "line": 246,
               "col": 27
             },
             "end": {
-              "line": 216,
+              "line": 246,
               "col": 68
             },
             "text": "Expected a permutation of positions 0..53"
           },
           "target_span": {
             "start": {
-              "line": 216,
+              "line": 246,
               "col": 27
             },
             "end": {
-              "line": 216,
+              "line": 246,
               "col": 63
             },
             "text": "Ожидалась перестановка позиций 0..53"
@@ -216,22 +1086,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 229,
+              "line": 259,
               "col": 27
             },
             "end": {
-              "line": 229,
+              "line": 259,
               "col": 73
             },
             "text": "Expected each sticker label 1..54 exactly once"
           },
           "target_span": {
             "start": {
-              "line": 229,
+              "line": 259,
               "col": 27
             },
             "end": {
-              "line": 229,
+              "line": 259,
               "col": 85
             },
             "text": "Ожидалась каждая метка наклейки 1..54 ровно по одному разу"
@@ -245,22 +1115,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 233,
+              "line": 263,
               "col": 8
             },
             "end": {
-              "line": 233,
+              "line": 263,
               "col": 67
             },
             "text": "Apply moves left to right; an apostrophe means the inverse."
           },
           "target_span": {
             "start": {
-              "line": 233,
+              "line": 263,
               "col": 8
             },
             "end": {
-              "line": 233,
+              "line": 263,
               "col": 69
             },
             "text": "Применяет ходы слева направо; апостроф означает обратный ход."
@@ -274,22 +1144,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 243,
+              "line": 273,
               "col": 31
             },
             "end": {
-              "line": 243,
+              "line": 273,
               "col": 45
             },
             "text": "Unknown move: "
           },
           "target_span": {
             "start": {
-              "line": 243,
+              "line": 273,
               "col": 31
             },
             "end": {
-              "line": 243,
+              "line": 273,
               "col": 48
             },
             "text": "Неизвестный ход: "
@@ -303,22 +1173,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 248,
+              "line": 278,
               "col": 8
             },
             "end": {
-              "line": 248,
+              "line": 278,
               "col": 76
             },
             "text": "Return home-face letters as colour labels, not physical paint names."
           },
           "target_span": {
             "start": {
-              "line": 248,
+              "line": 278,
               "col": 8
             },
             "end": {
-              "line": 248,
+              "line": 278,
               "col": 100
             },
             "text": "Возвращает буквы исходных граней в качестве цветовых меток, а не физические названия красок."
@@ -332,22 +1202,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 251,
+              "line": 281,
               "col": 8
             },
             "end": {
-              "line": 251,
+              "line": 281,
               "col": 74
             },
             "text": "Built six clockwise quarter-turn matrices with fixed face centres."
           },
           "target_span": {
             "start": {
-              "line": 251,
+              "line": 281,
               "col": 8
             },
             "end": {
-              "line": 251,
+              "line": 281,
               "col": 112
             },
             "text": "Построено шесть матриц поворота на четверть оборота по часовой стрелке с фиксированными центрами граней."
@@ -1063,7 +1933,7 @@
     "scope": "prior-revision-runtime",
     "checkedSourceSha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4",
     "checkedTargetSha256": "ae5213fd8e67d9ba7d5cbbdccd0e1250f5bd39f4a171869e063c63364da4b638",
-    "caveat": "Historical executable runs predate the coordinates/cycles Markdown updates; no fresh Python app-runtime run is claimed. Current Markdown import/render checks are recorded separately."
+    "caveat": "Historical executable runs predate the Markdown updates and authorized comment insertions. Current Python changes are comments only; no fresh Python app-runtime run is claimed. Current Markdown import/render checks are separate."
   },
   "caveat": "Machine translated with Gemini and reviewed by AI/controller checks, including scoped corrections where needed. Native-speaker review is pending; structural and numerical checks do not certify prose quality.",
   "coordinateUpdate": {
@@ -1128,6 +1998,71 @@
         "width": 320,
         "height": 844
       }
+    }
+  },
+  "layoutUpdate": {
+    "predecessorCommit": "35b7527e607e089e14deb60ef28ef5e21abd4bee",
+    "predecessorSourceSha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c",
+    "predecessorTargetSha256": "c8bf67742c782ccb6069f45238c6671fa91d9bda45b63126b1874949d4f72435",
+    "generationSourceSha256": "9153e99a56bc85fdb70879b41b2e073543979c71a24fe33930a419d6ca143f3f",
+    "generationTargetSha256": "5bd67b83f8fc4ace42467b7b0d84084c6831eb8e2c398833e77da51f121846f9",
+    "sourceSha256": "c69cca69b060b196107fe0489b0f25cb8ddf5f0d7cca253fcfbb4bbf2179f478",
+    "targetSha256": "a8254e7d9dff89d990ddc169ba31399b8a092d3a387058b78f99977b30268ff1",
+    "addenda": [
+      {
+        "cell": "coordinates",
+        "index": 1,
+        "prefixCodeUnits": 6734,
+        "preservedPrefixSha256": "6704f92fc0b62e1d231a17e13b2fecba5ce3e28d59b40437bbde79fd5ad644a5",
+        "appendedTextSha256": "643a9da8a963b3785bdf184875aadf4f8deca6a30550d600713e4c48e8201105",
+        "currentCellSha256": "f089792c0cd543a1ee39c113bece99b09030d60a2358b7635d7ca03de3b67e0b"
+      },
+      {
+        "cell": "cycles",
+        "index": 4,
+        "prefixCodeUnits": 2563,
+        "preservedPrefixSha256": "285fe2788041c71d04cca25ebefedea76ebdae2f34b7f64faec372251077144a",
+        "appendedTextSha256": "964411ca64eb07c710826e71446d5124cd3477c1561be9dcda6d215f91d7be38",
+        "currentCellSha256": "22e6b478b1833375cf18ba7eedf84bdca7acfd873f02740a38972f6af605cf53"
+      }
+    ],
+    "unchangedPriorMarkdownAndSvg": true,
+    "method": "controller-manual-fallback-after-model-failure",
+    "model": "gemini-3.8-flash-medium",
+    "modelProseApproved": false,
+    "modelReviewScope": "supplied-new-Markdown-addenda-only",
+    "requests": {
+      "draft": 1,
+      "freshReview": 1,
+      "repair": 0
+    },
+    "nativeSpeakerReview": "pending",
+    "headerRefinement": null,
+    "comments": {
+      "method": "controller-reused-localized-Markdown-labels",
+      "cell": "cube_moves",
+      "count": 30,
+      "labels": {
+        "corner": "Угловые наклейки",
+        "edge": "Наклейки середины ребер",
+        "strip": "Циклы полос"
+      },
+      "generationCellSha256": "e6c16f2636bfd03146a1d1a741ff27fa7a3f551f43039c63602a3cbbb3e5bf4c",
+      "finalCellSha256": "e6251cc7a5927fd324b23c895ca705041b36c0f2d466d699e356788fe8550ad5",
+      "unchangedNumericCyclesAndRemainingPython": true,
+      "nativeSpeakerReview": "pending"
+    },
+    "rendering": {
+      "status": "passed",
+      "path": "reviews/markov-layout-rendering.json",
+      "sha256": "5e1d6112e69fec0c619a948671a55634ff2a3f972b8b47441105b6834556f000",
+      "workbookSha256": "a8254e7d9dff89d990ddc169ba31399b8a092d3a387058b78f99977b30268ff1",
+      "platform": "Free Chromium browser",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "scope": "Current source Markdown import/render/export only"
     }
   }
 }

@@ -4,12 +4,12 @@
   "locale": "en",
   "source": {
     "path": "workbooks/en/markov-groups.srwb",
-    "sha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c"
+    "sha256": "c69cca69b060b196107fe0489b0f25cb8ddf5f0d7cca253fcfbb4bbf2179f478"
   },
   "target": {
     "path": "workbooks/en/markov-groups.srwb",
-    "sha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c",
-    "size": 21338,
+    "sha256": "c69cca69b060b196107fe0489b0f25cb8ddf5f0d7cca253fcfbb4bbf2179f478",
+    "size": 26336,
     "title": "Markov Groups: A Random Walk on Cube Moves",
     "description": "Verify Rubik cube sticker permutations, four-turn cycles and noncommuting moves, then build a lazy Markov random walk. The one-sticker transition matrix is not the full cube-state chain."
   },
@@ -78,7 +78,7 @@
     "scope": "prior-revision-runtime",
     "checkedSourceSha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4",
     "checkedTargetSha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4",
-    "caveat": "Historical executable runs predate the coordinates/cycles Markdown updates; no fresh Python app-runtime run is claimed. Current Markdown import/render checks are recorded separately."
+    "caveat": "Historical executable runs predate the Markdown updates and authorized comment insertions. Current Python changes are comments only; no fresh Python app-runtime run is claimed. Current Markdown import/render checks are separate."
   },
   "caveat": "Reviewed educational examples; stated limitations still apply.",
   "coordinateUpdate": {
@@ -135,6 +135,67 @@
         "width": 320,
         "height": 844
       }
+    }
+  },
+  "layoutUpdate": {
+    "predecessorCommit": "35b7527e607e089e14deb60ef28ef5e21abd4bee",
+    "predecessorSourceSha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c",
+    "predecessorTargetSha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c",
+    "generationSourceSha256": "9153e99a56bc85fdb70879b41b2e073543979c71a24fe33930a419d6ca143f3f",
+    "generationTargetSha256": "9153e99a56bc85fdb70879b41b2e073543979c71a24fe33930a419d6ca143f3f",
+    "sourceSha256": "c69cca69b060b196107fe0489b0f25cb8ddf5f0d7cca253fcfbb4bbf2179f478",
+    "targetSha256": "c69cca69b060b196107fe0489b0f25cb8ddf5f0d7cca253fcfbb4bbf2179f478",
+    "addenda": [
+      {
+        "cell": "coordinates",
+        "index": 1,
+        "prefixCodeUnits": 6110,
+        "preservedPrefixSha256": "723fc4e0aba8ee738c4c1531e49187abeddb79b3ac8ca17fff6d15ba26cd7c0c",
+        "appendedTextSha256": "9b899a654e5b5d73164c72ddcaa376763a15e32d2424e5c1acc3ff514a6a741a",
+        "currentCellSha256": "df59c41a471d1573ee86a1686b700e41c4f282cbfba99dab969299eca3a24510"
+      },
+      {
+        "cell": "cycles",
+        "index": 4,
+        "prefixCodeUnits": 2299,
+        "preservedPrefixSha256": "126ce87c302f97b0191fe82cc20f15bbac91b54226d3158eecea4f20ca222d23",
+        "appendedTextSha256": "e9ae3826a204e4cc2048103eca974b7576c02aa1a49d0a2015f0b91138ad5546",
+        "currentCellSha256": "8c34475f89c86b7f43dd5f7bd3314b54e52fe58fdb4a14a1e14aca411a307155"
+      }
+    ],
+    "unchangedPriorMarkdownAndSvg": true,
+    "method": "controller-authored",
+    "model": null,
+    "modelProseApproved": false,
+    "modelReviewScope": "supplied-new-Markdown-addenda-only",
+    "requests": null,
+    "nativeSpeakerReview": "not-applicable",
+    "headerRefinement": null,
+    "comments": {
+      "method": "controller-reused-localized-Markdown-labels",
+      "cell": "cube_moves",
+      "count": 30,
+      "labels": {
+        "corner": "Corner stickers",
+        "edge": "Edge-middle stickers",
+        "strip": "Strip cycles"
+      },
+      "generationCellSha256": "9d16ddb165fbbf134825f758ae38fbbe44a69029506d30e957caec748ebbb848",
+      "finalCellSha256": "6fea2470c5951b4223e2d177a332684d33e53cfe5ee4d46bc21ae7afebc84444",
+      "unchangedNumericCyclesAndRemainingPython": true,
+      "nativeSpeakerReview": "not-applicable"
+    },
+    "rendering": {
+      "status": "passed",
+      "path": "reviews/markov-layout-rendering.json",
+      "sha256": "5e1d6112e69fec0c619a948671a55634ff2a3f972b8b47441105b6834556f000",
+      "workbookSha256": "c69cca69b060b196107fe0489b0f25cb8ddf5f0d7cca253fcfbb4bbf2179f478",
+      "platform": "Free Chromium browser",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "scope": "Current source Markdown import/render/export only"
     }
   }
 }

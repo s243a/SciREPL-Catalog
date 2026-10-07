@@ -9,16 +9,34 @@ and work deliberately deferred.
   normals and the front-to-top paper tilt in all 13 Markov Groups editions.
   Added two self-contained, accessible inline SVGs, readable in light/dark
   themes and on narrow screens; no runtime is needed to see them on import.
-- All nine cell names/order and existing Python remain unchanged. Fresh
+- The earlier coordinate/cycle clarification kept all nine cell names/order
+  and existing Python unchanged. Fresh
   Free-browser diagram checks are recorded separately from prior executable
   runtime evidence. For coordinates, Gemini refreshed 11 translations; German used an
   authorized controller/manual fallback after a truncated model response.
-  Native-speaker review remains pending. Item revisions rise to 2; no catalog
+  Native-speaker review remains pending. Those item revisions became 2; no catalog
   version or release tag changes.
 - Explained the clockwise U corner/edge position cycles, neighbouring face
   strips, zero-based versus printed one-based positions, and sticker paths
-  versus whole cubies in all 13 editions. Only the `cycles` Markdown changes;
-  executable code and the coordinate diagrams remain unchanged.
+  versus whole cubies in all 13 editions. That update changed only the
+  `cycles` Markdown; executable code and coordinate diagrams were unchanged.
+- Added explicit front-referenced face-frame rotations, a compact face/index/
+  position-number table, and the geometry and minimum-index ordering of the
+  five move cycles in all 13 editions. Both completed Markdown prefixes and
+  coordinate diagrams are retained byte-for-byte.
+- Added 30 localized Python comments per edition to identify corner, edge and
+  neighbouring-strip cycles. Only these authorized comment lines change Python;
+  move data/order and every remaining code byte are unchanged. Comments reuse
+  localized Markdown labels rather than adding model requests.
+- For these new addenda, six editions passed fresh Gemini draft/review pairs;
+  bn, de, ko, pt-BR, ru and zh used authorized controller/manual fallback after
+  recorded protocol failures. The campaign used 19 requests with no retries or
+  repairs. Native-speaker review remains pending. Item revisions rise to 3,
+  without a catalog version or release-tag change; current Markdown rendering
+  checks and historical executable runs retain separate source hashes.
+- Reflowed the new German cycle-table headings after the actual narrow-screen
+  check; the original campaign hashes remain recorded and no extra model
+  request was made.
 
 ## 2026-10-04 — reviewed examples (staging)
 

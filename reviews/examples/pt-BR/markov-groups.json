@@ -4,12 +4,12 @@
   "locale": "pt-BR",
   "source": {
     "path": "workbooks/en/markov-groups.srwb",
-    "sha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c"
+    "sha256": "c69cca69b060b196107fe0489b0f25cb8ddf5f0d7cca253fcfbb4bbf2179f478"
   },
   "target": {
     "path": "workbooks/pt-BR/markov-groups.srwb",
-    "sha256": "0df04bd6d085e416524d98863442a39114e0c18342f30bbef2179c16259b6310",
-    "size": 23281,
+    "sha256": "811dc86847f60ea39914dfb1c56dea9a87737f05b86b5fe1cc38454c3e43f1e5",
+    "size": 28919,
     "title": "Grupos de Markov: um passeio aleatório sobre movimentos do cubo",
     "description": "Modele giros de faces do Cubo Mágico como permutações verificadas, explore potências módulo quatro e distinga um passeio aleatório preguiçoso de um modelo estocástico de um adesivo."
   },
@@ -17,16 +17,16 @@
     "model": "gemini-3.8-flash-medium",
     "contentAudit": {
       "status": "passed",
-      "sourceSha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c",
-      "targetSha256": "0df04bd6d085e416524d98863442a39114e0c18342f30bbef2179c16259b6310",
+      "sourceSha256": "c69cca69b060b196107fe0489b0f25cb8ddf5f0d7cca253fcfbb4bbf2179f478",
+      "targetSha256": "811dc86847f60ea39914dfb1c56dea9a87737f05b86b5fe1cc38454c3e43f1e5",
       "findings": [],
       "errors": [],
-      "reviewMethod": "Prior audits retained for unchanged cells; cycles-only prose received the identified bounded review and exact KEEP/data gates.",
+      "reviewMethod": "Prior prose audits retained; only the new addenda received bounded review. Comments reuse localized Markdown labels under controller review.",
       "provenance": {
-        "predecessorSourceSha256": "b3795f36599216da86e653e8776127d82f6088ac10e5d8ac358c96a549257ef3",
-        "predecessorTargetSha256": "bdccab0ebd946881da9c168e52bf7f28970b1b92a81bd80b55a2d44a2f41fbfc",
-        "priorAuditSha256": "d9dd0f68d9f3885eb6eaeda3068d3aba364377821012e0b1467c9b235ae956b9",
-        "cyclesUpdateOnly": true
+        "predecessorSourceSha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c",
+        "predecessorTargetSha256": "0df04bd6d085e416524d98863442a39114e0c18342f30bbef2179c16259b6310",
+        "priorAuditSha256": "02b7749213ea272b14e92ffd5095fca911b32647937c6b4a07f5dc760b69cc97",
+        "layoutAddendaAndCommentsOnly": true
       },
       "nativeSpeakerReview": "pending",
       "caveat": "AI/controller review, not native-speaker or qualified technical certification."
@@ -59,11 +59,11 @@
       "locale": "pt-BR",
       "source": {
         "path": "workbooks/en/markov-groups.srwb",
-        "sha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c"
+        "sha256": "c69cca69b060b196107fe0489b0f25cb8ddf5f0d7cca253fcfbb4bbf2179f478"
       },
       "target": {
         "path": "workbooks/pt-BR/markov-groups.srwb",
-        "sha256": "0df04bd6d085e416524d98863442a39114e0c18342f30bbef2179c16259b6310"
+        "sha256": "811dc86847f60ea39914dfb1c56dea9a87737f05b86b5fe1cc38454c3e43f1e5"
       },
       "spans": [
         {
@@ -129,22 +129,892 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 205,
+              "line": 11,
+              "col": 9
+            },
+            "end": {
+              "line": 11,
+              "col": 29
+            },
+            "text": "U: Corner stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 11,
+              "col": 9
+            },
+            "end": {
+              "line": 11,
+              "col": 31
+            },
+            "text": "U: Adesivos de canto"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 18,
+              "col": 9
+            },
+            "end": {
+              "line": 18,
+              "col": 34
+            },
+            "text": "U: Edge-middle stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 18,
+              "col": 9
+            },
+            "end": {
+              "line": 18,
+              "col": 40
+            },
+            "text": "U: Adesivos de meio de aresta"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 25,
+              "col": 9
+            },
+            "end": {
+              "line": 25,
+              "col": 42
+            },
+            "text": "Strip cycles: F → L → B → R → F"
+          },
+          "target_span": {
+            "start": {
+              "line": 25,
+              "col": 9
+            },
+            "end": {
+              "line": 25,
+              "col": 47
+            },
+            "text": "Ciclos das faixas: F → L → B → R → F"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 32,
+              "col": 9
+            },
+            "end": {
+              "line": 32,
+              "col": 42
+            },
+            "text": "Strip cycles: F → L → B → R → F"
+          },
+          "target_span": {
+            "start": {
+              "line": 32,
+              "col": 9
+            },
+            "end": {
+              "line": 32,
+              "col": 47
+            },
+            "text": "Ciclos das faixas: F → L → B → R → F"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 39,
+              "col": 9
+            },
+            "end": {
+              "line": 39,
+              "col": 42
+            },
+            "text": "Strip cycles: F → L → B → R → F"
+          },
+          "target_span": {
+            "start": {
+              "line": 39,
+              "col": 9
+            },
+            "end": {
+              "line": 39,
+              "col": 47
+            },
+            "text": "Ciclos das faixas: F → L → B → R → F"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 48,
+              "col": 9
+            },
+            "end": {
+              "line": 48,
+              "col": 29
+            },
+            "text": "D: Corner stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 48,
+              "col": 9
+            },
+            "end": {
+              "line": 48,
+              "col": 31
+            },
+            "text": "D: Adesivos de canto"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 55,
+              "col": 9
+            },
+            "end": {
+              "line": 55,
+              "col": 34
+            },
+            "text": "D: Edge-middle stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 55,
+              "col": 9
+            },
+            "end": {
+              "line": 55,
+              "col": 40
+            },
+            "text": "D: Adesivos de meio de aresta"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 62,
+              "col": 9
+            },
+            "end": {
+              "line": 62,
+              "col": 42
+            },
+            "text": "Strip cycles: F → R → B → L → F"
+          },
+          "target_span": {
+            "start": {
+              "line": 62,
+              "col": 9
+            },
+            "end": {
+              "line": 62,
+              "col": 47
+            },
+            "text": "Ciclos das faixas: F → R → B → L → F"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 69,
+              "col": 9
+            },
+            "end": {
+              "line": 69,
+              "col": 42
+            },
+            "text": "Strip cycles: F → R → B → L → F"
+          },
+          "target_span": {
+            "start": {
+              "line": 69,
+              "col": 9
+            },
+            "end": {
+              "line": 69,
+              "col": 47
+            },
+            "text": "Ciclos das faixas: F → R → B → L → F"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 76,
+              "col": 9
+            },
+            "end": {
+              "line": 76,
+              "col": 42
+            },
+            "text": "Strip cycles: F → R → B → L → F"
+          },
+          "target_span": {
+            "start": {
+              "line": 76,
+              "col": 9
+            },
+            "end": {
+              "line": 76,
+              "col": 47
+            },
+            "text": "Ciclos das faixas: F → R → B → L → F"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 85,
+              "col": 9
+            },
+            "end": {
+              "line": 85,
+              "col": 42
+            },
+            "text": "Strip cycles: U → R → D → L → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 85,
+              "col": 9
+            },
+            "end": {
+              "line": 85,
+              "col": 47
+            },
+            "text": "Ciclos das faixas: U → R → D → L → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 92,
+              "col": 9
+            },
+            "end": {
+              "line": 92,
+              "col": 42
+            },
+            "text": "Strip cycles: U → R → D → L → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 92,
+              "col": 9
+            },
+            "end": {
+              "line": 92,
+              "col": 47
+            },
+            "text": "Ciclos das faixas: U → R → D → L → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 99,
+              "col": 9
+            },
+            "end": {
+              "line": 99,
+              "col": 42
+            },
+            "text": "Strip cycles: U → R → D → L → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 99,
+              "col": 9
+            },
+            "end": {
+              "line": 99,
+              "col": 47
+            },
+            "text": "Ciclos das faixas: U → R → D → L → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 106,
+              "col": 9
+            },
+            "end": {
+              "line": 106,
+              "col": 29
+            },
+            "text": "F: Corner stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 106,
+              "col": 9
+            },
+            "end": {
+              "line": 106,
+              "col": 31
+            },
+            "text": "F: Adesivos de canto"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 113,
+              "col": 9
+            },
+            "end": {
+              "line": 113,
+              "col": 34
+            },
+            "text": "F: Edge-middle stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 113,
+              "col": 9
+            },
+            "end": {
+              "line": 113,
+              "col": 40
+            },
+            "text": "F: Adesivos de meio de aresta"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 122,
+              "col": 9
+            },
+            "end": {
+              "line": 122,
+              "col": 42
+            },
+            "text": "Strip cycles: U → L → D → R → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 122,
+              "col": 9
+            },
+            "end": {
+              "line": 122,
+              "col": 47
+            },
+            "text": "Ciclos das faixas: U → L → D → R → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 129,
+              "col": 9
+            },
+            "end": {
+              "line": 129,
+              "col": 42
+            },
+            "text": "Strip cycles: U → L → D → R → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 129,
+              "col": 9
+            },
+            "end": {
+              "line": 129,
+              "col": 47
+            },
+            "text": "Ciclos das faixas: U → L → D → R → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 136,
+              "col": 9
+            },
+            "end": {
+              "line": 136,
+              "col": 42
+            },
+            "text": "Strip cycles: U → L → D → R → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 136,
+              "col": 9
+            },
+            "end": {
+              "line": 136,
+              "col": 47
+            },
+            "text": "Ciclos das faixas: U → L → D → R → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 143,
+              "col": 9
+            },
+            "end": {
+              "line": 143,
+              "col": 29
+            },
+            "text": "B: Corner stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 143,
+              "col": 9
+            },
+            "end": {
+              "line": 143,
+              "col": 31
+            },
+            "text": "B: Adesivos de canto"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 150,
+              "col": 9
+            },
+            "end": {
+              "line": 150,
+              "col": 34
+            },
+            "text": "B: Edge-middle stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 150,
+              "col": 9
+            },
+            "end": {
+              "line": 150,
+              "col": 40
+            },
+            "text": "B: Adesivos de meio de aresta"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 159,
+              "col": 9
+            },
+            "end": {
+              "line": 159,
+              "col": 42
+            },
+            "text": "Strip cycles: U → F → D → B → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 159,
+              "col": 9
+            },
+            "end": {
+              "line": 159,
+              "col": 47
+            },
+            "text": "Ciclos das faixas: U → F → D → B → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 166,
+              "col": 9
+            },
+            "end": {
+              "line": 166,
+              "col": 42
+            },
+            "text": "Strip cycles: U → F → D → B → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 166,
+              "col": 9
+            },
+            "end": {
+              "line": 166,
+              "col": 47
+            },
+            "text": "Ciclos das faixas: U → F → D → B → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 173,
+              "col": 9
+            },
+            "end": {
+              "line": 173,
+              "col": 42
+            },
+            "text": "Strip cycles: U → F → D → B → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 173,
+              "col": 9
+            },
+            "end": {
+              "line": 173,
+              "col": 47
+            },
+            "text": "Ciclos das faixas: U → F → D → B → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 180,
+              "col": 9
+            },
+            "end": {
+              "line": 180,
+              "col": 29
+            },
+            "text": "L: Corner stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 180,
+              "col": 9
+            },
+            "end": {
+              "line": 180,
+              "col": 31
+            },
+            "text": "L: Adesivos de canto"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 187,
+              "col": 9
+            },
+            "end": {
+              "line": 187,
+              "col": 34
+            },
+            "text": "L: Edge-middle stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 187,
+              "col": 9
+            },
+            "end": {
+              "line": 187,
+              "col": 40
+            },
+            "text": "L: Adesivos de meio de aresta"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 196,
+              "col": 9
+            },
+            "end": {
+              "line": 196,
+              "col": 42
+            },
+            "text": "Strip cycles: U → B → D → F → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 196,
+              "col": 9
+            },
+            "end": {
+              "line": 196,
+              "col": 47
+            },
+            "text": "Ciclos das faixas: U → B → D → F → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 203,
+              "col": 9
+            },
+            "end": {
+              "line": 203,
+              "col": 42
+            },
+            "text": "Strip cycles: U → B → D → F → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 203,
+              "col": 9
+            },
+            "end": {
+              "line": 203,
+              "col": 47
+            },
+            "text": "Ciclos das faixas: U → B → D → F → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 210,
+              "col": 9
+            },
+            "end": {
+              "line": 210,
+              "col": 42
+            },
+            "text": "Strip cycles: U → B → D → F → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 210,
+              "col": 9
+            },
+            "end": {
+              "line": 210,
+              "col": 47
+            },
+            "text": "Ciclos das faixas: U → B → D → F → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 217,
+              "col": 9
+            },
+            "end": {
+              "line": 217,
+              "col": 29
+            },
+            "text": "R: Corner stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 217,
+              "col": 9
+            },
+            "end": {
+              "line": 217,
+              "col": 31
+            },
+            "text": "R: Adesivos de canto"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 224,
+              "col": 9
+            },
+            "end": {
+              "line": 224,
+              "col": 34
+            },
+            "text": "R: Edge-middle stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 224,
+              "col": 9
+            },
+            "end": {
+              "line": 224,
+              "col": 40
+            },
+            "text": "R: Adesivos de meio de aresta"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 235,
               "col": 8
             },
             "end": {
-              "line": 205,
+              "line": 235,
               "col": 62
             },
             "text": "Return p: source position j moves to destination p[j]."
           },
           "target_span": {
             "start": {
-              "line": 205,
+              "line": 235,
               "col": 8
             },
             "end": {
-              "line": 205,
+              "line": 235,
               "col": 69
             },
             "text": "Retorna p: a posição de origem j se move para o destino p[j]."
@@ -158,22 +1028,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 213,
+              "line": 243,
               "col": 8
             },
             "end": {
-              "line": 213,
+              "line": 243,
               "col": 51
             },
             "text": "Rows are destinations, columns are sources."
           },
           "target_span": {
             "start": {
-              "line": 213,
+              "line": 243,
               "col": 8
             },
             "end": {
-              "line": 213,
+              "line": 243,
               "col": 55
             },
             "text": "As linhas são destinos, as colunas são origens."
@@ -187,22 +1057,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 216,
+              "line": 246,
               "col": 27
             },
             "end": {
-              "line": 216,
+              "line": 246,
               "col": 68
             },
             "text": "Expected a permutation of positions 0..53"
           },
           "target_span": {
             "start": {
-              "line": 216,
+              "line": 246,
               "col": 27
             },
             "end": {
-              "line": 216,
+              "line": 246,
               "col": 72
             },
             "text": "Esperava-se uma permutação das posições 0..53"
@@ -216,22 +1086,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 229,
+              "line": 259,
               "col": 27
             },
             "end": {
-              "line": 229,
+              "line": 259,
               "col": 73
             },
             "text": "Expected each sticker label 1..54 exactly once"
           },
           "target_span": {
             "start": {
-              "line": 229,
+              "line": 259,
               "col": 27
             },
             "end": {
-              "line": 229,
+              "line": 259,
               "col": 86
             },
             "text": "Esperava-se cada rótulo de adesivo 1..54 exatamente uma vez"
@@ -245,22 +1115,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 233,
+              "line": 263,
               "col": 8
             },
             "end": {
-              "line": 233,
+              "line": 263,
               "col": 67
             },
             "text": "Apply moves left to right; an apostrophe means the inverse."
           },
           "target_span": {
             "start": {
-              "line": 233,
+              "line": 263,
               "col": 8
             },
             "end": {
-              "line": 233,
+              "line": 263,
               "col": 90
             },
             "text": "Aplica os movimentos da esquerda para a direita; um apóstrofo significa o inverso."
@@ -274,22 +1144,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 243,
+              "line": 273,
               "col": 31
             },
             "end": {
-              "line": 243,
+              "line": 273,
               "col": 45
             },
             "text": "Unknown move: "
           },
           "target_span": {
             "start": {
-              "line": 243,
+              "line": 273,
               "col": 31
             },
             "end": {
-              "line": 243,
+              "line": 273,
               "col": 55
             },
             "text": "Movimento desconhecido: "
@@ -303,22 +1173,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 248,
+              "line": 278,
               "col": 8
             },
             "end": {
-              "line": 248,
+              "line": 278,
               "col": 76
             },
             "text": "Return home-face letters as colour labels, not physical paint names."
           },
           "target_span": {
             "start": {
-              "line": 248,
+              "line": 278,
               "col": 8
             },
             "end": {
-              "line": 248,
+              "line": 278,
               "col": 97
             },
             "text": "Retorna as letras das faces de origem como rótulos de cores, não nomes físicos de tintas."
@@ -332,22 +1202,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 251,
+              "line": 281,
               "col": 8
             },
             "end": {
-              "line": 251,
+              "line": 281,
               "col": 74
             },
             "text": "Built six clockwise quarter-turn matrices with fixed face centres."
           },
           "target_span": {
             "start": {
-              "line": 251,
+              "line": 281,
               "col": 8
             },
             "end": {
-              "line": 251,
+              "line": 281,
               "col": 101
             },
             "text": "Construídas seis matrizes de quartos de volta no sentido horário com centros das faces fixos."
@@ -1063,7 +1933,7 @@
     "scope": "prior-revision-runtime",
     "checkedSourceSha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4",
     "checkedTargetSha256": "87841219438b9cb2176d711f1ae19792e50ad63bce643bcbdfbe6a497244e451",
-    "caveat": "Historical executable runs predate the coordinates/cycles Markdown updates; no fresh Python app-runtime run is claimed. Current Markdown import/render checks are recorded separately."
+    "caveat": "Historical executable runs predate the Markdown updates and authorized comment insertions. Current Python changes are comments only; no fresh Python app-runtime run is claimed. Current Markdown import/render checks are separate."
   },
   "caveat": "Machine translated with Gemini and reviewed by AI/controller checks, including scoped corrections where needed. Native-speaker review is pending; structural and numerical checks do not certify prose quality.",
   "coordinateUpdate": {
@@ -1128,6 +1998,71 @@
         "width": 320,
         "height": 844
       }
+    }
+  },
+  "layoutUpdate": {
+    "predecessorCommit": "35b7527e607e089e14deb60ef28ef5e21abd4bee",
+    "predecessorSourceSha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c",
+    "predecessorTargetSha256": "0df04bd6d085e416524d98863442a39114e0c18342f30bbef2179c16259b6310",
+    "generationSourceSha256": "9153e99a56bc85fdb70879b41b2e073543979c71a24fe33930a419d6ca143f3f",
+    "generationTargetSha256": "0123f77b677e6280af8f041c0e1f782f53f3ff368ceb6cf655ffc55b02d50d9a",
+    "sourceSha256": "c69cca69b060b196107fe0489b0f25cb8ddf5f0d7cca253fcfbb4bbf2179f478",
+    "targetSha256": "811dc86847f60ea39914dfb1c56dea9a87737f05b86b5fe1cc38454c3e43f1e5",
+    "addenda": [
+      {
+        "cell": "coordinates",
+        "index": 1,
+        "prefixCodeUnits": 6564,
+        "preservedPrefixSha256": "10cf16c4b05aa87e6c68f72535cbad0097768c7f939ec756f9eaa8ca53466075",
+        "appendedTextSha256": "f5e6ae9fec2fefeb388f45f5c98029dcc500f193323b697574003033c25978fd",
+        "currentCellSha256": "6ade13ea671d148c0eea7a8b4a40f46547f31e1b3421b558929e8a03ed658e62"
+      },
+      {
+        "cell": "cycles",
+        "index": 4,
+        "prefixCodeUnits": 2612,
+        "preservedPrefixSha256": "6492d5dde8e726e645c5d41f83676125a036626ae6fc9e84a6cd95413e71f40a",
+        "appendedTextSha256": "4882e2f5eec191d89891c9037a91de7c1290061a20d83b4a310381c626f64a17",
+        "currentCellSha256": "2a9fcfca08d4d60e8063f987881e28c6c4500cc6c6b3611c688d011bf5a2e871"
+      }
+    ],
+    "unchangedPriorMarkdownAndSvg": true,
+    "method": "controller-manual-fallback-after-model-failure",
+    "model": "gemini-3.8-flash-medium",
+    "modelProseApproved": false,
+    "modelReviewScope": "supplied-new-Markdown-addenda-only",
+    "requests": {
+      "draft": 1,
+      "freshReview": 0,
+      "repair": 0
+    },
+    "nativeSpeakerReview": "pending",
+    "headerRefinement": null,
+    "comments": {
+      "method": "controller-reused-localized-Markdown-labels",
+      "cell": "cube_moves",
+      "count": 30,
+      "labels": {
+        "corner": "Adesivos de canto",
+        "edge": "Adesivos de meio de aresta",
+        "strip": "Ciclos das faixas"
+      },
+      "generationCellSha256": "d1247715e4d4f33994f1e8fbaa7b06fc9674632af139c561578f45ac5b457a58",
+      "finalCellSha256": "09929a16dfdf62001ebf8aa83804b238943619964d0a0afae9a2c348894aa03c",
+      "unchangedNumericCyclesAndRemainingPython": true,
+      "nativeSpeakerReview": "pending"
+    },
+    "rendering": {
+      "status": "passed",
+      "path": "reviews/markov-layout-rendering.json",
+      "sha256": "5e1d6112e69fec0c619a948671a55634ff2a3f972b8b47441105b6834556f000",
+      "workbookSha256": "811dc86847f60ea39914dfb1c56dea9a87737f05b86b5fe1cc38454c3e43f1e5",
+      "platform": "Free Chromium browser",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "scope": "Current source Markdown import/render/export only"
     }
   }
 }

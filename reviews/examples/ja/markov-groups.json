@@ -4,12 +4,12 @@
   "locale": "ja",
   "source": {
     "path": "workbooks/en/markov-groups.srwb",
-    "sha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c"
+    "sha256": "c69cca69b060b196107fe0489b0f25cb8ddf5f0d7cca253fcfbb4bbf2179f478"
   },
   "target": {
     "path": "workbooks/ja/markov-groups.srwb",
-    "sha256": "31e88093affdd98d20a05ed38ee925590a6977ea2ba90238f6b584036b58d73b",
-    "size": 25979,
+    "sha256": "a8d0eac240bb81f4a3e82ddb51f23e031e30b5490e995a142021748d00ea5101",
+    "size": 32736,
     "title": "マルコフ群: キューブの操作によるランダムウォーク",
     "description": "ルービックキューブの面回転を検証済みの置換としてモデル化し、法を四とするべき乗を調べ、怠惰なランダムウォークと単一ステッカーの確率モデルを区別します。"
   },
@@ -17,16 +17,16 @@
     "model": "Gemini draft; independent manual adjudication",
     "contentAudit": {
       "status": "passed",
-      "sourceSha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c",
-      "targetSha256": "31e88093affdd98d20a05ed38ee925590a6977ea2ba90238f6b584036b58d73b",
+      "sourceSha256": "c69cca69b060b196107fe0489b0f25cb8ddf5f0d7cca253fcfbb4bbf2179f478",
+      "targetSha256": "a8d0eac240bb81f4a3e82ddb51f23e031e30b5490e995a142021748d00ea5101",
       "findings": [],
       "errors": [],
-      "reviewMethod": "Prior audits retained for unchanged cells; cycles-only prose received the identified bounded review and exact KEEP/data gates.",
+      "reviewMethod": "Prior prose audits retained; only the new addenda received bounded review. Comments reuse localized Markdown labels under controller review.",
       "provenance": {
-        "predecessorSourceSha256": "b3795f36599216da86e653e8776127d82f6088ac10e5d8ac358c96a549257ef3",
-        "predecessorTargetSha256": "601a68e3c822744791d5ccae3b026bb38c230cc0803dba72ea6f4ad042e57310",
-        "priorAuditSha256": "30463cbdf399c69cb9942eaaa801513871fc9d7f75f777998d995921322d687b",
-        "cyclesUpdateOnly": true
+        "predecessorSourceSha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c",
+        "predecessorTargetSha256": "31e88093affdd98d20a05ed38ee925590a6977ea2ba90238f6b584036b58d73b",
+        "priorAuditSha256": "f32a3d067af0b378ad36db2dcf6c4efe7cc7aebbede0e05ad48a8e8c040f557e",
+        "layoutAddendaAndCommentsOnly": true
       },
       "nativeSpeakerReview": "pending",
       "caveat": "AI/controller review, not native-speaker or qualified technical certification."
@@ -59,11 +59,11 @@
       "locale": "ja",
       "source": {
         "path": "workbooks/en/markov-groups.srwb",
-        "sha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c"
+        "sha256": "c69cca69b060b196107fe0489b0f25cb8ddf5f0d7cca253fcfbb4bbf2179f478"
       },
       "target": {
         "path": "workbooks/ja/markov-groups.srwb",
-        "sha256": "31e88093affdd98d20a05ed38ee925590a6977ea2ba90238f6b584036b58d73b"
+        "sha256": "a8d0eac240bb81f4a3e82ddb51f23e031e30b5490e995a142021748d00ea5101"
       },
       "spans": [
         {
@@ -129,22 +129,892 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 205,
+              "line": 11,
+              "col": 9
+            },
+            "end": {
+              "line": 11,
+              "col": 29
+            },
+            "text": "U: Corner stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 11,
+              "col": 9
+            },
+            "end": {
+              "line": 11,
+              "col": 23
+            },
+            "text": "U: コーナーステッカー"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 18,
+              "col": 9
+            },
+            "end": {
+              "line": 18,
+              "col": 34
+            },
+            "text": "U: Edge-middle stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 18,
+              "col": 9
+            },
+            "end": {
+              "line": 18,
+              "col": 25
+            },
+            "text": "U: エッジ中央のステッカー"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 25,
+              "col": 9
+            },
+            "end": {
+              "line": 25,
+              "col": 42
+            },
+            "text": "Strip cycles: F → L → B → R → F"
+          },
+          "target_span": {
+            "start": {
+              "line": 25,
+              "col": 9
+            },
+            "end": {
+              "line": 25,
+              "col": 39
+            },
+            "text": "ストリップサイクル: F → L → B → R → F"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 32,
+              "col": 9
+            },
+            "end": {
+              "line": 32,
+              "col": 42
+            },
+            "text": "Strip cycles: F → L → B → R → F"
+          },
+          "target_span": {
+            "start": {
+              "line": 32,
+              "col": 9
+            },
+            "end": {
+              "line": 32,
+              "col": 39
+            },
+            "text": "ストリップサイクル: F → L → B → R → F"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 39,
+              "col": 9
+            },
+            "end": {
+              "line": 39,
+              "col": 42
+            },
+            "text": "Strip cycles: F → L → B → R → F"
+          },
+          "target_span": {
+            "start": {
+              "line": 39,
+              "col": 9
+            },
+            "end": {
+              "line": 39,
+              "col": 39
+            },
+            "text": "ストリップサイクル: F → L → B → R → F"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 48,
+              "col": 9
+            },
+            "end": {
+              "line": 48,
+              "col": 29
+            },
+            "text": "D: Corner stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 48,
+              "col": 9
+            },
+            "end": {
+              "line": 48,
+              "col": 23
+            },
+            "text": "D: コーナーステッカー"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 55,
+              "col": 9
+            },
+            "end": {
+              "line": 55,
+              "col": 34
+            },
+            "text": "D: Edge-middle stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 55,
+              "col": 9
+            },
+            "end": {
+              "line": 55,
+              "col": 25
+            },
+            "text": "D: エッジ中央のステッカー"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 62,
+              "col": 9
+            },
+            "end": {
+              "line": 62,
+              "col": 42
+            },
+            "text": "Strip cycles: F → R → B → L → F"
+          },
+          "target_span": {
+            "start": {
+              "line": 62,
+              "col": 9
+            },
+            "end": {
+              "line": 62,
+              "col": 39
+            },
+            "text": "ストリップサイクル: F → R → B → L → F"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 69,
+              "col": 9
+            },
+            "end": {
+              "line": 69,
+              "col": 42
+            },
+            "text": "Strip cycles: F → R → B → L → F"
+          },
+          "target_span": {
+            "start": {
+              "line": 69,
+              "col": 9
+            },
+            "end": {
+              "line": 69,
+              "col": 39
+            },
+            "text": "ストリップサイクル: F → R → B → L → F"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 76,
+              "col": 9
+            },
+            "end": {
+              "line": 76,
+              "col": 42
+            },
+            "text": "Strip cycles: F → R → B → L → F"
+          },
+          "target_span": {
+            "start": {
+              "line": 76,
+              "col": 9
+            },
+            "end": {
+              "line": 76,
+              "col": 39
+            },
+            "text": "ストリップサイクル: F → R → B → L → F"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 85,
+              "col": 9
+            },
+            "end": {
+              "line": 85,
+              "col": 42
+            },
+            "text": "Strip cycles: U → R → D → L → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 85,
+              "col": 9
+            },
+            "end": {
+              "line": 85,
+              "col": 39
+            },
+            "text": "ストリップサイクル: U → R → D → L → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 92,
+              "col": 9
+            },
+            "end": {
+              "line": 92,
+              "col": 42
+            },
+            "text": "Strip cycles: U → R → D → L → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 92,
+              "col": 9
+            },
+            "end": {
+              "line": 92,
+              "col": 39
+            },
+            "text": "ストリップサイクル: U → R → D → L → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 99,
+              "col": 9
+            },
+            "end": {
+              "line": 99,
+              "col": 42
+            },
+            "text": "Strip cycles: U → R → D → L → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 99,
+              "col": 9
+            },
+            "end": {
+              "line": 99,
+              "col": 39
+            },
+            "text": "ストリップサイクル: U → R → D → L → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 106,
+              "col": 9
+            },
+            "end": {
+              "line": 106,
+              "col": 29
+            },
+            "text": "F: Corner stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 106,
+              "col": 9
+            },
+            "end": {
+              "line": 106,
+              "col": 23
+            },
+            "text": "F: コーナーステッカー"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 113,
+              "col": 9
+            },
+            "end": {
+              "line": 113,
+              "col": 34
+            },
+            "text": "F: Edge-middle stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 113,
+              "col": 9
+            },
+            "end": {
+              "line": 113,
+              "col": 25
+            },
+            "text": "F: エッジ中央のステッカー"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 122,
+              "col": 9
+            },
+            "end": {
+              "line": 122,
+              "col": 42
+            },
+            "text": "Strip cycles: U → L → D → R → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 122,
+              "col": 9
+            },
+            "end": {
+              "line": 122,
+              "col": 39
+            },
+            "text": "ストリップサイクル: U → L → D → R → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 129,
+              "col": 9
+            },
+            "end": {
+              "line": 129,
+              "col": 42
+            },
+            "text": "Strip cycles: U → L → D → R → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 129,
+              "col": 9
+            },
+            "end": {
+              "line": 129,
+              "col": 39
+            },
+            "text": "ストリップサイクル: U → L → D → R → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 136,
+              "col": 9
+            },
+            "end": {
+              "line": 136,
+              "col": 42
+            },
+            "text": "Strip cycles: U → L → D → R → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 136,
+              "col": 9
+            },
+            "end": {
+              "line": 136,
+              "col": 39
+            },
+            "text": "ストリップサイクル: U → L → D → R → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 143,
+              "col": 9
+            },
+            "end": {
+              "line": 143,
+              "col": 29
+            },
+            "text": "B: Corner stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 143,
+              "col": 9
+            },
+            "end": {
+              "line": 143,
+              "col": 23
+            },
+            "text": "B: コーナーステッカー"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 150,
+              "col": 9
+            },
+            "end": {
+              "line": 150,
+              "col": 34
+            },
+            "text": "B: Edge-middle stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 150,
+              "col": 9
+            },
+            "end": {
+              "line": 150,
+              "col": 25
+            },
+            "text": "B: エッジ中央のステッカー"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 159,
+              "col": 9
+            },
+            "end": {
+              "line": 159,
+              "col": 42
+            },
+            "text": "Strip cycles: U → F → D → B → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 159,
+              "col": 9
+            },
+            "end": {
+              "line": 159,
+              "col": 39
+            },
+            "text": "ストリップサイクル: U → F → D → B → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 166,
+              "col": 9
+            },
+            "end": {
+              "line": 166,
+              "col": 42
+            },
+            "text": "Strip cycles: U → F → D → B → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 166,
+              "col": 9
+            },
+            "end": {
+              "line": 166,
+              "col": 39
+            },
+            "text": "ストリップサイクル: U → F → D → B → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 173,
+              "col": 9
+            },
+            "end": {
+              "line": 173,
+              "col": 42
+            },
+            "text": "Strip cycles: U → F → D → B → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 173,
+              "col": 9
+            },
+            "end": {
+              "line": 173,
+              "col": 39
+            },
+            "text": "ストリップサイクル: U → F → D → B → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 180,
+              "col": 9
+            },
+            "end": {
+              "line": 180,
+              "col": 29
+            },
+            "text": "L: Corner stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 180,
+              "col": 9
+            },
+            "end": {
+              "line": 180,
+              "col": 23
+            },
+            "text": "L: コーナーステッカー"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 187,
+              "col": 9
+            },
+            "end": {
+              "line": 187,
+              "col": 34
+            },
+            "text": "L: Edge-middle stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 187,
+              "col": 9
+            },
+            "end": {
+              "line": 187,
+              "col": 25
+            },
+            "text": "L: エッジ中央のステッカー"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 196,
+              "col": 9
+            },
+            "end": {
+              "line": 196,
+              "col": 42
+            },
+            "text": "Strip cycles: U → B → D → F → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 196,
+              "col": 9
+            },
+            "end": {
+              "line": 196,
+              "col": 39
+            },
+            "text": "ストリップサイクル: U → B → D → F → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 203,
+              "col": 9
+            },
+            "end": {
+              "line": 203,
+              "col": 42
+            },
+            "text": "Strip cycles: U → B → D → F → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 203,
+              "col": 9
+            },
+            "end": {
+              "line": 203,
+              "col": 39
+            },
+            "text": "ストリップサイクル: U → B → D → F → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 210,
+              "col": 9
+            },
+            "end": {
+              "line": 210,
+              "col": 42
+            },
+            "text": "Strip cycles: U → B → D → F → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 210,
+              "col": 9
+            },
+            "end": {
+              "line": 210,
+              "col": 39
+            },
+            "text": "ストリップサイクル: U → B → D → F → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 217,
+              "col": 9
+            },
+            "end": {
+              "line": 217,
+              "col": 29
+            },
+            "text": "R: Corner stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 217,
+              "col": 9
+            },
+            "end": {
+              "line": 217,
+              "col": 23
+            },
+            "text": "R: コーナーステッカー"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 224,
+              "col": 9
+            },
+            "end": {
+              "line": 224,
+              "col": 34
+            },
+            "text": "R: Edge-middle stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 224,
+              "col": 9
+            },
+            "end": {
+              "line": 224,
+              "col": 25
+            },
+            "text": "R: エッジ中央のステッカー"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 235,
               "col": 8
             },
             "end": {
-              "line": 205,
+              "line": 235,
               "col": 62
             },
             "text": "Return p: source position j moves to destination p[j]."
           },
           "target_span": {
             "start": {
-              "line": 205,
+              "line": 235,
               "col": 8
             },
             "end": {
-              "line": 205,
+              "line": 235,
               "col": 40
             },
             "text": "p を返す: 移動元の位置 j が移動先 p[j] に移動する。"
@@ -158,22 +1028,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 213,
+              "line": 243,
               "col": 8
             },
             "end": {
-              "line": 213,
+              "line": 243,
               "col": 51
             },
             "text": "Rows are destinations, columns are sources."
           },
           "target_span": {
             "start": {
-              "line": 213,
+              "line": 243,
               "col": 8
             },
             "end": {
-              "line": 213,
+              "line": 243,
               "col": 20
             },
             "text": "行は移動先、列は移動元。"
@@ -187,22 +1057,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 216,
+              "line": 246,
               "col": 27
             },
             "end": {
-              "line": 216,
+              "line": 246,
               "col": 68
             },
             "text": "Expected a permutation of positions 0..53"
           },
           "target_span": {
             "start": {
-              "line": 216,
+              "line": 246,
               "col": 27
             },
             "end": {
-              "line": 216,
+              "line": 246,
               "col": 46
             },
             "text": "位置 0..53 の置換が期待されます"
@@ -216,22 +1086,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 229,
+              "line": 259,
               "col": 27
             },
             "end": {
-              "line": 229,
+              "line": 259,
               "col": 73
             },
             "text": "Expected each sticker label 1..54 exactly once"
           },
           "target_span": {
             "start": {
-              "line": 229,
+              "line": 259,
               "col": 27
             },
             "end": {
-              "line": 229,
+              "line": 259,
               "col": 63
             },
             "text": "各ステッカーラベル 1..54 が正確に一度ずつ現れることが期待されます"
@@ -245,22 +1115,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 233,
+              "line": 263,
               "col": 8
             },
             "end": {
-              "line": 233,
+              "line": 263,
               "col": 67
             },
             "text": "Apply moves left to right; an apostrophe means the inverse."
           },
           "target_span": {
             "start": {
-              "line": 233,
+              "line": 263,
               "col": 8
             },
             "end": {
-              "line": 233,
+              "line": 263,
               "col": 39
             },
             "text": "左から右へと操作を適用する。アポストロフィは逆操作を意味する。"
@@ -274,22 +1144,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 243,
+              "line": 273,
               "col": 31
             },
             "end": {
-              "line": 243,
+              "line": 273,
               "col": 45
             },
             "text": "Unknown move: "
           },
           "target_span": {
             "start": {
-              "line": 243,
+              "line": 273,
               "col": 31
             },
             "end": {
-              "line": 243,
+              "line": 273,
               "col": 38
             },
             "text": "未知の操作: "
@@ -303,22 +1173,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 248,
+              "line": 278,
               "col": 8
             },
             "end": {
-              "line": 248,
+              "line": 278,
               "col": 76
             },
             "text": "Return home-face letters as colour labels, not physical paint names."
           },
           "target_span": {
             "start": {
-              "line": 248,
+              "line": 278,
               "col": 8
             },
             "end": {
-              "line": 248,
+              "line": 278,
               "col": 38
             },
             "text": "物理的な塗料名ではなく、ホーム面の文字を色ラベルとして返す。"
@@ -332,22 +1202,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 251,
+              "line": 281,
               "col": 8
             },
             "end": {
-              "line": 251,
+              "line": 281,
               "col": 74
             },
             "text": "Built six clockwise quarter-turn matrices with fixed face centres."
           },
           "target_span": {
             "start": {
-              "line": 251,
+              "line": 281,
               "col": 8
             },
             "end": {
-              "line": 251,
+              "line": 281,
               "col": 42
             },
             "text": "面の中心を固定した六つの時計回りクォーターターン行列を構築しました。"
@@ -1063,7 +1933,7 @@
     "scope": "prior-revision-runtime",
     "checkedSourceSha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4",
     "checkedTargetSha256": "7c0af4e44aa1f91b242ab99a1bccc405210374149dea31b5ae6aa577da4833b4",
-    "caveat": "Historical executable runs predate the coordinates/cycles Markdown updates; no fresh Python app-runtime run is claimed. Current Markdown import/render checks are recorded separately."
+    "caveat": "Historical executable runs predate the Markdown updates and authorized comment insertions. Current Python changes are comments only; no fresh Python app-runtime run is claimed. Current Markdown import/render checks are separate."
   },
   "caveat": "Machine translated with Gemini and reviewed by AI/controller checks, including scoped corrections where needed. Native-speaker review is pending; structural and numerical checks do not certify prose quality.",
   "coordinateUpdate": {
@@ -1128,6 +1998,71 @@
         "width": 320,
         "height": 844
       }
+    }
+  },
+  "layoutUpdate": {
+    "predecessorCommit": "35b7527e607e089e14deb60ef28ef5e21abd4bee",
+    "predecessorSourceSha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c",
+    "predecessorTargetSha256": "31e88093affdd98d20a05ed38ee925590a6977ea2ba90238f6b584036b58d73b",
+    "generationSourceSha256": "9153e99a56bc85fdb70879b41b2e073543979c71a24fe33930a419d6ca143f3f",
+    "generationTargetSha256": "7fa5746ec06890d74ad1f1839bf0b3d324667f2ccdf1bfd98aceae2797dca45a",
+    "sourceSha256": "c69cca69b060b196107fe0489b0f25cb8ddf5f0d7cca253fcfbb4bbf2179f478",
+    "targetSha256": "a8d0eac240bb81f4a3e82ddb51f23e031e30b5490e995a142021748d00ea5101",
+    "addenda": [
+      {
+        "cell": "coordinates",
+        "index": 1,
+        "prefixCodeUnits": 4671,
+        "preservedPrefixSha256": "86c6fd1225bd4c6fd62cf5da71a3a4278fd3eceb0a75bfb6018074b0b76c0380",
+        "appendedTextSha256": "6b8469c61afa22136b63a606acbf7a5520409f3bbbabdb8d0ff9e381a58b2b8c",
+        "currentCellSha256": "8286d3bfdfc797f9ce60262d4605c10ed1706a2dcf96abd12ed2958e8a8662db"
+      },
+      {
+        "cell": "cycles",
+        "index": 4,
+        "prefixCodeUnits": 1340,
+        "preservedPrefixSha256": "cd51c38d63a48d3a3b2261681a772a6b9f9e95cc7f0d6d7ede14ab3e2f5695bc",
+        "appendedTextSha256": "5a48b1b46bad008f609e87bf6f0521c4bc3ce6477f64021ca9c6370b2b89371d",
+        "currentCellSha256": "ce7e05d9d6499f576d5d754598ffe8fad7d6b211553930f9ca3400196e65e537"
+      }
+    ],
+    "unchangedPriorMarkdownAndSvg": true,
+    "method": "Gemini-draft-and-fresh-same-model-review",
+    "model": "gemini-3.8-flash-medium",
+    "modelProseApproved": true,
+    "modelReviewScope": "supplied-new-Markdown-addenda-only",
+    "requests": {
+      "draft": 1,
+      "freshReview": 1,
+      "repair": 0
+    },
+    "nativeSpeakerReview": "pending",
+    "headerRefinement": null,
+    "comments": {
+      "method": "controller-reused-localized-Markdown-labels",
+      "cell": "cube_moves",
+      "count": 30,
+      "labels": {
+        "corner": "コーナーステッカー",
+        "edge": "エッジ中央のステッカー",
+        "strip": "ストリップサイクル"
+      },
+      "generationCellSha256": "bf27e659430dc86617d1e30504d89294a0071e0f578345472f2ff2b12d0b1bd3",
+      "finalCellSha256": "2b5ddaac651b881e5021f734599a9952e9cda25130716f2a2c0819c47cee8d84",
+      "unchangedNumericCyclesAndRemainingPython": true,
+      "nativeSpeakerReview": "pending"
+    },
+    "rendering": {
+      "status": "passed",
+      "path": "reviews/markov-layout-rendering.json",
+      "sha256": "5e1d6112e69fec0c619a948671a55634ff2a3f972b8b47441105b6834556f000",
+      "workbookSha256": "a8d0eac240bb81f4a3e82ddb51f23e031e30b5490e995a142021748d00ea5101",
+      "platform": "Free Chromium browser",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "scope": "Current source Markdown import/render/export only"
     }
   }
 }

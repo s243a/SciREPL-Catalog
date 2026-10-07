@@ -5,6 +5,7 @@ import { readFileSync } from 'node:fs';
 import { EXAMPLE_LOCALES } from './example-lessons.mjs';
 import { coordinateDiagrams, assertCoordinateSvgInvariants, splitCoordinateDiagrams,
   restoreCoordinateDiagrams, reembedCoordinateDiagrams, diagramAccessibility } from './markov-coordinate-diagrams.mjs';
+import { parseMoveCycles, annotateMoveCycles, cycleCommentLabels, withoutCycleComments } from './markov-cycle-comments.mjs';
 
 const readWorkbook = name => JSON.parse(readFileSync(
   new URL(`../workbooks/en/${name}.srwb`, import.meta.url), 'utf8'));
@@ -53,11 +54,26 @@ check('Simpson retains its load-bearing English names', () => {
 
 const cycleLiteral = named('cube_moves').match(/MOVE_CYCLES = ([\s\S]+?)\n\n/);
 assert(cycleLiteral, 'Missing literal move-cycle data');
-const cycles = JSON.parse(cycleLiteral[1]);
+const cycles = parseMoveCycles(named('cube_moves'));
 const faceNames = 'UDFBLR';
 const centres = [4, 13, 22, 31, 40, 49];
 const identity = Array.from({ length: 54 }, (_, i) => i);
 const permutations = {};
+
+check('Nested-list comments label geometry without changing the literal or other code', () => {
+  const original = withoutCycleComments(named('cube_moves'));
+  const labels = cycleCommentLabels(named('cycles'));
+  const result = annotateMoveCycles(original, labels);
+  assert.equal(result.comments.length, 30);
+  assert.equal(named('cube_moves'), result.code, 'English workbook must include the actual explanatory comments');
+  assert.equal(withoutCycleComments(result.code), original);
+  assert.deepEqual(parseMoveCycles(result.code), cycles);
+  assert.equal(annotateMoveCycles(result.code, labels).code, result.code);
+  assert.throws(() => annotateMoveCycles(original, { ...labels, strip: 'unsafe\ncode' }));
+  assert.throws(() => annotateMoveCycles(original, { ...labels, strip: 'unsafe\u0000label' }));
+  assert.throws(() => annotateMoveCycles(original, { ...labels, strip: 'unsafe\u2028label' }));
+  assert.throws(() => annotateMoveCycles(original, { ...labels, corner: undefined }));
+});
 
 // Independent physical oracle: rotate a layer by -90 degrees about its
 // outward normal. A sticker has a cubelet position and a face normal.
@@ -94,6 +110,25 @@ check('Front-to-top tilt maps the full basis, not the fixed global axes', () => 
   assert.deepEqual(tilt(front.up), top.up);
   assert.deepEqual(tilt(front.normal), top.normal);
   assert.deepEqual(cross(tilt(front.right), tilt(front.up)).map(value => value || 0), tilt(front.normal));
+});
+check('Front-referenced global-axis rotations reproduce every face frame', () => {
+  const front = faces.find(face => face.name === 'F');
+  const rotateFrame = (axis, quarterTurns, vector) => {
+    let result = [...vector];
+    for (let i = 0; i < ((quarterTurns % 4) + 4) % 4; i++) {
+      const [x, y, z] = result;
+      result = (axis === 'y' ? [z, y, -x] : [x, -z, y]).map(value => value || 0);
+    }
+    return result;
+  };
+  for (const [name, axis, quarterTurns] of [
+    ['R', 'y', 1], ['B', 'y', 2], ['L', 'y', -1], ['U', 'x', -1], ['D', 'x', 1],
+  ]) {
+    const target = faces.find(face => face.name === name);
+    for (const key of ['right', 'up', 'normal']) {
+      assert.deepEqual(rotateFrame(axis, quarterTurns, front[key]), target[key], `${name}/${key}`);
+    }
+  }
 });
 check('Static coordinate diagrams have fixed inert geometry and safe accessible text', () => {
   const english = named('coordinates'), { prose } = splitCoordinateDiagrams(english);
@@ -138,7 +173,42 @@ const inverse = permutation => {
 };
 
 check('Move data names all six faces in the stated layout', () => {
+  assert.equal(named('cube_moves').match(/FACE_NAMES = "([A-Z]+)"/)?.[1], faceNames);
   assert.deepEqual(Object.keys(cycles), [...faceNames]);
+});
+check('Stored cycles use smallest-index starts and ascending first-index order', () => {
+  for (const move of Object.values(cycles)) {
+    const firstIndices = move.map(cycle => cycle[0]);
+    assert.deepEqual(firstIndices, [...firstIndices].sort((a, b) => a - b));
+    for (const cycle of move) assert.equal(cycle[0], Math.min(...cycle));
+  }
+});
+check('Own-face cycles and neighbouring-strip cycles have the documented grouping', () => {
+  faces.forEach((face, faceIndex) => {
+    const ownCycles = [], stripCycles = [];
+    cycles[face.name].forEach((cycle, cycleIndex) => {
+      const ownerFaces = cycle.map(position => Math.floor(position / 9));
+      if (ownerFaces.every(owner => owner === faceIndex)) ownCycles.push(cycleIndex + 1);
+      else {
+        assert(ownerFaces.every(owner => owner !== faceIndex), 'Cycle mixes face and strip positions');
+        assert.equal(new Set(ownerFaces).size, 4, 'Strip cycle must visit four distinct adjacent faces');
+        ownerFaces.forEach(owner => assert.equal(dot(face.normal, faces[owner].normal), 0));
+        stripCycles.push(cycleIndex + 1);
+      }
+    });
+    assert.deepEqual(ownCycles, ['U', 'D'].includes(face.name) ? [1, 2] : [4, 5]);
+    assert.deepEqual(stripCycles, ['U', 'D'].includes(face.name) ? [3, 4, 5] : [1, 2, 3]);
+  });
+  assert.deepEqual(cycles.F[0], [6, 45, 11, 44]);
+  assert.deepEqual(cycles.F[0].map(position => faceNames[Math.floor(position / 9)]), ['U', 'R', 'D', 'L']);
+});
+check('Changing the starting entry of a cycle does not change its directed permutation', () => {
+  const destinations = cycle => Object.fromEntries(cycle.map((position, i) => [position, cycle[(i + 1) % cycle.length]]));
+  for (const move of Object.values(cycles)) for (const cycle of move) {
+    for (let offset = 1; offset < cycle.length; offset++) {
+      assert.deepEqual(destinations([...cycle.slice(offset), ...cycle.slice(0, offset)]), destinations(cycle));
+    }
+  }
 });
 for (const face of faces) {
   const permutation = [...identity];
@@ -198,7 +268,7 @@ check('U cycle literals identify face corners, edge middles and adjacent top str
 check('English U-cycle prose agrees with the literal data and printed position numbering', () => {
   const prose = named('cycles');
   const quotedCycles = [...prose.matchAll(/`(\[[\d,\s]+\])`/g)].map(match => JSON.parse(match[1]));
-  assert.deepEqual(quotedCycles, cycles.U.slice(0, 3));
+  assert.deepEqual(quotedCycles.slice(0, 3), cycles.U.slice(0, 3));
   assert.match(prose, /clockwise when viewed directly from outside the turned face/);
   assert.match(prose, /last entry moves back to the first/);
   assert.match(prose, /All five cycles act simultaneously/);
@@ -212,6 +282,36 @@ check('English U-cycle prose agrees with the literal data and printed position n
   assert(prose.includes(`sticker at position \`${strip[0]}\` to position \`${strip[1]}\``));
   assert.match(prose, /positions, not necessarily the sticker labels/);
   assert.match(prose, /All face centres stay fixed/);
+});
+check('English data-geometry explanation states the actual deterministic presentation', () => {
+  const prose = named('cycles');
+  assert.match(prose, /smallest flat sticker index/);
+  assert.match(prose, /sorted by those starting indices/);
+  assert.match(prose, /not a choice to start at local drawing-right/);
+  assert(prose.includes('`9 * face_index + 3 * row + column`'));
+  assert(prose.includes('`[6, 45, 11, 44]`'));
+  assert.match(prose, /U bottom-left → R top-left → D top-right → L bottom-right → U bottom-left/);
+  assert.match(prose, /\| `U`, `D` \| `1–2` \| `3–5` \|/);
+  assert.match(prose, /\| `F`, `B`, `L`, `R` \| `4–5` \| `1–3` \|/);
+  const locations = cycles.F[0].map(index => [faceNames[Math.floor(index / 9)],
+    Math.floor((index % 9) / 3), index % 3]);
+  assert.deepEqual(locations, [['U', 2, 0], ['R', 0, 0], ['D', 0, 2], ['L', 2, 2]]);
+});
+check('Face-numbering table agrees with zero-based positions and printed one-based numbers', () => {
+  const prose = named('coordinates');
+  const rows = prose.split('\n').filter(line => /^\| `[UDFBLR]` —/.test(line));
+  assert.equal(rows.length, 6);
+  rows.forEach((line, index) => {
+    const row = line.split('|').map(text => text.trim()).filter(Boolean);
+    assert(row[0].startsWith(`\`${faceNames[index]}\``));
+    assert(row[0].includes(`(\`${index}\`)`));
+    assert.equal(row[1], `\`${9 * index}–${9 * index + 8}\``);
+    assert.equal(row[2], `\`${9 * index + 1}–${9 * index + 9}\``);
+  });
+  assert(prose.includes('`FACE_NAMES = "UDFBLR"` defines the numbering'));
+  assert.match(prose, /reordering only that dictionary does not renumber sticker positions/);
+  assert.match(prose, /Starting afresh from F for each face/);
+  assert(prose.includes('`r = -x`, `u = +y`, `n = -z`'));
 });
 check('Shown U cycles add one to every position and close source-to-destination arrows', () => {
   const show = named('show_turn');

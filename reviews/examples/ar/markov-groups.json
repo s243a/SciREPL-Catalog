@@ -4,12 +4,12 @@
   "locale": "ar",
   "source": {
     "path": "workbooks/en/markov-groups.srwb",
-    "sha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c"
+    "sha256": "c69cca69b060b196107fe0489b0f25cb8ddf5f0d7cca253fcfbb4bbf2179f478"
   },
   "target": {
     "path": "workbooks/ar/markov-groups.srwb",
-    "sha256": "6c15b4391a8a8a510dab4782e79185a90b31639c4c1a145d57baf39ef6693ea0",
-    "size": 27640,
+    "sha256": "038746d83aa7b6efe8b27c9b1a230fa386fa519cfdc5e8b89e077caebc6a3358",
+    "size": 34677,
     "title": "زمر ماركوف: مسار عشوائي على حركات المكعب",
     "description": "قم بنمذجة تدويرات أوجه مكعب روبيك كتبديلات تم التحقق منها، واستكشف القوى بمقاس أربعة، وميّز بين مسار عشوائي كسول ونموذج تصادفي لملصق واحد."
   },
@@ -17,16 +17,16 @@
     "model": "gemini-3.8-flash-medium",
     "contentAudit": {
       "status": "passed",
-      "sourceSha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c",
-      "targetSha256": "6c15b4391a8a8a510dab4782e79185a90b31639c4c1a145d57baf39ef6693ea0",
+      "sourceSha256": "c69cca69b060b196107fe0489b0f25cb8ddf5f0d7cca253fcfbb4bbf2179f478",
+      "targetSha256": "038746d83aa7b6efe8b27c9b1a230fa386fa519cfdc5e8b89e077caebc6a3358",
       "findings": [],
       "errors": [],
-      "reviewMethod": "Prior audits retained for unchanged cells; cycles-only prose received the identified bounded review and exact KEEP/data gates.",
+      "reviewMethod": "Prior prose audits retained; only the new addenda received bounded review. Comments reuse localized Markdown labels under controller review.",
       "provenance": {
-        "predecessorSourceSha256": "b3795f36599216da86e653e8776127d82f6088ac10e5d8ac358c96a549257ef3",
-        "predecessorTargetSha256": "5197f15c9ae8b45d002a3c4b301a8bd367c4c20069c957e4aec2b9e3ad972059",
-        "priorAuditSha256": "4751d87029b980490e9c912a3a5e2231d298fe0821701f2d01791f578795225a",
-        "cyclesUpdateOnly": true
+        "predecessorSourceSha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c",
+        "predecessorTargetSha256": "6c15b4391a8a8a510dab4782e79185a90b31639c4c1a145d57baf39ef6693ea0",
+        "priorAuditSha256": "2afce65ba8f42a4941dfdf8c6c79f2950904a308e4ac79ed86d86c29197f6f08",
+        "layoutAddendaAndCommentsOnly": true
       },
       "nativeSpeakerReview": "pending",
       "caveat": "AI/controller review, not native-speaker or qualified technical certification."
@@ -59,11 +59,11 @@
       "locale": "ar",
       "source": {
         "path": "workbooks/en/markov-groups.srwb",
-        "sha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c"
+        "sha256": "c69cca69b060b196107fe0489b0f25cb8ddf5f0d7cca253fcfbb4bbf2179f478"
       },
       "target": {
         "path": "workbooks/ar/markov-groups.srwb",
-        "sha256": "6c15b4391a8a8a510dab4782e79185a90b31639c4c1a145d57baf39ef6693ea0"
+        "sha256": "038746d83aa7b6efe8b27c9b1a230fa386fa519cfdc5e8b89e077caebc6a3358"
       },
       "spans": [
         {
@@ -129,22 +129,892 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 205,
+              "line": 11,
+              "col": 9
+            },
+            "end": {
+              "line": 11,
+              "col": 29
+            },
+            "text": "U: Corner stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 11,
+              "col": 9
+            },
+            "end": {
+              "line": 11,
+              "col": 28
+            },
+            "text": "U: ملصقات الزوايا"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 18,
+              "col": 9
+            },
+            "end": {
+              "line": 18,
+              "col": 34
+            },
+            "text": "U: Edge-middle stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 18,
+              "col": 9
+            },
+            "end": {
+              "line": 18,
+              "col": 31
+            },
+            "text": "U: ملصقات وسط الحواف"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 25,
+              "col": 9
+            },
+            "end": {
+              "line": 25,
+              "col": 42
+            },
+            "text": "Strip cycles: F → L → B → R → F"
+          },
+          "target_span": {
+            "start": {
+              "line": 25,
+              "col": 9
+            },
+            "end": {
+              "line": 25,
+              "col": 43
+            },
+            "text": "دورات الشرائط: F → L → B → R → F"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 32,
+              "col": 9
+            },
+            "end": {
+              "line": 32,
+              "col": 42
+            },
+            "text": "Strip cycles: F → L → B → R → F"
+          },
+          "target_span": {
+            "start": {
+              "line": 32,
+              "col": 9
+            },
+            "end": {
+              "line": 32,
+              "col": 43
+            },
+            "text": "دورات الشرائط: F → L → B → R → F"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 39,
+              "col": 9
+            },
+            "end": {
+              "line": 39,
+              "col": 42
+            },
+            "text": "Strip cycles: F → L → B → R → F"
+          },
+          "target_span": {
+            "start": {
+              "line": 39,
+              "col": 9
+            },
+            "end": {
+              "line": 39,
+              "col": 43
+            },
+            "text": "دورات الشرائط: F → L → B → R → F"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 48,
+              "col": 9
+            },
+            "end": {
+              "line": 48,
+              "col": 29
+            },
+            "text": "D: Corner stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 48,
+              "col": 9
+            },
+            "end": {
+              "line": 48,
+              "col": 28
+            },
+            "text": "D: ملصقات الزوايا"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 55,
+              "col": 9
+            },
+            "end": {
+              "line": 55,
+              "col": 34
+            },
+            "text": "D: Edge-middle stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 55,
+              "col": 9
+            },
+            "end": {
+              "line": 55,
+              "col": 31
+            },
+            "text": "D: ملصقات وسط الحواف"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 62,
+              "col": 9
+            },
+            "end": {
+              "line": 62,
+              "col": 42
+            },
+            "text": "Strip cycles: F → R → B → L → F"
+          },
+          "target_span": {
+            "start": {
+              "line": 62,
+              "col": 9
+            },
+            "end": {
+              "line": 62,
+              "col": 43
+            },
+            "text": "دورات الشرائط: F → R → B → L → F"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 69,
+              "col": 9
+            },
+            "end": {
+              "line": 69,
+              "col": 42
+            },
+            "text": "Strip cycles: F → R → B → L → F"
+          },
+          "target_span": {
+            "start": {
+              "line": 69,
+              "col": 9
+            },
+            "end": {
+              "line": 69,
+              "col": 43
+            },
+            "text": "دورات الشرائط: F → R → B → L → F"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 76,
+              "col": 9
+            },
+            "end": {
+              "line": 76,
+              "col": 42
+            },
+            "text": "Strip cycles: F → R → B → L → F"
+          },
+          "target_span": {
+            "start": {
+              "line": 76,
+              "col": 9
+            },
+            "end": {
+              "line": 76,
+              "col": 43
+            },
+            "text": "دورات الشرائط: F → R → B → L → F"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 85,
+              "col": 9
+            },
+            "end": {
+              "line": 85,
+              "col": 42
+            },
+            "text": "Strip cycles: U → R → D → L → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 85,
+              "col": 9
+            },
+            "end": {
+              "line": 85,
+              "col": 43
+            },
+            "text": "دورات الشرائط: U → R → D → L → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 92,
+              "col": 9
+            },
+            "end": {
+              "line": 92,
+              "col": 42
+            },
+            "text": "Strip cycles: U → R → D → L → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 92,
+              "col": 9
+            },
+            "end": {
+              "line": 92,
+              "col": 43
+            },
+            "text": "دورات الشرائط: U → R → D → L → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 99,
+              "col": 9
+            },
+            "end": {
+              "line": 99,
+              "col": 42
+            },
+            "text": "Strip cycles: U → R → D → L → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 99,
+              "col": 9
+            },
+            "end": {
+              "line": 99,
+              "col": 43
+            },
+            "text": "دورات الشرائط: U → R → D → L → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 106,
+              "col": 9
+            },
+            "end": {
+              "line": 106,
+              "col": 29
+            },
+            "text": "F: Corner stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 106,
+              "col": 9
+            },
+            "end": {
+              "line": 106,
+              "col": 28
+            },
+            "text": "F: ملصقات الزوايا"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 113,
+              "col": 9
+            },
+            "end": {
+              "line": 113,
+              "col": 34
+            },
+            "text": "F: Edge-middle stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 113,
+              "col": 9
+            },
+            "end": {
+              "line": 113,
+              "col": 31
+            },
+            "text": "F: ملصقات وسط الحواف"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 122,
+              "col": 9
+            },
+            "end": {
+              "line": 122,
+              "col": 42
+            },
+            "text": "Strip cycles: U → L → D → R → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 122,
+              "col": 9
+            },
+            "end": {
+              "line": 122,
+              "col": 43
+            },
+            "text": "دورات الشرائط: U → L → D → R → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 129,
+              "col": 9
+            },
+            "end": {
+              "line": 129,
+              "col": 42
+            },
+            "text": "Strip cycles: U → L → D → R → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 129,
+              "col": 9
+            },
+            "end": {
+              "line": 129,
+              "col": 43
+            },
+            "text": "دورات الشرائط: U → L → D → R → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 136,
+              "col": 9
+            },
+            "end": {
+              "line": 136,
+              "col": 42
+            },
+            "text": "Strip cycles: U → L → D → R → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 136,
+              "col": 9
+            },
+            "end": {
+              "line": 136,
+              "col": 43
+            },
+            "text": "دورات الشرائط: U → L → D → R → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 143,
+              "col": 9
+            },
+            "end": {
+              "line": 143,
+              "col": 29
+            },
+            "text": "B: Corner stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 143,
+              "col": 9
+            },
+            "end": {
+              "line": 143,
+              "col": 28
+            },
+            "text": "B: ملصقات الزوايا"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 150,
+              "col": 9
+            },
+            "end": {
+              "line": 150,
+              "col": 34
+            },
+            "text": "B: Edge-middle stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 150,
+              "col": 9
+            },
+            "end": {
+              "line": 150,
+              "col": 31
+            },
+            "text": "B: ملصقات وسط الحواف"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 159,
+              "col": 9
+            },
+            "end": {
+              "line": 159,
+              "col": 42
+            },
+            "text": "Strip cycles: U → F → D → B → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 159,
+              "col": 9
+            },
+            "end": {
+              "line": 159,
+              "col": 43
+            },
+            "text": "دورات الشرائط: U → F → D → B → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 166,
+              "col": 9
+            },
+            "end": {
+              "line": 166,
+              "col": 42
+            },
+            "text": "Strip cycles: U → F → D → B → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 166,
+              "col": 9
+            },
+            "end": {
+              "line": 166,
+              "col": 43
+            },
+            "text": "دورات الشرائط: U → F → D → B → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 173,
+              "col": 9
+            },
+            "end": {
+              "line": 173,
+              "col": 42
+            },
+            "text": "Strip cycles: U → F → D → B → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 173,
+              "col": 9
+            },
+            "end": {
+              "line": 173,
+              "col": 43
+            },
+            "text": "دورات الشرائط: U → F → D → B → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 180,
+              "col": 9
+            },
+            "end": {
+              "line": 180,
+              "col": 29
+            },
+            "text": "L: Corner stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 180,
+              "col": 9
+            },
+            "end": {
+              "line": 180,
+              "col": 28
+            },
+            "text": "L: ملصقات الزوايا"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 187,
+              "col": 9
+            },
+            "end": {
+              "line": 187,
+              "col": 34
+            },
+            "text": "L: Edge-middle stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 187,
+              "col": 9
+            },
+            "end": {
+              "line": 187,
+              "col": 31
+            },
+            "text": "L: ملصقات وسط الحواف"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 196,
+              "col": 9
+            },
+            "end": {
+              "line": 196,
+              "col": 42
+            },
+            "text": "Strip cycles: U → B → D → F → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 196,
+              "col": 9
+            },
+            "end": {
+              "line": 196,
+              "col": 43
+            },
+            "text": "دورات الشرائط: U → B → D → F → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 203,
+              "col": 9
+            },
+            "end": {
+              "line": 203,
+              "col": 42
+            },
+            "text": "Strip cycles: U → B → D → F → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 203,
+              "col": 9
+            },
+            "end": {
+              "line": 203,
+              "col": 43
+            },
+            "text": "دورات الشرائط: U → B → D → F → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 210,
+              "col": 9
+            },
+            "end": {
+              "line": 210,
+              "col": 42
+            },
+            "text": "Strip cycles: U → B → D → F → U"
+          },
+          "target_span": {
+            "start": {
+              "line": 210,
+              "col": 9
+            },
+            "end": {
+              "line": 210,
+              "col": 43
+            },
+            "text": "دورات الشرائط: U → B → D → F → U"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 217,
+              "col": 9
+            },
+            "end": {
+              "line": 217,
+              "col": 29
+            },
+            "text": "R: Corner stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 217,
+              "col": 9
+            },
+            "end": {
+              "line": 217,
+              "col": 28
+            },
+            "text": "R: ملصقات الزوايا"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 224,
+              "col": 9
+            },
+            "end": {
+              "line": 224,
+              "col": 34
+            },
+            "text": "R: Edge-middle stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 224,
+              "col": 9
+            },
+            "end": {
+              "line": 224,
+              "col": 31
+            },
+            "text": "R: ملصقات وسط الحواف"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 2,
+          "cell_name": "cube_moves",
+          "source_span": {
+            "start": {
+              "line": 235,
               "col": 8
             },
             "end": {
-              "line": 205,
+              "line": 235,
               "col": 62
             },
             "text": "Return p: source position j moves to destination p[j]."
           },
           "target_span": {
             "start": {
-              "line": 205,
+              "line": 235,
               "col": 8
             },
             "end": {
-              "line": 205,
+              "line": 235,
               "col": 53
             },
             "text": "إرجاع p: ينتقل موضع المصدر j إلى الوجهة p[j]."
@@ -158,22 +1028,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 213,
+              "line": 243,
               "col": 8
             },
             "end": {
-              "line": 213,
+              "line": 243,
               "col": 51
             },
             "text": "Rows are destinations, columns are sources."
           },
           "target_span": {
             "start": {
-              "line": 213,
+              "line": 243,
               "col": 8
             },
             "end": {
-              "line": 213,
+              "line": 243,
               "col": 47
             },
             "text": "الصفوف هي الوجهات، والأعمدة هي المصادر."
@@ -187,22 +1057,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 216,
+              "line": 246,
               "col": 27
             },
             "end": {
-              "line": 216,
+              "line": 246,
               "col": 68
             },
             "text": "Expected a permutation of positions 0..53"
           },
           "target_span": {
             "start": {
-              "line": 216,
+              "line": 246,
               "col": 27
             },
             "end": {
-              "line": 216,
+              "line": 246,
               "col": 52
             },
             "text": "توقع تبديلة للمواضع 0..53"
@@ -216,22 +1086,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 229,
+              "line": 259,
               "col": 27
             },
             "end": {
-              "line": 229,
+              "line": 259,
               "col": 73
             },
             "text": "Expected each sticker label 1..54 exactly once"
           },
           "target_span": {
             "start": {
-              "line": 229,
+              "line": 259,
               "col": 27
             },
             "end": {
-              "line": 229,
+              "line": 259,
               "col": 68
             },
             "text": "توقع كل تسمية ملصق 1..54 مرة واحدة بالضبط"
@@ -245,22 +1115,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 233,
+              "line": 263,
               "col": 8
             },
             "end": {
-              "line": 233,
+              "line": 263,
               "col": 67
             },
             "text": "Apply moves left to right; an apostrophe means the inverse."
           },
           "target_span": {
             "start": {
-              "line": 233,
+              "line": 263,
               "col": 8
             },
             "end": {
-              "line": 233,
+              "line": 263,
               "col": 72
             },
             "text": "تطبيق الحركات من اليسار إلى اليمين؛ الفاصلة العليا تعني المعكوس."
@@ -274,22 +1144,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 243,
+              "line": 273,
               "col": 31
             },
             "end": {
-              "line": 243,
+              "line": 273,
               "col": 45
             },
             "text": "Unknown move: "
           },
           "target_span": {
             "start": {
-              "line": 243,
+              "line": 273,
               "col": 31
             },
             "end": {
-              "line": 243,
+              "line": 273,
               "col": 48
             },
             "text": "حركة غير معروفة: "
@@ -303,22 +1173,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 248,
+              "line": 278,
               "col": 8
             },
             "end": {
-              "line": 248,
+              "line": 278,
               "col": 76
             },
             "text": "Return home-face letters as colour labels, not physical paint names."
           },
           "target_span": {
             "start": {
-              "line": 248,
+              "line": 278,
               "col": 8
             },
             "end": {
-              "line": 248,
+              "line": 278,
               "col": 70
             },
             "text": "إرجاع أحرف الوجه الأصلي كتسميات ألوان، وليس كأسماء طلاء مادية."
@@ -332,22 +1202,22 @@
           "cell_name": "cube_moves",
           "source_span": {
             "start": {
-              "line": 251,
+              "line": 281,
               "col": 8
             },
             "end": {
-              "line": 251,
+              "line": 281,
               "col": 74
             },
             "text": "Built six clockwise quarter-turn matrices with fixed face centres."
           },
           "target_span": {
             "start": {
-              "line": 251,
+              "line": 281,
               "col": 8
             },
             "end": {
-              "line": 251,
+              "line": 281,
               "col": 77
             },
             "text": "تم بناء ست مصفوفات لربع دورة باتجاه عقارب الساعة مع مراكز أوجه ثابتة."
@@ -1063,7 +1933,7 @@
     "scope": "prior-revision-runtime",
     "checkedSourceSha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4",
     "checkedTargetSha256": "32ae93b94852178608d5b05ba0cc58f06a6abb31bb7ef8dd6d0bdeb40b510425",
-    "caveat": "Historical executable runs predate the coordinates/cycles Markdown updates; no fresh Python app-runtime run is claimed. Current Markdown import/render checks are recorded separately."
+    "caveat": "Historical executable runs predate the Markdown updates and authorized comment insertions. Current Python changes are comments only; no fresh Python app-runtime run is claimed. Current Markdown import/render checks are separate."
   },
   "caveat": "Machine translated with Gemini and reviewed by AI/controller checks, including scoped corrections where needed. Native-speaker review is pending; structural and numerical checks do not certify prose quality.",
   "coordinateUpdate": {
@@ -1128,6 +1998,71 @@
         "width": 320,
         "height": 844
       }
+    }
+  },
+  "layoutUpdate": {
+    "predecessorCommit": "35b7527e607e089e14deb60ef28ef5e21abd4bee",
+    "predecessorSourceSha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c",
+    "predecessorTargetSha256": "6c15b4391a8a8a510dab4782e79185a90b31639c4c1a145d57baf39ef6693ea0",
+    "generationSourceSha256": "9153e99a56bc85fdb70879b41b2e073543979c71a24fe33930a419d6ca143f3f",
+    "generationTargetSha256": "39002e10a004ddc874f53be167bf8e3d1b27f6be5c4b65553e19b78917b7876d",
+    "sourceSha256": "c69cca69b060b196107fe0489b0f25cb8ddf5f0d7cca253fcfbb4bbf2179f478",
+    "targetSha256": "038746d83aa7b6efe8b27c9b1a230fa386fa519cfdc5e8b89e077caebc6a3358",
+    "addenda": [
+      {
+        "cell": "coordinates",
+        "index": 1,
+        "prefixCodeUnits": 5875,
+        "preservedPrefixSha256": "a1fb0e5b6a774dbfe9e58e82d4bb1a4df63e2291cb0ad869c0467c3ee17c3106",
+        "appendedTextSha256": "6085be20dd102d0c6a47efb05317b26488dab13d4ec84e547d60420b89f86d20",
+        "currentCellSha256": "a0dd057ba5ee1d5aa101a36abde3f45e97f8930b76775a7ddf54c5d657974a44"
+      },
+      {
+        "cell": "cycles",
+        "index": 4,
+        "prefixCodeUnits": 2117,
+        "preservedPrefixSha256": "d931bcc53f381ef0264fa2f4f29a9f347a7b0dfe0c00b5c07074fab2117d82aa",
+        "appendedTextSha256": "ee6fa1c1475c5d92e0b3c91e34bc550eedb9d1c6f25d315a8649c4bde11bd028",
+        "currentCellSha256": "55d77d04afdc43878fddd093a3012af6423186c98be0ebf29bebd57b5078560b"
+      }
+    ],
+    "unchangedPriorMarkdownAndSvg": true,
+    "method": "Gemini-draft-and-fresh-same-model-review",
+    "model": "gemini-3.8-flash-medium",
+    "modelProseApproved": true,
+    "modelReviewScope": "supplied-new-Markdown-addenda-only",
+    "requests": {
+      "draft": 1,
+      "freshReview": 1,
+      "repair": 0
+    },
+    "nativeSpeakerReview": "pending",
+    "headerRefinement": null,
+    "comments": {
+      "method": "controller-reused-localized-Markdown-labels",
+      "cell": "cube_moves",
+      "count": 30,
+      "labels": {
+        "corner": "ملصقات الزوايا",
+        "edge": "ملصقات وسط الحواف",
+        "strip": "دورات الشرائط"
+      },
+      "generationCellSha256": "b900e5279ec6ed7cc37074a6cff7d895901a9847b15102f12d53c190dca0b76d",
+      "finalCellSha256": "82e67cdbc158953f35f447fd7addf5cabcf617c199d2839d3489e1284901d6ef",
+      "unchangedNumericCyclesAndRemainingPython": true,
+      "nativeSpeakerReview": "pending"
+    },
+    "rendering": {
+      "status": "passed",
+      "path": "reviews/markov-layout-rendering.json",
+      "sha256": "5e1d6112e69fec0c619a948671a55634ff2a3f972b8b47441105b6834556f000",
+      "workbookSha256": "038746d83aa7b6efe8b27c9b1a230fa386fa519cfdc5e8b89e077caebc6a3358",
+      "platform": "Free Chromium browser",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "scope": "Current source Markdown import/render/export only"
     }
   }
 }

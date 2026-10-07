@@ -24,6 +24,7 @@ jobs:
       - run: python -m pip install numpy==2.2.6
       - run: node tools/test-example-risk.mjs
       - run: node tools/test-example-markov.mjs
+      - run: node tools/annotate-markov-cycles.mjs --check
       - run: node tools/test-example-cooling.mjs
       - run: node tools/test-example-oil.mjs
       - run: node tools/test-csv-basics-workbook.mjs
