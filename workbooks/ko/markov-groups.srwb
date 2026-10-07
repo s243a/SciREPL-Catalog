@@ -8,7 +8,7 @@
         "name": "intro",
         "type": "markdown",
         "language": "markdown",
-        "code": "# 마르코프 군: 큐브 회전에서의 무작위 보행\n\n이 단원에서는 세 가지 개념을 구분합니다:\n\n1. 유효한 큐브 회전은 스티커 위치의 **치환**입니다.\n2. 하나의 쿼터턴을 반복하면 지수가 **법 4**인 거듭제곱이 됩니다.\n3. 유효한 회전을 무작위로 선택하면 도달 가능한 큐브 상태에 대한 **마르코프 연쇄**가 생성됩니다.\n\n우리는 54개의 번호가 매겨진 스티커가 있는 표준 3×3×3 루빅스 큐브를 사용합니다. 레이블 `1..54`는 색상뿐만 아니라 개별 스티커를 식별합니다. 여섯 개 면의 중심은 모두 고정된 상태로 유지됩니다. 쿼터턴은 회전하는 면의 외부를 직접 바라볼 때 시계 방향입니다; [루빅스 공식 회전 가이드](https://rubiks.com/solve-guide)를 참조하세요.\n\n## 런타임 및 실행 순서\n\nPython 셀을 순서대로 실행하세요: `cube_moves`, `check_moves`, `show_turn`, 그다음 `random_walk`. 이 셀들은 Python 세션을 공유합니다. NumPy가 사용되는 유일한 패키지이며 SciREPL은 Pyodide 런타임과 함께 이를 로드합니다; 처음 사용할 때는 런타임 다운로드가 필요할 수 있습니다. AI 계정, 프롬프트 실행, 추가 패키지 설치 또는 외부 데이터는 필요하지 않습니다. 이 카탈로그 사본에는 저장된 출력이 없습니다.\n\n`check_moves`를 실행하기 전에 예측해 보세요: 어떤 스티커가 절대 위치를 바꾸지 않아야 하며, 쿼터턴을 몇 번 반복해야 모든 레이블이 복원될까요?"
+        "code": "# 마르코프 군: 큐브 회전에서의 무작위 보행\n\n이 단원에서는 세 가지 개념을 구분합니다:\n\n1. 유효한 큐브 회전은 스티커 위치의 **치환**입니다.\n2. 하나의 쿼터턴을 반복하면 지수가 **법 4**인 거듭제곱이 됩니다.\n3. 유효한 회전을 무작위로 선택하면 도달 가능한 큐브 상태에 대한 **마르코프 연쇄**가 생성됩니다.\n\n우리는 54개의 번호가 매겨진 스티커가 있는 표준 3×3×3 루빅스 큐브를 사용합니다. 레이블 `1..54`는 색상뿐만 아니라 개별 스티커를 식별합니다. 여섯 개 면의 중심은 모두 고정된 상태로 유지됩니다. 쿼터턴은 회전하는 면의 외부를 직접 바라볼 때 시계 방향입니다; [루빅스 공식 회전 가이드](https://rubiks.com/solve-guide)를 참조하세요.\n\n## 런타임 및 실행 순서\n\nPython 셀을 순서대로 실행하세요: `cube_moves`, `check_moves`, `show_turn`, `transition_matrix`, `sticker_step`, 그다음 `random_walk`. 이 셀들은 Python 세션을 공유합니다. NumPy가 사용되는 유일한 패키지이며 SciREPL은 Pyodide 런타임과 함께 이를 로드합니다; 처음 사용할 때는 런타임 다운로드가 필요할 수 있습니다. AI 계정, 프롬프트 실행, 추가 패키지 설치 또는 외부 데이터는 필요하지 않습니다. 이 카탈로그 사본에는 저장된 출력이 없습니다.\n\n`check_moves`를 실행하기 전에 예측해 보세요: 어떤 스티커가 절대 위치를 바꾸지 않아야 하며, 쿼터턴을 몇 번 반복해야 모든 레이블이 복원될까요?"
       },
       {
         "name": "coordinates",
@@ -44,13 +44,37 @@
         "name": "markov_bridge",
         "type": "markdown",
         "language": "markdown",
-        "code": "## 4단계 — 무작위로 회전 선택하기\n\n마르코프 연쇄는 오직 현재 상태만을 사용하여 다음 상태의 확률을 지정합니다. **13가지 선택지** 중에서 균등하게 선택합니다: 가만히 있기(`I`), 여섯 개의 쿼터턴, 그리고 이들의 여섯 개 역원. 선택된 회전을 현재 큐브 상태에 적용합니다.\n\n역회전은 동일한 확률을 가지므로 이 보행은 대칭적입니다. 가만히 있기는 보행을 게으르게 만들어 오직 쿼터턴으로만 이루어진 보행의 홀짝성 교대를 방지합니다. 이러한 생성원들로 도달 가능한 큐브 상태의 유한 집합에서 균등 분포는 정상 분포입니다; 도달 가능성과 자체 루프는 기약성과 비주기성을 제공합니다. 이것이 짧은 무작위 시퀀스가 균등하게 혼합된다는 것을 의미하거나 혼합 시간을 확립하는 것은 **아닙니다**.\n\n평균 `T = (I + sum(P + P.T)) / 13` 역시 유용하지만, 이는 모든 큐브 배치에 대한 전이 행렬이 아니라 **54×54 단일 스티커 위치 모델**일 뿐입니다. 열 확률 벡터를 사용하면 `T`의 열의 합은 1이고 `x_next = T @ x`입니다. 여기서 `T`는 대칭이므로 행의 합도 1입니다. 중심 스티커는 자신의 위치에 머무르며, 모든 스티커가 모든 위치를 방문할 수 있는 것은 아닙니다.\n\n확률적 평균은 유효한 결정론적 큐브 회전이 아닙니다: 레이블 벡터를 평균하면 소수 레이블이 생성될 수 있습니다. 큐브 상태를 얻으려면 실제로 선택된 치환을 적용하세요; `T`는 확률 분포용으로만 사용하세요."
+        "code": "## 4단계 — 무작위로 이동 선택하기\n\n### 스티커 위치 전이 행렬 만들기\n\n각 단계에서 **13가지 선택지** 중에서 독립적이고 균등하게 선택합니다: 가만히 있기(`I`), 여섯 개의 쿼터턴, 그리고 그들의 여섯 개의 역원. 각각은 `1/13`의 확률을 갖습니다.\n\n**큐브 전체**에 대해, 이는 그래프 위의 무작위 행보입니다. 정점은 원래 라벨이 붙은 큐브의 도달 가능한 순열이며, 면 회전은 간선을 따르고, 항등원은 자기 루프를 형성합니다. 다음 상태 확률은 현재 구성에만 의존합니다: 이것이 마르코프 연쇄입니다.\n\n먼저 전체 구성이 아닌 **스티커 하나의 위치**를 추적하는 더 작은 **54×54** 행렬 `T`를 구성합니다. 선택된 모든 동작은 여전히 큐브 전체에 작용하지만, 우리는 단순히 선택된 스티커 하나가 어디에 도달하는지만 기록합니다.\n\n`M[name]`은 목적지 인덱스가 아닌 영과 일을 포함합니다. 항목 `M[name][d, j]`는 해당 회전이 출발 위치 `j`를 목적지 위치 `d`로 보낼 때 1입니다. 행은 목적지이고, 열은 출발지입니다. 전치는 역순열을 나타내므로, `M[name].T`는 회전을 반대로 되돌립니다.\n\n다음 셀은 항등 행렬 복사본으로 시작하여 각 회전과 역원을 더합니다. 각 항목은 `j`를 `d`로 보내는 선택지가 몇 개인지 셉니다. 우리는 이 행렬들을 항목별로 더하는데, 이는 순차적으로 수행되는 이동이 아니라 한 단계에 대한 대안들이기 때문입니다. `T`의 거듭제곱은 더 긴 시퀀스를 설명합니다. 13으로 나누면 전이 확률을 얻습니다:\n\n$$\nT_{d,j}=\\frac{1}{13}\\sum_{a\\in\\mathrm{MOVE\\_OPTIONS}}(P_a)_{d,j}.\n$$\n\n여기서 `a`는 이동 선택이고 `P_a`는 항등원을 포함한 순열 행렬입니다. 서로 다른 선택이 동일한 스티커 목적지를 가질 수 있습니다. 각 열의 확률의 합은 1입니다. 회전과 역원에 동일한 가중치를 부여하면 `T`가 대칭이 되므로 행의 합도 1이 됩니다."
+      },
+      {
+        "name": "transition_matrix",
+        "type": "code",
+        "language": "python",
+        "code": "MOVE_OPTIONS = [\"I\", \"U\", \"U'\", \"D\", \"D'\", \"F\", \"F'\", \"B\", \"B'\", \"L\", \"L'\", \"R\", \"R'\"]\nmove_counts = IDENTITY.copy()\nfor name in FACE_NAMES:\n    move_counts += M[name]\n    move_counts += M[name].T\nT = move_counts / len(MOVE_OPTIONS)\nassert np.all(T >= 0)\nassert np.allclose(T.sum(axis=0), 1)\nassert np.allclose(T.sum(axis=1), 1)\nassert np.allclose(T, T.T)"
+      },
+      {
+        "name": "sticker_bridge",
+        "type": "markdown",
+        "language": "markdown",
+        "code": "### 선택한 하나의 스티커를 한 단계 동안 추적하기\n\n처음에는 영 기반 위치 **0**에 있는 **스티커 라벨 1**을 선택합니다. `SOLVED[j]`는 스티커 라벨을 포함하고, `location_probability[j]`는 우리가 선택한 스티커가 위치 `j`를 차지할 확률을 의미합니다. 벡터 길이는 같지만, 의미는 다릅니다.\n\n방정식에서 `location_probability`를 `x`로 쓰고, 위첨자는 단계를 셉니다. 처음에는 항목 0을 1로 설정하고 다른 모든 항목은 영으로 설정합니다: **원-핫 확률 벡터**입니다.\n\n$$\nx_j^{(0)}=\\begin{cases}1,&j=0,\\\\0,&j\\ne0.\\end{cases}\n$$\n\n`T`를 곱하면 첫 번째 열이 선택됩니다:\n\n$$\nx_d^{(1)}=\\sum_{j=0}^{53}T_{d,j}x_j^{(0)}=T_{d,0}.\n$$\n\n따라서 `after_one_step = T @ location_probability`는 한 번의 선택 후 목적지의 분포인 `T[:, 0]`과 같습니다.\n\n선택지 `I`, `D`, `D'`, `F`, `F'`, `R`, `R'`은 위치 0을 변경하지 않고 그대로 두므로 `T[0, 0] = 7/13`입니다. 다른 여섯 개의 목적지는 위치 `2`, `6`, `18`, `35`, `42`, `47`이며, 각각 `1/13`의 확률을 갖습니다.\n\n출력된 질량 1은 **정규화만을 확인**할 뿐, 균등한 스티커 위치나 큐브 전체의 혼합을 확인하지는 않습니다. `T`는 일반적으로 순열이 아닙니다: 이를 `SOLVED`에 적용하면 유효한 구성이 아니라 분수 라벨이 생성될 수 있습니다."
+      },
+      {
+        "name": "sticker_step",
+        "type": "code",
+        "language": "python",
+        "code": "# 특정 스티커 하나의 위치에 대한 분포.\nlocation_probability = np.zeros(N)\nlocation_probability[0] = 1\nafter_one_step = T @ location_probability\nassert np.isclose(after_one_step.sum(), 1)\nprint(\"한 걸음 후의 단일 스티커 확률 질량:\", round(float(after_one_step.sum()), 6))"
+      },
+      {
+        "name": "trajectory_bridge",
+        "type": "markdown",
+        "language": "markdown",
+        "code": "### 실제 큐브 전체 궤적 샘플링하기\n\n이제 `rng.choice`가 12개의 실제 선택을 샘플링하고, `apply(SOLVED, *moves)`가 해당 순열들을 큐브 전체에 적용합니다. 이는 라벨들의 평균이 아니라 하나의 유효한 구성을 제공합니다. 시드는 이를 재현 가능하게 만들 뿐, 균등하게 섞이도록 하지는 않습니다. 어설션은 모든 스티커 라벨과 여섯 개의 중심 모두가 보존되는지 확인합니다.\n\n**스티커 위치 모델**에서의 `n`단계의 경우, `np.linalg.matrix_power(T, n) @ location_probability`를 사용합니다. 이는 각각 `1 / 13**n`의 확률을 갖는 `n`개의 독립적인 선택으로 이루어진 모든 순서화된 시퀀스에 대해 평균을 냅니다. 두 단계의 경우:\n\n$$\nT^2=\\frac{1}{13^2}\\sum_{a,b\\in\\mathrm{MOVE\\_OPTIONS}}P_bP_a.\n$$\n\n여기서 `a`가 먼저 선택되고, 그 다음 `b`가 선택됩니다. “U 다음 R”과 “R 다음 U” 모두가 기여합니다: `M[\"R\"] @ M[\"U\"]` 및 `M[\"U\"] @ M[\"R\"]`. 평균을 낸다고 해서 서로 다른 이동 순서가 동등해지는 것은 아닙니다.\n\n도달 가능한 큐브 전체 구성의 유한 그래프에서, 균등 확률은 정상 상태입니다. 동일한 이동/역원 확률, 도달 가능성, 그리고 항등원 자기 루프는 최종적인 수렴을 보장하지만, 혼합 시간이나 12번의 선택 후 균등하게 뒤섞임을 확립하지는 않습니다."
       },
       {
         "name": "random_walk",
         "type": "code",
         "language": "python",
-        "code": "MOVE_OPTIONS = [\"I\", \"U\", \"U'\", \"D\", \"D'\", \"F\", \"F'\", \"B\", \"B'\", \"L\", \"L'\", \"R\", \"R'\"]\nT = (IDENTITY + sum((M[name] + M[name].T for name in FACE_NAMES), np.zeros((N, N), dtype=int))) / len(MOVE_OPTIONS)\nassert np.all(T >= 0)\nassert np.allclose(T.sum(axis=0), 1)\nassert np.allclose(T.sum(axis=1), 1)\nassert np.allclose(T, T.T)\n\n# 특정 스티커 하나의 위치에 대한 분포.\nlocation_probability = np.zeros(N)\nlocation_probability[0] = 1\nafter_one_step = T @ location_probability\nassert np.isclose(after_one_step.sum(), 1)\nprint(\"한 걸음 후의 단일 스티커 확률 질량:\", round(float(after_one_step.sum()), 6))\n\n# 유효한 큐브 궤적을 표본 추출합니다. 시드는 이 예제를 재현 가능하게 만듭니다,\n# 도달 가능한 모든 큐브 배치에 대해 균등하게 혼합된 것은 아닙니다.\nrng = np.random.default_rng(7)\nmoves = rng.choice(MOVE_OPTIONS, size=12).tolist()\nwalk_state = apply(SOLVED, *moves)\nassert np.array_equal(np.sort(walk_state), SOLVED)\nassert np.array_equal(walk_state[CENTRES], SOLVED[CENTRES])\nprint(\"표본 추출된 회전:\", \" \".join(moves))\nprint(\"최종 면 문자 색상:\", stickers_to_colours(walk_state))\nprint(\"표본 추출된 경로는 모든 스티커 레이블과 여섯 개의 중심을 모두 보존했습니다.\")"
+        "code": "# 유효한 큐브 궤적을 표본 추출합니다. 시드는 이 예제를 재현 가능하게 만듭니다,\n# 도달 가능한 모든 큐브 배치에 대해 균등하게 혼합된 것은 아닙니다.\nrng = np.random.default_rng(7)\nmoves = rng.choice(MOVE_OPTIONS, size=12).tolist()\nwalk_state = apply(SOLVED, *moves)\nassert np.array_equal(np.sort(walk_state), SOLVED)\nassert np.array_equal(walk_state[CENTRES], SOLVED[CENTRES])\nprint(\"표본 추출된 회전:\", \" \".join(moves))\nprint(\"최종 면 문자 색상:\", stickers_to_colours(walk_state))\nprint(\"표본 추출된 경로는 모든 스티커 레이블과 여섯 개의 중심을 모두 보존했습니다.\")"
       },
       {
         "name": "takeaways",

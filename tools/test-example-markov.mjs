@@ -40,7 +40,8 @@ const named = name => {
 check('Markov has staged, named Python and Markdown cells', () => {
   assert.deepEqual(markov.notebook.cells.map(cell => cell.name), [
     'intro', 'coordinates', 'cube_moves', 'check_moves', 'cycles',
-    'show_turn', 'markov_bridge', 'random_walk', 'takeaways',
+    'show_turn', 'markov_bridge', 'transition_matrix', 'sticker_bridge',
+    'sticker_step', 'trajectory_bridge', 'random_walk', 'takeaways',
   ]);
   for (const cell of markov.notebook.cells) {
     assert.equal(cell.language, cell.type === 'markdown' ? 'markdown' : 'python');
@@ -145,7 +146,7 @@ check('Static coordinate diagrams have fixed inert geometry and safe accessible 
 for (const locale of EXAMPLE_LOCALES) check(`${locale} embeds both coordinate diagrams without runtime output`, () => {
   const book = JSON.parse(readFileSync(new URL(`../workbooks/${locale}/markov-groups.srwb`, import.meta.url), 'utf8'));
   assert.deepEqual(book.notebook.cells.map(cell => cell.name), markov.notebook.cells.map(cell => cell.name));
-  assert.equal(book.notebook.cells.length, 9);
+  assert.equal(book.notebook.cells.length, 13);
   const cell = book.notebook.cells[1];
   assert.equal(cell.name, 'coordinates'); assert.equal(cell.type, 'markdown');
   assertCoordinateSvgInvariants(cell.code);
@@ -353,11 +354,51 @@ check('Python matrix convention keeps sources in columns', () => {
   assert.match(named('check_moves'), /p\[CENTRES\]/);
 });
 
-const optionsLiteral = named('random_walk').match(/MOVE_OPTIONS = (\[[^\n]+\])/);
+const optionsLiteral = named('transition_matrix').match(/MOVE_OPTIONS = (\[[^\n]+\])/);
 assert(optionsLiteral, 'Missing lazy-walk move data');
 const options = JSON.parse(optionsLiteral[1]);
 check('Lazy symmetric walk has exactly identity and all moves/inverses', () => {
   assert.deepEqual(options, ['I', ...[...faceNames].flatMap(name => [name, `${name}'`])]);
+});
+check('Stage 4 places each explanation immediately before its own code', () => {
+  for (const [prose, code] of [['markov_bridge', 'transition_matrix'],
+    ['sticker_bridge', 'sticker_step'], ['trajectory_bridge', 'random_walk']]) {
+    const index = markov.notebook.cells.findIndex(cell => cell.name === prose);
+    assert.equal(markov.notebook.cells[index].type, 'markdown');
+    assert.equal(markov.notebook.cells[index + 1].name, code);
+    assert.equal(markov.notebook.cells[index + 1].type, 'code');
+  }
+  assert.match(named('intro'), /`show_turn`, `transition_matrix`, `sticker_step`/);
+});
+check('Readable transition construction counts alternatives rather than composing them', () => {
+  assert.match(named('transition_matrix'), /move_counts = IDENTITY\.copy\(\)\nfor name in FACE_NAMES:\n    move_counts \+= M\[name\]\n    move_counts \+= M\[name\]\.T\nT = move_counts \/ len\(MOVE_OPTIONS\)/);
+  assert.match(named('markov_bridge'), /alternatives for one step, not moves performed in sequence/);
+  assert.match(named('markov_bridge'), /Every chosen move still acts on the whole cube/);
+  assert.match(named('trajectory_bridge'), /Here `a` is chosen first, then `b`/);
+  assert(!named('random_walk').includes('location_probability'));
+});
+check('One-hot code and TeX make the single-sticker observable explicit', () => {
+  assert.match(named('sticker_step'), /location_probability = np\.zeros\(N\)\nlocation_probability\[0\] = 1\nafter_one_step = T @ location_probability/);
+  assert(named('sticker_bridge').includes('`T[:, 0]`'));
+  assert(named('sticker_bridge').includes('x_j^{(0)}=\\begin{cases}'));
+  assert(named('sticker_bridge').includes('x_d^{(1)}=\\sum_{j=0}^{53}T_{d,j}x_j^{(0)}=T_{d,0}'));
+  const formulas = ['markov_bridge', 'sticker_bridge', 'trajectory_bridge']
+    .flatMap(name => [...named(name).matchAll(/\$\$[\s\S]*?\$\$/g)]);
+  assert.equal(formulas.length, 4);
+  assert.match(named('sticker_bridge'), /normalization only/);
+});
+check('Actual moves confirm seven stays and six one-step destinations for position zero', () => {
+  const destinations = options.map(option => {
+    const permutation = option === 'I' ? identity : option.endsWith("'")
+      ? inverse(permutations[option.slice(0, -1)]) : permutations[option];
+    return permutation[0];
+  });
+  assert.deepEqual(options.filter((_, index) => destinations[index] === 0),
+    ['I', 'D', "D'", 'F', "F'", 'R', "R'"]);
+  assert.deepEqual(destinations.filter(destination => destination !== 0).sort((a, b) => a - b),
+    [2, 6, 18, 35, 42, 47]);
+  assert(named('sticker_bridge').includes('`T[0, 0] = 7/13`'));
+  assert.match(named('sticker_bridge'), /positions `2`, `6`, `18`, `35`, `42`, and `47`/);
 });
 check('One-sticker mixture is doubly stochastic and fixes centres', () => {
   const counts = Array.from({ length: 54 }, () => Array(54).fill(0));

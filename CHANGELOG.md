@@ -37,6 +37,28 @@ and work deliberately deferred.
 - Reflowed the new German cycle-table headings after the actual narrow-screen
   check; the original campaign hashes remain recorded and no extra model
   request was made.
+- Reworked Stage 4 in all 13 Markov Groups editions into three adjacent
+  Markdown/Python pairs: count one-step alternatives, follow one chosen
+  sticker, then sample a whole-cube trajectory. Four KaTeX equations connect
+  matrix entries, a one-hot probability vector, first-column selection and
+  ordered two-step products to the code. Astra's clarity review approved the
+  revised explanation.
+- Replaced the compact transition-matrix sum with an equivalent explicit
+  counting loop, preserved existing localized comments/output labels, and
+  added the two new code-cell names to the introduction's run order. Earlier
+  geometry, diagrams, cycle data and all other content remain unchanged.
+- The Stage 4 campaign used 24 requests (one draft/review pair per locale),
+  with no retries or repairs. Eleven editions passed fresh Gemini reviews;
+  Arabic used controller review and corrections after a truncated review
+  response. Native-speaker review remains pending. These item revisions
+  become 4; the catalogue version and release tags do not change. Fresh
+  import/render checks and local NumPy equivalence evidence are separate
+  from the retained historical nine-cell app-runtime receipts.
+- Actual formula review caught inherited RTL direction reversing Arabic
+  equations despite valid KaTeX syntax. Four trusted LTR containers now keep
+  the unchanged math in its proper order while Arabic prose stays RTL. The
+  original translation snapshot is preserved; this controller rendering
+  refinement uses zero additional model requests.
 
 ## 2026-10-04 — reviewed examples (staging)
 

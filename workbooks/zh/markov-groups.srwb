@@ -8,7 +8,7 @@
         "name": "intro",
         "type": "markdown",
         "language": "markdown",
-        "code": "# 马尔可夫群：魔方动作上的随机游走\n\n本课区分了三个概念：\n\n1. 合法的魔方动作是贴纸位置的**置换**。\n2. 重复一次四分之一转会产生指数**模 4** 的幂。\n3. 随机选择合法动作会在可达魔方状态上构建一个**马尔可夫链**。\n\n我们使用带有 54 个带编号贴纸的标准 3×3×3 魔方。标签 `1..54` 标识单独的贴纸，而不仅仅是颜色。所有六个面中心保持固定。当你直接注视旋转面的外侧时，四分之一转是顺时针方向的；参见[魔方官方转动指南](https://rubiks.com/solve-guide)。\n\n## 运行环境与运行顺序\n\n按顺序运行 Python 单元格：`cube_moves`、`check_moves`、`show_turn`，然后是 `random_walk`。它们共享 Python 会话。NumPy 是唯一使用的程序包，SciREPL 通过其 Pyodide 运行时加载它；首次使用可能需要下载运行时。不需要 AI 账户、提示词执行、额外程序包安装或外部数据。此目录副本没有保存的输出。\n\n在运行 `check_moves` 之前，请预测：哪些贴纸绝不能改变位置，以及多少次重复的四分之一转应该恢复每一个标签？"
+        "code": "# 马尔可夫群：魔方动作上的随机游走\n\n本课区分了三个概念：\n\n1. 合法的魔方动作是贴纸位置的**置换**。\n2. 重复一次四分之一转会产生指数**模 4** 的幂。\n3. 随机选择合法动作会在可达魔方状态上构建一个**马尔可夫链**。\n\n我们使用带有 54 个带编号贴纸的标准 3×3×3 魔方。标签 `1..54` 标识单独的贴纸，而不仅仅是颜色。所有六个面中心保持固定。当你直接注视旋转面的外侧时，四分之一转是顺时针方向的；参见[魔方官方转动指南](https://rubiks.com/solve-guide)。\n\n## 运行环境与运行顺序\n\n按顺序运行 Python 单元格：`cube_moves`、`check_moves`、`show_turn`, `transition_matrix`, `sticker_step`，然后是 `random_walk`。它们共享 Python 会话。NumPy 是唯一使用的程序包，SciREPL 通过其 Pyodide 运行时加载它；首次使用可能需要下载运行时。不需要 AI 账户、提示词执行、额外程序包安装或外部数据。此目录副本没有保存的输出。\n\n在运行 `check_moves` 之前，请预测：哪些贴纸绝不能改变位置，以及多少次重复的四分之一转应该恢复每一个标签？"
       },
       {
         "name": "coordinates",
@@ -44,13 +44,37 @@
         "name": "markov_bridge",
         "type": "markdown",
         "language": "markdown",
-        "code": "## 阶段 4——随机选择一个动作\n\n马尔可夫链仅利用当前状态来指定下一个状态的概率。在 **13 种选项**中均匀选择：保持不动（`I`）、六个四分之一转以及它们的六个逆动作。将选定的动作应用于当前魔方状态。\n\n因为逆动作具有相同的概率，所以游走是对称的。保持不动使其具有惰性，从而避免了仅由四分之一转组成的游走的奇偶交替。在由这些生成元可达的有限魔方状态集上，均匀分布是平稳分布；可达性和自环赋予了不可约性与非周期性。这并**不**意味着较短的随机序列是均匀混合的，也没有确立混合时间。\n\n平均矩阵 `T = (I + sum(P + P.T)) / 13` 也很有用，但它只是一个 **54×54 单贴纸位置模型**，而不是所有魔方构型的转移矩阵。对于列概率向量，`T` 的各列之和为 1，且 `x_next = T @ x`。此处 `T` 是对称的，因此其各行之和也为 1。中心贴纸停留在其自身位置；并不是每个贴纸都能访问每个位置。\n\n随机平均不是合法的确定性魔方动作：对标签向量求平均可能会产生分数值标签。应用实际选定的置换来获得魔方状态；仅将 `T` 用于概率分布。"
+        "code": "## 阶段 4 — 随机选择操作\n\n### 构建贴纸位置转移矩阵\n\n在每一步中，从 **13 个选项** 中独立且均匀地进行选择：保持不动（`I`）、六个四分之一转动以及它们的六个逆转动。每个选项的概率均为 `1/13`。\n\n对于**整个魔方**，这是图上的随机游走。顶点是带标号原始魔方的可达置换；面转动沿着一条边进行，而恒等变换构成一个自环。下一状态的概率仅取决于当前构型：这是一个马尔可夫链。\n\n首先构建一个较小的 **54×54** 矩阵 `T`，追踪**单个贴纸的位置**，而不是整个构型。每个选定的操作仍然作用于整个魔方；我们只需记录选定的单个贴纸最终所在的位置。\n\n`M[name]` 包含零和一，而不是目标索引。当该转动将源位置 `j` 送至目标位置 `d` 时，条目 `M[name][d, j]` 为 1。行表示目标；列表示源。转置表示逆置换，因此 `M[name].T` 反转该转动。\n\n下一个单元格从单位矩阵副本开始，并加上每个转动及其逆转动。每个条目统计有多少种选择将 `j` 送至 `d`。我们逐条目将这些矩阵相加，因为它们是单步操作的可选方案，而不是按顺序执行的操作。`T` 的幂考虑了更长的序列。除以 13 得到转移概率：\n\n$$\nT_{d,j}=\\frac{1}{13}\\sum_{a\\in\\mathrm{MOVE\\_OPTIONS}}(P_a)_{d,j}.\n$$\n\n这里 `a` 是一种转动选择，`P_a` 是其置换矩阵，包括恒等变换。不同的选择可以具有相同的贴纸目标位置。每一列的概率之和为 1。对转动和逆转动的同等权重使得 `T` 对称，因此各行之和也为 1。"
+      },
+      {
+        "name": "transition_matrix",
+        "type": "code",
+        "language": "python",
+        "code": "MOVE_OPTIONS = [\"I\", \"U\", \"U'\", \"D\", \"D'\", \"F\", \"F'\", \"B\", \"B'\", \"L\", \"L'\", \"R\", \"R'\"]\nmove_counts = IDENTITY.copy()\nfor name in FACE_NAMES:\n    move_counts += M[name]\n    move_counts += M[name].T\nT = move_counts / len(MOVE_OPTIONS)\nassert np.all(T >= 0)\nassert np.allclose(T.sum(axis=0), 1)\nassert np.allclose(T.sum(axis=1), 1)\nassert np.allclose(T, T.T)"
+      },
+      {
+        "name": "sticker_bridge",
+        "type": "markdown",
+        "language": "markdown",
+        "code": "### 跟踪选定的单个贴纸一步\n\n选择**贴纸标号 1**，初始位于从零开始的位置 **0**。`SOLVED[j]` 包含贴纸标号；`location_probability[j]` 表示我们选定的贴纸占据位置 `j` 的概率。向量长度相同，含义不同。\n\n在方程式中将 `location_probability` 记为 `x`，用上标对步数进行计数。初始时将条目 0 设为 1，将其他所有条目设为零：即一个**独热概率向量**。\n\n$$\nx_j^{(0)}=\\begin{cases}1,&j=0,\\\\0,&j\\ne0.\\end{cases}\n$$\n\n乘以 `T` 会选出其第一列：\n\n$$\nx_d^{(1)}=\\sum_{j=0}^{53}T_{d,j}x_j^{(0)}=T_{d,0}.\n$$\n\n因此 `after_one_step = T @ location_probability` 等于 `T[:, 0]`，即一次选择后目标位置的分布。\n\n选择 `I`、`D`、`D'`、`F`、`F'`、`R` 和 `R'` 使位置 0 保持不变，因此 `T[0, 0] = 7/13`。其余六个目标位置为位置 `2`、`6`、`18`、`35`、`42` 和 `47`，各自的概率均为 `1/13`。\n\n打印出的质量 1 **仅检查归一化**，并不代表贴纸位置均匀或整个魔方混合。`T` 通常不是置换：将其应用于 `SOLVED` 可能会产生分数值标号，而非合法的构型。"
+      },
+      {
+        "name": "sticker_step",
+        "type": "code",
+        "language": "python",
+        "code": "# 单个特定贴纸位置的分布。\nlocation_probability = np.zeros(N)\nlocation_probability[0] = 1\nafter_one_step = T @ location_probability\nassert np.isclose(after_one_step.sum(), 1)\nprint(\"一步后单个贴纸的概率质量：\", round(float(after_one_step.sum()), 6))"
+      },
+      {
+        "name": "trajectory_bridge",
+        "type": "markdown",
+        "language": "markdown",
+        "code": "### 对实际整魔方轨迹进行采样\n\n现在 `rng.choice` 采样 12 个实际选择，并且 `apply(SOLVED, *moves)` 将这些置换应用于整个魔方。这会产生一个有效构型，而不是标号的平均值。随机数种子使其可复现，但并非均匀混合。断言检查了每个贴纸标号和全部六个中心块的保留情况。\n\n对于**贴纸位置模型**中的 `n` 步，使用 `np.linalg.matrix_power(T, n) @ location_probability`。这是对所有由 `n` 个独立选择组成的有序序列求平均，每个序列的概率为 `1 / 13**n`。对于两步：\n\n$$\nT^2=\\frac{1}{13^2}\\sum_{a,b\\in\\mathrm{MOVE\\_OPTIONS}}P_bP_a.\n$$\n\n这里首先选择 `a`，然后选择 `b`。“先 U 后 R”与“先 R 后 U”均有贡献：`M[\"R\"] @ M[\"U\"]` 和 `M[\"U\"] @ M[\"R\"]`。求平均并不会使不同的转动顺序变得等价。\n\n在可达整魔方构型的有限图上，均匀概率是平稳的。转动与逆转动的概率相等、可达性以及恒等变换自环确保了最终的收敛性，但既未确立混合时间，也未确立在 12 次选择后的均匀打乱。"
       },
       {
         "name": "random_walk",
         "type": "code",
         "language": "python",
-        "code": "MOVE_OPTIONS = [\"I\", \"U\", \"U'\", \"D\", \"D'\", \"F\", \"F'\", \"B\", \"B'\", \"L\", \"L'\", \"R\", \"R'\"]\nT = (IDENTITY + sum((M[name] + M[name].T for name in FACE_NAMES), np.zeros((N, N), dtype=int))) / len(MOVE_OPTIONS)\nassert np.all(T >= 0)\nassert np.allclose(T.sum(axis=0), 1)\nassert np.allclose(T.sum(axis=1), 1)\nassert np.allclose(T, T.T)\n\n# 单个特定贴纸位置的分布。\nlocation_probability = np.zeros(N)\nlocation_probability[0] = 1\nafter_one_step = T @ location_probability\nassert np.isclose(after_one_step.sum(), 1)\nprint(\"一步后单个贴纸的概率质量：\", round(float(after_one_step.sum()), 6))\n\n# 采样一条合法的魔方轨迹。随机种子使此示例具有可重现性，\n# 而非在所有可达魔方构型上均匀混合。\nrng = np.random.default_rng(7)\nmoves = rng.choice(MOVE_OPTIONS, size=12).tolist()\nwalk_state = apply(SOLVED, *moves)\nassert np.array_equal(np.sort(walk_state), SOLVED)\nassert np.array_equal(walk_state[CENTRES], SOLVED[CENTRES])\nprint(\"采样的动作：\", \" \".join(moves))\nprint(\"最终面字母颜色：\", stickers_to_colours(walk_state))\nprint(\"采样路径保留了每个贴纸标签和所有六个中心。\")"
+        "code": "# 采样一条合法的魔方轨迹。随机种子使此示例具有可重现性，\n# 而非在所有可达魔方构型上均匀混合。\nrng = np.random.default_rng(7)\nmoves = rng.choice(MOVE_OPTIONS, size=12).tolist()\nwalk_state = apply(SOLVED, *moves)\nassert np.array_equal(np.sort(walk_state), SOLVED)\nassert np.array_equal(walk_state[CENTRES], SOLVED[CENTRES])\nprint(\"采样的动作：\", \" \".join(moves))\nprint(\"最终面字母颜色：\", stickers_to_colours(walk_state))\nprint(\"采样路径保留了每个贴纸标签和所有六个中心。\")"
       },
       {
         "name": "takeaways",

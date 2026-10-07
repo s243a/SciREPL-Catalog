@@ -4,12 +4,12 @@
   "locale": "hi",
   "source": {
     "path": "workbooks/en/markov-groups.srwb",
-    "sha256": "c69cca69b060b196107fe0489b0f25cb8ddf5f0d7cca253fcfbb4bbf2179f478"
+    "sha256": "777bdf582a23c6e588932a56ec6b14ca086d8574619ffe4f026f1c9b3c17d878"
   },
   "target": {
     "path": "workbooks/hi/markov-groups.srwb",
-    "sha256": "bf1cde7e1608862293efbf0893e6a97e6ec2a5f99a281374dc00c9e02f907760",
-    "size": 48364,
+    "sha256": "398bcc42d2a0929d81ff6d5daa00ea1c65345579aaacfa3ebce4cca8f56e15f0",
+    "size": 55119,
     "title": "मार्कोव समूह: क्यूब चालों पर एक रैंडम वॉक",
     "description": "रूबिक क्यूब के फलक घुमावों को सत्यापित क्रमपरिवर्तनों के रूप में मॉडल करें, मॉड्यूलो चार वाली घातों का अन्वेषण करें, और एक लेज़ी रैंडम वॉक तथा एक-स्टिकर स्टोकेस्टिक मॉडल के बीच अंतर स्पष्ट करें।"
   },
@@ -17,16 +17,19 @@
     "model": "gemini-3.8-flash-medium",
     "contentAudit": {
       "status": "passed",
-      "sourceSha256": "c69cca69b060b196107fe0489b0f25cb8ddf5f0d7cca253fcfbb4bbf2179f478",
-      "targetSha256": "bf1cde7e1608862293efbf0893e6a97e6ec2a5f99a281374dc00c9e02f907760",
+      "sourceSha256": "777bdf582a23c6e588932a56ec6b14ca086d8574619ffe4f026f1c9b3c17d878",
+      "targetSha256": "398bcc42d2a0929d81ff6d5daa00ea1c65345579aaacfa3ebce4cca8f56e15f0",
       "findings": [],
       "errors": [],
-      "reviewMethod": "Prior prose audits retained; only the new addenda received bounded review. Comments reuse localized Markdown labels under controller review.",
+      "reviewMethod": "Prior prose audits retained. Only the three new Stage 4 Markdown fields received bounded review; existing localized comments and output labels were mechanically preserved.",
       "provenance": {
-        "predecessorSourceSha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c",
-        "predecessorTargetSha256": "7efee4664503882a24b7f22e33f3baf3a64e25c514c70f65733a24049100c858",
-        "priorAuditSha256": "ed08d1d35d6f4a676cb7155524a6343ab32e3f2c5d9ecfd7d064f0815b7a16d4",
-        "layoutAddendaAndCommentsOnly": true
+        "predecessorCommit": "017ea7eed65a9dc7875aa5b8c59df489114facbd",
+        "predecessorSourceSha256": "c69cca69b060b196107fe0489b0f25cb8ddf5f0d7cca253fcfbb4bbf2179f478",
+        "predecessorTargetSha256": "bf1cde7e1608862293efbf0893e6a97e6ec2a5f99a281374dc00c9e02f907760",
+        "priorAuditSha256": "4b7a04acbc534c508a2cafcfc667ef890448555af1dc4c71f140a1ba04485475",
+        "stage4ThreeMarkdownFieldsOnly": true,
+        "reviewMethod": "Gemini-draft-and-fresh-same-model-review",
+        "modelProseApproved": true
       },
       "nativeSpeakerReview": "pending",
       "caveat": "AI/controller review, not native-speaker or qualified technical certification."
@@ -59,11 +62,11 @@
       "locale": "hi",
       "source": {
         "path": "workbooks/en/markov-groups.srwb",
-        "sha256": "c69cca69b060b196107fe0489b0f25cb8ddf5f0d7cca253fcfbb4bbf2179f478"
+        "sha256": "777bdf582a23c6e588932a56ec6b14ca086d8574619ffe4f026f1c9b3c17d878"
       },
       "target": {
         "path": "workbooks/hi/markov-groups.srwb",
-        "sha256": "bf1cde7e1608862293efbf0893e6a97e6ec2a5f99a281374dc00c9e02f907760"
+        "sha256": "398bcc42d2a0929d81ff6d5daa00ea1c65345579aaacfa3ebce4cca8f56e15f0"
       },
       "spans": [
         {
@@ -1662,26 +1665,26 @@
           "placeholders": []
         },
         {
-          "cell_index": 7,
-          "cell_name": "random_walk",
+          "cell_index": 9,
+          "cell_name": "sticker_step",
           "source_span": {
             "start": {
-              "line": 8,
+              "line": 1,
               "col": 1
             },
             "end": {
-              "line": 8,
+              "line": 1,
               "col": 61
             },
             "text": "A distribution for the location of one particular sticker."
           },
           "target_span": {
             "start": {
-              "line": 8,
+              "line": 1,
               "col": 1
             },
             "end": {
-              "line": 8,
+              "line": 1,
               "col": 44
             },
             "text": "एक विशेष स्टिकर के स्थान के लिए एक वितरण।"
@@ -1691,26 +1694,26 @@
           "placeholders": []
         },
         {
-          "cell_index": 7,
-          "cell_name": "random_walk",
+          "cell_index": 9,
+          "cell_name": "sticker_step",
           "source_span": {
             "start": {
-              "line": 13,
+              "line": 6,
               "col": 8
             },
             "end": {
-              "line": 13,
+              "line": 6,
               "col": 52
             },
             "text": "One-sticker probability mass after one step:"
           },
           "target_span": {
             "start": {
-              "line": 13,
+              "line": 6,
               "col": 8
             },
             "end": {
-              "line": 13,
+              "line": 6,
               "col": 52
             },
             "text": "एक चरण के बाद एक-स्टिकर प्रायिकता द्रव्यमान:"
@@ -1720,26 +1723,26 @@
           "placeholders": []
         },
         {
-          "cell_index": 7,
+          "cell_index": 11,
           "cell_name": "random_walk",
           "source_span": {
             "start": {
-              "line": 15,
+              "line": 1,
               "col": 1
             },
             "end": {
-              "line": 15,
+              "line": 1,
               "col": 76
             },
             "text": "Sample a valid cube trajectory. The seed makes this example reproducible,"
           },
           "target_span": {
             "start": {
-              "line": 15,
+              "line": 1,
               "col": 1
             },
             "end": {
-              "line": 15,
+              "line": 1,
               "col": 81
             },
             "text": "एक वैध क्यूब प्रक्षेपवक्र का नमूना लें। सीड इस उदाहरण को पुनरुत्पादक बनाता है,"
@@ -1749,26 +1752,26 @@
           "placeholders": []
         },
         {
-          "cell_index": 7,
+          "cell_index": 11,
           "cell_name": "random_walk",
           "source_span": {
             "start": {
-              "line": 16,
+              "line": 2,
               "col": 1
             },
             "end": {
-              "line": 16,
+              "line": 2,
               "col": 62
             },
             "text": "not uniformly mixed over all reachable cube configurations."
           },
           "target_span": {
             "start": {
-              "line": 16,
+              "line": 2,
               "col": 1
             },
             "end": {
-              "line": 16,
+              "line": 2,
               "col": 66
             },
             "text": "सभी पहुँचने योग्य क्यूब विन्यासों में समान रूप से मिश्रित नहीं।"
@@ -1778,26 +1781,26 @@
           "placeholders": []
         },
         {
-          "cell_index": 7,
+          "cell_index": 11,
           "cell_name": "random_walk",
           "source_span": {
             "start": {
-              "line": 22,
+              "line": 8,
               "col": 8
             },
             "end": {
-              "line": 22,
+              "line": 8,
               "col": 22
             },
             "text": "Sampled moves:"
           },
           "target_span": {
             "start": {
-              "line": 22,
+              "line": 8,
               "col": 8
             },
             "end": {
-              "line": 22,
+              "line": 8,
               "col": 23
             },
             "text": "नमूनाकृत चालें:"
@@ -1807,26 +1810,26 @@
           "placeholders": []
         },
         {
-          "cell_index": 7,
+          "cell_index": 11,
           "cell_name": "random_walk",
           "source_span": {
             "start": {
-              "line": 23,
+              "line": 9,
               "col": 8
             },
             "end": {
-              "line": 23,
+              "line": 9,
               "col": 34
             },
             "text": "Final face-letter colours:"
           },
           "target_span": {
             "start": {
-              "line": 23,
+              "line": 9,
               "col": 8
             },
             "end": {
-              "line": 23,
+              "line": 9,
               "col": 28
             },
             "text": "अंतिम फलक-अक्षर रंग:"
@@ -1836,26 +1839,26 @@
           "placeholders": []
         },
         {
-          "cell_index": 7,
+          "cell_index": 11,
           "cell_name": "random_walk",
           "source_span": {
             "start": {
-              "line": 24,
+              "line": 10,
               "col": 8
             },
             "end": {
-              "line": 24,
+              "line": 10,
               "col": 75
             },
             "text": "The sampled path preserved every sticker label and all six centres."
           },
           "target_span": {
             "start": {
-              "line": 24,
+              "line": 10,
               "col": 8
             },
             "end": {
-              "line": 24,
+              "line": 10,
               "col": 79
             },
             "text": "नमूनाकृत पथ ने प्रत्येक स्टिकर लेबल और सभी छह केंद्रों को संरक्षित रखा।"
@@ -1933,7 +1936,7 @@
     "scope": "prior-revision-runtime",
     "checkedSourceSha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4",
     "checkedTargetSha256": "1e41de6fbc91e68782fc6150ca0e752174609d86005fef9534fb0a433671ccea",
-    "caveat": "Historical executable runs predate the Markdown updates and authorized comment insertions. Current Python changes are comments only; no fresh Python app-runtime run is claimed. Current Markdown import/render checks are separate."
+    "caveat": "Historical nine-cell executable runs are retained unchanged. The current thirteen-cell Stage 4 split has separate import/render and local preinstalled-NumPy equivalence evidence; no fresh Python app-runtime or Android/Pro runtime is claimed."
   },
   "caveat": "Machine translated with Gemini and reviewed by AI/controller checks, including scoped corrections where needed. Native-speaker review is pending; structural and numerical checks do not certify prose quality.",
   "coordinateUpdate": {
@@ -2063,6 +2066,121 @@
         "height": 844
       },
       "scope": "Current source Markdown import/render/export only"
+    }
+  },
+  "stage4Update": {
+    "predecessorCommit": "017ea7eed65a9dc7875aa5b8c59df489114facbd",
+    "predecessorSourceSha256": "c69cca69b060b196107fe0489b0f25cb8ddf5f0d7cca253fcfbb4bbf2179f478",
+    "predecessorTargetSha256": "bf1cde7e1608862293efbf0893e6a97e6ec2a5f99a281374dc00c9e02f907760",
+    "sourceSha256": "777bdf582a23c6e588932a56ec6b14ca086d8574619ffe4f026f1c9b3c17d878",
+    "targetSha256": "398bcc42d2a0929d81ff6d5daa00ea1c65345579aaacfa3ebce4cca8f56e15f0",
+    "generationTargetSha256": "398bcc42d2a0929d81ff6d5daa00ea1c65345579aaacfa3ebce4cca8f56e15f0",
+    "cells": 13,
+    "sourceProse": {
+      "path": "tools/markov-stage4-text.json",
+      "sha256": "fb747a1baf537a2e7f8f5b39edfa370f67259957757a58a8ffa9d0e283d3c908"
+    },
+    "parts": [
+      {
+        "key": "matrix",
+        "name": "markov_bridge",
+        "field": "markdown:6",
+        "index": 6,
+        "codeName": "transition_matrix",
+        "sourceMarkdownSha256": "9de81789db5c68bd32188fecf9d21395e6b974e8c8ffbdf2f83a8b3331886ac7",
+        "targetMarkdownSha256": "80525ec692f22fecaa5158cdd92d585963d5590ef7967aad4cf2af6e37eece87",
+        "currentMarkdownSha256": "80525ec692f22fecaa5158cdd92d585963d5590ef7967aad4cf2af6e37eece87",
+        "codeCellSha256": "171b11eec962b9076111a0a9d2c0ca0d92622f90f55b88deca15d0d7a65504f9"
+      },
+      {
+        "key": "sticker",
+        "name": "sticker_bridge",
+        "field": "markdown:8",
+        "index": 8,
+        "codeName": "sticker_step",
+        "sourceMarkdownSha256": "ae876656645ee425e2dbc37b2ffb853bcce14333aed4238ef67dc99c78006e74",
+        "targetMarkdownSha256": "069bfe56e3468e3379f91879ef58b6d2b91267db2c0e781049041a4cab0c28d5",
+        "currentMarkdownSha256": "069bfe56e3468e3379f91879ef58b6d2b91267db2c0e781049041a4cab0c28d5",
+        "codeCellSha256": "86ad9bf214afad3a93d58e39137eb4048aa1adf10082ceadd265c777026c8440"
+      },
+      {
+        "key": "trajectory",
+        "name": "trajectory_bridge",
+        "field": "markdown:10",
+        "index": 10,
+        "codeName": "random_walk",
+        "sourceMarkdownSha256": "568db34aaad59e696bc0d60d8f3ffec945c5ea82cdfb8e373d91fb884cca92c1",
+        "targetMarkdownSha256": "68a79e9172a0e922580f16b555c6e1897a744a857b5ae573ce1eba017ba6b206",
+        "currentMarkdownSha256": "68a79e9172a0e922580f16b555c6e1897a744a857b5ae573ce1eba017ba6b206",
+        "codeCellSha256": "e6b7c95f658ffcdd86728eb45c80ee0799a0d5afe8713fe26033c016bceb5271"
+      }
+    ],
+    "intro": {
+      "cell": "intro",
+      "method": "exact-inline-code-run-order-insertion",
+      "from": "`show_turn`",
+      "to": "`show_turn`, `transition_matrix`, `sticker_step`",
+      "predecessorCellSha256": "3601dd8a0526efd2d1b1db9a0313035bff1b5ef881ceb4c26ab9e09afdce0e8e",
+      "currentCellSha256": "0e53b643eef59e899ce4e400e6424ea0f8de51d3421b28ddb63687103f2f4db6"
+    },
+    "preserved": {
+      "firstSixExceptIntro": true,
+      "takeaways": true,
+      "coordinatesCyclesAndSvg": true,
+      "localizedPythonCommentsAndOutputLabels": true,
+      "metadata": true
+    },
+    "executable": {
+      "method": "split-pinned-Python-and-exact-sum-to-loop-substitution",
+      "predecessorFormulaSha256": "3809a4e10315a2eae8962bad21191b9bebadaa78f6620e066b1ef0534cbb618d",
+      "currentFormulaSha256": "a226aae1f65f9e1d3ad7776c5fd7ff7bfb1615cd5196a428d166ded0f330bd36",
+      "numericalEquivalence": "local-preinstalled-NumPy",
+      "pythonAppRuntime": "not-run"
+    },
+    "method": "Gemini-draft-and-fresh-same-model-review",
+    "model": "gemini-3.8-flash-medium",
+    "modelProseApproved": true,
+    "modelReviewScope": "supplied-three-new-Markdown-fields-only",
+    "mathDirectionRefinement": null,
+    "requests": {
+      "draft": 1,
+      "freshReview": 1,
+      "repair": 0
+    },
+    "nativeSpeakerReview": "pending",
+    "historicalEvidence": {
+      "predecessorReceiptSha256": "26828db09d1a5addb70d5be28d6c6ea7644e3a54f4b8532545a0b75550b6aeda",
+      "cells": 9,
+      "retainedFields": [
+        "browser",
+        "coordinateUpdate",
+        "cyclesUpdate",
+        "layoutUpdate"
+      ]
+    },
+    "rendering": {
+      "status": "passed",
+      "path": "reviews/markov-stage4-rendering.json",
+      "sha256": "bd8f0df2d3a6c3b7b88148802b1dbf8322f069293f68a53b9b405444d1463c4d",
+      "workbookSha256": "398bcc42d2a0929d81ff6d5daa00ea1c65345579aaacfa3ebce4cca8f56e15f0",
+      "platform": "Free Chromium browser",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "scope": "Actual workbook import, Markdown/KaTeX render, export/reimport in fresh Chromium",
+      "pythonExecuted": false
+    },
+    "runtime": {
+      "status": "passed",
+      "path": "reviews/markov-stage4-runtime.json",
+      "sha256": "8a9f1aae03a8a6cc4c123e9988d9efe0d5a8bc75c7f415b3566292de371f4c9f",
+      "workbookSha256": "398bcc42d2a0929d81ff6d5daa00ea1c65345579aaacfa3ebce4cca8f56e15f0",
+      "platform": "local-preinstalled-NumPy",
+      "numpyVersion": "2.2.6",
+      "executedLocale": "en",
+      "scope": "Actual English Python executed locally; all locale structures/syntax checked and preserved code/labels verified mechanically. No Python app runtime, Android or Pro runtime.",
+      "pythonAppRuntime": "not-run"
     }
   }
 }

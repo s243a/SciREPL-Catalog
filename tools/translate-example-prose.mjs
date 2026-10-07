@@ -18,6 +18,8 @@
  * and sends ONLY cycles Markdown (one field), never the whole lesson/code.
  * --refresh-markdown-cell layout-addenda sends only two new appendices,
  * preserving both completed Markdown prefixes and all code/SVG bytes.
+ * --refresh-markdown-cell stage4 sends only three new Markdown fields and
+ * mechanically splits pinned localized code into three interleaved cells.
  * Gemini uses its own empty mktemp directory and a shared global two-slot lock.
  * Uses the invoking Node executable and agy on PATH. Override AGY/model with
  * SCIREPL_TRANSLATION_AGY / SCIREPL_TRANSLATION_MODEL; verified model default:
@@ -57,6 +59,9 @@ import { diagramAccessibility, splitCoordinateDiagrams, restoreCoordinateDiagram
   assertCoordinateSvgInvariants } from './markov-coordinate-diagrams.mjs';
 import { MARKOV_LAYOUT_ADDENDA, ADDENDUM_SEPARATOR, MARKOV_LAYOUT_PREDECESSOR,
   expectedLayoutSource, layoutProposalValues, testLayoutAddenda } from './markov-layout-addenda.mjs';
+import { MARKOV_STAGE4_PREDECESSOR, MARKOV_STAGE4_PARTS, loadStage4Parts,
+  expectedStage4, gateStage4Parts } from './markov-stage4.mjs';
+import { testStage4 } from './test-markov-stage4.mjs';
 
 const REPO = path.resolve(new URL('..', import.meta.url).pathname);
 const NODE = process.execPath;
@@ -76,16 +81,16 @@ const resumeFailed = args.includes('--resume-failed-markdown');
 const resumeCode = args.includes('--resume-approved-code');
 const noRepair = args.includes('--no-repair');
 const markdownOnly = args.includes('--markdown-only');
-// New-source Markdown maintenance is separate from translation repairs. Only
-// approved Markdown may change; shipped Python stays frozen.
+// New-source maintenance is separate from translation repairs. Shipped code
+// stays frozen except Stage 4's exact mechanical split and sum-to-loop change.
 const refreshCell = arg('refresh-markdown-cell', '');
-const refreshModes = ['coordinates', 'cycles', 'layout-addenda'];
+const refreshModes = ['coordinates', 'cycles', 'layout-addenda', 'stage4'];
 assert(!args.includes('--refresh-markdown-cell') || refreshModes.includes(refreshCell),
   'Specify an approved single-cell refresh value; never fall through to whole-workbook translation');
 const coordinateControllerProposal = arg('coordinate-controller-proposal', '');
 const controllerMarkdownProposal = arg('controller-markdown-proposal', '');
-assert(!controllerMarkdownProposal || ['cycles', 'layout-addenda'].includes(refreshCell),
-  'Generic controller fallback is scoped to cycles/layout addenda');
+assert(!controllerMarkdownProposal || ['cycles', 'layout-addenda', 'stage4'].includes(refreshCell),
+  'Generic controller fallback is scoped to cycles/layout addenda/Stage 4');
 assert(!coordinateControllerProposal || refreshCell, 'Controller coordinate fallback requires the scoped refresh mode');
 if (refreshCell) {
   assert(refreshModes.includes(refreshCell));
@@ -749,6 +754,102 @@ async function refreshLayoutAddenda(book, { prepareOnly = false } = {}) {
     nativeSpeakerReview: 'pending', renderedReview: 'pending' });
   console.log(`[PASS] ${locale}/markov-groups: two addenda appended; all prior Markdown/SVG/Python bytes preserved.`);
 }
+async function refreshStage4(book, { prepareOnly = false } = {}) {
+  assert.equal(book.id, 'markov-groups');
+  const prior = rel => execFileSync('git', ['show', `${MARKOV_STAGE4_PREDECESSOR}:${rel}`], { cwd: REPO });
+  const priorSourceBytes = prior('workbooks/en/markov-groups.srwb');
+  const prosePath = path.join(REPO, 'tools/markov-stage4-text.json');
+  const proseSha256 = sha(readFileSync(prosePath)), sourceParts = loadStage4Parts();
+  assert.deepEqual(book.source, expectedStage4(JSON.parse(priorSourceBytes), sourceParts),
+    'English differs from the approved pinned Stage 4 split/run-order insertion');
+  const baselineBytes = readFileSync(book.targetPath), baseline = JSON.parse(baselineBytes);
+  const predecessor = sha(baselineBytes), priorTargetBytes = prior(path.relative(REPO, book.targetPath));
+  assert.equal(predecessor, sha(priorTargetBytes), 'Stage 4 target is not the pinned prior revision');
+  // Validate the localized split before sending anything, not after spending.
+  expectedStage4(baseline, sourceParts);
+  const pins = { sourceSha256: book.sourceHash, predecessorSourceSha256: sha(priorSourceBytes),
+    predecessorTargetSha256: predecessor, sourceProseSha256: proseSha256,
+    predecessorCommit: MARKOV_STAGE4_PREDECESSOR };
+  const prompt = rules + '\nThis is an approved Stage 4 update with exactly THREE new Markdown fields. '
+    + 'Translate ONLY the supplied three texts, not prior lesson text, Python, comments, print labels, or SVGs. '
+    + 'Return exactly three flat entries with book="markov-groups" and fields "markdown:6", "markdown:8", "markdown:10". '
+    + 'Preserve every inline-code span, numeric token, mathematical formula and claim. No code translation or execution, '
+    + 'title, description, suggestion, HTML, added code fence or extra field is authorized. '
+    + 'These are sequential explanations of a one-sticker probability model and a separate actual whole-cube sample; '
+    + 'do not conflate their different state spaces or claim short-run uniform mixing.\nOutput shape: ' + shape
+    + '\nBEGIN UNTRUSTED DATA\n' + JSON.stringify({ id: book.id,
+      markdown: Object.fromEntries(MARKOV_STAGE4_PARTS.map(part => [part.field, sourceParts[part.key]])) })
+    + '\nEND UNTRUSTED DATA';
+  const prepared = path.join(book.dir, 'stage4.prepared.prompt.txt');
+  if (existsSync(prepared)) assert.equal(readFileSync(prepared, 'utf8'), prompt, 'Prepared Stage 4 prompt changed');
+  else writeFileSync(prepared, prompt, { flag: 'wx' });
+  if (prepareOnly) { console.log('Prepared three Stage 4 Markdown fields only; no Python/SVG/prior lesson sent, no model calls.'); return; }
+  const finished = path.join(book.dir, 'stage4.refresh.json'), started = path.join(book.dir, 'stage4.started.json');
+  const failed = path.join(book.dir, 'stage4.failed.json');
+  assert(!existsSync(finished), 'Stage 4 refresh already finished; refuse replay');
+  let review, translatedParts;
+  const gates = { cleanText, markdownKeeps, markdownAudit, scriptRule: scriptRules[locale] };
+  if (controllerMarkdownProposal) {
+    assert(existsSync(started) && existsSync(failed), 'Stage 4 manual fallback requires recorded model failure');
+    const runPins = load(started), failure = load(failed);
+    for (const [key, value] of Object.entries(pins)) {
+      assert.equal(runPins[key], value, 'Stage 4 started pin changed: ' + key);
+      assert.equal(failure[key], value, 'Stage 4 failure pin changed: ' + key);
+    }
+    assert.deepEqual(runPins.maximumRequests, { draft: 1, freshReview: 1, repair: 0 });
+    assert.equal(failure.status, 'held');
+    assert(['draft', 'review', 'gate'].includes(failure.failureStage), 'Not a model-stage failure');
+    assert(existsSync(path.join(book.dir, 'stage4.draft.prompt.txt')), 'No recorded Stage 4 model dispatch');
+    if (failure.failureStage === 'gate') assert(existsSync(path.join(book.dir, 'stage4.review.proposal.json')),
+      'Gate fallback requires retained fresh-review proposal');
+    const proposalPath = path.resolve(REPO, controllerMarkdownProposal);
+    assert.equal(proposalPath, path.join(book.dir, 'stage4.manual-controller.proposal.json'));
+    review = load(proposalPath);
+    translatedParts = gateStage4Parts(review, sourceParts, gates);
+  } else {
+    writeFileSync(started, JSON.stringify({ ...pins, fields: MARKOV_STAGE4_PARTS.map(part => part.field),
+      maximumRequests: { draft: 1, freshReview: 1, repair: 0 }, at: new Date().toISOString() }, null, 2) + '\n', { flag: 'wx' });
+    let failureStage = 'draft';
+    try {
+      const draft = await gemini(prompt, 'stage4.draft', [book]);
+      failureStage = 'review';
+      review = await gemini(prompt + '\nIndependently review this draft against all three supplied English texts. '
+        + 'Return corrected FULL strict JSON with only the same three authorized entries; this is the sole fresh review, '
+        + 'not a repair loop.\nBEGIN UNTRUSTED DRAFT\n' + JSON.stringify(draft) + '\nEND UNTRUSTED DRAFT', 'stage4.review', [book]);
+      failureStage = 'gate';
+      translatedParts = gateStage4Parts(review, sourceParts, gates);
+    } catch (error) {
+      writeFileSync(failed, JSON.stringify({ ...pins, status: 'held', failureStage,
+        error: error.message, at: new Date().toISOString(), repair: 0 }, null, 2) + '\n', { flag: 'wx' });
+      throw error;
+    }
+  }
+  const target = expectedStage4(baseline, translatedParts);
+  assert.equal(target.notebook.cells.length, 13);
+  assertCoordinateSvgInvariants(target.notebook.cells[1].code);
+  // Expected construction preserves every prior localized code byte except
+  // the exact sum-to-loop substitution, and performs only the approved inline
+  // code-token insertion in the otherwise frozen intro.
+  assert.deepEqual(target, expectedStage4(JSON.parse(priorTargetBytes), translatedParts));
+  assertFrozen(book);
+  assert.equal(sha(readFileSync(prosePath)), proseSha256, 'Approved Stage 4 prose changed during review');
+  assert.equal(sha(readFileSync(book.targetPath)), predecessor, 'Locale target changed during Stage 4 review');
+  const archived = path.join(book.dir, 'stage4.predecessor.srwb');
+  if (existsSync(archived)) assert.deepEqual(readFileSync(archived), baselineBytes, 'Archived Stage 4 predecessor changed');
+  else writeFileSync(archived, baselineBytes, { flag: 'wx' });
+  save(book.targetPath, target);
+  save(finished, { ...pins, status: 'static-gates-passed', mode: 'stage4-three-part-source-refresh',
+    locale, workbook: book.id, model: MODEL, currentSourceSha256: book.sourceHash,
+    targetSha256: sha(readFileSync(book.targetPath)), fields: MARKOV_STAGE4_PARTS.map(part => part.field),
+    cells: 13, requests: { draft: existsSync(path.join(book.dir, 'stage4.draft.prompt.txt')) ? 1 : 0,
+      freshReview: existsSync(path.join(book.dir, 'stage4.review.prompt.txt')) ? 1 : 0, repair: 0 },
+    reviewMethod: controllerMarkdownProposal ? 'controller-manual-fallback-after-model-failure' : 'Gemini-draft-and-fresh-same-model-review',
+    modelProseApproved: !controllerMarkdownProposal,
+    invariants: 'Only three Stage 4 Markdown texts replaced; existing localized Python/comments/output labels split unchanged except exact sum-to-loop substitution. Intro only receives the two new inline-code run-order tokens. All other cells, SVGs and metadata preserved.',
+    nativeSpeakerReview: 'pending', renderedReview: 'pending', runtimeReview: 'pending',
+    caveat: 'Static preservation/translation gates only; controller-owned runtime and rendered review remain pending.' });
+  console.log(`[PASS] ${locale}/markov-groups: three Stage 4 prose/code pairs, 13 cells; no runtime review claimed.`);
+}
 function codeGate(book, proposed) {
   assertFrozen(book); assert(proposed, book.id + ': missing proposal');
   const candidates = new Map(book.candidates.map(c => [c.id, c]));
@@ -1405,9 +1506,27 @@ if (selfTest) {
     rmdirSync(codeDir);
   }
   const layoutChecks = testLayoutAddenda();
-  console.log(`Translation helper: 34 original, ${authorityChecks} append-only budget, ${resumeChecks} failed-resume, ${dispatchChecks} Markdown dispatch, ${codeChecks} initial-code and ${layoutChecks} layout-addenda offline checks passed; no Gemini calls.`);
+  let stage4Checks = testStage4(REPO);
+  const stage4Source = { matrix: '## English heading\n\nA sample with `T[:, 0]` and 13 choices.\n\n$$T_{d,j}=1/13$$',
+    sticker: '## English sticker heading\n\nA sticker starts at 0 with `location_probability`.',
+    trajectory: '## English trajectory heading\n\nA sample uses 12 choices and `rng.choice`.' };
+  const stage4Target = { matrix: '## Explicación\n\nEjemplo con `T[:, 0]` y 13 opciones.\n\n$$T_{d,j}=1/13$$',
+    sticker: '## Posición\n\nUn adhesivo empieza en 0 con `location_probability`.',
+    trajectory: '## Trayectoria\n\nUn ejemplo usa 12 opciones y `rng.choice`.' };
+  const stage4Packet = parts => ({ entries: MARKOV_STAGE4_PARTS.map(part => ({
+    book: 'markov-groups', field: part.field, text: parts[part.key] })) });
+  const stage4Gates = { cleanText, markdownKeeps, markdownAudit };
+  assert.deepEqual(gateStage4Parts(stage4Packet(stage4Target), stage4Source, stage4Gates), stage4Target); stage4Checks++;
+  for (const change of [text => text.replace('1/13', '1/12'), text => text.replace('`T[:, 0]`', '`T[0, :]`'),
+    text => text.replace('13 opciones', '12 opciones')]) {
+    const broken = { ...stage4Target, matrix: change(stage4Target.matrix) };
+    assert.throws(() => gateStage4Parts(stage4Packet(broken), stage4Source, stage4Gates), /KEEP drift/); stage4Checks++;
+  }
+  assert.throws(() => gateStage4Parts(stage4Packet(stage4Source), stage4Source, stage4Gates), /untranslated English/); stage4Checks++;
+  console.log(`Translation helper: 34 original, ${authorityChecks} append-only budget, ${resumeChecks} failed-resume, ${dispatchChecks} Markdown dispatch, ${codeChecks} initial-code, ${layoutChecks} layout-addenda and ${stage4Checks} Stage 4 offline checks passed; no Gemini calls.`);
 } else if (refreshCell) {
-  const refresh = { coordinates: refreshCoordinates, cycles: refreshCycles, 'layout-addenda': refreshLayoutAddenda }[refreshCell];
+  const refresh = { coordinates: refreshCoordinates, cycles: refreshCycles,
+    'layout-addenda': refreshLayoutAddenda, stage4: refreshStage4 }[refreshCell];
   try { await refresh(books[0], { prepareOnly: args.includes('--prepare-only') }); }
   catch (error) {
     if (['cycles', 'layout-addenda'].includes(refreshCell)) save(path.join(books[0].dir,

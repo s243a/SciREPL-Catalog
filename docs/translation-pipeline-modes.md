@@ -95,6 +95,31 @@ legitimate path is escalation:
   owner. Accepted ones change the ENGLISH source, then re-translate to all
   locales — improvements propagate everywhere or nowhere.
 
+### Narrow source-maintenance exception: Markov Stage 4
+
+The owner-approved `--refresh-markdown-cell stage4` path sends only three
+new English Markdown fields for one draft and one fresh review, with no
+repair loop. It does not send or translate the prior lesson, Python,
+comments, output labels, or SVGs. Math, inline code, numbers, English
+residue, and locale scripts remain gated. A controller proposal is allowed
+only after a recorded failure of that bounded model run.
+
+Deterministic application is pinned to the previously reviewed predecessor
+`017ea7eed65a9dc7875aa5b8c59df489114facbd`: the old `random_walk` cell is
+split into `transition_matrix`, `sticker_step`, and `random_walk`, each
+preceded by its new explanation. Only the matrix's compact sum becomes the
+equivalent copied-identity loop. Existing localized comments and output
+labels remain byte-identical, and the intro receives only the two new
+inline-code run-order tokens. All other prior content and metadata stay
+frozen. Static translation receipts do not claim browser/runtime review;
+the independent offline NumPy and rendered checks remain controller-owned.
+
+After translation, the Arabic edition alone receives four exact, reversible
+`dir="ltr"` containers around its unchanged display equations. This is a
+controller rendering correction, not model-approved HTML or a prose rewrite:
+the pre-wrapper generation snapshot/hash is retained, no further model
+request is made, and final checks require RTL prose with LTR math.
+
 ## Mode B inputs: give the polisher both versions
 
 The polish prompt should include the ENGLISH source cells alongside the
