@@ -3,6 +3,23 @@
 Notable changes to the SciREPL Catalog: content added, conventions adopted,
 and work deliberately deferred.
 
+## Unreleased
+
+- Clarified fixed global axes, local face-view right/up directions, outward
+  normals and the front-to-top paper tilt in all 13 Markov Groups editions.
+  Added two self-contained, accessible inline SVGs, readable in light/dark
+  themes and on narrow screens; no runtime is needed to see them on import.
+- All nine cell names/order and existing Python remain unchanged. Fresh
+  Free-browser diagram checks are recorded separately from prior executable
+  runtime evidence. For coordinates, Gemini refreshed 11 translations; German used an
+  authorized controller/manual fallback after a truncated model response.
+  Native-speaker review remains pending. Item revisions rise to 2; no catalog
+  version or release tag changes.
+- Explained the clockwise U corner/edge position cycles, neighbouring face
+  strips, zero-based versus printed one-based positions, and sticker paths
+  versus whole cubies in all 13 editions. Only the `cycles` Markdown changes;
+  executable code and the coordinate diagrams remain unchanged.
+
 ## 2026-10-04 — reviewed examples (staging)
 
 - Completed the six-lesson rollout: 72 machine-translated editions across

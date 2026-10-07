@@ -8,6 +8,7 @@ import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { EXAMPLE_LOCALES, EXAMPLE_DESCRIPTIONS } from './example-lessons.mjs';
+import { assertCoordinateSvgInvariants, splitCoordinateDiagrams } from './markov-coordinate-diagrams.mjs';
 const root = fileURLToPath(new URL('..', import.meta.url));
 const args = process.argv.slice(2), i = args.indexOf('--locale');
 const locales = i < 0 ? EXAMPLE_LOCALES : [args[i + 1]];
@@ -78,6 +79,62 @@ for (const lesson of Object.keys(EXAMPLE_DESCRIPTIONS)) for (const locale of loc
   }
   assert(review.browser.textOracle.first.pass && review.browser.textOracle.second.pass);
   assert.equal(review.browser.plotData.status, 'passed');
+  if (lesson === 'markov-groups') {
+    assert.equal(review.browser.scope, 'prior-revision-runtime');
+    assert.match(review.browser.checkedSourceSha256, /^[a-f0-9]{64}$/);
+    assert.match(review.browser.checkedTargetSha256, /^[a-f0-9]{64}$/);
+    assert.notEqual(review.browser.checkedSourceSha256, review.source.sha256);
+    assert.notEqual(review.browser.checkedTargetSha256, review.target.sha256);
+    const update = review.coordinateUpdate;
+    assert.equal(update.cell, 'coordinates');
+    assert.equal(update.finalSourceSha256, review.cyclesUpdate?.predecessorSourceSha256 || review.source.sha256);
+    assert.equal(update.finalTargetSha256, review.cyclesUpdate?.predecessorTargetSha256 || review.target.sha256);
+    assert.notEqual(update.generationSourceSha256, update.finalSourceSha256);
+    assert.match(update.generationSourceSha256, /^[a-f0-9]{64}$/);
+    assert.match(update.preGeometryTargetSha256, /^[a-f0-9]{64}$/);
+    assert.equal(update.proseSha256, createHash('sha256')
+      .update(splitCoordinateDiagrams(xx.notebook.cells[1].code).prose).digest('hex'));
+    assert.equal(update.layoutOnlyRefinement, true);
+    assert.equal(update.unchangedExecutableAndOtherCells, true);
+    assert.equal(update.nativeSpeakerReview, locale === 'en' ? 'not-applicable' : 'pending');
+    assert.equal(update.rendering.status, 'passed');
+    assert.equal(update.rendering.workbookSha256, update.finalTargetSha256);
+    assert.equal(update.rendering.sha256, sha(update.rendering.path));
+    const rendering = read(update.rendering.path), records = rendering.tests.filter(test => test.locale === locale);
+    assert.equal(rendering.tests.length, EXAMPLE_LOCALES.length * 2);
+    assert.deepEqual(records.map(test => test.theme).sort(), ['dark', 'light']);
+    for (const record of records) {
+      assert(record.passed); assert.equal(record.workbookSha256, update.finalTargetSha256);
+      assert.equal(record.rendered.cells, 9); assert.equal(record.rendered.codeExecuted, false);
+      assert.equal(record.rendered.diagrams.length, 2);
+      for (const svg of record.rendered.diagrams) {
+        assert.equal(svg.unsafe, 0); assert.equal(svg.external, false);
+        assert(svg.title && svg.description); assert(svg.width <= record.rendered.bodyWidth);
+      }
+    }
+    assertCoordinateSvgInvariants(xx.notebook.cells[1].code);
+    if (review.cyclesUpdate) {
+      const cycle = review.cyclesUpdate;
+      assert.equal(cycle.cell, 'cycles'); assert.equal(cycle.sourceSha256, review.source.sha256);
+      assert.equal(cycle.targetSha256, review.target.sha256); assert.equal(cycle.unchangedExecutableAndOtherCells, true);
+      assert.equal(cycle.cyclesCellSha256, createHash('sha256').update(xx.notebook.cells[4].code).digest('hex'));
+      assert.equal(cycle.preservedCoordinateCellSha256, createHash('sha256').update(xx.notebook.cells[1].code).digest('hex'));
+      assert.equal(cycle.nativeSpeakerReview, locale === 'en' ? 'not-applicable' : 'pending');
+      assert.equal(cycle.rendering.status, 'passed'); assert.equal(cycle.rendering.workbookSha256, review.target.sha256);
+      assert.equal(cycle.rendering.sha256, sha(cycle.rendering.path));
+      const rendered = read(cycle.rendering.path), checks = rendered.tests.filter(test => test.locale === locale);
+      assert.equal(rendered.tests.length, EXAMPLE_LOCALES.length * 2);
+      assert.deepEqual(checks.map(test => test.theme).sort(), ['dark', 'light']);
+      for (const check of checks) {
+        assert(check.passed); assert.equal(check.workbookSha256, review.target.sha256);
+        assert.equal(check.rendered.cells, 9); assert.equal(check.rendered.codeExecuted, false);
+        assert(check.rendered.cycles.textLength > 0 && check.rendered.cycles.paragraphCount >= 7);
+        assert.equal(check.rendered.cycles.unsafe, 0);
+        assert(check.rendered.cycles.width <= check.rendered.bodyWidth);
+        assert(check.rendered.cycles.scrollWidth <= check.rendered.bodyWidth);
+      }
+    }
+  }
   if (lesson === 'oil-shocks-demand') {
     assert.equal(review.browser.plotData.count, 3);
     assert.equal(review.browser.renderedReview, 'controller-AI-reviewed');

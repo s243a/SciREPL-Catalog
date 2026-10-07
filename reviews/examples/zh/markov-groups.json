@@ -4,12 +4,12 @@
   "locale": "zh",
   "source": {
     "path": "workbooks/en/markov-groups.srwb",
-    "sha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4"
+    "sha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c"
   },
   "target": {
     "path": "workbooks/zh/markov-groups.srwb",
-    "sha256": "786fd803c58344c0a79f5f894d89839c690833ea2868800846cb9af7f5689bc3",
-    "size": 14438,
+    "sha256": "e45c9d0c2f913598c453210aff1eb987d1f2ed676d2d364d82a78590230ed686",
+    "size": 20837,
     "title": "马尔可夫群：魔方动作上的随机游走",
     "description": "将魔方转面建模为经过验证的置换，探索模四幂，并区分惰性随机游走与单贴纸随机模型。"
   },
@@ -17,16 +17,16 @@
     "model": "gemini-3.8-flash-medium",
     "contentAudit": {
       "status": "passed",
-      "sourceSha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4",
-      "targetSha256": "786fd803c58344c0a79f5f894d89839c690833ea2868800846cb9af7f5689bc3",
+      "sourceSha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c",
+      "targetSha256": "e45c9d0c2f913598c453210aff1eb987d1f2ed676d2d364d82a78590230ed686",
       "findings": [],
       "errors": [],
-      "reviewMethod": "Previously passed AI/controller source-fidelity audit, preserved through verified presentation-only rebase where applicable; scoped final Bengali corrections independently adjudicated and re-gated.",
+      "reviewMethod": "Prior audits retained for unchanged cells; cycles-only prose received the identified bounded review and exact KEEP/data gates.",
       "provenance": {
-        "predecessorSourceSha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4",
-        "predecessorTargetSha256": "786fd803c58344c0a79f5f894d89839c690833ea2868800846cb9af7f5689bc3",
-        "predecessorAuditSha256": "1a87cf268e66add224bf2fe083de99e9ed33370745bfc4c463556ccdedf09568",
-        "sharedLayoutOnly": false
+        "predecessorSourceSha256": "b3795f36599216da86e653e8776127d82f6088ac10e5d8ac358c96a549257ef3",
+        "predecessorTargetSha256": "23ee31fa72cbf7dc0c07daa4e7234dfe89b99f2844663baad27f9d7c6ff708ec",
+        "priorAuditSha256": "ffc1b0aa25a29b084119cc51b515f5b4c9f622cf0b12d1fae6f400e2d5228cae",
+        "cyclesUpdateOnly": true
       },
       "nativeSpeakerReview": "pending",
       "caveat": "AI/controller review, not native-speaker or qualified technical certification."
@@ -59,11 +59,11 @@
       "locale": "zh",
       "source": {
         "path": "workbooks/en/markov-groups.srwb",
-        "sha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4"
+        "sha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c"
       },
       "target": {
         "path": "workbooks/zh/markov-groups.srwb",
-        "sha256": "786fd803c58344c0a79f5f894d89839c690833ea2868800846cb9af7f5689bc3"
+        "sha256": "e45c9d0c2f913598c453210aff1eb987d1f2ed676d2d364d82a78590230ed686"
       },
       "spans": [
         {
@@ -1059,7 +1059,75 @@
       "count": 0
     },
     "rasterCharts": null,
-    "renderedReview": "not-applicable"
+    "renderedReview": "not-applicable",
+    "scope": "prior-revision-runtime",
+    "checkedSourceSha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4",
+    "checkedTargetSha256": "786fd803c58344c0a79f5f894d89839c690833ea2868800846cb9af7f5689bc3",
+    "caveat": "Historical executable runs predate the coordinates/cycles Markdown updates; no fresh Python app-runtime run is claimed. Current Markdown import/render checks are recorded separately."
   },
-  "caveat": "Machine translated with Gemini and reviewed by AI/controller checks, including scoped corrections where needed. Native-speaker review is pending; structural and numerical checks do not certify prose quality."
+  "caveat": "Machine translated with Gemini and reviewed by AI/controller checks, including scoped corrections where needed. Native-speaker review is pending; structural and numerical checks do not certify prose quality.",
+  "coordinateUpdate": {
+    "cell": "coordinates",
+    "generationSourceSha256": "0ebf0dde23b8cc2b464629e2e853deb3e3ae2af0e7337134e82444a4edeff3fc",
+    "finalSourceSha256": "b3795f36599216da86e653e8776127d82f6088ac10e5d8ac358c96a549257ef3",
+    "preGeometryTargetSha256": "1191604f8026cafa95078320f822f241afa8e85ef2f911692447dfc6e4842092",
+    "finalTargetSha256": "23ee31fa72cbf7dc0c07daa4e7234dfe89b99f2844663baad27f9d7c6ff708ec",
+    "proseSha256": "5f440a17b6ee1c743c5cf5dcbe66beae4d11c798bbb6f9c73b5a0c470678dedc",
+    "layoutOnlyRefinement": true,
+    "unchangedExecutableAndOtherCells": true,
+    "method": "Gemini-draft-and-fresh-same-model-review",
+    "model": "gemini-3.8-flash-medium",
+    "requests": {
+      "draft": 1,
+      "freshReview": 1,
+      "repair": 0
+    },
+    "nativeSpeakerReview": "pending",
+    "rendering": {
+      "status": "passed",
+      "path": "reviews/markov-coordinate-rendering.json",
+      "sha256": "8f8639e0866933c5637e1933312ece9b3c1283f79f13ec2d3eb861856c14e905",
+      "workbookSha256": "23ee31fa72cbf7dc0c07daa4e7234dfe89b99f2844663baad27f9d7c6ff708ec",
+      "platform": "Free Chromium browser",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "scope": "Current-revision coordinate Markdown import/render/export/reimport only; no workbook Python execution or Pro/Android validation."
+    }
+  },
+  "cyclesUpdate": {
+    "cell": "cycles",
+    "predecessorSourceSha256": "b3795f36599216da86e653e8776127d82f6088ac10e5d8ac358c96a549257ef3",
+    "predecessorTargetSha256": "23ee31fa72cbf7dc0c07daa4e7234dfe89b99f2844663baad27f9d7c6ff708ec",
+    "sourceSha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c",
+    "targetSha256": "e45c9d0c2f913598c453210aff1eb987d1f2ed676d2d364d82a78590230ed686",
+    "cyclesCellSha256": "5ca7f70350ad70be8d352a3975d948ddb4bf5252144bbc7b6a838ec12a81d86e",
+    "preservedCoordinateCellSha256": "771a8642fbf3ed72e5b737b8d93407deec9a8a9c385e849d5399e869d43b7715",
+    "unchangedExecutableAndOtherCells": true,
+    "method": "Gemini-draft-and-fresh-same-model-review",
+    "model": "gemini-3.8-flash-medium",
+    "modelProseApproved": true,
+    "requests": {
+      "draft": 1,
+      "freshReview": 1,
+      "repair": 0
+    },
+    "nativeSpeakerReview": "pending",
+    "rendering": {
+      "status": "passed",
+      "path": "reviews/markov-cycles-rendering.json",
+      "sha256": "2931ecfc18244a6ed64fe6a83f28d8d7356001edcc2f98c4118a1ec7ffd6e934",
+      "workbookSha256": "e45c9d0c2f913598c453210aff1eb987d1f2ed676d2d364d82a78590230ed686",
+      "platform": "Free Chromium browser",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      }
+    }
+  }
 }

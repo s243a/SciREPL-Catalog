@@ -2,6 +2,9 @@
 // Data-only example checks: never execute a workbook cell or invoke a runtime.
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { EXAMPLE_LOCALES } from './example-lessons.mjs';
+import { coordinateDiagrams, assertCoordinateSvgInvariants, splitCoordinateDiagrams,
+  restoreCoordinateDiagrams, reembedCoordinateDiagrams, diagramAccessibility } from './markov-coordinate-diagrams.mjs';
 
 const readWorkbook = name => JSON.parse(readFileSync(
   new URL(`../workbooks/en/${name}.srwb`, import.meta.url), 'utf8'));
@@ -69,6 +72,50 @@ const faces = [
 const dot = (a, b) => a.reduce((sum, x, i) => sum + x * b[i], 0);
 const cross = (a, b) => [a[1] * b[2] - a[2] * b[1],
   a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+check('Every face drawing frame is right-handed with its stated outward normal', () => {
+  for (const face of faces) assert.deepEqual(cross(face.right, face.up).map(value => value || 0), face.normal);
+  const tableRows = named('coordinates').split('\n').filter(line => /^\| [UDFBLR] \|/.test(line));
+  assert.equal(tableRows.length, faces.length);
+  faces.forEach((face, index) => {
+    const row = tableRows[index].split('|').map(item => item.trim()).filter(Boolean);
+    assert.equal(row[0], face.name);
+    const vectors = row.slice(1).map(text => JSON.parse(text.replace('(', '[').replace(')', ']')));
+    assert.deepEqual(vectors, [face.normal, face.right, face.up]);
+  });
+  assert.match(named('coordinates'), /Right in face view/);
+  assert.match(named('coordinates'), /Up in face view/);
+  assert.match(named('coordinates'), /perpendicular to the paper/);
+  assert.match(named('coordinates'), /not a path-independent/);
+});
+check('Front-to-top tilt maps the full basis, not the fixed global axes', () => {
+  const tilt = ([x, y, z]) => [x, z, -y].map(value => value || 0);
+  const front = faces.find(face => face.name === 'F'), top = faces.find(face => face.name === 'U');
+  assert.deepEqual(tilt(front.right), top.right);
+  assert.deepEqual(tilt(front.up), top.up);
+  assert.deepEqual(tilt(front.normal), top.normal);
+  assert.deepEqual(cross(tilt(front.right), tilt(front.up)).map(value => value || 0), tilt(front.normal));
+});
+check('Static coordinate diagrams have fixed inert geometry and safe accessible text', () => {
+  const english = named('coordinates'), { prose } = splitCoordinateDiagrams(english);
+  assert.equal(restoreCoordinateDiagrams(prose, diagramAccessibility), english);
+  assert.equal(reembedCoordinateDiagrams(english), english);
+  assertCoordinateSvgInvariants(english);
+  const quoted = diagramAccessibility.map(item => ({ title: item.title + ' " <tag>', desc: item.desc + ' & <tag>' }));
+  const safe = coordinateDiagrams(quoted).join('\n');
+  assertCoordinateSvgInvariants(safe);
+  assert(!safe.includes('<tag>')); assert(safe.includes('&quot;'));
+  assert.throws(() => assertCoordinateSvgInvariants(english.replace('stroke-width="2"', 'stroke-width="3"')));
+  assert.throws(() => assertCoordinateSvgInvariants(english.replace('<path', '<path onclick="alert(1)"')));
+});
+for (const locale of EXAMPLE_LOCALES) check(`${locale} embeds both coordinate diagrams without runtime output`, () => {
+  const book = JSON.parse(readFileSync(new URL(`../workbooks/${locale}/markov-groups.srwb`, import.meta.url), 'utf8'));
+  assert.deepEqual(book.notebook.cells.map(cell => cell.name), markov.notebook.cells.map(cell => cell.name));
+  assert.equal(book.notebook.cells.length, 9);
+  const cell = book.notebook.cells[1];
+  assert.equal(cell.name, 'coordinates'); assert.equal(cell.type, 'markdown');
+  assertCoordinateSvgInvariants(cell.code);
+  assert.match(cell.code, /`r × u = n`/);
+});
 const key = (position, normal) => `${position.join(',')}/${normal.join(',')}`;
 const stickers = faces.flatMap((face, f) => Array.from({ length: 9 }, (_, i) => ({
   index: 9 * f + i,
@@ -129,6 +176,73 @@ for (const face of faces) {
     assert.deepEqual(permutation, expected);
   });
 }
+check('U cycle literals identify face corners, edge middles and adjacent top strips', () => {
+  assert.deepEqual(cycles.U, [
+    [0, 2, 8, 6], [1, 5, 7, 3],
+    [18, 36, 27, 45], [19, 37, 28, 46], [20, 38, 29, 47],
+  ]);
+  for (const index of cycles.U[0]) {
+    const { position, normal } = stickers[index];
+    assert.deepEqual(normal, faces[0].normal);
+    assert.equal(Math.abs(position[0]) + Math.abs(position[2]), 2);
+  }
+  for (const index of cycles.U[1]) {
+    const { position, normal } = stickers[index];
+    assert.deepEqual(normal, faces[0].normal);
+    assert.equal(Math.abs(position[0]) + Math.abs(position[2]), 1);
+  }
+  cycles.U.slice(2).forEach((cycle, column) => assert.deepEqual(cycle.map(index => [
+    faceNames[Math.floor(index / 9)], Math.floor((index % 9) / 3), index % 3,
+  ]), ['F', 'L', 'B', 'R'].map(face => [face, 0, column])));
+});
+check('English U-cycle prose agrees with the literal data and printed position numbering', () => {
+  const prose = named('cycles');
+  const quotedCycles = [...prose.matchAll(/`(\[[\d,\s]+\])`/g)].map(match => JSON.parse(match[1]));
+  assert.deepEqual(quotedCycles, cycles.U.slice(0, 3));
+  assert.match(prose, /clockwise when viewed directly from outside the turned face/);
+  assert.match(prose, /last entry moves back to the first/);
+  assert.match(prose, /All five cycles act simultaneously/);
+  for (const cycle of cycles.U.slice(0, 2)) {
+    const path = [...cycle, cycle[0]].map(position => position + 1).join(' → ');
+    assert(prose.includes(`\`${path}\``), `Missing one-based face cycle: ${path}`);
+  }
+  const strip = cycles.U[2];
+  const facePath = [...strip, strip[0]].map(position => faceNames[Math.floor(position / 9)]).join(' → ');
+  assert(prose.includes(`\`${facePath}\``));
+  assert(prose.includes(`sticker at position \`${strip[0]}\` to position \`${strip[1]}\``));
+  assert.match(prose, /positions, not necessarily the sticker labels/);
+  assert.match(prose, /All face centres stay fixed/);
+});
+check('Shown U cycles add one to every position and close source-to-destination arrows', () => {
+  const show = named('show_turn');
+  assert.match(show, /for cycle in MOVE_CYCLES\["U"\]:/);
+  assert.match(show, /" -> "\.join\(str\(position \+ 1\) for position in cycle \+ cycle\[:1\]\)/);
+  const lines = cycles.U.map(cycle => [...cycle, cycle[0]].map(position => position + 1).join(' -> '));
+  assert.deepEqual(lines, [
+    '1 -> 3 -> 9 -> 7 -> 1', '2 -> 6 -> 8 -> 4 -> 2',
+    '19 -> 37 -> 28 -> 46 -> 19', '20 -> 38 -> 29 -> 47 -> 20',
+    '21 -> 39 -> 30 -> 48 -> 21',
+  ]);
+  assert.match(named('cube_moves'), /zip\(cycle, cycle\[1:\] \+ cycle\[:1\]\):\n\s+p\[source\] = destination/);
+  for (const [face, moveCycles] of Object.entries(cycles)) for (const cycle of moveCycles) {
+    const closed = [...cycle, cycle[0]];
+    for (let i = 0; i < cycle.length; i++) {
+      assert(!centres.includes(closed[i]), `${face} cycle must omit face centres`);
+      assert.equal(permutations[face][closed[i]], closed[i + 1]);
+    }
+  }
+});
+check('Five U sticker cycles describe eight coupled physical pieces, not five independent moves', () => {
+  const pieceStickerCounts = new Map();
+  for (const index of cycles.U.flat()) {
+    const position = stickers[index].position.join(',');
+    pieceStickerCounts.set(position, (pieceStickerCounts.get(position) ?? 0) + 1);
+  }
+  assert.deepEqual([...pieceStickerCounts.values()].sort((a, b) => a - b), [2, 2, 2, 2, 3, 3, 3, 3]);
+  assert.match(named('cycles'), /corner piece \(cubie\) carries three stickers, and an edge piece carries two/);
+  assert.match(named('cycles'), /side stickers occur in the surrounding-strip cycles/);
+  assert.match(named('cycles'), /not five independent moves of whole pieces/);
+});
 check('U and R do not commute', () => {
   assert.notDeepEqual(compose(permutations.U, permutations.R),
     compose(permutations.R, permutations.U));

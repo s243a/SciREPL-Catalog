@@ -4,12 +4,12 @@
   "locale": "en",
   "source": {
     "path": "workbooks/en/markov-groups.srwb",
-    "sha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4"
+    "sha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c"
   },
   "target": {
     "path": "workbooks/en/markov-groups.srwb",
-    "sha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4",
-    "size": 14648,
+    "sha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c",
+    "size": 21338,
     "title": "Markov Groups: A Random Walk on Cube Moves",
     "description": "Verify Rubik cube sticker permutations, four-turn cycles and noncommuting moves, then build a lazy Markov random walk. The one-sticker transition matrix is not the full cube-state chain."
   },
@@ -74,7 +74,67 @@
       "count": 0
     },
     "rasterCharts": null,
-    "renderedReview": "not-applicable"
+    "renderedReview": "not-applicable",
+    "scope": "prior-revision-runtime",
+    "checkedSourceSha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4",
+    "checkedTargetSha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4",
+    "caveat": "Historical executable runs predate the coordinates/cycles Markdown updates; no fresh Python app-runtime run is claimed. Current Markdown import/render checks are recorded separately."
   },
-  "caveat": "Reviewed educational examples; stated limitations still apply."
+  "caveat": "Reviewed educational examples; stated limitations still apply.",
+  "coordinateUpdate": {
+    "cell": "coordinates",
+    "generationSourceSha256": "0ebf0dde23b8cc2b464629e2e853deb3e3ae2af0e7337134e82444a4edeff3fc",
+    "finalSourceSha256": "b3795f36599216da86e653e8776127d82f6088ac10e5d8ac358c96a549257ef3",
+    "preGeometryTargetSha256": "0ebf0dde23b8cc2b464629e2e853deb3e3ae2af0e7337134e82444a4edeff3fc",
+    "finalTargetSha256": "b3795f36599216da86e653e8776127d82f6088ac10e5d8ac358c96a549257ef3",
+    "proseSha256": "336071f130ad248a3f6a02bf78396d734723caecdfb331c16b82b0f5261c0c17",
+    "layoutOnlyRefinement": true,
+    "unchangedExecutableAndOtherCells": true,
+    "method": "controller-authored",
+    "model": null,
+    "requests": null,
+    "nativeSpeakerReview": "not-applicable",
+    "rendering": {
+      "status": "passed",
+      "path": "reviews/markov-coordinate-rendering.json",
+      "sha256": "8f8639e0866933c5637e1933312ece9b3c1283f79f13ec2d3eb861856c14e905",
+      "workbookSha256": "b3795f36599216da86e653e8776127d82f6088ac10e5d8ac358c96a549257ef3",
+      "platform": "Free Chromium browser",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "scope": "Current-revision coordinate Markdown import/render/export/reimport only; no workbook Python execution or Pro/Android validation."
+    }
+  },
+  "cyclesUpdate": {
+    "cell": "cycles",
+    "predecessorSourceSha256": "b3795f36599216da86e653e8776127d82f6088ac10e5d8ac358c96a549257ef3",
+    "predecessorTargetSha256": "b3795f36599216da86e653e8776127d82f6088ac10e5d8ac358c96a549257ef3",
+    "sourceSha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c",
+    "targetSha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c",
+    "cyclesCellSha256": "126ce87c302f97b0191fe82cc20f15bbac91b54226d3158eecea4f20ca222d23",
+    "preservedCoordinateCellSha256": "723fc4e0aba8ee738c4c1531e49187abeddb79b3ac8ca17fff6d15ba26cd7c0c",
+    "unchangedExecutableAndOtherCells": true,
+    "method": "controller-authored",
+    "model": null,
+    "modelProseApproved": false,
+    "requests": null,
+    "nativeSpeakerReview": "not-applicable",
+    "rendering": {
+      "status": "passed",
+      "path": "reviews/markov-cycles-rendering.json",
+      "sha256": "2931ecfc18244a6ed64fe6a83f28d8d7356001edcc2f98c4118a1ec7ffd6e934",
+      "workbookSha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c",
+      "platform": "Free Chromium browser",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      }
+    }
+  }
 }

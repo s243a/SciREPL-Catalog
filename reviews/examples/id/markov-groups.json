@@ -4,12 +4,12 @@
   "locale": "id",
   "source": {
     "path": "workbooks/en/markov-groups.srwb",
-    "sha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4"
+    "sha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c"
   },
   "target": {
     "path": "workbooks/id/markov-groups.srwb",
-    "sha256": "edaeaa67e4077ca8d0984282699a2beda29f4d5b23fb02bd140cb21741da2c74",
-    "size": 15705,
+    "sha256": "4b8d8681de3629e0000afb4045f1527960cee411fb5a1b901e67ff75695c9d2c",
+    "size": 22979,
     "title": "Grup Markov: Langkah Acak pada Gerakan Kubus",
     "description": "Modelkan putaran sisi Kubus Rubik sebagai permutasi terverifikasi, pelajari perpangkatan modulo empat, dan bedakan langkah acak malas dari model stokastik satu stiker."
   },
@@ -17,16 +17,16 @@
     "model": "gemini-3.8-flash-medium",
     "contentAudit": {
       "status": "passed",
-      "sourceSha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4",
-      "targetSha256": "edaeaa67e4077ca8d0984282699a2beda29f4d5b23fb02bd140cb21741da2c74",
+      "sourceSha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c",
+      "targetSha256": "4b8d8681de3629e0000afb4045f1527960cee411fb5a1b901e67ff75695c9d2c",
       "findings": [],
       "errors": [],
-      "reviewMethod": "Previously passed AI/controller source-fidelity audit, preserved through verified presentation-only rebase where applicable; scoped final Bengali corrections independently adjudicated and re-gated.",
+      "reviewMethod": "Prior audits retained for unchanged cells; cycles-only prose received the identified bounded review and exact KEEP/data gates.",
       "provenance": {
-        "predecessorSourceSha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4",
-        "predecessorTargetSha256": "edaeaa67e4077ca8d0984282699a2beda29f4d5b23fb02bd140cb21741da2c74",
-        "predecessorAuditSha256": "2194841c1b976ad32bd196517c45290e7e14a9fcde6c55a1227a988ecc84cfcd",
-        "sharedLayoutOnly": false
+        "predecessorSourceSha256": "b3795f36599216da86e653e8776127d82f6088ac10e5d8ac358c96a549257ef3",
+        "predecessorTargetSha256": "4d7901583b5d945cf261907f7a9edcc546411af20fa91c8162bea7b6afaa8188",
+        "priorAuditSha256": "62c6be6aac937ee5dd87abc817471f8ce1564db8565c780fd7eb4de1591edcac",
+        "cyclesUpdateOnly": true
       },
       "nativeSpeakerReview": "pending",
       "caveat": "AI/controller review, not native-speaker or qualified technical certification."
@@ -59,11 +59,11 @@
       "locale": "id",
       "source": {
         "path": "workbooks/en/markov-groups.srwb",
-        "sha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4"
+        "sha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c"
       },
       "target": {
         "path": "workbooks/id/markov-groups.srwb",
-        "sha256": "edaeaa67e4077ca8d0984282699a2beda29f4d5b23fb02bd140cb21741da2c74"
+        "sha256": "4b8d8681de3629e0000afb4045f1527960cee411fb5a1b901e67ff75695c9d2c"
       },
       "spans": [
         {
@@ -1059,7 +1059,75 @@
       "count": 0
     },
     "rasterCharts": null,
-    "renderedReview": "not-applicable"
+    "renderedReview": "not-applicable",
+    "scope": "prior-revision-runtime",
+    "checkedSourceSha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4",
+    "checkedTargetSha256": "edaeaa67e4077ca8d0984282699a2beda29f4d5b23fb02bd140cb21741da2c74",
+    "caveat": "Historical executable runs predate the coordinates/cycles Markdown updates; no fresh Python app-runtime run is claimed. Current Markdown import/render checks are recorded separately."
   },
-  "caveat": "Machine translated with Gemini and reviewed by AI/controller checks, including scoped corrections where needed. Native-speaker review is pending; structural and numerical checks do not certify prose quality."
+  "caveat": "Machine translated with Gemini and reviewed by AI/controller checks, including scoped corrections where needed. Native-speaker review is pending; structural and numerical checks do not certify prose quality.",
+  "coordinateUpdate": {
+    "cell": "coordinates",
+    "generationSourceSha256": "0ebf0dde23b8cc2b464629e2e853deb3e3ae2af0e7337134e82444a4edeff3fc",
+    "finalSourceSha256": "b3795f36599216da86e653e8776127d82f6088ac10e5d8ac358c96a549257ef3",
+    "preGeometryTargetSha256": "709fde62b4db823b9b6da6a5a61df500b394272db7fe35d18088da9ded580ce4",
+    "finalTargetSha256": "4d7901583b5d945cf261907f7a9edcc546411af20fa91c8162bea7b6afaa8188",
+    "proseSha256": "070255add1c7994d0fea5ae70d2cdd593f22ade75ba536b9753cb0fecd630e60",
+    "layoutOnlyRefinement": true,
+    "unchangedExecutableAndOtherCells": true,
+    "method": "Gemini-draft-and-fresh-same-model-review",
+    "model": "gemini-3.8-flash-medium",
+    "requests": {
+      "draft": 1,
+      "freshReview": 1,
+      "repair": 0
+    },
+    "nativeSpeakerReview": "pending",
+    "rendering": {
+      "status": "passed",
+      "path": "reviews/markov-coordinate-rendering.json",
+      "sha256": "8f8639e0866933c5637e1933312ece9b3c1283f79f13ec2d3eb861856c14e905",
+      "workbookSha256": "4d7901583b5d945cf261907f7a9edcc546411af20fa91c8162bea7b6afaa8188",
+      "platform": "Free Chromium browser",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "scope": "Current-revision coordinate Markdown import/render/export/reimport only; no workbook Python execution or Pro/Android validation."
+    }
+  },
+  "cyclesUpdate": {
+    "cell": "cycles",
+    "predecessorSourceSha256": "b3795f36599216da86e653e8776127d82f6088ac10e5d8ac358c96a549257ef3",
+    "predecessorTargetSha256": "4d7901583b5d945cf261907f7a9edcc546411af20fa91c8162bea7b6afaa8188",
+    "sourceSha256": "0329a9ec4be763522faac66b22c853046d951d17d0cddf22655d6cf0a9b0583c",
+    "targetSha256": "4b8d8681de3629e0000afb4045f1527960cee411fb5a1b901e67ff75695c9d2c",
+    "cyclesCellSha256": "37293eea4d2b77cf2e855e5231ff0a98b92e3d271938772e93135462fd384b2b",
+    "preservedCoordinateCellSha256": "60023e3edbe4284a4b9c404b9301e84193c062ab98992ef6bfd93342d114e1a7",
+    "unchangedExecutableAndOtherCells": true,
+    "method": "Gemini-draft-and-fresh-same-model-review",
+    "model": "gemini-3.8-flash-medium",
+    "modelProseApproved": true,
+    "requests": {
+      "draft": 1,
+      "freshReview": 1,
+      "repair": 0
+    },
+    "nativeSpeakerReview": "pending",
+    "rendering": {
+      "status": "passed",
+      "path": "reviews/markov-cycles-rendering.json",
+      "sha256": "2931ecfc18244a6ed64fe6a83f28d8d7356001edcc2f98c4118a1ec7ffd6e934",
+      "workbookSha256": "4b8d8681de3629e0000afb4045f1527960cee411fb5a1b901e67ff75695c9d2c",
+      "platform": "Free Chromium browser",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      }
+    }
+  }
 }
