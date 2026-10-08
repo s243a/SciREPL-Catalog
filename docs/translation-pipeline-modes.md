@@ -129,6 +129,17 @@ other Markdown remain unchanged. The completed Stage 4 campaign and its
 four-formula rendering reports stay historical, with separate current
 clarification receipts and native-language review still pending.
 
+A final scoped clarity pass pins the completed probability clarification at
+`f5958682ec637e7e7bd6470d84d489b9d267c982`. Seven controller-authored localized
+paragraphs clarify entry meanings, independently explain stochasticity and
+symmetry, list the per-move destinations, give the whole-cube convergence
+conditions, and append a question-5 hint about the 24 corner-sticker positions.
+Only Markdown cells 6, 8, 10 and 12 change; all Python, four display equations,
+other content and metadata remain exact. This pass makes zero model requests
+and does not claim model approval or native-speaker review. Every completed
+translation campaign and prior rendering/runtime receipt stays historical;
+separate clarity receipts bind fresh final-byte rendering and NumPy checks.
+
 ## Mode B inputs: give the polisher both versions
 
 The polish prompt should include the ENGLISH source cells alongside the

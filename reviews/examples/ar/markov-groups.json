@@ -4,12 +4,12 @@
   "locale": "ar",
   "source": {
     "path": "workbooks/en/markov-groups.srwb",
-    "sha256": "fb6ce124924e450253c7539691590e9d22806a7c62f6e9057328ac3eb71b3989"
+    "sha256": "98d3d861c7c59f011ca8f25e5148116dcc3c947c32550fc474bea36df23f68de"
   },
   "target": {
     "path": "workbooks/ar/markov-groups.srwb",
-    "sha256": "59041df24d67d4dc2ee3191ae7054206c575846b34420341fbefe00173db9ffa",
-    "size": 40298,
+    "sha256": "830900643888877acb2fd95142cd84373a07d2cdb2d112fc6b990f5974d2a471",
+    "size": 41631,
     "title": "زمر ماركوف: مسار عشوائي على حركات المكعب",
     "description": "قم بنمذجة تدويرات أوجه مكعب روبيك كتبديلات تم التحقق منها، واستكشف القوى بمقاس أربعة، وميّز بين مسار عشوائي كسول ونموذج تصادفي لملصق واحد."
   },
@@ -17,8 +17,8 @@
     "model": "gemini-3.8-flash-medium",
     "contentAudit": {
       "status": "passed",
-      "sourceSha256": "fb6ce124924e450253c7539691590e9d22806a7c62f6e9057328ac3eb71b3989",
-      "targetSha256": "59041df24d67d4dc2ee3191ae7054206c575846b34420341fbefe00173db9ffa",
+      "sourceSha256": "98d3d861c7c59f011ca8f25e5148116dcc3c947c32550fc474bea36df23f68de",
+      "targetSha256": "830900643888877acb2fd95142cd84373a07d2cdb2d112fc6b990f5974d2a471",
       "findings": [],
       "errors": [],
       "reviewMethod": "Prior prose audits retained. Only the three new Stage 4 Markdown fields received bounded review; existing localized comments and output labels were mechanically preserved. Four trusted Arabic math-direction wrappers are a separate controller-only rendering correction with zero model requests and unchanged prose/formulas.",
@@ -44,6 +44,23 @@
         "modelRequests": 0,
         "unchangedPythonAndOtherMarkdown": true,
         "changedDisplayFormulaBlocks": 2,
+        "nativeSpeakerReview": "pending"
+      },
+      "clarityProvenance": {
+        "predecessorCommit": "f5958682ec637e7e7bd6470d84d489b9d267c982",
+        "predecessorSourceSha256": "fb6ce124924e450253c7539691590e9d22806a7c62f6e9057328ac3eb71b3989",
+        "predecessorTargetSha256": "59041df24d67d4dc2ee3191ae7054206c575846b34420341fbefe00173db9ffa",
+        "priorAuditSha256": "35de3a76b28ad7c8c86cb0a3da9ef14e217fefc07d415857caab97d49ea3eea5",
+        "cells": [
+          6,
+          8,
+          10,
+          12
+        ],
+        "method": "controller-authored-localized-stage4-clarity",
+        "modelRequests": 0,
+        "modelProseApproved": false,
+        "unchangedPythonMetadataAndFormulas": true,
         "nativeSpeakerReview": "pending"
       }
     },
@@ -75,11 +92,11 @@
       "locale": "ar",
       "source": {
         "path": "workbooks/en/markov-groups.srwb",
-        "sha256": "fb6ce124924e450253c7539691590e9d22806a7c62f6e9057328ac3eb71b3989"
+        "sha256": "98d3d861c7c59f011ca8f25e5148116dcc3c947c32550fc474bea36df23f68de"
       },
       "target": {
         "path": "workbooks/ar/markov-groups.srwb",
-        "sha256": "59041df24d67d4dc2ee3191ae7054206c575846b34420341fbefe00173db9ffa"
+        "sha256": "830900643888877acb2fd95142cd84373a07d2cdb2d112fc6b990f5974d2a471"
       },
       "spans": [
         {
@@ -2261,6 +2278,93 @@
       "numpyVersion": "2.2.6",
       "executedLocale": "en",
       "scope": "Inspected English Python rechecked locally; locale structure and exact clarification checked mechanically. No Python app runtime, Android or Pro runtime.",
+      "pythonAppRuntime": "not-run"
+    }
+  },
+  "stage4Clarity": {
+    "predecessorCommit": "f5958682ec637e7e7bd6470d84d489b9d267c982",
+    "predecessorSourceSha256": "fb6ce124924e450253c7539691590e9d22806a7c62f6e9057328ac3eb71b3989",
+    "predecessorTargetSha256": "59041df24d67d4dc2ee3191ae7054206c575846b34420341fbefe00173db9ffa",
+    "sourceSha256": "98d3d861c7c59f011ca8f25e5148116dcc3c947c32550fc474bea36df23f68de",
+    "targetSha256": "830900643888877acb2fd95142cd84373a07d2cdb2d112fc6b990f5974d2a471",
+    "cells": 13,
+    "changes": [
+      {
+        "index": 6,
+        "cell": "markov_bridge",
+        "predecessorCellSha256": "576ec6046b3f56d45663af5d414cf3c7bbc866018543710e7d6ee4962d339d3d",
+        "currentCellSha256": "3d713d3dc273616a061ea7efd5f9f9687410225a2ee8c2377c3ac96fded7725e"
+      },
+      {
+        "index": 8,
+        "cell": "sticker_bridge",
+        "predecessorCellSha256": "4dd992719e16cdb5c7764f0b11c08bdc1e430d8c5ec4e83e98964ea509cfb919",
+        "currentCellSha256": "02e00fd154d4824c093e5650c46f7a3d75d27d12f9b8263736e42dd1652b31c6"
+      },
+      {
+        "index": 10,
+        "cell": "trajectory_bridge",
+        "predecessorCellSha256": "2e5ea6d4699f6d7f7b5faeb3d5c446f0490b354235ce03add18673992d6d7ea0",
+        "currentCellSha256": "ac87bbfcc6929732d81c1ab6548c7bb6218dc2784f55db1b5cf479ebea4eedc1"
+      },
+      {
+        "index": 12,
+        "cell": "takeaways",
+        "predecessorCellSha256": "f7776213e802eefa53ff6c81cb36660401eb70ea27831ee4add5ec8cd24bc61c",
+        "currentCellSha256": "a7231d982913c8555d2108fc2b1a68e56fa477d83716c4fb281d451188cec321"
+      }
+    ],
+    "takeaways": {
+      "preservedPrefixSha256": "f7776213e802eefa53ff6c81cb36660401eb70ea27831ee4add5ec8cd24bc61c",
+      "appendedTextSha256": "034b1457731503de0d07324f29498827b6b2c332aaf73ea98b4ad4d1439212a3"
+    },
+    "sourceProse": {
+      "path": "tools/markov-stage4-text.json",
+      "predecessorSha256": "88935f077ae7525216240b70c60dc1eb3a7077d8bb26e1c8d1cbf6b543516574",
+      "sha256": "2d006182747d021086526c665c82bfd3d023469b2ac352c027bf1ba76be1e09c"
+    },
+    "controllerProse": {
+      "path": "tools/markov-stage4-clarity.json",
+      "sha256": "e57665f59f4867ed02d29134454914c3cd5747c8d2443fd48f8cacfa3856fe88"
+    },
+    "method": "controller-authored-localized-stage4-clarity",
+    "modelRequests": 0,
+    "modelProseApproved": false,
+    "nativeSpeakerReview": "pending",
+    "unchangedPythonMetadataAndFormulas": true,
+    "historicalEvidence": {
+      "predecessorReceiptSha256": "5602e9081ab3d82449541b6bc8e7916a314153735519a9a5f07da1f7e426cb0e",
+      "retainedFields": [
+        "browser",
+        "coordinateUpdate",
+        "cyclesUpdate",
+        "layoutUpdate",
+        "stage4Update",
+        "probabilityClarification"
+      ]
+    },
+    "rendering": {
+      "status": "passed",
+      "path": "reviews/markov-clarity-rendering.json",
+      "sha256": "2fc89fccbdbce5f269b353c2ca57edfef654191d415886a8126e2d072142da1f",
+      "workbookSha256": "830900643888877acb2fd95142cd84373a07d2cdb2d112fc6b990f5974d2a471",
+      "platform": "Free Chromium browser",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "scope": "Actual workbook import, Markdown/KaTeX render, export/reimport in fresh Chromium",
+      "pythonExecuted": false
+    },
+    "runtime": {
+      "status": "passed",
+      "path": "reviews/markov-clarity-runtime.json",
+      "sha256": "0bbae62dd2824f52daff981886fd2f5849d5f934319ddc4ffb24e4a258899d8b",
+      "workbookSha256": "830900643888877acb2fd95142cd84373a07d2cdb2d112fc6b990f5974d2a471",
+      "platform": "local-preinstalled-NumPy",
+      "numpyVersion": "2.2.6",
+      "executedLocale": "en",
+      "scope": "Inspected English Python rechecked locally; locale structure and exact clarity update checked mechanically. No Python app runtime, Android or Pro runtime.",
       "pythonAppRuntime": "not-run"
     }
   }

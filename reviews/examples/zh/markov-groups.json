@@ -4,12 +4,12 @@
   "locale": "zh",
   "source": {
     "path": "workbooks/en/markov-groups.srwb",
-    "sha256": "fb6ce124924e450253c7539691590e9d22806a7c62f6e9057328ac3eb71b3989"
+    "sha256": "98d3d861c7c59f011ca8f25e5148116dcc3c947c32550fc474bea36df23f68de"
   },
   "target": {
     "path": "workbooks/zh/markov-groups.srwb",
-    "sha256": "d51ae6f405ac013cc143b946fb5e2304a5a9fd2b9298297e78b28b0c0ea15ec1",
-    "size": 29584,
+    "sha256": "28cbeed737435c0a95d0491d11026180d1046e6f222211c613d211fe5471d97a",
+    "size": 30500,
     "title": "马尔可夫群：魔方动作上的随机游走",
     "description": "将魔方转面建模为经过验证的置换，探索模四幂，并区分惰性随机游走与单贴纸随机模型。"
   },
@@ -17,8 +17,8 @@
     "model": "gemini-3.8-flash-medium",
     "contentAudit": {
       "status": "passed",
-      "sourceSha256": "fb6ce124924e450253c7539691590e9d22806a7c62f6e9057328ac3eb71b3989",
-      "targetSha256": "d51ae6f405ac013cc143b946fb5e2304a5a9fd2b9298297e78b28b0c0ea15ec1",
+      "sourceSha256": "98d3d861c7c59f011ca8f25e5148116dcc3c947c32550fc474bea36df23f68de",
+      "targetSha256": "28cbeed737435c0a95d0491d11026180d1046e6f222211c613d211fe5471d97a",
       "findings": [],
       "errors": [],
       "reviewMethod": "Prior prose audits retained. Only the three new Stage 4 Markdown fields received bounded review; existing localized comments and output labels were mechanically preserved.",
@@ -44,6 +44,23 @@
         "modelRequests": 0,
         "unchangedPythonAndOtherMarkdown": true,
         "changedDisplayFormulaBlocks": 2,
+        "nativeSpeakerReview": "pending"
+      },
+      "clarityProvenance": {
+        "predecessorCommit": "f5958682ec637e7e7bd6470d84d489b9d267c982",
+        "predecessorSourceSha256": "fb6ce124924e450253c7539691590e9d22806a7c62f6e9057328ac3eb71b3989",
+        "predecessorTargetSha256": "d51ae6f405ac013cc143b946fb5e2304a5a9fd2b9298297e78b28b0c0ea15ec1",
+        "priorAuditSha256": "8c0ee3f21ee8b5ed247b8c273f5e8ba29e97d9ed45538b826f9466867cf8aa11",
+        "cells": [
+          6,
+          8,
+          10,
+          12
+        ],
+        "method": "controller-authored-localized-stage4-clarity",
+        "modelRequests": 0,
+        "modelProseApproved": false,
+        "unchangedPythonMetadataAndFormulas": true,
         "nativeSpeakerReview": "pending"
       }
     },
@@ -75,11 +92,11 @@
       "locale": "zh",
       "source": {
         "path": "workbooks/en/markov-groups.srwb",
-        "sha256": "fb6ce124924e450253c7539691590e9d22806a7c62f6e9057328ac3eb71b3989"
+        "sha256": "98d3d861c7c59f011ca8f25e5148116dcc3c947c32550fc474bea36df23f68de"
       },
       "target": {
         "path": "workbooks/zh/markov-groups.srwb",
-        "sha256": "d51ae6f405ac013cc143b946fb5e2304a5a9fd2b9298297e78b28b0c0ea15ec1"
+        "sha256": "28cbeed737435c0a95d0491d11026180d1046e6f222211c613d211fe5471d97a"
       },
       "spans": [
         {
@@ -2251,6 +2268,93 @@
       "numpyVersion": "2.2.6",
       "executedLocale": "en",
       "scope": "Inspected English Python rechecked locally; locale structure and exact clarification checked mechanically. No Python app runtime, Android or Pro runtime.",
+      "pythonAppRuntime": "not-run"
+    }
+  },
+  "stage4Clarity": {
+    "predecessorCommit": "f5958682ec637e7e7bd6470d84d489b9d267c982",
+    "predecessorSourceSha256": "fb6ce124924e450253c7539691590e9d22806a7c62f6e9057328ac3eb71b3989",
+    "predecessorTargetSha256": "d51ae6f405ac013cc143b946fb5e2304a5a9fd2b9298297e78b28b0c0ea15ec1",
+    "sourceSha256": "98d3d861c7c59f011ca8f25e5148116dcc3c947c32550fc474bea36df23f68de",
+    "targetSha256": "28cbeed737435c0a95d0491d11026180d1046e6f222211c613d211fe5471d97a",
+    "cells": 13,
+    "changes": [
+      {
+        "index": 6,
+        "cell": "markov_bridge",
+        "predecessorCellSha256": "80c39623a9ba1ecd2e487e83184321d95c9f31d669c5cd7a00cfd597e3ba4b4c",
+        "currentCellSha256": "35b6fa57e1d0daddca28685960fbb89da54e315f3408c7fd71491392e9a979e9"
+      },
+      {
+        "index": 8,
+        "cell": "sticker_bridge",
+        "predecessorCellSha256": "d2071a7a052c76d51f37b6c4437a0547f2878891ad5fb7d98615e08d52878cdc",
+        "currentCellSha256": "200fd6ba4785ffd9a408db37eb902036c0784e1c45fd02283bf5da6615a6cfc9"
+      },
+      {
+        "index": 10,
+        "cell": "trajectory_bridge",
+        "predecessorCellSha256": "08ff0057a7d326e5ee4ff5bbb1d5790a039371b6eac81736c315e417de75181b",
+        "currentCellSha256": "414f5fe456ec51460ff9f177294d6125c73d18776377587b121d6ceb62fcf34b"
+      },
+      {
+        "index": 12,
+        "cell": "takeaways",
+        "predecessorCellSha256": "1bbbcf627a34b40dc3955e0ea9c27a119ed1a748540dd9a9c0566c093ba34a67",
+        "currentCellSha256": "fb5df215793012bafbc947db02478133859d58aa02e17acf8c3f263725eb8ab2"
+      }
+    ],
+    "takeaways": {
+      "preservedPrefixSha256": "1bbbcf627a34b40dc3955e0ea9c27a119ed1a748540dd9a9c0566c093ba34a67",
+      "appendedTextSha256": "3bc2c27f9d5a9c60545463d8f13f874615b14d83a92fa3ecb705a92f8f9390d8"
+    },
+    "sourceProse": {
+      "path": "tools/markov-stage4-text.json",
+      "predecessorSha256": "88935f077ae7525216240b70c60dc1eb3a7077d8bb26e1c8d1cbf6b543516574",
+      "sha256": "2d006182747d021086526c665c82bfd3d023469b2ac352c027bf1ba76be1e09c"
+    },
+    "controllerProse": {
+      "path": "tools/markov-stage4-clarity.json",
+      "sha256": "e57665f59f4867ed02d29134454914c3cd5747c8d2443fd48f8cacfa3856fe88"
+    },
+    "method": "controller-authored-localized-stage4-clarity",
+    "modelRequests": 0,
+    "modelProseApproved": false,
+    "nativeSpeakerReview": "pending",
+    "unchangedPythonMetadataAndFormulas": true,
+    "historicalEvidence": {
+      "predecessorReceiptSha256": "50912d2cde1e194d47c9021d7b803fd264aaa081462a64aebf7682fdeacbd72b",
+      "retainedFields": [
+        "browser",
+        "coordinateUpdate",
+        "cyclesUpdate",
+        "layoutUpdate",
+        "stage4Update",
+        "probabilityClarification"
+      ]
+    },
+    "rendering": {
+      "status": "passed",
+      "path": "reviews/markov-clarity-rendering.json",
+      "sha256": "2fc89fccbdbce5f269b353c2ca57edfef654191d415886a8126e2d072142da1f",
+      "workbookSha256": "28cbeed737435c0a95d0491d11026180d1046e6f222211c613d211fe5471d97a",
+      "platform": "Free Chromium browser",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "scope": "Actual workbook import, Markdown/KaTeX render, export/reimport in fresh Chromium",
+      "pythonExecuted": false
+    },
+    "runtime": {
+      "status": "passed",
+      "path": "reviews/markov-clarity-runtime.json",
+      "sha256": "0bbae62dd2824f52daff981886fd2f5849d5f934319ddc4ffb24e4a258899d8b",
+      "workbookSha256": "28cbeed737435c0a95d0491d11026180d1046e6f222211c613d211fe5471d97a",
+      "platform": "local-preinstalled-NumPy",
+      "numpyVersion": "2.2.6",
+      "executedLocale": "en",
+      "scope": "Inspected English Python rechecked locally; locale structure and exact clarity update checked mechanically. No Python app runtime, Android or Pro runtime.",
       "pythonAppRuntime": "not-run"
     }
   }

@@ -25,6 +25,7 @@ except ImportError:
 
 REPO = Path(__file__).resolve().parent.parent
 PREDECESSOR = "017ea7eed65a9dc7875aa5b8c59df489114facbd"
+CLARITY_PREDECESSOR = "f5958682ec637e7e7bd6470d84d489b9d267c982"
 LOCALES = ("en", "ar", "bn", "de", "es", "fr", "hi", "id", "ja", "ko", "pt-BR", "ru", "zh")
 OLD_ORDER = ["intro", "coordinates", "cube_moves", "check_moves", "cycles",
              "show_turn", "markov_bridge", "random_walk", "takeaways"]
@@ -53,7 +54,7 @@ def pinned_workbook(locale):
     return json.loads(content), hashlib.sha256(content).hexdigest()
 
 
-def expected_book(old, texts):
+def expected_book(old, texts, hint):
     """Independent exact structural derivation; no JavaScript/helper execution."""
     original = old["notebook"]["cells"]
     check([cell["name"] for cell in original] == OLD_ORDER, "Pinned nine-cell order changed")
@@ -72,7 +73,9 @@ def expected_book(old, texts):
         markdown.update(name=NEW_ORDER[6 + index * 2], code=text)
         code.update(name=NEW_ORDER[7 + index * 2], code=blocks[index])
         pairs.extend((markdown, code))
-    expected["notebook"]["cells"] = prefix + pairs + [copy.deepcopy(original[8])]
+    takeaways = copy.deepcopy(original[8])
+    takeaways["code"] += "\n\n" + hint
+    expected["notebook"]["cells"] = prefix + pairs + [takeaways]
     return expected
 
 
@@ -155,6 +158,31 @@ def check_distribution(namespace):
     check(after[0] == 7 / 13 and all(after[d] == 1 / 13 for d in destinations if d != 0),
           "Expected seven stays and six single-choice destinations")
     check(np.isclose(after.sum(), 1), "First-step probability mass is not one")
+    expected_moves = {"I": 0, "U": 2, "U'": 6, "D": 0, "D'": 0,
+                      "F": 0, "F'": 0, "B": 42, "B'": 47,
+                      "L": 18, "L'": 35, "R": 0, "R'": 0}
+    for move, destination in expected_moves.items():
+        move_matrix = namespace["IDENTITY"] if move == "I" else (
+            namespace["M"][move[:-1]].T if move.endswith("'") else namespace["M"][move])
+        check(np.flatnonzero(move_matrix[:, 0]).tolist() == [destination],
+              f"Per-move position-0 destination differs: {move}")
+    # A corner sticker stays in its orbit, not all 54 sticker positions.
+    corner_positions = {9 * face + local for face in range(6) for local in (0, 2, 6, 8)}
+    reachable, frontier = {0}, [0]
+    while frontier:
+        source = frontier.pop()
+        for destination in np.flatnonzero(matrix[:, source]).tolist():
+            if destination not in reachable:
+                reachable.add(destination)
+                frontier.append(destination)
+    check(reachable == corner_positions and len(reachable) == 24,
+          "Corner sticker orbit differs from the 24 positions in the hint")
+    corner_uniform = np.zeros(54)
+    corner_uniform[list(corner_positions)] = 1 / 24
+    check(np.allclose(matrix @ corner_uniform, corner_uniform), "Corner-uniform distribution is not stationary")
+    check(np.allclose(np.linalg.matrix_power(matrix, 100) @ initial, corner_uniform, atol=1e-8, rtol=0),
+          "Corner-start numerical long-run check differs from corner-uniform")
+    check(not np.allclose(corner_uniform, np.full(54, 1 / 54)), "Corner-uniform was confused with all-position uniform")
     for centre in namespace["CENTRES"]:
         check(np.array_equal(matrix[:, centre], np.eye(54)[:, centre]), "Centre location changed")
     check(np.array_equal(np.sort(namespace["walk_state"]), namespace["SOLVED"]), "Sample lost a sticker label")
@@ -180,6 +208,7 @@ def main():
     check(len(set(requested)) == len(requested) and all(locale in LOCALES for locale in requested), "Unknown or duplicate locale")
     locales = ["en"] + [locale for locale in requested if locale != "en"]
     source_parts = json.loads((REPO / "tools/markov-stage4-text.json").read_text(encoding="utf-8"))
+    clarity_prose = json.loads((REPO / "tools/markov-stage4-clarity.json").read_text(encoding="utf-8"))
     check(set(source_parts) == set(PART_KEYS) and all(isinstance(source_parts[key], str) for key in PART_KEYS),
           "Approved source requires exactly three Markdown strings")
     structures = []
@@ -196,7 +225,15 @@ def main():
         if locale == "en":
             check(texts == [source_parts[key] for key in PART_KEYS], "English differs from approved Stage 4 prose")
             english, old_english = current, old
-        check(current == expected_book(old, texts), f"{locale}: drift outside the authorized split/loop/intro/prose")
+        check(current == expected_book(old, texts, clarity_prose[locale]["hint"]),
+              f"{locale}: drift outside the authorized split/loop/intro/prose/hint")
+        reviewed = json.loads(subprocess.check_output(
+            ["git", "show", f"{CLARITY_PREDECESSOR}:workbooks/{locale}/markov-groups.srwb"],
+            cwd=REPO, stderr=subprocess.PIPE))
+        restored = copy.deepcopy(current)
+        for index in (6, 8, 10, 12):
+            restored["notebook"]["cells"][index] = copy.deepcopy(reviewed["notebook"]["cells"][index])
+        check(restored == reviewed, f"{locale}: code or metadata drift after the clarity predecessor")
         check([cell["name"] for cell in cells if cell["type"] == "code"] == CODE_ORDER, f"{locale}: code order differs")
         for cell in cells:
             if cell["type"] == "code":
@@ -247,6 +284,9 @@ def main():
                 "predecessorCommit": PREDECESSOR, "numpyVersion": np.__version__, "localeStructure": structures,
                 "matrixExactToOldSum": True, "seededTrajectoryExact": True, "splitOutputsExact": True,
                 "twoStepOrderedEnumerationPassed": True, "negativeRegressions": 2,
+                "clarityPredecessorCommit": CLARITY_PREDECESSOR,
+                "perMovePositionZeroDestinationsPassed": True, "cornerStickerOrbitSize": 24,
+                "cornerUniformStationaryPassed": True, "cornerLongRunNumericalCheckPassed": True,
                 "firstColumn": [{"position": d, "choicesOutOf13": int(round(new["after_one_step"][d] * 13))}
                                 for d in destinations], "sampledMoves": new["moves"],
                 "limits": ["No browser/Pyodide runtime initialized", "No network, model, installation or Git writes"]}

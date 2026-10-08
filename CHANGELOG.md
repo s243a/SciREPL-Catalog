@@ -67,6 +67,17 @@ and work deliberately deferred.
   no Python, and retains the completed translation/rendering evidence as
   historical records. Fresh rendering and regression evidence is separate.
   Only the 13 Markov item revisions advance again, to 5, with updated hashes.
+- Added one consolidated Stage 4 clarity pass in all 13 editions: the
+  selected column now explicitly means destination probabilities for sticker
+  label 1, and `move_counts[d, j]` names the counted entry. Row/column sums
+  follow directly from permutation matrices; inverse-pair weighting separately
+  explains symmetry. Per-move destinations and the whole-cube convergence
+  conditions are explicit, with a question-5 hint distinguishing the chosen
+  sticker's 24 corner positions from all 54 positions and from cube states.
+  The seven localized controller paragraphs make no model requests; native
+  review remains pending. Python and all four equations are unchanged, earlier
+  receipts are retained as history, and fresh clarity checks certify the new
+  bytes. Only the 13 Markov revisions rise to 6; no release/version change.
 
 ## 2026-10-04 — reviewed examples (staging)
 

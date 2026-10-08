@@ -403,7 +403,27 @@ check('Actual moves confirm seven stays and six one-step destinations for positi
   assert.deepEqual(destinations.filter(destination => destination !== 0).sort((a, b) => a - b),
     [2, 6, 18, 35, 42, 47]);
   assert(named('sticker_bridge').includes('`T[0, 0] = 7/13`'));
-  assert.match(named('sticker_bridge'), /positions `2`, `6`, `18`, `35`, `42`, and `47`/);
+  for (const [move, destination] of [['U', 2], ["U'", 6], ['L', 18], ["L'", 35], ['B', 42], ["B'", 47]]) {
+    const permutation = move.endsWith("'") ? inverse(permutations[move.slice(0, -1)]) : permutations[move];
+    assert.equal(permutation[0], destination);
+    assert(named('sticker_bridge').includes('`' + move + '` → `' + destination + '`'));
+  }
+});
+check('Column mechanics include their destination-probability meaning', () => {
+  assert(named('markov_bridge').includes('`move_counts[d, j]`'));
+  assert(named('sticker_bridge').includes('`after_one_step[d] = T[d, 0]`'));
+  assert.match(named('sticker_bridge'), /probability that sticker 1 is at position `d`/);
+  assert.match(named('sticker_bridge'), /distribution of destinations for the sticker starting at position 0/);
+  assert.match(named('markov_bridge'), /one 1 per column and one 1 per row/);
+  assert.match(named('markov_bridge'), /Separately, equal weighting/);
+});
+check('Convergence and the corner-position hint distinguish the two models', () => {
+  assert.match(named('markov_bridge'), /Vertices are reachable configurations/);
+  assert.match(named('trajectory_bridge'), /connected on reachable configurations \(irreducible\)/);
+  assert.match(named('trajectory_bridge'), /self-loop makes it aperiodic/);
+  assert.match(named('takeaways'), /\*\*Hint for question 5:\*\*/);
+  assert.match(named('takeaways'), /24 corner-sticker positions/);
+  assert.match(named('takeaways'), /not uniform across all 54 positions/);
 });
 check('One-sticker mixture is doubly stochastic and fixes centres', () => {
   const counts = Array.from({ length: 54 }, () => Array(54).fill(0));

@@ -20,6 +20,9 @@ import { applyStage4MathDirection } from './markov-stage4-math-direction.mjs';
 import { MARKOV_PROBABILITY_PREDECESSOR, GENERAL_PROBABILITY_MATH, ONE_HOT_PROBABILITY_MATH,
   applyProbabilityClarification } from './markov-probability-clarification.mjs';
 import { clarificationProvenance } from './record-markov-probability-clarification.mjs';
+import { MARKOV_CLARITY_PREDECESSOR, clarityStage4Parts } from './markov-stage4-clarity.mjs';
+import { CLARITY_CELLS, CLARITY_RETAINED_FIELDS, assertClarityBooks, clarityFormulas,
+  clarityProvenance, assertClarityReports } from './record-markov-stage4-clarity.mjs';
 const root = fileURLToPath(new URL('..', import.meta.url));
 const args = process.argv.slice(2), i = args.indexOf('--locale');
 const locales = i < 0 ? EXAMPLE_LOCALES : [args[i + 1]];
@@ -34,6 +37,7 @@ const pinned = (rel, commit = MARKOV_STAGE4_PREDECESSOR) => {
   return pinnedCache.get(identity);
 };
 const clarificationPinned = rel => pinned(rel, MARKOV_PROBABILITY_PREDECESSOR);
+const clarityPinned = rel => pinned(rel, MARKOV_CLARITY_PREDECESSOR);
 function keeps(text) {
   const fences = [...text.matchAll(/```[^\n]*\n[\s\S]*?```/g)].map(m => m[0]);
   const prose = text.replace(/```[^\n]*\n[\s\S]*?```/g, '');
@@ -55,12 +59,17 @@ for (const lesson of Object.keys(EXAMPLE_DESCRIPTIONS)) for (const locale of loc
   const en = read(sourcePath), xx = read(targetPath);
   const stage4 = lesson === 'markov-groups' ? review.stage4Update : null;
   const clarification = lesson === 'markov-groups' ? review.probabilityClarification : null;
+  const clarity = lesson === 'markov-groups' ? review.stage4Clarity : null;
   const historicalTarget = stage4 ? JSON.parse(pinned(targetPath)) : xx;
   const historicalSource = stage4 ? JSON.parse(pinned(sourcePath)) : en;
   const stage4Target = clarification ? JSON.parse(clarificationPinned(targetPath)) : xx;
   const stage4Source = clarification ? JSON.parse(clarificationPinned(sourcePath)) : en;
   const stage4TargetSha256 = clarification ? digest(clarificationPinned(targetPath)) : review.target.sha256;
   const stage4SourceSha256 = clarification ? digest(clarificationPinned(sourcePath)) : review.source.sha256;
+  const probabilityTarget = clarity ? JSON.parse(clarityPinned(targetPath)) : xx;
+  const probabilitySource = clarity ? JSON.parse(clarityPinned(sourcePath)) : en;
+  const probabilityTargetSha256 = clarity ? digest(clarityPinned(targetPath)) : review.target.sha256;
+  const probabilitySourceSha256 = clarity ? digest(clarityPinned(sourcePath)) : review.source.sha256;
   assert.equal(review.target.title, xx.notebook.name); assert(review.target.description.trim());
   assert.deepEqual(Object.keys(xx).sort(), ['format', 'notebook', 'version']);
   assert.equal(xx.format, 'srwb'); assert.equal(xx.version, '1.0');
@@ -322,27 +331,29 @@ for (const lesson of Object.keys(EXAMPLE_DESCRIPTIONS)) for (const locale of loc
       assert.equal(clarification.predecessorCommit, MARKOV_PROBABILITY_PREDECESSOR);
       assert.equal(clarification.predecessorSourceSha256, stage4SourceSha256);
       assert.equal(clarification.predecessorTargetSha256, stage4TargetSha256);
-      assert.equal(clarification.sourceSha256, review.source.sha256); assert.equal(clarification.targetSha256, review.target.sha256);
+      assert.equal(clarification.sourceSha256, probabilitySourceSha256); assert.equal(clarification.targetSha256, probabilityTargetSha256);
       assert.equal(clarification.cell, 'sticker_bridge'); assert.equal(clarification.index, 8); assert.equal(clarification.cells, 13);
       assert.equal(clarification.predecessorCellSha256, digest(stage4Target.notebook.cells[8].code));
-      assert.equal(clarification.currentCellSha256, digest(xx.notebook.cells[8].code));
-      assert.deepEqual(en, applyProbabilityClarification(stage4Source, 'en'), 'Current English clarification drift');
-      assert.deepEqual(xx, applyProbabilityClarification(stage4Target, locale), 'Changed outside exact localized clarification');
-      assert.notEqual(xx.notebook.cells[8].code, stage4Target.notebook.cells[8].code);
-      const restored = structuredClone(xx); restored.notebook.cells[8].code = stage4Target.notebook.cells[8].code;
+      assert.equal(clarification.currentCellSha256, digest(probabilityTarget.notebook.cells[8].code));
+      assert.deepEqual(probabilitySource, applyProbabilityClarification(stage4Source, 'en'), 'Historical English clarification drift');
+      assert.deepEqual(probabilityTarget, applyProbabilityClarification(stage4Target, locale), 'Changed outside exact localized clarification');
+      assert.notEqual(probabilityTarget.notebook.cells[8].code, stage4Target.notebook.cells[8].code);
+      const restored = structuredClone(probabilityTarget); restored.notebook.cells[8].code = stage4Target.notebook.cells[8].code;
       assert.deepEqual(restored, stage4Target, 'Clarification changed Python, other Markdown or metadata');
-      const sourceParts = loadStage4Parts(), previousParts = JSON.parse(clarificationPinned('tools/markov-stage4-text.json'));
+      const sourceParts = clarity ? JSON.parse(clarityPinned('tools/markov-stage4-text.json')) : loadStage4Parts();
+      const previousParts = JSON.parse(clarificationPinned('tools/markov-stage4-text.json'));
       assert.equal(sourceParts.matrix, previousParts.matrix); assert.equal(sourceParts.trajectory, previousParts.trajectory);
-      assert.equal(sourceParts.sticker, en.notebook.cells[8].code);
+      assert.equal(sourceParts.sticker, probabilitySource.notebook.cells[8].code);
       assert.deepEqual(clarification.sourceProse, { path: 'tools/markov-stage4-text.json',
-        predecessorSha256: digest(clarificationPinned('tools/markov-stage4-text.json')), sha256: sha('tools/markov-stage4-text.json') });
+        predecessorSha256: digest(clarificationPinned('tools/markov-stage4-text.json')), sha256: clarity
+          ? digest(clarityPinned('tools/markov-stage4-text.json')) : sha('tools/markov-stage4-text.json') });
       assert.equal(clarification.method, 'controller-authored-localized-probability-clarification');
       assert.equal(clarification.modelRequests, 0); assert.equal(clarification.modelProseApproved, false);
       assert.equal(clarification.nativeSpeakerReview, locale === 'en' ? 'not-applicable' : 'pending');
       assert.equal(clarification.unchangedPythonAndOtherMarkdown, true); assert.equal(clarification.unchangedMetadataAndFormulaCount, true);
       assert.equal(clarification.changedDisplayFormulaBlocks, 2);
       const formulas = book => book.notebook.cells.flatMap(cell => cell.type === 'markdown' ? cell.code.match(/\$\$[\s\S]*?\$\$/g) || [] : []);
-      const sourceFormulas = formulas(en), currentFormulas = formulas(xx), previousFormulas = formulas(stage4Target);
+      const sourceFormulas = formulas(probabilitySource), currentFormulas = formulas(probabilityTarget), previousFormulas = formulas(stage4Target);
       assert.equal(currentFormulas.length, 4); assert.equal(previousFormulas.length, 4);
       assert.deepEqual(currentFormulas, sourceFormulas);
       assert.equal(currentFormulas[0], previousFormulas[0]); assert.equal(currentFormulas[3], previousFormulas[3]);
@@ -356,28 +367,88 @@ for (const lesson of Object.keys(EXAMPLE_DESCRIPTIONS)) for (const locale of loc
       if (locale !== 'en') {
         assert.deepEqual(review.translation.keeps, previous.translation.keeps, 'KEEP IDs changed despite unchanged Python');
         assert.deepEqual(review.translation.policy, previous.translation.policy);
-        assert.deepEqual(review.translation.contentAudit, { ...previous.translation.contentAudit,
-          sourceSha256: review.source.sha256, targetSha256: review.target.sha256,
+        const probabilityAudit = clarity ? JSON.parse(clarityPinned(`reviews/examples/${locale}/${lesson}.json`)).translation.contentAudit : review.translation.contentAudit;
+        assert.deepEqual(probabilityAudit, { ...previous.translation.contentAudit,
+          sourceSha256: probabilitySourceSha256, targetSha256: probabilityTargetSha256,
           clarificationProvenance: clarificationProvenance(previous.translation.contentAudit, stage4SourceSha256, stage4TargetSha256) });
       }
       const rendered = clarification.rendering;
       assert.equal(rendered.status, 'passed'); assert.equal(rendered.path, 'reviews/markov-probability-rendering.json');
+      assert.equal(rendered.sha256, sha(rendered.path)); assert.equal(rendered.workbookSha256, probabilityTargetSha256);
+      assert.equal(rendered.pythonExecuted, false);
+      const renderReport = read(rendered.path);
+      assert.equal(rendered.platform, renderReport.platform); assert.equal(rendered.scope, renderReport.scope);
+      assert.deepEqual(rendered.viewport, renderReport.viewport);
+      assertStage4Rendering(renderReport, locale, probabilityTargetSha256);
+      const runtime = clarification.runtime;
+      assert.equal(runtime.status, 'passed'); assert.equal(runtime.path, 'reviews/markov-probability-runtime.json');
+      assert.equal(runtime.sha256, sha(runtime.path)); assert.equal(runtime.workbookSha256, probabilityTargetSha256);
+      assert.equal(runtime.platform, 'local-preinstalled-NumPy'); assert.equal(runtime.executedLocale, 'en');
+      assert.equal(runtime.pythonAppRuntime, 'not-run');
+      const runtimeReport = read(runtime.path);
+      assert.equal(runtime.numpyVersion, runtimeReport.numpyVersion);
+      assertStage4Runtime(runtimeReport, locale, probabilityTargetSha256, stage4.predecessorTargetSha256);
+      for (const report of [renderReport, runtimeReport])
+        assert(!JSON.stringify(report).includes('/home/'), 'Private host path leaked into public clarification report');
+    }
+    if (clarity) {
+      assert(clarification, 'Clarity requires the preserved probability-clarification receipt');
+      const predecessorReceiptBytes = clarityPinned(`reviews/examples/${locale}/${lesson}.json`);
+      const previous = JSON.parse(predecessorReceiptBytes);
+      assert.equal(clarity.predecessorCommit, MARKOV_CLARITY_PREDECESSOR);
+      assert.equal(clarity.predecessorSourceSha256, probabilitySourceSha256);
+      assert.equal(clarity.predecessorTargetSha256, probabilityTargetSha256);
+      assert.equal(clarity.sourceSha256, review.source.sha256); assert.equal(clarity.targetSha256, review.target.sha256);
+      assert.equal(clarity.cells, 13); assertClarityBooks(probabilitySource, en, 'en'); assertClarityBooks(probabilityTarget, xx, locale);
+      assert.deepEqual(clarityFormulas(xx), clarityFormulas(en));
+      assert.deepEqual(loadStage4Parts(), clarityStage4Parts);
+      for (const [key, index] of [['matrix', 6], ['sticker', 8], ['trajectory', 10]])
+        assert.equal(en.notebook.cells[index].code, clarityStage4Parts[key]);
+      assert.deepEqual(clarity.changes, CLARITY_CELLS.map(index => ({ index, cell: xx.notebook.cells[index].name,
+        predecessorCellSha256: digest(probabilityTarget.notebook.cells[index].code), currentCellSha256: digest(xx.notebook.cells[index].code) })));
+      assert.deepEqual(clarity.takeaways, { preservedPrefixSha256: digest(probabilityTarget.notebook.cells[12].code),
+        appendedTextSha256: digest(xx.notebook.cells[12].code.slice(probabilityTarget.notebook.cells[12].code.length)) });
+      assert.deepEqual(clarity.sourceProse, { path: 'tools/markov-stage4-text.json',
+        predecessorSha256: digest(clarityPinned('tools/markov-stage4-text.json')), sha256: sha('tools/markov-stage4-text.json') });
+      assert.deepEqual(clarity.controllerProse, { path: 'tools/markov-stage4-clarity.json', sha256: sha('tools/markov-stage4-clarity.json') });
+      assert.equal(clarity.method, 'controller-authored-localized-stage4-clarity'); assert.equal(clarity.modelRequests, 0);
+      assert.equal(clarity.modelProseApproved, false); assert.equal(clarity.unchangedPythonMetadataAndFormulas, true);
+      assert.equal(clarity.nativeSpeakerReview, locale === 'en' ? 'not-applicable' : 'pending');
+      assert.deepEqual(clarity.historicalEvidence, { predecessorReceiptSha256: digest(predecessorReceiptBytes),
+        retainedFields: [...CLARITY_RETAINED_FIELDS] });
+      for (const field of CLARITY_RETAINED_FIELDS) {
+        assert.deepEqual(review[field], previous[field], 'Prior receipt field changed during clarity pass: ' + field);
+        for (const kind of ['rendering', 'runtime']) {
+          const record = previous[field][kind];
+          if (record?.path) {
+            assert.equal(sha(record.path), record.sha256);
+            assert.deepEqual(readFileSync(path.join(root, record.path)), clarityPinned(record.path), 'Prior report bytes changed during clarity pass');
+          }
+        }
+      }
+      assert.equal(review.target.title, previous.target.title); assert.equal(review.target.description, previous.target.description);
+      if (locale !== 'en') {
+        assert.deepEqual(review.translation.keeps, previous.translation.keeps); assert.deepEqual(review.translation.policy, previous.translation.policy);
+        assert.deepEqual(review.translation.contentAudit, { ...previous.translation.contentAudit,
+          sourceSha256: review.source.sha256, targetSha256: review.target.sha256,
+          clarityProvenance: clarityProvenance(previous.translation.contentAudit, probabilitySourceSha256, probabilityTargetSha256) });
+      }
+      const rendered = clarity.rendering;
+      assert.equal(rendered.status, 'passed'); assert.equal(rendered.path, 'reviews/markov-clarity-rendering.json');
       assert.equal(rendered.sha256, sha(rendered.path)); assert.equal(rendered.workbookSha256, review.target.sha256);
       assert.equal(rendered.pythonExecuted, false);
       const renderReport = read(rendered.path);
       assert.equal(rendered.platform, renderReport.platform); assert.equal(rendered.scope, renderReport.scope);
       assert.deepEqual(rendered.viewport, renderReport.viewport);
-      assertStage4Rendering(renderReport, locale, review.target.sha256);
-      const runtime = clarification.runtime;
-      assert.equal(runtime.status, 'passed'); assert.equal(runtime.path, 'reviews/markov-probability-runtime.json');
+      const runtime = clarity.runtime;
+      assert.equal(runtime.status, 'passed'); assert.equal(runtime.path, 'reviews/markov-clarity-runtime.json');
       assert.equal(runtime.sha256, sha(runtime.path)); assert.equal(runtime.workbookSha256, review.target.sha256);
-      assert.equal(runtime.platform, 'local-preinstalled-NumPy'); assert.equal(runtime.executedLocale, 'en');
-      assert.equal(runtime.pythonAppRuntime, 'not-run');
+      assert.equal(runtime.platform, 'local-preinstalled-NumPy'); assert.equal(runtime.executedLocale, 'en'); assert.equal(runtime.pythonAppRuntime, 'not-run');
       const runtimeReport = read(runtime.path);
       assert.equal(runtime.numpyVersion, runtimeReport.numpyVersion);
-      assertStage4Runtime(runtimeReport, locale, review.target.sha256, stage4.predecessorTargetSha256);
+      assertClarityReports(renderReport, runtimeReport, locale, review.target.sha256, stage4.predecessorTargetSha256);
       for (const report of [renderReport, runtimeReport])
-        assert(!JSON.stringify(report).includes('/home/'), 'Private host path leaked into public clarification report');
+        assert(!JSON.stringify(report).includes('/home/'), 'Private host path leaked into public clarity report');
     }
   }
   if (lesson === 'oil-shocks-demand') {

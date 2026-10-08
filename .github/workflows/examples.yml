@@ -29,6 +29,7 @@ jobs:
       - run: node tools/test-markov-stage4.mjs
       - run: node tools/test-markov-stage4-math-direction.mjs
       - run: node tools/test-markov-probability-clarification.mjs
+      - run: node tools/test-markov-stage4-clarity.mjs
       - run: python tools/test-markov-stage4-runtime.py
       - run: node tools/annotate-markov-cycles.mjs --check
       - run: node tools/test-example-cooling.mjs
