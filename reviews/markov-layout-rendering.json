@@ -1,0 +1,2979 @@
+{
+  "checkedAt": "2026-10-07T20:50:58.983Z",
+  "platform": "Free Chromium browser",
+  "scope": "Current source Markdown import/render/export only",
+  "viewport": {
+    "width": 320,
+    "height": 844
+  },
+  "tests": [
+    {
+      "locale": "en",
+      "theme": "dark",
+      "workbookSha256": "c69cca69b060b196107fe0489b0f25cb8ddf5f0d7cca253fcfbb4bbf2179f478",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "cycle explanation renders and fits 320px",
+        "face numbering and cycle grouping tables fit 320px",
+        "numbering matches all six UDFBLR ranges",
+        "no code execution despite auto-execute enabled",
+        "all source cells byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "numbering": {
+          "rows": [
+            [
+              "Face (index)",
+              "Positions",
+              "Printed"
+            ],
+            [
+              "U — up (0)",
+              "0–8",
+              "1–9"
+            ],
+            [
+              "D — down (1)",
+              "9–17",
+              "10–18"
+            ],
+            [
+              "F — front (2)",
+              "18–26",
+              "19–27"
+            ],
+            [
+              "B — back (3)",
+              "27–35",
+              "28–36"
+            ],
+            [
+              "L — left (4)",
+              "36–44",
+              "37–45"
+            ],
+            [
+              "R — right (5)",
+              "45–53",
+              "46–54"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "grouping": {
+          "rows": [
+            [
+              "Face",
+              "Face cycles",
+              "Strip cycles"
+            ],
+            [
+              "U, D",
+              "1–2",
+              "3–5"
+            ],
+            [
+              "F, B, L, R",
+              "4–5",
+              "1–3"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "cycles": {
+          "textLength": 4005,
+          "paragraphCount": 13,
+          "width": 294,
+          "scrollWidth": 294,
+          "unsafe": 0
+        },
+        "diagrams": [
+          {
+            "title": "Fixed global cube axes",
+            "description": "The cube has front F, top U and right R faces. Global positive x points right, positive y points up, and positive z points toward the front.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "Paper tilted from front to top",
+            "description": "A front sheet has right r along positive x, up u along positive y, and outward normal n along positive z, shown by a circle with a central dot pointing toward the outside viewer. In the front-to-top hinge tilt, right stays positive x, up becomes negative z, and the normal becomes positive y. The arrows show r cross u equals n.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "en",
+      "theme": "light",
+      "workbookSha256": "c69cca69b060b196107fe0489b0f25cb8ddf5f0d7cca253fcfbb4bbf2179f478",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "cycle explanation renders and fits 320px",
+        "face numbering and cycle grouping tables fit 320px",
+        "numbering matches all six UDFBLR ranges",
+        "no code execution despite auto-execute enabled",
+        "all source cells byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "numbering": {
+          "rows": [
+            [
+              "Face (index)",
+              "Positions",
+              "Printed"
+            ],
+            [
+              "U — up (0)",
+              "0–8",
+              "1–9"
+            ],
+            [
+              "D — down (1)",
+              "9–17",
+              "10–18"
+            ],
+            [
+              "F — front (2)",
+              "18–26",
+              "19–27"
+            ],
+            [
+              "B — back (3)",
+              "27–35",
+              "28–36"
+            ],
+            [
+              "L — left (4)",
+              "36–44",
+              "37–45"
+            ],
+            [
+              "R — right (5)",
+              "45–53",
+              "46–54"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "grouping": {
+          "rows": [
+            [
+              "Face",
+              "Face cycles",
+              "Strip cycles"
+            ],
+            [
+              "U, D",
+              "1–2",
+              "3–5"
+            ],
+            [
+              "F, B, L, R",
+              "4–5",
+              "1–3"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "cycles": {
+          "textLength": 4005,
+          "paragraphCount": 13,
+          "width": 294,
+          "scrollWidth": 294,
+          "unsafe": 0
+        },
+        "diagrams": [
+          {
+            "title": "Fixed global cube axes",
+            "description": "The cube has front F, top U and right R faces. Global positive x points right, positive y points up, and positive z points toward the front.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "Paper tilted from front to top",
+            "description": "A front sheet has right r along positive x, up u along positive y, and outward normal n along positive z, shown by a circle with a central dot pointing toward the outside viewer. In the front-to-top hinge tilt, right stays positive x, up becomes negative z, and the normal becomes positive y. The arrows show r cross u equals n.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "ar",
+      "theme": "dark",
+      "workbookSha256": "038746d83aa7b6efe8b27c9b1a230fa386fa519cfdc5e8b89e077caebc6a3358",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "cycle explanation renders and fits 320px",
+        "face numbering and cycle grouping tables fit 320px",
+        "numbering matches all six UDFBLR ranges",
+        "no code execution despite auto-execute enabled",
+        "all source cells byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "numbering": {
+          "rows": [
+            [
+              "الوجه (الفهرس)",
+              "المواضع",
+              "المطبوعة"
+            ],
+            [
+              "U — أعلى (0)",
+              "0–8",
+              "1–9"
+            ],
+            [
+              "D — أسفل (1)",
+              "9–17",
+              "10–18"
+            ],
+            [
+              "F — أمام (2)",
+              "18–26",
+              "19–27"
+            ],
+            [
+              "B — خلف (3)",
+              "27–35",
+              "28–36"
+            ],
+            [
+              "L — يسار (4)",
+              "36–44",
+              "37–45"
+            ],
+            [
+              "R — يمين (5)",
+              "45–53",
+              "46–54"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "grouping": {
+          "rows": [
+            [
+              "الوجه",
+              "دورات الوجه",
+              "دورات الشرائط"
+            ],
+            [
+              "U, D",
+              "1–2",
+              "3–5"
+            ],
+            [
+              "F, B, L, R",
+              "4–5",
+              "1–3"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "cycles": {
+          "textLength": 3629,
+          "paragraphCount": 13,
+          "width": 294,
+          "scrollWidth": 294,
+          "unsafe": 0
+        },
+        "diagrams": [
+          {
+            "title": "محاور المكعب العامة الثابتة",
+            "description": "للمكعب أوجه: الأمامي F والعلوي U والأيمن R. يشير x الموجب العام إلى اليمين، وy الموجب إلى الأعلى، وz الموجب نحو الأمام.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "ورقة مائلة من الأمام إلى الأعلى",
+            "description": "تمتلك الورقة الأمامية اليمين r على امتداد x الموجب، والأعلى u على امتداد y الموجب، والناظم الخارجي n على امتداد z الموجب، موضحًا بدائرة ذات نقطة مركزية تشير نحو المشاهد الخارجي. في إمالة المفصلة من الأمام إلى الأعلى، يبقى اليمين x موجبًا، ويصبح الأعلى z سالبًا، ويصبح الناظم y موجبًا. توضح الأسهم أن r ضرب اتجاهي u يساوي n.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "ar",
+      "theme": "light",
+      "workbookSha256": "038746d83aa7b6efe8b27c9b1a230fa386fa519cfdc5e8b89e077caebc6a3358",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "cycle explanation renders and fits 320px",
+        "face numbering and cycle grouping tables fit 320px",
+        "numbering matches all six UDFBLR ranges",
+        "no code execution despite auto-execute enabled",
+        "all source cells byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "numbering": {
+          "rows": [
+            [
+              "الوجه (الفهرس)",
+              "المواضع",
+              "المطبوعة"
+            ],
+            [
+              "U — أعلى (0)",
+              "0–8",
+              "1–9"
+            ],
+            [
+              "D — أسفل (1)",
+              "9–17",
+              "10–18"
+            ],
+            [
+              "F — أمام (2)",
+              "18–26",
+              "19–27"
+            ],
+            [
+              "B — خلف (3)",
+              "27–35",
+              "28–36"
+            ],
+            [
+              "L — يسار (4)",
+              "36–44",
+              "37–45"
+            ],
+            [
+              "R — يمين (5)",
+              "45–53",
+              "46–54"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "grouping": {
+          "rows": [
+            [
+              "الوجه",
+              "دورات الوجه",
+              "دورات الشرائط"
+            ],
+            [
+              "U, D",
+              "1–2",
+              "3–5"
+            ],
+            [
+              "F, B, L, R",
+              "4–5",
+              "1–3"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "cycles": {
+          "textLength": 3629,
+          "paragraphCount": 13,
+          "width": 294,
+          "scrollWidth": 294,
+          "unsafe": 0
+        },
+        "diagrams": [
+          {
+            "title": "محاور المكعب العامة الثابتة",
+            "description": "للمكعب أوجه: الأمامي F والعلوي U والأيمن R. يشير x الموجب العام إلى اليمين، وy الموجب إلى الأعلى، وz الموجب نحو الأمام.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "ورقة مائلة من الأمام إلى الأعلى",
+            "description": "تمتلك الورقة الأمامية اليمين r على امتداد x الموجب، والأعلى u على امتداد y الموجب، والناظم الخارجي n على امتداد z الموجب، موضحًا بدائرة ذات نقطة مركزية تشير نحو المشاهد الخارجي. في إمالة المفصلة من الأمام إلى الأعلى، يبقى اليمين x موجبًا، ويصبح الأعلى z سالبًا، ويصبح الناظم y موجبًا. توضح الأسهم أن r ضرب اتجاهي u يساوي n.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "bn",
+      "theme": "dark",
+      "workbookSha256": "77f631cab2f72f5d2fe5ff14e4583529cfd769ed7b5ad1633b6470be701e341b",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "cycle explanation renders and fits 320px",
+        "face numbering and cycle grouping tables fit 320px",
+        "numbering matches all six UDFBLR ranges",
+        "no code execution despite auto-execute enabled",
+        "all source cells byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "numbering": {
+          "rows": [
+            [
+              "তল (সূচক)",
+              "অবস্থান",
+              "মুদ্রিত নম্বর"
+            ],
+            [
+              "U — ওপর (0)",
+              "0–8",
+              "1–9"
+            ],
+            [
+              "D — নিচ (1)",
+              "9–17",
+              "10–18"
+            ],
+            [
+              "F — সামনে (2)",
+              "18–26",
+              "19–27"
+            ],
+            [
+              "B — পেছনে (3)",
+              "27–35",
+              "28–36"
+            ],
+            [
+              "L — বাম (4)",
+              "36–44",
+              "37–45"
+            ],
+            [
+              "R — ডান (5)",
+              "45–53",
+              "46–54"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "grouping": {
+          "rows": [
+            [
+              "তল",
+              "তলের চক্র",
+              "ফালির চক্র"
+            ],
+            [
+              "U, D",
+              "1–2",
+              "3–5"
+            ],
+            [
+              "F, B, L, R",
+              "4–5",
+              "1–3"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "cycles": {
+          "textLength": 4145,
+          "paragraphCount": 13,
+          "width": 294,
+          "scrollWidth": 294,
+          "unsafe": 0
+        },
+        "diagrams": [
+          {
+            "title": "স্থির গ্লোবাল ঘনক অক্ষসমূহ",
+            "description": "ঘনকটির সামনের F, শীর্ষ U এবং ডান R তল রয়েছে। গ্লোবাল ধনাত্মক x ডানে নির্দেশ করে, ধনাত্মক y উপরে নির্দেশ করে এবং ধনাত্মক z সামনের দিকে নির্দেশ করে।",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "কাগজ সামনে থেকে শীর্ষে কাত করা হয়েছে",
+            "description": "একটি সামনের কাগজের টুকরোতে ধনাত্মক x বরাবর ডান r, ধনাত্মক y বরাবর উপর u এবং ধনাত্মক z বরাবর বহির্মুখী অভিলম্ব n রয়েছে, যা বাইরের দর্শকের দিকে নির্দেশকারী কেন্দ্রীয় বিন্দুযুক্ত একটি বৃত্ত দ্বারা প্রদর্শিত হয়েছে। সামনে-থেকে-শীর্ষে কবজা বরাবর কাত করার ক্ষেত্রে, ডান ধনাত্মক x থাকে, উপর ঋণাত্মক z হয়ে যায় এবং অভিলম্ব ধনাত্মক y হয়ে যায়। তীরগুলো নির্দেশ করে r ক্রস u সমান n।",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "bn",
+      "theme": "light",
+      "workbookSha256": "77f631cab2f72f5d2fe5ff14e4583529cfd769ed7b5ad1633b6470be701e341b",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "cycle explanation renders and fits 320px",
+        "face numbering and cycle grouping tables fit 320px",
+        "numbering matches all six UDFBLR ranges",
+        "no code execution despite auto-execute enabled",
+        "all source cells byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "numbering": {
+          "rows": [
+            [
+              "তল (সূচক)",
+              "অবস্থান",
+              "মুদ্রিত নম্বর"
+            ],
+            [
+              "U — ওপর (0)",
+              "0–8",
+              "1–9"
+            ],
+            [
+              "D — নিচ (1)",
+              "9–17",
+              "10–18"
+            ],
+            [
+              "F — সামনে (2)",
+              "18–26",
+              "19–27"
+            ],
+            [
+              "B — পেছনে (3)",
+              "27–35",
+              "28–36"
+            ],
+            [
+              "L — বাম (4)",
+              "36–44",
+              "37–45"
+            ],
+            [
+              "R — ডান (5)",
+              "45–53",
+              "46–54"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "grouping": {
+          "rows": [
+            [
+              "তল",
+              "তলের চক্র",
+              "ফালির চক্র"
+            ],
+            [
+              "U, D",
+              "1–2",
+              "3–5"
+            ],
+            [
+              "F, B, L, R",
+              "4–5",
+              "1–3"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "cycles": {
+          "textLength": 4145,
+          "paragraphCount": 13,
+          "width": 294,
+          "scrollWidth": 294,
+          "unsafe": 0
+        },
+        "diagrams": [
+          {
+            "title": "স্থির গ্লোবাল ঘনক অক্ষসমূহ",
+            "description": "ঘনকটির সামনের F, শীর্ষ U এবং ডান R তল রয়েছে। গ্লোবাল ধনাত্মক x ডানে নির্দেশ করে, ধনাত্মক y উপরে নির্দেশ করে এবং ধনাত্মক z সামনের দিকে নির্দেশ করে।",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "কাগজ সামনে থেকে শীর্ষে কাত করা হয়েছে",
+            "description": "একটি সামনের কাগজের টুকরোতে ধনাত্মক x বরাবর ডান r, ধনাত্মক y বরাবর উপর u এবং ধনাত্মক z বরাবর বহির্মুখী অভিলম্ব n রয়েছে, যা বাইরের দর্শকের দিকে নির্দেশকারী কেন্দ্রীয় বিন্দুযুক্ত একটি বৃত্ত দ্বারা প্রদর্শিত হয়েছে। সামনে-থেকে-শীর্ষে কবজা বরাবর কাত করার ক্ষেত্রে, ডান ধনাত্মক x থাকে, উপর ঋণাত্মক z হয়ে যায় এবং অভিলম্ব ধনাত্মক y হয়ে যায়। তীরগুলো নির্দেশ করে r ক্রস u সমান n।",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "de",
+      "theme": "dark",
+      "workbookSha256": "e215872d30afddbde9665b05f84a819dbd811753325d0e23f4cadac758078b8a",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "cycle explanation renders and fits 320px",
+        "face numbering and cycle grouping tables fit 320px",
+        "numbering matches all six UDFBLR ranges",
+        "no code execution despite auto-execute enabled",
+        "all source cells byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "numbering": {
+          "rows": [
+            [
+              "Fläche (Index)",
+              "Positionen",
+              "Ausgabe"
+            ],
+            [
+              "U — oben (0)",
+              "0–8",
+              "1–9"
+            ],
+            [
+              "D — unten (1)",
+              "9–17",
+              "10–18"
+            ],
+            [
+              "F — vorne (2)",
+              "18–26",
+              "19–27"
+            ],
+            [
+              "B — hinten (3)",
+              "27–35",
+              "28–36"
+            ],
+            [
+              "L — links (4)",
+              "36–44",
+              "37–45"
+            ],
+            [
+              "R — rechts (5)",
+              "45–53",
+              "46–54"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "grouping": {
+          "rows": [
+            [
+              "Fläche",
+              "Zyklen auf der Fläche",
+              "Zyklen in Streifen"
+            ],
+            [
+              "U, D",
+              "1–2",
+              "3–5"
+            ],
+            [
+              "F, B, L, R",
+              "4–5",
+              "1–3"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "cycles": {
+          "textLength": 4710,
+          "paragraphCount": 13,
+          "width": 294,
+          "scrollWidth": 294,
+          "unsafe": 0
+        },
+        "diagrams": [
+          {
+            "title": "Feste globale Würfelachsen",
+            "description": "Der Würfel hat die Vorderfläche F, die Oberseite U und die rechte Fläche R. Die globale positive x-Richtung zeigt nach rechts, die positive y-Richtung nach oben und die positive z-Richtung nach vorne.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "Papier von vorne nach oben gekippt",
+            "description": "Beim vorderen Blatt zeigt rechts r in die positive x-Richtung, oben u in die positive y-Richtung und die nach außen gerichtete Normale n in die positive z-Richtung. Der Kreis mit einem Punkt in der Mitte zeigt zum außenstehenden Betrachter. Beim Kippen von vorne nach oben bleibt rechts in positiver x-Richtung, oben wird zur negativen z-Richtung und die Normale zur positiven y-Richtung. Die Pfeile zeigen r Kreuz u gleich n.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "de",
+      "theme": "light",
+      "workbookSha256": "e215872d30afddbde9665b05f84a819dbd811753325d0e23f4cadac758078b8a",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "cycle explanation renders and fits 320px",
+        "face numbering and cycle grouping tables fit 320px",
+        "numbering matches all six UDFBLR ranges",
+        "no code execution despite auto-execute enabled",
+        "all source cells byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "numbering": {
+          "rows": [
+            [
+              "Fläche (Index)",
+              "Positionen",
+              "Ausgabe"
+            ],
+            [
+              "U — oben (0)",
+              "0–8",
+              "1–9"
+            ],
+            [
+              "D — unten (1)",
+              "9–17",
+              "10–18"
+            ],
+            [
+              "F — vorne (2)",
+              "18–26",
+              "19–27"
+            ],
+            [
+              "B — hinten (3)",
+              "27–35",
+              "28–36"
+            ],
+            [
+              "L — links (4)",
+              "36–44",
+              "37–45"
+            ],
+            [
+              "R — rechts (5)",
+              "45–53",
+              "46–54"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "grouping": {
+          "rows": [
+            [
+              "Fläche",
+              "Zyklen auf der Fläche",
+              "Zyklen in Streifen"
+            ],
+            [
+              "U, D",
+              "1–2",
+              "3–5"
+            ],
+            [
+              "F, B, L, R",
+              "4–5",
+              "1–3"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "cycles": {
+          "textLength": 4710,
+          "paragraphCount": 13,
+          "width": 294,
+          "scrollWidth": 294,
+          "unsafe": 0
+        },
+        "diagrams": [
+          {
+            "title": "Feste globale Würfelachsen",
+            "description": "Der Würfel hat die Vorderfläche F, die Oberseite U und die rechte Fläche R. Die globale positive x-Richtung zeigt nach rechts, die positive y-Richtung nach oben und die positive z-Richtung nach vorne.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "Papier von vorne nach oben gekippt",
+            "description": "Beim vorderen Blatt zeigt rechts r in die positive x-Richtung, oben u in die positive y-Richtung und die nach außen gerichtete Normale n in die positive z-Richtung. Der Kreis mit einem Punkt in der Mitte zeigt zum außenstehenden Betrachter. Beim Kippen von vorne nach oben bleibt rechts in positiver x-Richtung, oben wird zur negativen z-Richtung und die Normale zur positiven y-Richtung. Die Pfeile zeigen r Kreuz u gleich n.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "es",
+      "theme": "dark",
+      "workbookSha256": "2ddf73fa366ef2243835d107125079342e13bc4ef1f812b71e47bc65b973194f",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "cycle explanation renders and fits 320px",
+        "face numbering and cycle grouping tables fit 320px",
+        "numbering matches all six UDFBLR ranges",
+        "no code execution despite auto-execute enabled",
+        "all source cells byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "numbering": {
+          "rows": [
+            [
+              "Cara (índice)",
+              "Posiciones",
+              "Impreso"
+            ],
+            [
+              "U — arriba (0)",
+              "0–8",
+              "1–9"
+            ],
+            [
+              "D — abajo (1)",
+              "9–17",
+              "10–18"
+            ],
+            [
+              "F — frente (2)",
+              "18–26",
+              "19–27"
+            ],
+            [
+              "B — atrás (3)",
+              "27–35",
+              "28–36"
+            ],
+            [
+              "L — izquierda (4)",
+              "36–44",
+              "37–45"
+            ],
+            [
+              "R — derecha (5)",
+              "45–53",
+              "46–54"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "grouping": {
+          "rows": [
+            [
+              "Cara",
+              "Ciclos de cara",
+              "Ciclos de franja"
+            ],
+            [
+              "U, D",
+              "1–2",
+              "3–5"
+            ],
+            [
+              "F, B, L, R",
+              "4–5",
+              "1–3"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "cycles": {
+          "textLength": 4716,
+          "paragraphCount": 13,
+          "width": 294,
+          "scrollWidth": 294,
+          "unsafe": 0
+        },
+        "diagrams": [
+          {
+            "title": "Ejes globales fijos del cubo",
+            "description": "El cubo tiene caras frontal F, superior U y derecha R. El x positivo global apunta hacia la derecha, el y positivo apunta hacia arriba y el z positivo apunta hacia el frente.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "Papel inclinado de frente a parte superior",
+            "description": "Una hoja frontal tiene la derecha r a lo largo de x positivo, arriba u a lo largo de y positivo y la normal exterior n a lo largo de z positivo, mostrada mediante un círculo con un punto central que apunta hacia el espectador exterior. En la inclinación de bisagra de frente a parte superior, derecha permanece como x positivo, arriba se convierte en z negativo y la normal se convierte en y positivo. Las flechas muestran que r cruz u es igual a n.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "es",
+      "theme": "light",
+      "workbookSha256": "2ddf73fa366ef2243835d107125079342e13bc4ef1f812b71e47bc65b973194f",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "cycle explanation renders and fits 320px",
+        "face numbering and cycle grouping tables fit 320px",
+        "numbering matches all six UDFBLR ranges",
+        "no code execution despite auto-execute enabled",
+        "all source cells byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "numbering": {
+          "rows": [
+            [
+              "Cara (índice)",
+              "Posiciones",
+              "Impreso"
+            ],
+            [
+              "U — arriba (0)",
+              "0–8",
+              "1–9"
+            ],
+            [
+              "D — abajo (1)",
+              "9–17",
+              "10–18"
+            ],
+            [
+              "F — frente (2)",
+              "18–26",
+              "19–27"
+            ],
+            [
+              "B — atrás (3)",
+              "27–35",
+              "28–36"
+            ],
+            [
+              "L — izquierda (4)",
+              "36–44",
+              "37–45"
+            ],
+            [
+              "R — derecha (5)",
+              "45–53",
+              "46–54"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "grouping": {
+          "rows": [
+            [
+              "Cara",
+              "Ciclos de cara",
+              "Ciclos de franja"
+            ],
+            [
+              "U, D",
+              "1–2",
+              "3–5"
+            ],
+            [
+              "F, B, L, R",
+              "4–5",
+              "1–3"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "cycles": {
+          "textLength": 4716,
+          "paragraphCount": 13,
+          "width": 294,
+          "scrollWidth": 294,
+          "unsafe": 0
+        },
+        "diagrams": [
+          {
+            "title": "Ejes globales fijos del cubo",
+            "description": "El cubo tiene caras frontal F, superior U y derecha R. El x positivo global apunta hacia la derecha, el y positivo apunta hacia arriba y el z positivo apunta hacia el frente.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "Papel inclinado de frente a parte superior",
+            "description": "Una hoja frontal tiene la derecha r a lo largo de x positivo, arriba u a lo largo de y positivo y la normal exterior n a lo largo de z positivo, mostrada mediante un círculo con un punto central que apunta hacia el espectador exterior. En la inclinación de bisagra de frente a parte superior, derecha permanece como x positivo, arriba se convierte en z negativo y la normal se convierte en y positivo. Las flechas muestran que r cruz u es igual a n.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "fr",
+      "theme": "dark",
+      "workbookSha256": "fd6078baccfa01fe3f6122c7f5f98398113f81f030ea1aec18cd09fb31adbaf7",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "cycle explanation renders and fits 320px",
+        "face numbering and cycle grouping tables fit 320px",
+        "numbering matches all six UDFBLR ranges",
+        "no code execution despite auto-execute enabled",
+        "all source cells byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "numbering": {
+          "rows": [
+            [
+              "Face (index)",
+              "Positions",
+              "Imprimé"
+            ],
+            [
+              "U — haut (0)",
+              "0–8",
+              "1–9"
+            ],
+            [
+              "D — bas (1)",
+              "9–17",
+              "10–18"
+            ],
+            [
+              "F — avant (2)",
+              "18–26",
+              "19–27"
+            ],
+            [
+              "B — arrière (3)",
+              "27–35",
+              "28–36"
+            ],
+            [
+              "L — gauche (4)",
+              "36–44",
+              "37–45"
+            ],
+            [
+              "R — droite (5)",
+              "45–53",
+              "46–54"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "grouping": {
+          "rows": [
+            [
+              "Face",
+              "Cycles de face",
+              "Cycles de bande"
+            ],
+            [
+              "U, D",
+              "1–2",
+              "3–5"
+            ],
+            [
+              "F, B, L, R",
+              "4–5",
+              "1–3"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "cycles": {
+          "textLength": 4906,
+          "paragraphCount": 13,
+          "width": 294,
+          "scrollWidth": 294,
+          "unsafe": 0
+        },
+        "diagrams": [
+          {
+            "title": "Axes globaux fixes du cube",
+            "description": "Le cube possède les faces avant F, haut U et droite R. L'axe global x positif pointe vers la droite, y positif pointe vers le haut et z positif pointe vers l'avant.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "Papier incliné de l'avant vers le haut",
+            "description": "Une feuille avant a la droite r le long de x positif, le haut u le long de y positif, et la normale sortante n le long de z positif, représentée par un cercle avec un point central pointant vers l'observateur extérieur. Dans l'inclinaison sur charnière de l'avant vers le haut, la droite reste x positif, le haut devient z négatif et la normale devient y positif. Les flèches montrent que r vectoriel u est égal à n.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "fr",
+      "theme": "light",
+      "workbookSha256": "fd6078baccfa01fe3f6122c7f5f98398113f81f030ea1aec18cd09fb31adbaf7",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "cycle explanation renders and fits 320px",
+        "face numbering and cycle grouping tables fit 320px",
+        "numbering matches all six UDFBLR ranges",
+        "no code execution despite auto-execute enabled",
+        "all source cells byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "numbering": {
+          "rows": [
+            [
+              "Face (index)",
+              "Positions",
+              "Imprimé"
+            ],
+            [
+              "U — haut (0)",
+              "0–8",
+              "1–9"
+            ],
+            [
+              "D — bas (1)",
+              "9–17",
+              "10–18"
+            ],
+            [
+              "F — avant (2)",
+              "18–26",
+              "19–27"
+            ],
+            [
+              "B — arrière (3)",
+              "27–35",
+              "28–36"
+            ],
+            [
+              "L — gauche (4)",
+              "36–44",
+              "37–45"
+            ],
+            [
+              "R — droite (5)",
+              "45–53",
+              "46–54"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "grouping": {
+          "rows": [
+            [
+              "Face",
+              "Cycles de face",
+              "Cycles de bande"
+            ],
+            [
+              "U, D",
+              "1–2",
+              "3–5"
+            ],
+            [
+              "F, B, L, R",
+              "4–5",
+              "1–3"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "cycles": {
+          "textLength": 4906,
+          "paragraphCount": 13,
+          "width": 294,
+          "scrollWidth": 294,
+          "unsafe": 0
+        },
+        "diagrams": [
+          {
+            "title": "Axes globaux fixes du cube",
+            "description": "Le cube possède les faces avant F, haut U et droite R. L'axe global x positif pointe vers la droite, y positif pointe vers le haut et z positif pointe vers l'avant.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "Papier incliné de l'avant vers le haut",
+            "description": "Une feuille avant a la droite r le long de x positif, le haut u le long de y positif, et la normale sortante n le long de z positif, représentée par un cercle avec un point central pointant vers l'observateur extérieur. Dans l'inclinaison sur charnière de l'avant vers le haut, la droite reste x positif, le haut devient z négatif et la normale devient y positif. Les flèches montrent que r vectoriel u est égal à n.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "hi",
+      "theme": "dark",
+      "workbookSha256": "bf1cde7e1608862293efbf0893e6a97e6ec2a5f99a281374dc00c9e02f907760",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "cycle explanation renders and fits 320px",
+        "face numbering and cycle grouping tables fit 320px",
+        "numbering matches all six UDFBLR ranges",
+        "no code execution despite auto-execute enabled",
+        "all source cells byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "numbering": {
+          "rows": [
+            [
+              "फलक (इंडेक्स)",
+              "स्थितियाँ",
+              "मुद्रित"
+            ],
+            [
+              "U — ऊपर (0)",
+              "0–8",
+              "1–9"
+            ],
+            [
+              "D — नीचे (1)",
+              "9–17",
+              "10–18"
+            ],
+            [
+              "F — सामने (2)",
+              "18–26",
+              "19–27"
+            ],
+            [
+              "B — पीछे (3)",
+              "27–35",
+              "28–36"
+            ],
+            [
+              "L — बाएँ (4)",
+              "36–44",
+              "37–45"
+            ],
+            [
+              "R — दाएँ (5)",
+              "45–53",
+              "46–54"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "grouping": {
+          "rows": [
+            [
+              "फलक",
+              "फलक चक्र",
+              "पट्टी चक्र"
+            ],
+            [
+              "U, D",
+              "1–2",
+              "3–5"
+            ],
+            [
+              "F, B, L, R",
+              "4–5",
+              "1–3"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "cycles": {
+          "textLength": 4188,
+          "paragraphCount": 13,
+          "width": 294,
+          "scrollWidth": 294,
+          "unsafe": 0
+        },
+        "diagrams": [
+          {
+            "title": "स्थिर वैश्विक घन अक्ष",
+            "description": "घन में सामने F, शीर्ष U और दाएँ R फलक हैं। वैश्विक धनात्मक x दाएँ इंगित करता है, धनात्मक y ऊपर इंगित करता है, और धनात्मक z सामने की ओर इंगित करता है।",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "सामने से शीर्ष की ओर झुकाया गया कागज",
+            "description": "सामने की शीट में दाएँ r धनात्मक x के अनुदिश, ऊपर u धनात्मक y के अनुदिश, और बहिर्मुखी अभिलंब n धनात्मक z के अनुदिश है, जिसे बाहर की ओर देख रहे दर्शक की ओर इंगित करते केंद्रीय बिंदु वाले वृत्त द्वारा दर्शाया गया है। सामने-से-शीर्ष हिंज झुकाव में, दाएँ धनात्मक x रहता है, ऊपर ऋणात्मक z बन जाता है, और अभिलंब धनात्मक y बन जाता है। तीर दर्शाते हैं कि r क्रॉस u बराबर n है।",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "hi",
+      "theme": "light",
+      "workbookSha256": "bf1cde7e1608862293efbf0893e6a97e6ec2a5f99a281374dc00c9e02f907760",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "cycle explanation renders and fits 320px",
+        "face numbering and cycle grouping tables fit 320px",
+        "numbering matches all six UDFBLR ranges",
+        "no code execution despite auto-execute enabled",
+        "all source cells byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "numbering": {
+          "rows": [
+            [
+              "फलक (इंडेक्स)",
+              "स्थितियाँ",
+              "मुद्रित"
+            ],
+            [
+              "U — ऊपर (0)",
+              "0–8",
+              "1–9"
+            ],
+            [
+              "D — नीचे (1)",
+              "9–17",
+              "10–18"
+            ],
+            [
+              "F — सामने (2)",
+              "18–26",
+              "19–27"
+            ],
+            [
+              "B — पीछे (3)",
+              "27–35",
+              "28–36"
+            ],
+            [
+              "L — बाएँ (4)",
+              "36–44",
+              "37–45"
+            ],
+            [
+              "R — दाएँ (5)",
+              "45–53",
+              "46–54"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "grouping": {
+          "rows": [
+            [
+              "फलक",
+              "फलक चक्र",
+              "पट्टी चक्र"
+            ],
+            [
+              "U, D",
+              "1–2",
+              "3–5"
+            ],
+            [
+              "F, B, L, R",
+              "4–5",
+              "1–3"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "cycles": {
+          "textLength": 4188,
+          "paragraphCount": 13,
+          "width": 294,
+          "scrollWidth": 294,
+          "unsafe": 0
+        },
+        "diagrams": [
+          {
+            "title": "स्थिर वैश्विक घन अक्ष",
+            "description": "घन में सामने F, शीर्ष U और दाएँ R फलक हैं। वैश्विक धनात्मक x दाएँ इंगित करता है, धनात्मक y ऊपर इंगित करता है, और धनात्मक z सामने की ओर इंगित करता है।",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "सामने से शीर्ष की ओर झुकाया गया कागज",
+            "description": "सामने की शीट में दाएँ r धनात्मक x के अनुदिश, ऊपर u धनात्मक y के अनुदिश, और बहिर्मुखी अभिलंब n धनात्मक z के अनुदिश है, जिसे बाहर की ओर देख रहे दर्शक की ओर इंगित करते केंद्रीय बिंदु वाले वृत्त द्वारा दर्शाया गया है। सामने-से-शीर्ष हिंज झुकाव में, दाएँ धनात्मक x रहता है, ऊपर ऋणात्मक z बन जाता है, और अभिलंब धनात्मक y बन जाता है। तीर दर्शाते हैं कि r क्रॉस u बराबर n है।",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "id",
+      "theme": "dark",
+      "workbookSha256": "cd967307b0dd47d7a8f226bca856fc442ec786f55be5f282c960d8a5b266da94",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "cycle explanation renders and fits 320px",
+        "face numbering and cycle grouping tables fit 320px",
+        "numbering matches all six UDFBLR ranges",
+        "no code execution despite auto-execute enabled",
+        "all source cells byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "numbering": {
+          "rows": [
+            [
+              "Sisi (indeks)",
+              "Posisi",
+              "Tercetak"
+            ],
+            [
+              "U — atas (0)",
+              "0–8",
+              "1–9"
+            ],
+            [
+              "D — bawah (1)",
+              "9–17",
+              "10–18"
+            ],
+            [
+              "F — depan (2)",
+              "18–26",
+              "19–27"
+            ],
+            [
+              "B — belakang (3)",
+              "27–35",
+              "28–36"
+            ],
+            [
+              "L — kiri (4)",
+              "36–44",
+              "37–45"
+            ],
+            [
+              "R — kanan (5)",
+              "45–53",
+              "46–54"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "grouping": {
+          "rows": [
+            [
+              "Sisi",
+              "Siklus sisi",
+              "Siklus strip"
+            ],
+            [
+              "U, D",
+              "1–2",
+              "3–5"
+            ],
+            [
+              "F, B, L, R",
+              "4–5",
+              "1–3"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "cycles": {
+          "textLength": 4520,
+          "paragraphCount": 13,
+          "width": 294,
+          "scrollWidth": 294,
+          "unsafe": 0
+        },
+        "diagrams": [
+          {
+            "title": "Sumbu kubus global yang tetap",
+            "description": "Kubus memiliki sisi depan F, atas U, dan kanan R. Sumbu global x positif mengarah ke kanan, y positif mengarah ke atas, dan z positif mengarah ke depan.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "Kertas dimiringkan dari depan ke atas",
+            "description": "Lembaran depan memiliki arah kanan r sepanjang x positif, atas u sepanjang y positif, dan normal ke luar n sepanjang z positif, ditunjukkan oleh lingkaran dengan titik pusat yang mengarah ke pengamat di luar. Pada kemiringan engsel depan-ke-atas, arah kanan tetap x positif, arah atas menjadi z negatif, dan arah normal menjadi y positif. Tanda panah menunjukkan r cross u sama dengan n.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "id",
+      "theme": "light",
+      "workbookSha256": "cd967307b0dd47d7a8f226bca856fc442ec786f55be5f282c960d8a5b266da94",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "cycle explanation renders and fits 320px",
+        "face numbering and cycle grouping tables fit 320px",
+        "numbering matches all six UDFBLR ranges",
+        "no code execution despite auto-execute enabled",
+        "all source cells byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "numbering": {
+          "rows": [
+            [
+              "Sisi (indeks)",
+              "Posisi",
+              "Tercetak"
+            ],
+            [
+              "U — atas (0)",
+              "0–8",
+              "1–9"
+            ],
+            [
+              "D — bawah (1)",
+              "9–17",
+              "10–18"
+            ],
+            [
+              "F — depan (2)",
+              "18–26",
+              "19–27"
+            ],
+            [
+              "B — belakang (3)",
+              "27–35",
+              "28–36"
+            ],
+            [
+              "L — kiri (4)",
+              "36–44",
+              "37–45"
+            ],
+            [
+              "R — kanan (5)",
+              "45–53",
+              "46–54"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "grouping": {
+          "rows": [
+            [
+              "Sisi",
+              "Siklus sisi",
+              "Siklus strip"
+            ],
+            [
+              "U, D",
+              "1–2",
+              "3–5"
+            ],
+            [
+              "F, B, L, R",
+              "4–5",
+              "1–3"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "cycles": {
+          "textLength": 4520,
+          "paragraphCount": 13,
+          "width": 294,
+          "scrollWidth": 294,
+          "unsafe": 0
+        },
+        "diagrams": [
+          {
+            "title": "Sumbu kubus global yang tetap",
+            "description": "Kubus memiliki sisi depan F, atas U, dan kanan R. Sumbu global x positif mengarah ke kanan, y positif mengarah ke atas, dan z positif mengarah ke depan.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "Kertas dimiringkan dari depan ke atas",
+            "description": "Lembaran depan memiliki arah kanan r sepanjang x positif, atas u sepanjang y positif, dan normal ke luar n sepanjang z positif, ditunjukkan oleh lingkaran dengan titik pusat yang mengarah ke pengamat di luar. Pada kemiringan engsel depan-ke-atas, arah kanan tetap x positif, arah atas menjadi z negatif, dan arah normal menjadi y positif. Tanda panah menunjukkan r cross u sama dengan n.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "ja",
+      "theme": "dark",
+      "workbookSha256": "a8d0eac240bb81f4a3e82ddb51f23e031e30b5490e995a142021748d00ea5101",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "cycle explanation renders and fits 320px",
+        "face numbering and cycle grouping tables fit 320px",
+        "numbering matches all six UDFBLR ranges",
+        "no code execution despite auto-execute enabled",
+        "all source cells byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "numbering": {
+          "rows": [
+            [
+              "面 (インデックス)",
+              "位置",
+              "出力"
+            ],
+            [
+              "U — 上 (0)",
+              "0–8",
+              "1–9"
+            ],
+            [
+              "D — 下 (1)",
+              "9–17",
+              "10–18"
+            ],
+            [
+              "F — 前 (2)",
+              "18–26",
+              "19–27"
+            ],
+            [
+              "B — 後 (3)",
+              "27–35",
+              "28–36"
+            ],
+            [
+              "L — 左 (4)",
+              "36–44",
+              "37–45"
+            ],
+            [
+              "R — 右 (5)",
+              "45–53",
+              "46–54"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "grouping": {
+          "rows": [
+            [
+              "面",
+              "面サイクル",
+              "ストリップサイクル"
+            ],
+            [
+              "U, D",
+              "1–2",
+              "3–5"
+            ],
+            [
+              "F, B, L, R",
+              "4–5",
+              "1–3"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "cycles": {
+          "textLength": 2282,
+          "paragraphCount": 13,
+          "width": 294,
+          "scrollWidth": 294,
+          "unsafe": 0
+        },
+        "diagrams": [
+          {
+            "title": "固定された立方体のグローバル軸",
+            "description": "立方体には前面 F、上面 U、および右面 R があります。グローバルな正の x は右を指し、正の y は上を指し、正の z は手前を指します。",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "前面から上面へと傾けられた紙",
+            "description": "前面の紙は、正の x に沿った右 r、正の y に沿った上 u、および正の z に沿った外向き法線 n を持ち、これは外側の観察者を指す中央に点がある円で示されています。前面から上面への蝶番のような傾斜では、右は正の x のままで、上は負の z になり、法線は正の y になります。矢印は r と u の外積が n に等しいことを示しています。",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "ja",
+      "theme": "light",
+      "workbookSha256": "a8d0eac240bb81f4a3e82ddb51f23e031e30b5490e995a142021748d00ea5101",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "cycle explanation renders and fits 320px",
+        "face numbering and cycle grouping tables fit 320px",
+        "numbering matches all six UDFBLR ranges",
+        "no code execution despite auto-execute enabled",
+        "all source cells byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "numbering": {
+          "rows": [
+            [
+              "面 (インデックス)",
+              "位置",
+              "出力"
+            ],
+            [
+              "U — 上 (0)",
+              "0–8",
+              "1–9"
+            ],
+            [
+              "D — 下 (1)",
+              "9–17",
+              "10–18"
+            ],
+            [
+              "F — 前 (2)",
+              "18–26",
+              "19–27"
+            ],
+            [
+              "B — 後 (3)",
+              "27–35",
+              "28–36"
+            ],
+            [
+              "L — 左 (4)",
+              "36–44",
+              "37–45"
+            ],
+            [
+              "R — 右 (5)",
+              "45–53",
+              "46–54"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "grouping": {
+          "rows": [
+            [
+              "面",
+              "面サイクル",
+              "ストリップサイクル"
+            ],
+            [
+              "U, D",
+              "1–2",
+              "3–5"
+            ],
+            [
+              "F, B, L, R",
+              "4–5",
+              "1–3"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "cycles": {
+          "textLength": 2282,
+          "paragraphCount": 13,
+          "width": 294,
+          "scrollWidth": 294,
+          "unsafe": 0
+        },
+        "diagrams": [
+          {
+            "title": "固定された立方体のグローバル軸",
+            "description": "立方体には前面 F、上面 U、および右面 R があります。グローバルな正の x は右を指し、正の y は上を指し、正の z は手前を指します。",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "前面から上面へと傾けられた紙",
+            "description": "前面の紙は、正の x に沿った右 r、正の y に沿った上 u、および正の z に沿った外向き法線 n を持ち、これは外側の観察者を指す中央に点がある円で示されています。前面から上面への蝶番のような傾斜では、右は正の x のままで、上は負の z になり、法線は正の y になります。矢印は r と u の外積が n に等しいことを示しています。",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "ko",
+      "theme": "dark",
+      "workbookSha256": "006f06dec04bea3eb7c4a7b370255209635bcc692aa99cda31b8665f746b1fa9",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "cycle explanation renders and fits 320px",
+        "face numbering and cycle grouping tables fit 320px",
+        "numbering matches all six UDFBLR ranges",
+        "no code execution despite auto-execute enabled",
+        "all source cells byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "numbering": {
+          "rows": [
+            [
+              "면 (인덱스)",
+              "위치",
+              "출력"
+            ],
+            [
+              "U — 위 (0)",
+              "0–8",
+              "1–9"
+            ],
+            [
+              "D — 아래 (1)",
+              "9–17",
+              "10–18"
+            ],
+            [
+              "F — 앞 (2)",
+              "18–26",
+              "19–27"
+            ],
+            [
+              "B — 뒤 (3)",
+              "27–35",
+              "28–36"
+            ],
+            [
+              "L — 왼쪽 (4)",
+              "36–44",
+              "37–45"
+            ],
+            [
+              "R — 오른쪽 (5)",
+              "45–53",
+              "46–54"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "grouping": {
+          "rows": [
+            [
+              "면",
+              "면 순환",
+              "띠 순환"
+            ],
+            [
+              "U, D",
+              "1–2",
+              "3–5"
+            ],
+            [
+              "F, B, L, R",
+              "4–5",
+              "1–3"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "cycles": {
+          "textLength": 2480,
+          "paragraphCount": 13,
+          "width": 294,
+          "scrollWidth": 294,
+          "unsafe": 0
+        },
+        "diagrams": [
+          {
+            "title": "고정된 전역 큐브 축",
+            "description": "큐브에는 앞면 F, 윗면 U, 오른쪽면 R이 있습니다. 전역 양의 x는 오른쪽을 가리키고, 양의 y는 위쪽을 가리키며, 양의 z는 앞쪽을 가리킵니다.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "앞에서 위로 기울인 종이",
+            "description": "앞면 종이는 양의 x를 따르는 오른쪽 r, 양의 y를 따르는 위쪽 u, 외부 관찰자를 향하는 중심점이 있는 원으로 표시된 양의 z를 따르는 바깥쪽 법선 n을 갖습니다. 앞에서 위로의 경첩 기울임에서 오른쪽은 양의 x로 유지되고, 위쪽은 음의 z가 되며, 법선은 양의 y가 됩니다. 화살표는 r 외적 u는 n과 같음을 보여줍니다.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "ko",
+      "theme": "light",
+      "workbookSha256": "006f06dec04bea3eb7c4a7b370255209635bcc692aa99cda31b8665f746b1fa9",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "cycle explanation renders and fits 320px",
+        "face numbering and cycle grouping tables fit 320px",
+        "numbering matches all six UDFBLR ranges",
+        "no code execution despite auto-execute enabled",
+        "all source cells byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "numbering": {
+          "rows": [
+            [
+              "면 (인덱스)",
+              "위치",
+              "출력"
+            ],
+            [
+              "U — 위 (0)",
+              "0–8",
+              "1–9"
+            ],
+            [
+              "D — 아래 (1)",
+              "9–17",
+              "10–18"
+            ],
+            [
+              "F — 앞 (2)",
+              "18–26",
+              "19–27"
+            ],
+            [
+              "B — 뒤 (3)",
+              "27–35",
+              "28–36"
+            ],
+            [
+              "L — 왼쪽 (4)",
+              "36–44",
+              "37–45"
+            ],
+            [
+              "R — 오른쪽 (5)",
+              "45–53",
+              "46–54"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "grouping": {
+          "rows": [
+            [
+              "면",
+              "면 순환",
+              "띠 순환"
+            ],
+            [
+              "U, D",
+              "1–2",
+              "3–5"
+            ],
+            [
+              "F, B, L, R",
+              "4–5",
+              "1–3"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "cycles": {
+          "textLength": 2480,
+          "paragraphCount": 13,
+          "width": 294,
+          "scrollWidth": 294,
+          "unsafe": 0
+        },
+        "diagrams": [
+          {
+            "title": "고정된 전역 큐브 축",
+            "description": "큐브에는 앞면 F, 윗면 U, 오른쪽면 R이 있습니다. 전역 양의 x는 오른쪽을 가리키고, 양의 y는 위쪽을 가리키며, 양의 z는 앞쪽을 가리킵니다.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "앞에서 위로 기울인 종이",
+            "description": "앞면 종이는 양의 x를 따르는 오른쪽 r, 양의 y를 따르는 위쪽 u, 외부 관찰자를 향하는 중심점이 있는 원으로 표시된 양의 z를 따르는 바깥쪽 법선 n을 갖습니다. 앞에서 위로의 경첩 기울임에서 오른쪽은 양의 x로 유지되고, 위쪽은 음의 z가 되며, 법선은 양의 y가 됩니다. 화살표는 r 외적 u는 n과 같음을 보여줍니다.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "pt-BR",
+      "theme": "dark",
+      "workbookSha256": "811dc86847f60ea39914dfb1c56dea9a87737f05b86b5fe1cc38454c3e43f1e5",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "cycle explanation renders and fits 320px",
+        "face numbering and cycle grouping tables fit 320px",
+        "numbering matches all six UDFBLR ranges",
+        "no code execution despite auto-execute enabled",
+        "all source cells byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "numbering": {
+          "rows": [
+            [
+              "Face (índice)",
+              "Posições",
+              "Exibição"
+            ],
+            [
+              "U — cima (0)",
+              "0–8",
+              "1–9"
+            ],
+            [
+              "D — baixo (1)",
+              "9–17",
+              "10–18"
+            ],
+            [
+              "F — frente (2)",
+              "18–26",
+              "19–27"
+            ],
+            [
+              "B — trás (3)",
+              "27–35",
+              "28–36"
+            ],
+            [
+              "L — esquerda (4)",
+              "36–44",
+              "37–45"
+            ],
+            [
+              "R — direita (5)",
+              "45–53",
+              "46–54"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "grouping": {
+          "rows": [
+            [
+              "Face",
+              "Ciclos da face",
+              "Ciclos das faixas"
+            ],
+            [
+              "U, D",
+              "1–2",
+              "3–5"
+            ],
+            [
+              "F, B, L, R",
+              "4–5",
+              "1–3"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "cycles": {
+          "textLength": 4519,
+          "paragraphCount": 13,
+          "width": 294,
+          "scrollWidth": 294,
+          "unsafe": 0
+        },
+        "diagrams": [
+          {
+            "title": "Eixos globais fixos do cubo",
+            "description": "O cubo tem as faces frontal F, superior U e direita R. O x positivo global aponta para a direita, o y positivo aponta para cima e o z positivo aponta para a frente.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "Papel inclinado da frente para o topo",
+            "description": "Uma folha frontal tem a direita r ao longo do x positivo, o cima u ao longo do y positivo e a normal externa n ao longo do z positivo, mostrada por um círculo com um ponto central apontando para o observador externo. Na inclinação de dobradiça da frente para o topo, a direita permanece no x positivo, o cima torna-se z negativo e a normal torna-se y positivo. As setas mostram r produto vetorial u igual a n.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "pt-BR",
+      "theme": "light",
+      "workbookSha256": "811dc86847f60ea39914dfb1c56dea9a87737f05b86b5fe1cc38454c3e43f1e5",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "cycle explanation renders and fits 320px",
+        "face numbering and cycle grouping tables fit 320px",
+        "numbering matches all six UDFBLR ranges",
+        "no code execution despite auto-execute enabled",
+        "all source cells byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "numbering": {
+          "rows": [
+            [
+              "Face (índice)",
+              "Posições",
+              "Exibição"
+            ],
+            [
+              "U — cima (0)",
+              "0–8",
+              "1–9"
+            ],
+            [
+              "D — baixo (1)",
+              "9–17",
+              "10–18"
+            ],
+            [
+              "F — frente (2)",
+              "18–26",
+              "19–27"
+            ],
+            [
+              "B — trás (3)",
+              "27–35",
+              "28–36"
+            ],
+            [
+              "L — esquerda (4)",
+              "36–44",
+              "37–45"
+            ],
+            [
+              "R — direita (5)",
+              "45–53",
+              "46–54"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "grouping": {
+          "rows": [
+            [
+              "Face",
+              "Ciclos da face",
+              "Ciclos das faixas"
+            ],
+            [
+              "U, D",
+              "1–2",
+              "3–5"
+            ],
+            [
+              "F, B, L, R",
+              "4–5",
+              "1–3"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "cycles": {
+          "textLength": 4519,
+          "paragraphCount": 13,
+          "width": 294,
+          "scrollWidth": 294,
+          "unsafe": 0
+        },
+        "diagrams": [
+          {
+            "title": "Eixos globais fixos do cubo",
+            "description": "O cubo tem as faces frontal F, superior U e direita R. O x positivo global aponta para a direita, o y positivo aponta para cima e o z positivo aponta para a frente.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "Papel inclinado da frente para o topo",
+            "description": "Uma folha frontal tem a direita r ao longo do x positivo, o cima u ao longo do y positivo e a normal externa n ao longo do z positivo, mostrada por um círculo com um ponto central apontando para o observador externo. Na inclinação de dobradiça da frente para o topo, a direita permanece no x positivo, o cima torna-se z negativo e a normal torna-se y positivo. As setas mostram r produto vetorial u igual a n.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "ru",
+      "theme": "dark",
+      "workbookSha256": "a8254e7d9dff89d990ddc169ba31399b8a092d3a387058b78f99977b30268ff1",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "cycle explanation renders and fits 320px",
+        "face numbering and cycle grouping tables fit 320px",
+        "numbering matches all six UDFBLR ranges",
+        "no code execution despite auto-execute enabled",
+        "all source cells byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "numbering": {
+          "rows": [
+            [
+              "Грань (индекс)",
+              "Позиции",
+              "Напечатано"
+            ],
+            [
+              "U — верх (0)",
+              "0–8",
+              "1–9"
+            ],
+            [
+              "D — низ (1)",
+              "9–17",
+              "10–18"
+            ],
+            [
+              "F — перед (2)",
+              "18–26",
+              "19–27"
+            ],
+            [
+              "B — зад (3)",
+              "27–35",
+              "28–36"
+            ],
+            [
+              "L — лево (4)",
+              "36–44",
+              "37–45"
+            ],
+            [
+              "R — право (5)",
+              "45–53",
+              "46–54"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "grouping": {
+          "rows": [
+            [
+              "Грань",
+              "Циклы грани",
+              "Циклы полос"
+            ],
+            [
+              "U, D",
+              "1–2",
+              "3–5"
+            ],
+            [
+              "F, B, L, R",
+              "4–5",
+              "1–3"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "cycles": {
+          "textLength": 4448,
+          "paragraphCount": 13,
+          "width": 294,
+          "scrollWidth": 294,
+          "unsafe": 0
+        },
+        "diagrams": [
+          {
+            "title": "Фиксированные глобальные оси куба",
+            "description": "Куб имеет переднюю грань F, верхнюю грань U и правую грань R. Глобальная положительная ось x направлена вправо, положительная y — вверх, а положительная z — к передней грани.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "Бумага, наклоненная с передней грани на верхнюю",
+            "description": "У переднего листа направление вправо r идет вдоль положительной оси x, вверх u — вдоль положительной оси y, а внешняя нормаль n направлена вдоль положительной оси z, что показано кружком с точкой в центре, направленной к внешнему наблюдателю. При шарнирном наклоне спереди наверх направление вправо остается вдоль положительной оси x, вверх становится отрицательной осью z, а нормаль становится положительной осью y. Стрелки показывают, что r, векторно умноженное на u, равно n.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "ru",
+      "theme": "light",
+      "workbookSha256": "a8254e7d9dff89d990ddc169ba31399b8a092d3a387058b78f99977b30268ff1",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "cycle explanation renders and fits 320px",
+        "face numbering and cycle grouping tables fit 320px",
+        "numbering matches all six UDFBLR ranges",
+        "no code execution despite auto-execute enabled",
+        "all source cells byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "numbering": {
+          "rows": [
+            [
+              "Грань (индекс)",
+              "Позиции",
+              "Напечатано"
+            ],
+            [
+              "U — верх (0)",
+              "0–8",
+              "1–9"
+            ],
+            [
+              "D — низ (1)",
+              "9–17",
+              "10–18"
+            ],
+            [
+              "F — перед (2)",
+              "18–26",
+              "19–27"
+            ],
+            [
+              "B — зад (3)",
+              "27–35",
+              "28–36"
+            ],
+            [
+              "L — лево (4)",
+              "36–44",
+              "37–45"
+            ],
+            [
+              "R — право (5)",
+              "45–53",
+              "46–54"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "grouping": {
+          "rows": [
+            [
+              "Грань",
+              "Циклы грани",
+              "Циклы полос"
+            ],
+            [
+              "U, D",
+              "1–2",
+              "3–5"
+            ],
+            [
+              "F, B, L, R",
+              "4–5",
+              "1–3"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "cycles": {
+          "textLength": 4448,
+          "paragraphCount": 13,
+          "width": 294,
+          "scrollWidth": 294,
+          "unsafe": 0
+        },
+        "diagrams": [
+          {
+            "title": "Фиксированные глобальные оси куба",
+            "description": "Куб имеет переднюю грань F, верхнюю грань U и правую грань R. Глобальная положительная ось x направлена вправо, положительная y — вверх, а положительная z — к передней грани.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "Бумага, наклоненная с передней грани на верхнюю",
+            "description": "У переднего листа направление вправо r идет вдоль положительной оси x, вверх u — вдоль положительной оси y, а внешняя нормаль n направлена вдоль положительной оси z, что показано кружком с точкой в центре, направленной к внешнему наблюдателю. При шарнирном наклоне спереди наверх направление вправо остается вдоль положительной оси x, вверх становится отрицательной осью z, а нормаль становится положительной осью y. Стрелки показывают, что r, векторно умноженное на u, равно n.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "zh",
+      "theme": "dark",
+      "workbookSha256": "65de72ed03c63e4b9b2829e8249bd6a61ee6557503201e91f304dc717a3ab4ec",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "cycle explanation renders and fits 320px",
+        "face numbering and cycle grouping tables fit 320px",
+        "numbering matches all six UDFBLR ranges",
+        "no code execution despite auto-execute enabled",
+        "all source cells byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "numbering": {
+          "rows": [
+            [
+              "面（索引）",
+              "位置",
+              "输出"
+            ],
+            [
+              "U — 上（0）",
+              "0–8",
+              "1–9"
+            ],
+            [
+              "D — 下（1）",
+              "9–17",
+              "10–18"
+            ],
+            [
+              "F — 前（2）",
+              "18–26",
+              "19–27"
+            ],
+            [
+              "B — 后（3）",
+              "27–35",
+              "28–36"
+            ],
+            [
+              "L — 左（4）",
+              "36–44",
+              "37–45"
+            ],
+            [
+              "R — 右（5）",
+              "45–53",
+              "46–54"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "grouping": {
+          "rows": [
+            [
+              "面",
+              "面上循环",
+              "条带循环"
+            ],
+            [
+              "U, D",
+              "1–2",
+              "3–5"
+            ],
+            [
+              "F, B, L, R",
+              "4–5",
+              "1–3"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "cycles": {
+          "textLength": 1592,
+          "paragraphCount": 13,
+          "width": 294,
+          "scrollWidth": 294,
+          "unsafe": 0
+        },
+        "diagrams": [
+          {
+            "title": "固定的魔方全局坐标轴",
+            "description": "魔方具有前 F、顶 U 和右 R 面。全局正 x 指向右，正 y 指向上，正 z 指向前。",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "纸张从前面倾斜至顶面",
+            "description": "前侧纸片在正 x 方向具有向右的 r，在正 y 方向具有向上的 u，且在正 z 方向具有向外的法向量 n，由带中心圆点的圆表示并指向外部观察者。在从前到顶的铰链倾斜中，向右保持为正 x，向上变为负 z，法向量变为正 y。箭头表示 r 叉乘 u 等于 n。",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "zh",
+      "theme": "light",
+      "workbookSha256": "65de72ed03c63e4b9b2829e8249bd6a61ee6557503201e91f304dc717a3ab4ec",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "cycle explanation renders and fits 320px",
+        "face numbering and cycle grouping tables fit 320px",
+        "numbering matches all six UDFBLR ranges",
+        "no code execution despite auto-execute enabled",
+        "all source cells byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "numbering": {
+          "rows": [
+            [
+              "面（索引）",
+              "位置",
+              "输出"
+            ],
+            [
+              "U — 上（0）",
+              "0–8",
+              "1–9"
+            ],
+            [
+              "D — 下（1）",
+              "9–17",
+              "10–18"
+            ],
+            [
+              "F — 前（2）",
+              "18–26",
+              "19–27"
+            ],
+            [
+              "B — 后（3）",
+              "27–35",
+              "28–36"
+            ],
+            [
+              "L — 左（4）",
+              "36–44",
+              "37–45"
+            ],
+            [
+              "R — 右（5）",
+              "45–53",
+              "46–54"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "grouping": {
+          "rows": [
+            [
+              "面",
+              "面上循环",
+              "条带循环"
+            ],
+            [
+              "U, D",
+              "1–2",
+              "3–5"
+            ],
+            [
+              "F, B, L, R",
+              "4–5",
+              "1–3"
+            ]
+          ],
+          "width": 270,
+          "scrollWidth": 270
+        },
+        "cycles": {
+          "textLength": 1592,
+          "paragraphCount": 13,
+          "width": 294,
+          "scrollWidth": 294,
+          "unsafe": 0
+        },
+        "diagrams": [
+          {
+            "title": "固定的魔方全局坐标轴",
+            "description": "魔方具有前 F、顶 U 和右 R 面。全局正 x 指向右，正 y 指向上，正 z 指向前。",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "纸张从前面倾斜至顶面",
+            "description": "前侧纸片在正 x 方向具有向右的 r，在正 y 方向具有向上的 u，且在正 z 方向具有向外的法向量 n，由带中心圆点的圆表示并指向外部观察者。在从前到顶的铰链倾斜中，向右保持为正 x，向上变为负 z，法向量变为正 y。箭头表示 r 叉乘 u 等于 n。",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    }
+  ],
+  "limits": [
+    "No Python execution in this Markdown-only check",
+    "No Android or Pro runtime check"
+  ]
+}

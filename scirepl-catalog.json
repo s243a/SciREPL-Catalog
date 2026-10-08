@@ -3239,9 +3239,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/en/markov-groups.srwb",
-      "revision": 1,
-      "sha256": "eda0edd38694d79ce595da4592a322ec81543d4654d6fc5ef1a1009ce11bb1f4",
-      "size": 14648
+      "revision": 6,
+      "sha256": "98d3d861c7c59f011ca8f25e5148116dcc3c947c32550fc474bea36df23f68de",
+      "size": 31172
     },
     {
       "id": "cooling-plume-capture-en",
@@ -3917,9 +3917,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ar/markov-groups.srwb",
-      "revision": 1,
-      "sha256": "32ae93b94852178608d5b05ba0cc58f06a6abb31bb7ef8dd6d0bdeb40b510425",
-      "size": 18796
+      "revision": 6,
+      "sha256": "830900643888877acb2fd95142cd84373a07d2cdb2d112fc6b990f5974d2a471",
+      "size": 41631
     },
     {
       "id": "markov-groups-bn",
@@ -3934,9 +3934,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/bn/markov-groups.srwb",
-      "revision": 1,
-      "sha256": "52e855bbf1c96867b2e5741d927a946ab4436d40130a8fc888157e2703f9198d",
-      "size": 25143
+      "revision": 6,
+      "sha256": "87c5a6f897ab7a0765cfaa5c1b1aeeb36cb9350a3b03fcb4e433f91db278a771",
+      "size": 58619
     },
     {
       "id": "markov-groups-de",
@@ -3951,9 +3951,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/de/markov-groups.srwb",
-      "revision": 1,
-      "sha256": "0249405c4376361b99b3bcc376e0bb74fbb7f45a8d1adc9353c9e9cab713f53f",
-      "size": 16379
+      "revision": 6,
+      "sha256": "51543f1bb6814b0f24347cec27556b53384c0f09b33cf88ca0e8c8e386aad5b7",
+      "size": 35292
     },
     {
       "id": "markov-groups-es",
@@ -3968,9 +3968,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/es/markov-groups.srwb",
-      "revision": 1,
-      "sha256": "4f2f21e1a58a3f6ee240137b0dc96fb6306cc309857cfee31426a3842278b847",
-      "size": 16157
+      "revision": 6,
+      "sha256": "ed6081a82f4b2cb0479053e6b7befb02624a7d532c2608224c40f805e5f288b0",
+      "size": 34783
     },
     {
       "id": "markov-groups-fr",
@@ -3985,9 +3985,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/fr/markov-groups.srwb",
-      "revision": 1,
-      "sha256": "c1eb3e111de428202fc3c043274922b22681a111214c74c2b74c09e949b42903",
-      "size": 16687
+      "revision": 6,
+      "sha256": "146fd4b832907cc62c69b9ee95048b9271bc95b946b52c34afb08976f396137f",
+      "size": 35874
     },
     {
       "id": "markov-groups-hi",
@@ -4002,9 +4002,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/hi/markov-groups.srwb",
-      "revision": 1,
-      "sha256": "1e41de6fbc91e68782fc6150ca0e752174609d86005fef9534fb0a433671ccea",
-      "size": 25177
+      "revision": 6,
+      "sha256": "6595dd192cbcdf9aef163094a23a74056ab7506dabdac6ee03e96c45e5886d04",
+      "size": 58327
     },
     {
       "id": "markov-groups-id",
@@ -4019,9 +4019,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/id/markov-groups.srwb",
-      "revision": 1,
-      "sha256": "edaeaa67e4077ca8d0984282699a2beda29f4d5b23fb02bd140cb21741da2c74",
-      "size": 15705
+      "revision": 6,
+      "sha256": "36f601658a900fc4b2e6ee234ae043993ece9462bc1a2ee52aebeee3ef29c3c0",
+      "size": 33546
     },
     {
       "id": "markov-groups-ja",
@@ -4036,9 +4036,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ja/markov-groups.srwb",
-      "revision": 1,
-      "sha256": "7c0af4e44aa1f91b242ab99a1bccc405210374149dea31b5ae6aa577da4833b4",
-      "size": 17783
+      "revision": 6,
+      "sha256": "11cda08cc057f91736c050f811c394e9f49bab9e2d880151f59d824a94f6eb17",
+      "size": 38918
     },
     {
       "id": "markov-groups-ko",
@@ -4053,9 +4053,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ko/markov-groups.srwb",
-      "revision": 1,
-      "sha256": "e84e38fd3da04201a25cb96f80e418b35439783e43973bba80d9be355cfe805c",
-      "size": 16678
+      "revision": 6,
+      "sha256": "44c5d990a9b9d7f0e9ac00a22051f35a1eb79baf6beb3b9d5f7c46bf50a2c3a6",
+      "size": 36289
     },
     {
       "id": "markov-groups-pt-BR",
@@ -4070,9 +4070,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/pt-BR/markov-groups.srwb",
-      "revision": 1,
-      "sha256": "87841219438b9cb2176d711f1ae19792e50ad63bce643bcbdfbe6a497244e451",
-      "size": 15971
+      "revision": 6,
+      "sha256": "12d7086ab2a0d6c32cfb582daca0d2f457f5c20105858bd0a7f2f144bc49399b",
+      "size": 34291
     },
     {
       "id": "markov-groups-ru",
@@ -4087,9 +4087,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/ru/markov-groups.srwb",
-      "revision": 1,
-      "sha256": "ae5213fd8e67d9ba7d5cbbdccd0e1250f5bd39f4a171869e063c63364da4b638",
-      "size": 21865
+      "revision": 6,
+      "sha256": "8f82f1edb56c2fef3c9f57cd4392f2400e2e3f069a37a987f3b197a138fafaa3",
+      "size": 48938
     },
     {
       "id": "markov-groups-zh",
@@ -4104,9 +4104,9 @@
       ],
       "format": "srwb",
       "path": "workbooks/zh/markov-groups.srwb",
-      "revision": 1,
-      "sha256": "786fd803c58344c0a79f5f894d89839c690833ea2868800846cb9af7f5689bc3",
-      "size": 14438
+      "revision": 6,
+      "sha256": "28cbeed737435c0a95d0491d11026180d1046e6f222211c613d211fe5471d97a",
+      "size": 30500
     },
     {
       "id": "cooling-plume-capture-ar",

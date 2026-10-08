@@ -82,6 +82,58 @@ Because the gate proves the executable surface is byte-identical, translated
 editions require **no runtime re-testing** — the decisive economy of the
 whole design.
 
+### Scoped Markdown source updates
+
+For the Markov coordinate explanation, the existing tool-free Gemini runner
+also supports `--refresh-markdown-cell coordinates --workbooks markov-groups`.
+This mode uses a new `reviews/translations/markov-coordinates-*` evidence root,
+not a shipped translation cache. Only that cell's prose and separate SVG
+accessibility text reach the worker; opaque placeholders keep diagram
+geometry and axis labels controller-owned. One draft and a fresh same-model
+review are allowed, with no repair loop. Deterministic gates preserve the
+entire locale baseline outside that one Markdown cell, including every
+Python byte. Fresh import/render checks verify the
+static SVGs separately; earlier executable-runtime evidence is not a claim
+that the new diagrams were rendered. A failed model response remains in the
+evidence; an owner-authorized manual fallback uses the same mechanical gates
+and is identified as controller-reviewed, not Gemini-approved. Native-speaker
+review remains pending.
+
+The same bounded single-cell mode supports `--refresh-markdown-cell cycles`
+in a separate `reviews/translations/markov-cycles-*` campaign. Its prompt
+contains only cycles Markdown, not coordinate diagrams or any Python. The
+same one-draft/one-fresh-review limit and exact KEEP/data gates apply. Prior
+coordinate rendering and executable-runtime receipts retain their original
+source hashes; a cycles update records its predecessor and fresh final-byte
+Markdown import/render evidence separately.
+
+`--refresh-markdown-cell layout-addenda` uses a fresh
+`reviews/translations/markov-layout-addenda-*` campaign and sends exactly two
+new appendices, not the existing coordinate/cycle prose, SVGs or Python.
+Per-row coded table tokens are checked in order, in addition to exact KEEP
+gates. The pinned predecessor is restored by removing only the two suffixes;
+all completed Markdown bytes and executable code remain unchanged during
+translation. A failed model response is retained, with an authorized manual
+proposal gated identically and never described as model-approved.
+
+After every locale finishes, the separately authorized comment-only annotation
+stage saves exact generation workbooks before adding 30 localized Python
+comment lines. Labels come from the already localized Markdown; there are no
+additional model requests. The final recorder verifies the exact generated
+comments and that removing them recovers the generation bytes. Public evidence
+distinguishes model-reviewed addenda from controller-reused comment labels,
+pins generation and final hashes, and preserves earlier rendering/runtime
+receipts as historical. Only comment lines change Python, not move data or
+semantics. Fresh Markdown import/render checks do not claim a new Python app
+runtime or native-speaker review.
+
+If a rendered translation’s new table headings overflow a narrow screen, an
+explicit controller-only header refinement may wrap their wording. The original
+campaign snapshots and hashes remain unchanged. The recorded before/after
+heading and refined-generation hash must reverse exactly to those originals;
+comment labels are then re-derived from the refined localized header. This
+rendering correction adds no model request or native-review claim.
+
 ## Why subagents: the token economics
 
 The supervision loop is many small reads of a redrawing terminal — cheap

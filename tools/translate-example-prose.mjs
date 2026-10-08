@@ -9,6 +9,17 @@
  *   --keep-json '{"simpsons-paradox":["Mild","Severe","success","failure"],"markov-groups":["UDFBLR"]}' \
  *   --descriptions-json '{"markov-groups":"Explore verified cube moves and a lazy random walk."}'
  * Evidence lives at <evidence>/<locale>/<workbook>/; --prepare-only calls no AI.
+ * --refresh-markdown-cell coordinates --workbooks markov-groups uses an
+ * isolated reviews/translations/markov-coordinates-* evidence root. It sends
+ * only the updated coordinates prose and SVG accessibility strings, runs one
+ * draft plus one fresh review with no repairs, and preserves shipped Python
+ * and every other cell. Opaque SVG placeholders protect geometry and labels.
+ * --refresh-markdown-cell cycles uses its own markov-cycles-* evidence root
+ * and sends ONLY cycles Markdown (one field), never the whole lesson/code.
+ * --refresh-markdown-cell layout-addenda sends only two new appendices,
+ * preserving both completed Markdown prefixes and all code/SVG bytes.
+ * --refresh-markdown-cell stage4 sends only three new Markdown fields and
+ * mechanically splits pinned localized code into three interleaved cells.
  * Gemini uses its own empty mktemp directory and a shared global two-slot lock.
  * Uses the invoking Node executable and agy on PATH. Override AGY/model with
  * SCIREPL_TRANSLATION_AGY / SCIREPL_TRANSLATION_MODEL; verified model default:
@@ -44,6 +55,13 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import { recordRepairAuthorization, spendRepair as spendRepairBudget } from './example-repair-budget.mjs';
 import { testRepairBudget } from './test-example-repair-budget.mjs';
+import { diagramAccessibility, splitCoordinateDiagrams, restoreCoordinateDiagrams,
+  assertCoordinateSvgInvariants } from './markov-coordinate-diagrams.mjs';
+import { MARKOV_LAYOUT_ADDENDA, ADDENDUM_SEPARATOR, MARKOV_LAYOUT_PREDECESSOR,
+  expectedLayoutSource, layoutProposalValues, testLayoutAddenda } from './markov-layout-addenda.mjs';
+import { MARKOV_STAGE4_PREDECESSOR, MARKOV_STAGE4_PARTS, loadStage4Parts,
+  expectedStage4, gateStage4Parts } from './markov-stage4.mjs';
+import { testStage4 } from './test-markov-stage4.mjs';
 
 const REPO = path.resolve(new URL('..', import.meta.url).pathname);
 const NODE = process.execPath;
@@ -63,6 +81,28 @@ const resumeFailed = args.includes('--resume-failed-markdown');
 const resumeCode = args.includes('--resume-approved-code');
 const noRepair = args.includes('--no-repair');
 const markdownOnly = args.includes('--markdown-only');
+// New-source maintenance is separate from translation repairs. Shipped code
+// stays frozen except Stage 4's exact mechanical split and sum-to-loop change.
+const refreshCell = arg('refresh-markdown-cell', '');
+const refreshModes = ['coordinates', 'cycles', 'layout-addenda', 'stage4'];
+assert(!args.includes('--refresh-markdown-cell') || refreshModes.includes(refreshCell),
+  'Specify an approved single-cell refresh value; never fall through to whole-workbook translation');
+const coordinateControllerProposal = arg('coordinate-controller-proposal', '');
+const controllerMarkdownProposal = arg('controller-markdown-proposal', '');
+assert(!controllerMarkdownProposal || ['cycles', 'layout-addenda', 'stage4'].includes(refreshCell),
+  'Generic controller fallback is scoped to cycles/layout addenda/Stage 4');
+assert(!coordinateControllerProposal || refreshCell, 'Controller coordinate fallback requires the scoped refresh mode');
+if (refreshCell) {
+  assert(refreshModes.includes(refreshCell));
+  assert(!coordinateControllerProposal || refreshCell === 'coordinates');
+  assert.equal(arg('workbooks', ''), 'markov-groups');
+  assert(arg('evidence', '').startsWith(`reviews/translations/markov-${refreshCell}-`),
+    'Use isolated cell-refresh evidence, never stale translation caches');
+  for (const flag of ['self-test', 'apply-bounded-pass', 'resume-approved-code', 'no-repair',
+    'resume-failed-markdown', 'markdown-only', 'repair-markdown-only', 'repair-markdown',
+    'authorize-held-corrections', 'replay-reviewed', 'gates-only', 'audit-only'])
+    assert(!args.includes('--' + flag), 'Scoped Markdown refresh cannot combine with ' + flag);
+}
 assert(!markdownOnly || resumeFailed, '--markdown-only requires --resume-failed-markdown');
 assert(!noRepair || resumeCode, '--no-repair requires --resume-approved-code');
 const locale = arg('locale', selfTest || authorizationOnly ? 'es' : undefined);
@@ -508,6 +548,307 @@ function markdownGate(book, proposed, { checkOnly = false } = {}) {
   save(path.join(book.dir, 'metadata.json'), { id: book.id + '-' + locale, locale,
     title: target.notebook.name, description, sourceSha256: book.sourceHash, nativeReviewCaveat,
     suggestions: proposed.suggestions || [] });
+}
+
+async function refreshCoordinates(book, { prepareOnly = false } = {}) {
+  assert.equal(book.id, 'markov-groups');
+  const index = book.source.notebook.cells.findIndex(cell => cell.name === refreshCell);
+  assert.equal(index, 1); assert.equal(book.source.notebook.cells[index].type, 'markdown');
+  const baselineBytes = readFileSync(book.targetPath), baseline = JSON.parse(baselineBytes);
+  const predecessor = sha(baselineBytes);
+  const source = splitCoordinateDiagrams(book.source.notebook.cells[index].code);
+  assertCoordinateSvgInvariants(book.source.notebook.cells[index].code);
+  const fields = ['markdown:1', 'diagram:0:title', 'diagram:0:desc', 'diagram:1:title', 'diagram:1:desc'];
+  const prompt = rules + '\nThis is a single-cell Markdown source refresh, NOT a new whole-workbook translation. '
+    + 'Return ONLY these five fields, each once, in the existing flat entries shape: ' + JSON.stringify(fields)
+    + '. The two opaque HTML-comment diagram placeholders must stay byte-identical and each occur exactly once. '
+    + 'The SVG geometry and labels are omitted deliberately; translate the separate accessibility titles and descriptions, not geometry. '
+    + 'No notebook title, description, code, other cell, or suggestion fields are authorized. '
+    + 'Preserve the English-letter face/axis labels F, U, R, x, y, z, r, u, n. '
+    + 'Do not add numeric explanations, HTML, scripts, or references.\nOutput shape: ' + shape
+    + '\nBEGIN UNTRUSTED DATA\n' + JSON.stringify({ id: book.id, markdown: { 1: source.prose },
+      diagrams: diagramAccessibility }) + '\nEND UNTRUSTED DATA';
+  writeFileSync(path.join(book.dir, 'coordinates.prepared.prompt.txt'), prompt);
+  if (prepareOnly) { console.log('Prepared coordinates-only prompt; no code or SVG geometry sent, no AI calls.'); return; }
+  const finished = path.join(book.dir, 'coordinates.refresh.json');
+  assert(!existsSync(finished), 'A coordinate refresh already finished; never silently replay it');
+  const started = path.join(book.dir, 'coordinates.started.json');
+  let review;
+  if (coordinateControllerProposal) {
+    // The owner authorized scoped manual judgment after transport failure,
+    // not another paid retry. Keep the rejected response and started marker.
+    assert(existsSync(started), 'Manual fallback requires an already attempted refresh');
+    assert.equal(load(started).sourceSha256, book.sourceHash);
+    assert.equal(load(started).predecessorTargetSha256, predecessor);
+    assert(readdirSync(book.dir).some(file => /^coordinates\.(?:draft|review)\.(?:transport|rejected)\.json$/.test(file)),
+      'Manual fallback requires recorded transport evidence');
+    const proposalPath = path.resolve(REPO, coordinateControllerProposal);
+    assert.equal(proposalPath, path.join(book.dir, 'coordinates.manual-controller.proposal.json'));
+    review = load(proposalPath);
+  } else {
+    writeFileSync(started, JSON.stringify({ sourceSha256: book.sourceHash, predecessorTargetSha256: predecessor,
+      maximumRequests: { draft: 1, freshReview: 1, repair: 0 }, at: new Date().toISOString() }, null, 2) + '\n', { flag: 'wx' });
+    const draft = await gemini(prompt, 'coordinates.draft', [book]);
+    review = await gemini(prompt + '\nIndependently review this draft against the complete supplied source. '
+      + 'Correct fidelity, grammar and any missing translation. Return FULL JSON in the same five-field shape; this is the only fresh review. '
+      + '\nBEGIN UNTRUSTED DRAFT\n' + JSON.stringify(draft) + '\nEND UNTRUSTED DRAFT', 'coordinates.review', [book]);
+  }
+  assert.deepEqual(Object.keys(review), ['entries']); assert(Array.isArray(review.entries));
+  assert.equal(review.entries.length, fields.length);
+  const values = {};
+  for (const entry of review.entries) {
+    assert.deepEqual(Object.keys(entry).sort(), ['book', 'field', 'text']);
+    assert.equal(entry.book, book.id); assert(fields.includes(entry.field));
+    assert(!Object.hasOwn(values, entry.field), 'Duplicate coordinate proposal field');
+    values[entry.field] = cleanText(entry.text);
+  }
+  const translated = values['markdown:1'];
+  assert.deepEqual(markdownKeeps(translated), markdownKeeps(source.prose), 'Coordinate prose KEEP drift');
+  assert.deepEqual(markdownAudit(source.prose, translated), [], 'Untranslated English coordinate prose');
+  assert(!/<(?!\!--SCIREPL-COORDINATE-DIAGRAM-(?:ONE|TWO)-->)/.test(translated), 'Worker-added HTML is not authorized');
+  if (scriptRules[locale]) assert(scriptRules[locale].test(translated), 'Missing locale script');
+  const accessibility = diagramAccessibility.map((_, i) => ({ title: values[`diagram:${i}:title`], desc: values[`diagram:${i}:desc`] }));
+  for (const [i, item] of accessibility.entries()) for (const field of ['title', 'desc']) {
+    assert.notEqual(item[field], diagramAccessibility[i][field], 'Accessibility prose must be translated');
+    assert.deepEqual(item[field].match(/\d+(?:\.\d+)?/g) || [], [], 'No extra numeric tokens in accessibility prose');
+  }
+  const target = structuredClone(baseline);
+  target.notebook.cells[index].code = restoreCoordinateDiagrams(translated, accessibility);
+  assertCoordinateSvgInvariants(target.notebook.cells[index].code);
+  assert.deepEqual(markdownKeeps(target.notebook.cells[index].code), markdownKeeps(book.source.notebook.cells[index].code));
+  const restore = structuredClone(target); restore.notebook.cells[index].code = baseline.notebook.cells[index].code;
+  assert.deepEqual(restore, baseline, 'Coordinate refresh changed data outside its one Markdown cell');
+  assertFrozen(book); assert.equal(sha(readFileSync(book.targetPath)), predecessor, 'Locale target changed during refresh');
+  save(path.join(book.dir, 'coordinates.predecessor.srwb'), baseline);
+  save(book.targetPath, target);
+  save(finished, { status: 'static-gates-passed', mode: 'coordinates-only-source-refresh', locale, workbook: book.id,
+    model: MODEL, sourceSha256: book.sourceHash, predecessorTargetSha256: predecessor,
+    targetSha256: sha(readFileSync(book.targetPath)), cell: refreshCell,
+    requests: { draft: existsSync(path.join(book.dir, 'coordinates.draft.transport.json')) ? 1 : 0,
+      freshReview: existsSync(path.join(book.dir, 'coordinates.review.transport.json')) ? 1 : 0, repair: 0 },
+    reviewMethod: coordinateControllerProposal ? 'controller-manual-fallback-after-model-failure' : 'Gemini-draft-and-fresh-same-model-review',
+    modelProseApproved: !coordinateControllerProposal,
+    invariants: 'Only coordinates Markdown changed; baseline Python, other cells, cell order/names and metadata preserved. SVG geometry/labels identical.',
+    nativeSpeakerReview: 'pending', renderedReview: 'pending' });
+  console.log(`[PASS] ${locale}/markov-groups: one coordinates cell refreshed; unchanged executable workbook; no runtime review claimed.`);
+}
+
+async function refreshCycles(book, { prepareOnly = false } = {}) {
+  assert.equal(book.id, 'markov-groups');
+  const index = book.source.notebook.cells.findIndex(cell => cell.name === 'cycles');
+  assert.equal(index, 4); assert.equal(book.source.notebook.cells[index].type, 'markdown');
+  const source = book.source.notebook.cells[index].code;
+  const baselineBytes = readFileSync(book.targetPath), baseline = JSON.parse(baselineBytes), predecessor = sha(baselineBytes);
+  const prompt = rules + '\nThis is an approved SINGLE-CELL cycles Markdown update. '
+    + 'Only translate the supplied cycles text; do not request or infer other workbook content. '
+    + 'Return EXACTLY one flat entry with book="markov-groups", field="markdown:4" and its complete translated text. '
+    + 'No titles, descriptions, suggestions, code or other cells are authorized. Preserve every inline-code span '
+    + '(including bracketed position lists and Unicode cycle arrows) byte-identically. Never change source-position '
+    + 'to destination-position meaning, outside-view clockwise direction or the sticker-versus-cubie distinction. '
+    + 'Do not add HTML, images, numeric expansions or references.\nOutput shape: ' + shape
+    + '\nBEGIN UNTRUSTED DATA\n' + JSON.stringify({ id: book.id, markdown: { 4: source } }) + '\nEND UNTRUSTED DATA';
+  writeFileSync(path.join(book.dir, 'cycles.prepared.prompt.txt'), prompt);
+  if (prepareOnly) { console.log('Prepared cycles-only Markdown prompt; no code, other cells or AI calls.'); return; }
+  const finished = path.join(book.dir, 'cycles.refresh.json'), started = path.join(book.dir, 'cycles.started.json');
+  assert(!existsSync(finished), 'Cycles refresh already finished; refuse replay');
+  let review;
+  if (controllerMarkdownProposal) {
+    assert(existsSync(started) && existsSync(path.join(book.dir, 'cycles.failed.json')), 'Manual fallback requires recorded failure');
+    assert.equal(load(started).sourceSha256, book.sourceHash);
+    assert.equal(load(started).predecessorTargetSha256, predecessor);
+    const proposalPath = path.resolve(REPO, controllerMarkdownProposal);
+    assert.equal(proposalPath, path.join(book.dir, 'cycles.manual-controller.proposal.json'));
+    review = load(proposalPath);
+  } else {
+    writeFileSync(started, JSON.stringify({ sourceSha256: book.sourceHash, predecessorTargetSha256: predecessor,
+      maximumRequests: { draft: 1, freshReview: 1, repair: 0 }, at: new Date().toISOString() }, null, 2) + '\n', { flag: 'wx' });
+    const draft = await gemini(prompt, 'cycles.draft', [book]);
+    review = await gemini(prompt + '\nIndependently review this draft against the supplied English cycles text. '
+      + 'Return corrected FULL JSON with the same single authorized entry; this is the only fresh review. '
+      + '\nBEGIN UNTRUSTED DRAFT\n' + JSON.stringify(draft) + '\nEND UNTRUSTED DRAFT', 'cycles.review', [book]);
+  }
+  assert.deepEqual(Object.keys(review), ['entries']); assert(Array.isArray(review.entries)); assert.equal(review.entries.length, 1);
+  const entry = review.entries[0]; assert.deepEqual(Object.keys(entry).sort(), ['book', 'field', 'text']);
+  assert.equal(entry.book, book.id); assert.equal(entry.field, 'markdown:4');
+  const translated = cleanText(entry.text);
+  assert.deepEqual(markdownKeeps(translated), markdownKeeps(source), 'Cycles prose KEEP drift');
+  assert.deepEqual(markdownAudit(source, translated), [], 'Untranslated English cycles prose');
+  assert(!translated.includes('<'), 'No HTML is authorized in cycles prose');
+  if (scriptRules[locale]) assert(scriptRules[locale].test(translated), 'Missing locale script');
+  const target = structuredClone(baseline); target.notebook.cells[index].code = translated;
+  const restored = structuredClone(target); restored.notebook.cells[index].code = baseline.notebook.cells[index].code;
+  assert.deepEqual(restored, baseline, 'Cycles refresh changed data outside its one Markdown cell');
+  assertFrozen(book); assert.equal(sha(readFileSync(book.targetPath)), predecessor, 'Locale target changed during cycles refresh');
+  save(path.join(book.dir, 'cycles.predecessor.srwb'), baseline); save(book.targetPath, target);
+  save(finished, { status: 'static-gates-passed', mode: 'cycles-only-source-refresh', locale, workbook: book.id,
+    model: MODEL, sourceSha256: book.sourceHash, predecessorTargetSha256: predecessor,
+    targetSha256: sha(readFileSync(book.targetPath)), cell: 'cycles',
+    requests: { draft: existsSync(path.join(book.dir, 'cycles.draft.transport.json')) ? 1 : 0,
+      freshReview: existsSync(path.join(book.dir, 'cycles.review.transport.json')) ? 1 : 0, repair: 0 },
+    reviewMethod: controllerMarkdownProposal ? 'controller-manual-fallback-after-model-failure' : 'Gemini-draft-and-fresh-same-model-review',
+    modelProseApproved: !controllerMarkdownProposal,
+    invariants: 'Only cycles Markdown changed; Python, coordinates prose/SVGs, all other cells/order/names and metadata preserved.',
+    nativeSpeakerReview: 'pending', renderedReview: 'pending' });
+  console.log(`[PASS] ${locale}/markov-groups: cycles-only Markdown update; everything else preserved, no runtime review claimed.`);
+}
+async function refreshLayoutAddenda(book, { prepareOnly = false } = {}) {
+  assert.equal(book.id, 'markov-groups');
+  const prior = rel => execFileSync('git', ['show', `${MARKOV_LAYOUT_PREDECESSOR}:${rel}`], { cwd: REPO });
+  const priorSourceBytes = prior('workbooks/en/markov-groups.srwb');
+  assert.deepEqual(book.source, expectedLayoutSource(JSON.parse(priorSourceBytes)), 'English changed beyond the two approved addenda');
+  const baselineBytes = readFileSync(book.targetPath), baseline = JSON.parse(baselineBytes), predecessor = sha(baselineBytes);
+  assert.equal(predecessor, sha(prior(path.relative(REPO, book.targetPath))), 'Target is not the pinned published predecessor');
+  const prompt = rules + '\nThis is an approved APPEND-ONLY update with exactly two new Markdown addenda. '
+    + 'Translate ONLY the supplied new text, not any preceding workbook text. Return exactly two flat entries '
+    + 'with book="markov-groups" and fields "append:coordinates" and "append:cycles". '
+    + 'Preserve every inline-code span, face letter, axis label, numeric token, table row and mathematical meaning. '
+    + 'Do not request other context, code or SVGs. No title, description, suggestion, image, HTML or extra field is authorized. '
+    + 'Positive rotations are active right-hand rotations about fixed global axes; the table numbers are flat positions, '
+    + 'printed position numbers and cycle ordinals as identified, not interchangeable quantities.\nOutput shape: ' + shape
+    + '\nBEGIN UNTRUSTED DATA\n' + JSON.stringify({ id: book.id,
+      addenda: Object.fromEntries(MARKOV_LAYOUT_ADDENDA.map(part => [part.field, part.text])) }) + '\nEND UNTRUSTED DATA';
+  writeFileSync(path.join(book.dir, 'layout.prepared.prompt.txt'), prompt);
+  if (prepareOnly) { console.log('Prepared two addenda only; no prior prose, SVGs, Python or AI calls.'); return; }
+  const finished = path.join(book.dir, 'layout.refresh.json'), started = path.join(book.dir, 'layout.started.json');
+  assert(!existsSync(finished), 'Layout addenda already finished; refuse replay');
+  let review;
+  if (controllerMarkdownProposal) {
+    assert(existsSync(started) && existsSync(path.join(book.dir, 'layout.failed.json')), 'Manual fallback requires recorded failure');
+    assert.equal(load(started).sourceSha256, book.sourceHash); assert.equal(load(started).predecessorTargetSha256, predecessor);
+    const proposalPath = path.resolve(REPO, controllerMarkdownProposal);
+    assert.equal(proposalPath, path.join(book.dir, 'layout.manual-controller.proposal.json'));
+    review = load(proposalPath);
+  } else {
+    writeFileSync(started, JSON.stringify({ sourceSha256: book.sourceHash, predecessorTargetSha256: predecessor,
+      maximumRequests: { draft: 1, freshReview: 1, repair: 0 }, at: new Date().toISOString() }, null, 2) + '\n', { flag: 'wx' });
+    const draft = await gemini(prompt, 'layout.draft', [book]);
+    review = await gemini(prompt + '\nIndependently review this draft against both supplied English addenda. '
+      + 'Return corrected FULL JSON with the same two entries; this is the only fresh review. '
+      + '\nBEGIN UNTRUSTED DRAFT\n' + JSON.stringify(draft) + '\nEND UNTRUSTED DRAFT', 'layout.review', [book]);
+  }
+  const values = new Map([...layoutProposalValues(review)].map(([field, text]) => [field, cleanText(text)]));
+  const target = structuredClone(baseline);
+  for (const part of MARKOV_LAYOUT_ADDENDA) {
+    const translated = values.get(part.field);
+    assert.deepEqual(markdownKeeps(translated), markdownKeeps(part.text), part.name + ': addendum KEEP drift');
+    assert.deepEqual(markdownAudit(part.text, translated), [], part.name + ': untranslated English addendum');
+    assert(!translated.includes('<'), 'No HTML is authorized in addenda');
+    if (scriptRules[locale]) assert(scriptRules[locale].test(translated), 'Missing locale script');
+    target.notebook.cells[part.index].code += ADDENDUM_SEPARATOR + translated;
+    assert.deepEqual(markdownKeeps(target.notebook.cells[part.index].code), markdownKeeps(book.source.notebook.cells[part.index].code));
+  }
+  assertCoordinateSvgInvariants(target.notebook.cells[1].code);
+  const restored = structuredClone(target);
+  for (const part of MARKOV_LAYOUT_ADDENDA) restored.notebook.cells[part.index].code = baseline.notebook.cells[part.index].code;
+  assert.deepEqual(restored, baseline, 'Addenda changed anything outside the two Markdown suffixes');
+  assertFrozen(book); assert.equal(sha(readFileSync(book.targetPath)), predecessor, 'Target changed during addendum review');
+  save(path.join(book.dir, 'layout.predecessor.srwb'), baseline); save(book.targetPath, target);
+  save(finished, { status: 'static-gates-passed', mode: 'layout-addenda-only-source-refresh', locale, workbook: book.id,
+    model: MODEL, sourceSha256: book.sourceHash, predecessorSourceSha256: sha(priorSourceBytes),
+    predecessorTargetSha256: predecessor, targetSha256: sha(readFileSync(book.targetPath)),
+    requests: { draft: existsSync(path.join(book.dir, 'layout.draft.transport.json')) ? 1 : 0,
+      freshReview: existsSync(path.join(book.dir, 'layout.review.transport.json')) ? 1 : 0, repair: 0 },
+    reviewMethod: controllerMarkdownProposal ? 'controller-manual-fallback-after-model-failure' : 'Gemini-draft-and-fresh-same-model-review',
+    modelProseApproved: !controllerMarkdownProposal,
+    invariants: 'Only new coordinates/cycles suffixes appended; every prior Markdown byte, SVG, Python byte, cell name/order and metadata preserved.',
+    nativeSpeakerReview: 'pending', renderedReview: 'pending' });
+  console.log(`[PASS] ${locale}/markov-groups: two addenda appended; all prior Markdown/SVG/Python bytes preserved.`);
+}
+async function refreshStage4(book, { prepareOnly = false } = {}) {
+  assert.equal(book.id, 'markov-groups');
+  const prior = rel => execFileSync('git', ['show', `${MARKOV_STAGE4_PREDECESSOR}:${rel}`], { cwd: REPO });
+  const priorSourceBytes = prior('workbooks/en/markov-groups.srwb');
+  const prosePath = path.join(REPO, 'tools/markov-stage4-text.json');
+  const proseSha256 = sha(readFileSync(prosePath)), sourceParts = loadStage4Parts();
+  assert.deepEqual(book.source, expectedStage4(JSON.parse(priorSourceBytes), sourceParts),
+    'English differs from the approved pinned Stage 4 split/run-order insertion');
+  const baselineBytes = readFileSync(book.targetPath), baseline = JSON.parse(baselineBytes);
+  const predecessor = sha(baselineBytes), priorTargetBytes = prior(path.relative(REPO, book.targetPath));
+  assert.equal(predecessor, sha(priorTargetBytes), 'Stage 4 target is not the pinned prior revision');
+  // Validate the localized split before sending anything, not after spending.
+  expectedStage4(baseline, sourceParts);
+  const pins = { sourceSha256: book.sourceHash, predecessorSourceSha256: sha(priorSourceBytes),
+    predecessorTargetSha256: predecessor, sourceProseSha256: proseSha256,
+    predecessorCommit: MARKOV_STAGE4_PREDECESSOR };
+  const prompt = rules + '\nThis is an approved Stage 4 update with exactly THREE new Markdown fields. '
+    + 'Translate ONLY the supplied three texts, not prior lesson text, Python, comments, print labels, or SVGs. '
+    + 'Return exactly three flat entries with book="markov-groups" and fields "markdown:6", "markdown:8", "markdown:10". '
+    + 'Preserve every inline-code span, numeric token, mathematical formula and claim. No code translation or execution, '
+    + 'title, description, suggestion, HTML, added code fence or extra field is authorized. '
+    + 'These are sequential explanations of a one-sticker probability model and a separate actual whole-cube sample; '
+    + 'do not conflate their different state spaces or claim short-run uniform mixing.\nOutput shape: ' + shape
+    + '\nBEGIN UNTRUSTED DATA\n' + JSON.stringify({ id: book.id,
+      markdown: Object.fromEntries(MARKOV_STAGE4_PARTS.map(part => [part.field, sourceParts[part.key]])) })
+    + '\nEND UNTRUSTED DATA';
+  const prepared = path.join(book.dir, 'stage4.prepared.prompt.txt');
+  if (existsSync(prepared)) assert.equal(readFileSync(prepared, 'utf8'), prompt, 'Prepared Stage 4 prompt changed');
+  else writeFileSync(prepared, prompt, { flag: 'wx' });
+  if (prepareOnly) { console.log('Prepared three Stage 4 Markdown fields only; no Python/SVG/prior lesson sent, no model calls.'); return; }
+  const finished = path.join(book.dir, 'stage4.refresh.json'), started = path.join(book.dir, 'stage4.started.json');
+  const failed = path.join(book.dir, 'stage4.failed.json');
+  assert(!existsSync(finished), 'Stage 4 refresh already finished; refuse replay');
+  let review, translatedParts;
+  const gates = { cleanText, markdownKeeps, markdownAudit, scriptRule: scriptRules[locale] };
+  if (controllerMarkdownProposal) {
+    assert(existsSync(started) && existsSync(failed), 'Stage 4 manual fallback requires recorded model failure');
+    const runPins = load(started), failure = load(failed);
+    for (const [key, value] of Object.entries(pins)) {
+      assert.equal(runPins[key], value, 'Stage 4 started pin changed: ' + key);
+      assert.equal(failure[key], value, 'Stage 4 failure pin changed: ' + key);
+    }
+    assert.deepEqual(runPins.maximumRequests, { draft: 1, freshReview: 1, repair: 0 });
+    assert.equal(failure.status, 'held');
+    assert(['draft', 'review', 'gate'].includes(failure.failureStage), 'Not a model-stage failure');
+    assert(existsSync(path.join(book.dir, 'stage4.draft.prompt.txt')), 'No recorded Stage 4 model dispatch');
+    if (failure.failureStage === 'gate') assert(existsSync(path.join(book.dir, 'stage4.review.proposal.json')),
+      'Gate fallback requires retained fresh-review proposal');
+    const proposalPath = path.resolve(REPO, controllerMarkdownProposal);
+    assert.equal(proposalPath, path.join(book.dir, 'stage4.manual-controller.proposal.json'));
+    review = load(proposalPath);
+    translatedParts = gateStage4Parts(review, sourceParts, gates);
+  } else {
+    writeFileSync(started, JSON.stringify({ ...pins, fields: MARKOV_STAGE4_PARTS.map(part => part.field),
+      maximumRequests: { draft: 1, freshReview: 1, repair: 0 }, at: new Date().toISOString() }, null, 2) + '\n', { flag: 'wx' });
+    let failureStage = 'draft';
+    try {
+      const draft = await gemini(prompt, 'stage4.draft', [book]);
+      failureStage = 'review';
+      review = await gemini(prompt + '\nIndependently review this draft against all three supplied English texts. '
+        + 'Return corrected FULL strict JSON with only the same three authorized entries; this is the sole fresh review, '
+        + 'not a repair loop.\nBEGIN UNTRUSTED DRAFT\n' + JSON.stringify(draft) + '\nEND UNTRUSTED DRAFT', 'stage4.review', [book]);
+      failureStage = 'gate';
+      translatedParts = gateStage4Parts(review, sourceParts, gates);
+    } catch (error) {
+      writeFileSync(failed, JSON.stringify({ ...pins, status: 'held', failureStage,
+        error: error.message, at: new Date().toISOString(), repair: 0 }, null, 2) + '\n', { flag: 'wx' });
+      throw error;
+    }
+  }
+  const target = expectedStage4(baseline, translatedParts);
+  assert.equal(target.notebook.cells.length, 13);
+  assertCoordinateSvgInvariants(target.notebook.cells[1].code);
+  // Expected construction preserves every prior localized code byte except
+  // the exact sum-to-loop substitution, and performs only the approved inline
+  // code-token insertion in the otherwise frozen intro.
+  assert.deepEqual(target, expectedStage4(JSON.parse(priorTargetBytes), translatedParts));
+  assertFrozen(book);
+  assert.equal(sha(readFileSync(prosePath)), proseSha256, 'Approved Stage 4 prose changed during review');
+  assert.equal(sha(readFileSync(book.targetPath)), predecessor, 'Locale target changed during Stage 4 review');
+  const archived = path.join(book.dir, 'stage4.predecessor.srwb');
+  if (existsSync(archived)) assert.deepEqual(readFileSync(archived), baselineBytes, 'Archived Stage 4 predecessor changed');
+  else writeFileSync(archived, baselineBytes, { flag: 'wx' });
+  save(book.targetPath, target);
+  save(finished, { ...pins, status: 'static-gates-passed', mode: 'stage4-three-part-source-refresh',
+    locale, workbook: book.id, model: MODEL, currentSourceSha256: book.sourceHash,
+    targetSha256: sha(readFileSync(book.targetPath)), fields: MARKOV_STAGE4_PARTS.map(part => part.field),
+    cells: 13, requests: { draft: existsSync(path.join(book.dir, 'stage4.draft.prompt.txt')) ? 1 : 0,
+      freshReview: existsSync(path.join(book.dir, 'stage4.review.prompt.txt')) ? 1 : 0, repair: 0 },
+    reviewMethod: controllerMarkdownProposal ? 'controller-manual-fallback-after-model-failure' : 'Gemini-draft-and-fresh-same-model-review',
+    modelProseApproved: !controllerMarkdownProposal,
+    invariants: 'Only three Stage 4 Markdown texts replaced; existing localized Python/comments/output labels split unchanged except exact sum-to-loop substitution. Intro only receives the two new inline-code run-order tokens. All other cells, SVGs and metadata preserved.',
+    nativeSpeakerReview: 'pending', renderedReview: 'pending', runtimeReview: 'pending',
+    caveat: 'Static preservation/translation gates only; controller-owned runtime and rendered review remain pending.' });
+  console.log(`[PASS] ${locale}/markov-groups: three Stage 4 prose/code pairs, 13 cells; no runtime review claimed.`);
 }
 function codeGate(book, proposed) {
   assertFrozen(book); assert(proposed, book.id + ': missing proposal');
@@ -1164,7 +1505,35 @@ if (selfTest) {
     for (const file of readdirSync(codeDir)) unlinkSync(path.join(codeDir, file));
     rmdirSync(codeDir);
   }
-  console.log(`Translation helper: 34 original, ${authorityChecks} append-only budget, ${resumeChecks} failed-resume, ${dispatchChecks} Markdown dispatch and ${codeChecks} initial-code offline checks passed; no Gemini calls.`);
+  const layoutChecks = testLayoutAddenda();
+  let stage4Checks = testStage4(REPO);
+  const stage4Source = { matrix: '## English heading\n\nA sample with `T[:, 0]` and 13 choices.\n\n$$T_{d,j}=1/13$$',
+    sticker: '## English sticker heading\n\nA sticker starts at 0 with `location_probability`.',
+    trajectory: '## English trajectory heading\n\nA sample uses 12 choices and `rng.choice`.' };
+  const stage4Target = { matrix: '## Explicación\n\nEjemplo con `T[:, 0]` y 13 opciones.\n\n$$T_{d,j}=1/13$$',
+    sticker: '## Posición\n\nUn adhesivo empieza en 0 con `location_probability`.',
+    trajectory: '## Trayectoria\n\nUn ejemplo usa 12 opciones y `rng.choice`.' };
+  const stage4Packet = parts => ({ entries: MARKOV_STAGE4_PARTS.map(part => ({
+    book: 'markov-groups', field: part.field, text: parts[part.key] })) });
+  const stage4Gates = { cleanText, markdownKeeps, markdownAudit };
+  assert.deepEqual(gateStage4Parts(stage4Packet(stage4Target), stage4Source, stage4Gates), stage4Target); stage4Checks++;
+  for (const change of [text => text.replace('1/13', '1/12'), text => text.replace('`T[:, 0]`', '`T[0, :]`'),
+    text => text.replace('13 opciones', '12 opciones')]) {
+    const broken = { ...stage4Target, matrix: change(stage4Target.matrix) };
+    assert.throws(() => gateStage4Parts(stage4Packet(broken), stage4Source, stage4Gates), /KEEP drift/); stage4Checks++;
+  }
+  assert.throws(() => gateStage4Parts(stage4Packet(stage4Source), stage4Source, stage4Gates), /untranslated English/); stage4Checks++;
+  console.log(`Translation helper: 34 original, ${authorityChecks} append-only budget, ${resumeChecks} failed-resume, ${dispatchChecks} Markdown dispatch, ${codeChecks} initial-code, ${layoutChecks} layout-addenda and ${stage4Checks} Stage 4 offline checks passed; no Gemini calls.`);
+} else if (refreshCell) {
+  const refresh = { coordinates: refreshCoordinates, cycles: refreshCycles,
+    'layout-addenda': refreshLayoutAddenda, stage4: refreshStage4 }[refreshCell];
+  try { await refresh(books[0], { prepareOnly: args.includes('--prepare-only') }); }
+  catch (error) {
+    if (['cycles', 'layout-addenda'].includes(refreshCell)) save(path.join(books[0].dir,
+      refreshCell === 'cycles' ? 'cycles.failed.json' : 'layout.failed.json'), {
+      status: 'held', sourceSha256: books[0].sourceHash, error: error.message, at: new Date().toISOString() });
+    console.error(error.stack || error); process.exitCode = 1;
+  }
 } else if (boundedApply) {
   assert(evidenceBase === path.join(REPO, 'reviews/translation-pilot2/bounded-pass-20261004'),
     'Offline bounded application must use the new isolated evidence root');
