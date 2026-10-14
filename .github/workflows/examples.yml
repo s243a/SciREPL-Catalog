@@ -3,6 +3,7 @@ on:
   pull_request:
     paths:
       - 'workbooks/**'
+      - 'drafts/markov-spectral-mixing/**'
       - 'reviews/examples/**'
       - 'tools/**'
       - 'scirepl-catalog.json'
@@ -24,6 +25,9 @@ jobs:
         with:
           python-version: '3.12'
       - run: python -m pip install numpy==2.2.6
+      - run: node tools/build-spectral-mixing-workbook.mjs --check
+      - run: python tools/spectral-mixing/test_numerics.py
+      - run: python tools/test-spectral-mixing-workbook.py
       - run: node tools/test-example-risk.mjs
       - run: node tools/test-example-markov.mjs
       - run: node tools/test-markov-stage4.mjs

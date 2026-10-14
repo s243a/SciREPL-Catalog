@@ -155,3 +155,47 @@ workbook paths. This does not attach to a user's browser or phone.
 
 Adding catalog entries does not publish a new stable Pages release. The
 release/tag workflow in [distribution.md](distribution.md) remains separate.
+
+## Companion lesson in English review
+
+`drafts/markov-spectral-mixing/en/markov-spectral-mixing.srwb` is an unregistered
+English candidate, **Markov Graphs: Spectral Mixing and Convergence**. Its opening
+labels the mathematics Advanced, gives third-year undergraduate prerequisites
+and a first-year graduate reading pace, and distinguishes running an example
+from understanding or modifying it. This is a workbook label, not a catalogue
+filter or a formal course-placement requirement. A fictional
+12-stop delivery graph connects two neighbourhood cycles through a bottleneck.
+It begins with one truck, then uses two labelled trucks and single-bay exclusion
+to make a 12 × 12 map of 132 legal ordered pairs. This is an analogy to Markov
+Groups' joint-position plot, not the cube's physical move rules.
+
+The draft separates endpoint laws, sampled occupation histograms, expected
+occupation bias and stationary-normalized spectral noise. It now includes
+effective state possibilities versus state-history entropy, explicit random
+routing/no-warehouse/bay-only congestion rules, clock and bottleneck notes, and
+clustering summaries compared with an exclusion-aware baseline. A pooled statistic
+can hide slow label exchange. The score's stationary expectation is not claimed
+for the fixed-start route, and its two-state periodic example is not a nonlinear
+limit-cycle model. No catalogue entries or published translations exist yet.
+Freeze and review the English source before sending it through the existing
+13-locale translation, review and rendering process.
+
+Reproduce the offline checks with:
+
+```sh
+node tools/build-spectral-mixing-workbook.mjs --check
+python3 tools/spectral-mixing/test_numerics.py
+python3 tools/test-spectral-mixing-workbook.py
+```
+
+The numerical runner independently rebuilds edge-rate operators and checks the
+finite-record formulas and seed convention. The workbook runner also checks
+chart data, forbidden-state masks and shared scales. Both use only NumPy and
+the standard library. For a real local app import/run/export test, set
+`SCIREPL_SPECTRAL_APP` to a reviewed SciREPL checkout with Playwright installed,
+serve its `www/` on `SCIREPL_SPECTRAL_ORIGIN` (default loopback port 8123), and run
+`node tools/test-spectral-mixing-browser.mjs`. It uses a disposable profile and
+blocks nonlocal requests; local WASM/NumPy assets must already be available.
+Recorded evidence binds its exact source hash to the results. A read-only
+preview (`tools/preview-spectral-mixing.mjs`) requires matching green numerical
+and real-app records; it displays recorded outputs and never executes the book.
