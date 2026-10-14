@@ -257,6 +257,34 @@ Content improvement ideas (in either phase) travel the escalation channel
 to `.pilot/escalations.md` and, if accepted, change the ENGLISH source
 and re-translate everywhere.
 
+## Bounded append-only Markov statistics campaign
+
+The optional six-cell statistics addendum uses a narrower controller-owned
+workflow. The English source and its 30 authorized prose fields are frozen;
+every locale retains the exact reviewed 13-cell core from `f88d9b9`. The
+worker translates only three new Markdown cells and 27 comment/display spans.
+It cannot change identifiers, numerical data, chart APIs, metadata, or old
+cells. `tools/run-markov-mixing-translations.mjs` permits one tool-free Gemini
+draft and one fresh review per locale, at most two concurrent requests, with
+exclusive started markers and **no automatic retries or repairs**.
+
+A failed/truncated response is retained locally, not replayed or salvaged.
+Owner-authorized controller corrections or a fresh manual fallback are
+recorded separately, never represented as model or native-speaker approval.
+Application uses the same deterministic span tools, then verifies stable
+token bodies and derived manifests; combining-mark words are not required
+to match an English prose-detection heuristic.
+
+Promotion requires all 13 final-byte editions to pass the full NumPy oracle,
+exact protected chart-payload comparison, and isolated real-app import,
+execution, source export/reimport, and narrow-screen light/dark checks.
+Compact public receipts bind those bytes and the review method; raw worker
+transports remain ignored local evidence. Historical core receipts stay
+unchanged and certify only their recorded revision. The new full-workbook
+gates are separate. Publication retains the catalogue's
+**machine-translated; native-speaker review pending** caveat. Only the 13
+Markov item revisions advance; no app version or release tag changes.
+
 ## Cross-repo references
 
 Each stage runs on different machinery — the references are grouped by

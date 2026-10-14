@@ -1,0 +1,34 @@
+{
+  "schema": "markov-mixing-controller-correction-v1",
+  "locale": "zh",
+  "workbook": "markov-groups",
+  "englishSha256": "2daf77aa872a7210cc16083535b1c244fb2cfbc288d60f688b85f0736633c430",
+  "method": "controller-correction-after-model-gate-failure",
+  "reviewedProposalPath": "reviews/translations/markov-mixing-20261013/zh/mixing.review.proposal.json",
+  "reviewedProposalSha256": "f4bcab16b5b840de9061074c1b3efb6d2e4549ad552dc59645226a34ce65c0d1",
+  "proposalPath": "reviews/translations/markov-mixing-20261013/zh/mixing.controller.proposal.json",
+  "proposalSha256": "2e76ca8112cf8e8105ca25cb1d1be83f98742e2c1a7801ae25d1b118b552aa34",
+  "failurePath": "reviews/translations/markov-mixing-20261013/zh/mixing.failed.json",
+  "changedFields": [
+    "markdown:17"
+  ],
+  "changes": [
+    {
+      "before": "`(标签 1 的位置, 标签 3 的位置)`",
+      "after": "`(position of label 1, position of label 3)`"
+    },
+    {
+      "before": "但所有 24 行和 24 列均存在。",
+      "after": "但所有 24 行和列均存在。"
+    }
+  ],
+  "unchangedFields": 29,
+  "modelRequestsMadeByThisCorrection": 0,
+  "modelProseApproved": false,
+  "nativeSpeakerReview": "pending",
+  "staticGates": "proposal KEEP/script/residue gates passed; span application and derived-manifest verification not yet run",
+  "runtimeReview": "pending",
+  "renderedReview": "pending",
+  "promoted": false,
+  "caveat": "The complete saved Gemini fresh review is retained unchanged. These narrow controller corrections are not Gemini-approved or native-speaker reviewed."
+}

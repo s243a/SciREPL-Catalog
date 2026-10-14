@@ -1,0 +1,1324 @@
+{
+  "schema": "markov-mixing-editions-runtime-v1",
+  "allPassed": true,
+  "englishSha256": "2daf77aa872a7210cc16083535b1c244fb2cfbc288d60f688b85f0736633c430",
+  "predecessorCommit": "f88d9b9e26364eeb5e7ff1ee9bcce5f27d47c66e",
+  "scope": "Offline NumPy execution of frozen English plus all 12 full 19-cell editions; exact protected runtime/plot data; no browser, native, model, promotion, or native-speaker approval",
+  "platform": {
+    "python": "3.10.12",
+    "implementation": "CPython",
+    "numpy": "2.2.6",
+    "system": "Linux",
+    "release": "6.18.33.2-microsoft-standard-WSL2",
+    "machine": "x86_64",
+    "spanDeriveNode": "v22.22.2"
+  },
+  "provenance": {
+    "englishPath": "drafts/markov-mixing/en/markov-groups.srwb",
+    "translationFieldsPath": "drafts/markov-mixing/translation-fields.json",
+    "translationFieldsSha256": "9384a5386aacb17c25a28a868e152b5cee35fbdb77f5c9e77a4497d44ee609fd",
+    "iteration7RuntimePath": "reviews/markov-mixing-english-20261007/iteration-7/runtime.json",
+    "iteration7RuntimeSha256": "957de4e6ba338537b6c5e3b3e021fc18eff6a0dee4843149235ccc5ca1115e42",
+    "iteration7Checks": 10829,
+    "legacyOraclePath": "tools/test-markov-mixing-runtime.py",
+    "legacyOracleSha256": "f49da27d8e0e6bd18ec47a58213d980c8fdeb0dd47feb7cc110597f39fe54694"
+  },
+  "invariants": {
+    "cells": 19,
+    "coreCells": 13,
+    "authorizedMarkdownFields": 3,
+    "authorizedCodeSpans": 27,
+    "protectedCodeCandidates": 133,
+    "seed": 20261007,
+    "checkpoints": [
+      100,
+      1000,
+      10000
+    ],
+    "moves": 10000,
+    "cornerPositions": [
+      0,
+      2,
+      6,
+      8,
+      9,
+      11,
+      15,
+      17,
+      18,
+      20,
+      24,
+      26,
+      27,
+      29,
+      33,
+      35,
+      36,
+      38,
+      42,
+      44,
+      45,
+      47,
+      51,
+      53
+    ],
+    "reachableOrderedPairs": 504,
+    "maskedSameCubiePairs": 72,
+    "rowColumnReachableCounts": 21,
+    "rowColumnGaps": 3
+  },
+  "negativeOracles": [
+    {
+      "name": "core-mutation",
+      "status": "rejected"
+    },
+    {
+      "name": "protected-suffix-mutation",
+      "status": "rejected"
+    },
+    {
+      "name": "numeric-plot-mutation",
+      "status": "rejected"
+    },
+    {
+      "name": "protected-layout-mutation",
+      "status": "rejected"
+    },
+    {
+      "name": "unsafe-label-b",
+      "status": "rejected"
+    },
+    {
+      "name": "unsafe-label-script",
+      "status": "rejected"
+    },
+    {
+      "name": "added-label-key",
+      "status": "rejected"
+    },
+    {
+      "name": "numeric-stdout-mutation",
+      "status": "rejected"
+    },
+    {
+      "name": "network-import",
+      "status": "rejected"
+    },
+    {
+      "name": "file-open",
+      "status": "rejected"
+    },
+    {
+      "name": "runtime-error",
+      "status": "rejected"
+    },
+    {
+      "name": "held-response",
+      "status": "rejected"
+    },
+    {
+      "name": "exclusive-report-write",
+      "status": "rejected"
+    }
+  ],
+  "locales": [
+    {
+      "locale": "en",
+      "sourceKind": "frozen-english-draft",
+      "path": "drafts/markov-mixing/en/markov-groups.srwb",
+      "targetSha256": "2daf77aa872a7210cc16083535b1c244fb2cfbc288d60f688b85f0736633c430",
+      "predecessorSha256": "98d3d861c7c59f011ca8f25e5148116dcc3c947c32550fc474bea36df23f68de",
+      "derivedSpanCounts": {},
+      "cells": 19,
+      "preservedCoreCells": 13,
+      "movesExecuted": 10000,
+      "plots": {
+        "count": 6,
+        "traceCounts": [
+          2,
+          2,
+          2,
+          1,
+          1,
+          1
+        ],
+        "histogramBars": [
+          24,
+          24,
+          24
+        ],
+        "heatmapTiles": [
+          504,
+          504,
+          504
+        ],
+        "cellEdgeShapes": [
+          50,
+          50,
+          50
+        ],
+        "protectedPayloadSha256": "bcef7ae6ba722896244f93f99f44defd426d4fb45334bf631a85b28e204d11d4",
+        "localizedLabelsSha256": "34af8cbf0fcb64c43b52c06c1fb13e0c32e4515ccc9de20d03271c4586ffb13b"
+      },
+      "snapshots": [
+        {
+          "steps": 100,
+          "singleVisitTV": 0.3833333333333333,
+          "exactEndPositionTV": 1.4224732503009818e-16,
+          "jointVisitTV": 0.878968253968254
+        },
+        {
+          "steps": 1000,
+          "singleVisitTV": 0.137,
+          "exactEndPositionTV": 7.28583859910259e-17,
+          "jointVisitTV": 0.4029206349206349
+        },
+        {
+          "steps": 10000,
+          "singleVisitTV": 0.03496666666666665,
+          "exactEndPositionTV": 7.28583859910259e-17,
+          "jointVisitTV": 0.13455714285714288
+        }
+      ],
+      "numericStdoutSha256": "e2b80dce2294a8fb7cd080ec66148904719709d335f6f4eda21a83e600ff1ed3",
+      "deterministicStdoutSha256": "d494ba9432970622e04fdbb2cd7e822220fd1fd0fff1ff9a5622cf1a5f6da613"
+    },
+    {
+      "locale": "ar",
+      "sourceKind": "staged-campaign",
+      "path": "reviews/translations/markov-mixing-20261013/ar/markov-groups.srwb",
+      "targetSha256": "57b3145721746ad06e9c42e2184a5b968470eaa0df3e3a8fb74cecf9d1d6f908",
+      "predecessorSha256": "830900643888877acb2fd95142cd84373a07d2cdb2d112fc6b990f5974d2a471",
+      "derivedSpanCounts": {
+        "14": 8,
+        "16": 9,
+        "18": 10
+      },
+      "cells": 19,
+      "preservedCoreCells": 13,
+      "movesExecuted": 10000,
+      "plots": {
+        "count": 6,
+        "traceCounts": [
+          2,
+          2,
+          2,
+          1,
+          1,
+          1
+        ],
+        "histogramBars": [
+          24,
+          24,
+          24
+        ],
+        "heatmapTiles": [
+          504,
+          504,
+          504
+        ],
+        "cellEdgeShapes": [
+          50,
+          50,
+          50
+        ],
+        "protectedPayloadSha256": "bcef7ae6ba722896244f93f99f44defd426d4fb45334bf631a85b28e204d11d4",
+        "localizedLabelsSha256": "50c9e63c3218c574b612a0896c4239d798d5eadfd9de1f760d859fb2ce0ec055"
+      },
+      "snapshots": [
+        {
+          "steps": 100,
+          "singleVisitTV": 0.3833333333333333,
+          "exactEndPositionTV": 1.4224732503009818e-16,
+          "jointVisitTV": 0.878968253968254
+        },
+        {
+          "steps": 1000,
+          "singleVisitTV": 0.137,
+          "exactEndPositionTV": 7.28583859910259e-17,
+          "jointVisitTV": 0.4029206349206349
+        },
+        {
+          "steps": 10000,
+          "singleVisitTV": 0.03496666666666665,
+          "exactEndPositionTV": 7.28583859910259e-17,
+          "jointVisitTV": 0.13455714285714288
+        }
+      ],
+      "numericStdoutSha256": "e2b80dce2294a8fb7cd080ec66148904719709d335f6f4eda21a83e600ff1ed3",
+      "deterministicStdoutSha256": "ec7d485d8e4729f2e094a6c404c24f4c5f3eeb32df71fc70d61d99c925cc51ff",
+      "staticGate": {
+        "completedSha256": "c400e9b4d2066019864913ce22e7eb9f2ea8d17250f9c5336e210f5175f4eb53",
+        "verificationSha256": "3ff96f5cb12264345a94639d54d6c4e3bf62dbf1df85e155df796e849d4180ab",
+        "derivedSha256": "401beab8c8ca194870a98372439a113e889b1daef57d17add9658cd191dcb61f",
+        "review": {
+          "modelProseApproved": true,
+          "controllerProseReviewed": false,
+          "requests": {
+            "draft": 1,
+            "freshReview": 1,
+            "repair": 0
+          },
+          "method": "Gemini-draft-and-fresh-same-model-review",
+          "controllerCorrections": 0,
+          "evidence": [
+            {
+              "path": "reviews/translations/markov-mixing-20261013/ar/mixing.review.proposal.json",
+              "sha256": "e973360a17f1deb58b29839f34ea4aa0dafdc755e2b1446fc1161af77ae3c828"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "locale": "bn",
+      "sourceKind": "staged-campaign",
+      "path": "reviews/translations/markov-mixing-20261013/bn/markov-groups.srwb",
+      "targetSha256": "b68de1d19126343b05fffb0630caf21cacccc0aebf79e9850392e1b05dc2fa10",
+      "predecessorSha256": "87c5a6f897ab7a0765cfaa5c1b1aeeb36cb9350a3b03fcb4e433f91db278a771",
+      "derivedSpanCounts": {
+        "14": 8,
+        "16": 9,
+        "18": 10
+      },
+      "cells": 19,
+      "preservedCoreCells": 13,
+      "movesExecuted": 10000,
+      "plots": {
+        "count": 6,
+        "traceCounts": [
+          2,
+          2,
+          2,
+          1,
+          1,
+          1
+        ],
+        "histogramBars": [
+          24,
+          24,
+          24
+        ],
+        "heatmapTiles": [
+          504,
+          504,
+          504
+        ],
+        "cellEdgeShapes": [
+          50,
+          50,
+          50
+        ],
+        "protectedPayloadSha256": "bcef7ae6ba722896244f93f99f44defd426d4fb45334bf631a85b28e204d11d4",
+        "localizedLabelsSha256": "b59e9cd620667df840216d0144fa0787c1d5ecac9027adb6dee1fcd0ae9f0f36"
+      },
+      "snapshots": [
+        {
+          "steps": 100,
+          "singleVisitTV": 0.3833333333333333,
+          "exactEndPositionTV": 1.4224732503009818e-16,
+          "jointVisitTV": 0.878968253968254
+        },
+        {
+          "steps": 1000,
+          "singleVisitTV": 0.137,
+          "exactEndPositionTV": 7.28583859910259e-17,
+          "jointVisitTV": 0.4029206349206349
+        },
+        {
+          "steps": 10000,
+          "singleVisitTV": 0.03496666666666665,
+          "exactEndPositionTV": 7.28583859910259e-17,
+          "jointVisitTV": 0.13455714285714288
+        }
+      ],
+      "numericStdoutSha256": "e2b80dce2294a8fb7cd080ec66148904719709d335f6f4eda21a83e600ff1ed3",
+      "deterministicStdoutSha256": "c5cc5b116ead1ea5e4b5e81bdc3b66a52796c01376fe709e259bfa5ca99a6ce2",
+      "staticGate": {
+        "completedSha256": "22c1f5ad998ef4ae5e354e25571b1427380da79b39ecd169183d4547833aa7cc",
+        "verificationSha256": "794769a3f98e7c4bd911fdcefb2dd14fab79e2622dd91ea3590c3a27a090ba49",
+        "derivedSha256": "cbd12a419cbe6db0c5b8773b0b8616c641b26f7c790794d9a5abbbc155a8796b",
+        "review": {
+          "modelProseApproved": false,
+          "controllerProseReviewed": true,
+          "requests": {
+            "draft": 1,
+            "freshReview": 1,
+            "repair": 0
+          },
+          "method": "Gemini-draft-and-fresh-same-model-review-plus-controller-existing-glossary-reuse",
+          "controllerCorrections": 6,
+          "evidence": [
+            {
+              "path": "reviews/translations/markov-mixing-20261013/bn/mixing.controller.proposal.json",
+              "sha256": "a99cb9310dd28414e17ce4fdbeaebaed7a3c034ecf80857b371271b0867e845e"
+            },
+            {
+              "path": "reviews/translations/markov-mixing-20261013/bn/mixing.controller-correction.json",
+              "sha256": "d8fb35b211b8efeb738567bb16b74e4fe86d60b18e9440f0414d637f14bc2e88"
+            },
+            {
+              "path": "reviews/translations/markov-mixing-20261013/bn/mixing.review.proposal.json",
+              "sha256": "a76212a54302cda84da21406ec4188b04893618d9513bea13449ec5a118f6856"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "locale": "de",
+      "sourceKind": "staged-campaign",
+      "path": "reviews/translations/markov-mixing-20261013/de/markov-groups.srwb",
+      "targetSha256": "b81cf0b2e80080b53fbbad6ab1c9e2ff6e1519771ea5ab004117c5ed23ad0bf1",
+      "predecessorSha256": "51543f1bb6814b0f24347cec27556b53384c0f09b33cf88ca0e8c8e386aad5b7",
+      "derivedSpanCounts": {
+        "14": 8,
+        "16": 9,
+        "18": 10
+      },
+      "cells": 19,
+      "preservedCoreCells": 13,
+      "movesExecuted": 10000,
+      "plots": {
+        "count": 6,
+        "traceCounts": [
+          2,
+          2,
+          2,
+          1,
+          1,
+          1
+        ],
+        "histogramBars": [
+          24,
+          24,
+          24
+        ],
+        "heatmapTiles": [
+          504,
+          504,
+          504
+        ],
+        "cellEdgeShapes": [
+          50,
+          50,
+          50
+        ],
+        "protectedPayloadSha256": "bcef7ae6ba722896244f93f99f44defd426d4fb45334bf631a85b28e204d11d4",
+        "localizedLabelsSha256": "c94d48b446be75b51055df7eb146626cad04f09db2b500ea2be680871d0b0152"
+      },
+      "snapshots": [
+        {
+          "steps": 100,
+          "singleVisitTV": 0.3833333333333333,
+          "exactEndPositionTV": 1.4224732503009818e-16,
+          "jointVisitTV": 0.878968253968254
+        },
+        {
+          "steps": 1000,
+          "singleVisitTV": 0.137,
+          "exactEndPositionTV": 7.28583859910259e-17,
+          "jointVisitTV": 0.4029206349206349
+        },
+        {
+          "steps": 10000,
+          "singleVisitTV": 0.03496666666666665,
+          "exactEndPositionTV": 7.28583859910259e-17,
+          "jointVisitTV": 0.13455714285714288
+        }
+      ],
+      "numericStdoutSha256": "e2b80dce2294a8fb7cd080ec66148904719709d335f6f4eda21a83e600ff1ed3",
+      "deterministicStdoutSha256": "ce6d947b17a610b1c378843da1ca92b368e7dc7f222c31e46b38129c34763c46",
+      "staticGate": {
+        "completedSha256": "d50c24b17737794949d38cbb662b7a960f2589e535e7abceee4f0447348e21c2",
+        "verificationSha256": "bc36db77d2626a292d53bd7a118c0cddc71618ac5661311e5192c3ddda2e07c9",
+        "derivedSha256": "6a7b4df59fad54f794d8dcf4bd3197153938708821696a030eb4890b40b9ceb9",
+        "review": {
+          "modelProseApproved": false,
+          "controllerProseReviewed": true,
+          "requests": {
+            "draft": 1,
+            "freshReview": 0,
+            "repair": 0
+          },
+          "method": "controller-manual-fallback-after-truncated-first-model-response",
+          "controllerCorrections": 0,
+          "controllerReviewSchema": "markov-mixing-controller-fallback-v1",
+          "controllerChangedFields": 30,
+          "controllerChanges": 30,
+          "evidence": [
+            {
+              "path": "reviews/translations/markov-mixing-20261013/de/mixing.controller.proposal.json",
+              "sha256": "a479e624a74a826834f72fb10b6832b0e07b68571bfb1fc0648453ce2806ce33"
+            },
+            {
+              "path": "reviews/translations/markov-mixing-20261013/de/mixing.controller.provenance.json",
+              "sha256": "2aee6db8e59b2cf9ffb4e5b7fe2c27723dcf3f23862ea71a355f0e555ef983c8"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "locale": "es",
+      "sourceKind": "staged-campaign",
+      "path": "reviews/translations/markov-mixing-20261013/es/markov-groups.srwb",
+      "targetSha256": "b0b3ad6a4f498001c92120d88056927aab157000eb3b492c67a98f6109f98467",
+      "predecessorSha256": "ed6081a82f4b2cb0479053e6b7befb02624a7d532c2608224c40f805e5f288b0",
+      "derivedSpanCounts": {
+        "14": 8,
+        "16": 9,
+        "18": 10
+      },
+      "cells": 19,
+      "preservedCoreCells": 13,
+      "movesExecuted": 10000,
+      "plots": {
+        "count": 6,
+        "traceCounts": [
+          2,
+          2,
+          2,
+          1,
+          1,
+          1
+        ],
+        "histogramBars": [
+          24,
+          24,
+          24
+        ],
+        "heatmapTiles": [
+          504,
+          504,
+          504
+        ],
+        "cellEdgeShapes": [
+          50,
+          50,
+          50
+        ],
+        "protectedPayloadSha256": "bcef7ae6ba722896244f93f99f44defd426d4fb45334bf631a85b28e204d11d4",
+        "localizedLabelsSha256": "b897aa4700ba54b49fee58619a6531e355092e53b3a90a89759fd7424ef056d1"
+      },
+      "snapshots": [
+        {
+          "steps": 100,
+          "singleVisitTV": 0.3833333333333333,
+          "exactEndPositionTV": 1.4224732503009818e-16,
+          "jointVisitTV": 0.878968253968254
+        },
+        {
+          "steps": 1000,
+          "singleVisitTV": 0.137,
+          "exactEndPositionTV": 7.28583859910259e-17,
+          "jointVisitTV": 0.4029206349206349
+        },
+        {
+          "steps": 10000,
+          "singleVisitTV": 0.03496666666666665,
+          "exactEndPositionTV": 7.28583859910259e-17,
+          "jointVisitTV": 0.13455714285714288
+        }
+      ],
+      "numericStdoutSha256": "e2b80dce2294a8fb7cd080ec66148904719709d335f6f4eda21a83e600ff1ed3",
+      "deterministicStdoutSha256": "fadd4a3762dc67f24ba8d429c8b3dec3608b503eb91f9f73d396883b1f9de19b",
+      "staticGate": {
+        "completedSha256": "ccfcfd5fd94b19c41d4fc6940fdd54dc662ebbe37560d2ab0ddd56df32cae9d5",
+        "verificationSha256": "f33eeded9cc82cc4e72111846555529dbafa8dcb6de0b8e21a94e1261f392e18",
+        "derivedSha256": "43e9ab9191d1e1d16ff76e9b11796f4809f332ffbeff0b33ad33de49d0f0ea12",
+        "review": {
+          "modelProseApproved": true,
+          "controllerProseReviewed": false,
+          "requests": {
+            "draft": 1,
+            "freshReview": 1,
+            "repair": 0
+          },
+          "method": "Gemini-draft-and-fresh-same-model-review-plus-controller-protected-notation-restoration",
+          "controllerCorrections": 1,
+          "evidence": [
+            {
+              "path": "reviews/translations/markov-mixing-20261013/es/mixing.controller.proposal.json",
+              "sha256": "b20cda2a171b8b522cea46eb5f51d91e821347ae28aa7c8e7864c57043f6531a"
+            },
+            {
+              "path": "reviews/translations/markov-mixing-20261013/es/mixing.controller-correction.json",
+              "sha256": "e8ca75db4b5da5e3fc8f2461464a4f1e639186293c9c9712caa2013b375af7ba"
+            },
+            {
+              "path": "reviews/translations/markov-mixing-20261013/es/mixing.review.proposal.json",
+              "sha256": "812655f15fb4edc2db95eeb47f7fa6fc24774e08c9d6718e984a71373b1a44c9"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "locale": "fr",
+      "sourceKind": "staged-campaign",
+      "path": "reviews/translations/markov-mixing-20261013/fr/markov-groups.srwb",
+      "targetSha256": "72c9f34cc64c9f0d42905488e7e773d388e45fd4ddeb808669c525440d13c973",
+      "predecessorSha256": "146fd4b832907cc62c69b9ee95048b9271bc95b946b52c34afb08976f396137f",
+      "derivedSpanCounts": {
+        "14": 8,
+        "16": 9,
+        "18": 10
+      },
+      "cells": 19,
+      "preservedCoreCells": 13,
+      "movesExecuted": 10000,
+      "plots": {
+        "count": 6,
+        "traceCounts": [
+          2,
+          2,
+          2,
+          1,
+          1,
+          1
+        ],
+        "histogramBars": [
+          24,
+          24,
+          24
+        ],
+        "heatmapTiles": [
+          504,
+          504,
+          504
+        ],
+        "cellEdgeShapes": [
+          50,
+          50,
+          50
+        ],
+        "protectedPayloadSha256": "bcef7ae6ba722896244f93f99f44defd426d4fb45334bf631a85b28e204d11d4",
+        "localizedLabelsSha256": "5210ba1971eef905eaa02990cfb17a709f78c20445c16be8addf1009a0701bd7"
+      },
+      "snapshots": [
+        {
+          "steps": 100,
+          "singleVisitTV": 0.3833333333333333,
+          "exactEndPositionTV": 1.4224732503009818e-16,
+          "jointVisitTV": 0.878968253968254
+        },
+        {
+          "steps": 1000,
+          "singleVisitTV": 0.137,
+          "exactEndPositionTV": 7.28583859910259e-17,
+          "jointVisitTV": 0.4029206349206349
+        },
+        {
+          "steps": 10000,
+          "singleVisitTV": 0.03496666666666665,
+          "exactEndPositionTV": 7.28583859910259e-17,
+          "jointVisitTV": 0.13455714285714288
+        }
+      ],
+      "numericStdoutSha256": "e2b80dce2294a8fb7cd080ec66148904719709d335f6f4eda21a83e600ff1ed3",
+      "deterministicStdoutSha256": "acd5dc3ec5af207242b6b70c7c9b7926616c0194868f2b2d7de7b261d8cb5c2d",
+      "staticGate": {
+        "completedSha256": "d884bafbe1fa35d4ccb2cd4a8962375505c19f7a744daafa12c22aedbcaab73f",
+        "verificationSha256": "98f9032fd40b2c98e0edc1d29b03ee1cb2feaf889a96769cb8e9c5c0b6656c64",
+        "derivedSha256": "86bbd40d4f7b58b539f3b746fcd1c1c7e06839a6a0d2742171053f73d78be3ae",
+        "review": {
+          "modelProseApproved": false,
+          "controllerProseReviewed": true,
+          "requests": {
+            "draft": 1,
+            "freshReview": 1,
+            "repair": 0
+          },
+          "method": "Gemini-draft-and-fresh-same-model-review-plus-controller-notation-and-wording",
+          "controllerCorrections": 6,
+          "evidence": [
+            {
+              "path": "reviews/translations/markov-mixing-20261013/fr/mixing.controller.proposal.json",
+              "sha256": "84bbe3e096243e74d8944edc5a3dbeb342670f5cd4a8a44259f965bc28c2cb24"
+            },
+            {
+              "path": "reviews/translations/markov-mixing-20261013/fr/mixing.controller-correction.json",
+              "sha256": "16b38d62c90e9afa2d4b8691c07cd663dc5103195a8367763b015e21ac836dad"
+            },
+            {
+              "path": "reviews/translations/markov-mixing-20261013/fr/mixing.review.proposal.json",
+              "sha256": "1c8c4f741f8f6ffec5ac353e6bfbc272b79a0da96690e1a0b01bd631d1ca77c4"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "locale": "hi",
+      "sourceKind": "staged-campaign",
+      "path": "reviews/translations/markov-mixing-20261013/hi/markov-groups.srwb",
+      "targetSha256": "4daa25af229b58227d14205d4c4a787a7817a7092090f074b950b8b5c9df790b",
+      "predecessorSha256": "6595dd192cbcdf9aef163094a23a74056ab7506dabdac6ee03e96c45e5886d04",
+      "derivedSpanCounts": {
+        "14": 8,
+        "16": 9,
+        "18": 10
+      },
+      "cells": 19,
+      "preservedCoreCells": 13,
+      "movesExecuted": 10000,
+      "plots": {
+        "count": 6,
+        "traceCounts": [
+          2,
+          2,
+          2,
+          1,
+          1,
+          1
+        ],
+        "histogramBars": [
+          24,
+          24,
+          24
+        ],
+        "heatmapTiles": [
+          504,
+          504,
+          504
+        ],
+        "cellEdgeShapes": [
+          50,
+          50,
+          50
+        ],
+        "protectedPayloadSha256": "bcef7ae6ba722896244f93f99f44defd426d4fb45334bf631a85b28e204d11d4",
+        "localizedLabelsSha256": "142c1ad5a66ae2c440366c7bc71620cfa5ec0e0e36be78c40d2c345527cb5ce1"
+      },
+      "snapshots": [
+        {
+          "steps": 100,
+          "singleVisitTV": 0.3833333333333333,
+          "exactEndPositionTV": 1.4224732503009818e-16,
+          "jointVisitTV": 0.878968253968254
+        },
+        {
+          "steps": 1000,
+          "singleVisitTV": 0.137,
+          "exactEndPositionTV": 7.28583859910259e-17,
+          "jointVisitTV": 0.4029206349206349
+        },
+        {
+          "steps": 10000,
+          "singleVisitTV": 0.03496666666666665,
+          "exactEndPositionTV": 7.28583859910259e-17,
+          "jointVisitTV": 0.13455714285714288
+        }
+      ],
+      "numericStdoutSha256": "e2b80dce2294a8fb7cd080ec66148904719709d335f6f4eda21a83e600ff1ed3",
+      "deterministicStdoutSha256": "46dcfca9d4ee832b9f672fd7aefb39fca187098e853aef0c0cd3b416ca98f632",
+      "staticGate": {
+        "completedSha256": "6cedcb84b061ea8daf933e46a1dc203f17dbf382955d7ca119843650bcd37fd6",
+        "verificationSha256": "1c2d5bad291dc0958cab1987ad140e646fe66a44b1316ba8909368f02931a895",
+        "derivedSha256": "f82c7807a808cf9f8ebccae01d838b3634aeacaa6b4ce84c2fcd05771fd984dd",
+        "review": {
+          "modelProseApproved": true,
+          "controllerProseReviewed": false,
+          "requests": {
+            "draft": 1,
+            "freshReview": 1,
+            "repair": 0
+          },
+          "method": "Gemini-draft-and-fresh-same-model-review",
+          "controllerCorrections": 0,
+          "evidence": [
+            {
+              "path": "reviews/translations/markov-mixing-20261013/hi/mixing.review.proposal.json",
+              "sha256": "1426f35e9b184ece21a933a1e8072c8d312ce87b01394a1f38ac0673f72b0d0c"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "locale": "id",
+      "sourceKind": "staged-campaign",
+      "path": "reviews/translations/markov-mixing-20261013/id/markov-groups.srwb",
+      "targetSha256": "14e4a2018787251cb828ac229f9651ae5e26d7beb8fad3cf4734adf2ba22714f",
+      "predecessorSha256": "36f601658a900fc4b2e6ee234ae043993ece9462bc1a2ee52aebeee3ef29c3c0",
+      "derivedSpanCounts": {
+        "14": 8,
+        "16": 9,
+        "18": 10
+      },
+      "cells": 19,
+      "preservedCoreCells": 13,
+      "movesExecuted": 10000,
+      "plots": {
+        "count": 6,
+        "traceCounts": [
+          2,
+          2,
+          2,
+          1,
+          1,
+          1
+        ],
+        "histogramBars": [
+          24,
+          24,
+          24
+        ],
+        "heatmapTiles": [
+          504,
+          504,
+          504
+        ],
+        "cellEdgeShapes": [
+          50,
+          50,
+          50
+        ],
+        "protectedPayloadSha256": "bcef7ae6ba722896244f93f99f44defd426d4fb45334bf631a85b28e204d11d4",
+        "localizedLabelsSha256": "77fbef67291aedfd65410f1e955924d45caffdd41b5d6fe74b2b4db93eec2814"
+      },
+      "snapshots": [
+        {
+          "steps": 100,
+          "singleVisitTV": 0.3833333333333333,
+          "exactEndPositionTV": 1.4224732503009818e-16,
+          "jointVisitTV": 0.878968253968254
+        },
+        {
+          "steps": 1000,
+          "singleVisitTV": 0.137,
+          "exactEndPositionTV": 7.28583859910259e-17,
+          "jointVisitTV": 0.4029206349206349
+        },
+        {
+          "steps": 10000,
+          "singleVisitTV": 0.03496666666666665,
+          "exactEndPositionTV": 7.28583859910259e-17,
+          "jointVisitTV": 0.13455714285714288
+        }
+      ],
+      "numericStdoutSha256": "e2b80dce2294a8fb7cd080ec66148904719709d335f6f4eda21a83e600ff1ed3",
+      "deterministicStdoutSha256": "adede07a72aefa57adb194cfa0e01eab3f5d360e5c615cd2f7bb020be2cff98b",
+      "staticGate": {
+        "completedSha256": "e96e93bcdfbea6dde1775cd74a41e21fb484397509777a3fdfc71e54e17ce808",
+        "verificationSha256": "20625617d1bf277ff11868da1271bddc6766c4b959794991ead4582fcccaf0dd",
+        "derivedSha256": "d248f2f1c82c9a8032ad3a773319c739180335fb11fd096b6c8cde5c96c70ca1",
+        "review": {
+          "modelProseApproved": true,
+          "controllerProseReviewed": false,
+          "requests": {
+            "draft": 1,
+            "freshReview": 1,
+            "repair": 0
+          },
+          "method": "Gemini-draft-and-fresh-same-model-review-plus-controller-protected-notation-restoration",
+          "controllerCorrections": 1,
+          "evidence": [
+            {
+              "path": "reviews/translations/markov-mixing-20261013/id/mixing.controller.proposal.json",
+              "sha256": "fa7bf3ea740aa3bef31f6d93bfd68f25c5f2bee6fd253b255d1605dcd1a58216"
+            },
+            {
+              "path": "reviews/translations/markov-mixing-20261013/id/mixing.controller-correction.json",
+              "sha256": "a364a12269555b882f61633641f7a7bafb4938fa7ffcf7dc67ea23017afd9ab2"
+            },
+            {
+              "path": "reviews/translations/markov-mixing-20261013/id/mixing.review.proposal.json",
+              "sha256": "464edab701a831efe017295923fae52f4ef111cef559b299d43d0a069f2a9c7e"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "locale": "ja",
+      "sourceKind": "staged-campaign",
+      "path": "reviews/translations/markov-mixing-20261013/ja/markov-groups.srwb",
+      "targetSha256": "04d16dd16af4d6f19b45881025ebe3a0901e49f186e929139512b3e6c99cc4ea",
+      "predecessorSha256": "11cda08cc057f91736c050f811c394e9f49bab9e2d880151f59d824a94f6eb17",
+      "derivedSpanCounts": {
+        "14": 8,
+        "16": 9,
+        "18": 10
+      },
+      "cells": 19,
+      "preservedCoreCells": 13,
+      "movesExecuted": 10000,
+      "plots": {
+        "count": 6,
+        "traceCounts": [
+          2,
+          2,
+          2,
+          1,
+          1,
+          1
+        ],
+        "histogramBars": [
+          24,
+          24,
+          24
+        ],
+        "heatmapTiles": [
+          504,
+          504,
+          504
+        ],
+        "cellEdgeShapes": [
+          50,
+          50,
+          50
+        ],
+        "protectedPayloadSha256": "bcef7ae6ba722896244f93f99f44defd426d4fb45334bf631a85b28e204d11d4",
+        "localizedLabelsSha256": "f25c5a910ca85a88835998482965155aa2716253362ed132317ed8ef77f17542"
+      },
+      "snapshots": [
+        {
+          "steps": 100,
+          "singleVisitTV": 0.3833333333333333,
+          "exactEndPositionTV": 1.4224732503009818e-16,
+          "jointVisitTV": 0.878968253968254
+        },
+        {
+          "steps": 1000,
+          "singleVisitTV": 0.137,
+          "exactEndPositionTV": 7.28583859910259e-17,
+          "jointVisitTV": 0.4029206349206349
+        },
+        {
+          "steps": 10000,
+          "singleVisitTV": 0.03496666666666665,
+          "exactEndPositionTV": 7.28583859910259e-17,
+          "jointVisitTV": 0.13455714285714288
+        }
+      ],
+      "numericStdoutSha256": "e2b80dce2294a8fb7cd080ec66148904719709d335f6f4eda21a83e600ff1ed3",
+      "deterministicStdoutSha256": "72801f227f798464aedcf2e685f209ac81ad4c33b60fa6c70fc1bd6395cec0b2",
+      "staticGate": {
+        "completedSha256": "ae88f4db0def537b69f0003416e6da281fe2d924b3a8f2b1dced092264f087b2",
+        "verificationSha256": "2406d52f2ce3f695642b2abfb257674358f97d2b71e9e0bd0acccb0452a23e42",
+        "derivedSha256": "1e8f40213ac442554515c6f2750e63ba8e52d64efddfadd72dbb7a03d05a89e0",
+        "review": {
+          "modelProseApproved": false,
+          "controllerProseReviewed": true,
+          "requests": {
+            "draft": 1,
+            "freshReview": 1,
+            "repair": 0
+          },
+          "method": "Gemini-draft-and-fresh-same-model-review-plus-controller-notation-and-numeric-word-fidelity",
+          "controllerCorrections": 2,
+          "evidence": [
+            {
+              "path": "reviews/translations/markov-mixing-20261013/ja/mixing.controller.proposal.json",
+              "sha256": "efd5402c603117c091aecbb856ba80e975664ea9f11b1b8e3d17e62d01560df6"
+            },
+            {
+              "path": "reviews/translations/markov-mixing-20261013/ja/mixing.controller-correction.json",
+              "sha256": "80bae2d663b5e66d35bb2ee29d073ac7e2fdc28d8442754e5f93466caad81c7c"
+            },
+            {
+              "path": "reviews/translations/markov-mixing-20261013/ja/mixing.review.proposal.json",
+              "sha256": "f50b85d05e79a86edd63d5506afdc2ff796b0aa8c66fa8b0159ce56e7602d8c6"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "locale": "ko",
+      "sourceKind": "staged-campaign",
+      "path": "reviews/translations/markov-mixing-20261013/ko/markov-groups.srwb",
+      "targetSha256": "f7ea630a01c88e158e22226a3dfc9f5ded4b9529e9701d653e631f078b92a54a",
+      "predecessorSha256": "44c5d990a9b9d7f0e9ac00a22051f35a1eb79baf6beb3b9d5f7c46bf50a2c3a6",
+      "derivedSpanCounts": {
+        "14": 8,
+        "16": 9,
+        "18": 10
+      },
+      "cells": 19,
+      "preservedCoreCells": 13,
+      "movesExecuted": 10000,
+      "plots": {
+        "count": 6,
+        "traceCounts": [
+          2,
+          2,
+          2,
+          1,
+          1,
+          1
+        ],
+        "histogramBars": [
+          24,
+          24,
+          24
+        ],
+        "heatmapTiles": [
+          504,
+          504,
+          504
+        ],
+        "cellEdgeShapes": [
+          50,
+          50,
+          50
+        ],
+        "protectedPayloadSha256": "bcef7ae6ba722896244f93f99f44defd426d4fb45334bf631a85b28e204d11d4",
+        "localizedLabelsSha256": "a78608f55cfcd2663e119654446fcac15070339cabf06fa8bf91d1e246055a6b"
+      },
+      "snapshots": [
+        {
+          "steps": 100,
+          "singleVisitTV": 0.3833333333333333,
+          "exactEndPositionTV": 1.4224732503009818e-16,
+          "jointVisitTV": 0.878968253968254
+        },
+        {
+          "steps": 1000,
+          "singleVisitTV": 0.137,
+          "exactEndPositionTV": 7.28583859910259e-17,
+          "jointVisitTV": 0.4029206349206349
+        },
+        {
+          "steps": 10000,
+          "singleVisitTV": 0.03496666666666665,
+          "exactEndPositionTV": 7.28583859910259e-17,
+          "jointVisitTV": 0.13455714285714288
+        }
+      ],
+      "numericStdoutSha256": "e2b80dce2294a8fb7cd080ec66148904719709d335f6f4eda21a83e600ff1ed3",
+      "deterministicStdoutSha256": "d15675ca417b7590be458900de6b2b1675e82d5a4620221db8a43575dff15b1b",
+      "staticGate": {
+        "completedSha256": "bb207386284057e71e676433db0870d3213308bac769a5749c84179b9449acdf",
+        "verificationSha256": "b5b3ca8c990f12d0a6e96e33cbef74c27c5bb84fd52f81df2cbdcb1df84f4ff9",
+        "derivedSha256": "0a51db92890827506a0ce50f94769d48433a1f7db205f1e908ca39879c94902e",
+        "review": {
+          "modelProseApproved": false,
+          "controllerProseReviewed": true,
+          "requests": {
+            "draft": 1,
+            "freshReview": 1,
+            "repair": 0
+          },
+          "method": "Gemini-draft-and-fresh-same-model-review-plus-controller-notation-and-numeric-word-fidelity",
+          "controllerCorrections": 3,
+          "evidence": [
+            {
+              "path": "reviews/translations/markov-mixing-20261013/ko/mixing.controller.proposal.json",
+              "sha256": "8c0e08e45a2f2d05f63bcff6447c8cf3a8af160117c73288251728628750e15a"
+            },
+            {
+              "path": "reviews/translations/markov-mixing-20261013/ko/mixing.controller-correction.json",
+              "sha256": "c46ec532fd452469c0ff2162ff036a31413471a6e008322d79793d5baf7e1256"
+            },
+            {
+              "path": "reviews/translations/markov-mixing-20261013/ko/mixing.review.proposal.json",
+              "sha256": "ebe397a633a9a66f0aa6aba2287612d2ea9abcce78bb12ede3ca9e91526809c2"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "locale": "pt-BR",
+      "sourceKind": "staged-campaign",
+      "path": "reviews/translations/markov-mixing-20261013/pt-BR/markov-groups.srwb",
+      "targetSha256": "a7201bee4446687cc68e292fd5393544d5b11c5e62dfba622b529b255ccfb4ec",
+      "predecessorSha256": "12d7086ab2a0d6c32cfb582daca0d2f457f5c20105858bd0a7f2f144bc49399b",
+      "derivedSpanCounts": {
+        "14": 8,
+        "16": 9,
+        "18": 10
+      },
+      "cells": 19,
+      "preservedCoreCells": 13,
+      "movesExecuted": 10000,
+      "plots": {
+        "count": 6,
+        "traceCounts": [
+          2,
+          2,
+          2,
+          1,
+          1,
+          1
+        ],
+        "histogramBars": [
+          24,
+          24,
+          24
+        ],
+        "heatmapTiles": [
+          504,
+          504,
+          504
+        ],
+        "cellEdgeShapes": [
+          50,
+          50,
+          50
+        ],
+        "protectedPayloadSha256": "bcef7ae6ba722896244f93f99f44defd426d4fb45334bf631a85b28e204d11d4",
+        "localizedLabelsSha256": "dfbcf9c25aa66a770319aafd4eac800f000846ca05884e05889479da227a7667"
+      },
+      "snapshots": [
+        {
+          "steps": 100,
+          "singleVisitTV": 0.3833333333333333,
+          "exactEndPositionTV": 1.4224732503009818e-16,
+          "jointVisitTV": 0.878968253968254
+        },
+        {
+          "steps": 1000,
+          "singleVisitTV": 0.137,
+          "exactEndPositionTV": 7.28583859910259e-17,
+          "jointVisitTV": 0.4029206349206349
+        },
+        {
+          "steps": 10000,
+          "singleVisitTV": 0.03496666666666665,
+          "exactEndPositionTV": 7.28583859910259e-17,
+          "jointVisitTV": 0.13455714285714288
+        }
+      ],
+      "numericStdoutSha256": "e2b80dce2294a8fb7cd080ec66148904719709d335f6f4eda21a83e600ff1ed3",
+      "deterministicStdoutSha256": "9c692b6cb154b05e4a26d4688b590da73252dfd72421f6f17f9fc4b7a28e1054",
+      "staticGate": {
+        "completedSha256": "14065241d146de59fd0b666c9e6168e904c04c419d763f9a0ccb1297b7147b0f",
+        "verificationSha256": "0ae263b42ae211532c9346e0ef9142e72815fc9e6c207cbd47f79744338d4cd1",
+        "derivedSha256": "f7385fe6460a0a7537a13c4ac759095a8de186f09d57745aeab75b4afdd4b718",
+        "review": {
+          "modelProseApproved": true,
+          "controllerProseReviewed": true,
+          "requests": {
+            "draft": 1,
+            "freshReview": 1,
+            "repair": 0
+          },
+          "method": "Gemini-draft-and-fresh-same-model-review-plus-controller-notation-and-numeric-word-fidelity",
+          "controllerCorrections": 1,
+          "evidence": [
+            {
+              "path": "reviews/translations/markov-mixing-20261013/pt-BR/mixing.controller.proposal.json",
+              "sha256": "9962e14307dc9fd39133bc777c7f52b3820974ac24d076b0bcfca6ce762666f8"
+            },
+            {
+              "path": "reviews/translations/markov-mixing-20261013/pt-BR/mixing.controller-correction.json",
+              "sha256": "227fd95a7248d3efb2f8891a485e0cb9d25844df38115970dbf1dfd013b2aada"
+            },
+            {
+              "path": "reviews/translations/markov-mixing-20261013/pt-BR/mixing.review.proposal.json",
+              "sha256": "fcd0243643fd16501ec79aa11898b7b5c4ce5ac1a3690a5d858346af7720a6e2"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "locale": "ru",
+      "sourceKind": "staged-campaign",
+      "path": "reviews/translations/markov-mixing-20261013/ru/markov-groups.srwb",
+      "targetSha256": "725078a88fa95bbca212c08e25130099c45c318e02ad8b3890b0275b96256129",
+      "predecessorSha256": "8f82f1edb56c2fef3c9f57cd4392f2400e2e3f069a37a987f3b197a138fafaa3",
+      "derivedSpanCounts": {
+        "14": 8,
+        "16": 9,
+        "18": 10
+      },
+      "cells": 19,
+      "preservedCoreCells": 13,
+      "movesExecuted": 10000,
+      "plots": {
+        "count": 6,
+        "traceCounts": [
+          2,
+          2,
+          2,
+          1,
+          1,
+          1
+        ],
+        "histogramBars": [
+          24,
+          24,
+          24
+        ],
+        "heatmapTiles": [
+          504,
+          504,
+          504
+        ],
+        "cellEdgeShapes": [
+          50,
+          50,
+          50
+        ],
+        "protectedPayloadSha256": "bcef7ae6ba722896244f93f99f44defd426d4fb45334bf631a85b28e204d11d4",
+        "localizedLabelsSha256": "ef7d391d5a9cecb1cc181b3dddebfc302a07402cfe32db3c201f2321b64a6d5f"
+      },
+      "snapshots": [
+        {
+          "steps": 100,
+          "singleVisitTV": 0.3833333333333333,
+          "exactEndPositionTV": 1.4224732503009818e-16,
+          "jointVisitTV": 0.878968253968254
+        },
+        {
+          "steps": 1000,
+          "singleVisitTV": 0.137,
+          "exactEndPositionTV": 7.28583859910259e-17,
+          "jointVisitTV": 0.4029206349206349
+        },
+        {
+          "steps": 10000,
+          "singleVisitTV": 0.03496666666666665,
+          "exactEndPositionTV": 7.28583859910259e-17,
+          "jointVisitTV": 0.13455714285714288
+        }
+      ],
+      "numericStdoutSha256": "e2b80dce2294a8fb7cd080ec66148904719709d335f6f4eda21a83e600ff1ed3",
+      "deterministicStdoutSha256": "f3edb83aaed25049e0180cefde00e733fb4fc7c0a0c55a905dc8fbd5061e7b7f",
+      "staticGate": {
+        "completedSha256": "7ece5ed0d09cab1f6ba1934d76b4894ab5e25f346e8e436a6e46e87e02aaae36",
+        "verificationSha256": "f7da8c82d43cb3148fe6d970a782c0402d3599eb94cd4946880a3c58a4c7fa85",
+        "derivedSha256": "aa19e29aeaa49b748ea5028d86543919a0ba14344c4ebd9e3e0a886efa816e8c",
+        "review": {
+          "modelProseApproved": false,
+          "controllerProseReviewed": true,
+          "requests": {
+            "draft": 1,
+            "freshReview": 1,
+            "repair": 0
+          },
+          "method": "Gemini-draft-and-fresh-same-model-review-plus-controller-fidelity-correction",
+          "controllerCorrections": 0,
+          "controllerReviewSchema": "markov-mixing-controller-correction-v1",
+          "controllerChangedFields": 1,
+          "controllerChanges": 1,
+          "evidence": [
+            {
+              "path": "reviews/translations/markov-mixing-20261013/ru/mixing.controller.proposal.json",
+              "sha256": "b62fa476948f484363d8a224db623f4d91fed61c945131bde8db4532c89cbdfc"
+            },
+            {
+              "path": "reviews/translations/markov-mixing-20261013/ru/mixing.controller.provenance.json",
+              "sha256": "9ca63672c07ab0265a1e1d810ea7e86b644621d1a7da9eb3fab67077e0bf8277"
+            },
+            {
+              "path": "reviews/translations/markov-mixing-20261013/ru/mixing.review.proposal.json",
+              "sha256": "f89eb5cf25918e1a5a624b1226a1072adae185cf938deb136324f0858b41e9f0"
+            },
+            {
+              "path": "reviews/translations/markov-mixing-20261013/ru/mixing.failed.json",
+              "sha256": "2d3bd17060605d843d2520e347e7f3adbf1f49710037775878e0f102ce947e41"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "locale": "zh",
+      "sourceKind": "staged-campaign",
+      "path": "reviews/translations/markov-mixing-20261013/zh/markov-groups.srwb",
+      "targetSha256": "e799f7b1174a4953d3113369dc3aacfa1d51f7d3f106ec8af550bd884c80159b",
+      "predecessorSha256": "28cbeed737435c0a95d0491d11026180d1046e6f222211c613d211fe5471d97a",
+      "derivedSpanCounts": {
+        "14": 8,
+        "16": 9,
+        "18": 10
+      },
+      "cells": 19,
+      "preservedCoreCells": 13,
+      "movesExecuted": 10000,
+      "plots": {
+        "count": 6,
+        "traceCounts": [
+          2,
+          2,
+          2,
+          1,
+          1,
+          1
+        ],
+        "histogramBars": [
+          24,
+          24,
+          24
+        ],
+        "heatmapTiles": [
+          504,
+          504,
+          504
+        ],
+        "cellEdgeShapes": [
+          50,
+          50,
+          50
+        ],
+        "protectedPayloadSha256": "bcef7ae6ba722896244f93f99f44defd426d4fb45334bf631a85b28e204d11d4",
+        "localizedLabelsSha256": "7896903fc2901e7a61b7fb038b472a38e14d0c5ee3f58483dc14da50eb49415a"
+      },
+      "snapshots": [
+        {
+          "steps": 100,
+          "singleVisitTV": 0.3833333333333333,
+          "exactEndPositionTV": 1.4224732503009818e-16,
+          "jointVisitTV": 0.878968253968254
+        },
+        {
+          "steps": 1000,
+          "singleVisitTV": 0.137,
+          "exactEndPositionTV": 7.28583859910259e-17,
+          "jointVisitTV": 0.4029206349206349
+        },
+        {
+          "steps": 10000,
+          "singleVisitTV": 0.03496666666666665,
+          "exactEndPositionTV": 7.28583859910259e-17,
+          "jointVisitTV": 0.13455714285714288
+        }
+      ],
+      "numericStdoutSha256": "e2b80dce2294a8fb7cd080ec66148904719709d335f6f4eda21a83e600ff1ed3",
+      "deterministicStdoutSha256": "809cde1b526a5f344ea125601e26c6da76ed7d0b9ca102eb84f916dd5a46f058",
+      "staticGate": {
+        "completedSha256": "5b4ab0acf8c74af2e9e8e9a2b2c0b0a6ec0668ee31929864c27ba38d31cfcfa8",
+        "verificationSha256": "929c81ca32fcb920bfa20db73b68e0d7738ad376bc84815015826f384fd177e4",
+        "derivedSha256": "08014a864479c0e8e4b507816691719acecb3c5b675b11cce05ccf55dd1bf2ec",
+        "review": {
+          "modelProseApproved": false,
+          "controllerProseReviewed": true,
+          "requests": {
+            "draft": 1,
+            "freshReview": 1,
+            "repair": 0
+          },
+          "method": "Gemini-draft-and-fresh-same-model-review-plus-controller-fidelity-correction",
+          "controllerCorrections": 0,
+          "controllerReviewSchema": "markov-mixing-controller-correction-v1",
+          "controllerChangedFields": 1,
+          "controllerChanges": 2,
+          "evidence": [
+            {
+              "path": "reviews/translations/markov-mixing-20261013/zh/mixing.controller.proposal.json",
+              "sha256": "2e76ca8112cf8e8105ca25cb1d1be83f98742e2c1a7801ae25d1b118b552aa34"
+            },
+            {
+              "path": "reviews/translations/markov-mixing-20261013/zh/mixing.controller.provenance.json",
+              "sha256": "f41c4dec9e6434c75e80c23e1aaef299f0a24d515a1d0fe06c79f44fc4e601b0"
+            },
+            {
+              "path": "reviews/translations/markov-mixing-20261013/zh/mixing.review.proposal.json",
+              "sha256": "f4bcab16b5b840de9061074c1b3efb6d2e4549ad552dc59645226a34ce65c0d1"
+            },
+            {
+              "path": "reviews/translations/markov-mixing-20261013/zh/mixing.failed.json",
+              "sha256": "3064ece06af14624feaba8472be8a772caaf02931bb51eecb296c5be26739b10"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

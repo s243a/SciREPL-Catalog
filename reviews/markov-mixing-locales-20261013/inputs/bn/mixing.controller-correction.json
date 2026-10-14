@@ -1,0 +1,34 @@
+{
+  "status": "controller-existing-glossary-reuse",
+  "field": "markdown:17",
+  "corrections": [
+    {
+      "from": "U (up)",
+      "to": "U (ওপর)"
+    },
+    {
+      "from": "D (down)",
+      "to": "D (নিচ)"
+    },
+    {
+      "from": "F (front)",
+      "to": "F (সামনে)"
+    },
+    {
+      "from": "B (back)",
+      "to": "B (পেছনে)"
+    },
+    {
+      "from": "L (left)",
+      "to": "L (বাম)"
+    },
+    {
+      "from": "R (right)",
+      "to": "R (ডান)"
+    }
+  ],
+  "originalProposalSha256": "a76212a54302cda84da21406ec4188b04893618d9513bea13449ec5a118f6856",
+  "correctedProposalSha256": "a99cb9310dd28414e17ce4fdbeaebaed7a3c034ecf80857b371271b0867e845e",
+  "modelRequests": 0,
+  "reason": "Use the six previously published Bengali face-name words for untranslated English table labels. IDs/table associations are unchanged; Gemini draft/review remain immutable."
+}

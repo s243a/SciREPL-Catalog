@@ -1,0 +1,30 @@
+{
+  "schema": "markov-mixing-controller-correction-v1",
+  "locale": "ru",
+  "workbook": "markov-groups",
+  "englishSha256": "2daf77aa872a7210cc16083535b1c244fb2cfbc288d60f688b85f0736633c430",
+  "method": "controller-correction-after-model-gate-failure",
+  "reviewedProposalPath": "reviews/translations/markov-mixing-20261013/ru/mixing.review.proposal.json",
+  "reviewedProposalSha256": "f89eb5cf25918e1a5a624b1226a1072adae185cf938deb136324f0858b41e9f0",
+  "proposalPath": "reviews/translations/markov-mixing-20261013/ru/mixing.controller.proposal.json",
+  "proposalSha256": "b62fa476948f484363d8a224db623f4d91fed61c945131bde8db4532c89cbdfc",
+  "failurePath": "reviews/translations/markov-mixing-20261013/ru/mixing.failed.json",
+  "changedFields": [
+    "markdown:17"
+  ],
+  "changes": [
+    {
+      "before": "A heatmap tile represents one ordered pair:",
+      "after": "Плитка теплокарты представляет одну упорядоченную пару:"
+    }
+  ],
+  "unchangedFields": 29,
+  "modelRequestsMadeByThisCorrection": 0,
+  "modelProseApproved": false,
+  "nativeSpeakerReview": "pending",
+  "staticGates": "proposal KEEP/script/residue gates passed; span application and derived-manifest verification not yet run",
+  "runtimeReview": "pending",
+  "renderedReview": "pending",
+  "promoted": false,
+  "caveat": "The complete saved Gemini fresh review is retained unchanged. These narrow controller corrections are not Gemini-approved or native-speaker reviewed."
+}

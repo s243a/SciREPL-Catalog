@@ -1,0 +1,24 @@
+{
+  "status": "controller-notation-and-numeric-word-fidelity",
+  "changes": [
+    {
+      "field": "markdown:15",
+      "from": "0 기반 위치 0",
+      "to": "영부터 세는 위치 0"
+    },
+    {
+      "field": "markdown:17",
+      "from": "0이 아닌 확률",
+      "to": "영이 아닌 확률"
+    },
+    {
+      "field": "markdown:17",
+      "from": "`(라벨 1의 위치, 라벨 3의 위치)`",
+      "to": "`(position of label 1, position of label 3)`"
+    }
+  ],
+  "originalProposalSha256": "ebe397a633a9a66f0aa6aba2287612d2ea9abcce78bb12ede3ca9e91526809c2",
+  "correctedProposalSha256": "8c0e08e45a2f2d05f63bcff6447c8cf3a8af160117c73288251728628750e15a",
+  "modelRequests": 0,
+  "reason": "Restore protected tuple notation or use spelled-out zero/equivalent axis-count wording to preserve the source numeric-token multiplicity. Numerical meaning and table associations are unchanged; draft/review remain immutable."
+}

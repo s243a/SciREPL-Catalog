@@ -7,13 +7,15 @@ import { pathToFileURL } from 'node:url';
 import { MARKOV_STAGE4_PARTS } from './markov-stage4.mjs';
 import { applyStage4MathDirection, unwrappedStage4Parts,
   STAGE4_MATH_OPEN, STAGE4_MATH_CLOSE } from './markov-stage4-math-direction.mjs';
+import { projectMarkovHistoricalCore } from './markov-mixing-history.mjs';
 
 export function testStage4MathDirection() {
   let checks = 0;
   const check = action => { action(); checks++; };
   // Source formulas are protected identically in every locale. Using English
   // as an Arabic fixture avoids depending on whether Arabic was published yet.
-  const raw = JSON.parse(readFileSync(new URL('../workbooks/en/markov-groups.srwb', import.meta.url), 'utf8'));
+  const raw = projectMarkovHistoricalCore(JSON.parse(readFileSync(
+    new URL('../workbooks/en/markov-groups.srwb', import.meta.url), 'utf8')), 'en');
   const before = JSON.stringify(raw), wrapped = applyStage4MathDirection(raw, 'ar');
   check(() => assert.equal(JSON.stringify(raw), before));
   check(() => assert.deepEqual(applyStage4MathDirection(wrapped, 'ar', { reverse: true }), raw));

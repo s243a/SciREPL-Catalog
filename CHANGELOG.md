@@ -5,6 +5,24 @@ and work deliberately deferred.
 
 ## Unreleased
 
+- Added six optional Markov Groups cells after the unchanged 13-cell core,
+  in all 13 editions: a recursive one-sticker visit histogram and a dependent
+  two-sticker joint heatmap, with seeded 100/1000/10000-move checkpoints.
+  Both tracked positions receive the same move. The 24-by-24 corner grid
+  masks 72 same-cubie pairs and contains 504 reachable ordered pairs;
+  every row and column has 21 reachable tiles and three forbidden gaps.
+- Explain consecutive displayed corner indices 1–24 versus original cube
+  position IDs, conditional forbidden slots, time-averaged visits versus
+  exact end-position probabilities, and why patchy finite samples do not
+  establish a whole-cube mixing time. The core lesson and its historical
+  receipts remain unchanged; all new full-workbook evidence is separate.
+- The bounded statistics campaign used 23 tool-free model requests, with
+  no retries or repair calls. German uses a fresh controller/manual fallback
+  after its first response was truncated. Narrow controller corrections in
+  other editions are recorded separately from immutable model responses.
+  Native-speaker review remains pending. Only the 13 Markov item revisions
+  advance to 7; no catalogue version, app version or release tag changes.
+
 - Clarified fixed global axes, local face-view right/up directions, outward
   normals and the front-to-top paper tilt in all 13 Markov Groups editions.
   Added two self-contained, accessible inline SVGs, readable in light/dark

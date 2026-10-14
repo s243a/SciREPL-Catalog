@@ -1,0 +1,270 @@
+{
+  "schema": "markov-mixing-prose-review-v1",
+  "locale": "pt-BR",
+  "englishSha256": "2daf77aa872a7210cc16083535b1c244fb2cfbc288d60f688b85f0736633c430",
+  "targetSha256": "a7201bee4446687cc68e292fd5393544d5b11c5e62dfba622b529b255ccfb4ec",
+  "fieldsSha256": "9384a5386aacb17c25a28a868e152b5cee35fbdb77f5c9e77a4497d44ee609fd",
+  "predecessorCommit": "f88d9b9e26364eeb5e7ff1ee9bcce5f27d47c66e",
+  "status": "passed",
+  "method": "Gemini-draft-and-fresh-same-model-review-plus-controller-notation-and-numeric-word-fidelity",
+  "model": "gemini-3.8-flash-medium",
+  "modelProseApproved": true,
+  "controllerProseReviewed": true,
+  "requests": {
+    "draft": 1,
+    "freshReview": 1,
+    "repair": 0
+  },
+  "maximumRequests": {
+    "draft": 1,
+    "freshReview": 1,
+    "repair": 0
+  },
+  "nativeSpeakerReview": "pending",
+  "caveat": "Machine-translated or controller-authored fallback; native-speaker review pending. Structural/numerical/render checks are not language certification.",
+  "proposal": {
+    "entries": [
+      {
+        "book": "markov-groups",
+        "field": "markdown:13",
+        "text": "## Experimento opcional — frequências de visitas\n\nA lição principal de 13 células acima está completa. Pule tudo abaixo se desejar apenas os exemplos principais. Para participar, primeiro execute as células Python principais em ordem; depois execute `mixing_setup`, `sticker_visits` e `joint_visits` abaixo. Esses experimentos usam o NumPy fornecido pelo aplicativo e o `mplot`, sem instalação de pacotes, solicitação de rede iniciada pelo caderno, dados externos, chamada de modelo ou gravação de arquivos. O padrão é 10000 movimentos, com capturas instantâneas após 100, 1000 e 10000 movimentos.\n\nA configuração constrói as 13 escolhas a partir das permutações existentes: identidade, seis giros de face e seus seis inversos, cada um com igual probabilidade. A busca em largura começa na posição 0 e aplica repetidamente cada escolha para descobrir a órbita de um adesivo; o código verifica que existem 24 posições alcançáveis de adesivos de quina. Ele deriva os encaixes físicos de cubinhos de quina a partir dos quadros de faces da Etapa 1 e verifica que cada movimento transporta todos os três adesivos de cada cubinho juntos. Os valores 24 e 8 são verificações, não entradas para a busca ou probabilidades-alvo.\n\nPara um segundo adesivo, a busca começa no par ordenado `(0, 2)`, as posições resolvidas dos rótulos 1 e 3. Em cada etapa de busca, ela aplica o MESMO movimento a ambas as coordenadas. A máscara resultante é comparada com a relação de encaixes de cubinhos derivada de forma independente: apenas pares em encaixes de quina diferentes são alcançáveis. Existem 504 pares ordenados alcançáveis e 72 pares mascarados na grade 24 por 24, incluindo sua diagonal. O código deriva ambas as contagens antes de verificá-las. Cada movimento permuta os pares alcançáveis, de modo que contagens de entrada iguais verificam um alvo conjunto uniforme estacionário. A identidade fornece laços nos próprios nós, e a busca verifica a conectividade dentro de cada órbita rastreada; estes são experimentos de estados reduzidos, não uma enumeração de configurações de cubo inteiro."
+      },
+      {
+        "book": "markov-groups",
+        "field": "markdown:15",
+        "text": "### Um adesivo — um histograma recursivo de visitas\n\nRastreie o rótulo 1, inicialmente na posição 0 de base zero. Cada iteração escolhe um dos 13 movimentos uniformemente, atualiza a posição anterior por sua permutação e incrementa a contagem daquele destino. Conte as visitas APÓS os movimentos; a posição inicial não é contada. A semente 20261007 torna o caminho reproduzível, não uniformemente misturado. Cada histograma divide as contagens acumuladas pelo número de movimentos. O eixo horizontal seleciona os 24 IDs de posições de quina da numeração original do cubo `0..53`; ele não contém 54 barras. Rótulos de marcação esparsos mostram apenas alguns desses IDs, mas cada posição de quina tem uma barra. A próxima seção explica a contagem de quatro quinas por face e lista todos os 24 IDs. A linha tracejada é o alvo estacionário `1/24`.\n\nEsta é uma média temporal empírica de UMA trajetória correlacionada. Não é a distribuição exata da posição do adesivo no movimento n. O código avança separadamente a `exact_probability` por `corner_T` a cada vez; esta é a versão restrita a quinas de `T^n @ location_probability` a partir do início resolvido. As distâncias impressas comparam cada distribuição com seu alvo uniforme usando metade da soma das diferenças absolutas. A amostra finita não precisa melhorar a cada captura instantânea, e nenhum histograma estabelece a mistura do cubo inteiro ou um tempo de mistura do cubo inteiro."
+      },
+      {
+        "book": "markov-groups",
+        "field": "markdown:17",
+        "text": "### Dois adesivos — um mapa de calor conjunto de movimentos compartilhados\n\nRastreie os rótulos 1 e 3, começando nas posições 0 e 2 em cubinhos de quina DIFERENTES. Escolha UM movimento uniformemente aleatório por iteração e aplique-o a AMBAS as posições. A semente é redefinida para que a primeira coordenada siga exatamente o mesmo caminho amostrado do histograma; as somas das colunas do mapa de calor conjunto são verificadas em relação àquele histograma. Estas são coordenadas dependentes de um cubo, não dois cubos independentes. Não use `T ⊗ T`: isso escolheria movimentos independentes e permitiria pares impossíveis no mesmo cubinho.\n\n#### Leia os eixos: 24 posições de quina por adesivo\n\nO eixo horizontal fornece a posição do adesivo de rótulo 1; o vertical fornece a posição do adesivo de rótulo 3. Cada eixo tem 24 destinos possíveis, não apenas as quatro quinas da face inicial do adesivo: sequências de giros de face podem transportá-lo entre faces. Existem quatro posições de adesivo de quina em cada uma das seis faces, portanto `4 × 6 = 24`. De modo equivalente, oito quinas físicas têm, cada uma, três posições de adesivo voltadas para as faces: `8 × 3 = 24`. Um adesivo de quina nunca se move para uma posição de meio ou de centro. O cubo tem 48 posições que não são de centro ao todo, mas 24 delas pertencem a meios e não são destinos para nenhum dos adesivos que seguimos.\n\nOs eixos do mapa de calor agora usam índices de quina consecutivos `1..24`, NÃO os IDs originais do cubo `0..53`. Isso torna o tamanho da grade visível: 24 colunas e 24 linhas. Um índice simplesmente seleciona uma entrada da tabela abaixo; não é um novo rótulo de adesivo ou uma distância física. Por exemplo, os índices `1, 2, 3, 4` selecionam os IDs de posição originais `0, 2, 6, 8`. Apenas alguns rótulos de marcação são impressos para caber na tela de um telefone, mas todas as 24 linhas e colunas estão presentes. O título diz `24 × 24`; limites tênues de células marcam todos os 24 espaços em cada direção, incluindo os ladrilhos proibidos. Conte os espaços, não os intervalos entre as marcas de graduação: 24 centros de células têm apenas 23 intervalos entre eles. O texto ao passar o cursor informa o par ORIGINAL de IDs de posição seguido por sua frequência de visitas. O histograma de um adesivo acima mantém seus rótulos de ID de posição originais.\n\n| Índices do mapa de calor (face) | IDs originais de posições de quina |\n| --- | --- |\n| 1–4: U (cima) | `0, 2, 6, 8` |\n| 5–8: D (baixo) | `9, 11, 15, 17` |\n| 9–12: F (frente) | `18, 20, 24, 26` |\n| 13–16: B (trás) | `27, 29, 33, 35` |\n| 17–20: L (esquerda) | `36, 38, 42, 44` |\n| 21–24: R (direita) | `45, 47, 51, 53` |\n\nUm ladrilho do mapa de calor representa um par ordenado: `(position of label 1, position of label 3)`. Os dois eixos de 24 posições perfazem, portanto, `24 × 24 = 576` ladrilhos potenciais, não uma grade 48 por 48 ou 54 por 54. Os dois adesivos pertencem a peças de quina diferentes, de modo que não podem ocupar nenhuma das três posições de adesivo da mesma quina física. Isso descarta `8 × 3 × 3 = 72` ladrilhos, restando `24 × 21 = 504` pares ordenados alcançáveis.\n\n#### Por que três pares são proibidos em cada linha e coluna\n\nUma peça física de quina tem três adesivos, um em cada uma das três faces que se encontram naquela quina. Um giro de face transporta essa peça inteira; ele não descola seus adesivos. Os rótulos 1 e 3 começaram em peças de quina DIFERENTES, e essas peças devem sempre ocupar encaixes físicos de quina diferentes. Uma vez fixada a posição de qualquer um dos adesivos rastreados, todas as três posições voltadas para as faces daquele encaixe de quina ficam proibidas para o outro adesivo. É por isso que existem exatamente três lacunas em cada linha E em cada coluna.\n\nPor exemplo, os IDs originais `0` (U), `29` (B) e `36` (L) são três visualizações do MESMO encaixe de quina superior-traseira-esquerda, não três peças de quina separadas. Se o adesivo de rótulo 3 ocupar o ID 0, o adesivo de rótulo 1 não poderá ocupar NENHUM desses três IDs: isso colocaria sua peça de quina diferente no mesmo encaixe. Mover o adesivo de rótulo 3 para outra quina altera os três IDs proibidos. Não há lista permanente de três posições inutilizáveis; estas são restrições condicionais em pares de posições.\n\nPor exemplo, a linha inferior fixa o adesivo de rótulo 3 no índice de quina 1, que seleciona o ID de posição original 0. Ela tem 24 encaixes horizontais, mas apenas 21 ladrilhos coloridos e alcançáveis: as três lacunas são o adesivo de rótulo 1 nos índices de quina `1, 14, 17` (IDs originais `0, 29, 36`), as três posições voltadas para as faces dessa mesma quina física. A coluna mais à esquerda tem as mesmas três lacunas. Assim, contar apenas os ladrilhos coloridos resulta em 21, não 24; as lacunas são PARES proibidos, não três posições removidas de qualquer um dos eixos. Cada linha e coluna tem três lacunas desse tipo. Os 30 IDs de meios e de centros já foram omitidos ao construir os eixos de 24 posições; eles não são as lacunas pretas nesta grade.\n\nAs lacunas transparentes são aqueles 72 pares impossíveis no mesmo cubinho, NÃO estados não visitados. Isso corresponde a um oitavo da grade: a diagonal principal mais 48 ladrilhos fora da diagonal. As linhas de grade dos eixos através dos centros das células estão desligadas. Os contornos tênues são limites de células, não dados ou probabilidades diferentes de zero dentro das lacunas. Células zero coloridas são pares alcançáveis que ainda não tiveram visitas amostradas. O alvo estacionário é `1/504` para cada um dos 504 pares ORDENADOS alcançáveis, não `1/576`. O denominador vem da busca em largura com movimento comum, não da multiplicação independente de alvos marginais.\n\nCada mapa de calor é uma média acumulada de visitas após 100, 1000 ou 10000 movimentos. Sua escala de cores começa no zero e se adapta ao máximo daquela captura instantânea; compare as distâncias impressas em vez de comparar cores entre capturas instantâneas. Aos 10000 movimentos há apenas cerca de 20 visitas por par alcançável em média, de modo que um mapa com manchas pode permanecer mesmo após muitos movimentos; visitas sucessivas também são correlacionadas. A máscara, o caminho amostrado, as frequências e os gráficos são gerados pelo código real, e nenhuma alegação de uniformidade ou de tempo de mistura de cubo completo decorre de qualquer uma das projeções reduzidas."
+      },
+      {
+        "book": "markov-groups",
+        "field": "span:14:0:0",
+        "text": "Configuração opcional: use as mesmas permutações de origem para destino que na Etapa 4."
+      },
+      {
+        "book": "markov-groups",
+        "field": "span:14:2:0",
+        "text": "Os quadros da Etapa 1 identificam encaixes físicos de cubinhos, não rótulos de adesivos."
+      },
+      {
+        "book": "markov-groups",
+        "field": "span:14:4:0",
+        "text": "A busca em largura aplica UM movimento comum ao par ordenado."
+      },
+      {
+        "book": "markov-groups",
+        "field": "span:14:6:0",
+        "text": "Cada gerador permuta os pares alcançáveis; contagens de entrada iguais certificam"
+      },
+      {
+        "book": "markov-groups",
+        "field": "span:14:8:0",
+        "text": "um alvo uniforme estacionário sem alocar uma matriz 504 por 504."
+      },
+      {
+        "book": "markov-groups",
+        "field": "span:14:16:0",
+        "text": "Posições de quina:"
+      },
+      {
+        "book": "markov-groups",
+        "field": "span:14:18:0",
+        "text": "Pares ordenados alcançáveis:"
+      },
+      {
+        "book": "markov-groups",
+        "field": "span:14:20:0",
+        "text": "Pares mascarados no mesmo cubinho:"
+      },
+      {
+        "book": "markov-groups",
+        "field": "span:16:0:0",
+        "text": "Conte as posições APÓS cada movimento; a posição inicial não é uma visita."
+      },
+      {
+        "book": "markov-groups",
+        "field": "span:16:2:0",
+        "text": "Um adesivo"
+      },
+      {
+        "book": "markov-groups",
+        "field": "span:16:6:0",
+        "text": "passos"
+      },
+      {
+        "book": "markov-groups",
+        "field": "span:16:18:0",
+        "text": "Visitas observadas"
+      },
+      {
+        "book": "markov-groups",
+        "field": "span:16:40:0",
+        "text": "Alvo uniforme"
+      },
+      {
+        "book": "markov-groups",
+        "field": "span:16:54:0",
+        "text": "Posição do rótulo 1"
+      },
+      {
+        "book": "markov-groups",
+        "field": "span:16:56:0",
+        "text": "Frequência de visitas"
+      },
+      {
+        "book": "markov-groups",
+        "field": "span:16:130:0",
+        "text": "passos; distância média de visitas:"
+      },
+      {
+        "book": "markov-groups",
+        "field": "span:16:132:0",
+        "text": "distância exata da posição final:"
+      },
+      {
+        "book": "markov-groups",
+        "field": "span:18:0:0",
+        "text": "Redefina a semente: a primeira coordenada segue o MESMO caminho do histograma."
+      },
+      {
+        "book": "markov-groups",
+        "field": "span:18:66:0",
+        "text": "O Plotly Basic suporta ladrilhos de barras, não seu traço de mapa de calor nativo opcional."
+      },
+      {
+        "book": "markov-groups",
+        "field": "span:18:68:0",
+        "text": "Omita células impossíveis; cada zero alcançável permanece um ladrilho colorido."
+      },
+      {
+        "book": "markov-groups",
+        "field": "span:18:74:0",
+        "text": "Dois adesivos"
+      },
+      {
+        "book": "markov-groups",
+        "field": "span:18:78:0",
+        "text": "passos"
+      },
+      {
+        "book": "markov-groups",
+        "field": "span:18:154:0",
+        "text": "Frequência de visitas"
+      },
+      {
+        "book": "markov-groups",
+        "field": "span:18:160:0",
+        "text": "Índice de quina do rótulo 1"
+      },
+      {
+        "book": "markov-groups",
+        "field": "span:18:162:0",
+        "text": "Índice de quina do rótulo 3"
+      },
+      {
+        "book": "markov-groups",
+        "field": "span:18:248:0",
+        "text": "passos; distância média conjunta de visitas:"
+      },
+      {
+        "book": "markov-groups",
+        "field": "span:18:250:0",
+        "text": "Alvo uniforme por par ordenado alcançável:"
+      }
+    ]
+  },
+  "proposalSha256": "9962e14307dc9fd39133bc777c7f52b3820974ac24d076b0bcfca6ce762666f8",
+  "savedProposalSha256": "9962e14307dc9fd39133bc777c7f52b3820974ac24d076b0bcfca6ce762666f8",
+  "draftProposalSha256": "83cbb18dfefb8aa02d2dfd2466392a5b8806f01630c050a5162e8a336f69fea8",
+  "modelReviewProposalSha256": "fcd0243643fd16501ec79aa11898b7b5c4ce5ac1a3690a5d858346af7720a6e2",
+  "controllerCorrections": {
+    "status": "controller-notation-and-numeric-word-fidelity",
+    "changes": [
+      {
+        "field": "markdown:17",
+        "from": "`(posição do rótulo 1, posição do rótulo 3)`",
+        "to": "`(position of label 1, position of label 3)`"
+      }
+    ],
+    "originalProposalSha256": "fcd0243643fd16501ec79aa11898b7b5c4ce5ac1a3690a5d858346af7720a6e2",
+    "correctedProposalSha256": "9962e14307dc9fd39133bc777c7f52b3820974ac24d076b0bcfca6ce762666f8",
+    "modelRequests": 0,
+    "reason": "Restore protected tuple notation or use spelled-out zero/equivalent axis-count wording to preserve the source numeric-token multiplicity. Numerical meaning and table associations are unchanged; draft/review remain immutable."
+  },
+  "localEvidenceHashes": {
+    "reviews/translations/markov-mixing-20261013/pt-BR/mixing.started.json": "bc66ab89e420993b8a02c0beaa426bafb3ced3d5c170506261b800d13e4ce144",
+    "reviews/translations/markov-mixing-20261013/pt-BR/mixing.draft.dispatched.json": "e905618bbaa054a50eb2676c2b131fe6da3cb4af559836b9eec3170bc04915ff",
+    "reviews/translations/markov-mixing-20261013/pt-BR/mixing.review.dispatched.json": "429cb0bfd8db317f797f8f912162f714dc4a1af4a966f76fb8ee9f59f0b09d5f",
+    "reviews/translations/markov-mixing-20261013/pt-BR/mixing.draft.transport.json": "3554b6ffdc38a3d05bd9bb169461606a4eedc36bb0463c5b7bb5c7cd136c117b",
+    "reviews/translations/markov-mixing-20261013/pt-BR/mixing.review.transport.json": "afef696d26a0510265b7796da5b7981b4d31a47435abda82e4bcdb566939e6b0",
+    "reviews/translations/markov-mixing-20261013/pt-BR/mixing.failed.json": "f76e6909e8291441d1744e704c5150f49242631c260a0a44cce734d2dd9e73c8",
+    "reviews/translations/markov-mixing-20261013/pt-BR/mixing.controller.proposal.json": "9962e14307dc9fd39133bc777c7f52b3820974ac24d076b0bcfca6ce762666f8",
+    "reviews/translations/markov-mixing-20261013/pt-BR/mixing.controller-correction.json": "227fd95a7248d3efb2f8891a485e0cb9d25844df38115970dbf1dfd013b2aada",
+    "reviews/translations/markov-mixing-20261013/pt-BR/mixing.review.proposal.json": "fcd0243643fd16501ec79aa11898b7b5c4ce5ac1a3690a5d858346af7720a6e2"
+  },
+  "inputCopies": [
+    {
+      "sourcePath": "reviews/translations/markov-mixing-20261013/pt-BR/mixing.started.json",
+      "path": "reviews/markov-mixing-locales-20261013/inputs/pt-BR/mixing.started.json",
+      "sha256": "bc66ab89e420993b8a02c0beaa426bafb3ced3d5c170506261b800d13e4ce144"
+    },
+    {
+      "sourcePath": "reviews/translations/markov-mixing-20261013/pt-BR/mixing.completed.json",
+      "path": "reviews/markov-mixing-locales-20261013/inputs/pt-BR/mixing.completed.json",
+      "sha256": "14065241d146de59fd0b666c9e6168e904c04c419d763f9a0ccb1297b7147b0f"
+    },
+    {
+      "sourcePath": "reviews/translations/markov-mixing-20261013/pt-BR/mixing.controller.proposal.json",
+      "path": "reviews/markov-mixing-locales-20261013/inputs/pt-BR/mixing.controller.proposal.json",
+      "sha256": "9962e14307dc9fd39133bc777c7f52b3820974ac24d076b0bcfca6ce762666f8"
+    },
+    {
+      "sourcePath": "reviews/translations/markov-mixing-20261013/pt-BR/mixing.controller-correction.json",
+      "path": "reviews/markov-mixing-locales-20261013/inputs/pt-BR/mixing.controller-correction.json",
+      "sha256": "227fd95a7248d3efb2f8891a485e0cb9d25844df38115970dbf1dfd013b2aada"
+    },
+    {
+      "sourcePath": "reviews/translations/markov-mixing-20261013/pt-BR/mixing.review.proposal.json",
+      "path": "reviews/markov-mixing-locales-20261013/inputs/pt-BR/mixing.review.proposal.json",
+      "sha256": "fcd0243643fd16501ec79aa11898b7b5c4ce5ac1a3690a5d858346af7720a6e2"
+    },
+    {
+      "sourcePath": "reviews/translations/markov-mixing-20261013/pt-BR/mixing.draft.proposal.json",
+      "path": "reviews/markov-mixing-locales-20261013/inputs/pt-BR/mixing.draft.proposal.json",
+      "sha256": "83cbb18dfefb8aa02d2dfd2466392a5b8806f01630c050a5162e8a336f69fea8"
+    },
+    {
+      "sourcePath": "reviews/translations/markov-mixing-20261013/pt-BR/mixing.failed.json",
+      "path": "reviews/markov-mixing-locales-20261013/inputs/pt-BR/mixing.failed.json",
+      "sha256": "f76e6909e8291441d1744e704c5150f49242631c260a0a44cce734d2dd9e73c8"
+    }
+  ],
+  "runtimeReview": {
+    "modelProseApproved": true,
+    "controllerProseReviewed": true,
+    "requests": {
+      "draft": 1,
+      "freshReview": 1,
+      "repair": 0
+    },
+    "method": "Gemini-draft-and-fresh-same-model-review-plus-controller-notation-and-numeric-word-fidelity",
+    "controllerCorrections": 1,
+    "evidence": [
+      {
+        "path": "reviews/translations/markov-mixing-20261013/pt-BR/mixing.controller.proposal.json",
+        "sha256": "9962e14307dc9fd39133bc777c7f52b3820974ac24d076b0bcfca6ce762666f8"
+      },
+      {
+        "path": "reviews/translations/markov-mixing-20261013/pt-BR/mixing.controller-correction.json",
+        "sha256": "227fd95a7248d3efb2f8891a485e0cb9d25844df38115970dbf1dfd013b2aada"
+      },
+      {
+        "path": "reviews/translations/markov-mixing-20261013/pt-BR/mixing.review.proposal.json",
+        "sha256": "fcd0243643fd16501ec79aa11898b7b5c4ce5ac1a3690a5d858346af7720a6e2"
+      }
+    ]
+  }
+}

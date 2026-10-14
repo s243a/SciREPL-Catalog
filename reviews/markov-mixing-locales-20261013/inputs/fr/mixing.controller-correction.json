@@ -1,0 +1,39 @@
+{
+  "status": "controller-reviewed-notation-and-wording",
+  "changes": [
+    {
+      "field": "markdown:13",
+      "from": "L'identité",
+      "to": "Le mouvement identité"
+    },
+    {
+      "field": "markdown:15",
+      "from": "L'axe horizontal",
+      "to": "Cet axe horizontal"
+    },
+    {
+      "field": "markdown:15",
+      "from": "L'échantillon fini",
+      "to": "Un échantillon fini"
+    },
+    {
+      "field": "markdown:17",
+      "from": "L'axe horizontal",
+      "to": "Cet axe horizontal"
+    },
+    {
+      "field": "markdown:17",
+      "from": "L'histogramme",
+      "to": "Cet histogramme"
+    },
+    {
+      "field": "markdown:17",
+      "from": "`(position de l'étiquette 1, position de l'étiquette 3)`",
+      "to": "`(position of label 1, position of label 3)`"
+    }
+  ],
+  "originalProposalSha256": "1c8c4f741f8f6ffec5ac353e6bfbc272b79a0da96690e1a0b01bd631d1ca77c4",
+  "correctedProposalSha256": "84bbe3e096243e74d8944edc5a3dbeb342670f5cd4a8a44259f965bc28c2cb24",
+  "modelRequests": 0,
+  "reason": "Restore protected tuple notation; equivalent French phrasing avoids elided capital L being mistaken for cube face L. Draft/review remain immutable."
+}

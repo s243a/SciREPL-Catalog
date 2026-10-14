@@ -1,0 +1,984 @@
+{
+  "schema": "markov-mixing-fields-v1",
+  "predecessorCommit": "f88d9b9e26364eeb5e7ff1ee9bcce5f27d47c66e",
+  "predecessorEnglishSha256": "98d3d861c7c59f011ca8f25e5148116dcc3c947c32550fc474bea36df23f68de",
+  "candidateEnglishSha256": "2daf77aa872a7210cc16083535b1c244fb2cfbc288d60f688b85f0736633c430",
+  "coreCells": 13,
+  "candidateCells": 19,
+  "markdown": [
+    {
+      "field": "markdown:13",
+      "text": "## Optional experiment — visit frequencies\n\nThe 13-cell core lesson above is complete. Skip everything below if you only want the core examples. To opt in, first run the core Python cells in order; then run `mixing_setup`, `sticker_visits`, and `joint_visits` below. These experiments use app-provided NumPy and `mplot`, with no package installation, workbook-initiated network request, external data, model call, or file write. The default is 10000 moves, with snapshots after 100, 1000, and 10000 moves.\n\nThe setup constructs the 13 choices from the existing permutations: identity, six face turns, and their six inverses, each equally likely. Breadth-first search starts at position 0 and repeatedly applies every choice to discover the one-sticker orbit; the code checks that there are 24 reachable corner-sticker positions. It derives physical corner-cubie slots from the Stage 1 face frames and checks that every move transports all three stickers of each cubie together. The values 24 and 8 are checks, not inputs to the search or target probabilities.\n\nFor a second sticker, the search starts at the ordered pair `(0, 2)`, the solved positions of labels 1 and 3. At every search step it applies the SAME move to both coordinates. The resulting mask is compared with the independently derived cubie-slot relation: only pairs in different corner slots are reachable. There are 504 reachable ordered pairs and 72 masked pairs on the 24-by-24 grid, including its diagonal. The code derives both counts before checking them. Each move permutes the reachable pairs, so equal incoming counts verify a stationary uniform joint target. Identity supplies self-loops, and the search verifies connectivity within each tracked orbit; these are reduced-state experiments, not enumeration of whole-cube configurations."
+    },
+    {
+      "field": "markdown:15",
+      "text": "### One sticker — a recursive visit histogram\n\nTrack label 1, initially at zero-based position 0. Each iteration chooses one of the 13 moves uniformly, updates the previous position by its permutation, and increments that destination's count. Count visits AFTER moves; the starting position is not counted. The seed 20261007 makes the path reproducible, not uniformly mixed. Each histogram divides accumulated counts by the number of moves. The horizontal axis selects the 24 corner-position IDs from the original cube numbering `0..53`; it does not contain 54 bars. Sparse tick labels show only some of those IDs, but every corner position has a bar. The next section explains the four-corners-per-face count and lists all 24 IDs. The dashed line is the stationary target `1/24`.\n\nThis is an empirical time average from ONE correlated trajectory. It is not the exact distribution of the sticker's position at move n. The code separately advances `exact_probability` by `corner_T` each time; this is the corner-restricted version of `T^n @ location_probability` from the solved start. Printed distances compare each distribution with its uniform target using half the sum of absolute differences. The finite sample need not improve at every snapshot, and no histogram establishes whole-cube mixing or a whole-cube mixing time."
+    },
+    {
+      "field": "markdown:17",
+      "text": "### Two stickers — a shared-move joint heatmap\n\nTrack labels 1 and 3, starting at positions 0 and 2 on DIFFERENT corner cubies. Choose ONE uniformly random move per iteration and apply it to BOTH positions. The seed is reset so the first coordinate follows the histogram's exact same sampled path; the joint heatmap's column sums are checked against that histogram. These are dependent coordinates of one cube, not two independent cubes. Do not use `T ⊗ T`: that would choose independent moves and allow impossible same-cubie pairs.\n\n#### Read the axes: 24 corner positions per sticker\n\nThe horizontal axis gives the position of sticker label 1; the vertical axis gives the position of sticker label 3. Each axis has 24 possible destinations, not just the four corners of the sticker's starting face: sequences of face turns can carry it between faces. There are four corner-sticker positions on each of six faces, so `4 × 6 = 24`. Equivalently, eight physical corners each have three face-facing sticker positions: `8 × 3 = 24`. A corner sticker never moves into an edge or centre position. The cube has 48 non-centre positions altogether, but 24 of those belong to edges and are not destinations for either sticker we follow.\n\nThe heatmap axes now use consecutive corner indices `1..24`, NOT the original cube IDs `0..53`. This makes the grid size visible: 24 columns and 24 rows. An index simply selects one entry from the table below; it is not a new sticker label or a physical distance. For example, indices `1, 2, 3, 4` select original position IDs `0, 2, 6, 8`. Only some tick labels are printed to fit a phone screen, but all 24 rows and columns are present. The title says `24 × 24`; faint cell boundaries mark all 24 spaces in each direction, including the forbidden tiles. Count the spaces, not the intervals between tick marks: 24 cell centres have only 23 intervals between them. Hover text reports the ORIGINAL pair of position IDs followed by its visit frequency. The one-sticker histogram above retains its original position-ID labels.\n\n| Heatmap indices (face) | Original corner position IDs |\n| --- | --- |\n| 1–4: U (up) | `0, 2, 6, 8` |\n| 5–8: D (down) | `9, 11, 15, 17` |\n| 9–12: F (front) | `18, 20, 24, 26` |\n| 13–16: B (back) | `27, 29, 33, 35` |\n| 17–20: L (left) | `36, 38, 42, 44` |\n| 21–24: R (right) | `45, 47, 51, 53` |\n\nA heatmap tile represents one ordered pair: `(position of label 1, position of label 3)`. The two 24-position axes therefore make `24 × 24 = 576` potential tiles, not a 48-by-48 or 54-by-54 grid. The two stickers belong to different corner pieces, so they cannot occupy any of the three sticker positions of the same physical corner. This rules out `8 × 3 × 3 = 72` tiles, leaving `24 × 21 = 504` reachable ordered pairs.\n\n#### Why three pairs are forbidden in every row and column\n\nA physical corner piece has three stickers, one on each of the three faces meeting at that corner. A face turn transports this whole piece; it does not detach its stickers. Labels 1 and 3 started on DIFFERENT corner pieces, and those pieces must always occupy different physical corner slots. Once the position of either tracked sticker is fixed, all three face-facing positions of that corner slot are forbidden for the other sticker. This is why there are exactly three gaps in each row AND each column.\n\nFor example, original IDs `0` (U), `29` (B), and `36` (L) are three views of the SAME upper-back-left corner slot, not three separate corner pieces. If sticker label 3 occupies ID 0, sticker label 1 cannot occupy ANY of those three IDs: that would place its different corner piece in the same slot. Moving sticker label 3 to another corner changes the three forbidden IDs. There is no permanent list of three unusable positions; these are conditional restrictions on pairs of positions.\n\nFor example, the bottom row fixes sticker label 3 at corner index 1, which selects original position ID 0. It has 24 horizontal slots, but only 21 colored, reachable tiles: the three gaps are sticker label 1 at corner indices `1, 14, 17` (original IDs `0, 29, 36`), the three face-facing positions of that same physical corner. The leftmost column has the same three gaps. Thus counting only the colored tiles gives 21, not 24; the gaps are forbidden PAIRS, not three positions removed from either axis. Every row and column has three such gaps. The 30 edge and centre IDs were already omitted when constructing the 24-position axes; they are not the black gaps in this grid.\n\nTransparent gaps are those 72 impossible same-cubie pairs, NOT unvisited states. This is one eighth of the grid: the main diagonal plus 48 off-diagonal tiles. Axis gridlines through cell centres are switched off. The faint outlines are cell boundaries, not data or nonzero probabilities inside the gaps. Colored zero cells are reachable pairs with no sampled visits yet. The stationary target is `1/504` for each of the 504 reachable ORDERED pairs, not `1/576`. The denominator comes from the common-move breadth-first search, not independent multiplication of marginal targets.\n\nEach heatmap is an accumulated visit average after 100, 1000, or 10000 moves. Its color scale starts at zero and adapts to that snapshot's maximum; compare the printed distances rather than comparing colors across snapshots. At 10000 moves there are only about 20 visits per reachable pair on average, so a patchy map can remain even after many moves; successive visits are also correlated. The mask, sample path, frequencies, and plots are generated by the actual code, and no full-cube uniformity or mixing-time claim follows from either reduced projection."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "14:0:0",
+      "kind": "comment",
+      "text": "Optional setup: use the same source-to-destination permutations as Stage 4.",
+      "cell_name": "mixing_setup",
+      "context": "# Optional setup: use the same source-to-destination permutations as Stage 4."
+    },
+    {
+      "id": "14:2:0",
+      "kind": "comment",
+      "text": "The Stage 1 frames identify physical cubie slots, not sticker labels.",
+      "cell_name": "mixing_setup",
+      "context": "# The Stage 1 frames identify physical cubie slots, not sticker labels."
+    },
+    {
+      "id": "14:4:0",
+      "kind": "comment",
+      "text": "Breadth-first search applies ONE common move to the ordered pair.",
+      "cell_name": "mixing_setup",
+      "context": "# Breadth-first search applies ONE common move to the ordered pair."
+    },
+    {
+      "id": "14:6:0",
+      "kind": "comment",
+      "text": "Each generator permutes the reachable pairs; equal incoming counts certify",
+      "cell_name": "mixing_setup",
+      "context": "# Each generator permutes the reachable pairs; equal incoming counts certify"
+    },
+    {
+      "id": "14:8:0",
+      "kind": "comment",
+      "text": "a stationary uniform target without allocating a 504-by-504 matrix.",
+      "cell_name": "mixing_setup",
+      "context": "# a stationary uniform target without allocating a 504-by-504 matrix."
+    },
+    {
+      "id": "14:16:0",
+      "kind": "display_string",
+      "text": "Corner positions:",
+      "cell_name": "mixing_setup",
+      "context": "print(\"Corner positions:\", corner_positions.tolist())"
+    },
+    {
+      "id": "14:18:0",
+      "kind": "display_string",
+      "text": "Reachable ordered pairs:",
+      "cell_name": "mixing_setup",
+      "context": "print(\"Reachable ordered pairs:\", len(joint_reachable))"
+    },
+    {
+      "id": "14:20:0",
+      "kind": "display_string",
+      "text": "Masked same-cubie pairs:",
+      "cell_name": "mixing_setup",
+      "context": "print(\"Masked same-cubie pairs:\", int(same_slot.sum()))"
+    },
+    {
+      "id": "16:0:0",
+      "kind": "comment",
+      "text": "Count positions AFTER each move; the initial position is not a visit.",
+      "cell_name": "sticker_visits",
+      "context": "# Count positions AFTER each move; the initial position is not a visit."
+    },
+    {
+      "id": "16:2:0",
+      "kind": "display_string",
+      "text": "One sticker",
+      "cell_name": "sticker_visits",
+      "context": "visit_title = mixing_wrap(\"One sticker\") + f\"<br>{step} \" + mixing_wrap(\"steps\")"
+    },
+    {
+      "id": "16:6:0",
+      "kind": "display_string",
+      "text": "steps",
+      "cell_name": "sticker_visits",
+      "context": "visit_title = mixing_wrap(\"One sticker\") + f\"<br>{step} \" + mixing_wrap(\"steps\")"
+    },
+    {
+      "id": "16:18:0",
+      "kind": "display_string",
+      "text": "Observed visits",
+      "cell_name": "sticker_visits",
+      "context": "\"name\": mixing_wrap(\"Observed visits\"), \"marker\": {\"color\": \"#4c78a8\"}},"
+    },
+    {
+      "id": "16:40:0",
+      "kind": "display_string",
+      "text": "Uniform target",
+      "cell_name": "sticker_visits",
+      "context": "\"y\": corner_target.tolist(), \"name\": mixing_wrap(\"Uniform target\"),"
+    },
+    {
+      "id": "16:54:0",
+      "kind": "display_string",
+      "text": "Label 1 position",
+      "cell_name": "sticker_visits",
+      "context": "xlabel=mixing_wrap(\"Label 1 position\"), ylabel=mixing_wrap(\"Visit frequency\"),"
+    },
+    {
+      "id": "16:56:0",
+      "kind": "display_string",
+      "text": "Visit frequency",
+      "cell_name": "sticker_visits",
+      "context": "xlabel=mixing_wrap(\"Label 1 position\"), ylabel=mixing_wrap(\"Visit frequency\"),"
+    },
+    {
+      "id": "16:130:0",
+      "kind": "display_string",
+      "text": "steps; visit-average distance:",
+      "cell_name": "sticker_visits",
+      "context": "print(step, \"steps; visit-average distance:\", round(empirical_tv, 6),"
+    },
+    {
+      "id": "16:132:0",
+      "kind": "display_string",
+      "text": "exact end-position distance:",
+      "cell_name": "sticker_visits",
+      "context": "\"exact end-position distance:\", round(exact_tv, 6))"
+    },
+    {
+      "id": "18:0:0",
+      "kind": "comment",
+      "text": "Reset the seed: the first coordinate follows the histogram's SAME path.",
+      "cell_name": "joint_visits",
+      "context": "# Reset the seed: the first coordinate follows the histogram's SAME path."
+    },
+    {
+      "id": "18:66:0",
+      "kind": "comment",
+      "text": "Plotly Basic supports bar tiles, not its optional native heatmap trace.",
+      "cell_name": "joint_visits",
+      "context": "# Plotly Basic supports bar tiles, not its optional native heatmap trace."
+    },
+    {
+      "id": "18:68:0",
+      "kind": "comment",
+      "text": "Omit impossible cells; every reachable zero remains a colored tile.",
+      "cell_name": "joint_visits",
+      "context": "# Omit impossible cells; every reachable zero remains a colored tile."
+    },
+    {
+      "id": "18:74:0",
+      "kind": "display_string",
+      "text": "Two stickers",
+      "cell_name": "joint_visits",
+      "context": "joint_title = mixing_wrap(\"Two stickers\") + f\"<br>{step} \" + mixing_wrap(\"steps\") + \"<br>24 × 24\""
+    },
+    {
+      "id": "18:78:0",
+      "kind": "display_string",
+      "text": "steps",
+      "cell_name": "joint_visits",
+      "context": "joint_title = mixing_wrap(\"Two stickers\") + f\"<br>{step} \" + mixing_wrap(\"steps\") + \"<br>24 × 24\""
+    },
+    {
+      "id": "18:154:0",
+      "kind": "display_string",
+      "text": "Visit frequency",
+      "cell_name": "joint_visits",
+      "context": "\"title\": {\"text\": mixing_wrap(\"Visit frequency\"), \"side\": \"top\"}}}}],"
+    },
+    {
+      "id": "18:160:0",
+      "kind": "display_string",
+      "text": "Label 1 corner index",
+      "cell_name": "joint_visits",
+      "context": "xlabel=mixing_wrap(\"Label 1 corner index\"), ylabel=mixing_wrap(\"Label 3 corner index\"),"
+    },
+    {
+      "id": "18:162:0",
+      "kind": "display_string",
+      "text": "Label 3 corner index",
+      "cell_name": "joint_visits",
+      "context": "xlabel=mixing_wrap(\"Label 1 corner index\"), ylabel=mixing_wrap(\"Label 3 corner index\"),"
+    },
+    {
+      "id": "18:248:0",
+      "kind": "display_string",
+      "text": "steps; joint visit-average distance:",
+      "cell_name": "joint_visits",
+      "context": "print(step, \"steps; joint visit-average distance:\", round(pair_tv, 6))"
+    },
+    {
+      "id": "18:250:0",
+      "kind": "display_string",
+      "text": "Uniform target per reachable ordered pair:",
+      "cell_name": "joint_visits",
+      "context": "print(\"Uniform target per reachable ordered pair:\", round(joint_target, 8))"
+    }
+  ],
+  "protectedCandidates": [
+    {
+      "id": "14:14:0",
+      "text": "<br>"
+    },
+    {
+      "id": "16:4:0",
+      "text": "<br>"
+    },
+    {
+      "id": "16:8:0",
+      "text": "type"
+    },
+    {
+      "id": "16:10:0",
+      "text": "bar"
+    },
+    {
+      "id": "16:16:0",
+      "text": "name"
+    },
+    {
+      "id": "16:20:0",
+      "text": "marker"
+    },
+    {
+      "id": "16:22:0",
+      "text": "color"
+    },
+    {
+      "id": "16:26:0",
+      "text": "type"
+    },
+    {
+      "id": "16:28:0",
+      "text": "scatter"
+    },
+    {
+      "id": "16:30:0",
+      "text": "mode"
+    },
+    {
+      "id": "16:32:0",
+      "text": "lines"
+    },
+    {
+      "id": "16:38:0",
+      "text": "name"
+    },
+    {
+      "id": "16:42:0",
+      "text": "line"
+    },
+    {
+      "id": "16:44:0",
+      "text": "color"
+    },
+    {
+      "id": "16:48:0",
+      "text": "dash"
+    },
+    {
+      "id": "16:50:0",
+      "text": "dash"
+    },
+    {
+      "id": "16:52:0",
+      "text": "width"
+    },
+    {
+      "id": "16:58:0",
+      "text": "height"
+    },
+    {
+      "id": "16:60:0",
+      "text": "margin"
+    },
+    {
+      "id": "16:70:0",
+      "text": "title"
+    },
+    {
+      "id": "16:72:0",
+      "text": "text"
+    },
+    {
+      "id": "16:74:0",
+      "text": "font"
+    },
+    {
+      "id": "16:76:0",
+      "text": "size"
+    },
+    {
+      "id": "16:80:0",
+      "text": "paper_bgcolor"
+    },
+    {
+      "id": "16:84:0",
+      "text": "plot_bgcolor"
+    },
+    {
+      "id": "16:88:0",
+      "text": "font"
+    },
+    {
+      "id": "16:90:0",
+      "text": "size"
+    },
+    {
+      "id": "16:92:0",
+      "text": "color"
+    },
+    {
+      "id": "16:94:0",
+      "text": "#e6edf3"
+    },
+    {
+      "id": "16:96:0",
+      "text": "xaxis"
+    },
+    {
+      "id": "16:98:0",
+      "text": "type"
+    },
+    {
+      "id": "16:100:0",
+      "text": "category"
+    },
+    {
+      "id": "16:102:0",
+      "text": "tickmode"
+    },
+    {
+      "id": "16:104:0",
+      "text": "array"
+    },
+    {
+      "id": "16:106:0",
+      "text": "tickvals"
+    },
+    {
+      "id": "16:108:0",
+      "text": "automargin"
+    },
+    {
+      "id": "16:110:0",
+      "text": "yaxis"
+    },
+    {
+      "id": "16:112:0",
+      "text": "rangemode"
+    },
+    {
+      "id": "16:114:0",
+      "text": "tozero"
+    },
+    {
+      "id": "16:116:0",
+      "text": "automargin"
+    },
+    {
+      "id": "16:118:0",
+      "text": "legend"
+    },
+    {
+      "id": "16:120:0",
+      "text": "orientation"
+    },
+    {
+      "id": "16:126:0",
+      "text": "font"
+    },
+    {
+      "id": "16:128:0",
+      "text": "size"
+    },
+    {
+      "id": "18:2:0",
+      "text": "type"
+    },
+    {
+      "id": "18:4:0",
+      "text": "line"
+    },
+    {
+      "id": "18:6:0",
+      "text": "xref"
+    },
+    {
+      "id": "18:10:0",
+      "text": "yref"
+    },
+    {
+      "id": "18:22:0",
+      "text": "layer"
+    },
+    {
+      "id": "18:24:0",
+      "text": "above"
+    },
+    {
+      "id": "18:26:0",
+      "text": "line"
+    },
+    {
+      "id": "18:28:0",
+      "text": "color"
+    },
+    {
+      "id": "18:30:0",
+      "text": "rgba(230,237,243,0.25)"
+    },
+    {
+      "id": "18:32:0",
+      "text": "width"
+    },
+    {
+      "id": "18:34:0",
+      "text": "type"
+    },
+    {
+      "id": "18:36:0",
+      "text": "line"
+    },
+    {
+      "id": "18:38:0",
+      "text": "xref"
+    },
+    {
+      "id": "18:42:0",
+      "text": "yref"
+    },
+    {
+      "id": "18:54:0",
+      "text": "layer"
+    },
+    {
+      "id": "18:56:0",
+      "text": "above"
+    },
+    {
+      "id": "18:58:0",
+      "text": "line"
+    },
+    {
+      "id": "18:60:0",
+      "text": "color"
+    },
+    {
+      "id": "18:62:0",
+      "text": "rgba(230,237,243,0.25)"
+    },
+    {
+      "id": "18:64:0",
+      "text": "width"
+    },
+    {
+      "id": "18:76:0",
+      "text": "<br>"
+    },
+    {
+      "id": "18:80:0",
+      "text": "<br>24 × 24"
+    },
+    {
+      "id": "18:82:0",
+      "text": "type"
+    },
+    {
+      "id": "18:84:0",
+      "text": "bar"
+    },
+    {
+      "id": "18:90:0",
+      "text": "base"
+    },
+    {
+      "id": "18:92:0",
+      "text": "width"
+    },
+    {
+      "id": "18:94:0",
+      "text": "text"
+    },
+    {
+      "id": "18:96:0",
+      "text": "hoverinfo"
+    },
+    {
+      "id": "18:98:0",
+      "text": "text"
+    },
+    {
+      "id": "18:100:0",
+      "text": "textposition"
+    },
+    {
+      "id": "18:102:0",
+      "text": "none"
+    },
+    {
+      "id": "18:104:0",
+      "text": "marker"
+    },
+    {
+      "id": "18:106:0",
+      "text": "color"
+    },
+    {
+      "id": "18:108:0",
+      "text": "colorscale"
+    },
+    {
+      "id": "18:110:0",
+      "text": "Viridis"
+    },
+    {
+      "id": "18:112:0",
+      "text": "cmin"
+    },
+    {
+      "id": "18:114:0",
+      "text": "cmax"
+    },
+    {
+      "id": "18:116:0",
+      "text": "line"
+    },
+    {
+      "id": "18:118:0",
+      "text": "width"
+    },
+    {
+      "id": "18:120:0",
+      "text": "showscale"
+    },
+    {
+      "id": "18:122:0",
+      "text": "colorbar"
+    },
+    {
+      "id": "18:124:0",
+      "text": "orientation"
+    },
+    {
+      "id": "18:132:0",
+      "text": "len"
+    },
+    {
+      "id": "18:134:0",
+      "text": "xanchor"
+    },
+    {
+      "id": "18:136:0",
+      "text": "center"
+    },
+    {
+      "id": "18:138:0",
+      "text": "yanchor"
+    },
+    {
+      "id": "18:140:0",
+      "text": "top"
+    },
+    {
+      "id": "18:142:0",
+      "text": "tickangle"
+    },
+    {
+      "id": "18:144:0",
+      "text": "tickformat"
+    },
+    {
+      "id": "18:148:0",
+      "text": "thickness"
+    },
+    {
+      "id": "18:150:0",
+      "text": "title"
+    },
+    {
+      "id": "18:152:0",
+      "text": "text"
+    },
+    {
+      "id": "18:156:0",
+      "text": "side"
+    },
+    {
+      "id": "18:158:0",
+      "text": "top"
+    },
+    {
+      "id": "18:164:0",
+      "text": "height"
+    },
+    {
+      "id": "18:166:0",
+      "text": "margin"
+    },
+    {
+      "id": "18:176:0",
+      "text": "title"
+    },
+    {
+      "id": "18:178:0",
+      "text": "text"
+    },
+    {
+      "id": "18:180:0",
+      "text": "font"
+    },
+    {
+      "id": "18:182:0",
+      "text": "size"
+    },
+    {
+      "id": "18:186:0",
+      "text": "paper_bgcolor"
+    },
+    {
+      "id": "18:190:0",
+      "text": "plot_bgcolor"
+    },
+    {
+      "id": "18:194:0",
+      "text": "font"
+    },
+    {
+      "id": "18:196:0",
+      "text": "size"
+    },
+    {
+      "id": "18:198:0",
+      "text": "color"
+    },
+    {
+      "id": "18:200:0",
+      "text": "#e6edf3"
+    },
+    {
+      "id": "18:202:0",
+      "text": "showlegend"
+    },
+    {
+      "id": "18:204:0",
+      "text": "barmode"
+    },
+    {
+      "id": "18:206:0",
+      "text": "overlay"
+    },
+    {
+      "id": "18:208:0",
+      "text": "bargap"
+    },
+    {
+      "id": "18:210:0",
+      "text": "shapes"
+    },
+    {
+      "id": "18:212:0",
+      "text": "xaxis"
+    },
+    {
+      "id": "18:214:0",
+      "text": "range"
+    },
+    {
+      "id": "18:216:0",
+      "text": "showgrid"
+    },
+    {
+      "id": "18:218:0",
+      "text": "zeroline"
+    },
+    {
+      "id": "18:220:0",
+      "text": "tickmode"
+    },
+    {
+      "id": "18:222:0",
+      "text": "array"
+    },
+    {
+      "id": "18:224:0",
+      "text": "tickvals"
+    },
+    {
+      "id": "18:226:0",
+      "text": "ticktext"
+    },
+    {
+      "id": "18:228:0",
+      "text": "automargin"
+    },
+    {
+      "id": "18:230:0",
+      "text": "yaxis"
+    },
+    {
+      "id": "18:232:0",
+      "text": "range"
+    },
+    {
+      "id": "18:234:0",
+      "text": "showgrid"
+    },
+    {
+      "id": "18:236:0",
+      "text": "zeroline"
+    },
+    {
+      "id": "18:238:0",
+      "text": "tickmode"
+    },
+    {
+      "id": "18:240:0",
+      "text": "array"
+    },
+    {
+      "id": "18:242:0",
+      "text": "tickvals"
+    },
+    {
+      "id": "18:244:0",
+      "text": "ticktext"
+    },
+    {
+      "id": "18:246:0",
+      "text": "automargin"
+    }
+  ],
+  "workerEntries": [
+    {
+      "book": "markov-groups",
+      "field": "markdown:13",
+      "kind": "markdown",
+      "text": "## Optional experiment — visit frequencies\n\nThe 13-cell core lesson above is complete. Skip everything below if you only want the core examples. To opt in, first run the core Python cells in order; then run `mixing_setup`, `sticker_visits`, and `joint_visits` below. These experiments use app-provided NumPy and `mplot`, with no package installation, workbook-initiated network request, external data, model call, or file write. The default is 10000 moves, with snapshots after 100, 1000, and 10000 moves.\n\nThe setup constructs the 13 choices from the existing permutations: identity, six face turns, and their six inverses, each equally likely. Breadth-first search starts at position 0 and repeatedly applies every choice to discover the one-sticker orbit; the code checks that there are 24 reachable corner-sticker positions. It derives physical corner-cubie slots from the Stage 1 face frames and checks that every move transports all three stickers of each cubie together. The values 24 and 8 are checks, not inputs to the search or target probabilities.\n\nFor a second sticker, the search starts at the ordered pair `(0, 2)`, the solved positions of labels 1 and 3. At every search step it applies the SAME move to both coordinates. The resulting mask is compared with the independently derived cubie-slot relation: only pairs in different corner slots are reachable. There are 504 reachable ordered pairs and 72 masked pairs on the 24-by-24 grid, including its diagonal. The code derives both counts before checking them. Each move permutes the reachable pairs, so equal incoming counts verify a stationary uniform joint target. Identity supplies self-loops, and the search verifies connectivity within each tracked orbit; these are reduced-state experiments, not enumeration of whole-cube configurations."
+    },
+    {
+      "book": "markov-groups",
+      "field": "markdown:15",
+      "kind": "markdown",
+      "text": "### One sticker — a recursive visit histogram\n\nTrack label 1, initially at zero-based position 0. Each iteration chooses one of the 13 moves uniformly, updates the previous position by its permutation, and increments that destination's count. Count visits AFTER moves; the starting position is not counted. The seed 20261007 makes the path reproducible, not uniformly mixed. Each histogram divides accumulated counts by the number of moves. The horizontal axis selects the 24 corner-position IDs from the original cube numbering `0..53`; it does not contain 54 bars. Sparse tick labels show only some of those IDs, but every corner position has a bar. The next section explains the four-corners-per-face count and lists all 24 IDs. The dashed line is the stationary target `1/24`.\n\nThis is an empirical time average from ONE correlated trajectory. It is not the exact distribution of the sticker's position at move n. The code separately advances `exact_probability` by `corner_T` each time; this is the corner-restricted version of `T^n @ location_probability` from the solved start. Printed distances compare each distribution with its uniform target using half the sum of absolute differences. The finite sample need not improve at every snapshot, and no histogram establishes whole-cube mixing or a whole-cube mixing time."
+    },
+    {
+      "book": "markov-groups",
+      "field": "markdown:17",
+      "kind": "markdown",
+      "text": "### Two stickers — a shared-move joint heatmap\n\nTrack labels 1 and 3, starting at positions 0 and 2 on DIFFERENT corner cubies. Choose ONE uniformly random move per iteration and apply it to BOTH positions. The seed is reset so the first coordinate follows the histogram's exact same sampled path; the joint heatmap's column sums are checked against that histogram. These are dependent coordinates of one cube, not two independent cubes. Do not use `T ⊗ T`: that would choose independent moves and allow impossible same-cubie pairs.\n\n#### Read the axes: 24 corner positions per sticker\n\nThe horizontal axis gives the position of sticker label 1; the vertical axis gives the position of sticker label 3. Each axis has 24 possible destinations, not just the four corners of the sticker's starting face: sequences of face turns can carry it between faces. There are four corner-sticker positions on each of six faces, so `4 × 6 = 24`. Equivalently, eight physical corners each have three face-facing sticker positions: `8 × 3 = 24`. A corner sticker never moves into an edge or centre position. The cube has 48 non-centre positions altogether, but 24 of those belong to edges and are not destinations for either sticker we follow.\n\nThe heatmap axes now use consecutive corner indices `1..24`, NOT the original cube IDs `0..53`. This makes the grid size visible: 24 columns and 24 rows. An index simply selects one entry from the table below; it is not a new sticker label or a physical distance. For example, indices `1, 2, 3, 4` select original position IDs `0, 2, 6, 8`. Only some tick labels are printed to fit a phone screen, but all 24 rows and columns are present. The title says `24 × 24`; faint cell boundaries mark all 24 spaces in each direction, including the forbidden tiles. Count the spaces, not the intervals between tick marks: 24 cell centres have only 23 intervals between them. Hover text reports the ORIGINAL pair of position IDs followed by its visit frequency. The one-sticker histogram above retains its original position-ID labels.\n\n| Heatmap indices (face) | Original corner position IDs |\n| --- | --- |\n| 1–4: U (up) | `0, 2, 6, 8` |\n| 5–8: D (down) | `9, 11, 15, 17` |\n| 9–12: F (front) | `18, 20, 24, 26` |\n| 13–16: B (back) | `27, 29, 33, 35` |\n| 17–20: L (left) | `36, 38, 42, 44` |\n| 21–24: R (right) | `45, 47, 51, 53` |\n\nA heatmap tile represents one ordered pair: `(position of label 1, position of label 3)`. The two 24-position axes therefore make `24 × 24 = 576` potential tiles, not a 48-by-48 or 54-by-54 grid. The two stickers belong to different corner pieces, so they cannot occupy any of the three sticker positions of the same physical corner. This rules out `8 × 3 × 3 = 72` tiles, leaving `24 × 21 = 504` reachable ordered pairs.\n\n#### Why three pairs are forbidden in every row and column\n\nA physical corner piece has three stickers, one on each of the three faces meeting at that corner. A face turn transports this whole piece; it does not detach its stickers. Labels 1 and 3 started on DIFFERENT corner pieces, and those pieces must always occupy different physical corner slots. Once the position of either tracked sticker is fixed, all three face-facing positions of that corner slot are forbidden for the other sticker. This is why there are exactly three gaps in each row AND each column.\n\nFor example, original IDs `0` (U), `29` (B), and `36` (L) are three views of the SAME upper-back-left corner slot, not three separate corner pieces. If sticker label 3 occupies ID 0, sticker label 1 cannot occupy ANY of those three IDs: that would place its different corner piece in the same slot. Moving sticker label 3 to another corner changes the three forbidden IDs. There is no permanent list of three unusable positions; these are conditional restrictions on pairs of positions.\n\nFor example, the bottom row fixes sticker label 3 at corner index 1, which selects original position ID 0. It has 24 horizontal slots, but only 21 colored, reachable tiles: the three gaps are sticker label 1 at corner indices `1, 14, 17` (original IDs `0, 29, 36`), the three face-facing positions of that same physical corner. The leftmost column has the same three gaps. Thus counting only the colored tiles gives 21, not 24; the gaps are forbidden PAIRS, not three positions removed from either axis. Every row and column has three such gaps. The 30 edge and centre IDs were already omitted when constructing the 24-position axes; they are not the black gaps in this grid.\n\nTransparent gaps are those 72 impossible same-cubie pairs, NOT unvisited states. This is one eighth of the grid: the main diagonal plus 48 off-diagonal tiles. Axis gridlines through cell centres are switched off. The faint outlines are cell boundaries, not data or nonzero probabilities inside the gaps. Colored zero cells are reachable pairs with no sampled visits yet. The stationary target is `1/504` for each of the 504 reachable ORDERED pairs, not `1/576`. The denominator comes from the common-move breadth-first search, not independent multiplication of marginal targets.\n\nEach heatmap is an accumulated visit average after 100, 1000, or 10000 moves. Its color scale starts at zero and adapts to that snapshot's maximum; compare the printed distances rather than comparing colors across snapshots. At 10000 moves there are only about 20 visits per reachable pair on average, so a patchy map can remain even after many moves; successive visits are also correlated. The mask, sample path, frequencies, and plots are generated by the actual code, and no full-cube uniformity or mixing-time claim follows from either reduced projection."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:14:0:0",
+      "kind": "comment",
+      "text": "Optional setup: use the same source-to-destination permutations as Stage 4.",
+      "context": "# Optional setup: use the same source-to-destination permutations as Stage 4."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:14:2:0",
+      "kind": "comment",
+      "text": "The Stage 1 frames identify physical cubie slots, not sticker labels.",
+      "context": "# The Stage 1 frames identify physical cubie slots, not sticker labels."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:14:4:0",
+      "kind": "comment",
+      "text": "Breadth-first search applies ONE common move to the ordered pair.",
+      "context": "# Breadth-first search applies ONE common move to the ordered pair."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:14:6:0",
+      "kind": "comment",
+      "text": "Each generator permutes the reachable pairs; equal incoming counts certify",
+      "context": "# Each generator permutes the reachable pairs; equal incoming counts certify"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:14:8:0",
+      "kind": "comment",
+      "text": "a stationary uniform target without allocating a 504-by-504 matrix.",
+      "context": "# a stationary uniform target without allocating a 504-by-504 matrix."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:14:16:0",
+      "kind": "display_string",
+      "text": "Corner positions:",
+      "context": "print(\"Corner positions:\", corner_positions.tolist())"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:14:18:0",
+      "kind": "display_string",
+      "text": "Reachable ordered pairs:",
+      "context": "print(\"Reachable ordered pairs:\", len(joint_reachable))"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:14:20:0",
+      "kind": "display_string",
+      "text": "Masked same-cubie pairs:",
+      "context": "print(\"Masked same-cubie pairs:\", int(same_slot.sum()))"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:0:0",
+      "kind": "comment",
+      "text": "Count positions AFTER each move; the initial position is not a visit.",
+      "context": "# Count positions AFTER each move; the initial position is not a visit."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:2:0",
+      "kind": "display_string",
+      "text": "One sticker",
+      "context": "visit_title = mixing_wrap(\"One sticker\") + f\"<br>{step} \" + mixing_wrap(\"steps\")"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:6:0",
+      "kind": "display_string",
+      "text": "steps",
+      "context": "visit_title = mixing_wrap(\"One sticker\") + f\"<br>{step} \" + mixing_wrap(\"steps\")"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:18:0",
+      "kind": "display_string",
+      "text": "Observed visits",
+      "context": "\"name\": mixing_wrap(\"Observed visits\"), \"marker\": {\"color\": \"#4c78a8\"}},"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:40:0",
+      "kind": "display_string",
+      "text": "Uniform target",
+      "context": "\"y\": corner_target.tolist(), \"name\": mixing_wrap(\"Uniform target\"),"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:54:0",
+      "kind": "display_string",
+      "text": "Label 1 position",
+      "context": "xlabel=mixing_wrap(\"Label 1 position\"), ylabel=mixing_wrap(\"Visit frequency\"),"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:56:0",
+      "kind": "display_string",
+      "text": "Visit frequency",
+      "context": "xlabel=mixing_wrap(\"Label 1 position\"), ylabel=mixing_wrap(\"Visit frequency\"),"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:130:0",
+      "kind": "display_string",
+      "text": "steps; visit-average distance:",
+      "context": "print(step, \"steps; visit-average distance:\", round(empirical_tv, 6),"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:132:0",
+      "kind": "display_string",
+      "text": "exact end-position distance:",
+      "context": "\"exact end-position distance:\", round(exact_tv, 6))"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:0:0",
+      "kind": "comment",
+      "text": "Reset the seed: the first coordinate follows the histogram's SAME path.",
+      "context": "# Reset the seed: the first coordinate follows the histogram's SAME path."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:66:0",
+      "kind": "comment",
+      "text": "Plotly Basic supports bar tiles, not its optional native heatmap trace.",
+      "context": "# Plotly Basic supports bar tiles, not its optional native heatmap trace."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:68:0",
+      "kind": "comment",
+      "text": "Omit impossible cells; every reachable zero remains a colored tile.",
+      "context": "# Omit impossible cells; every reachable zero remains a colored tile."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:74:0",
+      "kind": "display_string",
+      "text": "Two stickers",
+      "context": "joint_title = mixing_wrap(\"Two stickers\") + f\"<br>{step} \" + mixing_wrap(\"steps\") + \"<br>24 × 24\""
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:78:0",
+      "kind": "display_string",
+      "text": "steps",
+      "context": "joint_title = mixing_wrap(\"Two stickers\") + f\"<br>{step} \" + mixing_wrap(\"steps\") + \"<br>24 × 24\""
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:154:0",
+      "kind": "display_string",
+      "text": "Visit frequency",
+      "context": "\"title\": {\"text\": mixing_wrap(\"Visit frequency\"), \"side\": \"top\"}}}}],"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:160:0",
+      "kind": "display_string",
+      "text": "Label 1 corner index",
+      "context": "xlabel=mixing_wrap(\"Label 1 corner index\"), ylabel=mixing_wrap(\"Label 3 corner index\"),"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:162:0",
+      "kind": "display_string",
+      "text": "Label 3 corner index",
+      "context": "xlabel=mixing_wrap(\"Label 1 corner index\"), ylabel=mixing_wrap(\"Label 3 corner index\"),"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:248:0",
+      "kind": "display_string",
+      "text": "steps; joint visit-average distance:",
+      "context": "print(step, \"steps; joint visit-average distance:\", round(pair_tv, 6))"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:250:0",
+      "kind": "display_string",
+      "text": "Uniform target per reachable ordered pair:",
+      "context": "print(\"Uniform target per reachable ordered pair:\", round(joint_target, 8))"
+    }
+  ],
+  "application": {
+    "mode": "pending scoped append-only adapter; never run the general whole-workbook translator",
+    "workerResponse": "Exactly 30 flat entries: {book, field, text}; only the supplied three Markdown fields and 27 span IDs",
+    "calls": "One tool-free agy/Gemini draft plus one fresh same-model review; no automatic repairs",
+    "baseline": "Full 19-cell hybrid: exact pinned localized core 13 plus frozen English suffix six; never reindex candidate IDs",
+    "apply": "span-apply.mjs apply markdown-applied.srwb spans.json translated.srwb --en apply-source.srwb",
+    "derive": "span-derive.mjs apply-source.srwb translated.srwb <locale>",
+    "gates": "Exact old core/container; three Markdown KEEP/script/residue checks; full authorized span coverage; unchanged protected IDs; derived spans only in cells 14,16,18; final-byte runtime and rendering",
+    "evidence": "Fresh campaign directory, exact source/fields/locale pins, exclusive pre-send started marker; never reuse or overwrite old receipts/budgets",
+    "promotion": "Held: do not register, overwrite shipped workbooks, push, create remote PR, merge, or tag"
+  },
+  "neverTranslate": [
+    "Identifiers",
+    "cell names",
+    "API/dict keys",
+    "mode strings",
+    "numeric data",
+    "face-frame data",
+    "format specifiers",
+    "f-string placeholders",
+    "all original 13 cells"
+  ],
+  "reviewStatus": {
+    "translation": "not started",
+    "nativeSpeaker": "pending",
+    "browserRuntime": "pending",
+    "rendered": "pending"
+  }
+}

@@ -1,0 +1,821 @@
+{
+  "allPassed": true,
+  "scope": "English real app execution and 320px dark/light chart checks; not native review or translation approval",
+  "candidateSha256": "2daf77aa872a7210cc16083535b1c244fb2cfbc288d60f688b85f0736633c430",
+  "appCommit": "5355f4893f49283575ab00082b12b8a45ca7c295",
+  "appFiles": {
+    "www/js/prelude.py": "2c3af1b161bd2133595778d5ae0ff7e2a393888a975303752e4782215ec80823",
+    "www/js/bridge.js": "5f6898956d32e9b14cd8cf0500c3f74686008dc9625dcd061fcbe680717500e5",
+    "www/vendor/plotly/plotly-basic.min.js": "138c2e81014b979dc00867a93da55b7605a17495ee78dd7afb433b7f021dfcfa"
+  },
+  "viewport": {
+    "width": 320,
+    "height": 844
+  },
+  "runs": [
+    {
+      "theme": "dark",
+      "receipt": {
+        "ok": true,
+        "format": "srwb",
+        "mode": "replace",
+        "notebookId": "default",
+        "name": "Markov Groups: A Random Walk on Cube Moves",
+        "cells": 19,
+        "size": 52314,
+        "sha256": "2daf77aa872a7210cc16083535b1c244fb2cfbc288d60f688b85f0736633c430"
+      },
+      "cells": [
+        {
+          "name": "intro",
+          "type": "markdown",
+          "output": "Markov Groups: A Random Walk on Cube Moves\n\nThis lesson separates three ideas:\n\nA legal cube move is a permutation of sticker positions.\nRepeating one quarter turn gives powers with exponent modulo 4.\nChoosing legal moves at random creates a Markov chain on reachable cube states.\n\nWe use a standard 3×3×3 Rubik's Cube with 54 labelled stickers. Labels 1..54 identify individual stickers, not just colours. All six face centres stay fixed. A quarter turn is clockwise when you look directly at the outside of the turned face; see Rubik's official move guide.\n\nRuntime and run order\n\nRun the Python cells in order: cube_moves, check_moves, show_turn, transition_matrix, sticker_step, then random_walk. They share the Python session. NumPy is the only package used and SciREPL loads it with its Pyodide runtime; first use may need a runtime download. No AI account, prompt execution, extra package installation, or external data is needed. This catalog copy has no saved outputs.\n\nBefore running check_moves, predict: which stickers must never change position, and how many repeated quarter turns should restore every label?"
+        },
+        {
+          "name": "coordinates",
+          "type": "markdown",
+          "output": "Stage 1 — fix the layout and matrix convention\n\nFace order is U, D, F, B, L, R (up, down, front, back, left, right). Each face occupies nine consecutive zero-based positions, read row-major while looking at that face from outside:\n\n0 1 2\n3 4 5\n6 7 8\n\n\nAdd 9 * face_index for a particular face. The centre positions are 4, 13, 22, 31, 40, 49. Sticker labels are one-based, so the label initially at position j is j + 1.\n\nGlobal axes and face-view axes\n\nThe global axes stay fixed for the whole cube: +x points right, +y points up, and +z points toward the front. Thus (0, 0, -1) points toward the back.\n\nF\nU\nR\n+x\n+y\n+z\n\nThe table uses a separate local frame for each face. Imagine a small sheet of paper on that face, viewed from outside the cube: r points right along the paper and u points up along the paper. These are not necessarily global right and global up. The outward normal n points perpendicular to the paper, away from the cube, rather than along it.\n\nEach row satisfies r × u = n. By the right-hand rule, curl the fingers of your right hand from the local right direction toward local up; your thumb points along the outward normal. On the front face F, these directions are r = +x, u = +y, and n = +z.\n\nFace\tOutward normal (n)\tRight in face view (r)\tUp in face view (u)\nU\t(0, 1, 0)\t(1, 0, 0)\t(0, 0, -1)\nD\t(0, -1, 0)\t(1, 0, 0)\t(0, 0, 1)\nF\t(0, 0, 1)\t(1, 0, 0)\t(0, 1, 0)\nB\t(0, 0, -1)\t(-1, 0, 0)\t(0, 1, 0)\nL\t(-1, 0, 0)\t(0, 0, 1)\t(0, 1, 0)\nR\t(1, 0, 0)\t(0, 0, -1)\t(0, 1, 0)\nWhy top-face up points toward the back\n\nStart with the front-facing paper. Tilt it about a line parallel to its right direction, as if on a hinge, then reposition it on top of the cube without another rotation. In this front-to-top tilt, r stays +x, while u changes from +y to -z and n changes from +z to +y. The diagram compares the two frame orientations; it does not depict a sheet folding inward while attached to the actual cube edge.\n\nr = +x\nu = +y\nn = +z\nr = +x\nu = -z\nn = +y\nr = +x\n+y → -z\n+z → +y\nF\nU\nr × u = n\n\nSo on U, up along the paper points toward the back (-z), while global up (+y) points out of the top face, perpendicular to the paper. This explains the U row without changing the global axes. The tilt illustrates a face-view frame, not a legal cube face move.\n\nThe table fixes one consistent drawing convention, not a path-independent “no-twist” rule. Different routes between faces can leave a transported sheet with different in-plane rotations. Use the stated table to choose each face view.\n\nA permutation p maps a source position j to its destination p[j]. For a column state vector s, set P[p[j], j] = 1. Then s_next = P @ s, equivalently s_next[p[j]] = s[j]. Rows are destinations; columns are sources. The next cell uses disjoint cycles, each written in source-to-destination order.\n\nConstructing every face frame from F\n\nStart with F: r = +x, u = +y, n = +z. Keep the global axes fixed and rotate the whole paper frame. Positive angles follow the right-hand rule about the named positive global axis:\n\nStarting afresh from F for each face, about global +y, obtain R by +90°, B by 180°, and L by -90°.\nIndependently from F, about global +x, obtain U by -90° and D by +90°.\n\nAll three frame directions rotate together. On B, this gives r = -x, u = +y, n = -z: viewed from outside the back face, drawing-right points toward global left. The U and D paper planes are horizontal, with normals +y and -y; “up” within those planes is not global up.\n\nThese specified routes construct the table’s chosen drawing convention. They do not claim that every route between faces gives the same in-plane orientation, and they are not legal cube face moves.\n\nFace numbering\n\nFACE_NAMES = \"UDFBLR\" defines the numbering below. Starting the frame construction from F does not make F the first numbered face. MOVE_CYCLES happens to list its keys in the same order as FACE_NAMES; reordering only that dictionary does not renumber sticker positions.\n\nFace (index)\tPositions\tPrinted\nU — up (0)\t0–8\t1–9\nD — down (1)\t9–17\t10–18\nF — front (2)\t18–26\t19–27\nB — back (3)\t27–35\t28–36\nL — left (4)\t36–44\t37–45\nR — right (5)\t45–53\t46–54\n\nPositions are zero-based. The last column gives the one-based position numbers printed by show_turn. In the solved state these also equal the initial sticker labels, but sticker labels move when you scramble."
+        },
+        {
+          "name": "cube_moves",
+          "type": "code",
+          "output": "Out [3]\nBuilt six clockwise quarter-turn matrices with fixed face centres.\n"
+        },
+        {
+          "name": "check_moves",
+          "type": "code",
+          "output": "Out [4]\nU: bijection, fixed centres, four turns, and inverse passed\nD: bijection, fixed centres, four turns, and inverse passed\nF: bijection, fixed centres, four turns, and inverse passed\nB: bijection, fixed centres, four turns, and inverse passed\nL: bijection, fixed centres, four turns, and inverse passed\nR: bijection, fixed centres, four turns, and inverse passed\nAll six moves passed. U and R do not commute.\n"
+        },
+        {
+          "name": "cycles",
+          "type": "markdown",
+          "output": "Stage 3 — circles, cycles, and modular arithmetic\n\nThe lists in MOVE_CYCLES describe sticker positions. Each entry moves to the next entry in one quarter turn, and the last entry moves back to the first. All five cycles act simultaneously: each sticker advances one step, not around the entire loop in one move.\n\nA turn is clockwise when viewed directly from outside the turned face. Its outward normal points toward you; the face turns around that normal axis. Using the zero-based face grid above, the first two U cycles are:\n\nCorner stickers: [0, 2, 8, 6] follows top-left → top-right → bottom-right → bottom-left → top-left.\nEdge-middle stickers: [1, 5, 7, 3] follows top → right → bottom → left → top.\n\nThese are the clockwise paths you would draw around the face centre. The next cell prints one-based position numbers, so these become 1 → 3 → 9 → 7 → 1 and 2 → 6 → 8 → 4 → 2. Those numbers identify positions, not necessarily the sticker labels currently occupying them after scrambling.\n\nThe other three U cycles move stickers in the adjacent faces’ top rows around F → L → B → R → F. For example, [18, 36, 27, 45] sends the sticker at position 18 to position 36 in one U turn; repeated U turns take it to 27, then 45, then back to 18. The other two cycles track the corresponding middle and right positions in those rows.\n\nA physical corner piece (cubie) carries three stickers, and an edge piece carries two. The two face cycles track only their stickers on the turned face; their side stickers occur in the surrounding-strip cycles. Together these sticker paths describe one physical face move, not five independent moves of whole pieces. All face centres stay fixed.\n\nDraw one listed cycle as four positions around a circle. One quarter turn advances one step; two turns advance two steps; four turns restore every sticker position, so P^4 = I. For a fixed move P, P^k = P^(k mod 4). Its inverse is P^3 = P.T, and a half turn is P^2.\n\nThis is a cyclic subgroup of order 4. It does not make the entire cube group modular arithmetic: different face turns need not commute. With column vectors, “U, then R” is M[\"R\"] @ M[\"U\"] @ s, not the reverse matrix product. In the next cell, compare the same two moves in opposite orders.\n\nHow the stored cycle lists are grouped\n\nEach MOVE_CYCLES face entry contains five disjoint four-cycles: two on the turned face (corner stickers and edge-middle stickers), and three on neighbouring strips. The order of those groups in the stored list is not universal:\n\nFace\tFace cycles\tStrip cycles\nU, D\t1–2\t3–5\nF, B, L, R\t4–5\t1–3\n\nHere the cycle numbers are one-based positions within the list of five cycles, not sticker positions. Each stored cycle begins with its smallest flat sticker index, and the five cycles are sorted by those starting indices. This is a deterministic index-based presentation, not a choice to start at local drawing-right. Within each cycle, entries follow the clockwise source-to-destination path; they are not numerically sorted.\n\nThe U corner and edge examples above are its first two cycles. For F, the first stored cycle is [6, 45, 11, 44]: U bottom-left → R top-left → D top-right → L bottom-right → U bottom-left. All four positions lie on neighbouring faces, not F; F’s own face cycles are fourth and fifth.\n\nA flat index is 9 * face_index + 3 * row + column, with row = 0 at the top and column = 0 at the left in that face’s outside view. Each listed integer is an absolute zero-based sticker position across all six faces, not a component of local r or u.\n\nMathematically, the starting entry can be shifted: [a, b, c, d] and [b, c, d, a] describe the same cycle. The source data chooses the minimum-index rule above. Reversing the source-to-destination order gives the inverse cycle.\n\nThe arrows always mean source → destination for one clockwise quarter turn viewed from outside the turned face, about its outward normal. show_turn adds 1 to each stored position when printing it; this changes the displayed numbering, not the move."
+        },
+        {
+          "name": "show_turn",
+          "type": "code",
+          "output": "Out [6]\nU cycles, shown as one-based sticker positions:\n1 -> 3 -> 9 -> 7 -> 1\n2 -> 6 -> 8 -> 4 -> 2\n19 -> 37 -> 28 -> 46 -> 19\n20 -> 38 -> 29 -> 47 -> 20\n21 -> 39 -> 30 -> 48 -> 21\n\nF top row labels before U: [19, 20, 21]\nF top row labels after U:  [46, 47, 48]\nFace-letter colours after U: ['U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'R', 'R', 'R', 'F', 'F', 'F', 'F', 'F', 'F', 'L', 'L', 'L', 'B', 'B', 'B', 'B', 'B', 'B', 'F', 'F', 'F', 'L', 'L', 'L', 'L', 'L', 'L', 'B', 'B', 'B', 'R', 'R', 'R', 'R', 'R', 'R']\nU then R equals R then U: False\n"
+        },
+        {
+          "name": "markov_bridge",
+          "type": "markdown",
+          "output": "Stage 4 — choose a move at random\nBuild the sticker-location transition matrix\n\nChoose independently and uniformly among 13 options at each step: stay still (I), the six quarter turns, and their six inverses. Each has probability 1/13.\n\nFor the whole cube, this is a random walk on a graph. Vertices are reachable configurations of the original labelled cube; a face turn follows an edge, and the identity makes a self-loop. Next-state probabilities depend only on the current configuration: this is a Markov chain.\n\nFirst build a smaller 54×54 matrix T, tracking one sticker's position, not the entire configuration. Every chosen move still acts on the whole cube; we simply record where one chosen sticker ends up.\n\nM[name] contains zeros and ones, not destination indices. Entry M[name][d, j] is 1 when that turn sends source position j to destination position d. Rows are destinations; columns are sources. The transpose represents the inverse permutation, so M[name].T reverses the turn.\n\nThe next cell starts with an identity-matrix copy and adds each turn and inverse. Entry move_counts[d, j] counts how many choices send source position j to destination position d. We add these matrices entry by entry because they are alternatives for one step, not moves performed in sequence. Powers of T account for longer sequences. Dividing by 13 gives the transition probability:\n\n𝑇\n𝑑\n,\n𝑗\n=\n1\n13\n∑\n𝑎\n∈\nM\nO\nV\nE\n_\nO\nP\nT\nI\nO\nN\nS\n(\n𝑃\n𝑎\n)\n𝑑\n,\n𝑗\n.\nT\nd,j\n\t​\n\n=\n13\n1\n\t​\n\na∈MOVE_OPTIONS\n∑\n\t​\n\n(P\na\n\t​\n\n)\nd,j\n\t​\n\n.\n\nHere a is a move choice and P_a its permutation matrix, including the identity. Different choices can have the same sticker destination. Each permutation matrix has one 1 per column and one 1 per row, so averaging them gives column sums of 1 and row sums of 1. Separately, equal weighting of each turn and its inverse makes T symmetric."
+        },
+        {
+          "name": "transition_matrix",
+          "type": "code",
+          "output": ""
+        },
+        {
+          "name": "sticker_bridge",
+          "type": "markdown",
+          "output": "Follow one chosen sticker for one step\n\nChoose sticker label 1, initially at zero-based position 0. SOLVED stores the solved cube's sticker labels: SOLVED = [1, 2, ..., 54]. The index is a position; the value is the label occupying it. For example, SOLVED[0] = 1 and SOLVED[5] = 6. Thus SOLVED[j] identifies a sticker at position j, whereas location_probability[j] is the probability that our chosen sticker occupies that position. Same vector length, different meanings.\n\nWrite location_probability as x in the equations, with superscripts counting steps. For any starting probability distribution, the update is:\n\n𝑥\n𝑑\n(\n1\n)\n=\n∑\n𝑖\n=\n0\n53\n𝑇\n𝑑\n,\n𝑖\n𝑥\n𝑖\n(\n0\n)\n.\nx\nd\n(1)\n\t​\n\n=\ni=0\n∑\n53\n\t​\n\nT\nd,i\n\t​\n\nx\ni\n(0)\n\t​\n\n.\n\nIf the starting position is certainly j, the distribution is one-hot at position j: entry j is 1 and every other entry is zero. Only that column contributes, so the result is column j of T:\n\n𝑥\n𝑖\n(\n0\n)\n=\n{\n1\n,\n\t\n𝑖\n=\n𝑗\n,\n\n\n0\n,\n\t\n𝑖\n≠\n𝑗\n,\n\n\n⟹\n𝑥\n𝑑\n(\n1\n)\n=\n𝑇\n𝑑\n,\n𝑗\n.\nx\ni\n(0)\n\t​\n\n={\n1,\n0,\n\t​\n\ni=j,\ni\n\n=j,\n\t​\n\n⟹x\nd\n(1)\n\t​\n\n=T\nd,j\n\t​\n\n.\n\t​\n\n\nThe code uses the particular case j = 0: location_probability[0] = 1, so sticker 1, which starts at position 0, is the one we follow. Then after_one_step = T @ location_probability equals T[:, 0], the first column of T (in NumPy, : means all rows). Entry d of that column, after_one_step[d] = T[d, 0], is the probability that sticker 1 is at position d after one random move. Thus T[:, 0] is the distribution of destinations for the sticker starting at position 0. This equality relies on the one-hot start; an uncertain starting position gives a weighted combination of columns instead.\n\nThe choices I, D, D', F, F', R, and R' leave position 0 unchanged, so T[0, 0] = 7/13. The other choices send it to these positions: U → 2, U' → 6, L → 18, L' → 35, B → 42, and B' → 47. Each has probability 1/13.\n\nThe printed mass of 1 checks normalization only, not uniform sticker locations or whole-cube mixing. T is generally not a permutation: applying it to SOLVED can give fractional labels, not a legal configuration."
+        },
+        {
+          "name": "sticker_step",
+          "type": "code",
+          "output": "Out [10]\nOne-sticker probability mass after one step: 1.0\n"
+        },
+        {
+          "name": "trajectory_bridge",
+          "type": "markdown",
+          "output": "Sample an actual whole-cube trajectory\n\nNow rng.choice samples 12 actual choices, and apply(SOLVED, *moves) applies those permutations to the whole cube. This gives one valid configuration, not an average of labels. The seed makes it reproducible, not uniformly mixed. Assertions check preservation of every sticker label and all six centres.\n\nFor n steps in the sticker-location model, use np.linalg.matrix_power(T, n) @ location_probability. This averages over all ordered sequences of n independent choices, each with probability 1 / 13**n. For two steps:\n\n𝑇\n2\n=\n1\n1\n3\n2\n∑\n𝑎\n,\n𝑏\n∈\nM\nO\nV\nE\n_\nO\nP\nT\nI\nO\nN\nS\n𝑃\n𝑏\n𝑃\n𝑎\n.\nT\n2\n=\n13\n2\n1\n\t​\n\na,b∈MOVE_OPTIONS\n∑\n\t​\n\nP\nb\n\t​\n\nP\na\n\t​\n\n.\n\nHere a is chosen first, then b. Both “U then R” and “R then U” contribute: M[\"R\"] @ M[\"U\"] and M[\"U\"] @ M[\"R\"]. Averaging does not make different move orders equivalent.\n\nThe whole-cube walk has a uniform stationary distribution because every move permutes its configurations. The graph is finite and connected on reachable configurations (irreducible), and the identity self-loop makes it aperiodic. Together these give eventual convergence to that distribution, but neither a mixing time nor uniform scrambling after 12 choices."
+        },
+        {
+          "name": "random_walk",
+          "type": "code",
+          "output": "Out [12]\nSampled moves: R' B' B' R B L' L' U' I D D R\nFinal face-letter colours: ['L', 'U', 'F', 'R', 'U', 'F', 'D', 'D', 'F', 'R', 'R', 'B', 'B', 'D', 'B', 'B', 'D', 'R', 'L', 'L', 'U', 'B', 'F', 'U', 'D', 'D', 'R', 'R', 'R', 'B', 'U', 'B', 'F', 'U', 'F', 'U', 'D', 'B', 'F', 'L', 'L', 'D', 'L', 'L', 'B', 'L', 'R', 'D', 'L', 'R', 'F', 'U', 'U', 'F']\nThe sampled path preserved every sticker label and all six centres.\n"
+        },
+        {
+          "name": "takeaways",
+          "type": "markdown",
+          "output": "Check your understanding\nWhy does checking only colours fail to reveal some incorrect permutations within a face?\nWhy must a quarter turn fix the centre and satisfy P^4 = I?\nWhy is the matrix product for “U, then R” written in reverse chronological order?\nWhy does modulo 4 describe powers of one face turn, but not arbitrary sequences of different face turns?\nWhat does the 54×54 stochastic matrix describe? Why is it not the full cube-state Markov chain?\nWhy does a reproducible 12-step random walk not prove uniform scrambling?\n\nThe full cube group is generated by the six face moves, with inverse moves already obtainable as third powers. We do not claim that U, R, and F alone generate the full group: all three leave the opposite D–B–L corner untouched.\n\nMain lesson: distinguish a legal permutation, its cyclic powers, and a probability mixture of moves. Those are connected ideas, not interchangeable objects.\n\nHint for question 5: The chosen sticker is a corner sticker. Face turns keep it among the 24 corner-sticker positions; it cannot move into an edge or centre position. This smaller model tracks that sticker's location, not the joint positions of all stickers. Its long-run distribution is therefore not uniform across all 54 positions."
+        },
+        {
+          "name": "mixing_bridge",
+          "type": "markdown",
+          "output": "Optional experiment — visit frequencies\n\nThe 13-cell core lesson above is complete. Skip everything below if you only want the core examples. To opt in, first run the core Python cells in order; then run mixing_setup, sticker_visits, and joint_visits below. These experiments use app-provided NumPy and mplot, with no package installation, workbook-initiated network request, external data, model call, or file write. The default is 10000 moves, with snapshots after 100, 1000, and 10000 moves.\n\nThe setup constructs the 13 choices from the existing permutations: identity, six face turns, and their six inverses, each equally likely. Breadth-first search starts at position 0 and repeatedly applies every choice to discover the one-sticker orbit; the code checks that there are 24 reachable corner-sticker positions. It derives physical corner-cubie slots from the Stage 1 face frames and checks that every move transports all three stickers of each cubie together. The values 24 and 8 are checks, not inputs to the search or target probabilities.\n\nFor a second sticker, the search starts at the ordered pair (0, 2), the solved positions of labels 1 and 3. At every search step it applies the SAME move to both coordinates. The resulting mask is compared with the independently derived cubie-slot relation: only pairs in different corner slots are reachable. There are 504 reachable ordered pairs and 72 masked pairs on the 24-by-24 grid, including its diagonal. The code derives both counts before checking them. Each move permutes the reachable pairs, so equal incoming counts verify a stationary uniform joint target. Identity supplies self-loops, and the search verifies connectivity within each tracked orbit; these are reduced-state experiments, not enumeration of whole-cube configurations."
+        },
+        {
+          "name": "mixing_setup",
+          "type": "code",
+          "output": "Out [15]\nCorner positions: [0, 2, 6, 8, 9, 11, 15, 17, 18, 20, 24, 26, 27, 29, 33, 35, 36, 38, 42, 44, 45, 47, 51, 53]\nReachable ordered pairs: 504\nMasked same-cubie pairs: 72\n"
+        },
+        {
+          "name": "visit_bridge",
+          "type": "markdown",
+          "output": "One sticker — a recursive visit histogram\n\nTrack label 1, initially at zero-based position 0. Each iteration chooses one of the 13 moves uniformly, updates the previous position by its permutation, and increments that destination's count. Count visits AFTER moves; the starting position is not counted. The seed 20261007 makes the path reproducible, not uniformly mixed. Each histogram divides accumulated counts by the number of moves. The horizontal axis selects the 24 corner-position IDs from the original cube numbering 0..53; it does not contain 54 bars. Sparse tick labels show only some of those IDs, but every corner position has a bar. The next section explains the four-corners-per-face count and lists all 24 IDs. The dashed line is the stationary target 1/24.\n\nThis is an empirical time average from ONE correlated trajectory. It is not the exact distribution of the sticker's position at move n. The code separately advances exact_probability by corner_T each time; this is the corner-restricted version of T^n @ location_probability from the solved start. Printed distances compare each distribution with its uniform target using half the sum of absolute differences. The finite sample need not improve at every snapshot, and no histogram establishes whole-cube mixing or a whole-cube mixing time."
+        },
+        {
+          "name": "sticker_visits",
+          "type": "code",
+          "output": "Out [17]\n0\n9\n18\n27\n36\n45\n53\n0\n0.05\n0.1\n0.15\nObserved visits\nUniform target\nOne sticker100 steps\nLabel 1 position\nVisit frequency\n0\n9\n18\n27\n36\n45\n53\n0\n0.02\n0.04\n0.06\n0.08\nObserved visits\nUniform target\nOne sticker1000 steps\nLabel 1 position\nVisit frequency\n0\n9\n18\n27\n36\n45\n53\n0\n0.01\n0.02\n0.03\n0.04\n0.05\nObserved visits\nUniform target\nOne sticker10000 steps\nLabel 1 position\nVisit frequency\n100 steps; visit-average distance: 0.383333 exact end-position distance: 0.0\n1000 steps; visit-average distance: 0.137 exact end-position distance: 0.0\n10000 steps; visit-average distance: 0.034967 exact end-position distance: 0.0\n"
+        },
+        {
+          "name": "joint_bridge",
+          "type": "markdown",
+          "output": "Two stickers — a shared-move joint heatmap\n\nTrack labels 1 and 3, starting at positions 0 and 2 on DIFFERENT corner cubies. Choose ONE uniformly random move per iteration and apply it to BOTH positions. The seed is reset so the first coordinate follows the histogram's exact same sampled path; the joint heatmap's column sums are checked against that histogram. These are dependent coordinates of one cube, not two independent cubes. Do not use T ⊗ T: that would choose independent moves and allow impossible same-cubie pairs.\n\nRead the axes: 24 corner positions per sticker\n\nThe horizontal axis gives the position of sticker label 1; the vertical axis gives the position of sticker label 3. Each axis has 24 possible destinations, not just the four corners of the sticker's starting face: sequences of face turns can carry it between faces. There are four corner-sticker positions on each of six faces, so 4 × 6 = 24. Equivalently, eight physical corners each have three face-facing sticker positions: 8 × 3 = 24. A corner sticker never moves into an edge or centre position. The cube has 48 non-centre positions altogether, but 24 of those belong to edges and are not destinations for either sticker we follow.\n\nThe heatmap axes now use consecutive corner indices 1..24, NOT the original cube IDs 0..53. This makes the grid size visible: 24 columns and 24 rows. An index simply selects one entry from the table below; it is not a new sticker label or a physical distance. For example, indices 1, 2, 3, 4 select original position IDs 0, 2, 6, 8. Only some tick labels are printed to fit a phone screen, but all 24 rows and columns are present. The title says 24 × 24; faint cell boundaries mark all 24 spaces in each direction, including the forbidden tiles. Count the spaces, not the intervals between tick marks: 24 cell centres have only 23 intervals between them. Hover text reports the ORIGINAL pair of position IDs followed by its visit frequency. The one-sticker histogram above retains its original position-ID labels.\n\nHeatmap indices (face)\tOriginal corner position IDs\n1–4: U (up)\t0, 2, 6, 8\n5–8: D (down)\t9, 11, 15, 17\n9–12: F (front)\t18, 20, 24, 26\n13–16: B (back)\t27, 29, 33, 35\n17–20: L (left)\t36, 38, 42, 44\n21–24: R (right)\t45, 47, 51, 53\n\nA heatmap tile represents one ordered pair: (position of label 1, position of label 3). The two 24-position axes therefore make 24 × 24 = 576 potential tiles, not a 48-by-48 or 54-by-54 grid. The two stickers belong to different corner pieces, so they cannot occupy any of the three sticker positions of the same physical corner. This rules out 8 × 3 × 3 = 72 tiles, leaving 24 × 21 = 504 reachable ordered pairs.\n\nWhy three pairs are forbidden in every row and column\n\nA physical corner piece has three stickers, one on each of the three faces meeting at that corner. A face turn transports this whole piece; it does not detach its stickers. Labels 1 and 3 started on DIFFERENT corner pieces, and those pieces must always occupy different physical corner slots. Once the position of either tracked sticker is fixed, all three face-facing positions of that corner slot are forbidden for the other sticker. This is why there are exactly three gaps in each row AND each column.\n\nFor example, original IDs 0 (U), 29 (B), and 36 (L) are three views of the SAME upper-back-left corner slot, not three separate corner pieces. If sticker label 3 occupies ID 0, sticker label 1 cannot occupy ANY of those three IDs: that would place its different corner piece in the same slot. Moving sticker label 3 to another corner changes the three forbidden IDs. There is no permanent list of three unusable positions; these are conditional restrictions on pairs of positions.\n\nFor example, the bottom row fixes sticker label 3 at corner index 1, which selects original position ID 0. It has 24 horizontal slots, but only 21 colored, reachable tiles: the three gaps are sticker label 1 at corner indices 1, 14, 17 (original IDs 0, 29, 36), the three face-facing positions of that same physical corner. The leftmost column has the same three gaps. Thus counting only the colored tiles gives 21, not 24; the gaps are forbidden PAIRS, not three positions removed from either axis. Every row and column has three such gaps. The 30 edge and centre IDs were already omitted when constructing the 24-position axes; they are not the black gaps in this grid.\n\nTransparent gaps are those 72 impossible same-cubie pairs, NOT unvisited states. This is one eighth of the grid: the main diagonal plus 48 off-diagonal tiles. Axis gridlines through cell centres are switched off. The faint outlines are cell boundaries, not data or nonzero probabilities inside the gaps. Colored zero cells are reachable pairs with no sampled visits yet. The stationary target is 1/504 for each of the 504 reachable ORDERED pairs, not 1/576. The denominator comes from the common-move breadth-first search, not independent multiplication of marginal targets.\n\nEach heatmap is an accumulated visit average after 100, 1000, or 10000 moves. Its color scale starts at zero and adapts to that snapshot's maximum; compare the printed distances rather than comparing colors across snapshots. At 10000 moves there are only about 20 visits per reachable pair on average, so a patchy map can remain even after many moves; successive visits are also correlated. The mask, sample path, frequencies, and plots are generated by the actual code, and no full-cube uniformity or mixing-time claim follows from either reduced projection."
+        },
+        {
+          "name": "joint_visits",
+          "type": "code",
+          "output": "Out [19]\n1\n5\n9\n13\n17\n21\n24\n1\n5\n9\n13\n17\n21\n24\n0.000\n0.020\n0.040\n0.060\nVisit frequency\nTwo stickers100 steps24 × 24\nLabel 1 corner index\nLabel 3 corner index\n1\n5\n9\n13\n17\n21\n24\n1\n5\n9\n13\n17\n21\n24\n0.000\n0.005\n0.010\nVisit frequency\nTwo stickers1000 steps24 × 24\nLabel 1 corner index\nLabel 3 corner index\n1\n5\n9\n13\n17\n21\n24\n1\n5\n9\n13\n17\n21\n24\n0.000\n0.002\n0.004\nVisit frequency\nTwo stickers10000 steps24 × 24\nLabel 1 corner index\nLabel 3 corner index\n100 steps; joint visit-average distance: 0.878968\n1000 steps; joint visit-average distance: 0.402921\n10000 steps; joint visit-average distance: 0.134557\nUniform target per reachable ordered pair: 0.00198413\n"
+        }
+      ],
+      "plots": [
+        {
+          "index": 0,
+          "width": 270,
+          "height": 390,
+          "clipped": [],
+          "overlaps": [],
+          "labels": [
+            {
+              "text": "Observed visits",
+              "left": 105,
+              "right": 173.359375,
+              "top": 338.83984375,
+              "bottom": 349.83984375
+            },
+            {
+              "text": "Uniform target",
+              "left": 105,
+              "right": 168.576171875,
+              "top": 357.83984375,
+              "bottom": 368.83984375
+            },
+            {
+              "text": "One sticker100 steps",
+              "left": 99.59375,
+              "right": 170.7314453125,
+              "top": 22,
+              "bottom": 56.19921875
+            },
+            {
+              "text": "Label 1 position",
+              "left": 114.9609375,
+              "right": 206.0390625,
+              "top": 295,
+              "bottom": 310
+            },
+            {
+              "text": "Visit frequency",
+              "left": 17,
+              "right": 32,
+              "top": 120.98828125,
+              "bottom": 206.515625
+            }
+          ],
+          "title": "One sticker100 steps",
+          "types": [
+            "bar",
+            "scatter"
+          ],
+          "bars": 24,
+          "background": "#161b22",
+          "fontColor": "#e6edf3"
+        },
+        {
+          "index": 1,
+          "width": 270,
+          "height": 390,
+          "clipped": [],
+          "overlaps": [],
+          "labels": [
+            {
+              "text": "Observed visits",
+              "left": 105,
+              "right": 173.359375,
+              "top": 338.83984375,
+              "bottom": 349.83984375
+            },
+            {
+              "text": "Uniform target",
+              "left": 105,
+              "right": 168.576171875,
+              "top": 357.83984375,
+              "bottom": 368.83984375
+            },
+            {
+              "text": "One sticker1000 steps",
+              "left": 99.59375,
+              "right": 170.7314453125,
+              "top": 22,
+              "bottom": 56.19921875
+            },
+            {
+              "text": "Label 1 position",
+              "left": 114.9609375,
+              "right": 206.0390625,
+              "top": 295,
+              "bottom": 310
+            },
+            {
+              "text": "Visit frequency",
+              "left": 17,
+              "right": 32,
+              "top": 120.98828125,
+              "bottom": 206.515625
+            }
+          ],
+          "title": "One sticker1000 steps",
+          "types": [
+            "bar",
+            "scatter"
+          ],
+          "bars": 24,
+          "background": "#161b22",
+          "fontColor": "#e6edf3"
+        },
+        {
+          "index": 2,
+          "width": 270,
+          "height": 390,
+          "clipped": [],
+          "overlaps": [],
+          "labels": [
+            {
+              "text": "Observed visits",
+              "left": 105,
+              "right": 173.359375,
+              "top": 338.83984375,
+              "bottom": 349.83984375
+            },
+            {
+              "text": "Uniform target",
+              "left": 105,
+              "right": 168.576171875,
+              "top": 357.83984375,
+              "bottom": 368.83984375
+            },
+            {
+              "text": "One sticker10000 steps",
+              "left": 96.8515625,
+              "right": 173.1484375,
+              "top": 22,
+              "bottom": 56.19921875
+            },
+            {
+              "text": "Label 1 position",
+              "left": 114.9609375,
+              "right": 206.0390625,
+              "top": 295,
+              "bottom": 310
+            },
+            {
+              "text": "Visit frequency",
+              "left": 17,
+              "right": 32,
+              "top": 120.98828125,
+              "bottom": 206.515625
+            }
+          ],
+          "title": "One sticker10000 steps",
+          "types": [
+            "bar",
+            "scatter"
+          ],
+          "bars": 24,
+          "background": "#161b22",
+          "fontColor": "#e6edf3"
+        },
+        {
+          "index": 3,
+          "width": 270,
+          "height": 460,
+          "clipped": [],
+          "overlaps": [],
+          "labels": [
+            {
+              "text": "Visit frequency",
+              "left": 117.984375,
+              "right": 203.51123046875,
+              "top": 373.1015625,
+              "bottom": 388.1015625
+            },
+            {
+              "text": "Two stickers100 steps24 × 24",
+              "left": 96.4921875,
+              "right": 173.5078125,
+              "top": 22,
+              "bottom": 74.3984375
+            },
+            {
+              "text": "Label 1 corner index",
+              "left": 101.59375,
+              "right": 219.8935546875,
+              "top": 327,
+              "bottom": 342
+            },
+            {
+              "text": "Label 3 corner index",
+              "left": 17,
+              "right": 32,
+              "top": 120.60546875,
+              "bottom": 238.90625
+            }
+          ],
+          "title": "Two stickers100 steps24 × 24",
+          "types": [
+            "bar"
+          ],
+          "bars": 504,
+          "background": "#161b22",
+          "fontColor": "#e6edf3"
+        },
+        {
+          "index": 4,
+          "width": 270,
+          "height": 460,
+          "clipped": [],
+          "overlaps": [],
+          "labels": [
+            {
+              "text": "Visit frequency",
+              "left": 117.984375,
+              "right": 203.51123046875,
+              "top": 373.1015625,
+              "bottom": 388.1015625
+            },
+            {
+              "text": "Two stickers1000 steps24 × 24",
+              "left": 96.4921875,
+              "right": 173.5078125,
+              "top": 22,
+              "bottom": 74.3984375
+            },
+            {
+              "text": "Label 1 corner index",
+              "left": 101.59375,
+              "right": 219.8935546875,
+              "top": 327,
+              "bottom": 342
+            },
+            {
+              "text": "Label 3 corner index",
+              "left": 17,
+              "right": 32,
+              "top": 120.60546875,
+              "bottom": 238.90625
+            }
+          ],
+          "title": "Two stickers1000 steps24 × 24",
+          "types": [
+            "bar"
+          ],
+          "bars": 504,
+          "background": "#161b22",
+          "fontColor": "#e6edf3"
+        },
+        {
+          "index": 5,
+          "width": 270,
+          "height": 460,
+          "clipped": [],
+          "overlaps": [],
+          "labels": [
+            {
+              "text": "Visit frequency",
+              "left": 117.984375,
+              "right": 203.51123046875,
+              "top": 373.1015625,
+              "bottom": 388.1015625
+            },
+            {
+              "text": "Two stickers10000 steps24 × 24",
+              "left": 96.4921875,
+              "right": 173.5078125,
+              "top": 22,
+              "bottom": 74.3984375
+            },
+            {
+              "text": "Label 1 corner index",
+              "left": 101.59375,
+              "right": 219.8935546875,
+              "top": 327,
+              "bottom": 342
+            },
+            {
+              "text": "Label 3 corner index",
+              "left": 17,
+              "right": 32,
+              "top": 120.60546875,
+              "bottom": 238.90625
+            }
+          ],
+          "title": "Two stickers10000 steps24 × 24",
+          "types": [
+            "bar"
+          ],
+          "bars": 504,
+          "background": "#161b22",
+          "fontColor": "#e6edf3"
+        }
+      ],
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "theme": "light",
+      "receipt": {
+        "ok": true,
+        "format": "srwb",
+        "mode": "replace",
+        "notebookId": "default",
+        "name": "Markov Groups: A Random Walk on Cube Moves",
+        "cells": 19,
+        "size": 52314,
+        "sha256": "2daf77aa872a7210cc16083535b1c244fb2cfbc288d60f688b85f0736633c430"
+      },
+      "cells": [
+        {
+          "name": "intro",
+          "type": "markdown",
+          "output": "Markov Groups: A Random Walk on Cube Moves\n\nThis lesson separates three ideas:\n\nA legal cube move is a permutation of sticker positions.\nRepeating one quarter turn gives powers with exponent modulo 4.\nChoosing legal moves at random creates a Markov chain on reachable cube states.\n\nWe use a standard 3×3×3 Rubik's Cube with 54 labelled stickers. Labels 1..54 identify individual stickers, not just colours. All six face centres stay fixed. A quarter turn is clockwise when you look directly at the outside of the turned face; see Rubik's official move guide.\n\nRuntime and run order\n\nRun the Python cells in order: cube_moves, check_moves, show_turn, transition_matrix, sticker_step, then random_walk. They share the Python session. NumPy is the only package used and SciREPL loads it with its Pyodide runtime; first use may need a runtime download. No AI account, prompt execution, extra package installation, or external data is needed. This catalog copy has no saved outputs.\n\nBefore running check_moves, predict: which stickers must never change position, and how many repeated quarter turns should restore every label?"
+        },
+        {
+          "name": "coordinates",
+          "type": "markdown",
+          "output": "Stage 1 — fix the layout and matrix convention\n\nFace order is U, D, F, B, L, R (up, down, front, back, left, right). Each face occupies nine consecutive zero-based positions, read row-major while looking at that face from outside:\n\n0 1 2\n3 4 5\n6 7 8\n\n\nAdd 9 * face_index for a particular face. The centre positions are 4, 13, 22, 31, 40, 49. Sticker labels are one-based, so the label initially at position j is j + 1.\n\nGlobal axes and face-view axes\n\nThe global axes stay fixed for the whole cube: +x points right, +y points up, and +z points toward the front. Thus (0, 0, -1) points toward the back.\n\nF\nU\nR\n+x\n+y\n+z\n\nThe table uses a separate local frame for each face. Imagine a small sheet of paper on that face, viewed from outside the cube: r points right along the paper and u points up along the paper. These are not necessarily global right and global up. The outward normal n points perpendicular to the paper, away from the cube, rather than along it.\n\nEach row satisfies r × u = n. By the right-hand rule, curl the fingers of your right hand from the local right direction toward local up; your thumb points along the outward normal. On the front face F, these directions are r = +x, u = +y, and n = +z.\n\nFace\tOutward normal (n)\tRight in face view (r)\tUp in face view (u)\nU\t(0, 1, 0)\t(1, 0, 0)\t(0, 0, -1)\nD\t(0, -1, 0)\t(1, 0, 0)\t(0, 0, 1)\nF\t(0, 0, 1)\t(1, 0, 0)\t(0, 1, 0)\nB\t(0, 0, -1)\t(-1, 0, 0)\t(0, 1, 0)\nL\t(-1, 0, 0)\t(0, 0, 1)\t(0, 1, 0)\nR\t(1, 0, 0)\t(0, 0, -1)\t(0, 1, 0)\nWhy top-face up points toward the back\n\nStart with the front-facing paper. Tilt it about a line parallel to its right direction, as if on a hinge, then reposition it on top of the cube without another rotation. In this front-to-top tilt, r stays +x, while u changes from +y to -z and n changes from +z to +y. The diagram compares the two frame orientations; it does not depict a sheet folding inward while attached to the actual cube edge.\n\nr = +x\nu = +y\nn = +z\nr = +x\nu = -z\nn = +y\nr = +x\n+y → -z\n+z → +y\nF\nU\nr × u = n\n\nSo on U, up along the paper points toward the back (-z), while global up (+y) points out of the top face, perpendicular to the paper. This explains the U row without changing the global axes. The tilt illustrates a face-view frame, not a legal cube face move.\n\nThe table fixes one consistent drawing convention, not a path-independent “no-twist” rule. Different routes between faces can leave a transported sheet with different in-plane rotations. Use the stated table to choose each face view.\n\nA permutation p maps a source position j to its destination p[j]. For a column state vector s, set P[p[j], j] = 1. Then s_next = P @ s, equivalently s_next[p[j]] = s[j]. Rows are destinations; columns are sources. The next cell uses disjoint cycles, each written in source-to-destination order.\n\nConstructing every face frame from F\n\nStart with F: r = +x, u = +y, n = +z. Keep the global axes fixed and rotate the whole paper frame. Positive angles follow the right-hand rule about the named positive global axis:\n\nStarting afresh from F for each face, about global +y, obtain R by +90°, B by 180°, and L by -90°.\nIndependently from F, about global +x, obtain U by -90° and D by +90°.\n\nAll three frame directions rotate together. On B, this gives r = -x, u = +y, n = -z: viewed from outside the back face, drawing-right points toward global left. The U and D paper planes are horizontal, with normals +y and -y; “up” within those planes is not global up.\n\nThese specified routes construct the table’s chosen drawing convention. They do not claim that every route between faces gives the same in-plane orientation, and they are not legal cube face moves.\n\nFace numbering\n\nFACE_NAMES = \"UDFBLR\" defines the numbering below. Starting the frame construction from F does not make F the first numbered face. MOVE_CYCLES happens to list its keys in the same order as FACE_NAMES; reordering only that dictionary does not renumber sticker positions.\n\nFace (index)\tPositions\tPrinted\nU — up (0)\t0–8\t1–9\nD — down (1)\t9–17\t10–18\nF — front (2)\t18–26\t19–27\nB — back (3)\t27–35\t28–36\nL — left (4)\t36–44\t37–45\nR — right (5)\t45–53\t46–54\n\nPositions are zero-based. The last column gives the one-based position numbers printed by show_turn. In the solved state these also equal the initial sticker labels, but sticker labels move when you scramble."
+        },
+        {
+          "name": "cube_moves",
+          "type": "code",
+          "output": "Out [3]\nBuilt six clockwise quarter-turn matrices with fixed face centres.\n"
+        },
+        {
+          "name": "check_moves",
+          "type": "code",
+          "output": "Out [4]\nU: bijection, fixed centres, four turns, and inverse passed\nD: bijection, fixed centres, four turns, and inverse passed\nF: bijection, fixed centres, four turns, and inverse passed\nB: bijection, fixed centres, four turns, and inverse passed\nL: bijection, fixed centres, four turns, and inverse passed\nR: bijection, fixed centres, four turns, and inverse passed\nAll six moves passed. U and R do not commute.\n"
+        },
+        {
+          "name": "cycles",
+          "type": "markdown",
+          "output": "Stage 3 — circles, cycles, and modular arithmetic\n\nThe lists in MOVE_CYCLES describe sticker positions. Each entry moves to the next entry in one quarter turn, and the last entry moves back to the first. All five cycles act simultaneously: each sticker advances one step, not around the entire loop in one move.\n\nA turn is clockwise when viewed directly from outside the turned face. Its outward normal points toward you; the face turns around that normal axis. Using the zero-based face grid above, the first two U cycles are:\n\nCorner stickers: [0, 2, 8, 6] follows top-left → top-right → bottom-right → bottom-left → top-left.\nEdge-middle stickers: [1, 5, 7, 3] follows top → right → bottom → left → top.\n\nThese are the clockwise paths you would draw around the face centre. The next cell prints one-based position numbers, so these become 1 → 3 → 9 → 7 → 1 and 2 → 6 → 8 → 4 → 2. Those numbers identify positions, not necessarily the sticker labels currently occupying them after scrambling.\n\nThe other three U cycles move stickers in the adjacent faces’ top rows around F → L → B → R → F. For example, [18, 36, 27, 45] sends the sticker at position 18 to position 36 in one U turn; repeated U turns take it to 27, then 45, then back to 18. The other two cycles track the corresponding middle and right positions in those rows.\n\nA physical corner piece (cubie) carries three stickers, and an edge piece carries two. The two face cycles track only their stickers on the turned face; their side stickers occur in the surrounding-strip cycles. Together these sticker paths describe one physical face move, not five independent moves of whole pieces. All face centres stay fixed.\n\nDraw one listed cycle as four positions around a circle. One quarter turn advances one step; two turns advance two steps; four turns restore every sticker position, so P^4 = I. For a fixed move P, P^k = P^(k mod 4). Its inverse is P^3 = P.T, and a half turn is P^2.\n\nThis is a cyclic subgroup of order 4. It does not make the entire cube group modular arithmetic: different face turns need not commute. With column vectors, “U, then R” is M[\"R\"] @ M[\"U\"] @ s, not the reverse matrix product. In the next cell, compare the same two moves in opposite orders.\n\nHow the stored cycle lists are grouped\n\nEach MOVE_CYCLES face entry contains five disjoint four-cycles: two on the turned face (corner stickers and edge-middle stickers), and three on neighbouring strips. The order of those groups in the stored list is not universal:\n\nFace\tFace cycles\tStrip cycles\nU, D\t1–2\t3–5\nF, B, L, R\t4–5\t1–3\n\nHere the cycle numbers are one-based positions within the list of five cycles, not sticker positions. Each stored cycle begins with its smallest flat sticker index, and the five cycles are sorted by those starting indices. This is a deterministic index-based presentation, not a choice to start at local drawing-right. Within each cycle, entries follow the clockwise source-to-destination path; they are not numerically sorted.\n\nThe U corner and edge examples above are its first two cycles. For F, the first stored cycle is [6, 45, 11, 44]: U bottom-left → R top-left → D top-right → L bottom-right → U bottom-left. All four positions lie on neighbouring faces, not F; F’s own face cycles are fourth and fifth.\n\nA flat index is 9 * face_index + 3 * row + column, with row = 0 at the top and column = 0 at the left in that face’s outside view. Each listed integer is an absolute zero-based sticker position across all six faces, not a component of local r or u.\n\nMathematically, the starting entry can be shifted: [a, b, c, d] and [b, c, d, a] describe the same cycle. The source data chooses the minimum-index rule above. Reversing the source-to-destination order gives the inverse cycle.\n\nThe arrows always mean source → destination for one clockwise quarter turn viewed from outside the turned face, about its outward normal. show_turn adds 1 to each stored position when printing it; this changes the displayed numbering, not the move."
+        },
+        {
+          "name": "show_turn",
+          "type": "code",
+          "output": "Out [6]\nU cycles, shown as one-based sticker positions:\n1 -> 3 -> 9 -> 7 -> 1\n2 -> 6 -> 8 -> 4 -> 2\n19 -> 37 -> 28 -> 46 -> 19\n20 -> 38 -> 29 -> 47 -> 20\n21 -> 39 -> 30 -> 48 -> 21\n\nF top row labels before U: [19, 20, 21]\nF top row labels after U:  [46, 47, 48]\nFace-letter colours after U: ['U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'R', 'R', 'R', 'F', 'F', 'F', 'F', 'F', 'F', 'L', 'L', 'L', 'B', 'B', 'B', 'B', 'B', 'B', 'F', 'F', 'F', 'L', 'L', 'L', 'L', 'L', 'L', 'B', 'B', 'B', 'R', 'R', 'R', 'R', 'R', 'R']\nU then R equals R then U: False\n"
+        },
+        {
+          "name": "markov_bridge",
+          "type": "markdown",
+          "output": "Stage 4 — choose a move at random\nBuild the sticker-location transition matrix\n\nChoose independently and uniformly among 13 options at each step: stay still (I), the six quarter turns, and their six inverses. Each has probability 1/13.\n\nFor the whole cube, this is a random walk on a graph. Vertices are reachable configurations of the original labelled cube; a face turn follows an edge, and the identity makes a self-loop. Next-state probabilities depend only on the current configuration: this is a Markov chain.\n\nFirst build a smaller 54×54 matrix T, tracking one sticker's position, not the entire configuration. Every chosen move still acts on the whole cube; we simply record where one chosen sticker ends up.\n\nM[name] contains zeros and ones, not destination indices. Entry M[name][d, j] is 1 when that turn sends source position j to destination position d. Rows are destinations; columns are sources. The transpose represents the inverse permutation, so M[name].T reverses the turn.\n\nThe next cell starts with an identity-matrix copy and adds each turn and inverse. Entry move_counts[d, j] counts how many choices send source position j to destination position d. We add these matrices entry by entry because they are alternatives for one step, not moves performed in sequence. Powers of T account for longer sequences. Dividing by 13 gives the transition probability:\n\n𝑇\n𝑑\n,\n𝑗\n=\n1\n13\n∑\n𝑎\n∈\nM\nO\nV\nE\n_\nO\nP\nT\nI\nO\nN\nS\n(\n𝑃\n𝑎\n)\n𝑑\n,\n𝑗\n.\nT\nd,j\n\t​\n\n=\n13\n1\n\t​\n\na∈MOVE_OPTIONS\n∑\n\t​\n\n(P\na\n\t​\n\n)\nd,j\n\t​\n\n.\n\nHere a is a move choice and P_a its permutation matrix, including the identity. Different choices can have the same sticker destination. Each permutation matrix has one 1 per column and one 1 per row, so averaging them gives column sums of 1 and row sums of 1. Separately, equal weighting of each turn and its inverse makes T symmetric."
+        },
+        {
+          "name": "transition_matrix",
+          "type": "code",
+          "output": ""
+        },
+        {
+          "name": "sticker_bridge",
+          "type": "markdown",
+          "output": "Follow one chosen sticker for one step\n\nChoose sticker label 1, initially at zero-based position 0. SOLVED stores the solved cube's sticker labels: SOLVED = [1, 2, ..., 54]. The index is a position; the value is the label occupying it. For example, SOLVED[0] = 1 and SOLVED[5] = 6. Thus SOLVED[j] identifies a sticker at position j, whereas location_probability[j] is the probability that our chosen sticker occupies that position. Same vector length, different meanings.\n\nWrite location_probability as x in the equations, with superscripts counting steps. For any starting probability distribution, the update is:\n\n𝑥\n𝑑\n(\n1\n)\n=\n∑\n𝑖\n=\n0\n53\n𝑇\n𝑑\n,\n𝑖\n𝑥\n𝑖\n(\n0\n)\n.\nx\nd\n(1)\n\t​\n\n=\ni=0\n∑\n53\n\t​\n\nT\nd,i\n\t​\n\nx\ni\n(0)\n\t​\n\n.\n\nIf the starting position is certainly j, the distribution is one-hot at position j: entry j is 1 and every other entry is zero. Only that column contributes, so the result is column j of T:\n\n𝑥\n𝑖\n(\n0\n)\n=\n{\n1\n,\n\t\n𝑖\n=\n𝑗\n,\n\n\n0\n,\n\t\n𝑖\n≠\n𝑗\n,\n\n\n⟹\n𝑥\n𝑑\n(\n1\n)\n=\n𝑇\n𝑑\n,\n𝑗\n.\nx\ni\n(0)\n\t​\n\n={\n1,\n0,\n\t​\n\ni=j,\ni\n\n=j,\n\t​\n\n⟹x\nd\n(1)\n\t​\n\n=T\nd,j\n\t​\n\n.\n\t​\n\n\nThe code uses the particular case j = 0: location_probability[0] = 1, so sticker 1, which starts at position 0, is the one we follow. Then after_one_step = T @ location_probability equals T[:, 0], the first column of T (in NumPy, : means all rows). Entry d of that column, after_one_step[d] = T[d, 0], is the probability that sticker 1 is at position d after one random move. Thus T[:, 0] is the distribution of destinations for the sticker starting at position 0. This equality relies on the one-hot start; an uncertain starting position gives a weighted combination of columns instead.\n\nThe choices I, D, D', F, F', R, and R' leave position 0 unchanged, so T[0, 0] = 7/13. The other choices send it to these positions: U → 2, U' → 6, L → 18, L' → 35, B → 42, and B' → 47. Each has probability 1/13.\n\nThe printed mass of 1 checks normalization only, not uniform sticker locations or whole-cube mixing. T is generally not a permutation: applying it to SOLVED can give fractional labels, not a legal configuration."
+        },
+        {
+          "name": "sticker_step",
+          "type": "code",
+          "output": "Out [10]\nOne-sticker probability mass after one step: 1.0\n"
+        },
+        {
+          "name": "trajectory_bridge",
+          "type": "markdown",
+          "output": "Sample an actual whole-cube trajectory\n\nNow rng.choice samples 12 actual choices, and apply(SOLVED, *moves) applies those permutations to the whole cube. This gives one valid configuration, not an average of labels. The seed makes it reproducible, not uniformly mixed. Assertions check preservation of every sticker label and all six centres.\n\nFor n steps in the sticker-location model, use np.linalg.matrix_power(T, n) @ location_probability. This averages over all ordered sequences of n independent choices, each with probability 1 / 13**n. For two steps:\n\n𝑇\n2\n=\n1\n1\n3\n2\n∑\n𝑎\n,\n𝑏\n∈\nM\nO\nV\nE\n_\nO\nP\nT\nI\nO\nN\nS\n𝑃\n𝑏\n𝑃\n𝑎\n.\nT\n2\n=\n13\n2\n1\n\t​\n\na,b∈MOVE_OPTIONS\n∑\n\t​\n\nP\nb\n\t​\n\nP\na\n\t​\n\n.\n\nHere a is chosen first, then b. Both “U then R” and “R then U” contribute: M[\"R\"] @ M[\"U\"] and M[\"U\"] @ M[\"R\"]. Averaging does not make different move orders equivalent.\n\nThe whole-cube walk has a uniform stationary distribution because every move permutes its configurations. The graph is finite and connected on reachable configurations (irreducible), and the identity self-loop makes it aperiodic. Together these give eventual convergence to that distribution, but neither a mixing time nor uniform scrambling after 12 choices."
+        },
+        {
+          "name": "random_walk",
+          "type": "code",
+          "output": "Out [12]\nSampled moves: R' B' B' R B L' L' U' I D D R\nFinal face-letter colours: ['L', 'U', 'F', 'R', 'U', 'F', 'D', 'D', 'F', 'R', 'R', 'B', 'B', 'D', 'B', 'B', 'D', 'R', 'L', 'L', 'U', 'B', 'F', 'U', 'D', 'D', 'R', 'R', 'R', 'B', 'U', 'B', 'F', 'U', 'F', 'U', 'D', 'B', 'F', 'L', 'L', 'D', 'L', 'L', 'B', 'L', 'R', 'D', 'L', 'R', 'F', 'U', 'U', 'F']\nThe sampled path preserved every sticker label and all six centres.\n"
+        },
+        {
+          "name": "takeaways",
+          "type": "markdown",
+          "output": "Check your understanding\nWhy does checking only colours fail to reveal some incorrect permutations within a face?\nWhy must a quarter turn fix the centre and satisfy P^4 = I?\nWhy is the matrix product for “U, then R” written in reverse chronological order?\nWhy does modulo 4 describe powers of one face turn, but not arbitrary sequences of different face turns?\nWhat does the 54×54 stochastic matrix describe? Why is it not the full cube-state Markov chain?\nWhy does a reproducible 12-step random walk not prove uniform scrambling?\n\nThe full cube group is generated by the six face moves, with inverse moves already obtainable as third powers. We do not claim that U, R, and F alone generate the full group: all three leave the opposite D–B–L corner untouched.\n\nMain lesson: distinguish a legal permutation, its cyclic powers, and a probability mixture of moves. Those are connected ideas, not interchangeable objects.\n\nHint for question 5: The chosen sticker is a corner sticker. Face turns keep it among the 24 corner-sticker positions; it cannot move into an edge or centre position. This smaller model tracks that sticker's location, not the joint positions of all stickers. Its long-run distribution is therefore not uniform across all 54 positions."
+        },
+        {
+          "name": "mixing_bridge",
+          "type": "markdown",
+          "output": "Optional experiment — visit frequencies\n\nThe 13-cell core lesson above is complete. Skip everything below if you only want the core examples. To opt in, first run the core Python cells in order; then run mixing_setup, sticker_visits, and joint_visits below. These experiments use app-provided NumPy and mplot, with no package installation, workbook-initiated network request, external data, model call, or file write. The default is 10000 moves, with snapshots after 100, 1000, and 10000 moves.\n\nThe setup constructs the 13 choices from the existing permutations: identity, six face turns, and their six inverses, each equally likely. Breadth-first search starts at position 0 and repeatedly applies every choice to discover the one-sticker orbit; the code checks that there are 24 reachable corner-sticker positions. It derives physical corner-cubie slots from the Stage 1 face frames and checks that every move transports all three stickers of each cubie together. The values 24 and 8 are checks, not inputs to the search or target probabilities.\n\nFor a second sticker, the search starts at the ordered pair (0, 2), the solved positions of labels 1 and 3. At every search step it applies the SAME move to both coordinates. The resulting mask is compared with the independently derived cubie-slot relation: only pairs in different corner slots are reachable. There are 504 reachable ordered pairs and 72 masked pairs on the 24-by-24 grid, including its diagonal. The code derives both counts before checking them. Each move permutes the reachable pairs, so equal incoming counts verify a stationary uniform joint target. Identity supplies self-loops, and the search verifies connectivity within each tracked orbit; these are reduced-state experiments, not enumeration of whole-cube configurations."
+        },
+        {
+          "name": "mixing_setup",
+          "type": "code",
+          "output": "Out [15]\nCorner positions: [0, 2, 6, 8, 9, 11, 15, 17, 18, 20, 24, 26, 27, 29, 33, 35, 36, 38, 42, 44, 45, 47, 51, 53]\nReachable ordered pairs: 504\nMasked same-cubie pairs: 72\n"
+        },
+        {
+          "name": "visit_bridge",
+          "type": "markdown",
+          "output": "One sticker — a recursive visit histogram\n\nTrack label 1, initially at zero-based position 0. Each iteration chooses one of the 13 moves uniformly, updates the previous position by its permutation, and increments that destination's count. Count visits AFTER moves; the starting position is not counted. The seed 20261007 makes the path reproducible, not uniformly mixed. Each histogram divides accumulated counts by the number of moves. The horizontal axis selects the 24 corner-position IDs from the original cube numbering 0..53; it does not contain 54 bars. Sparse tick labels show only some of those IDs, but every corner position has a bar. The next section explains the four-corners-per-face count and lists all 24 IDs. The dashed line is the stationary target 1/24.\n\nThis is an empirical time average from ONE correlated trajectory. It is not the exact distribution of the sticker's position at move n. The code separately advances exact_probability by corner_T each time; this is the corner-restricted version of T^n @ location_probability from the solved start. Printed distances compare each distribution with its uniform target using half the sum of absolute differences. The finite sample need not improve at every snapshot, and no histogram establishes whole-cube mixing or a whole-cube mixing time."
+        },
+        {
+          "name": "sticker_visits",
+          "type": "code",
+          "output": "Out [17]\n0\n9\n18\n27\n36\n45\n53\n0\n0.05\n0.1\n0.15\nObserved visits\nUniform target\nOne sticker100 steps\nLabel 1 position\nVisit frequency\n0\n9\n18\n27\n36\n45\n53\n0\n0.02\n0.04\n0.06\n0.08\nObserved visits\nUniform target\nOne sticker1000 steps\nLabel 1 position\nVisit frequency\n0\n9\n18\n27\n36\n45\n53\n0\n0.01\n0.02\n0.03\n0.04\n0.05\nObserved visits\nUniform target\nOne sticker10000 steps\nLabel 1 position\nVisit frequency\n100 steps; visit-average distance: 0.383333 exact end-position distance: 0.0\n1000 steps; visit-average distance: 0.137 exact end-position distance: 0.0\n10000 steps; visit-average distance: 0.034967 exact end-position distance: 0.0\n"
+        },
+        {
+          "name": "joint_bridge",
+          "type": "markdown",
+          "output": "Two stickers — a shared-move joint heatmap\n\nTrack labels 1 and 3, starting at positions 0 and 2 on DIFFERENT corner cubies. Choose ONE uniformly random move per iteration and apply it to BOTH positions. The seed is reset so the first coordinate follows the histogram's exact same sampled path; the joint heatmap's column sums are checked against that histogram. These are dependent coordinates of one cube, not two independent cubes. Do not use T ⊗ T: that would choose independent moves and allow impossible same-cubie pairs.\n\nRead the axes: 24 corner positions per sticker\n\nThe horizontal axis gives the position of sticker label 1; the vertical axis gives the position of sticker label 3. Each axis has 24 possible destinations, not just the four corners of the sticker's starting face: sequences of face turns can carry it between faces. There are four corner-sticker positions on each of six faces, so 4 × 6 = 24. Equivalently, eight physical corners each have three face-facing sticker positions: 8 × 3 = 24. A corner sticker never moves into an edge or centre position. The cube has 48 non-centre positions altogether, but 24 of those belong to edges and are not destinations for either sticker we follow.\n\nThe heatmap axes now use consecutive corner indices 1..24, NOT the original cube IDs 0..53. This makes the grid size visible: 24 columns and 24 rows. An index simply selects one entry from the table below; it is not a new sticker label or a physical distance. For example, indices 1, 2, 3, 4 select original position IDs 0, 2, 6, 8. Only some tick labels are printed to fit a phone screen, but all 24 rows and columns are present. The title says 24 × 24; faint cell boundaries mark all 24 spaces in each direction, including the forbidden tiles. Count the spaces, not the intervals between tick marks: 24 cell centres have only 23 intervals between them. Hover text reports the ORIGINAL pair of position IDs followed by its visit frequency. The one-sticker histogram above retains its original position-ID labels.\n\nHeatmap indices (face)\tOriginal corner position IDs\n1–4: U (up)\t0, 2, 6, 8\n5–8: D (down)\t9, 11, 15, 17\n9–12: F (front)\t18, 20, 24, 26\n13–16: B (back)\t27, 29, 33, 35\n17–20: L (left)\t36, 38, 42, 44\n21–24: R (right)\t45, 47, 51, 53\n\nA heatmap tile represents one ordered pair: (position of label 1, position of label 3). The two 24-position axes therefore make 24 × 24 = 576 potential tiles, not a 48-by-48 or 54-by-54 grid. The two stickers belong to different corner pieces, so they cannot occupy any of the three sticker positions of the same physical corner. This rules out 8 × 3 × 3 = 72 tiles, leaving 24 × 21 = 504 reachable ordered pairs.\n\nWhy three pairs are forbidden in every row and column\n\nA physical corner piece has three stickers, one on each of the three faces meeting at that corner. A face turn transports this whole piece; it does not detach its stickers. Labels 1 and 3 started on DIFFERENT corner pieces, and those pieces must always occupy different physical corner slots. Once the position of either tracked sticker is fixed, all three face-facing positions of that corner slot are forbidden for the other sticker. This is why there are exactly three gaps in each row AND each column.\n\nFor example, original IDs 0 (U), 29 (B), and 36 (L) are three views of the SAME upper-back-left corner slot, not three separate corner pieces. If sticker label 3 occupies ID 0, sticker label 1 cannot occupy ANY of those three IDs: that would place its different corner piece in the same slot. Moving sticker label 3 to another corner changes the three forbidden IDs. There is no permanent list of three unusable positions; these are conditional restrictions on pairs of positions.\n\nFor example, the bottom row fixes sticker label 3 at corner index 1, which selects original position ID 0. It has 24 horizontal slots, but only 21 colored, reachable tiles: the three gaps are sticker label 1 at corner indices 1, 14, 17 (original IDs 0, 29, 36), the three face-facing positions of that same physical corner. The leftmost column has the same three gaps. Thus counting only the colored tiles gives 21, not 24; the gaps are forbidden PAIRS, not three positions removed from either axis. Every row and column has three such gaps. The 30 edge and centre IDs were already omitted when constructing the 24-position axes; they are not the black gaps in this grid.\n\nTransparent gaps are those 72 impossible same-cubie pairs, NOT unvisited states. This is one eighth of the grid: the main diagonal plus 48 off-diagonal tiles. Axis gridlines through cell centres are switched off. The faint outlines are cell boundaries, not data or nonzero probabilities inside the gaps. Colored zero cells are reachable pairs with no sampled visits yet. The stationary target is 1/504 for each of the 504 reachable ORDERED pairs, not 1/576. The denominator comes from the common-move breadth-first search, not independent multiplication of marginal targets.\n\nEach heatmap is an accumulated visit average after 100, 1000, or 10000 moves. Its color scale starts at zero and adapts to that snapshot's maximum; compare the printed distances rather than comparing colors across snapshots. At 10000 moves there are only about 20 visits per reachable pair on average, so a patchy map can remain even after many moves; successive visits are also correlated. The mask, sample path, frequencies, and plots are generated by the actual code, and no full-cube uniformity or mixing-time claim follows from either reduced projection."
+        },
+        {
+          "name": "joint_visits",
+          "type": "code",
+          "output": "Out [19]\n1\n5\n9\n13\n17\n21\n24\n1\n5\n9\n13\n17\n21\n24\n0.000\n0.020\n0.040\n0.060\nVisit frequency\nTwo stickers100 steps24 × 24\nLabel 1 corner index\nLabel 3 corner index\n1\n5\n9\n13\n17\n21\n24\n1\n5\n9\n13\n17\n21\n24\n0.000\n0.005\n0.010\nVisit frequency\nTwo stickers1000 steps24 × 24\nLabel 1 corner index\nLabel 3 corner index\n1\n5\n9\n13\n17\n21\n24\n1\n5\n9\n13\n17\n21\n24\n0.000\n0.002\n0.004\nVisit frequency\nTwo stickers10000 steps24 × 24\nLabel 1 corner index\nLabel 3 corner index\n100 steps; joint visit-average distance: 0.878968\n1000 steps; joint visit-average distance: 0.402921\n10000 steps; joint visit-average distance: 0.134557\nUniform target per reachable ordered pair: 0.00198413\n"
+        }
+      ],
+      "plots": [
+        {
+          "index": 0,
+          "width": 270,
+          "height": 390,
+          "clipped": [],
+          "overlaps": [],
+          "labels": [
+            {
+              "text": "Observed visits",
+              "left": 105,
+              "right": 173.359375,
+              "top": 338.83984375,
+              "bottom": 349.83984375
+            },
+            {
+              "text": "Uniform target",
+              "left": 105,
+              "right": 168.576171875,
+              "top": 357.83984375,
+              "bottom": 368.83984375
+            },
+            {
+              "text": "One sticker100 steps",
+              "left": 99.59375,
+              "right": 170.7314453125,
+              "top": 22,
+              "bottom": 56.19921875
+            },
+            {
+              "text": "Label 1 position",
+              "left": 114.9609375,
+              "right": 206.0390625,
+              "top": 295,
+              "bottom": 310
+            },
+            {
+              "text": "Visit frequency",
+              "left": 17,
+              "right": 32,
+              "top": 120.98828125,
+              "bottom": 206.515625
+            }
+          ],
+          "title": "One sticker100 steps",
+          "types": [
+            "bar",
+            "scatter"
+          ],
+          "bars": 24,
+          "background": "#161b22",
+          "fontColor": "#e6edf3"
+        },
+        {
+          "index": 1,
+          "width": 270,
+          "height": 390,
+          "clipped": [],
+          "overlaps": [],
+          "labels": [
+            {
+              "text": "Observed visits",
+              "left": 105,
+              "right": 173.359375,
+              "top": 338.83984375,
+              "bottom": 349.83984375
+            },
+            {
+              "text": "Uniform target",
+              "left": 105,
+              "right": 168.576171875,
+              "top": 357.83984375,
+              "bottom": 368.83984375
+            },
+            {
+              "text": "One sticker1000 steps",
+              "left": 99.59375,
+              "right": 170.7314453125,
+              "top": 22,
+              "bottom": 56.19921875
+            },
+            {
+              "text": "Label 1 position",
+              "left": 114.9609375,
+              "right": 206.0390625,
+              "top": 295,
+              "bottom": 310
+            },
+            {
+              "text": "Visit frequency",
+              "left": 17,
+              "right": 32,
+              "top": 120.98828125,
+              "bottom": 206.515625
+            }
+          ],
+          "title": "One sticker1000 steps",
+          "types": [
+            "bar",
+            "scatter"
+          ],
+          "bars": 24,
+          "background": "#161b22",
+          "fontColor": "#e6edf3"
+        },
+        {
+          "index": 2,
+          "width": 270,
+          "height": 390,
+          "clipped": [],
+          "overlaps": [],
+          "labels": [
+            {
+              "text": "Observed visits",
+              "left": 105,
+              "right": 173.359375,
+              "top": 338.83984375,
+              "bottom": 349.83984375
+            },
+            {
+              "text": "Uniform target",
+              "left": 105,
+              "right": 168.576171875,
+              "top": 357.83984375,
+              "bottom": 368.83984375
+            },
+            {
+              "text": "One sticker10000 steps",
+              "left": 96.8515625,
+              "right": 173.1484375,
+              "top": 22,
+              "bottom": 56.19921875
+            },
+            {
+              "text": "Label 1 position",
+              "left": 114.9609375,
+              "right": 206.0390625,
+              "top": 295,
+              "bottom": 310
+            },
+            {
+              "text": "Visit frequency",
+              "left": 17,
+              "right": 32,
+              "top": 120.98828125,
+              "bottom": 206.515625
+            }
+          ],
+          "title": "One sticker10000 steps",
+          "types": [
+            "bar",
+            "scatter"
+          ],
+          "bars": 24,
+          "background": "#161b22",
+          "fontColor": "#e6edf3"
+        },
+        {
+          "index": 3,
+          "width": 270,
+          "height": 460,
+          "clipped": [],
+          "overlaps": [],
+          "labels": [
+            {
+              "text": "Visit frequency",
+              "left": 117.984375,
+              "right": 203.51123046875,
+              "top": 373.1015625,
+              "bottom": 388.1015625
+            },
+            {
+              "text": "Two stickers100 steps24 × 24",
+              "left": 96.4921875,
+              "right": 173.5078125,
+              "top": 22,
+              "bottom": 74.3984375
+            },
+            {
+              "text": "Label 1 corner index",
+              "left": 101.59375,
+              "right": 219.8935546875,
+              "top": 327,
+              "bottom": 342
+            },
+            {
+              "text": "Label 3 corner index",
+              "left": 17,
+              "right": 32,
+              "top": 120.60546875,
+              "bottom": 238.90625
+            }
+          ],
+          "title": "Two stickers100 steps24 × 24",
+          "types": [
+            "bar"
+          ],
+          "bars": 504,
+          "background": "#161b22",
+          "fontColor": "#e6edf3"
+        },
+        {
+          "index": 4,
+          "width": 270,
+          "height": 460,
+          "clipped": [],
+          "overlaps": [],
+          "labels": [
+            {
+              "text": "Visit frequency",
+              "left": 117.984375,
+              "right": 203.51123046875,
+              "top": 373.1015625,
+              "bottom": 388.1015625
+            },
+            {
+              "text": "Two stickers1000 steps24 × 24",
+              "left": 96.4921875,
+              "right": 173.5078125,
+              "top": 22,
+              "bottom": 74.3984375
+            },
+            {
+              "text": "Label 1 corner index",
+              "left": 101.59375,
+              "right": 219.8935546875,
+              "top": 327,
+              "bottom": 342
+            },
+            {
+              "text": "Label 3 corner index",
+              "left": 17,
+              "right": 32,
+              "top": 120.60546875,
+              "bottom": 238.90625
+            }
+          ],
+          "title": "Two stickers1000 steps24 × 24",
+          "types": [
+            "bar"
+          ],
+          "bars": 504,
+          "background": "#161b22",
+          "fontColor": "#e6edf3"
+        },
+        {
+          "index": 5,
+          "width": 270,
+          "height": 460,
+          "clipped": [],
+          "overlaps": [],
+          "labels": [
+            {
+              "text": "Visit frequency",
+              "left": 117.984375,
+              "right": 203.51123046875,
+              "top": 373.1015625,
+              "bottom": 388.1015625
+            },
+            {
+              "text": "Two stickers10000 steps24 × 24",
+              "left": 96.4921875,
+              "right": 173.5078125,
+              "top": 22,
+              "bottom": 74.3984375
+            },
+            {
+              "text": "Label 1 corner index",
+              "left": 101.59375,
+              "right": 219.8935546875,
+              "top": 327,
+              "bottom": 342
+            },
+            {
+              "text": "Label 3 corner index",
+              "left": 17,
+              "right": 32,
+              "top": 120.60546875,
+              "bottom": 238.90625
+            }
+          ],
+          "title": "Two stickers10000 steps24 × 24",
+          "types": [
+            "bar"
+          ],
+          "bars": 504,
+          "background": "#161b22",
+          "fontColor": "#e6edf3"
+        }
+      ],
+      "errors": [],
+      "externalRequests": []
+    }
+  ]
+}

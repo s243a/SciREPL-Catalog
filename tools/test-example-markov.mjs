@@ -6,10 +6,11 @@ import { EXAMPLE_LOCALES } from './example-lessons.mjs';
 import { coordinateDiagrams, assertCoordinateSvgInvariants, splitCoordinateDiagrams,
   restoreCoordinateDiagrams, reembedCoordinateDiagrams, diagramAccessibility } from './markov-coordinate-diagrams.mjs';
 import { parseMoveCycles, annotateMoveCycles, cycleCommentLabels, withoutCycleComments } from './markov-cycle-comments.mjs';
+import { projectMarkovHistoricalCore } from './markov-mixing-history.mjs';
 
 const readWorkbook = name => JSON.parse(readFileSync(
   new URL(`../workbooks/en/${name}.srwb`, import.meta.url), 'utf8'));
-const markov = readWorkbook('markov-groups');
+const markov = projectMarkovHistoricalCore(readWorkbook('markov-groups'), 'en');
 const simpson = readWorkbook('simpsons-paradox');
 let passed = 0;
 const check = (name, test) => { test(); passed++; console.log(`[PASS] ${name}`); };
@@ -144,7 +145,8 @@ check('Static coordinate diagrams have fixed inert geometry and safe accessible 
   assert.throws(() => assertCoordinateSvgInvariants(english.replace('<path', '<path onclick="alert(1)"')));
 });
 for (const locale of EXAMPLE_LOCALES) check(`${locale} embeds both coordinate diagrams without runtime output`, () => {
-  const book = JSON.parse(readFileSync(new URL(`../workbooks/${locale}/markov-groups.srwb`, import.meta.url), 'utf8'));
+  const book = projectMarkovHistoricalCore(JSON.parse(readFileSync(
+    new URL(`../workbooks/${locale}/markov-groups.srwb`, import.meta.url), 'utf8')), locale);
   assert.deepEqual(book.notebook.cells.map(cell => cell.name), markov.notebook.cells.map(cell => cell.name));
   assert.equal(book.notebook.cells.length, 13);
   const cell = book.notebook.cells[1];
