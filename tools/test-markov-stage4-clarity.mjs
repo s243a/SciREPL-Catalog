@@ -10,6 +10,7 @@ import { MARKOV_CLARITY_PREDECESSOR, MARKOV_CLARITY_KEYS, clarityStage4Parts,
   applyStage4Clarity, assertClarityProse } from './markov-stage4-clarity.mjs';
 import { CLARITY_CELLS, assertClarityBooks, clarityFormulas,
   assertClarityReportAdditions } from './record-markov-stage4-clarity.mjs';
+import { projectMarkovHistoricalCore } from './markov-mixing-history.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 export function testStage4Clarity({ deriveOnly = false } = {}) {
@@ -30,7 +31,7 @@ export function testStage4Clarity({ deriveOnly = false } = {}) {
     const expected = applyStage4Clarity(prior, locale);
     check(() => assertClarityBooks(prior, expected, locale));
     check(() => assert.equal(JSON.stringify(prior), before));
-    if (!deriveOnly) check(() => assert.deepEqual(read(file), expected));
+    if (!deriveOnly) check(() => assert.deepEqual(projectMarkovHistoricalCore(read(file), locale, { repo: root }), expected));
     check(() => assert.deepEqual(clarityFormulas(expected), clarityFormulas(source)));
     for (let index = 0; index < prior.notebook.cells.length; index++)
       if (!CLARITY_CELLS.includes(index)) check(() => assert.deepEqual(expected.notebook.cells[index], prior.notebook.cells[index]));

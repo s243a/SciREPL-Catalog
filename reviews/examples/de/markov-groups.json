@@ -4,12 +4,12 @@
   "locale": "de",
   "source": {
     "path": "workbooks/en/markov-groups.srwb",
-    "sha256": "98d3d861c7c59f011ca8f25e5148116dcc3c947c32550fc474bea36df23f68de"
+    "sha256": "2daf77aa872a7210cc16083535b1c244fb2cfbc288d60f688b85f0736633c430"
   },
   "target": {
     "path": "workbooks/de/markov-groups.srwb",
-    "sha256": "51543f1bb6814b0f24347cec27556b53384c0f09b33cf88ca0e8c8e386aad5b7",
-    "size": 35292,
+    "sha256": "b81cf0b2e80080b53fbbad6ab1c9e2ff6e1519771ea5ab004117c5ed23ad0bf1",
+    "size": 58245,
     "title": "Markov-Gruppen: Ein Random Walk auf Würfelzügen",
     "description": "Modellieren Sie Drehungen der Seitenflächen des Zauberwürfels als verifizierte Permutationen, untersuchen Sie Potenzen modulo vier und unterscheiden Sie einen Lazy Random Walk von einem stochastischen Ein-Sticker-Modell."
   },
@@ -17,11 +17,11 @@
     "model": "gemini-3.8-flash-medium",
     "contentAudit": {
       "status": "passed",
-      "sourceSha256": "98d3d861c7c59f011ca8f25e5148116dcc3c947c32550fc474bea36df23f68de",
-      "targetSha256": "51543f1bb6814b0f24347cec27556b53384c0f09b33cf88ca0e8c8e386aad5b7",
+      "sourceSha256": "2daf77aa872a7210cc16083535b1c244fb2cfbc288d60f688b85f0736633c430",
+      "targetSha256": "b81cf0b2e80080b53fbbad6ab1c9e2ff6e1519771ea5ab004117c5ed23ad0bf1",
       "findings": [],
       "errors": [],
-      "reviewMethod": "Prior prose audits retained. Only the three new Stage 4 Markdown fields received bounded review; existing localized comments and output labels were mechanically preserved.",
+      "reviewMethod": "Historical 13-cell audit retained; only new three Markdown fields and27 prose spans received the separately recorded bounded review/controller corrections.",
       "provenance": {
         "predecessorCommit": "017ea7eed65a9dc7875aa5b8c59df489114facbd",
         "predecessorSourceSha256": "c69cca69b060b196107fe0489b0f25cb8ddf5f0d7cca253fcfbb4bbf2179f478",
@@ -62,15 +62,222 @@
         "modelProseApproved": false,
         "unchangedPythonMetadataAndFormulas": true,
         "nativeSpeakerReview": "pending"
+      },
+      "mixingProvenance": {
+        "path": "reviews/markov-mixing-locales-20261013/translations/de.json",
+        "sha256": "09998cc1b8fc25928e53873cadbe0ed94207ad0cbc669f588f04a963d12aadfe",
+        "method": "controller-manual-fallback-after-truncated-first-model-response",
+        "modelProseApproved": false,
+        "controllerProseReviewed": true,
+        "nativeSpeakerReview": "pending"
       }
     },
     "policy": {
       "locale": "de",
       "protectedTexts": [
-        "UDFBLR"
+        "UDFBLR",
+        "<br>",
+        "type",
+        "bar",
+        "name",
+        "marker",
+        "color",
+        "scatter",
+        "mode",
+        "lines",
+        "line",
+        "dash",
+        "width",
+        "height",
+        "margin",
+        "title",
+        "text",
+        "font",
+        "size",
+        "paper_bgcolor",
+        "plot_bgcolor",
+        "#e6edf3",
+        "xaxis",
+        "category",
+        "tickmode",
+        "array",
+        "tickvals",
+        "automargin",
+        "yaxis",
+        "rangemode",
+        "tozero",
+        "legend",
+        "orientation",
+        "xref",
+        "yref",
+        "layer",
+        "above",
+        "rgba(230,237,243,0.25)",
+        "<br>24 × 24",
+        "base",
+        "hoverinfo",
+        "textposition",
+        "none",
+        "colorscale",
+        "Viridis",
+        "cmin",
+        "cmax",
+        "showscale",
+        "colorbar",
+        "len",
+        "xanchor",
+        "center",
+        "yanchor",
+        "top",
+        "tickangle",
+        "tickformat",
+        "thickness",
+        "side",
+        "showlegend",
+        "barmode",
+        "overlay",
+        "bargap",
+        "shapes",
+        "range",
+        "showgrid",
+        "zeroline",
+        "ticktext"
       ],
       "protectedIds": [
-        "2:1:0"
+        "2:1:0",
+        "14:14:0",
+        "16:4:0",
+        "16:8:0",
+        "16:10:0",
+        "16:16:0",
+        "16:20:0",
+        "16:22:0",
+        "16:26:0",
+        "16:28:0",
+        "16:30:0",
+        "16:32:0",
+        "16:38:0",
+        "16:42:0",
+        "16:44:0",
+        "16:48:0",
+        "16:50:0",
+        "16:52:0",
+        "16:58:0",
+        "16:60:0",
+        "16:70:0",
+        "16:72:0",
+        "16:74:0",
+        "16:76:0",
+        "16:80:0",
+        "16:84:0",
+        "16:88:0",
+        "16:90:0",
+        "16:92:0",
+        "16:94:0",
+        "16:96:0",
+        "16:98:0",
+        "16:100:0",
+        "16:102:0",
+        "16:104:0",
+        "16:106:0",
+        "16:108:0",
+        "16:110:0",
+        "16:112:0",
+        "16:114:0",
+        "16:116:0",
+        "16:118:0",
+        "16:120:0",
+        "16:126:0",
+        "16:128:0",
+        "18:2:0",
+        "18:4:0",
+        "18:6:0",
+        "18:10:0",
+        "18:22:0",
+        "18:24:0",
+        "18:26:0",
+        "18:28:0",
+        "18:30:0",
+        "18:32:0",
+        "18:34:0",
+        "18:36:0",
+        "18:38:0",
+        "18:42:0",
+        "18:54:0",
+        "18:56:0",
+        "18:58:0",
+        "18:60:0",
+        "18:62:0",
+        "18:64:0",
+        "18:76:0",
+        "18:80:0",
+        "18:82:0",
+        "18:84:0",
+        "18:90:0",
+        "18:92:0",
+        "18:94:0",
+        "18:96:0",
+        "18:98:0",
+        "18:100:0",
+        "18:102:0",
+        "18:104:0",
+        "18:106:0",
+        "18:108:0",
+        "18:110:0",
+        "18:112:0",
+        "18:114:0",
+        "18:116:0",
+        "18:118:0",
+        "18:120:0",
+        "18:122:0",
+        "18:124:0",
+        "18:132:0",
+        "18:134:0",
+        "18:136:0",
+        "18:138:0",
+        "18:140:0",
+        "18:142:0",
+        "18:144:0",
+        "18:148:0",
+        "18:150:0",
+        "18:152:0",
+        "18:156:0",
+        "18:158:0",
+        "18:164:0",
+        "18:166:0",
+        "18:176:0",
+        "18:178:0",
+        "18:180:0",
+        "18:182:0",
+        "18:186:0",
+        "18:190:0",
+        "18:194:0",
+        "18:196:0",
+        "18:198:0",
+        "18:200:0",
+        "18:202:0",
+        "18:204:0",
+        "18:206:0",
+        "18:208:0",
+        "18:210:0",
+        "18:212:0",
+        "18:214:0",
+        "18:216:0",
+        "18:218:0",
+        "18:220:0",
+        "18:222:0",
+        "18:224:0",
+        "18:226:0",
+        "18:228:0",
+        "18:230:0",
+        "18:232:0",
+        "18:234:0",
+        "18:236:0",
+        "18:238:0",
+        "18:240:0",
+        "18:242:0",
+        "18:244:0",
+        "18:246:0"
       ],
       "widthOverrides": {},
       "identifierRenames": false,
@@ -79,10 +286,276 @@
     },
     "keeps": {
       "ids": [
-        "2:1:0"
+        "2:1:0",
+        "14:14:0",
+        "16:4:0",
+        "16:8:0",
+        "16:10:0",
+        "16:16:0",
+        "16:20:0",
+        "16:22:0",
+        "16:26:0",
+        "16:28:0",
+        "16:30:0",
+        "16:32:0",
+        "16:38:0",
+        "16:42:0",
+        "16:44:0",
+        "16:48:0",
+        "16:50:0",
+        "16:52:0",
+        "16:58:0",
+        "16:60:0",
+        "16:70:0",
+        "16:72:0",
+        "16:74:0",
+        "16:76:0",
+        "16:80:0",
+        "16:84:0",
+        "16:88:0",
+        "16:90:0",
+        "16:92:0",
+        "16:94:0",
+        "16:96:0",
+        "16:98:0",
+        "16:100:0",
+        "16:102:0",
+        "16:104:0",
+        "16:106:0",
+        "16:108:0",
+        "16:110:0",
+        "16:112:0",
+        "16:114:0",
+        "16:116:0",
+        "16:118:0",
+        "16:120:0",
+        "16:126:0",
+        "16:128:0",
+        "18:2:0",
+        "18:4:0",
+        "18:6:0",
+        "18:10:0",
+        "18:22:0",
+        "18:24:0",
+        "18:26:0",
+        "18:28:0",
+        "18:30:0",
+        "18:32:0",
+        "18:34:0",
+        "18:36:0",
+        "18:38:0",
+        "18:42:0",
+        "18:54:0",
+        "18:56:0",
+        "18:58:0",
+        "18:60:0",
+        "18:62:0",
+        "18:64:0",
+        "18:76:0",
+        "18:80:0",
+        "18:82:0",
+        "18:84:0",
+        "18:90:0",
+        "18:92:0",
+        "18:94:0",
+        "18:96:0",
+        "18:98:0",
+        "18:100:0",
+        "18:102:0",
+        "18:104:0",
+        "18:106:0",
+        "18:108:0",
+        "18:110:0",
+        "18:112:0",
+        "18:114:0",
+        "18:116:0",
+        "18:118:0",
+        "18:120:0",
+        "18:122:0",
+        "18:124:0",
+        "18:132:0",
+        "18:134:0",
+        "18:136:0",
+        "18:138:0",
+        "18:140:0",
+        "18:142:0",
+        "18:144:0",
+        "18:148:0",
+        "18:150:0",
+        "18:152:0",
+        "18:156:0",
+        "18:158:0",
+        "18:164:0",
+        "18:166:0",
+        "18:176:0",
+        "18:178:0",
+        "18:180:0",
+        "18:182:0",
+        "18:186:0",
+        "18:190:0",
+        "18:194:0",
+        "18:196:0",
+        "18:198:0",
+        "18:200:0",
+        "18:202:0",
+        "18:204:0",
+        "18:206:0",
+        "18:208:0",
+        "18:210:0",
+        "18:212:0",
+        "18:214:0",
+        "18:216:0",
+        "18:218:0",
+        "18:220:0",
+        "18:222:0",
+        "18:224:0",
+        "18:226:0",
+        "18:228:0",
+        "18:230:0",
+        "18:232:0",
+        "18:234:0",
+        "18:236:0",
+        "18:238:0",
+        "18:240:0",
+        "18:242:0",
+        "18:244:0",
+        "18:246:0"
       ],
       "texts": [
-        "UDFBLR"
+        "UDFBLR",
+        "<br>",
+        "<br>",
+        "type",
+        "bar",
+        "name",
+        "marker",
+        "color",
+        "type",
+        "scatter",
+        "mode",
+        "lines",
+        "name",
+        "line",
+        "color",
+        "dash",
+        "dash",
+        "width",
+        "height",
+        "margin",
+        "title",
+        "text",
+        "font",
+        "size",
+        "paper_bgcolor",
+        "plot_bgcolor",
+        "font",
+        "size",
+        "color",
+        "#e6edf3",
+        "xaxis",
+        "type",
+        "category",
+        "tickmode",
+        "array",
+        "tickvals",
+        "automargin",
+        "yaxis",
+        "rangemode",
+        "tozero",
+        "automargin",
+        "legend",
+        "orientation",
+        "font",
+        "size",
+        "type",
+        "line",
+        "xref",
+        "yref",
+        "layer",
+        "above",
+        "line",
+        "color",
+        "rgba(230,237,243,0.25)",
+        "width",
+        "type",
+        "line",
+        "xref",
+        "yref",
+        "layer",
+        "above",
+        "line",
+        "color",
+        "rgba(230,237,243,0.25)",
+        "width",
+        "<br>",
+        "<br>24 × 24",
+        "type",
+        "bar",
+        "base",
+        "width",
+        "text",
+        "hoverinfo",
+        "text",
+        "textposition",
+        "none",
+        "marker",
+        "color",
+        "colorscale",
+        "Viridis",
+        "cmin",
+        "cmax",
+        "line",
+        "width",
+        "showscale",
+        "colorbar",
+        "orientation",
+        "len",
+        "xanchor",
+        "center",
+        "yanchor",
+        "top",
+        "tickangle",
+        "tickformat",
+        "thickness",
+        "title",
+        "text",
+        "side",
+        "top",
+        "height",
+        "margin",
+        "title",
+        "text",
+        "font",
+        "size",
+        "paper_bgcolor",
+        "plot_bgcolor",
+        "font",
+        "size",
+        "color",
+        "#e6edf3",
+        "showlegend",
+        "barmode",
+        "overlay",
+        "bargap",
+        "shapes",
+        "xaxis",
+        "range",
+        "showgrid",
+        "zeroline",
+        "tickmode",
+        "array",
+        "tickvals",
+        "ticktext",
+        "automargin",
+        "yaxis",
+        "range",
+        "showgrid",
+        "zeroline",
+        "tickmode",
+        "array",
+        "tickvals",
+        "ticktext",
+        "automargin"
       ]
     },
     "manifest": {
@@ -92,11 +565,11 @@
       "locale": "de",
       "source": {
         "path": "workbooks/en/markov-groups.srwb",
-        "sha256": "98d3d861c7c59f011ca8f25e5148116dcc3c947c32550fc474bea36df23f68de"
+        "sha256": "2daf77aa872a7210cc16083535b1c244fb2cfbc288d60f688b85f0736633c430"
       },
       "target": {
         "path": "workbooks/de/markov-groups.srwb",
-        "sha256": "51543f1bb6814b0f24347cec27556b53384c0f09b33cf88ca0e8c8e386aad5b7"
+        "sha256": "b81cf0b2e80080b53fbbad6ab1c9e2ff6e1519771ea5ab004117c5ed23ad0bf1"
       },
       "spans": [
         {
@@ -1896,6 +2369,789 @@
           "kind": "display_string",
           "reaches_output": "stdout",
           "placeholders": []
+        },
+        {
+          "cell_index": 14,
+          "cell_name": "mixing_setup",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 78
+            },
+            "text": "Optional setup: use the same source-to-destination permutations as Stage 4."
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 87
+            },
+            "text": "Optionale Vorbereitung: dieselben Start-Ziel-Permutationen wie in Stufe 4 verwenden."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 14,
+          "cell_name": "mixing_setup",
+          "source_span": {
+            "start": {
+              "line": 26,
+              "col": 1
+            },
+            "end": {
+              "line": 26,
+              "col": 72
+            },
+            "text": "The Stage 1 frames identify physical cubie slots, not sticker labels."
+          },
+          "target_span": {
+            "start": {
+              "line": 26,
+              "col": 1
+            },
+            "end": {
+              "line": 26,
+              "col": 85
+            },
+            "text": "Die Rahmen aus Stufe 1 kennzeichnen räumliche Eckplätze, nicht Aufkleberkennungen."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 14,
+          "cell_name": "mixing_setup",
+          "source_span": {
+            "start": {
+              "line": 50,
+              "col": 1
+            },
+            "end": {
+              "line": 50,
+              "col": 68
+            },
+            "text": "Breadth-first search applies ONE common move to the ordered pair."
+          },
+          "target_span": {
+            "start": {
+              "line": 50,
+              "col": 1
+            },
+            "end": {
+              "line": 50,
+              "col": 75
+            },
+            "text": "Die Breitensuche wendet EINEN gemeinsamen Zug auf das geordnete Paar an."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 14,
+          "cell_name": "mixing_setup",
+          "source_span": {
+            "start": {
+              "line": 62,
+              "col": 1
+            },
+            "end": {
+              "line": 62,
+              "col": 77
+            },
+            "text": "Each generator permutes the reachable pairs; equal incoming counts certify"
+          },
+          "target_span": {
+            "start": {
+              "line": 62,
+              "col": 1
+            },
+            "end": {
+              "line": 62,
+              "col": 89
+            },
+            "text": "Jeder Generator permutiert die erreichbaren Paare; gleiche Eingangsanzahlen bestätigen"
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 14,
+          "cell_name": "mixing_setup",
+          "source_span": {
+            "start": {
+              "line": 63,
+              "col": 1
+            },
+            "end": {
+              "line": 63,
+              "col": 70
+            },
+            "text": "a stationary uniform target without allocating a 504-by-504 matrix."
+          },
+          "target_span": {
+            "start": {
+              "line": 63,
+              "col": 1
+            },
+            "end": {
+              "line": 63,
+              "col": 81
+            },
+            "text": "ein stationäres gleichverteiltes Ziel, ohne eine 504-mal-504-Matrix anzulegen."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 14,
+          "cell_name": "mixing_setup",
+          "source_span": {
+            "start": {
+              "line": 84,
+              "col": 8
+            },
+            "end": {
+              "line": 84,
+              "col": 25
+            },
+            "text": "Corner positions:"
+          },
+          "target_span": {
+            "start": {
+              "line": 84,
+              "col": 8
+            },
+            "end": {
+              "line": 84,
+              "col": 22
+            },
+            "text": "Eckpositionen:"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 14,
+          "cell_name": "mixing_setup",
+          "source_span": {
+            "start": {
+              "line": 85,
+              "col": 8
+            },
+            "end": {
+              "line": 85,
+              "col": 32
+            },
+            "text": "Reachable ordered pairs:"
+          },
+          "target_span": {
+            "start": {
+              "line": 85,
+              "col": 8
+            },
+            "end": {
+              "line": 85,
+              "col": 36
+            },
+            "text": "Erreichbare geordnete Paare:"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 14,
+          "cell_name": "mixing_setup",
+          "source_span": {
+            "start": {
+              "line": 86,
+              "col": 8
+            },
+            "end": {
+              "line": 86,
+              "col": 32
+            },
+            "text": "Masked same-cubie pairs:"
+          },
+          "target_span": {
+            "start": {
+              "line": 86,
+              "col": 8
+            },
+            "end": {
+              "line": 86,
+              "col": 43
+            },
+            "text": "Maskierte Paare im selben Eckplatz:"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 16,
+          "cell_name": "sticker_visits",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 72
+            },
+            "text": "Count positions AFTER each move; the initial position is not a visit."
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 78
+            },
+            "text": "Positionen NACH jedem Zug zählen; die Startposition zählt nicht als Besuch."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 16,
+          "cell_name": "sticker_visits",
+          "source_span": {
+            "start": {
+              "line": 21,
+              "col": 32
+            },
+            "end": {
+              "line": 21,
+              "col": 43
+            },
+            "text": "One sticker"
+          },
+          "target_span": {
+            "start": {
+              "line": 21,
+              "col": 32
+            },
+            "end": {
+              "line": 21,
+              "col": 45
+            },
+            "text": "Ein Aufkleber"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 16,
+          "cell_name": "sticker_visits",
+          "source_span": {
+            "start": {
+              "line": 21,
+              "col": 78
+            },
+            "end": {
+              "line": 21,
+              "col": 83
+            },
+            "text": "steps"
+          },
+          "target_span": {
+            "start": {
+              "line": 21,
+              "col": 80
+            },
+            "end": {
+              "line": 21,
+              "col": 88
+            },
+            "text": "Schritte"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 16,
+          "cell_name": "sticker_visits",
+          "source_span": {
+            "start": {
+              "line": 24,
+              "col": 31
+            },
+            "end": {
+              "line": 24,
+              "col": 46
+            },
+            "text": "Observed visits"
+          },
+          "target_span": {
+            "start": {
+              "line": 24,
+              "col": 31
+            },
+            "end": {
+              "line": 24,
+              "col": 47
+            },
+            "text": "Gezählte Besuche"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 16,
+          "cell_name": "sticker_visits",
+          "source_span": {
+            "start": {
+              "line": 26,
+              "col": 60
+            },
+            "end": {
+              "line": 26,
+              "col": 74
+            },
+            "text": "Uniform target"
+          },
+          "target_span": {
+            "start": {
+              "line": 26,
+              "col": 60
+            },
+            "end": {
+              "line": 26,
+              "col": 76
+            },
+            "text": "Gleichverteilung"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 16,
+          "cell_name": "sticker_visits",
+          "source_span": {
+            "start": {
+              "line": 29,
+              "col": 28
+            },
+            "end": {
+              "line": 29,
+              "col": 44
+            },
+            "text": "Label 1 position"
+          },
+          "target_span": {
+            "start": {
+              "line": 29,
+              "col": 28
+            },
+            "end": {
+              "line": 29,
+              "col": 47
+            },
+            "text": "Sticker 1: Position"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 16,
+          "cell_name": "sticker_visits",
+          "source_span": {
+            "start": {
+              "line": 29,
+              "col": 68
+            },
+            "end": {
+              "line": 29,
+              "col": 83
+            },
+            "text": "Visit frequency"
+          },
+          "target_span": {
+            "start": {
+              "line": 29,
+              "col": 71
+            },
+            "end": {
+              "line": 29,
+              "col": 88
+            },
+            "text": "Besuchshäufigkeit"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 16,
+          "cell_name": "sticker_visits",
+          "source_span": {
+            "start": {
+              "line": 39,
+              "col": 18
+            },
+            "end": {
+              "line": 39,
+              "col": 48
+            },
+            "text": "steps; visit-average distance:"
+          },
+          "target_span": {
+            "start": {
+              "line": 39,
+              "col": 18
+            },
+            "end": {
+              "line": 39,
+              "col": 55
+            },
+            "text": "Schritte; Abstand des Besuchsmittels:"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 16,
+          "cell_name": "sticker_visits",
+          "source_span": {
+            "start": {
+              "line": 40,
+              "col": 12
+            },
+            "end": {
+              "line": 40,
+              "col": 40
+            },
+            "text": "exact end-position distance:"
+          },
+          "target_span": {
+            "start": {
+              "line": 40,
+              "col": 12
+            },
+            "end": {
+              "line": 40,
+              "col": 46
+            },
+            "text": "Abstand der exakten Endverteilung:"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 18,
+          "cell_name": "joint_visits",
+          "source_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 74
+            },
+            "text": "Reset the seed: the first coordinate follows the histogram's SAME path."
+          },
+          "target_span": {
+            "start": {
+              "line": 1,
+              "col": 1
+            },
+            "end": {
+              "line": 1,
+              "col": 95
+            },
+            "text": "Zufallsstartwert zurücksetzen: die erste Koordinate folgt demselben Pfad wie das Histogramm."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 18,
+          "cell_name": "joint_visits",
+          "source_span": {
+            "start": {
+              "line": 29,
+              "col": 5
+            },
+            "end": {
+              "line": 29,
+              "col": 78
+            },
+            "text": "Plotly Basic supports bar tiles, not its optional native heatmap trace."
+          },
+          "target_span": {
+            "start": {
+              "line": 29,
+              "col": 5
+            },
+            "end": {
+              "line": 29,
+              "col": 90
+            },
+            "text": "Plotly Basic unterstützt Balkenkacheln, nicht den optionalen nativen Heatmap-Trace."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 18,
+          "cell_name": "joint_visits",
+          "source_span": {
+            "start": {
+              "line": 30,
+              "col": 5
+            },
+            "end": {
+              "line": 30,
+              "col": 74
+            },
+            "text": "Omit impossible cells; every reachable zero remains a colored tile."
+          },
+          "target_span": {
+            "start": {
+              "line": 30,
+              "col": 5
+            },
+            "end": {
+              "line": 30,
+              "col": 85
+            },
+            "text": "Unmögliche Felder auslassen; jede erreichbare Null bleibt eine farbige Kachel."
+          },
+          "kind": "comment",
+          "reaches_output": "none",
+          "placeholders": []
+        },
+        {
+          "cell_index": 18,
+          "cell_name": "joint_visits",
+          "source_span": {
+            "start": {
+              "line": 36,
+              "col": 32
+            },
+            "end": {
+              "line": 36,
+              "col": 44
+            },
+            "text": "Two stickers"
+          },
+          "target_span": {
+            "start": {
+              "line": 36,
+              "col": 32
+            },
+            "end": {
+              "line": 36,
+              "col": 46
+            },
+            "text": "Zwei Aufkleber"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 18,
+          "cell_name": "joint_visits",
+          "source_span": {
+            "start": {
+              "line": 36,
+              "col": 79
+            },
+            "end": {
+              "line": 36,
+              "col": 84
+            },
+            "text": "steps"
+          },
+          "target_span": {
+            "start": {
+              "line": 36,
+              "col": 81
+            },
+            "end": {
+              "line": 36,
+              "col": 89
+            },
+            "text": "Schritte"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 18,
+          "cell_name": "joint_visits",
+          "source_span": {
+            "start": {
+              "line": 46,
+              "col": 68
+            },
+            "end": {
+              "line": 46,
+              "col": 83
+            },
+            "text": "Visit frequency"
+          },
+          "target_span": {
+            "start": {
+              "line": 46,
+              "col": 68
+            },
+            "end": {
+              "line": 46,
+              "col": 85
+            },
+            "text": "Besuchshäufigkeit"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 18,
+          "cell_name": "joint_visits",
+          "source_span": {
+            "start": {
+              "line": 48,
+              "col": 31
+            },
+            "end": {
+              "line": 48,
+              "col": 51
+            },
+            "text": "Label 1 corner index"
+          },
+          "target_span": {
+            "start": {
+              "line": 48,
+              "col": 31
+            },
+            "end": {
+              "line": 48,
+              "col": 50
+            },
+            "text": "Sticker 1: Eckindex"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 18,
+          "cell_name": "joint_visits",
+          "source_span": {
+            "start": {
+              "line": 48,
+              "col": 75
+            },
+            "end": {
+              "line": 48,
+              "col": 95
+            },
+            "text": "Label 3 corner index"
+          },
+          "target_span": {
+            "start": {
+              "line": 48,
+              "col": 74
+            },
+            "end": {
+              "line": 48,
+              "col": 93
+            },
+            "text": "Sticker 3: Eckindex"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 18,
+          "cell_name": "joint_visits",
+          "source_span": {
+            "start": {
+              "line": 65,
+              "col": 18
+            },
+            "end": {
+              "line": 65,
+              "col": 54
+            },
+            "text": "steps; joint visit-average distance:"
+          },
+          "target_span": {
+            "start": {
+              "line": 65,
+              "col": 18
+            },
+            "end": {
+              "line": 65,
+              "col": 67
+            },
+            "text": "Schritte; Abstand des gemeinsamen Besuchsmittels:"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
+        },
+        {
+          "cell_index": 18,
+          "cell_name": "joint_visits",
+          "source_span": {
+            "start": {
+              "line": 66,
+              "col": 8
+            },
+            "end": {
+              "line": 66,
+              "col": 50
+            },
+            "text": "Uniform target per reachable ordered pair:"
+          },
+          "target_span": {
+            "start": {
+              "line": 66,
+              "col": 8
+            },
+            "end": {
+              "line": 66,
+              "col": 62
+            },
+            "text": "Gleichverteiltes Ziel je erreichbarem geordnetem Paar:"
+          },
+          "kind": "display_string",
+          "reaches_output": "stdout",
+          "placeholders": []
         }
       ],
       "exclusions": []
@@ -2370,5 +3626,48 @@
       "scope": "Inspected English Python rechecked locally; locale structure and exact clarity update checked mechanically. No Python app runtime, Android or Pro runtime.",
       "pythonAppRuntime": "not-run"
     }
+  },
+  "mixingUpdate": {
+    "schema": "markov-mixing-update-v1",
+    "predecessorCommit": "f88d9b9e26364eeb5e7ff1ee9bcce5f27d47c66e",
+    "predecessorSourceSha256": "98d3d861c7c59f011ca8f25e5148116dcc3c947c32550fc474bea36df23f68de",
+    "predecessorTargetSha256": "51543f1bb6814b0f24347cec27556b53384c0f09b33cf88ca0e8c8e386aad5b7",
+    "sourceSha256": "2daf77aa872a7210cc16083535b1c244fb2cfbc288d60f688b85f0736633c430",
+    "targetSha256": "b81cf0b2e80080b53fbbad6ab1c9e2ff6e1519771ea5ab004117c5ed23ad0bf1",
+    "cells": 19,
+    "preservedCoreCells": 13,
+    "appendedCells": [
+      "mixing_bridge",
+      "mixing_setup",
+      "visit_bridge",
+      "sticker_visits",
+      "joint_bridge",
+      "joint_visits"
+    ],
+    "historicalEvidence": {
+      "retainedFields": [
+        "browser",
+        "coordinateUpdate",
+        "cyclesUpdate",
+        "layoutUpdate",
+        "stage4Update",
+        "probabilityClarification",
+        "stage4Clarity"
+      ],
+      "predecessorReceiptSha256": "0b2c31721b68994065849b8e281680d09beae11ed59dcd6bbadda2fdd42e3fa3"
+    },
+    "runtime": {
+      "path": "reviews/markov-mixing-locales-20261013/runtime.json",
+      "sha256": "debe82087f61c9be5e56e566859dcbaec519917f922dd5138d47a85e045a1d7c"
+    },
+    "rendering": {
+      "path": "reviews/markov-mixing-locales-20261013/browser-complete/rendering.json",
+      "sha256": "6508b473ddcf0e06d7280027e8435073e57e6d86a1002bb389474bc4627cc617"
+    },
+    "translation": {
+      "path": "reviews/markov-mixing-locales-20261013/translations/de.json",
+      "sha256": "09998cc1b8fc25928e53873cadbe0ed94207ad0cbc669f588f04a963d12aadfe"
+    },
+    "nativeSpeakerReview": "pending"
   }
 }

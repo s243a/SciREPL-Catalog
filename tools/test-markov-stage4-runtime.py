@@ -26,6 +26,7 @@ except ImportError:
 REPO = Path(__file__).resolve().parent.parent
 PREDECESSOR = "017ea7eed65a9dc7875aa5b8c59df489114facbd"
 CLARITY_PREDECESSOR = "f5958682ec637e7e7bd6470d84d489b9d267c982"
+MIXING_PREDECESSOR = "f88d9b9e26364eeb5e7ff1ee9bcce5f27d47c66e"
 LOCALES = ("en", "ar", "bn", "de", "es", "fr", "hi", "id", "ja", "ko", "pt-BR", "ru", "zh")
 OLD_ORDER = ["intro", "coordinates", "cube_moves", "check_moves", "cycles",
              "show_turn", "markov_bridge", "random_walk", "takeaways"]
@@ -33,6 +34,7 @@ NEW_ORDER = OLD_ORDER[:6] + ["markov_bridge", "transition_matrix", "sticker_brid
                            "sticker_step", "trajectory_bridge", "random_walk", "takeaways"]
 CODE_ORDER = ["cube_moves", "check_moves", "show_turn", "transition_matrix", "sticker_step", "random_walk"]
 PART_KEYS = ("matrix", "sticker", "trajectory")
+MIXING_SUFFIX = ["mixing_bridge", "mixing_setup", "visit_bridge", "sticker_visits", "joint_bridge", "joint_visits"]
 OLD_FORMULA = "T = (IDENTITY + sum((M[name] + M[name].T for name in FACE_NAMES), np.zeros((N, N), dtype=int))) / len(MOVE_OPTIONS)"
 NEW_FORMULA = "\n".join(("move_counts = IDENTITY.copy()", "for name in FACE_NAMES:",
                          "    move_counts += M[name]", "    move_counts += M[name].T",
@@ -52,6 +54,60 @@ def pinned_workbook(locale):
         cwd=REPO, stderr=subprocess.PIPE,
     )
     return json.loads(content), hashlib.sha256(content).hexdigest()
+
+
+def project_historical_markov(book, locale):
+    """Independently validate a 19-cell extension before checking/executing 13.
+
+    This is not a runtime certificate for the six optional appended cells.
+    Their independent full-workbook tests and final-byte receipts are separate.
+    """
+    check(locale in LOCALES and book.get("format") == "srwb", "Unknown historical Markov locale/format")
+    cells = book.get("notebook", {}).get("cells")
+    check(isinstance(cells, list) and len(cells) in (13, 19), "Expected exactly 13 or 19 Markov cells")
+    if len(cells) == 13:
+        return copy.deepcopy(book), None
+    suffix = cells[13:]
+    check([cell.get("name") for cell in suffix] == MIXING_SUFFIX, "Unknown appended Markov cell order")
+    for index, cell in enumerate(suffix):
+        check(set(cell) == {"code", "language", "name", "type"}, "Appended cell metadata changed")
+        check(cell["type"] == ("markdown" if index % 2 == 0 else "code"), "Appended cell type changed")
+        check(cell["language"] == ("markdown" if index % 2 == 0 else "python"), "Appended language changed")
+        check(isinstance(cell["code"], str) and bool(cell["code"].strip()), "Empty appended cell")
+    pinned_bytes = subprocess.check_output(
+        ["git", "show", f"{MIXING_PREDECESSOR}:workbooks/{locale}/markov-groups.srwb"],
+        cwd=REPO, stderr=subprocess.PIPE)
+    projected = copy.deepcopy(book)
+    projected["notebook"]["cells"] = copy.deepcopy(cells[:13])
+    check(projected == json.loads(pinned_bytes), "19-cell workbook changed pinned 13-cell core or container")
+    return projected, hashlib.sha256(pinned_bytes).hexdigest()
+
+
+def test_historical_projection():
+    """Data-only synthetic checks; never execute fixture or suffix code."""
+    baseline = json.loads(subprocess.check_output(
+        ["git", "show", f"{MIXING_PREDECESSOR}:workbooks/en/markov-groups.srwb"],
+        cwd=REPO, stderr=subprocess.PIPE))
+    extended = copy.deepcopy(baseline)
+    extended["notebook"]["cells"].extend({"name": name, "type": "markdown" if i % 2 == 0 else "code",
+                                         "language": "markdown" if i % 2 == 0 else "python", "code": "fixture"}
+                                        for i, name in enumerate(MIXING_SUFFIX))
+    check(project_historical_markov(baseline, "en")[0] == baseline, "Ordinary 13-cell fixture changed")
+    check(project_historical_markov(extended, "en")[0] == baseline, "Valid 19-cell fixture did not project exactly")
+    mutations = [
+        lambda book: book["notebook"]["cells"].pop(),
+        lambda book: book["notebook"]["cells"][13].update(name="forged_suffix"),
+        lambda book: book["notebook"]["cells"][14].update(language="javascript"),
+        lambda book: book["notebook"]["cells"][0].update(code="changed core"),
+        lambda book: book["notebook"]["cells"][2].update(metadata={"forged": True}),
+        lambda book: book["notebook"].update(name="changed container"),
+        lambda book: book.update(mixingUpdate={"forged": True}),
+    ]
+    for mutate in mutations:
+        broken = copy.deepcopy(extended)
+        mutate(broken)
+        expect_rejected(lambda: project_historical_markov(broken, "en"), "Unsafe historical projection accepted")
+    return 2 + len(mutations)
 
 
 def expected_book(old, texts, hint):
@@ -203,7 +259,12 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--locales", default=",".join(LOCALES), help="Comma-separated structural checks; English is always included")
     parser.add_argument("--report", type=Path, help="Optional generated JSON report path; default is stdout only")
+    parser.add_argument("--projection-self-test", action="store_true", help="Data-only 13/19-cell projection fixtures")
     options = parser.parse_args()
+    if options.projection_self_test:
+        print(json.dumps({"allPassed": True, "checks": test_historical_projection(),
+                          "scope": "Synthetic data-only historical projection; no workbook cells executed"}))
+        return
     requested = options.locales.split(",")
     check(len(set(requested)) == len(requested) and all(locale in LOCALES for locale in requested), "Unknown or duplicate locale")
     locales = ["en"] + [locale for locale in requested if locale != "en"]
@@ -216,7 +277,8 @@ def main():
     old_english = None
     for locale in locales:
         content = (REPO / "workbooks" / locale / "markov-groups.srwb").read_bytes()
-        current = json.loads(content)
+        full_current = json.loads(content)
+        current, historical_hash = project_historical_markov(full_current, locale)
         old, old_hash = pinned_workbook(locale)
         cells = current["notebook"]["cells"]
         check([cell["name"] for cell in cells] == NEW_ORDER, f"{locale}: thirteen-cell order differs")
@@ -239,8 +301,12 @@ def main():
             if cell["type"] == "code":
                 check(cell["language"] == "python", f"{locale}: unexpected code language")
                 source_safety(cell["code"], f"{locale}/{cell['name']}")
-        structures.append({"locale": locale, "sha256": hashlib.sha256(content).hexdigest(),
-                           "predecessorSha256": old_hash, "cells": 13, "preservationPassed": True})
+        structure = {"locale": locale, "sha256": historical_hash or hashlib.sha256(content).hexdigest(),
+                     "predecessorSha256": old_hash, "cells": 13, "preservationPassed": True}
+        if historical_hash:
+            structure.update(currentWorkbookSha256=hashlib.sha256(content).hexdigest(), currentWorkbookCells=19,
+                             historicalCorePredecessorCommit=MIXING_PREDECESSOR, historicalCoreProjectionPassed=True)
+        structures.append(structure)
 
     # Exact structural validation above is required before executing any cells.
     old, old_outputs = run_inspected_english(old_english["notebook"]["cells"], "pinned/en")
@@ -280,7 +346,10 @@ def main():
     expect_rejected(lambda: check_distribution({**new, "location_probability": wrong_initial,
                                                "after_one_step": new["T"] @ wrong_initial}),
                     "Wrong starting position went undetected")
-    evidence = {"allPassed": True, "scope": "Offline inspected English NumPy cells; locale structure only",
+    projected_extension = any(structure.get("historicalCoreProjectionPassed") for structure in structures)
+    scope = ("Offline inspected historical 13-cell English NumPy core; appended cells not executed; locale core structure only"
+             if projected_extension else "Offline inspected English NumPy cells; locale structure only")
+    evidence = {"allPassed": True, "scope": scope,
                 "predecessorCommit": PREDECESSOR, "numpyVersion": np.__version__, "localeStructure": structures,
                 "matrixExactToOldSum": True, "seededTrajectoryExact": True, "splitOutputsExact": True,
                 "twoStepOrderedEnumerationPassed": True, "negativeRegressions": 2,

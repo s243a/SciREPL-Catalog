@@ -1,0 +1,14 @@
+{
+  "status": "controller-notation-and-numeric-word-fidelity",
+  "changes": [
+    {
+      "field": "markdown:17",
+      "from": "`(posição do rótulo 1, posição do rótulo 3)`",
+      "to": "`(position of label 1, position of label 3)`"
+    }
+  ],
+  "originalProposalSha256": "fcd0243643fd16501ec79aa11898b7b5c4ce5ac1a3690a5d858346af7720a6e2",
+  "correctedProposalSha256": "9962e14307dc9fd39133bc777c7f52b3820974ac24d076b0bcfca6ce762666f8",
+  "modelRequests": 0,
+  "reason": "Restore protected tuple notation or use spelled-out zero/equivalent axis-count wording to preserve the source numeric-token multiplicity. Numerical meaning and table associations are unchanged; draft/review remain immutable."
+}

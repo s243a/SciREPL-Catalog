@@ -1,0 +1,19 @@
+{
+  "status": "controller-notation-and-numeric-word-fidelity",
+  "changes": [
+    {
+      "field": "markdown:15",
+      "from": "0始まりの位置0",
+      "to": "ゼロ始まりの位置0"
+    },
+    {
+      "field": "markdown:17",
+      "from": "24行24列すべてが存在します",
+      "to": "行と列はそれぞれ24本すべてが存在します"
+    }
+  ],
+  "originalProposalSha256": "f50b85d05e79a86edd63d5506afdc2ff796b0aa8c66fa8b0159ce56e7602d8c6",
+  "correctedProposalSha256": "efd5402c603117c091aecbb856ba80e975664ea9f11b1b8e3d17e62d01560df6",
+  "modelRequests": 0,
+  "reason": "Restore protected tuple notation or use spelled-out zero/equivalent axis-count wording to preserve the source numeric-token multiplicity. Numerical meaning and table associations are unchanged; draft/review remain immutable."
+}

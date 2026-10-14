@@ -23,6 +23,7 @@ import { clarificationProvenance } from './record-markov-probability-clarificati
 import { MARKOV_CLARITY_PREDECESSOR, clarityStage4Parts } from './markov-stage4-clarity.mjs';
 import { CLARITY_CELLS, CLARITY_RETAINED_FIELDS, assertClarityBooks, clarityFormulas,
   clarityProvenance, assertClarityReports } from './record-markov-stage4-clarity.mjs';
+import { markovHistoricalEditionContext } from './markov-mixing-history.mjs';
 const root = fileURLToPath(new URL('..', import.meta.url));
 const args = process.argv.slice(2), i = args.indexOf('--locale');
 const locales = i < 0 ? EXAMPLE_LOCALES : [args[i + 1]];
@@ -115,7 +116,13 @@ for (const lesson of Object.keys(EXAMPLE_DESCRIPTIONS)) for (const locale of loc
   }
   assert(review.browser.textOracle.first.pass && review.browser.textOracle.second.pass);
   assert.equal(review.browser.plotData.status, 'passed');
+  // The hashes, full Markdown KEEP, derived manifest and protected candidate
+  // checks above always certify the WHOLE current workbook. Only the retained
+  // Markov history below replays the strictly validated frozen 13-cell core.
+  const markovHistory = lesson === 'markov-groups' ? markovHistoricalEditionContext({
+    review, source: en, target: xx, locale, repo: root }) : null;
   if (lesson === 'markov-groups') {
+    const { review, source: en, target: xx } = markovHistory;
     const historicalSourceSha256 = stage4 ? digest(pinned(sourcePath)) : review.source.sha256;
     const historicalTargetSha256 = stage4 ? digest(pinned(targetPath)) : review.target.sha256;
     if (stage4) {

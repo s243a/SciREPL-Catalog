@@ -1,0 +1,19 @@
+{
+  "schema": "markov-mixing-controller-fallback-v1",
+  "locale": "de",
+  "workbook": "markov-groups",
+  "englishSha256": "2daf77aa872a7210cc16083535b1c244fb2cfbc288d60f688b85f0736633c430",
+  "method": "controller-manual-fallback-after-model-failure",
+  "reason": "The first Gemini response was truncated and did not provide a valid draft. This complete proposal was translated afresh from the frozen 30 English fields; no truncated output was read or salvaged.",
+  "proposalPath": "reviews/translations/markov-mixing-20261013/de/mixing.controller.proposal.json",
+  "proposalSha256": "a479e624a74a826834f72fb10b6832b0e07b68571bfb1fc0648453ce2806ce33",
+  "failurePath": "reviews/translations/markov-mixing-20261013/de/mixing.failed.json",
+  "fields": 30,
+  "modelRequestsMadeByThisFallback": 0,
+  "modelProseApproved": false,
+  "nativeSpeakerReview": "pending",
+  "staticGates": "proposal KEEP/script/residue gates passed; span application and derived-manifest verification not yet run",
+  "runtimeReview": "pending",
+  "renderedReview": "pending",
+  "promoted": false
+}

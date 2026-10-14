@@ -1,0 +1,11 @@
+{
+  "status": "controller-protected-notation-restoration",
+  "field": "markdown:17",
+  "from": "`(posición de la etiqueta 1, posición de la etiqueta 3)`",
+  "to": "`(position of label 1, position of label 3)`",
+  "originalProposalSha256": "812655f15fb4edc2db95eeb47f7fa6fc24774e08c9d6718e984a71373b1a44c9",
+  "correctedProposalSha256": "b20cda2a171b8b522cea46eb5f51d91e821347ae28aa7c8e7864c57043f6531a",
+  "proseChanges": 0,
+  "modelRequests": 0,
+  "reason": "Restore exact protected inline notation; Gemini draft and fresh review remain immutable."
+}

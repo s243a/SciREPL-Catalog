@@ -1,0 +1,154 @@
+{
+  "entries": [
+    {
+      "book": "markov-groups",
+      "field": "markdown:13",
+      "text": "## Experimento opcional — frecuencias de visita\n\nLa lección principal de 13 celdas anterior está completa. Omita todo lo que sigue si solo desea los ejemplos principales. Para participar, primero ejecute las celdas principales de Python en orden; luego ejecute `mixing_setup`, `sticker_visits` y `joint_visits` a continuación. Estos experimentos utilizan NumPy y `mplot` provistos por la aplicación, sin instalación de paquetes, solicitudes de red iniciadas por el cuaderno de trabajo, datos externos, llamadas a modelos ni escritura de archivos. El valor predeterminado es 10000 movimientos, con instantáneas después de 100, 1000 y 10000 movimientos.\n\nLa configuración construye las 13 opciones a partir de las permutaciones existentes: identidad, seis giros de cara y sus seis inversos, cada uno con la misma probabilidad. La búsqueda en anchura comienza en la posición 0 y aplica repetidamente cada opción para descubrir la órbita de un sticker; el código verifica que hay 24 posiciones accesibles de stickers de esquina. Deriva ranuras físicas de piezas de esquina a partir de los marcos de cara de la Etapa 1 y verifica que cada movimiento transporte juntos los tres stickers de cada pieza de esquina. Los valores 24 y 8 son verificaciones, no entradas para la búsqueda ni probabilidades objetivo.\n\nPara un segundo sticker, la búsqueda comienza en el par ordenado `(0, 2)`, las posiciones resueltas de las etiquetas 1 y 3. En cada paso de búsqueda aplica el MISMO movimiento a ambas coordenadas. La máscara resultante se compara con la relación de ranuras de piezas derivada independientemente: solo los pares en diferentes ranuras de esquina son accesibles. Hay 504 pares ordenados accesibles y 72 pares enmascarados en la cuadrícula de 24 por 24, incluida su diagonal. El código deriva ambos recuentos antes de verificarlos. Cada movimiento permuta los pares accesibles, por lo que recuentos entrantes iguales verifican un objetivo conjunto uniforme estacionario. La identidad proporciona bucles propios, y la búsqueda verifica la conectividad dentro de cada órbita rastreada; estos son experimentos de estado reducido, no una enumeración de configuraciones de cubos completos."
+    },
+    {
+      "book": "markov-groups",
+      "field": "markdown:15",
+      "text": "### Un sticker — un histograma de visitas recursivo\n\nRastree la etiqueta 1, inicialmente en la posición 0 basada en cero. Cada iteración elige uno de los 13 movimientos de manera uniforme, actualiza la posición anterior según su permutación e incrementa el recuento de ese destino. Cuente las visitas DESPUÉS de los movimientos; la posición inicial no se cuenta. La semilla 20261007 hace que la trayectoria sea reproducible, no mezclada uniformemente. Cada histograma divide los recuentos acumulados por el número de movimientos. El eje horizontal selecciona los 24 ID de posición de esquina de la numeración original del cubo `0..53`; no contiene 54 barras. Las etiquetas de marca dispersas muestran solo algunos de esos ID, pero cada posición de esquina tiene una barra. La siguiente sección explica el recuento de cuatro esquinas por cara y enumera los 24 ID. La línea discontinua es el objetivo estacionario `1/24`.\n\nEste es un promedio temporal empírico de UNA trayectoria correlacionada. No es la distribución exacta de la posición del sticker en el movimiento n. El código avanza por separado `exact_probability` mediante `corner_T` cada vez; esta es la versión restringida a esquinas de `T^n @ location_probability` desde el inicio resuelto. Las distancias impresas comparan cada distribución con su objetivo uniforme utilizando la mitad de la suma de las diferencias absolutas. No es necesario que la muestra finita mejore en cada instantánea, y ningún histograma establece la mezcla de todo el cubo ni un tiempo de mezcla de todo el cubo."
+    },
+    {
+      "book": "markov-groups",
+      "field": "markdown:17",
+      "text": "### Dos stickers — un mapa de calor conjunto de movimientos compartidos\n\nRastree las etiquetas 1 y 3, comenzando en las posiciones 0 y 2 en DIFERENTES piezas de esquina. Elija UN movimiento aleatorio uniforme por iteración y aplíquelo a AMBAS posiciones. La semilla se restablece para que la primera coordenada siga exactamente la misma trayectoria muestreada del histograma; las sumas de las columnas del mapa de calor conjunto se verifican contra ese histograma. Estas son coordenadas dependientes de un solo cubo, no dos cubos independientes. No use `T ⊗ T`: eso elegiría movimientos independientes y permitiría pares imposibles en la misma pieza.\n\n#### Lea los ejes: 24 posiciones de esquina por sticker\n\nEl eje horizontal indica la posición de la etiqueta de sticker 1; el eje vertical indica la posición de la etiqueta de sticker 3. Cada eje tiene 24 destinos posibles, no solo las cuatro esquinas de la cara inicial del sticker: secuencias de giros de cara pueden transportarlo entre caras. Hay cuatro posiciones de stickers de esquina en cada una de las seis caras, por lo que `4 × 6 = 24`. De manera equivalente, ocho esquinas físicas tienen cada una tres posiciones de stickers orientadas hacia las caras: `8 × 3 = 24`. Un sticker de esquina nunca se mueve a una posición de arista o de centro. El cubo tiene 48 posiciones que no son de centro en total, pero 24 de ellas pertenecen a aristas y no son destinos para ninguno de los stickers que seguimos.\n\nLos ejes del mapa de calor ahora usan índices de esquina consecutivos `1..24`, NO los ID originales del cubo `0..53`. Esto hace visible el tamaño de la cuadrícula: 24 columnas y 24 filas. Un índice simplemente selecciona una entrada de la tabla siguiente; no es una nueva etiqueta de sticker ni una distancia física. Por ejemplo, los índices `1, 2, 3, 4` seleccionan los ID de posición originales `0, 2, 6, 8`. Solo se imprimen algunas etiquetas de marca para ajustarse a la pantalla de un teléfono, pero están presentes las 24 filas y columnas. El título dice `24 × 24`; los límites tenues de las celdas marcan los 24 espacios en cada dirección, incluidos los mosaicos prohibidos. Cuente los espacios, no los intervalos entre las marcas: 24 centros de celda tienen solo 23 intervalos entre ellos. El texto flotante informa el par ORIGINAL de ID de posición seguido de su frecuencia de visita. El histograma de un sticker anterior conserva sus etiquetas originales de ID de posición.\n\n| Índices del mapa de calor (cara) | ID originales de posición de esquina |\n| --- | --- |\n| 1–4: U (arriba) | `0, 2, 6, 8` |\n| 5–8: D (abajo) | `9, 11, 15, 17` |\n| 9–12: F (frente) | `18, 20, 24, 26` |\n| 13–16: B (atrás) | `27, 29, 33, 35` |\n| 17–20: L (izquierda) | `36, 38, 42, 44` |\n| 21–24: R (derecha) | `45, 47, 51, 53` |\n\nUn mosaico del mapa de calor representa un par ordenado: `(position of label 1, position of label 3)`. Por lo tanto, los dos ejes de 24 posiciones forman `24 × 24 = 576` mosaicos potenciales, no una cuadrícula de 48 por 48 o 54 por 54. Los dos stickers pertenecen a diferentes piezas de esquina, por lo que no pueden ocupar ninguna de las tres posiciones de stickers de la misma esquina física. Esto descarta `8 × 3 × 3 = 72` mosaicos, dejando `24 × 21 = 504` pares ordenados accesibles.\n\n#### Por qué tres pares están prohibidos en cada fila y columna\n\nUna pieza de esquina física tiene tres stickers, uno en cada una de las tres caras que se unen en esa esquina. Un giro de cara transporta esta pieza completa; no desprende sus stickers. Las etiquetas 1 y 3 comenzaron en DIFERENTES piezas de esquina, y esas piezas siempre deben ocupar diferentes ranuras físicas de esquina. Una vez fijada la posición de cualquiera de los stickers rastreados, las tres posiciones orientadas hacia las caras de esa ranura de esquina quedan prohibidas para el otro sticker. Por esta razón hay exactamente tres huecos en cada fila Y en cada columna.\n\nPor ejemplo, los ID originales `0` (U), `29` (B) y `36` (L) son tres vistas de la MISMA ranura de esquina superior trasera izquierda, no tres piezas de esquina separadas. Si la etiqueta de sticker 3 ocupa el ID 0, la etiqueta de sticker 1 no puede ocupar NINGUNO de esos tres ID: eso colocaría su pieza de esquina diferente en la misma ranura. Mover la etiqueta de sticker 3 a otra esquina cambia los tres ID prohibidos. No existe una lista permanente de tres posiciones inutilizables; se trata de restricciones condicionales en pares de posiciones.\n\nPor ejemplo, la fila inferior fija la etiqueta de sticker 3 en el índice de esquina 1, que selecciona el ID de posición original 0. Tiene 24 ranuras horizontales, pero solo 21 mosaicos coloreados y accesibles: los tres huecos corresponden a la etiqueta de sticker 1 en los índices de esquina `1, 14, 17` (ID originales `0, 29, 36`), las tres posiciones orientadas hacia las caras de esa misma esquina física. La columna situada más a la izquierda tiene los mismos tres huecos. Por lo tanto, contar solo los mosaicos coloreados da 21, no 24; los huecos son PARES prohibidos, no tres posiciones eliminadas de ningún eje. Cada fila y columna tiene tres huecos de este tipo. Los 30 ID de arista y de centro ya se omitieron al construir los ejes de 24 posiciones; no son los huecos negros de esta cuadrícula.\n\nLos huecos transparentes son esos 72 pares imposibles de la misma pieza, NO estados no visitados. Esto es un octavo de la cuadrícula: la diagonal principal más 48 mosaicos fuera de la diagonal. Las líneas de cuadrícula de los ejes a través de los centros de las celdas están desactivadas. Los contornos tenues son límites de celdas, no datos ni probabilidades distintas de cero dentro de los huecos. Las celdas coloreadas en cero son pares accesibles sin visitas muestreadas todavía. El objetivo estacionario es `1/504` para cada uno de los 504 pares ORDENADOS accesibles, no `1/576`. El denominador proviene de la búsqueda en anchura de movimientos comunes, no de la multiplicación independiente de objetivos marginales.\n\nCada mapa de calor es un promedio de visitas acumulado después de 100, 1000 o 10000 movimientos. Su escala de colores comienza en cero y se adapta al máximo de esa instantánea; compare las distancias impresas en lugar de comparar colores entre instantáneas. A los 10000 movimientos solo hay alrededor de 20 visitas por par accesible en promedio, por lo que puede quedar un mapa irregular incluso después de muchos movimientos; las visitas sucesivas también están correlacionadas. La máscara, la trayectoria muestral, las frecuencias y los gráficos son generados por el código real, y de ninguna de las dos proyecciones reducidas se deduce ninguna afirmación de uniformidad o tiempo de mezcla para todo el cubo."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:14:0:0",
+      "text": "Configuración opcional: use las mismas permutaciones de origen a destino que en la Etapa 4."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:14:2:0",
+      "text": "Los marcos de la Etapa 1 identifican ranuras físicas de piezas, no etiquetas de stickers."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:14:4:0",
+      "text": "La búsqueda en anchura aplica UN movimiento común al par ordenado."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:14:6:0",
+      "text": "Cada generador permuta los pares accesibles; recuentos entrantes iguales certifican"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:14:8:0",
+      "text": "un objetivo uniforme estacionario sin asignar una matriz de 504 por 504."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:14:16:0",
+      "text": "Posiciones de esquina:"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:14:18:0",
+      "text": "Pares ordenados accesibles:"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:14:20:0",
+      "text": "Pares enmascarados de la misma pieza:"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:0:0",
+      "text": "Cuente las posiciones DESPUÉS de cada movimiento; la posición inicial no es una visita."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:2:0",
+      "text": "Un sticker"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:6:0",
+      "text": "pasos"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:18:0",
+      "text": "Visitas observadas"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:40:0",
+      "text": "Objetivo uniforme"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:54:0",
+      "text": "Posición de etiqueta 1"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:56:0",
+      "text": "Frecuencia de visita"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:130:0",
+      "text": "pasos; distancia del promedio de visitas:"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:132:0",
+      "text": "distancia exacta de posición final:"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:0:0",
+      "text": "Restablecer la semilla: la primera coordenada sigue la MISMA trayectoria del histograma."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:66:0",
+      "text": "Plotly Basic admite mosaicos de barras, no su traza nativa opcional de mapa de calor."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:68:0",
+      "text": "Omitir celdas imposibles; cada cero accesible sigue siendo un mosaico coloreado."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:74:0",
+      "text": "Dos stickers"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:78:0",
+      "text": "pasos"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:154:0",
+      "text": "Frecuencia de visita"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:160:0",
+      "text": "Índice de esquina de etiqueta 1"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:162:0",
+      "text": "Índice de esquina de etiqueta 3"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:248:0",
+      "text": "pasos; distancia conjunta del promedio de visitas:"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:250:0",
+      "text": "Objetivo uniforme por par ordenado accesible:"
+    }
+  ]
+}

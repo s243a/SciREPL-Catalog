@@ -1,0 +1,11 @@
+{
+  "status": "controller-protected-notation-restoration",
+  "field": "markdown:17",
+  "from": "`(posisi label 1, posisi label 3)`",
+  "to": "`(position of label 1, position of label 3)`",
+  "originalProposalSha256": "464edab701a831efe017295923fae52f4ef111cef559b299d43d0a069f2a9c7e",
+  "correctedProposalSha256": "fa7bf3ea740aa3bef31f6d93bfd68f25c5f2bee6fd253b255d1605dcd1a58216",
+  "proseChanges": 0,
+  "modelRequests": 0,
+  "reason": "Restore exact protected inline tuple; draft/review remain immutable."
+}

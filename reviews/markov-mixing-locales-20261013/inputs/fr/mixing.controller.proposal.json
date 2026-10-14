@@ -1,0 +1,154 @@
+{
+  "entries": [
+    {
+      "book": "markov-groups",
+      "field": "markdown:13",
+      "text": "## Expérience facultative — fréquences de visite\n\nLa leçon principale en 13 cellules ci-dessus est complète. Ignorez tout ce qui suit si vous ne souhaitez que les exemples principaux. Pour y participer, exécutez d'abord les cellules Python principales dans l'ordre ; puis exécutez `mixing_setup`, `sticker_visits` et `joint_visits` ci-dessous. Ces expériences utilisent NumPy et `mplot` fournis par l'application, sans installation de paquet, requête réseau initiée par le classeur, donnée externe, appel de modèle ou écriture de fichier. La valeur par défaut est 10000 mouvements, avec des instantanés après 100, 1000 et 10000 mouvements.\n\nLa configuration construit les 13 choix à partir des permutations existantes : l'identité, six rotations de face et leurs six inverses, chacun équiprobable. La recherche en largeur commence à la position 0 et applique de manière répétée chaque choix pour découvrir l'orbite d'un sticker ; le code vérifie qu'il y a 24 positions accessibles de stickers de coin. Il dérive les emplacements physiques des petits cubes de coin à partir des repères de face de l'étape 1 et vérifie que chaque mouvement transporte ensemble les trois stickers de chaque petit cube. Les valeurs 24 et 8 sont des vérifications, non des entrées de la recherche ou des probabilités cibles.\n\nPour un second sticker, la recherche commence à la paire ordonnée `(0, 2)`, les positions résolues des étiquettes 1 et 3. À chaque étape de recherche, elle applique le MÊME mouvement aux deux coordonnées. Le masque résultant est comparé à la relation d'emplacements de petits cubes dérivée indépendamment : seules les paires situées dans des emplacements de coin différents sont accessibles. Il y a 504 paires ordonnées accessibles et 72 paires masquées sur la grille 24 par 24, y compris sa diagonale. Le code dérive les deux comptes avant de les vérifier. Chaque mouvement permute les paires accessibles, de sorte que des comptes entrants égaux vérifient une cible conjointe uniforme stationnaire. Le mouvement identité fournit des boucles sur soi, et la recherche vérifie la connectivité au sein de chaque orbite suivie ; il s'agit d'expériences à état réduit, non d'une énumération des configurations du cube entier."
+    },
+    {
+      "book": "markov-groups",
+      "field": "markdown:15",
+      "text": "### Un sticker — un histogramme de visite récursif\n\nSuivez l'étiquette 1, initialement à la position 0 basée sur zéro. Chaque itération choisit l'un des 13 mouvements uniformément, met à jour la position précédente par sa permutation et incrémente le compte de cette destination. Comptez les visites APRÈS les mouvements ; la position de départ n'est pas comptée. La graine 20261007 rend la trajectoire reproductible, non uniformément mélangée. Chaque histogramme divise les comptes cumulés par le nombre de mouvements. Cet axe horizontal sélectionne les 24 ID de position de coin parmi la numérotation d'origine du cube `0..53` ; il ne contient pas 54 barres. Des graduations clairsemées n'affichent que certains de ces ID, mais chaque position de coin possède une barre. La section suivante explique le compte de quatre coins par face et liste l'ensemble des 24 ID. La ligne en pointillés est la cible stationnaire `1/24`.\n\nIl s'agit d'une moyenne temporelle empirique issue d'UNE trajectoire corrélée. Ce n'est pas la distribution exacte de la position du sticker au mouvement n. Le code avance séparément `exact_probability` par `corner_T` à chaque fois ; il s'agit de la version restreinte aux coins de `T^n @ location_probability` depuis le départ résolu. Les distances affichées comparent chaque distribution avec sa cible uniforme en utilisant la moitié de la somme des différences absolues. Un échantillon fini n'a pas nécessairement à s'améliorer à chaque instantané, et aucun histogramme n'établit de mélange du cube entier ni de temps de mélange du cube entier."
+    },
+    {
+      "book": "markov-groups",
+      "field": "markdown:17",
+      "text": "### Deux stickers — une carte thermique conjointe à mouvements partagés\n\nSuivez les étiquettes 1 et 3, en partant des positions 0 et 2 sur des petits cubes de coin DIFFÉRENTS. Choisissez UN mouvement uniformément aléatoire par itération et appliquez-le aux DEUX positions. La graine est réinitialisée afin que la première coordonnée suive exactement le même chemin échantillonné de l'histogramme ; les sommes des colonnes de la carte thermique conjointe sont vérifiées par rapport à cet histogramme. Ce sont des coordonnées dépendantes d'un seul cube, non de deux cubes indépendants. N'utilisez pas `T ⊗ T` : cela choisirait des mouvements indépendants et autoriserait des paires impossibles sur un même petit cube.\n\n#### Lire les axes : 24 positions de coin par sticker\n\nCet axe horizontal donne la position de l'étiquette de sticker 1 ; l'axe vertical donne la position de l'étiquette de sticker 3. Chaque axe a 24 destinations possibles, et pas seulement les quatre coins de la face de départ du sticker : des séquences de rotations de face peuvent le transporter d'une face à l'autre. Il y a quatre positions de sticker de coin sur chacune des six faces, donc `4 × 6 = 24`. De manière équivalente, huit coins physiques possèdent chacun trois positions de sticker orientées vers les faces : `8 × 3 = 24`. Un sticker de coin ne se déplace jamais vers une position d'arête ou de centre. Le cube possède 48 positions non centrales au total, mais 24 d'entre elles appartiennent à des arêtes et ne sont pas des destinations pour l'un ou l'autre sticker que nous suivons.\n\nLes axes de la carte thermique utilisent désormais des indices de coin consécutifs `1..24`, et NON les ID d'origine du cube `0..53`. Cela rend la taille de la grille visible : 24 colonnes et 24 lignes. Un indice sélectionne simplement une entrée du tableau ci-dessous ; ce n'est pas une nouvelle étiquette de sticker ni une distance physique. Par exemple, les indices `1, 2, 3, 4` sélectionnent les ID de position d'origine `0, 2, 6, 8`. Seules certaines graduations sont affichées pour tenir sur un écran de téléphone, mais l'ensemble des 24 lignes et colonnes est présent. Le titre indique `24 × 24` ; de légères bordures de cellules délimitent les 24 espaces dans chaque direction, y compris les tuiles interdites. Comptez les espaces, et non les intervalles entre les graduations : 24 centres de cellules n'ont que 23 intervalles entre eux. Le texte de survol indique la paire ORIGINALE d'ID de position suivie de sa fréquence de visite. Cet histogramme à un sticker ci-dessus conserve ses étiquettes d'ID de position d'origine.\n\n| Indices de la carte thermique (face) | ID originaux de position de coin |\n| --- | --- |\n| 1–4: U (haut) | `0, 2, 6, 8` |\n| 5–8: D (bas) | `9, 11, 15, 17` |\n| 9–12: F (avant) | `18, 20, 24, 26` |\n| 13–16: B (arrière) | `27, 29, 33, 35` |\n| 17–20: L (gauche) | `36, 38, 42, 44` |\n| 21–24: R (droite) | `45, 47, 51, 53` |\n\nUne tuile de la carte thermique représente une paire ordonnée : `(position of label 1, position of label 3)`. Les deux axes à 24 positions forment donc `24 × 24 = 576` tuiles potentielles, et non une grille 48 par 48 ou 54 par 54. Les deux stickers appartiennent à des pièces de coin différentes, ils ne peuvent donc occuper aucune des trois positions de sticker d'un même coin physique. Cela exclut `8 × 3 × 3 = 72` tuiles, laissant `24 × 21 = 504` paires ordonnées accessibles.\n\n#### Pourquoi trois paires sont interdites dans chaque ligne et colonne\n\nUne pièce physique de coin possède trois stickers, un sur chacune des trois faces se rejoignant à ce coin. Une rotation de face transporte cette pièce entière ; elle ne détache pas ses stickers. Les étiquettes 1 et 3 ont commencé sur des pièces de coin DIFFÉRENTES, et ces pièces doivent toujours occuper des emplacements de coin physiques différents. Une fois la position de l'un des stickers suivis fixée, les trois positions orientées vers les faces de cet emplacement de coin sont interdites pour l'autre sticker. C'est pourquoi il y a exactement trois lacunes dans chaque ligne ET chaque colonne.\n\nPar exemple, les ID d'origine `0` (U), `29` (B) et `36` (L) sont trois vues du MÊME emplacement de coin supérieur-arrière-gauche, et non trois pièces de coin distinctes. Si l'étiquette de sticker 3 occupe l'ID 0, l'étiquette de sticker 1 ne peut occuper AUCUN de ces trois ID : cela placerait sa pièce de coin différente dans le même emplacement. Déplacer l'étiquette de sticker 3 vers un autre coin modifie les trois ID interdits. Il n'existe pas de liste permanente de trois positions inutilisables ; il s'agit de restrictions conditionnelles sur des paires de positions.\n\nPar exemple, la ligne inférieure fixe l'étiquette de sticker 3 à l'indice de coin 1, qui sélectionne l'ID de position d'origine 0. Elle comporte 24 emplacements horizontaux, mais seulement 21 tuiles colorées accessibles : les trois lacunes sont l'étiquette de sticker 1 aux indices de coin `1, 14, 17` (ID d'origine `0, 29, 36`), les trois positions orientées vers les faces de ce même coin physique. La colonne la plus à gauche présente les trois mêmes lacunes. Ainsi, ne compter que les tuiles colorées donne 21, et non 24 ; les lacunes sont des PAIRES interdites, et non trois positions retirées de l'un ou l'autre axe. Chaque ligne et colonne comporte trois lacunes de ce type. Les 30 ID d'arêtes et de centres ont déjà été omis lors de la construction des axes à 24 positions ; ils ne constituent pas les lacunes noires de cette grille.\n\nLes lacunes transparentes sont ces 72 paires impossibles sur un même petit cube, et NON des états non visités. Cela représente un huitième de la grille : la diagonale principale plus 48 tuiles hors diagonale. Le quadrillage des axes passant par les centres des cellules est désactivé. Les contours estompés sont des limites de cellules, et non des données ou des probabilités non nulles à l'intérieur des lacunes. Les cellules colorées à valeur zéro sont des paires accessibles sans aucune visite échantillonnée pour le moment. La cible stationnaire est `1/504` pour chacune des 504 paires ORDONNÉES accessibles, et non `1/576`. Le dénominateur provient de la recherche en largeur à mouvements communs, et non d'une multiplication indépendante des cibles marginales.\n\nChaque carte thermique est une moyenne de visite cumulée après 100, 1000 ou 10000 mouvements. Son échelle de couleurs commence à zéro et s'adapte au maximum de cet instantané ; comparez les distances affichées plutôt que de comparer les couleurs entre instantanés. À 10000 mouvements, il n'y a qu'environ 20 visites par paire accessible en moyenne, de sorte qu'une carte hétérogène peut persister même après de nombreux mouvements ; les visites successives sont également corrélées. Le masque, le chemin d'échantillonnage, les fréquences et les tracés sont générés par le code réel, et aucune affirmation d'uniformité ou de temps de mélange sur le cube complet ne découle de l'une ou l'autre projection réduite."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:14:0:0",
+      "text": "Configuration facultative : utiliser les mêmes permutations source-vers-destination qu'à l'étape 4."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:14:2:0",
+      "text": "Les repères de l'étape 1 identifient les emplacements physiques des petits cubes, pas les étiquettes des stickers."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:14:4:0",
+      "text": "La recherche en largeur applique UN mouvement commun à la paire ordonnée."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:14:6:0",
+      "text": "Chaque générateur permute les paires accessibles ; des comptes entrants égaux certifient"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:14:8:0",
+      "text": "une cible uniforme stationnaire sans allouer de matrice 504 par 504."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:14:16:0",
+      "text": "Positions de coin :"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:14:18:0",
+      "text": "Paires ordonnées accessibles :"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:14:20:0",
+      "text": "Paires masquées du même petit cube :"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:0:0",
+      "text": "Compter les positions APRÈS chaque mouvement ; la position initiale n'est pas une visite."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:2:0",
+      "text": "Un sticker"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:6:0",
+      "text": "étapes"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:18:0",
+      "text": "Visites observées"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:40:0",
+      "text": "Cible uniforme"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:54:0",
+      "text": "Position de l'étiquette 1"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:56:0",
+      "text": "Fréquence de visite"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:130:0",
+      "text": "étapes ; distance moyenne des visites :"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:132:0",
+      "text": "distance exacte de la position finale :"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:0:0",
+      "text": "Réinitialiser la graine : la première coordonnée suit le MÊME chemin que l'histogramme."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:66:0",
+      "text": "Plotly Basic prend en charge les tuiles de barres, pas sa trace native facultative de carte thermique."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:68:0",
+      "text": "Omettre les cellules impossibles ; chaque zéro accessible reste une tuile colorée."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:74:0",
+      "text": "Deux stickers"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:78:0",
+      "text": "étapes"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:154:0",
+      "text": "Fréquence de visite"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:160:0",
+      "text": "Indice de coin de l'étiquette 1"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:162:0",
+      "text": "Indice de coin de l'étiquette 3"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:248:0",
+      "text": "étapes ; distance moyenne conjointe des visites :"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:250:0",
+      "text": "Cible uniforme par paire ordonnée accessible :"
+    }
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "entries": [
+    {
+      "book": "markov-groups",
+      "field": "markdown:13",
+      "text": "## Eksperimen opsional — frekuensi kunjungan\n\nPelajaran inti 13-sel di atas sudah lengkap. Lewati semua yang ada di bawah ini jika Anda hanya menginginkan contoh-contoh inti. Untuk memilih ikut serta, jalankan sel Python inti terlebih dahulu secara berurutan; kemudian jalankan `mixing_setup`, `sticker_visits`, dan `joint_visits` di bawah ini. Eksperimen-eksperimen ini menggunakan NumPy dan `mplot` yang disediakan aplikasi, tanpa penginstalan paket, permintaan jaringan yang dimulai oleh buku kerja, data eksternal, panggilan model, atau penulisan berkas. Default-nya adalah 10000 langkah, dengan cuplikan setelah 100, 1000, dan 10000 langkah.\n\nPengaturan ini menyusun 13 pilihan dari permutasi yang ada: identitas, enam putaran sisi, dan enam inversinya, masing-masing berpeluang sama. Pencarian melebar (breadth-first search) dimulai pada posisi 0 dan menerapkan setiap pilihan secara berulang untuk menemukan orbit satu stiker; kode memverifikasi bahwa ada 24 posisi stiker sudut yang dapat dijangkau. Kode ini menurunkan slot cubie sudut fisik dari bingkai sisi Tahap 1 dan memverifikasi bahwa setiap langkah memindahkan ketiga stiker dari setiap cubie secara bersamaan. Nilai 24 dan 8 adalah pemeriksaan, bukan masukan untuk pencarian atau probabilitas target.\n\nUntuk stiker kedua, pencarian dimulai pada pasangan terurut `(0, 2)`, posisi terpecahkan dari label 1 dan 3. Pada setiap langkah pencarian, kode menerapkan langkah yang SAMA ke kedua koordinat. Masker yang dihasilkan dibandingkan dengan relasi slot cubie yang diturunkan secara independen: hanya pasangan di slot sudut berbeda yang dapat dijangkau. Terdapat 504 pasangan terurut yang dapat dijangkau dan 72 pasangan yang dimasker pada kisi 24-kali-24, termasuk diagonalnya. Kode menurunkan kedua hitungan tersebut sebelum memeriksanya. Setiap langkah mempermutasikan pasangan yang dapat dijangkau, sehingga hitungan masuk yang sama memverifikasi target gabungan seragam yang stasioner. Identitas menyediakan loop mandiri, dan pencarian memverifikasi keterhubungan di dalam setiap orbit yang dilacak; ini adalah eksperimen keadaan tereduksi, bukan pencacahan konfigurasi kubus utuh."
+    },
+    {
+      "book": "markov-groups",
+      "field": "markdown:15",
+      "text": "### Satu stiker — histogram kunjungan rekursif\n\nLacak label 1, yang awalnya berada pada posisi 0 berbasis nol. Setiap iterasi memilih satu dari 13 langkah secara seragam, memperbarui posisi sebelumnya dengan permutasinya, dan menambah hitungan tujuan tersebut. Hitung kunjungan SETELAH langkah; posisi awal tidak dihitung. Seed 20261007 membuat jalurnya dapat direproduksi, bukan tercampur secara seragam. Setiap histogram membagi hitungan yang terakumulasi dengan jumlah langkah. Sumbu horizontal memilih 24 ID posisi sudut dari penomoran kubus asli `0..53`; sumbu ini tidak berisi 54 batang. Label tanda centang yang jarang hanya menampilkan sebagian dari ID tersebut, tetapi setiap posisi sudut memiliki batang. Bagian berikutnya menjelaskan hitungan empat-sudut-per-sisi dan mencantumkan semua 24 ID. Garis putus-putus adalah target stasioner `1/24`.\n\nIni adalah rata-rata waktu empiris dari SATU lintasan yang berkorelasi. Ini bukan distribusi eksak dari posisi stiker pada langkah n. Kode memajukan `exact_probability` secara terpisah dengan `corner_T` setiap kali; ini adalah versi terbatas sudut dari `T^n @ location_probability` dari awal yang terpecahkan. Jarak yang dicetak membandingkan setiap distribusi dengan target seragamnya menggunakan setengah dari jumlah selisih absolut. Sampel hingga tidak harus membaik pada setiap cuplikan, dan tidak ada histogram yang menetapkan pencampuran kubus utuh atau waktu pencampuran kubus utuh."
+    },
+    {
+      "book": "markov-groups",
+      "field": "markdown:17",
+      "text": "### Dua stiker — peta panas gabungan langkah-bersama\n\nLacak label 1 dan 3, mulai dari posisi 0 dan 2 pada cubie sudut yang BERBEDA. Pilih SATU langkah acak seragam per iterasi dan terapkan pada KEDUA posisi. Seed diatur ulang sehingga koordinat pertama mengikuti jalur tersampel yang persis sama dengan histogram; jumlah kolom peta panas gabungan diperiksa terhadap histogram tersebut. Ini adalah koordinat dependen dari satu kubus, bukan dua kubus independen. Jangan gunakan `T ⊗ T`: itu akan memilih langkah independen dan memungkinkan pasangan cubie sama yang mustahil.\n\n#### Membaca sumbu: 24 posisi sudut per stiker\n\nSumbu horizontal menunjukkan posisi label stiker 1; sumbu vertikal menunjukkan posisi label stiker 3. Setiap sumbu memiliki 24 tujuan yang mungkin, bukan hanya empat sudut dari sisi awal stiker: urutan putaran sisi dapat membawanya antar sisi. Terdapat empat posisi stiker sudut pada masing-masing dari enam sisi, jadi `4 × 6 = 24`. Secara ekuivalen, delapan sudut fisik masing-masing memiliki tiga posisi stiker yang menghadap ke sisi: `8 × 3 = 24`. Stiker sudut tidak pernah berpindah ke posisi tepi atau pusat. Kubus memiliki 48 posisi non-pusat secara keseluruhan, tetapi 24 di antaranya milik tepi dan bukan tujuan untuk kedua stiker yang kita ikuti.\n\nSumbu peta panas sekarang menggunakan indeks sudut berurutan `1..24`, BUKAN ID kubus asli `0..53`. Ini membuat ukuran kisi terlihat: 24 kolom dan 24 baris. Suatu indeks hanya memilih satu entri dari tabel di bawah; ini bukan label stiker baru atau jarak fisik. Misalnya, indeks `1, 2, 3, 4` memilih ID posisi asli `0, 2, 6, 8`. Hanya beberapa label tanda centang yang dicetak agar pas dengan layar ponsel, tetapi semua 24 baris dan kolom ada. Judulnya menyatakan `24 × 24`; batas sel yang samar menandai semua 24 ruang di setiap arah, termasuk petak terlarang. Hitung ruangnya, bukan interval di antara tanda centang: 24 pusat sel hanya memiliki 23 interval di antaranya. Teks arahkan kursor (hover) melaporkan pasangan ID posisi ASLI yang diikuti oleh frekuensi kunjungannya. Histogram satu stiker di atas mempertahankan label ID posisi aslinya.\n\n| Indeks peta panas (sisi) | ID posisi sudut asli |\n| --- | --- |\n| 1–4: U (atas) | `0, 2, 6, 8` |\n| 5–8: D (bawah) | `9, 11, 15, 17` |\n| 9–12: F (depan) | `18, 20, 24, 26` |\n| 13–16: B (belakang) | `27, 29, 33, 35` |\n| 17–20: L (kiri) | `36, 38, 42, 44` |\n| 21–24: R (kanan) | `45, 47, 51, 53` |\n\nSatu petak peta panas mewakili satu pasangan terurut: `(posisi label 1, posisi label 3)`. Oleh karena itu, kedua sumbu 24-posisi menghasilkan `24 × 24 = 576` petak potensial, bukan kisi 48-kali-48 atau 54-kali-54. Kedua stiker tersebut termasuk dalam potongan sudut yang berbeda, sehingga keduanya tidak dapat menempati salah satu dari tiga posisi stiker di sudut fisik yang sama. Ini menyingkirkan `8 × 3 × 3 = 72` petak, menyisakan `24 × 21 = 504` pasangan terurut yang dapat dijangkau.\n\n#### Mengapa tiga pasangan dilarang di setiap baris dan kolom\n\nPotongan sudut fisik memiliki tiga stiker, satu pada masing-masing dari tiga sisi yang bertemu di sudut tersebut. Putaran sisi memindahkan seluruh potongan ini; itu tidak melepaskan stikernya. Label 1 dan 3 dimulai pada potongan sudut yang BERBEDA, dan potongan-potongan tersebut harus selalu menempati slot sudut fisik yang berbeda. Setelah posisi salah satu stiker yang dilacak ditetapkan, ketiga posisi yang menghadap sisi dari slot sudut tersebut dilarang untuk stiker lainnya. Inilah sebabnya terdapat tepat tiga celah di setiap baris DAN setiap kolom.\n\nSebagai contoh, ID asli `0` (U), `29` (B), dan `36` (L) adalah tiga tampilan dari slot sudut atas-belakang-kiri yang SAMA, bukan tiga potongan sudut terpisah. Jika label stiker 3 menempati ID 0, label stiker 1 tidak dapat menempati SALAH SATU dari ketiga ID tersebut: itu akan menempatkan potongan sudutnya yang berbeda di slot yang sama. Memindahkan label stiker 3 ke sudut lain akan mengubah tiga ID yang dilarang. Tidak ada daftar permanen berisi tiga posisi yang tidak dapat digunakan; ini adalah pembatasan bersyarat pada pasangan posisi.\n\nSebagai contoh, baris terbawah menetapkan label stiker 3 pada indeks sudut 1, yang memilih ID posisi asli 0. Baris ini memiliki 24 slot horizontal, tetapi hanya 21 petak berwarna yang dapat dijangkau: tiga celah tersebut adalah label stiker 1 pada indeks sudut `1, 14, 17` (ID asli `0, 29, 36`), tiga posisi yang menghadap sisi dari sudut fisik yang sama tersebut. Kolom paling kiri memiliki tiga celah yang sama. Jadi, menghitung hanya petak berwarna menghasilkan 21, bukan 24; celah-celah tersebut adalah PASANGAN terlarang, bukan tiga posisi yang dihapus dari salah satu sumbu. Setiap baris dan kolom memiliki tiga celah seperti itu. Ke-30 ID tepi dan pusat telah dihilangkan saat membuat sumbu 24-posisi; mereka bukan celah hitam di kisi ini.\n\nCelah transparan adalah 72 pasangan cubie-sama yang mustahil tersebut, BUKAN keadaan yang belum dikunjungi. Ini adalah seperdelapan dari kisi: diagonal utama ditambah 48 petak di luar diagonal. Garis kisi sumbu yang melalui pusat sel dinonaktifkan. Garis tepi yang samar adalah batas sel, bukan data atau probabilitas bukan nol di dalam celah. Sel nol berwarna adalah pasangan yang dapat dijangkau tetapi belum memiliki kunjungan tersampel. Target stasioner adalah `1/504` untuk masing-masing dari 504 pasangan TERURUT yang dapat dijangkau, bukan `1/576`. Penyebut berasal dari pencarian melebar langkah-bersama, bukan perkalian independen dari target marjinal.\n\nSetiap peta panas adalah rata-rata kunjungan yang terakumulasi setelah 100, 1000, atau 10000 langkah. Skala warnanya dimulai dari nol dan menyesuaikan dengan maksimum cuplikan tersebut; bandingkan jarak yang dicetak daripada membandingkan warna antar-cuplikan. Pada 10000 langkah, rata-rata hanya ada sekitar 20 kunjungan per pasangan yang dapat dijangkau, sehingga peta yang tidak merata dapat tetap ada bahkan setelah banyak langkah; kunjungan berturut-turut juga berkorelasi. Masker, jalur sampel, frekuensi, dan plot dihasilkan oleh kode sebenarnya, dan tidak ada klaim keseragaman kubus utuh atau waktu pencampuran yang mengikuti dari salah satu proyeksi tereduksi."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:14:0:0",
+      "text": "Pengaturan opsional: gunakan permutasi sumber-ke-tujuan yang sama seperti Tahap 4."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:14:2:0",
+      "text": "Bingkai Tahap 1 mengidentifikasi slot cubie fisik, bukan label stiker."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:14:4:0",
+      "text": "Pencarian melebar menerapkan SATU langkah bersama ke pasangan terurut."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:14:6:0",
+      "text": "Setiap generator mempermutasikan pasangan yang dapat dijangkau; hitungan masuk yang sama menyatakan"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:14:8:0",
+      "text": "target seragam stasioner tanpa mengalokasikan matriks 504-kali-504."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:14:16:0",
+      "text": "Posisi sudut:"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:14:18:0",
+      "text": "Pasangan terurut yang dapat dijangkau:"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:14:20:0",
+      "text": "Pasangan cubie-sama yang dimasker:"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:0:0",
+      "text": "Hitung posisi SETELAH setiap langkah; posisi awal bukan kunjungan."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:2:0",
+      "text": "Satu stiker"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:6:0",
+      "text": "langkah"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:18:0",
+      "text": "Kunjungan teramati"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:40:0",
+      "text": "Target seragam"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:54:0",
+      "text": "Posisi label 1"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:56:0",
+      "text": "Frekuensi kunjungan"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:130:0",
+      "text": "langkah; jarak rata-rata kunjungan:"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:16:132:0",
+      "text": "jarak posisi-akhir eksak:"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:0:0",
+      "text": "Atur ulang seed: koordinat pertama mengikuti jalur SAMA seperti histogram."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:66:0",
+      "text": "Plotly Basic mendukung petak batang, bukan jejak peta panas bawaan opsionalnya."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:68:0",
+      "text": "Hilangkan sel yang mustahil; setiap nol yang dapat dijangkau tetap menjadi petak berwarna."
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:74:0",
+      "text": "Dua stiker"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:78:0",
+      "text": "langkah"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:154:0",
+      "text": "Frekuensi kunjungan"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:160:0",
+      "text": "Indeks sudut label 1"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:162:0",
+      "text": "Indeks sudut label 3"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:248:0",
+      "text": "langkah; jarak rata-rata kunjungan gabungan:"
+    },
+    {
+      "book": "markov-groups",
+      "field": "span:18:250:0",
+      "text": "Target seragam per pasangan terurut yang dapat dijangkau:"
+    }
+  ]
+}

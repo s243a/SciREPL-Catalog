@@ -31,6 +31,12 @@ jobs:
       - run: node tools/test-markov-probability-clarification.mjs
       - run: node tools/test-markov-stage4-clarity.mjs
       - run: python tools/test-markov-stage4-runtime.py
+      - run: python tools/test-markov-stage4-runtime.py --projection-self-test
+      - run: node tools/test-markov-mixing-history.mjs
+      - run: node tools/test-markov-mixing-addendum.mjs
+      - run: node tools/test-markov-mixing-translation.mjs
+      - run: python tools/test-markov-mixing-editions-runtime.py
+      - run: node tools/test-markov-mixing-editions.mjs
       - run: node tools/annotate-markov-cycles.mjs --check
       - run: node tools/test-example-cooling.mjs
       - run: node tools/test-example-oil.mjs

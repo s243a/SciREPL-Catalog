@@ -4,12 +4,12 @@
   "locale": "en",
   "source": {
     "path": "workbooks/en/markov-groups.srwb",
-    "sha256": "98d3d861c7c59f011ca8f25e5148116dcc3c947c32550fc474bea36df23f68de"
+    "sha256": "2daf77aa872a7210cc16083535b1c244fb2cfbc288d60f688b85f0736633c430"
   },
   "target": {
     "path": "workbooks/en/markov-groups.srwb",
-    "sha256": "98d3d861c7c59f011ca8f25e5148116dcc3c947c32550fc474bea36df23f68de",
-    "size": 31172,
+    "sha256": "2daf77aa872a7210cc16083535b1c244fb2cfbc288d60f688b85f0736633c430",
+    "size": 52314,
     "title": "Markov Groups: A Random Walk on Cube Moves",
     "description": "Verify Rubik cube sticker permutations, four-turn cycles and noncommuting moves, then build a lazy Markov random walk. The one-sticker transition matrix is not the full cube-state chain."
   },
@@ -453,5 +453,44 @@
       "scope": "Inspected English Python rechecked locally; locale structure and exact clarity update checked mechanically. No Python app runtime, Android or Pro runtime.",
       "pythonAppRuntime": "not-run"
     }
+  },
+  "mixingUpdate": {
+    "schema": "markov-mixing-update-v1",
+    "predecessorCommit": "f88d9b9e26364eeb5e7ff1ee9bcce5f27d47c66e",
+    "predecessorSourceSha256": "98d3d861c7c59f011ca8f25e5148116dcc3c947c32550fc474bea36df23f68de",
+    "predecessorTargetSha256": "98d3d861c7c59f011ca8f25e5148116dcc3c947c32550fc474bea36df23f68de",
+    "sourceSha256": "2daf77aa872a7210cc16083535b1c244fb2cfbc288d60f688b85f0736633c430",
+    "targetSha256": "2daf77aa872a7210cc16083535b1c244fb2cfbc288d60f688b85f0736633c430",
+    "cells": 19,
+    "preservedCoreCells": 13,
+    "appendedCells": [
+      "mixing_bridge",
+      "mixing_setup",
+      "visit_bridge",
+      "sticker_visits",
+      "joint_bridge",
+      "joint_visits"
+    ],
+    "historicalEvidence": {
+      "retainedFields": [
+        "browser",
+        "coordinateUpdate",
+        "cyclesUpdate",
+        "layoutUpdate",
+        "stage4Update",
+        "probabilityClarification",
+        "stage4Clarity"
+      ],
+      "predecessorReceiptSha256": "513aa8982aba77c643d9036ff821a42517b141bd1ebaffc5286f7ff3e53dda6b"
+    },
+    "runtime": {
+      "path": "reviews/markov-mixing-locales-20261013/runtime.json",
+      "sha256": "debe82087f61c9be5e56e566859dcbaec519917f922dd5138d47a85e045a1d7c"
+    },
+    "rendering": {
+      "path": "reviews/markov-mixing-locales-20261013/browser-complete/rendering.json",
+      "sha256": "6508b473ddcf0e06d7280027e8435073e57e6d86a1002bb389474bc4627cc617"
+    },
+    "nativeSpeakerReview": "not-applicable"
   }
 }
