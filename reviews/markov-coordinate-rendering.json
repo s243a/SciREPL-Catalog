@@ -1,0 +1,1108 @@
+{
+  "checkedAt": "2026-10-07T03:18:46.208Z",
+  "platform": "Free Chromium browser",
+  "viewport": {
+    "width": 320,
+    "height": 844
+  },
+  "tests": [
+    {
+      "locale": "en",
+      "theme": "dark",
+      "workbookSha256": "b3795f36599216da86e653e8776127d82f6088ac10e5d8ac358c96a549257ef3",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "no code execution despite auto-execute enabled",
+        "source byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "diagrams": [
+          {
+            "title": "Fixed global cube axes",
+            "description": "The cube has front F, top U and right R faces. Global positive x points right, positive y points up, and positive z points toward the front.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "Paper tilted from front to top",
+            "description": "A front sheet has right r along positive x, up u along positive y, and outward normal n along positive z, shown by a circle with a central dot pointing toward the outside viewer. In the front-to-top hinge tilt, right stays positive x, up becomes negative z, and the normal becomes positive y. The arrows show r cross u equals n.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "en",
+      "theme": "light",
+      "workbookSha256": "b3795f36599216da86e653e8776127d82f6088ac10e5d8ac358c96a549257ef3",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "no code execution despite auto-execute enabled",
+        "source byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "diagrams": [
+          {
+            "title": "Fixed global cube axes",
+            "description": "The cube has front F, top U and right R faces. Global positive x points right, positive y points up, and positive z points toward the front.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "Paper tilted from front to top",
+            "description": "A front sheet has right r along positive x, up u along positive y, and outward normal n along positive z, shown by a circle with a central dot pointing toward the outside viewer. In the front-to-top hinge tilt, right stays positive x, up becomes negative z, and the normal becomes positive y. The arrows show r cross u equals n.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "ar",
+      "theme": "dark",
+      "workbookSha256": "5197f15c9ae8b45d002a3c4b301a8bd367c4c20069c957e4aec2b9e3ad972059",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "no code execution despite auto-execute enabled",
+        "source byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "diagrams": [
+          {
+            "title": "محاور المكعب العامة الثابتة",
+            "description": "للمكعب أوجه: الأمامي F والعلوي U والأيمن R. يشير x الموجب العام إلى اليمين، وy الموجب إلى الأعلى، وz الموجب نحو الأمام.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "ورقة مائلة من الأمام إلى الأعلى",
+            "description": "تمتلك الورقة الأمامية اليمين r على امتداد x الموجب، والأعلى u على امتداد y الموجب، والناظم الخارجي n على امتداد z الموجب، موضحًا بدائرة ذات نقطة مركزية تشير نحو المشاهد الخارجي. في إمالة المفصلة من الأمام إلى الأعلى، يبقى اليمين x موجبًا، ويصبح الأعلى z سالبًا، ويصبح الناظم y موجبًا. توضح الأسهم أن r ضرب اتجاهي u يساوي n.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "ar",
+      "theme": "light",
+      "workbookSha256": "5197f15c9ae8b45d002a3c4b301a8bd367c4c20069c957e4aec2b9e3ad972059",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "no code execution despite auto-execute enabled",
+        "source byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "diagrams": [
+          {
+            "title": "محاور المكعب العامة الثابتة",
+            "description": "للمكعب أوجه: الأمامي F والعلوي U والأيمن R. يشير x الموجب العام إلى اليمين، وy الموجب إلى الأعلى، وz الموجب نحو الأمام.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "ورقة مائلة من الأمام إلى الأعلى",
+            "description": "تمتلك الورقة الأمامية اليمين r على امتداد x الموجب، والأعلى u على امتداد y الموجب، والناظم الخارجي n على امتداد z الموجب، موضحًا بدائرة ذات نقطة مركزية تشير نحو المشاهد الخارجي. في إمالة المفصلة من الأمام إلى الأعلى، يبقى اليمين x موجبًا، ويصبح الأعلى z سالبًا، ويصبح الناظم y موجبًا. توضح الأسهم أن r ضرب اتجاهي u يساوي n.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "bn",
+      "theme": "dark",
+      "workbookSha256": "130101eef44f3f3a373566d96b3dce3f4a390dc22dab7e454ddbc1d40985edcf",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "no code execution despite auto-execute enabled",
+        "source byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "diagrams": [
+          {
+            "title": "স্থির গ্লোবাল ঘনক অক্ষসমূহ",
+            "description": "ঘনকটির সামনের F, শীর্ষ U এবং ডান R তল রয়েছে। গ্লোবাল ধনাত্মক x ডানে নির্দেশ করে, ধনাত্মক y উপরে নির্দেশ করে এবং ধনাত্মক z সামনের দিকে নির্দেশ করে।",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "কাগজ সামনে থেকে শীর্ষে কাত করা হয়েছে",
+            "description": "একটি সামনের কাগজের টুকরোতে ধনাত্মক x বরাবর ডান r, ধনাত্মক y বরাবর উপর u এবং ধনাত্মক z বরাবর বহির্মুখী অভিলম্ব n রয়েছে, যা বাইরের দর্শকের দিকে নির্দেশকারী কেন্দ্রীয় বিন্দুযুক্ত একটি বৃত্ত দ্বারা প্রদর্শিত হয়েছে। সামনে-থেকে-শীর্ষে কবজা বরাবর কাত করার ক্ষেত্রে, ডান ধনাত্মক x থাকে, উপর ঋণাত্মক z হয়ে যায় এবং অভিলম্ব ধনাত্মক y হয়ে যায়। তীরগুলো নির্দেশ করে r ক্রস u সমান n।",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "bn",
+      "theme": "light",
+      "workbookSha256": "130101eef44f3f3a373566d96b3dce3f4a390dc22dab7e454ddbc1d40985edcf",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "no code execution despite auto-execute enabled",
+        "source byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "diagrams": [
+          {
+            "title": "স্থির গ্লোবাল ঘনক অক্ষসমূহ",
+            "description": "ঘনকটির সামনের F, শীর্ষ U এবং ডান R তল রয়েছে। গ্লোবাল ধনাত্মক x ডানে নির্দেশ করে, ধনাত্মক y উপরে নির্দেশ করে এবং ধনাত্মক z সামনের দিকে নির্দেশ করে।",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "কাগজ সামনে থেকে শীর্ষে কাত করা হয়েছে",
+            "description": "একটি সামনের কাগজের টুকরোতে ধনাত্মক x বরাবর ডান r, ধনাত্মক y বরাবর উপর u এবং ধনাত্মক z বরাবর বহির্মুখী অভিলম্ব n রয়েছে, যা বাইরের দর্শকের দিকে নির্দেশকারী কেন্দ্রীয় বিন্দুযুক্ত একটি বৃত্ত দ্বারা প্রদর্শিত হয়েছে। সামনে-থেকে-শীর্ষে কবজা বরাবর কাত করার ক্ষেত্রে, ডান ধনাত্মক x থাকে, উপর ঋণাত্মক z হয়ে যায় এবং অভিলম্ব ধনাত্মক y হয়ে যায়। তীরগুলো নির্দেশ করে r ক্রস u সমান n।",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "de",
+      "theme": "dark",
+      "workbookSha256": "2022b13cbe988afda143d04d7f0c0def397fad98bb429f6a4fb91cca83898ef6",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "no code execution despite auto-execute enabled",
+        "source byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "diagrams": [
+          {
+            "title": "Feste globale Würfelachsen",
+            "description": "Der Würfel hat die Vorderfläche F, die Oberseite U und die rechte Fläche R. Die globale positive x-Richtung zeigt nach rechts, die positive y-Richtung nach oben und die positive z-Richtung nach vorne.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "Papier von vorne nach oben gekippt",
+            "description": "Beim vorderen Blatt zeigt rechts r in die positive x-Richtung, oben u in die positive y-Richtung und die nach außen gerichtete Normale n in die positive z-Richtung. Der Kreis mit einem Punkt in der Mitte zeigt zum außenstehenden Betrachter. Beim Kippen von vorne nach oben bleibt rechts in positiver x-Richtung, oben wird zur negativen z-Richtung und die Normale zur positiven y-Richtung. Die Pfeile zeigen r Kreuz u gleich n.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "de",
+      "theme": "light",
+      "workbookSha256": "2022b13cbe988afda143d04d7f0c0def397fad98bb429f6a4fb91cca83898ef6",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "no code execution despite auto-execute enabled",
+        "source byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "diagrams": [
+          {
+            "title": "Feste globale Würfelachsen",
+            "description": "Der Würfel hat die Vorderfläche F, die Oberseite U und die rechte Fläche R. Die globale positive x-Richtung zeigt nach rechts, die positive y-Richtung nach oben und die positive z-Richtung nach vorne.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "Papier von vorne nach oben gekippt",
+            "description": "Beim vorderen Blatt zeigt rechts r in die positive x-Richtung, oben u in die positive y-Richtung und die nach außen gerichtete Normale n in die positive z-Richtung. Der Kreis mit einem Punkt in der Mitte zeigt zum außenstehenden Betrachter. Beim Kippen von vorne nach oben bleibt rechts in positiver x-Richtung, oben wird zur negativen z-Richtung und die Normale zur positiven y-Richtung. Die Pfeile zeigen r Kreuz u gleich n.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "es",
+      "theme": "dark",
+      "workbookSha256": "53a1af1b8577869f07b6f5af949d3289c7f76f3edc9e5e8de9632f3a38c1a143",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "no code execution despite auto-execute enabled",
+        "source byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "diagrams": [
+          {
+            "title": "Ejes globales fijos del cubo",
+            "description": "El cubo tiene caras frontal F, superior U y derecha R. El x positivo global apunta hacia la derecha, el y positivo apunta hacia arriba y el z positivo apunta hacia el frente.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "Papel inclinado de frente a parte superior",
+            "description": "Una hoja frontal tiene la derecha r a lo largo de x positivo, arriba u a lo largo de y positivo y la normal exterior n a lo largo de z positivo, mostrada mediante un círculo con un punto central que apunta hacia el espectador exterior. En la inclinación de bisagra de frente a parte superior, derecha permanece como x positivo, arriba se convierte en z negativo y la normal se convierte en y positivo. Las flechas muestran que r cruz u es igual a n.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "es",
+      "theme": "light",
+      "workbookSha256": "53a1af1b8577869f07b6f5af949d3289c7f76f3edc9e5e8de9632f3a38c1a143",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "no code execution despite auto-execute enabled",
+        "source byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "diagrams": [
+          {
+            "title": "Ejes globales fijos del cubo",
+            "description": "El cubo tiene caras frontal F, superior U y derecha R. El x positivo global apunta hacia la derecha, el y positivo apunta hacia arriba y el z positivo apunta hacia el frente.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "Papel inclinado de frente a parte superior",
+            "description": "Una hoja frontal tiene la derecha r a lo largo de x positivo, arriba u a lo largo de y positivo y la normal exterior n a lo largo de z positivo, mostrada mediante un círculo con un punto central que apunta hacia el espectador exterior. En la inclinación de bisagra de frente a parte superior, derecha permanece como x positivo, arriba se convierte en z negativo y la normal se convierte en y positivo. Las flechas muestran que r cruz u es igual a n.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "fr",
+      "theme": "dark",
+      "workbookSha256": "4b5000c5be425e5f2a65866128951d5c585c9a84a7010426b7831e2b9cba419b",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "no code execution despite auto-execute enabled",
+        "source byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "diagrams": [
+          {
+            "title": "Axes globaux fixes du cube",
+            "description": "Le cube possède les faces avant F, haut U et droite R. L'axe global x positif pointe vers la droite, y positif pointe vers le haut et z positif pointe vers l'avant.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "Papier incliné de l'avant vers le haut",
+            "description": "Une feuille avant a la droite r le long de x positif, le haut u le long de y positif, et la normale sortante n le long de z positif, représentée par un cercle avec un point central pointant vers l'observateur extérieur. Dans l'inclinaison sur charnière de l'avant vers le haut, la droite reste x positif, le haut devient z négatif et la normale devient y positif. Les flèches montrent que r vectoriel u est égal à n.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "fr",
+      "theme": "light",
+      "workbookSha256": "4b5000c5be425e5f2a65866128951d5c585c9a84a7010426b7831e2b9cba419b",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "no code execution despite auto-execute enabled",
+        "source byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "diagrams": [
+          {
+            "title": "Axes globaux fixes du cube",
+            "description": "Le cube possède les faces avant F, haut U et droite R. L'axe global x positif pointe vers la droite, y positif pointe vers le haut et z positif pointe vers l'avant.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "Papier incliné de l'avant vers le haut",
+            "description": "Une feuille avant a la droite r le long de x positif, le haut u le long de y positif, et la normale sortante n le long de z positif, représentée par un cercle avec un point central pointant vers l'observateur extérieur. Dans l'inclinaison sur charnière de l'avant vers le haut, la droite reste x positif, le haut devient z négatif et la normale devient y positif. Les flèches montrent que r vectoriel u est égal à n.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "hi",
+      "theme": "dark",
+      "workbookSha256": "6e372cfb3ddf996d7b074efae586a278d18b46a9a7336550287d3c526516e47d",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "no code execution despite auto-execute enabled",
+        "source byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "diagrams": [
+          {
+            "title": "स्थिर वैश्विक घन अक्ष",
+            "description": "घन में सामने F, शीर्ष U और दाएँ R फलक हैं। वैश्विक धनात्मक x दाएँ इंगित करता है, धनात्मक y ऊपर इंगित करता है, और धनात्मक z सामने की ओर इंगित करता है।",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "सामने से शीर्ष की ओर झुकाया गया कागज",
+            "description": "सामने की शीट में दाएँ r धनात्मक x के अनुदिश, ऊपर u धनात्मक y के अनुदिश, और बहिर्मुखी अभिलंब n धनात्मक z के अनुदिश है, जिसे बाहर की ओर देख रहे दर्शक की ओर इंगित करते केंद्रीय बिंदु वाले वृत्त द्वारा दर्शाया गया है। सामने-से-शीर्ष हिंज झुकाव में, दाएँ धनात्मक x रहता है, ऊपर ऋणात्मक z बन जाता है, और अभिलंब धनात्मक y बन जाता है। तीर दर्शाते हैं कि r क्रॉस u बराबर n है।",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "hi",
+      "theme": "light",
+      "workbookSha256": "6e372cfb3ddf996d7b074efae586a278d18b46a9a7336550287d3c526516e47d",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "no code execution despite auto-execute enabled",
+        "source byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "diagrams": [
+          {
+            "title": "स्थिर वैश्विक घन अक्ष",
+            "description": "घन में सामने F, शीर्ष U और दाएँ R फलक हैं। वैश्विक धनात्मक x दाएँ इंगित करता है, धनात्मक y ऊपर इंगित करता है, और धनात्मक z सामने की ओर इंगित करता है।",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "सामने से शीर्ष की ओर झुकाया गया कागज",
+            "description": "सामने की शीट में दाएँ r धनात्मक x के अनुदिश, ऊपर u धनात्मक y के अनुदिश, और बहिर्मुखी अभिलंब n धनात्मक z के अनुदिश है, जिसे बाहर की ओर देख रहे दर्शक की ओर इंगित करते केंद्रीय बिंदु वाले वृत्त द्वारा दर्शाया गया है। सामने-से-शीर्ष हिंज झुकाव में, दाएँ धनात्मक x रहता है, ऊपर ऋणात्मक z बन जाता है, और अभिलंब धनात्मक y बन जाता है। तीर दर्शाते हैं कि r क्रॉस u बराबर n है।",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "id",
+      "theme": "dark",
+      "workbookSha256": "4d7901583b5d945cf261907f7a9edcc546411af20fa91c8162bea7b6afaa8188",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "no code execution despite auto-execute enabled",
+        "source byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "diagrams": [
+          {
+            "title": "Sumbu kubus global yang tetap",
+            "description": "Kubus memiliki sisi depan F, atas U, dan kanan R. Sumbu global x positif mengarah ke kanan, y positif mengarah ke atas, dan z positif mengarah ke depan.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "Kertas dimiringkan dari depan ke atas",
+            "description": "Lembaran depan memiliki arah kanan r sepanjang x positif, atas u sepanjang y positif, dan normal ke luar n sepanjang z positif, ditunjukkan oleh lingkaran dengan titik pusat yang mengarah ke pengamat di luar. Pada kemiringan engsel depan-ke-atas, arah kanan tetap x positif, arah atas menjadi z negatif, dan arah normal menjadi y positif. Tanda panah menunjukkan r cross u sama dengan n.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "id",
+      "theme": "light",
+      "workbookSha256": "4d7901583b5d945cf261907f7a9edcc546411af20fa91c8162bea7b6afaa8188",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "no code execution despite auto-execute enabled",
+        "source byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "diagrams": [
+          {
+            "title": "Sumbu kubus global yang tetap",
+            "description": "Kubus memiliki sisi depan F, atas U, dan kanan R. Sumbu global x positif mengarah ke kanan, y positif mengarah ke atas, dan z positif mengarah ke depan.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "Kertas dimiringkan dari depan ke atas",
+            "description": "Lembaran depan memiliki arah kanan r sepanjang x positif, atas u sepanjang y positif, dan normal ke luar n sepanjang z positif, ditunjukkan oleh lingkaran dengan titik pusat yang mengarah ke pengamat di luar. Pada kemiringan engsel depan-ke-atas, arah kanan tetap x positif, arah atas menjadi z negatif, dan arah normal menjadi y positif. Tanda panah menunjukkan r cross u sama dengan n.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "ja",
+      "theme": "dark",
+      "workbookSha256": "601a68e3c822744791d5ccae3b026bb38c230cc0803dba72ea6f4ad042e57310",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "no code execution despite auto-execute enabled",
+        "source byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "diagrams": [
+          {
+            "title": "固定された立方体のグローバル軸",
+            "description": "立方体には前面 F、上面 U、および右面 R があります。グローバルな正の x は右を指し、正の y は上を指し、正の z は手前を指します。",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "前面から上面へと傾けられた紙",
+            "description": "前面の紙は、正の x に沿った右 r、正の y に沿った上 u、および正の z に沿った外向き法線 n を持ち、これは外側の観察者を指す中央に点がある円で示されています。前面から上面への蝶番のような傾斜では、右は正の x のままで、上は負の z になり、法線は正の y になります。矢印は r と u の外積が n に等しいことを示しています。",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "ja",
+      "theme": "light",
+      "workbookSha256": "601a68e3c822744791d5ccae3b026bb38c230cc0803dba72ea6f4ad042e57310",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "no code execution despite auto-execute enabled",
+        "source byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "diagrams": [
+          {
+            "title": "固定された立方体のグローバル軸",
+            "description": "立方体には前面 F、上面 U、および右面 R があります。グローバルな正の x は右を指し、正の y は上を指し、正の z は手前を指します。",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "前面から上面へと傾けられた紙",
+            "description": "前面の紙は、正の x に沿った右 r、正の y に沿った上 u、および正の z に沿った外向き法線 n を持ち、これは外側の観察者を指す中央に点がある円で示されています。前面から上面への蝶番のような傾斜では、右は正の x のままで、上は負の z になり、法線は正の y になります。矢印は r と u の外積が n に等しいことを示しています。",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "ko",
+      "theme": "dark",
+      "workbookSha256": "d0bed00f8083a1b7c39352f78e1335b38817b286bbbeba8bc8490583a08fb2fc",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "no code execution despite auto-execute enabled",
+        "source byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "diagrams": [
+          {
+            "title": "고정된 전역 큐브 축",
+            "description": "큐브에는 앞면 F, 윗면 U, 오른쪽면 R이 있습니다. 전역 양의 x는 오른쪽을 가리키고, 양의 y는 위쪽을 가리키며, 양의 z는 앞쪽을 가리킵니다.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "앞에서 위로 기울인 종이",
+            "description": "앞면 종이는 양의 x를 따르는 오른쪽 r, 양의 y를 따르는 위쪽 u, 외부 관찰자를 향하는 중심점이 있는 원으로 표시된 양의 z를 따르는 바깥쪽 법선 n을 갖습니다. 앞에서 위로의 경첩 기울임에서 오른쪽은 양의 x로 유지되고, 위쪽은 음의 z가 되며, 법선은 양의 y가 됩니다. 화살표는 r 외적 u는 n과 같음을 보여줍니다.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "ko",
+      "theme": "light",
+      "workbookSha256": "d0bed00f8083a1b7c39352f78e1335b38817b286bbbeba8bc8490583a08fb2fc",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "no code execution despite auto-execute enabled",
+        "source byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "diagrams": [
+          {
+            "title": "고정된 전역 큐브 축",
+            "description": "큐브에는 앞면 F, 윗면 U, 오른쪽면 R이 있습니다. 전역 양의 x는 오른쪽을 가리키고, 양의 y는 위쪽을 가리키며, 양의 z는 앞쪽을 가리킵니다.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "앞에서 위로 기울인 종이",
+            "description": "앞면 종이는 양의 x를 따르는 오른쪽 r, 양의 y를 따르는 위쪽 u, 외부 관찰자를 향하는 중심점이 있는 원으로 표시된 양의 z를 따르는 바깥쪽 법선 n을 갖습니다. 앞에서 위로의 경첩 기울임에서 오른쪽은 양의 x로 유지되고, 위쪽은 음의 z가 되며, 법선은 양의 y가 됩니다. 화살표는 r 외적 u는 n과 같음을 보여줍니다.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "pt-BR",
+      "theme": "dark",
+      "workbookSha256": "bdccab0ebd946881da9c168e52bf7f28970b1b92a81bd80b55a2d44a2f41fbfc",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "no code execution despite auto-execute enabled",
+        "source byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "diagrams": [
+          {
+            "title": "Eixos globais fixos do cubo",
+            "description": "O cubo tem as faces frontal F, superior U e direita R. O x positivo global aponta para a direita, o y positivo aponta para cima e o z positivo aponta para a frente.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "Papel inclinado da frente para o topo",
+            "description": "Uma folha frontal tem a direita r ao longo do x positivo, o cima u ao longo do y positivo e a normal externa n ao longo do z positivo, mostrada por um círculo com um ponto central apontando para o observador externo. Na inclinação de dobradiça da frente para o topo, a direita permanece no x positivo, o cima torna-se z negativo e a normal torna-se y positivo. As setas mostram r produto vetorial u igual a n.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "pt-BR",
+      "theme": "light",
+      "workbookSha256": "bdccab0ebd946881da9c168e52bf7f28970b1b92a81bd80b55a2d44a2f41fbfc",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "no code execution despite auto-execute enabled",
+        "source byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "diagrams": [
+          {
+            "title": "Eixos globais fixos do cubo",
+            "description": "O cubo tem as faces frontal F, superior U e direita R. O x positivo global aponta para a direita, o y positivo aponta para cima e o z positivo aponta para a frente.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "Papel inclinado da frente para o topo",
+            "description": "Uma folha frontal tem a direita r ao longo do x positivo, o cima u ao longo do y positivo e a normal externa n ao longo do z positivo, mostrada por um círculo com um ponto central apontando para o observador externo. Na inclinação de dobradiça da frente para o topo, a direita permanece no x positivo, o cima torna-se z negativo e a normal torna-se y positivo. As setas mostram r produto vetorial u igual a n.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "ru",
+      "theme": "dark",
+      "workbookSha256": "7d00bf7427fb981116507edbf078587a3076a3e2bfe7983072013f3ad36ba281",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "no code execution despite auto-execute enabled",
+        "source byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "diagrams": [
+          {
+            "title": "Фиксированные глобальные оси куба",
+            "description": "Куб имеет переднюю грань F, верхнюю грань U и правую грань R. Глобальная положительная ось x направлена вправо, положительная y — вверх, а положительная z — к передней грани.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "Бумага, наклоненная с передней грани на верхнюю",
+            "description": "У переднего листа направление вправо r идет вдоль положительной оси x, вверх u — вдоль положительной оси y, а внешняя нормаль n направлена вдоль положительной оси z, что показано кружком с точкой в центре, направленной к внешнему наблюдателю. При шарнирном наклоне спереди наверх направление вправо остается вдоль положительной оси x, вверх становится отрицательной осью z, а нормаль становится положительной осью y. Стрелки показывают, что r, векторно умноженное на u, равно n.",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "ru",
+      "theme": "light",
+      "workbookSha256": "7d00bf7427fb981116507edbf078587a3076a3e2bfe7983072013f3ad36ba281",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "no code execution despite auto-execute enabled",
+        "source byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "diagrams": [
+          {
+            "title": "Фиксированные глобальные оси куба",
+            "description": "Куб имеет переднюю грань F, верхнюю грань U и правую грань R. Глобальная положительная ось x направлена вправо, положительная y — вверх, а положительная z — к передней грани.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "Бумага, наклоненная с передней грани на верхнюю",
+            "description": "У переднего листа направление вправо r идет вдоль положительной оси x, вверх u — вдоль положительной оси y, а внешняя нормаль n направлена вдоль положительной оси z, что показано кружком с точкой в центре, направленной к внешнему наблюдателю. При шарнирном наклоне спереди наверх направление вправо остается вдоль положительной оси x, вверх становится отрицательной осью z, а нормаль становится положительной осью y. Стрелки показывают, что r, векторно умноженное на u, равно n.",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "zh",
+      "theme": "dark",
+      "workbookSha256": "23ee31fa72cbf7dc0c07daa4e7234dfe89b99f2844663baad27f9d7c6ff708ec",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "no code execution despite auto-execute enabled",
+        "source byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "diagrams": [
+          {
+            "title": "固定的魔方全局坐标轴",
+            "description": "魔方具有前 F、顶 U 和右 R 面。全局正 x 指向右，正 y 指向上，正 z 指向前。",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "纸张从前面倾斜至顶面",
+            "description": "前侧纸片在正 x 方向具有向右的 r，在正 y 方向具有向上的 u，且在正 z 方向具有向外的法向量 n，由带中心圆点的圆表示并指向外部观察者。在从前到顶的铰链倾斜中，向右保持为正 x，向上变为负 z，法向量变为正 y。箭头表示 r 叉乘 u 等于 n。",
+            "width": 270,
+            "stroke": "rgb(230, 237, 243)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    },
+    {
+      "locale": "zh",
+      "theme": "light",
+      "workbookSha256": "23ee31fa72cbf7dc0c07daa4e7234dfe89b99f2844663baad27f9d7c6ff708ec",
+      "assertions": [
+        "9 cells intact",
+        "2 accessible inert SVGs",
+        "diagrams fit 320px",
+        "theme stroke present",
+        "no code execution despite auto-execute enabled",
+        "source byte-exact after export",
+        "2 SVGs after ordinary reimport",
+        "no external requests",
+        "no page errors"
+      ],
+      "passed": true,
+      "rendered": {
+        "cells": 9,
+        "codeExecuted": false,
+        "bodyWidth": 294,
+        "diagrams": [
+          {
+            "title": "固定的魔方全局坐标轴",
+            "description": "魔方具有前 F、顶 U 和右 R 面。全局正 x 指向右，正 y 指向上，正 z 指向前。",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 146.25,
+            "unsafe": 0,
+            "external": false
+          },
+          {
+            "title": "纸张从前面倾斜至顶面",
+            "description": "前侧纸片在正 x 方向具有向右的 r，在正 y 方向具有向上的 u，且在正 z 方向具有向外的法向量 n，由带中心圆点的圆表示并指向外部观察者。在从前到顶的铰链倾斜中，向右保持为正 x，向上变为负 z，法向量变为正 y。箭头表示 r 叉乘 u 等于 n。",
+            "width": 270,
+            "stroke": "rgb(31, 35, 40)",
+            "height": 382.5,
+            "unsafe": 0,
+            "external": false
+          }
+        ]
+      }
+    }
+  ],
+  "limits": [
+    "No Python execution in this diagram-only check",
+    "No Android or Pro runtime check"
+  ],
+  "schema": 1,
+  "scope": "Current-revision coordinate Markdown import/render/export/reimport only; no workbook Python execution or Pro/Android validation."
+}

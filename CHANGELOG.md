@@ -3,6 +3,82 @@
 Notable changes to the SciREPL Catalog: content added, conventions adopted,
 and work deliberately deferred.
 
+## Unreleased
+
+- Clarified fixed global axes, local face-view right/up directions, outward
+  normals and the front-to-top paper tilt in all 13 Markov Groups editions.
+  Added two self-contained, accessible inline SVGs, readable in light/dark
+  themes and on narrow screens; no runtime is needed to see them on import.
+- The earlier coordinate/cycle clarification kept all nine cell names/order
+  and existing Python unchanged. Fresh
+  Free-browser diagram checks are recorded separately from prior executable
+  runtime evidence. For coordinates, Gemini refreshed 11 translations; German used an
+  authorized controller/manual fallback after a truncated model response.
+  Native-speaker review remains pending. Those item revisions became 2; no catalog
+  version or release tag changes.
+- Explained the clockwise U corner/edge position cycles, neighbouring face
+  strips, zero-based versus printed one-based positions, and sticker paths
+  versus whole cubies in all 13 editions. That update changed only the
+  `cycles` Markdown; executable code and coordinate diagrams were unchanged.
+- Added explicit front-referenced face-frame rotations, a compact face/index/
+  position-number table, and the geometry and minimum-index ordering of the
+  five move cycles in all 13 editions. Both completed Markdown prefixes and
+  coordinate diagrams are retained byte-for-byte.
+- Added 30 localized Python comments per edition to identify corner, edge and
+  neighbouring-strip cycles. Only these authorized comment lines change Python;
+  move data/order and every remaining code byte are unchanged. Comments reuse
+  localized Markdown labels rather than adding model requests.
+- For these new addenda, six editions passed fresh Gemini draft/review pairs;
+  bn, de, ko, pt-BR, ru and zh used authorized controller/manual fallback after
+  recorded protocol failures. The campaign used 19 requests with no retries or
+  repairs. Native-speaker review remains pending. Item revisions rise to 3,
+  without a catalog version or release-tag change; current Markdown rendering
+  checks and historical executable runs retain separate source hashes.
+- Reflowed the new German cycle-table headings after the actual narrow-screen
+  check; the original campaign hashes remain recorded and no extra model
+  request was made.
+- Reworked Stage 4 in all 13 Markov Groups editions into three adjacent
+  Markdown/Python pairs: count one-step alternatives, follow one chosen
+  sticker, then sample a whole-cube trajectory. Four KaTeX equations connect
+  matrix entries, a one-hot probability vector, first-column selection and
+  ordered two-step products to the code. Astra's clarity review approved the
+  revised explanation.
+- Replaced the compact transition-matrix sum with an equivalent explicit
+  counting loop, preserved existing localized comments/output labels, and
+  added the two new code-cell names to the introduction's run order. Earlier
+  geometry, diagrams, cycle data and all other content remain unchanged.
+- The Stage 4 campaign used 24 requests (one draft/review pair per locale),
+  with no retries or repairs. Eleven editions passed fresh Gemini reviews;
+  Arabic used controller review and corrections after a truncated review
+  response. Native-speaker review remains pending. These item revisions
+  become 4; the catalogue version and release tags do not change. Fresh
+  import/render checks and local NumPy equivalence evidence are separate
+  from the retained historical nine-cell app-runtime receipts.
+- Actual formula review caught inherited RTL direction reversing Arabic
+  equations despite valid KaTeX syntax. Four trusted LTR containers now keep
+  the unchanged math in its proper order while Arabic prose stays RTL. The
+  original translation snapshot is preserved; this controller rendering
+  refinement uses zero additional model requests.
+- Clarified the probability update in all 13 editions: the general equation
+  works for any starting distribution; selecting column j explicitly requires
+  a one-hot distribution at j, and the code's j=0 is only an example. Concrete
+  SOLVED[0]=1 and SOLVED[5]=6 examples distinguish position indices from labels.
+  This small controller-authored correction makes no model requests, changes
+  no Python, and retains the completed translation/rendering evidence as
+  historical records. Fresh rendering and regression evidence is separate.
+  Only the 13 Markov item revisions advance again, to 5, with updated hashes.
+- Added one consolidated Stage 4 clarity pass in all 13 editions: the
+  selected column now explicitly means destination probabilities for sticker
+  label 1, and `move_counts[d, j]` names the counted entry. Row/column sums
+  follow directly from permutation matrices; inverse-pair weighting separately
+  explains symmetry. Per-move destinations and the whole-cube convergence
+  conditions are explicit, with a question-5 hint distinguishing the chosen
+  sticker's 24 corner positions from all 54 positions and from cube states.
+  The seven localized controller paragraphs make no model requests; native
+  review remains pending. Python and all four equations are unchanged, earlier
+  receipts are retained as history, and fresh clarity checks certify the new
+  bytes. Only the 13 Markov revisions rise to 6; no release/version change.
+
 ## 2026-10-04 — reviewed examples (staging)
 
 - Completed the six-lesson rollout: 72 machine-translated editions across
