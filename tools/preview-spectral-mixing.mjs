@@ -14,8 +14,8 @@ if (!Number.isInteger(port) || port < 1024 || port > 65535) throw Error('Invalid
 const source = readFileSync(path.join(root, 'drafts/markov-spectral-mixing/en/markov-spectral-mixing.srwb'));
 const workbook = JSON.parse(source);
 const sha256 = createHash('sha256').update(source).digest('hex');
-const runtime = JSON.parse(readFileSync(path.resolve(root, process.env.SCIREPL_SPECTRAL_RUNTIME || 'reviews/spectral-mixing-english-20261013/iteration-4/runtime.json')));
-const execution = JSON.parse(readFileSync(path.resolve(root, process.env.SCIREPL_SPECTRAL_EXECUTION || 'reviews/spectral-mixing-english-20261013/iteration-4/browser/execution.json')));
+const runtime = JSON.parse(readFileSync(path.resolve(root, process.env.SCIREPL_SPECTRAL_RUNTIME || 'reviews/spectral-mixing-english-20261013/iteration-5/runtime.json')));
+const execution = JSON.parse(readFileSync(path.resolve(root, process.env.SCIREPL_SPECTRAL_EXECUTION || 'reviews/spectral-mixing-english-20261013/iteration-5/browser/execution.json')));
 if (!runtime.allPassed || !execution.allPassed || runtime.candidateSha256 !== sha256 || execution.candidateSha256 !== sha256) throw Error('Preview requires matching green numerical and real-app execution records');
 const preview = { workbook, cells: runtime.cells, plots: runtime.plots, sha256 };
 const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">

@@ -146,6 +146,20 @@ def check_graphs_and_gaps(namespace):
         move_A = model["state_index"][(1, 6)]
         require(np.isclose(aligned_joint[move_A, blocked], 1.0 / 12.0),
                 "Occupied-bay rejection must not renormalize allowed proposals")
+        swapped = model["state_index"][(6, 0)]
+        require(aligned_joint[swapped, blocked] == 0,
+                "Both (0,6) and (6,0) are legal states, but cannot be a one-step swap")
+        # Labels can exchange positions without ever sharing a bay.  Each
+        # listed local move has probability 1/12 on the common pair clock.
+        exchange_path = ((3, 4), (2, 4), (1, 4), (0, 4), (5, 4), (5, 3), (4, 3))
+        path_indices = [model["state_index"][pair] for pair in exchange_path]
+        path_probabilities = [aligned_joint[destination, source]
+                              for source, destination in zip(path_indices[:-1], path_indices[1:])]
+        np.testing.assert_allclose(path_probabilities, np.full(6, 1 / 12), atol=1e-15, rtol=0)
+        require(aligned_joint[path_indices[-1], path_indices[0]] == 0,
+                "The six-step exchange must not become an instantaneous two-truck move")
+        require(np.linalg.matrix_power(aligned_joint, 6)[path_indices[-1], path_indices[0]]
+                >= float(np.prod(path_probabilities)), "The legal exchange path must have positive probability")
         independent[name] = aligned_joint
         print("PASS", name, "BFS=132 single_gap=%.12f joint_gap=%.12f" % observed_gaps)
     # Only the bridge entry and its diagonal compensation change on one clock.
@@ -154,6 +168,70 @@ def check_graphs_and_gaps(namespace):
     require(changed == {(0, 0), (0, 6), (6, 0), (6, 6)},
             "Within-cycle rates must remain unchanged when the bridge is strengthened")
     return independent
+
+
+def check_pooling_and_pair_clock(namespace, independent):
+    """Check the exact pooled-law closure and the remaining label-exchange mode."""
+    times = {0, 1, 3, 10, 30, 100, 300, 1000, 3000}
+    asymmetric_pooled = {}
+    # With half the initial pooled mass at each opposite cycle's stop 3,
+    # symmetry makes the bridge carry zero net pooled flow at every step.
+    # The independent reference is therefore one half-mass six-cycle walk,
+    # with local rates 1/12 (the random-scan pair clock), copied to both sides.
+    cycle = np.eye(6) * (5 / 6)
+    for stop in range(6):
+        cycle[(stop - 1) % 6, stop] = 1 / 12
+        cycle[(stop + 1) % 6, stop] = 1 / 12
+    for name, transition in independent.items():
+        model = namespace["joint_models"][name]
+        single = independent_operators(0.15 if name == "weak" else 1.0, (3, 9))[0]
+        pooling = np.zeros((12, 132))
+        for column, (first, second) in enumerate(model["states"]):
+            pooling[first, column] = 0.5
+            pooling[second, column] = 0.5
+        pooled_clock = (np.eye(12) + single) / 2
+        # A matrix identity checks ALL 132 one-hot starts, not just (3,9).
+        np.testing.assert_allclose(pooling @ transition, pooled_clock @ pooling, atol=2e-15, rtol=0)
+        asymmetric_pooled[name] = pooling @ np.linalg.matrix_power(transition, 100)[:, model["state_index"][(3, 4)]]
+        probability = np.zeros(132)
+        probability[model["state_index"][(3, 9)]] = 1
+        reference = np.zeros(6)
+        reference[3] = 0.5
+        A_west = np.array([first < 6 for first, second in model["states"]], dtype=float)
+        A_west_100 = None
+        for step in range(max(times) + 1):
+            if step in times:
+                pooled = pooling @ probability
+                np.testing.assert_allclose(pooled, np.concatenate((reference, reference)), atol=2e-12, rtol=0)
+                np.testing.assert_allclose(pooled[:6].sum(), 0.5, atol=2e-12, rtol=0)
+                np.testing.assert_allclose(namespace["pooled_stop_distribution"](probability, model),
+                                           pooled, atol=2e-14, rtol=0)
+            if step == 100:
+                A_west_100 = float(A_west @ probability)
+                require(round(A_west_100, 2) == (0.89 if name == "weak" else 0.72),
+                        "Balanced pooling must not conceal the documented individual-label imbalance")
+            probability = transition @ probability
+            reference = cycle @ reference
+
+        single_values = np.linalg.eigvalsh(single)
+        pair_values, pair_vectors = np.linalg.eigh(transition)
+        clock_scaled_gap = (1 - single_values[-2]) / 2
+        np.testing.assert_allclose(1 - pair_values[-3], clock_scaled_gap, atol=2e-12, rtol=0)
+        pair_gap = 1 - pair_values[-2]
+        reduction_percent = 100 * (1 - pair_gap / clock_scaled_gap)
+        require(round(float(reduction_percent)) == (23 if name == "weak" else 37),
+                "Pair slowdown beyond the half-speed proposal clock must match the rounded comparison")
+        swap_indices = [model["state_index"][(second, first)] for first, second in model["states"]]
+        slow_mode = pair_vectors[:, -2]
+        np.testing.assert_allclose(slow_mode[swap_indices], -slow_mode, atol=2e-11, rtol=0)
+        np.testing.assert_allclose(pooling @ slow_mode, 0, atol=2e-11, rtol=0)
+        print("PASS", name, "pooling intertwines all 132 starts; bridge-independent pooled law; A-west(t=100)=%.6f"
+              % A_west_100)
+        print("PASS", name, "second pair decay=single gap/2; antisymmetric slow mode; further gap reduction=%.3f%%"
+              % reduction_percent)
+    require(np.max(np.abs(asymmetric_pooled["weak"] - asymmetric_pooled["strong"])) > 1e-3,
+            "Bridge independence is special to the symmetric start, not a consequence of pooling alone")
+    print("PASS legal pair endpoints, rejected bridge stays, and six-step label-exchange path")
 
 
 def check_expectations(namespace, independent):
@@ -415,6 +493,7 @@ def main():
     namespace = load_source_cells()
     print("NumPy", np.__version__, "loaded four source blocks")
     independent = check_graphs_and_gaps(namespace)
+    check_pooling_and_pair_clock(namespace, independent)
     check_expectations(namespace, independent)
     check_finite_record_formulas(namespace)
     check_seeded_records(namespace, independent)

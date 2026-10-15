@@ -12,7 +12,7 @@ const app = process.env.SCIREPL_SPECTRAL_APP;
 assert(app, 'Set SCIREPL_SPECTRAL_APP to a checked local app checkout');
 const origin = process.env.SCIREPL_SPECTRAL_ORIGIN || 'http://127.0.0.1:8123';
 assert(['127.0.0.1', 'localhost'].includes(new URL(origin).hostname), 'Use a loopback app server');
-const evidence = path.resolve(root, process.env.SCIREPL_SPECTRAL_EVIDENCE || 'reviews/spectral-mixing-english-20261013/iteration-4/browser');
+const evidence = path.resolve(root, process.env.SCIREPL_SPECTRAL_EVIDENCE || 'reviews/spectral-mixing-english-20261013/iteration-5/browser');
 assert(evidence.startsWith(path.join(root, 'reviews') + path.sep), 'Evidence must be scoped to reviews');
 const reportPath = path.join(evidence, 'execution.json');
 assert(!existsSync(reportPath), 'Do not overwrite completed evidence');

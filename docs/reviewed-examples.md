@@ -174,7 +174,10 @@ occupation bias and stationary-normalized spectral noise. It now includes
 effective state possibilities versus state-history entropy, explicit random
 routing/no-warehouse/bay-only congestion rules, clock and bottleneck notes, and
 clustering summaries compared with an exclusion-aware baseline. A pooled statistic
-can hide slow label exchange. The score's stationary expectation is not claimed
+can hide slow label exchange: its law is exactly a half-speed one-truck walk,
+and the symmetric starting pair makes its bridge-weight cancellation exact.
+The text separates per-truck clock effects from the slower antisymmetric pair
+mode, and legal snapshots from legal paths. The score's stationary expectation is not claimed
 for the fixed-start route, and its two-state periodic example is not a nonlinear
 limit-cycle model. No catalogue entries or published translations exist yet.
 Freeze and review the English source before sending it through the existing

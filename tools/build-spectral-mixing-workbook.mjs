@@ -86,6 +86,10 @@ There are $12\times11=132$ legal ordered pairs. The code discovers them by bread
 
 **Read the heatmap by its axes, not by colour changes:** horizontal position is **truck A's stop (0–11)**; vertical position is **truck B's stop (0–11)**. There are 12 tiles per axis, bounded by 13 grid lines. The 12 dark diagonal tiles are forbidden shared bays. Every off-diagonal tile is legal—even if a finite route has not visited it. A legal zero has the colour-scale's zero colour, not the dark forbidden background.
 
+**A legal tile is a legal snapshot, not necessarily a one-step destination.** Both $(0,6)$ and $(6,0)$ are legal arrangements, but one step cannot move between them: only one truck moves, and a proposed move into an occupied bay becomes a stay. These restrictions are already encoded in $P_{\rm pair}$. The current pair contains everything the blocking rule needs; no memory of earlier steps is required. Given a starting pair, a route's probability is the product of its one-step transition entries, so any forbidden transition makes that route impossible.
+
+Over several steps the trucks can exchange their starting bays **without passing through each other**. On the west loop, start with A at 3 and B at 4. A moves $3\to2\to1\to0\to5$, then B moves $4\to3$ and A moves $5\to4$: six legal moves into empty bays. Swapped endpoints therefore do not prove overtaking. This example establishes a possible route, not its expected waiting time.
+
 This is an exclusion model chosen for teaching. Separate loading bays at a real depot, traffic queues, route schedules and vehicle capacities would need different rules.
 `);
 py('joint_kernel', 'joint_model.py');
@@ -103,7 +107,9 @@ Here $\mu_k$ is an eigenvalue of $I-P$; for the one-truck model, $I-P=L/6$. Our 
 
 The next helper cell diagonalizes both models. It uses $\phi_k=\sqrt M\,u_k$, so nonconstant modes have mean zero and variance one under the uniform stationary distribution. This normalization matters for the later uncertainty formulas.
 
-The spectrum plot shows that the two-truck problem contains slower modes than one-truck routing. **Compare the clocks carefully:** a pair step selects only one truck, so each label receives a proposal on average once every two steps. Comparing one-truck and pair spectra includes this slower per-truck clock as well as joint-state constraints. Weak-versus-strong comparisons within either model keep the same clock.
+**Separate the clock effect from the exclusion effect:** a pair step selects only one truck, so each label receives a proposal on average once every two steps. In these two graphs, the second nonconstant pair mode has decay rate exactly half the one-truck spectral gap: about **0.003620** (weak) or **0.013147** (strong). That pooled-density mode reflects the per-truck clock alone.
+
+The slowest pair mode changes sign when A and B are swapped. Its decay rate is about **0.002802** (weak) or **0.008242** (strong)—respectively **23%** and **37%** below the half-speed reference. That additional slowness comes from tracking which truck is where under exclusion, not just from selecting one truck per step. These percentages compare decay rates, not convergence times. Weak-versus-strong comparisons within either model keep the same clock.
 
 Within the pair model, keeping track of **which truck** crossed the bottleneck can be slower than balancing their combined stop counts. These are graph modes; we do not estimate graph dimensionality from this tiny example.
 `);
@@ -119,7 +125,15 @@ For each heatmap, summing a column gives A's marginal probability and summing a 
 
 $$q_{\rm pooled}(j)=\frac12\{\Pr(A=j)+\Pr(B=j)\}.$$
 
-At step 100, pooled distance from $1/12$ is about **0.000111** for both bridge weights. Yet joint distance from $1/132$ is about **0.521** (weak) or **0.291** (strong). A can remain disproportionately west while B remains disproportionately east; those opposite label imbalances nearly cancel when pooled. **Neither individual marginal is thereby proven uniform.**
+At step 100, joint distance from $1/132$ is about **0.521** (weak) or **0.291** (strong), and A alone is still west with probability about **0.89** or **0.72**. Yet pooled distance from $1/12$ is about **0.000111** for *both* bridges. This matching value is not a coincidence, and the west/east cancellation is exact rather than approximate.
+
+For this symmetric routing rule, the pooled law from **any starting pair** $(a,b)$ is exactly a half-speed one-truck walk:
+
+$$Q=\frac{I+P}{2},\qquad q_{\rm pooled}(t)=Q^t\frac{e_a+e_b}{2}.$$
+
+The occupied-bay terms cancel in the pooled update: a hypothetical exchange of A and B would leave the unlabelled pair unchanged, just like a blocked proposal. This explains the identity; it does **not** mean the trucks actually swap in one step. Pooled visits can show one-truck modes but cannot retain all labelled-pair information.
+
+Our start $(3,9)$ gives a west/east-symmetric pooled law. Its west mass is exactly $1/2$ at every step, with equal probabilities at bridge endpoints 0 and 6. The **net pooled probability flow** across the bridge is therefore zero, and changing the bridge weight has no effect on this pooled law. Individual routes still cross in both directions. The small distance **0.000111** is remaining unevenness within each loop. **Neither individual truck's marginal is thereby proven uniform.**
 
 The curve plot compares joint and pooled endpoint distances over time. A balanced aggregate statistic can miss a slowly relaxing pattern. This is why a white-looking heatmap, or a good one-dimensional marginal, is not a general mixing test.
 
@@ -150,7 +164,7 @@ $$H_{t+1}-H_t=H(X_{t+1}\mid X_t)-H(X_t\mid X_{t+1}).$$
 
 The first chart plots effective current-state possibilities. The second compares endpoint gain with new-choice entropy, both in bits per step. New choices remain uncertain after endpoint gain approaches zero. Both use propagated endpoint laws, **not entropy estimated from the noisy visit histogram**. [Entropy-rate background](https://onlinelibrary.wiley.com/doi/abs/10.1002/047174882X.ch4)
 
-**Network summaries differ:** destination Gini describes unequal visit totals; average degree counts connections; scale-free describes a degree-distribution shape. Neither destination inequality nor the number of links determines bottleneck strength. Our models have identical allowed edges and uniform stationary destination visits, yet their mixing rates differ. The graph's weighted arrangement matters.
+**Same edges, different speeds:** both models have identical allowed edges and uniform stationary visits, yet their mixing rates differ. The weight on the bottleneck matters, not just which links exist.
 `);
 py('entropy_picture', 'entropy_picture.py');
 
@@ -212,7 +226,7 @@ Nearby observations along a persistent mode contain less independent information
 $$\tau_k(\infty)=\frac{1+\rho_k}{1-\rho_k}
  =\frac{2-\mu_k}{\mu_k}.$$
 
-For a slow positive mode with $n\mu_k\gg1$, its standard error is approximately $\sqrt{2/(n\mu_k)}$—**not** $1/(\sqrt n\,\mu_k)$. The first plot uses the exact finite-record formula, so it does not assume this long-record condition. These covariance ideas are developed in [Aldous and Fill's treatment of reversible walks](https://www.stat.berkeley.edu/~aldous/RWG/Book_Ralph/Ch4.S4.html).
+For a slow mode with $n\mu_k\gg1$, its standard error is approximately $\sqrt{2/(n\mu_k)}$—**not** $1/(\sqrt n\,\mu_k)$. The first plot uses the exact finite-record formula, so it does not assume this long-record condition. These covariance ideas are developed in [Aldous and Fill's treatment of reversible walks](https://www.stat.berkeley.edu/~aldous/RWG/Book_Ralph/Ch4.S4.html).
 
 Normalize each mode's squared error by its stationary variance and average:
 

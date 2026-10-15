@@ -9,7 +9,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const repoRoot = fileURLToPath(new URL('..', import.meta.url));
-const reviewRoot = path.join(repoRoot, 'reviews/spectral-mixing-english-20261013/iteration-4');
+const reviewRoot = path.join(repoRoot, 'reviews/spectral-mixing-english-20261013/iteration-5');
 const options = {
   appRoot: process.env.SCIREPL_SPECTRAL_APP || null,
   origin: 'http://127.0.0.1:8123',
