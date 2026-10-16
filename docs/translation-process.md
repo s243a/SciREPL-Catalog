@@ -11,13 +11,40 @@ Every edition is machine-translated and awaits native-speaker review; the
 [CHANGELOG](../CHANGELOG.md) tracks per-locale review status and the
 terminology judgment calls each run flagged.
 
-> **Which process is current?** Pass 2 ([below](#pass-2-code-level-translation-the-current-process))
-> — two sequential phases: mechanical translation (Mode A), then contextual
-> polish (Mode B). Pass 1 (markdown, PTY-supervised) is documented first for
-> historical context and remains the reference for the supervision
-> machinery, but new locale rounds follow Pass 2 (after the round-one
-> markdown translation exists — Pass 2's gates assume code cells are
-> byte-identical to the English source, which round one establishes).
+## Choose the method for the content
+
+The original process below is **workbook-focused**, not an app UI locale
+system. Reuse its safeguards where appropriate, not its batch size or tool
+surface indiscriminately.
+
+| Content | Recommended method | What must be checked |
+| --- | --- | --- |
+| App UI strings | Keyed locale catalogues, with screen context and the app's terminology glossary | Key/placeholder parity, actual UI labels, plural/interpolation rules, layout and accessibility in the app |
+| Executable workbooks | Pass 2: mechanical span proposals (Mode A), then full-context polish (Mode B) | Protected execution surface, workbook structure, rendered output and the existing runtime/differential gates |
+| Static web tutorials | Coherent sections in one explicit conversation per page and locale, followed by independent review | Protected code, equations, URLs and UI names; deterministic static HTML, localized navigation and browser layout |
+
+A short tutorial page can be translated in one shot. Split a long page at
+meaningful sections, grouping adjacent short sections where useful; do not
+make a fresh model call for every heading or text node. Static pages do not
+need the app's runtime locale machinery. The controller may still use stable
+field IDs internally to preserve source mapping and validate responses.
+
+The tutorial method is specified in
+[Section-conversation translation for static tutorials](translation-pipeline-modes.md#section-conversation-translation-for-static-tutorials).
+An initial three-call canary verified explicit continuation, retained context
+and a separate reviewer conversation. That is **not** completion of the
+production migration, translation corpus, browser checks or publication.
+All methods retain the machine-translated / native-review-pending caveat.
+
+> **Which workbook process is current?** Pass 2
+> ([below](#pass-2-code-level-translation-the-current-process)) — two sequential
+> phases: mechanical translation (Mode A), then contextual polish (Mode B).
+> Pass 1 (markdown, PTY-supervised) is documented first for historical context
+> and remains the reference for the supervision machinery, but new workbook
+> locale rounds follow Pass 2 after round-one markdown translation exists.
+> Pass 2's gates assume code cells are byte-identical to the English source,
+> which round one establishes. The tutorial method does not replace these
+> executable-workbook gates.
 
 ## The division of labor
 
