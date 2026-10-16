@@ -1,4 +1,11 @@
-# Translation pipeline: the two modes
+# Translation pipelines: workbook modes and tutorial sections
+
+Choose a workflow by content, not by a single universal batch format. The
+[method-selection guide](translation-process.md#choose-the-method-for-the-content)
+distinguishes keyed app UI catalogues, executable workbooks and static web
+tutorials. Mode A/B below remains the **workbook** workflow; the
+[tutorial section-conversation method](#section-conversation-translation-for-static-tutorials)
+is a separate option for prose-heavy pages.
 
 Settled 2026-08-15 (owner + Kimi discussion). Mode A and Mode B are not
 alternatives: they are **Phase 1 and Phase 2 of Pass 2**, run
@@ -166,6 +173,77 @@ can only assess fluency, not fidelity.
 
 Either way, the commit boundary is unchanged: exports re-run the full gate
 chain before anything reaches the repo.
+
+## Section-conversation translation for static tutorials
+
+Use this for prose-heavy static help pages. It does not require a workbook
+import, an app runtime locale catalogue, a broker or an agent editing files.
+The controller sends sanitized content to AGY and renders validated results
+as static pages such as `/help/fr/workbooks/import/`.
+
+### Batch by meaning; retain page context
+
+1. Freeze the English page and its glossary. Protect code, mathematical
+   expressions, URLs and exact app-setting names with controller-validated
+   placeholders; identify alt text and captions as translatable prose.
+2. Start a fresh **draft conversation for one page and one locale**. Send
+   its title, relevant app glossary and the first coherent section. Translate
+   very short pages in one shot; group adjacent small sections rather than
+   creating per-heading calls.
+3. Save the returned `conversation_id`. Send each subsequent section with
+   **`--conversation <conversation_id>`**, appending to that same drafting
+   conversation. Do not use `--continue`: it selects the most recent chat,
+   which is ambiguous when other pages, locales or jobs run concurrently.
+4. Review the complete assembled page against English in a **fresh,
+   independent review conversation**. Long reviews can also proceed by
+   coherent sections in that review conversation, but never reuse the draft
+   conversation as the reviewer. Resolve consistency across headings, body,
+   captions, notes and actual UI labels, not just isolated fragments.
+5. Deterministically apply accepted text to the frozen structure, render
+   `/help/<locale>/<page>/`, and verify protected content, links, language
+   switching, right-to-left layout, screenshots, mathematics and mobile
+   readability. Translation acceptance is not publication or release
+   clearance; machine review is not native-speaker approval.
+
+Explicit continuation supplies useful context, not durable source authority:
+the controller's frozen source, accepted translations and receipts remain
+the recoverable record. A conversation ID identifies a chat; it does not
+prove that a response is complete or correct. Detect a changed conversation
+identity rather than silently starting over. Keep session IDs and raw
+provider records private; publish only suitable provenance and status.
+
+### Long requests and authority
+
+Run model calls under a durable background owner and poll status without
+launching more work. In the verified AGY interface, `--print-timeout 0s`
+waits for the turn to finish: it does **not** mean immediate cancellation.
+Avoid a short completion timeout merely because a section takes time.
+Retain explicit cancellation, concurrency and response-size limits, require
+the final success envelope and validation, and do not retry a consumed or
+ambiguous request automatically. Keep accepted translations and successful
+drafts when migrating from an earlier batch plan.
+
+This method needs text-in / structured-text-out calls, **not** model-driven
+shell, file-editing or MCP tool calls. Restrict the worker's actual
+workspace, sandbox and tool permissions accordingly. A prompt saying
+"do not use tools" is not a security boundary, and `0s` is not permission
+for unlimited spending, retries or unrelated actions.
+
+### Why this differs from the earlier small batches
+
+Early tutorial runs used many tiny, independent fragment batches as a
+workaround for short request deadlines. Removing that deadline avoids the
+need to sacrifice page context or pay draft/review overhead per tiny batch.
+Section-sized continuation keeps terminology in context while retaining
+deterministic protection of executable examples. This does not justify
+removing the workbook runtime gates or replacing the app's keyed UI strings
+with whole-page HTML translation.
+
+Implementation status: a three-call live canary verified continuation,
+retained context and independent review. It did not exercise the full
+production migration or establish that all tutorial pages are translated,
+validated or published. Verify the implementation and current campaign
+status before claiming those outcomes.
 
 ## Cross-repo references
 
