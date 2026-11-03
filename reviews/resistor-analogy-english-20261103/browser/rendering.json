@@ -1,0 +1,203 @@
+{
+  "allPassed": true,
+  "scope": "English draft: real-app Run All, independent checks in Pyodide, 320px dark/light rendering; not a translation or native review",
+  "candidateSha256": "3d581289a43337442f4dcfff6f856acd66b152271ecdda4ef78f87b110719df4",
+  "appCommit": "f0c273e69790e7e332295644bbcce9bbe04dab70",
+  "appFiles": {
+    "www/js/prelude.py": "2c3af1b161bd2133595778d5ae0ff7e2a393888a975303752e4782215ec80823",
+    "www/js/bridge.js": "5f6898956d32e9b14cd8cf0500c3f74686008dc9625dcd061fcbe680717500e5",
+    "www/vendor/plotly/plotly-basic.min.js": "138c2e81014b979dc00867a93da55b7605a17495ee78dd7afb433b7f021dfcfa"
+  },
+  "viewport": {
+    "width": 320,
+    "height": 844
+  },
+  "runs": [
+    {
+      "theme": "dark",
+      "receipt": {
+        "ok": true,
+        "format": "srwb",
+        "mode": "replace",
+        "notebookId": "default",
+        "name": "Resistor Analogy: When Uncertainties Add in Series or Parallel",
+        "cells": 27,
+        "size": 45323,
+        "sha256": "3d581289a43337442f4dcfff6f856acd66b152271ecdda4ef78f87b110719df4"
+      },
+      "seconds": 6.641,
+      "markdown": {
+        "katex": 34,
+        "katexErrors": 0,
+        "rawDisplayMath": false,
+        "svgs": 1,
+        "overflow": [],
+        "details": 5
+      },
+      "independentChecks": 172,
+      "plots": [
+        {
+          "index": 0,
+          "width": 270,
+          "height": 470,
+          "clipped": [],
+          "overlaps": [],
+          "title": "Fused variancevs the weight on estimate 1",
+          "traces": 3,
+          "fontColor": "#e6edf3",
+          "paper": "#1c2128"
+        },
+        {
+          "index": 1,
+          "width": 270,
+          "height": 470,
+          "clipped": [],
+          "overlaps": [],
+          "title": "Correlation erodesthe gain from averaging",
+          "traces": 3,
+          "fontColor": "#e6edf3",
+          "paper": "#1c2128"
+        },
+        {
+          "index": 2,
+          "width": 270,
+          "height": 470,
+          "clipped": [],
+          "overlaps": [],
+          "title": "A shared errorcannot be averaged away",
+          "traces": 3,
+          "fontColor": "#e6edf3",
+          "paper": "#1c2128"
+        },
+        {
+          "index": 3,
+          "width": 270,
+          "height": 470,
+          "clipped": [],
+          "overlaps": [],
+          "title": "Product varianceas relative errors grow",
+          "traces": 2,
+          "fontColor": "#e6edf3",
+          "paper": "#1c2128"
+        },
+        {
+          "index": 4,
+          "width": 270,
+          "height": 470,
+          "clipped": [],
+          "overlaps": [],
+          "title": "Near zero, relativeuncertainty is meaningless",
+          "traces": 2,
+          "fontColor": "#e6edf3",
+          "paper": "#1c2128"
+        },
+        {
+          "index": 5,
+          "width": 270,
+          "height": 470,
+          "clipped": [],
+          "overlaps": [],
+          "title": "Held-out reliability(synthetic; bins of ≥ 20 cases)",
+          "traces": 4,
+          "fontColor": "#e6edf3",
+          "paper": "#1c2128"
+        }
+      ],
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "theme": "light",
+      "receipt": {
+        "ok": true,
+        "format": "srwb",
+        "mode": "replace",
+        "notebookId": "default",
+        "name": "Resistor Analogy: When Uncertainties Add in Series or Parallel",
+        "cells": 27,
+        "size": 45323,
+        "sha256": "3d581289a43337442f4dcfff6f856acd66b152271ecdda4ef78f87b110719df4"
+      },
+      "seconds": 5.459,
+      "markdown": {
+        "katex": 34,
+        "katexErrors": 0,
+        "rawDisplayMath": false,
+        "svgs": 1,
+        "overflow": [],
+        "details": 5
+      },
+      "independentChecks": 172,
+      "plots": [
+        {
+          "index": 0,
+          "width": 270,
+          "height": 470,
+          "clipped": [],
+          "overlaps": [],
+          "title": "Fused variancevs the weight on estimate 1",
+          "traces": 3,
+          "fontColor": "#e6edf3",
+          "paper": "#1c2128"
+        },
+        {
+          "index": 1,
+          "width": 270,
+          "height": 470,
+          "clipped": [],
+          "overlaps": [],
+          "title": "Correlation erodesthe gain from averaging",
+          "traces": 3,
+          "fontColor": "#e6edf3",
+          "paper": "#1c2128"
+        },
+        {
+          "index": 2,
+          "width": 270,
+          "height": 470,
+          "clipped": [],
+          "overlaps": [],
+          "title": "A shared errorcannot be averaged away",
+          "traces": 3,
+          "fontColor": "#e6edf3",
+          "paper": "#1c2128"
+        },
+        {
+          "index": 3,
+          "width": 270,
+          "height": 470,
+          "clipped": [],
+          "overlaps": [],
+          "title": "Product varianceas relative errors grow",
+          "traces": 2,
+          "fontColor": "#e6edf3",
+          "paper": "#1c2128"
+        },
+        {
+          "index": 4,
+          "width": 270,
+          "height": 470,
+          "clipped": [],
+          "overlaps": [],
+          "title": "Near zero, relativeuncertainty is meaningless",
+          "traces": 2,
+          "fontColor": "#e6edf3",
+          "paper": "#1c2128"
+        },
+        {
+          "index": 5,
+          "width": 270,
+          "height": 470,
+          "clipped": [],
+          "overlaps": [],
+          "title": "Held-out reliability(synthetic; bins of ≥ 20 cases)",
+          "traces": 4,
+          "fontColor": "#e6edf3",
+          "paper": "#1c2128"
+        }
+      ],
+      "errors": [],
+      "externalRequests": []
+    }
+  ]
+}
