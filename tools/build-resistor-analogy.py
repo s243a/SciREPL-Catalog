@@ -817,20 +817,32 @@ def require_probability(p):
     return p
 
 
-def resistance(p):        # r = -ln p: adds in series
-    return float(-np.log(require_probability(p)))
+def check_closed(p):
+    # Parts must lie strictly inside (0, 1), but a reduced block can round to exactly 0 or 1
+    # (for example, three parallel parts that each work with probability 0.99999999).
+    p = float(p)
+    if not 0.0 <= p <= 1.0:
+        raise ValueError("A probability must lie between 0 and 1.")
+    return p
 
 
-def conductance(p):       # g = -ln(1 - p): adds in parallel
-    return float(-np.log1p(-require_probability(p)))
+def resistance(p):        # r = -ln p: adds in series; r(1) = 0, r(0) = ∞
+    with np.errstate(divide="ignore"):
+        return float(-np.log(check_closed(p)))
+
+
+def conductance(p):       # g = -ln(1 - p): adds in parallel; g(0) = 0, g(1) = ∞
+    with np.errstate(divide="ignore"):
+        return float(-np.log1p(-check_closed(p)))
 
 
 def dual(x):              # r -> g and g -> r, because exp(-r) + exp(-g) = 1
     return float(-np.log(-np.expm1(-x)))
 
 
-def entropy(p):           # binary entropy in nats
-    return p * resistance(p) + (1 - p) * conductance(p)
+def entropy(p):           # binary entropy in nats; a certain outcome has none
+    p = check_closed(p)
+    return 0.0 if p in (0.0, 1.0) else p * resistance(p) + (1 - p) * conductance(p)
 
 
 def reduce_network(block, steps):
@@ -1354,11 +1366,13 @@ def require_chain(init, transition):
 def route_surprisals(init, transition, steps):
     # Every route, enumerated: its end state and its surprisal (a series sum).
     init, T = require_chain(init, transition)
+    r0, R = surprisal(init), surprisal(T)
     routes = []
     for path in np.ndindex(*([len(init)] * (steps + 1))):
-        q = init[path[0]] * np.prod([T[i, j] for i, j in zip(path, path[1:])])
-        if q > 0:
-            routes.append((path[-1], float(-np.log(q))))
+        # Add surprisals (series) rather than multiply probabilities, which can underflow to 0.
+        r = r0[path[0]] + sum(R[i, j] for i, j in zip(path, path[1:]))
+        if np.isfinite(r):
+            routes.append((path[-1], float(r)))
     return routes
 
 
@@ -1476,12 +1490,12 @@ Relative variance, vᵢ/μᵢ², for independent inputs with small relative erro
 
 <details><summary>4. Why can two identical 0.8 scores not be treated as two independent chances?</summary>
 
-They are two predictions of one event, built from the same information. Duplicating information adds no evidence, so the probability stays 0.8. Multiplying (0.64) or using 1 − 0.2² (0.96) treats them as distinct, independent events.
+They are two predictions of one event, built from the same information. If 0.8 is the exact probability of the event given that information (stronger than being calibrated), a second copy adds no evidence, so the probability stays 0.8. Multiplying (0.64) or using 1 − 0.2² (0.96) treats them as distinct, independent events.
 </details>
 
 <details><summary>5. What breaks when a mean is near zero?</summary>
 
-Relative variance divides by μ², so it explodes, and the small-error expansion behind the delta method no longer holds. Use the absolute or exact formula, or the full distribution.
+Relative variance divides by μ², so it explodes and stops meaning anything. The absolute delta formula need not fail: its error is exactly v_X v_Y, small while the other input's mean is large next to its SD. It fails when that dropped term is comparable to the rest, for example when both means are near zero. When in doubt, use the exact formula or the full distribution.
 </details>
 
 <details><summary>6. Does reducing a reliability network lose entropy?</summary>

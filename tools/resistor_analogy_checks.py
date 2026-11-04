@@ -181,6 +181,17 @@ def validate(ns, plots):
     check(close(brute_force(DEFAULTS["NETWORK"])[0], 0.836722), "default network probability")
     steps = []
     check(close(ns["reduce_network"](0.9, steps), 0.9) and steps == [], "a single part needs no merge")
+    # Valid parts whose reduction rounds to exactly 1 or 0 must not crash or give NaN.
+    for network, rounded in [(("parallel", [0.99999999] * 3), 1.0),
+                             (("series", [("parallel", [0.99999999] * 3), 0.9]), 0.9),
+                             (("series", [1e-200, 1e-200]), 0.0),
+                             (("parallel", [("series", [1e-200, 1e-200]), 0.5]), 0.5)]:
+        steps = []
+        P = ns["reduce_network"](network, steps)
+        check(P == rounded or close(P, rounded, 1e-12), f"endpoint reduction {network}")
+        check(all(math.isfinite(st["lost"]) and st["lost"] >= -1e-12 for st in steps), "finite, nonnegative losses at endpoints")
+    check(ns["entropy"](1.0) == 0 and ns["entropy"](0.0) == 0, "a certain outcome has no entropy")
+    expect_value_error(lambda: ns["resistance"](1.5), "probability 1.5 accepted")
     expect_value_error(lambda: ns["reduce_network"](("series", [0.5, 1.0]), []), "probability 1 accepted")
     expect_value_error(lambda: ns["reduce_network"](("both", [0.5, 0.5]), []), "unknown block accepted")
     # Random walks: voltages by an explicit inverse, and the escape / Green's function identities.
@@ -266,6 +277,11 @@ def validate(ns, plots):
             check(np.array_equal(np.isinf(r), exact == 0), "impossible states must have surprisal ∞")
         r = ns["forward_surprisal"](init, T, steps)
         check(np.allclose(np.exp(-r), exact, atol=1e-12), "sparse forward = matrix power")
+    # Route probabilities below 1e-308 underflow as products; as surprisal sums they stay finite.
+    init, T = [0.5, 0.5], [[0.999, 0.001], [1e-200, 1 - 1e-200]]
+    ends = [rr for end, rr in ns["route_surprisals"](init, T, 3) if end == 0]
+    check(len(ends) == 8 and all(math.isfinite(rr) for rr in ends), "tiny routes must not be dropped")
+    check(close(ns["soft_min"](ends), ns["forward_surprisal"](init, T, 3)[0], 1e-12), "tiny routes: soft-min = forward")
     check(math.isinf(ns["soft_min"]([math.inf, math.inf])) and math.isinf(ns["soft_min"]([])), "soft-min of no routes")
     expect_value_error(lambda: ns["forward_surprisal"]([0.5, 0.4], [[1, 0], [0, 1]], 1), "INIT adding to 0.9 accepted")
     expect_value_error(lambda: ns["forward_surprisal"]([0.5, 0.5], [[1, 0, 0], [0, 1, 0]], 1), "non-square TRANSITION accepted")
