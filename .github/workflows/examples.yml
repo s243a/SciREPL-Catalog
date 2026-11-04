@@ -6,6 +6,8 @@ on:
       - 'reviews/examples/**'
       - 'tools/**'
       - 'scirepl-catalog.json'
+      - 'drafts/**'
+      - 'docs/resistor-analogy-theory.md'
       - '.github/workflows/examples.yml'
   workflow_dispatch: {}
 permissions:
@@ -41,6 +43,7 @@ jobs:
       - run: node tools/test-example-cooling.mjs
       - run: node tools/test-example-oil.mjs
       - run: node tools/test-csv-basics-workbook.mjs
+      - run: python tools/test-resistor-analogy-runtime.py
       - run: node tools/test-span-tools.mjs
       - run: node tools/test-output-oracle.mjs
       - run: node tools/test-example-plot-data.mjs

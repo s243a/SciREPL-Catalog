@@ -5,6 +5,31 @@ and work deliberately deferred.
 
 ## Unreleased
 
+- Added an English draft workbook, *Resistor Analogy: When Uncertainties Add in
+  Series or Parallel* (`drafts/resistor-analogy/`), with companion theory notes
+  (`docs/resistor-analogy-theory.md`). Eight investigations separate estimate fusion
+  (precisions add, like parallel conductances) from propagation through sums
+  (variances add, like series resistors) and products (relative variances add,
+  approximately), and both from event probabilities. They cover correlated errors,
+  a shared error floor and fixed bias, the delta method against the exact product
+  variance, and why two scores for one event are not two independent events.
+  Investigation 6 adds four more exact circuit dictionaries: estimates as voltage
+  sources (Millman/Thévenin), log-probability resistance and conductance for
+  reliability networks (with entropy bookkeeping for the bottom-up reduction), and
+  random walks and Gaussian fields on a network (voltage as hitting probability,
+  variance as effective resistance), and probability trees (a path is a series
+  circuit of surprisals; the chain rule, and diagnosis of a network as a tree).
+  Investigation 7 compares naive multiplication, averaging, calibration and
+  stacking on explicitly synthetic CONT/jev-style predictors. Investigation 8 asks
+  which circuit methods survive beyond trees: Kirchhoff's laws on any reversible
+  network, a soft-minimum parallel rule (forward versus Viterbi) when routes merge,
+  and conditioning for a bridge reliability network.
+- Python with NumPy and `mplot` only. Every simulation is seeded and reports its
+  sample size and a sampling tolerance. An offline test recomputes all fixtures
+  independently and reruns learner-style parameter edits (now in CI); a real-app
+  browser test runs the same checks in Pyodide at 320 px in dark and light themes.
+  Not registered in the catalog index: translations and review receipts come later.
+
 - Added six optional Markov Groups cells after the unchanged 13-cell core,
   in all 13 editions: a recursive one-sticker visit histogram and a dependent
   two-sticker joint heatmap, with seeded 100/1000/10000-move checkpoints.
