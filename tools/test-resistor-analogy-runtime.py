@@ -12,6 +12,7 @@ import json
 import re
 import subprocess
 import sys
+import warnings
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
@@ -42,7 +43,9 @@ def capture_plots(plots):
 def run(cells):
     plots, out = [], io.StringIO()
     ns = {"mplot": capture_plots(plots)}
-    with contextlib.redirect_stdout(out):
+    # A NumPy divide-by-zero or invalid-value warning is how NaN starts: treat it as a failure.
+    with contextlib.redirect_stdout(out), warnings.catch_warnings():
+        warnings.simplefilter("error", RuntimeWarning)
         for cell in cells:
             if cell["type"] == "code":
                 exec(compile(cell["code"], cell["name"], "exec"), ns)
@@ -116,6 +119,12 @@ def main():
         ("network that rounds to 1", "circuit_parameters",
          'NETWORK = ("series", [("parallel", [0.9, 0.7]), 0.95, ("parallel", [0.8, ("series", [0.6, 0.9])])])',
          'NETWORK = ("series", [("parallel", [0.99999999, 0.99999999, 0.99999999]), 0.95])', None, None),
+        ("network that rounds to 0", "circuit_parameters",
+         'NETWORK = ("series", [("parallel", [0.9, 0.7]), 0.95, ("parallel", [0.8, ("series", [0.6, 0.9])])])',
+         'NETWORK = ("series", [1e-200, 1e-200])', None, None),
+        ("zero-mass block inside parallel", "circuit_parameters",
+         'NETWORK = ("series", [("parallel", [0.9, 0.7]), 0.95, ("parallel", [0.8, ("series", [0.6, 0.9])])])',
+         'NETWORK = ("parallel", [("series", [1e-200, 1e-200]), 0.5])', None, None),
         ("tiny transition", "beyond_parameters", "TRANSITION = [[0.7, 0.3], [0.2, 0.8]]",
          "TRANSITION = [[0.999, 0.001], [1e-200, 1 - 1e-200]]", None, None),
         ("deterministic start, zero transitions", "beyond_parameters", "INIT = [0.6, 0.4]", "INIT = [1.0, 0.0]",

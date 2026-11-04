@@ -191,6 +191,19 @@ def validate(ns, plots):
         check(P == rounded or close(P, rounded, 1e-12), f"endpoint reduction {network}")
         check(all(math.isfinite(st["lost"]) and st["lost"] >= -1e-12 for st in steps), "finite, nonnegative losses at endpoints")
     check(ns["entropy"](1.0) == 0 and ns["entropy"](0.0) == 0, "a certain outcome has no entropy")
+    # Full calculation, not only the reducer: enumeration and the diagnosis tree with zero-mass outcomes.
+    for network in [("series", [1e-200, 1e-200]), ("parallel", [("series", [1e-200, 1e-200]), 0.5]),
+                    ("parallel", [0.99999999] * 3)]:
+        steps = []
+        P = ns["reduce_network"](network, steps)
+        P_enum, H_given = ns["enumerate_network"](network)
+        check(math.isfinite(P_enum) and math.isfinite(H_given) and close(P, P_enum, 1e-12), f"enumeration at endpoints {network}")
+        check(close(sum(st["lost"] for st in steps), H_given, 1e-10), "lost entropy = H(parts | outcome) at endpoints")
+        diag = ns["diagnosis_tree"](network)
+        check(all(q > 0 and all(c > 0 for c, _ in kids) for q, kids in diag), "diagnosis tree keeps only possible branches")
+        total = sum(ns["entropy"](q) for q in ns["leaves"](network))
+        check(close(ns["chain_rule_entropy"](diag), total, 1e-10), "diagnosis entropy = parts' entropy at endpoints")
+    check(ns["branch_entropy"]([0.5, 0.5, 0.0]) == ns["branch_entropy"]([0.5, 0.5]), "0 ln 0 = 0")
     expect_value_error(lambda: ns["resistance"](1.5), "probability 1.5 accepted")
     expect_value_error(lambda: ns["reduce_network"](("series", [0.5, 1.0]), []), "probability 1 accepted")
     expect_value_error(lambda: ns["reduce_network"](("both", [0.5, 0.5]), []), "unknown block accepted")

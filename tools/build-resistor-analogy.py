@@ -885,8 +885,12 @@ def enumerate_network(block):
     up = works(block, iter(states.T))
     conditional = 0.0
     for outcome in (up, ~up):
-        q = weight[outcome] / weight[outcome].sum()
-        conditional -= weight[outcome].sum() * np.sum(q * np.log(q))
+        total = weight[outcome].sum()
+        if total == 0:          # this outcome is impossible in floating point: it adds nothing
+            continue
+        q = weight[outcome] / total
+        q = q[q > 0]            # 0 ln 0 = 0
+        conditional -= total * np.sum(q * np.log(q))
     return float(weight[up].sum()), float(conditional)
 
 
@@ -1067,6 +1071,7 @@ def tree_leaves(node, q=1.0, path=()):
 
 def branch_entropy(probabilities):
     q = np.asarray(probabilities, dtype=float)
+    q = q[q > 0]                # 0 ln 0 = 0: an impossible branch carries no information
     return float(-np.sum(q * np.log(q)))
 
 
@@ -1078,17 +1083,20 @@ def chain_rule_entropy(node, reach=1.0):
         sum(chain_rule_entropy(child, reach * c) for c, child in node)
 
 
-def diagnosis_tree(block):
+def diagnosis_tree(block, labelled=False):
     # Two questions: does the system work?  Then: which combination of part states?
+    # Branches whose probability is 0 (or rounds to 0) are left out, as in any probability tree.
     p = np.array(leaves(block))
     states = (np.arange(2 ** p.size)[:, None] >> np.arange(p.size)) & 1 == 1
     weight = np.prod(np.where(states, p, 1 - p), axis=1)
     up = works(block, iter(states.T))
     name = lambda s: "".join("W" if x else "F" for x in s)   # W works, F fails, one letter per part
     tree = []
-    for outcome in (up, ~up):
+    for label, outcome in (("works", up), ("fails", ~up)):
         total = float(weight[outcome].sum())
-        tree.append((total, [(float(w / total), name(s)) for w, s in zip(weight[outcome], states[outcome])]))
+        if total > 0:
+            children = [(float(w / total), name(s)) for w, s in zip(weight[outcome], states[outcome]) if w > 0]
+            tree.append((label, total, children) if labelled else (total, children))
     return tree
 
 
@@ -1124,7 +1132,7 @@ diag = diagnosis_tree(NETWORK)
 print(f"\nDiagnosing your network: first question {entropy(P_sys) / np.log(2):.4f} bits, "
       f"then on average {(chain_rule_entropy(diag) - entropy(P_sys)) / np.log(2):.4f} bits more; "
       f"total {chain_rule_entropy(diag) / np.log(2):.4f} bits = all {len(leaves(NETWORK))} parts' entropy.")
-for (q, children), label in zip(diag, ("works", "fails")):
+for label, q, children in diagnosis_tree(NETWORK, labelled=True):
     print(f"  if the system {label} (P = {q:.4f}): {len(children)} possible states, "
           f"{branch_entropy([c for c, _ in children]) / np.log(2):.4f} bits to learn which")
 
