@@ -17,6 +17,7 @@ PLOT_TITLES = [
     "Near zero, relative<br>uncertainty is meaningless",
     "Two series–parallel<br>dualities",
     "Held-out reliability<br>(synthetic; bins of ≥ 20 cases)",
+    "Parallel routes:<br>a soft minimum",
 ]
 DEFAULTS = {
     "N_CASES": 8000, "SHARED_NOISE": 0.8, "OWN_NOISE": 0.6, "CONT_SHIFT": 0.7,
@@ -27,6 +28,9 @@ DEFAULTS = {
     "EDGES": [("a", "c", 1.0), ("a", "d", 2.0), ("c", "d", 1.0), ("c", "b", 2.0), ("d", "b", 1.0)],
     "START": "c",
     "TREE": [(0.5, "sunny"), (0.3, [(0.6, "light rain"), (0.4, "heavy rain")]), (0.2, "snow")],
+    "ONE_WAY": {"x": {"y": 0.7, "a": 0.3}, "y": {"z": 0.7, "b": 0.3}, "z": {"x": 0.7, "a": 0.3}},
+    "INIT": [0.6, 0.4], "TRANSITION": [[0.7, 0.3], [0.2, 0.8]], "STEPS": 3,
+    "BRIDGE_P": [0.9, 0.8, 0.7, 0.85, 0.75],
 }
 
 
@@ -218,9 +222,42 @@ def validate(ns, plots):
         check(close(ns["chain_rule_entropy"](tree), H_parts, 1e-10), "diagnosis tree entropy = parts' entropy")
     expect_value_error(lambda: list(ns["tree_leaves"]([(0.5, "x"), (0.4, "y")])), "branches adding to 0.9 accepted")
 
+    # Beyond trees: one-way chains, merging routes and the bridge, against independent methods.
+    for _ in range(5):
+        exits = rng.uniform(0.05, 0.6, size=3)
+        chain = {s: {n: 1 - e, t: e} for s, n, t, e in zip("xyz", "yzx", "aba", exits)}
+        h = ns["hitting_probabilities"](chain)
+        # Independent route: absorb by iterating the transition matrix to its limit.
+        order = ["x", "y", "z", "a", "b"]
+        M = np.zeros((5, 5)); M[3, 3] = M[4, 4] = 1
+        for s, row in chain.items():
+            for t, q in row.items():
+                M[order.index(s), order.index(t)] = q
+        limit = np.linalg.matrix_power(M, 4000)
+        check(all(close(h[s], limit[order.index(s), 3], 1e-9) for s in "xyz"), "one-way hitting probabilities")
+    for _ in range(8):
+        k = int(rng.integers(2, 4))
+        init = rng.dirichlet(np.ones(k)); T = rng.dirichlet(np.ones(k), size=k); steps = int(rng.integers(1, 5))
+        r = ns["forward_surprisal"](init, T, steps)
+        check(np.allclose(np.exp(-r), init @ np.linalg.matrix_power(T, steps), atol=1e-12), "forward = matrix power")
+        best = ns["forward_surprisal"](init, T, steps, best=True)
+        for j in range(k):
+            routes = [rr for end, rr in ns["route_surprisals"](init, T, steps) if end == j]
+            check(close(best[j], min(routes), 1e-10), "best route = minimum")
+            check(min(routes) - math.log(len(routes)) - 1e-12 <= r[j] <= min(routes) + 1e-12, "soft-min bounds")
+    for _ in range(10):
+        pb = rng.uniform(0.05, 0.95, size=5)
+        total = 0.0
+        for code in range(32):
+            s = [(code >> i) & 1 for i in range(5)]
+            path = (s[0] and s[3]) or (s[1] and s[4]) or (s[0] and s[2] and s[4]) or (s[1] and s[2] and s[3])
+            total += path * math.prod(q if b else 1 - q for q, b in zip(pb, s))
+        check(close(ns["bridge_reliability"](pb), total, 1e-10), "bridge by conditioning")
+    expect_value_error(lambda: ns["hitting_probabilities"]({"x": {"a": 0.5, "b": 0.4}}), "rows adding to 0.9 accepted")
+
     # Simulations: every comparison present, seeded, and within the stated tolerance.
     log = ns["MC_LOG"]
-    check(len(log) == 16, f"expected 16 simulation comparisons, got {len(log)}")
+    check(len(log) == 19, f"expected 19 simulation comparisons, got {len(log)}")
     for record in log.values():
         check(record["se"] > 0 and abs(record["z"]) < ns["Z_LIMIT"], "simulation disagrees: " + record["label"])
         check(record["n"] in (20000, 200000), "unexpected simulation size: " + record["label"])

@@ -7,7 +7,7 @@ and work deliberately deferred.
 
 - Added an English draft workbook, *Resistor Analogy: When Uncertainties Add in
   Series or Parallel* (`drafts/resistor-analogy/`), with companion theory notes
-  (`docs/resistor-analogy-theory.md`). Seven investigations separate estimate fusion
+  (`docs/resistor-analogy-theory.md`). Eight investigations separate estimate fusion
   (precisions add, like parallel conductances) from propagation through sums
   (variances add, like series resistors) and products (relative variances add,
   approximately), and both from event probabilities. They cover correlated errors,
@@ -18,9 +18,12 @@ and work deliberately deferred.
   reliability networks (with entropy bookkeeping for the bottom-up reduction), and
   random walks and Gaussian fields on a network (voltage as hitting probability,
   variance as effective resistance), and probability trees (a path is a series
-  circuit of surprisals; the chain rule, and diagnosis of a network as a tree). The
-  last investigation compares naive multiplication, averaging, calibration and
-  stacking on explicitly synthetic CONT/jev-style predictors.
+  circuit of surprisals; the chain rule, and diagnosis of a network as a tree).
+  Investigation 7 compares naive multiplication, averaging, calibration and
+  stacking on explicitly synthetic CONT/jev-style predictors. Investigation 8 asks
+  which circuit methods survive beyond trees: Kirchhoff's laws on any reversible
+  network, a soft-minimum parallel rule (forward versus Viterbi) when routes merge,
+  and conditioning for a bridge reliability network.
 - Python with NumPy and `mplot` only. Every simulation is seeded and reports its
   sample size and a sampling tolerance. An offline test recomputes all fixtures
   independently and reruns learner-style parameter edits (now in CI); a real-app

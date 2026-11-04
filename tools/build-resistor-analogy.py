@@ -79,7 +79,7 @@ This lesson tests that analogy instead of memorising it. The analogy only works 
 
 Run the code cells **from top to bottom** the first time. The full derivations are in the companion [theory notes]({THEORY}).
 
-**Scope.** All data here are synthetic. The final investigation uses made-up predictors in the style of two containment models, called CONT and jev; nothing in it is an observation from a real project.
+**Scope.** All data here are synthetic. Investigation 7 uses made-up predictors in the style of two containment models, called CONT and jev; nothing in it is an observation from a real project.
 """)
 
 py("setup", r"""
@@ -1239,6 +1239,183 @@ mplot(traces, title="Held-out reliability<br>(synthetic; bins of ≥ 20 cases)",
       xlabel="mean predicted probability", ylabel="observed frequency", layout=phone_layout())
 """)
 
+# ------------------------------------------------------- 8. beyond trees
+md("beyond-trees", rf"""
+## Investigation 8 — beyond trees
+
+Trees are the easiest networks to understand. Which circuit methods still work when the network has loops, or when paths merge again? It depends on the dictionary.
+
+**Random walks and Gaussian fields: any network.** Kirchhoff's laws hold on any connected graph, loops included; the bridge in Investigation 6 already needed them. The requirement is a symmetric conductance $g_{{ij}}=g_{{ji}}$ on each link. For a random walk this means the walk is **reversible**: with stationary probabilities π, it satisfies $\pi_iP_{{ij}}=\pi_jP_{{ji}}$. A one-way chain, such as a cycle walked in one direction only, still has hitting probabilities that solve the linear equations $h=Ph$, but no network of resistors produces it.
+
+**Merging paths: a different parallel rule.** In a Markov chain run for several steps, many routes end in the same state. Along a route the probabilities multiply, so surprisals add in **series**. Different routes to the same end are alternatives, so their *probabilities* add. In surprisal terms, routes with surprisals $r_k$ combine in **parallel** as
+
+$$
+r=-\ln\sum_k e^{{-r_k}},
+$$
+
+a *soft minimum*, not $1/\sum_k(1/r_k)$. It lies between $\min_k r_k-\ln K$ and $\min_k r_k$ for K routes. Keeping only the most likely route, the minimum, is the idea behind shortest-path and Viterbi decoding. The forward algorithm applies this series–parallel reduction one time step at a time.
+
+**Reliability networks: no.** A bridge of independent parts has no series–parallel reduction, and Kirchhoff's laws do not give its reliability. Instead **condition** on the middle part e:
+
+$$
+P=p_e\,P_1+(1-p_e)\,P_0 ,
+$$
+
+where $P_1$ and $P_0$ are the probabilities that the system works given that e works or fails. Each conditional network *is* series–parallel, so Investigation 6's log rules finish the job.
+
+**Predict.** Two routes to the same state have surprisals 1.0 and 1.2 nats. Is the combined surprisal above or below 1.0?
+
+[Theory: beyond trees]({THEORY}#8-beyond-trees)
+""")
+
+py("beyond_parameters", r"""
+# Parameters you can edit.
+# One-way chain on states a, x, y, z, b: each row lists where a step can go (rows add to 1).
+ONE_WAY = {"x": {"y": 0.7, "a": 0.3}, "y": {"z": 0.7, "b": 0.3}, "z": {"x": 0.7, "a": 0.3}}
+# Two-state Markov chain run for STEPS steps: start distribution and transition matrix.
+INIT = [0.6, 0.4]
+TRANSITION = [[0.7, 0.3], [0.2, 0.8]]
+STEPS = 3
+# Bridge reliability: parts 1 s–c, 2 s–d, 3 c–d (the bridge), 4 c–t, 5 d–t.
+BRIDGE_P = [0.9, 0.8, 0.7, 0.85, 0.75]
+SEED = 2026
+N_SIM = 20000
+""")
+
+py("beyond_trees", r"""
+def hitting_probabilities(chain, one="a", zero="b"):
+    # Solve h = P h with h(one) = 1, h(zero) = 0: first-step analysis, no circuit needed.
+    inner = sorted(chain)
+    for state, row in chain.items():
+        if abs(sum(row.values()) - 1) > 1e-9 or any(q < 0 for q in row.values()):
+            raise ValueError(f"Row {state} must hold probabilities that add to 1.")
+    A = np.eye(len(inner))
+    rhs = np.zeros(len(inner))
+    for i, state in enumerate(inner):
+        for target, q in chain[state].items():
+            if target == one:
+                rhs[i] += q
+            elif target != zero:
+                A[i, inner.index(target)] -= q
+    return dict(zip(inner, np.linalg.solve(A, rhs)))
+
+
+def is_reversible(P, tol=1e-12):
+    # Detailed balance with the stationary distribution: pi_i P_ij = pi_j P_ji.
+    values, vectors = np.linalg.eig(np.asarray(P).T)
+    pi = np.real(vectors[:, np.argmin(np.abs(values - 1))])
+    pi = pi / pi.sum()
+    flow = pi[:, None] * np.asarray(P)
+    return bool(np.allclose(flow, flow.T, atol=tol))
+
+
+def soft_min(r):
+    # Parallel rule for surprisals of alternative routes: -ln sum exp(-r).
+    r = np.asarray(r, dtype=float)
+    m = r.min()
+    return float(m - np.log(np.sum(np.exp(-(r - m)))))
+
+
+def route_surprisals(init, transition, steps):
+    # Every route, enumerated: its end state and its surprisal (a series sum).
+    init, T = np.asarray(init, dtype=float), np.asarray(transition, dtype=float)
+    routes = []
+    for path in np.ndindex(*([len(init)] * (steps + 1))):
+        q = init[path[0]] * np.prod([T[i, j] for i, j in zip(path, path[1:])])
+        if q > 0:
+            routes.append((path[-1], float(-np.log(q))))
+    return routes
+
+
+def forward_surprisal(init, transition, steps, best=False):
+    # Series along each step, parallel (soft-min, or min for the best route) across merging routes.
+    r = -np.log(np.asarray(init, dtype=float))
+    R = -np.log(np.asarray(transition, dtype=float))
+    for _ in range(steps):
+        r = np.array([(min if best else soft_min)(r + R[:, j]) for j in range(R.shape[1])])
+    return r
+
+
+def bridge_reliability(p):
+    # Condition on the bridge part 3; both conditional networks are series–parallel.
+    p1, p2, p3, p4, p5 = (require_probability(q) for q in p)
+    works = reduce_network(("series", [("parallel", [p1, p2]), ("parallel", [p4, p5])]), [])
+    fails = reduce_network(("parallel", [("series", [p1, p4]), ("series", [p2, p5])]), [])
+    return p3 * works + (1 - p3) * fails
+
+
+def bridge_works(state):
+    s1, s2, s3, s4, s5 = state
+    return (s1 & s4) | (s2 & s5) | (s1 & s3 & s5) | (s2 & s3 & s4)
+
+
+# Fixed checks.
+h = hitting_probabilities({"x": {"y": 0.7, "a": 0.3}, "y": {"z": 0.7, "b": 0.3}, "z": {"x": 0.7, "a": 0.3}})
+check_exact("one-way cycle: P(reach a first from x) = 149/219", h["x"], 149 / 219)
+_, _, bridge_L, _, _ = voltages(BRIDGE)
+bridge_walk = np.where(np.eye(4) == 1, 0.0, -bridge_L) / np.diag(bridge_L)[:, None]
+one_way = np.array([[0, 1, 0], [0, 0, 1], [1, 0, 0]], dtype=float)
+print("PASS  the bridge walk is reversible:", is_reversible(bridge_walk))
+print("PASS  a one-way cycle is not:", not is_reversible(one_way))
+assert is_reversible(bridge_walk) and not is_reversible(one_way)
+check_exact("two routes, r = (1, 1.2): soft minimum", soft_min([1.0, 1.2]), -np.log(np.exp(-1.0) + np.exp(-1.2)))
+check_exact("symmetric bridge, every p = 1/2, works with probability 1/2", bridge_reliability([0.5] * 5), 0.5)
+
+# 1) Your one-way chain: first-step equations, then simulation.
+h = hitting_probabilities(ONE_WAY)
+print("\nOne-way chain, P(reach a before b): " + ", ".join(f"{k} {v:.4f}" for k, v in h.items()))
+rng = np.random.default_rng(SEED)
+pos = np.array(["x"] * N_SIM, dtype=object)
+active = np.ones(N_SIM, dtype=bool)
+while active.any():
+    for state in ONE_WAY:
+        here = active & (pos == state)
+        if here.any():
+            targets, probs = zip(*ONE_WAY[state].items())
+            pos[here] = rng.choice(targets, size=int(here.sum()), p=probs)
+    active = ~np.isin(pos, ["a", "b"])
+mc_compare("one-way chain: hitting probability from x", pos == "a", h["x"], what="mean")
+
+# 2) Your Markov chain: merging routes, exact by enumeration, by soft-min reduction, and best route.
+routes = route_surprisals(INIT, TRANSITION, STEPS)
+r_forward = forward_surprisal(INIT, TRANSITION, STEPS)
+r_best = forward_surprisal(INIT, TRANSITION, STEPS, best=True)
+distribution = np.asarray(INIT) @ np.linalg.matrix_power(np.asarray(TRANSITION), STEPS)
+print(f"\nAfter {STEPS} steps:")
+for j in range(len(INIT)):
+    mine = [r for end, r in routes if end == j]
+    check_exact(f"state {j}: soft-min reduction = all {len(mine)} routes", r_forward[j], soft_min(mine), tol=1e-10)
+    check_exact(f"state {j}: matches the matrix power", np.exp(-r_forward[j]), distribution[j], tol=1e-10)
+    check_exact(f"state {j}: best route = smallest route surprisal", r_best[j], min(mine), tol=1e-10)
+    assert min(mine) - np.log(len(mine)) - 1e-12 <= r_forward[j] <= r_best[j] + 1e-12, "soft-min bounds"
+    print(f"  state {j}: P = {np.exp(-r_forward[j]):.4f}; best single route alone gives "
+          f"{np.exp(-r_best[j]):.4f} ({len(mine)} routes merge here)")
+state = rng.choice(len(INIT), size=N_SIM, p=INIT)
+T = np.asarray(TRANSITION)
+for _ in range(STEPS):
+    state = (rng.random(N_SIM)[:, None] > np.cumsum(T[state], axis=1)).sum(axis=1).clip(0, len(INIT) - 1)
+mc_compare("Markov chain: P(end in state 0)", state == 0, np.exp(-r_forward[0]), what="mean")
+
+# 3) Your bridge: conditioning against enumeration of all 32 states, and a simulation.
+pb = np.array(BRIDGE_P, dtype=float)
+states = (np.arange(32)[:, None] >> np.arange(5)) & 1 == 1
+weights = np.prod(np.where(states, pb, 1 - pb), axis=1)
+exact_bridge = float(weights[bridge_works(states.T)].sum())
+check_exact("bridge: conditioning = enumeration", bridge_reliability(BRIDGE_P), exact_bridge, tol=1e-10)
+sim = rng.random((N_SIM, 5)) < pb
+mc_compare("bridge network works", bridge_works(sim.T), exact_bridge, what="mean")
+
+# Two parallel routes: the soft minimum against the minimum, as the gap between them grows.
+gap = np.linspace(0.0, 4.0, 81)
+mplot([
+    {"x": gap, "y": [soft_min([1.0, 1.0 + d]) for d in gap], "mode": "lines", "name": "soft minimum (exact)"},
+    {"x": gap, "y": np.ones_like(gap), "mode": "lines", "name": "best route only", "line": {"dash": "dash"}},
+    {"x": gap, "y": np.full_like(gap, 1 - np.log(2)), "mode": "lines", "name": "lower bound: min − ln 2",
+     "line": {"dash": "dot"}},
+], title="Parallel routes:<br>a soft minimum",
+   xlabel="extra surprisal of route 2 (nats)", ylabel="combined surprisal (nats)", layout=phone_layout())
+""")
+
 # ------------------------------------------------------- wrap-up
 md("checks", r"""
 ## Check your understanding
@@ -1277,6 +1454,11 @@ Yes, by exactly what it forgets. Each merge keeps the probability, and so the en
 
 Each branch is a conditional probability given that you reached the node, and exactly one answer happens there, so they add to 1. A leaf's probability is the product along its path, so its surprisal, −ln P, is the sum of the branch surprisals −ln q: the path is a series circuit. The entropy is the expected resistance of the path taken.
 </details>
+
+<details><summary>8. Which circuit methods still work beyond trees?</summary>
+
+Kirchhoff's laws work on any network for random walks and Gaussian fields, if each link is symmetric (a reversible walk). When routes merge, surprisals still add in series, but alternative routes combine by a soft minimum, −ln Σ e^(−r), not the resistor rule. Reliability of a bridge has no series–parallel reduction: condition on one part, or enumerate.
+</details>
 """)
 
 py("validation_summary", r"""
@@ -1311,6 +1493,10 @@ fixtures = [
      -sum(q * np.log(q) for q in (0.5, 0.18, 0.12, 0.2))),
     ("diagnosis tree of the series pair", chain_rule_entropy(diagnosis_tree(("series", [0.8, 0.6]))),
      entropy(0.8) + entropy(0.6)),
+    ("one-way cycle hitting probability", hitting_probabilities(
+        {"x": {"y": 0.7, "a": 0.3}, "y": {"z": 0.7, "b": 0.3}, "z": {"x": 0.7, "a": 0.3}})["x"], 149 / 219),
+    ("Markov chain, 3 steps, state 0", np.exp(-forward_surprisal([0.6, 0.4], [[0.7, 0.3], [0.2, 0.8]], 3)[0]), 0.425),
+    ("symmetric bridge reliability", bridge_reliability([0.5] * 5), 0.5),
 ]
 for label, got, want in fixtures:
     check_exact(label, got, want)

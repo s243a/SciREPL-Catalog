@@ -454,6 +454,74 @@ untouched set; the workbook fits on one half of the synthetic cases and evaluate
 discrimination. The workbook also reports calibration-in-the-large (mean prediction minus event
 rate, ideally 0) and the calibration slope (ideally 1; below 1 means overconfident scores).
 
+## 8. Beyond trees
+
+Trees are the easiest networks to reason about, because every combination is a series or parallel
+step. Whether the circuit methods survive loops and merging paths depends on the dictionary.
+
+**Random walks and Gaussian fields work on any network.** The arguments of §6 never used the
+tree shape: first-step analysis gives Kirchhoff's current law at every inner node of any
+connected graph, and the Gaussian-field identities hold for any graph Laplacian. What they need
+is a symmetric conductance on each link. For a walk with transition probabilities $P_{ij}$ and
+stationary distribution $\pi$, a conductance model $g_{ij} = \pi_i P_{ij}$ exists exactly when
+$g_{ij} = g_{ji}$, i.e. detailed balance, $\pi_i P_{ij} = \pi_j P_{ji}$: the walk is
+*reversible*. The walk built from a network is reversible with $\pi_i \propto C_i$. A walk that
+goes round a cycle in one direction is not, since $P_{xy} > 0$ while $P_{yx} = 0$. Its hitting
+probabilities still solve the first-step equations $h = Ph$ with the boundary values, a linear
+system like Kirchhoff's, but no resistor network produces them, and results that rely on energy
+(Thomson's principle, Rayleigh monotonicity) no longer apply. The workbook's one-way cycle
+($x \to y \to z \to x$ with probability 0.7, exits 0.3 to a, b, a) gives
+$h_x = 0.447/0.657 = 149/219 \approx 0.680$.
+
+**Merging paths change the parallel rule.** Consider a Markov chain run for several steps, or
+any probability graph in which different routes reach the same node. Along one route the
+probabilities multiply, so surprisals add: series is unchanged. But the routes into a node are
+mutually exclusive alternatives, so their probabilities add, and in surprisal terms
+
+$$
+r = -\ln \sum_{k=1}^{K} e^{-r_k}, \qquad \min_k r_k - \ln K \;\le\; r \;\le\; \min_k r_k .
+$$
+
+This log-sum-exp, a *soft minimum*, is the parallel rule here; the resistor rule
+$1/\sum_k (1/r_k)$ does not apply. The bounds follow from
+$e^{-\min r} \le \sum_k e^{-r_k} \le K e^{-\min r}$. The forward algorithm is this series–parallel
+reduction applied one time step at a time:
+$r_j(t+1) = \operatorname{softmin}_i\,[\,r_i(t) - \ln P_{ij}\,]$, so its cost grows linearly with
+the number of steps, though the number of routes grows exponentially. Replacing the soft minimum by
+the minimum keeps only the most likely route: the shortest path in surprisal, which is what the
+Viterbi algorithm computes. In probability terms the two operations are (sum, product) and
+(max, product); in surprisal terms (soft-min, +) and (min, +). Both are semirings, which is why
+the same dynamic programme works for each. The best route is a good stand-in only when one route
+dominates. In the workbook's two-state chain (start 0.6 / 0.4, transitions 0.7 / 0.3 and
+0.2 / 0.8, three steps), eight comparable routes merge into state 0; the exact probability is
+0.425, but the single best route carries only 0.206.
+
+**Reliability networks need conditioning.** The log rules of §6 reduce only series–parallel
+networks of independent parts. A bridge (parts 1: s–c, 2: s–d, 3: c–d, 4: c–t, 5: d–t, working
+if some path joins s and t) has no such reduction. Kirchhoff's laws do not help either: they
+describe currents, not whether a connecting path exists. Conditioning on the bridge part does
+work (the *pivotal decomposition*):
+
+$$
+P = p_3\,P(\text{works} \mid 3 \text{ works}) + (1 - p_3)\,P(\text{works} \mid 3 \text{ fails}).
+$$
+
+If part 3 works, c and d merge, giving $(1 \parallel 2)$ in series with $(4 \parallel 5)$; if it
+fails, the network is $(1 \text{ series } 4) \parallel (2 \text{ series } 5)$. Both are
+series–parallel. With every $p = 1/2$ the result is exactly $1/2$, by the self-duality of the
+bridge. Larger networks may need several conditionings; in general, network reliability is
+#P-hard to compute exactly, so there is no shortcut that works for every network.
+
+**Summary.**
+
+- *Variance as resistance* (§§2–4): exact for fusion and sums with independent errors; with
+  correlation, the full covariance matrix is needed.
+- *Random walks and Gaussian fields*: exact on any network with symmetric conductances.
+- *Probability trees and graphs*: series is always exact; parallel is a sum of probabilities (a
+  soft minimum of surprisals), which reduces to a minimum only approximately.
+- *Reliability*: exact for series–parallel networks of independent parts; otherwise condition
+  or enumerate.
+
 ## References
 
 1. NIST/SEMATECH *e-Handbook of Statistical Methods*, discussion of weighting by inverse variance,
@@ -471,3 +539,8 @@ rate, ideally 0) and the calibration slope (ideally 1; below 1 means overconfide
 5. R. Lyons and Y. Peres, *Probability on Trees and Networks*, Cambridge University Press, 2016,
    chapter 2: electrical networks, Green's functions and effective resistance.
    <https://rdlyons.pages.iu.edu/prbtree/>
+6. L. R. Rabiner, "A tutorial on hidden Markov models and selected applications in speech
+   recognition", *Proceedings of the IEEE* 77(2), 1989: the forward and Viterbi algorithms.
+   <https://doi.org/10.1109/5.18626>
+7. L. G. Valiant, "The complexity of enumeration and reliability problems", *SIAM Journal on
+   Computing* 8(3), 1979: network reliability is #P-complete. <https://doi.org/10.1137/0208032>

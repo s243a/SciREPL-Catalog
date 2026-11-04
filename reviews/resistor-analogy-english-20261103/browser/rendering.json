@@ -1,7 +1,7 @@
 {
   "allPassed": true,
   "scope": "English draft: real-app Run All, independent checks in Pyodide, 320px dark/light rendering; not a translation or native review",
-  "candidateSha256": "170b8942a6b3e72c4b14517686fe11c287ea826cb5b68db5a371cd7776ca143e",
+  "candidateSha256": "da5ff30192e978cc2ec932439412b6d41f0b788d468e98090469d9007ee49c65",
   "appCommit": "f0c273e69790e7e332295644bbcce9bbe04dab70",
   "appFiles": {
     "www/js/prelude.py": "2c3af1b161bd2133595778d5ae0ff7e2a393888a975303752e4782215ec80823",
@@ -21,21 +21,21 @@
         "mode": "replace",
         "notebookId": "default",
         "name": "Resistor Analogy: When Uncertainties Add in Series or Parallel",
-        "cells": 35,
-        "size": 70576,
-        "sha256": "170b8942a6b3e72c4b14517686fe11c287ea826cb5b68db5a371cd7776ca143e"
+        "cells": 38,
+        "size": 81411,
+        "sha256": "da5ff30192e978cc2ec932439412b6d41f0b788d468e98090469d9007ee49c65"
       },
-      "seconds": 6.753,
+      "seconds": 6.137,
       "markdown": {
-        "katex": 57,
+        "katex": 68,
         "katexErrors": 0,
         "rawDisplayMath": false,
         "svgs": 1,
         "treeSvgs": 1,
         "overflow": [],
-        "details": 7
+        "details": 8
       },
-      "independentChecks": 309,
+      "independentChecks": 391,
       "plots": [
         {
           "index": 0,
@@ -111,6 +111,17 @@
           "overlaps": [],
           "title": "Held-out reliability(synthetic; bins of ≥ 20 cases)",
           "traces": 4,
+          "fontColor": "#e6edf3",
+          "paper": "#1c2128"
+        },
+        {
+          "index": 7,
+          "width": 270,
+          "height": 470,
+          "clipped": [],
+          "overlaps": [],
+          "title": "Parallel routes:a soft minimum",
+          "traces": 3,
           "fontColor": "#e6edf3",
           "paper": "#1c2128"
         }
@@ -126,21 +137,21 @@
         "mode": "replace",
         "notebookId": "default",
         "name": "Resistor Analogy: When Uncertainties Add in Series or Parallel",
-        "cells": 35,
-        "size": 70576,
-        "sha256": "170b8942a6b3e72c4b14517686fe11c287ea826cb5b68db5a371cd7776ca143e"
+        "cells": 38,
+        "size": 81411,
+        "sha256": "da5ff30192e978cc2ec932439412b6d41f0b788d468e98090469d9007ee49c65"
       },
-      "seconds": 5.883,
+      "seconds": 7.025,
       "markdown": {
-        "katex": 57,
+        "katex": 68,
         "katexErrors": 0,
         "rawDisplayMath": false,
         "svgs": 1,
         "treeSvgs": 1,
         "overflow": [],
-        "details": 7
+        "details": 8
       },
-      "independentChecks": 309,
+      "independentChecks": 391,
       "plots": [
         {
           "index": 0,
@@ -216,6 +227,17 @@
           "overlaps": [],
           "title": "Held-out reliability(synthetic; bins of ≥ 20 cases)",
           "traces": 4,
+          "fontColor": "#e6edf3",
+          "paper": "#1c2128"
+        },
+        {
+          "index": 7,
+          "width": 270,
+          "height": 470,
+          "clipped": [],
+          "overlaps": [],
+          "title": "Parallel routes:a soft minimum",
+          "traces": 3,
           "fontColor": "#e6edf3",
           "paper": "#1c2128"
         }

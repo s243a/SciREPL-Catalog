@@ -102,6 +102,9 @@ def main():
         ("larger walk network", "circuit_parameters", '("d", "b", 1.0)]',
          '("d", "b", 1.0), ("d", "e", 0.5), ("e", "b", 3.0), ("c", "e", 1.5)]', 'START = "c"', 'START = "e"'),
         ("walk starts at a", "circuit_parameters", 'START = "c"', 'START = "a"', None, None),
+        ("longer chain", "beyond_parameters", "STEPS = 3", "STEPS = 6", None, None),
+        ("three-state chain", "beyond_parameters", "INIT = [0.6, 0.4]", "INIT = [0.5, 0.3, 0.2]",
+         "TRANSITION = [[0.7, 0.3], [0.2, 0.8]]", "TRANSITION = [[0.7, 0.2, 0.1], [0.2, 0.7, 0.1], [0.3, 0.3, 0.4]]"),
         ("deeper tree", "circuit_parameters", '(0.2, "snow")]', '(0.2, [(0.9, "snow"), (0.1, "hail")])]', None, None),
     ]
     for label, cell_name, old, new, old2, new2 in scenarios:
