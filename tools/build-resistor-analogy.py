@@ -500,7 +500,7 @@ py("product_parameters", r"""
 # Parameters you can edit.
 MU = [2.0, 3.0]      # means of X and Y
 SD = [0.1, 0.2]      # standard deviations of X and Y (independent)
-LOG_SD = [0.3, 0.4]  # for the log route: SDs of log X and log Y
+LOG_SD = [0.3, 0.4]  # log route: X, Y lognormal with means MU; SDs of log X and log Y
 SEED = 2026
 N_SIM = 200000
 """)
@@ -528,8 +528,8 @@ def product_delta(means, variances, cov=0.0):
 def warn_near_zero(means, sds, ratio=3.0):
     for i, (m, s) in enumerate(zip(means, sds)):
         if abs(m) < ratio * s:
-            print(f"Warning: input {i + 1} has |mean| < {ratio:g} SD; relative and delta "
-                  "formulas are unreliable here. Use the absolute or exact formula.")
+            print(f"Warning: input {i + 1} has |mean| < {ratio:g} SD; relative variances are "
+                  "unreliable here. Use absolute variances, and compare delta with exact.")
 
 
 check_exact("independent sum, v = (4, 9): variance 13", sum_variance([4, 9]), 13)
@@ -544,12 +544,14 @@ check_exact("delta product variance, SDs (1, 1)", product_delta([2, 3], [1, 1]),
 v = np.square(SD)
 mean, exact = product_exact(MU, v)
 delta = product_delta(MU, v)
-print(f"\nYour inputs: product mean {mean:.6g}, exact variance {exact:.6g}, delta {delta:.6g} "
-      f"(delta / exact = {delta / exact:.4f})")
+print(f"\nYour inputs: product mean {mean:.6g}, exact variance {exact:.6g}, delta {delta:.6g}"
+      + (f" (delta / exact = {delta / exact:.4f})" if exact > 0 else ""))
 if all(m != 0 for m in MU):
     rel = v / np.square(MU)
     print("Relative variances " + " + ".join(f"{r:.4g}" for r in rel) + f" = {rel.sum():.4g}; "
           f"exact relative variance {exact / mean ** 2:.4g}")
+else:
+    print("A mean is 0, so relative variances v / μ² are undefined; the absolute variances above still hold.")
 warn_near_zero(MU, SD)
 
 rng = np.random.default_rng(SEED)
@@ -574,32 +576,44 @@ mplot([
 # 2) Move the mean of X toward zero: the relative form blows up, the absolute one does not.
 mx = np.linspace(2.0, 0.02, 100)
 absolute = np.array([product_exact([m, MU[1]], np.square(SD))[1] for m in mx])
-relative = absolute / (mx * MU[1]) ** 2
-print(f"Mean of X from 2 to 0.02: absolute variance {absolute[0]:.4g} → {absolute[-1]:.4g}; "
-      f"relative variance {relative[0]:.4g} → {relative[-1]:.4g}.")
-mplot([
-    {"x": mx, "y": relative, "mode": "lines", "name": "relative variance Var(XY)/(μXμY)²"},
-    {"x": [3 * SD[0]] * 2, "y": [0, float(relative.max())], "mode": "lines",
-     "name": "|μX| = 3 SD", "line": {"dash": "dot"}},
-], title="Near zero, relative<br>uncertainty is meaningless",
-   xlabel="mean of X", ylabel="relative variance", layout=phone_layout(yaxis={"type": "log", "dtick": 1, "automargin": True}))
+if MU[1] == 0 or absolute.min() <= 0:
+    # Outside the relative form's domain: it divides by (μX μY)², or there is no variance at all.
+    print("Skipped the relative-variance sweep: it needs a nonzero mean of Y and some variance. "
+          "The absolute variances still apply.")
+else:
+    relative = absolute / (mx * MU[1]) ** 2
+    print(f"Mean of X from 2 to 0.02: absolute variance {absolute[0]:.4g} → {absolute[-1]:.4g}; "
+          f"relative variance {relative[0]:.4g} → {relative[-1]:.4g}.")
+    mplot([
+        {"x": mx, "y": relative, "mode": "lines", "name": "relative variance Var(XY)/(μXμY)²"},
+        {"x": [3 * SD[0]] * 2, "y": [0, float(relative.max())], "mode": "lines",
+         "name": "|μX| = 3 SD", "line": {"dash": "dot"}},
+    ], title="Near zero, relative<br>uncertainty is meaningless",
+       xlabel="mean of X", ylabel="relative variance",
+       layout=phone_layout(yaxis={"type": "log", "dtick": 1, "automargin": True}))
 """)
 
 py("log_route", r"""
-# Log route: log X and log Y independent normals, so X and Y are lognormal.
-s2 = np.square(LOG_SD)
-m = np.log(MU[0]) + np.log(MU[1])
-log_var = float(s2.sum())                               # exact on the log scale
-z_var = float(np.exp(2 * m + log_var) * np.expm1(log_var))  # exact lognormal variance of Z
+# Log route: log X and log Y independent normals, so X and Y are lognormal with means MU.
+# A lognormal with mean mu and log-SD s has log-mean ln(mu) - s²/2 (its median is below its mean).
 check_exact("log variances add: 0.3² + 0.4² = 0.25", float(np.sum(np.square([0.3, 0.4]))), 0.25)
-print(f"Var(log Z) = {log_var:.4g}. Wrong shortcut exp(Var(log Z)) = {np.exp(log_var):.4g}; "
-      f"actual Var(Z) = {z_var:.4g} for this lognormal model.")
+s2 = np.square(LOG_SD)
+log_var = float(s2.sum())                               # exact on the log scale
+if min(MU) <= 0:
+    print("Skipped the log route: logarithms need positive inputs, and a lognormal has a positive "
+          "mean. Edit MU to positive means to run it.")
+else:
+    z_mean = float(np.prod(MU))                         # independent: E[XY] = E[X] E[Y]
+    z_var = z_mean ** 2 * float(np.expm1(log_var))      # exact lognormal variance of Z
+    print(f"Var(log Z) = {log_var:.4g}. Wrong shortcut exp(Var(log Z)) = {np.exp(log_var):.4g}; "
+          f"actual Var(Z) = {z_var:.4g} for this lognormal model with mean {z_mean:.4g}.")
 
-rng = np.random.default_rng(SEED)
-LX = rng.normal(np.log(MU[0]), LOG_SD[0], N_SIM)
-LY = rng.normal(np.log(MU[1]), LOG_SD[1], N_SIM)
-mc_compare("variance of log Z", LX + LY, log_var)
-mc_compare("variance of Z (lognormal)", np.exp(LX + LY), z_var)
+    rng = np.random.default_rng(SEED)
+    LX = rng.normal(np.log(MU[0]) - s2[0] / 2, LOG_SD[0], N_SIM)
+    LY = rng.normal(np.log(MU[1]) - s2[1] / 2, LOG_SD[1], N_SIM)
+    mc_compare("variance of log Z", LX + LY, log_var)
+    mc_compare("mean of Z (lognormal)", np.exp(LX + LY), z_mean, what="mean")
+    mc_compare("variance of Z (lognormal)", np.exp(LX + LY), z_var)
 """)
 
 # ------------------------------------------------------- 5. events vs scores
@@ -877,7 +891,9 @@ check_exact("two-part series: lost entropy = H(parts | outcome)", steps[0]["lost
 # Your network, reduced bottom-up.
 steps = []
 P_sys = reduce_network(NETWORK, steps)
-print(f"\nYour network has {len(leaves(NETWORK))} parts. Bottom-up reduction:")
+n_parts = len(leaves(NETWORK))
+print(f"\nYour network has {n_parts} part{'s' * (n_parts != 1)}. Bottom-up reduction:"
+      + ("" if steps else " nothing to merge, so no entropy is lost."))
 for i, s in enumerate(steps, 1):
     print(f"  {i}. {s['kind']:<8} of " + ", ".join(f"{p:.4g}" for p in s["inputs"])
           + f": {s['rule']} → p = {s['p']:.6g}; entropy kept {entropy(s['p']):.4f}, lost {s['lost']:.4f}")
@@ -887,7 +903,7 @@ check_exact("reduction matches brute-force enumeration", P_sys, P_enum)
 check_exact("total lost = H(parts | system outcome)", sum(s["lost"] for s in steps), H_given, tol=1e-10)
 print(f"Entropy (nats): parts {total:.4f} = system outcome {entropy(P_sys):.4f} "
       f"+ forgotten {total - entropy(P_sys):.4f}")
-if steps[-1]["kind"] == "series":   # union bound over the top-level series branches
+if steps and steps[-1]["kind"] == "series":   # union bound over the top-level series branches
     print(f"Failure probability {1 - P_sys:.4f} ≤ {sum(1 - p for p in steps[-1]['inputs']):.4f}, "
           "the sum of the series branches' failure probabilities (the union bound).")
 
@@ -1311,14 +1327,33 @@ def is_reversible(P, tol=1e-12):
 
 def soft_min(r):
     # Parallel rule for surprisals of alternative routes: -ln sum exp(-r).
+    # Impossible routes have surprisal ∞; if every route is impossible, so is the merge.
     r = np.asarray(r, dtype=float)
-    m = r.min()
+    m = r.min() if r.size else np.inf
+    if np.isinf(m):
+        return float(np.inf)
     return float(m - np.log(np.sum(np.exp(-(r - m)))))
+
+
+def surprisal(q):
+    # -ln q, with -ln 0 = ∞ (a zero-probability step) and no warning.
+    with np.errstate(divide="ignore"):
+        return -np.log(np.asarray(q, dtype=float))
+
+
+def require_chain(init, transition):
+    init, T = np.asarray(init, dtype=float), np.asarray(transition, dtype=float)
+    if T.shape != (init.size, init.size):
+        raise ValueError("TRANSITION must be a square matrix with one row per state in INIT.")
+    for name, rows in (("INIT", init[None, :]), ("each TRANSITION row", T)):
+        if np.any(rows < 0) or not np.allclose(rows.sum(axis=1), 1):
+            raise ValueError(f"{name} must hold probabilities that add to 1.")
+    return init, T
 
 
 def route_surprisals(init, transition, steps):
     # Every route, enumerated: its end state and its surprisal (a series sum).
-    init, T = np.asarray(init, dtype=float), np.asarray(transition, dtype=float)
+    init, T = require_chain(init, transition)
     routes = []
     for path in np.ndindex(*([len(init)] * (steps + 1))):
         q = init[path[0]] * np.prod([T[i, j] for i, j in zip(path, path[1:])])
@@ -1329,8 +1364,8 @@ def route_surprisals(init, transition, steps):
 
 def forward_surprisal(init, transition, steps, best=False):
     # Series along each step, parallel (soft-min, or min for the best route) across merging routes.
-    r = -np.log(np.asarray(init, dtype=float))
-    R = -np.log(np.asarray(transition, dtype=float))
+    init, T = require_chain(init, transition)
+    r, R = surprisal(init), surprisal(T)
     for _ in range(steps):
         r = np.array([(min if best else soft_min)(r + R[:, j]) for j in range(R.shape[1])])
     return r
@@ -1384,6 +1419,10 @@ distribution = np.asarray(INIT) @ np.linalg.matrix_power(np.asarray(TRANSITION),
 print(f"\nAfter {STEPS} steps:")
 for j in range(len(INIT)):
     mine = [r for end, r in routes if end == j]
+    if not mine:   # no route reaches this state: probability 0, surprisal ∞
+        assert np.isinf(r_forward[j]) and np.isinf(r_best[j]) and distribution[j] == 0
+        print(f"PASS  state {j}: no route reaches it; P = 0 and surprisal ∞ by every method")
+        continue
     check_exact(f"state {j}: soft-min reduction = all {len(mine)} routes", r_forward[j], soft_min(mine), tol=1e-10)
     check_exact(f"state {j}: matches the matrix power", np.exp(-r_forward[j]), distribution[j], tol=1e-10)
     check_exact(f"state {j}: best route = smallest route surprisal", r_best[j], min(mine), tol=1e-10)
@@ -1427,7 +1466,7 @@ Fusion averages several readings of **one** target: their precisions add (parall
 
 <details><summary>2. Which formula changes when errors correlate?</summary>
 
-Both. Fusion needs the full covariance, w ∝ Σ⁻¹1, and the gain shrinks (no gain at ρ = 1). The sum picks up the 2 Cov(X, Y) term. A shared error sets a floor s² that averaging cannot remove.
+Both. Fusion needs the full covariance, w ∝ Σ⁻¹1. With equal variances, positive correlation shrinks the gain, to none at ρ = 1. With unequal variances the gain need not shrink: at ρ = 1 one error is a multiple of the other, and weights with one negative can cancel it. The sum picks up the 2 Cov(X, Y) term. A shared error sets a floor s² that averaging cannot remove.
 </details>
 
 <details><summary>3. What plays the role of resistance for a product approximation?</summary>

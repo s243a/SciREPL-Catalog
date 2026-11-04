@@ -106,15 +106,33 @@ def main():
         ("three-state chain", "beyond_parameters", "INIT = [0.6, 0.4]", "INIT = [0.5, 0.3, 0.2]",
          "TRANSITION = [[0.7, 0.3], [0.2, 0.8]]", "TRANSITION = [[0.7, 0.2, 0.1], [0.2, 0.7, 0.1], [0.3, 0.3, 0.4]]"),
         ("deeper tree", "circuit_parameters", '(0.2, "snow")]', '(0.2, [(0.9, "snow"), (0.1, "hail")])]', None, None),
+        # Edge cases from review: outside a formula's domain the book explains and skips, never NaN.
+        ("a mean of zero", "product_parameters", "MU = [2.0, 3.0]", "MU = [0.0, 3.0]", None, None),
+        ("mean of Y zero", "product_parameters", "MU = [2.0, 3.0]", "MU = [2.0, 0.0]", None, None),
+        ("a negative mean", "product_parameters", "MU = [2.0, 3.0]", "MU = [-2.0, 3.0]", None, None),
+        ("single-part network", "circuit_parameters",
+         'NETWORK = ("series", [("parallel", [0.9, 0.7]), 0.95, ("parallel", [0.8, ("series", [0.6, 0.9])])])',
+         "NETWORK = 0.9", None, None),
+        ("deterministic start, zero transitions", "beyond_parameters", "INIT = [0.6, 0.4]", "INIT = [1.0, 0.0]",
+         "TRANSITION = [[0.7, 0.3], [0.2, 0.8]]", "TRANSITION = [[0.0, 1.0], [1.0, 0.0]]"),
+        ("unreachable state", "beyond_parameters", "INIT = [0.6, 0.4]", "INIT = [0.5, 0.5, 0.0]",
+         "TRANSITION = [[0.7, 0.3], [0.2, 0.8]]", "TRANSITION = [[0.9, 0.1, 0.0], [0.4, 0.6, 0.0], [0.2, 0.2, 0.6]]"),
     ]
     for label, cell_name, old, new, old2, new2 in scenarios:
         book_cells = edited(cells, cell_name, old, new)
         if old2:
             book_cells = edited(book_cells, cell_name, old2, new2)
         _, _, out = run(book_cells)
-        assert "FAIL" not in out and "DISAGREES" not in out and "nan" not in out, label
+        assert "FAIL" not in out and "DISAGREES" not in out, label
+        assert not re.search(r"\b(nan|inf)\b", out), (label, out)
         if label == "mean near zero":
             assert "Warning: input 1 has |mean| < 3 SD" in out, "near-zero warning missing"
+        if label == "a negative mean":
+            assert "Skipped the log route" in out, "log route ran with a negative mean"
+        if label == "mean of Y zero":
+            assert "Skipped the relative-variance sweep" in out, "relative sweep ran with a zero mean"
+        if label == "unreachable state":
+            assert "state 2: no route reaches it" in out, "unreachable state not reported"
         print(f"Edited run passed: {label}")
 
     try:

@@ -177,10 +177,13 @@ The delta method drops $v_Xv_Y$. Relative to $(\mu_X\mu_Y)^2$ that term is the p
 relative variances, second order when both are small. Means 2 and 3 with SDs 0.1 and 0.2 give
 exact 0.2504 against delta 0.25; with SDs 1 and 1, exact 14 against delta 13.
 
-**Near a zero mean** the relative form divides by $\mu^2$ and explodes, and the linearisation's
-leading term $\mu_X(Y - \mu_Y)$ vanishes, so the dropped terms dominate. Use the absolute exact
-formula, or the full distribution. The workbook warns when $|\mu| < 3\sigma$; that threshold is a
-rule of thumb, not a theorem.
+**Near a zero mean** the relative form divides by $\mu^2$ and explodes, so relative variances stop
+meaning anything. The absolute delta formula does not automatically fail: for independent inputs
+its error is always exactly $v_Xv_Y$. With $\mu_X = 0$ it gives $\mu_Y^2 v_X$ against the exact
+$\mu_Y^2 v_X + v_X v_Y$, which is close while $v_Y \ll \mu_Y^2$. It fails when the dropped term is
+comparable to the kept ones, for example when both means are near zero. When in doubt, use the
+absolute exact formula, or the full distribution. The workbook warns when $|\mu| < 3\sigma$; that
+threshold is a rule of thumb, not a theorem.
 
 **The log route.** For strictly positive inputs, $\log\prod_i X_i = \sum_i \log X_i$, so
 
@@ -191,8 +194,9 @@ $$
 
 exactly, whenever those moments exist. Returning to the original scale needs the distribution.
 If $\log Z \sim N(m, S)$, then $\mathbb E Z = e^{m + S/2}$ and
-$\operatorname{Var}(Z) = e^{2m + S}(e^S - 1)$. With $m = \log 6$ and $S = 0.25$ this is about 13.13,
-whereas the tempting shortcut $e^{S} \approx 1.28$ is not a variance of anything here. For small S,
+$\operatorname{Var}(Z) = e^{2m + S}(e^S - 1) = (\mathbb E Z)^2(e^S - 1)$. The workbook's lognormal
+inputs have *means* 2 and 3, so $\mathbb E Z = 6$ (their medians, $e^{m}$, sit below the means).
+With $S = 0.25$, $\operatorname{Var}(Z) = 36(e^{0.25} - 1) \approx 10.22$, whereas the tempting shortcut $e^{S} \approx 1.28$ is not a variance of anything here. For small S,
 $\operatorname{Var}(Z)/(\mathbb E Z)^2 = e^S - 1 \approx S$: relative variance on the original scale is
 approximately log-variance, which is another way to see why relative variances add approximately.
 
@@ -216,8 +220,11 @@ workbook's shared-cause simulation, where one uniform draw drives both events, r
 bound 0.6. Knowing the dependence, or the joint probability, is part of the question.
 
 **Two scores for one event are not two events.** Let Y be the outcome and I the information a
-model sees. A calibrated model reports $s = P(Y = 1 \mid I)$. A second model that sees the same I
-can only report the same conditional probability, since $P(Y = 1 \mid I, I) = P(Y = 1 \mid I)$.
+model sees. Suppose a model reports the exact conditional probability $s = P(Y = 1 \mid I)$. That is
+stronger than calibration: a model that always says 0.5 when half the cases are events is
+calibrated, and so is one that says 0.2 or 0.8 and is right at those rates, but only the second
+uses I. A second model that also reports the exact conditional probability given the same I
+must report the same number, since $P(Y = 1 \mid I, I) = P(Y = 1 \mid I)$.
 Multiplying the two scores computes the probability that two *distinct independent* events both
 happen; $1 - (1 - s_1)(1 - s_2)$ computes the probability that at least one of them happens.
 Neither is the probability of Y. With two identical 0.8 scores these give 0.64 and 0.96; the
@@ -441,8 +448,10 @@ data its AUC is close to the others' while its mean prediction falls well below 
 $\sigma(\beta_0 + \beta_1\operatorname{logit}s_1 + \beta_2\operatorname{logit}s_2)$, contains the
 conditional-independence odds rule of §5 as a special case: $\beta_1 = \beta_2 = 1$ and
 $\beta_0 = -\operatorname{logit}(\text{prior})$, for calibrated inputs. When the two predictors share
-error, part of the second score duplicates the first, and the fitted coefficients shrink below 1.
-Stacking learns that discount from data instead of assuming independence.
+error, part of the second score duplicates the first, and the fit discounts it: typically the
+coefficients shrink below 1. That is not a rule. A coefficient can be negative, when one score
+mostly corrects the shared error of the other, or above 1, when an input is underconfident.
+Stacking learns the discount from data instead of assuming independence.
 
 **Avoiding leakage.** Calibration maps and stacking weights must be fitted on predictions the base
 models did not train on: a held-out split or out-of-fold predictions. In-sample scores are usually

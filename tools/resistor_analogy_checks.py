@@ -147,7 +147,8 @@ def validate(ns, plots):
     mu, v = np.array([1.5, -2.0, 0.5]), np.array([0.2, 0.3, 0.1])
     check(close(ns["product_exact"](mu, v)[1], np.prod(mu ** 2 + v) - np.prod(mu) ** 2), "three-input product")
     s2 = 0.3 ** 2 + 0.4 ** 2
-    check(close(ns["log_var"], s2) and close(ns["z_var"], 36 * math.exp(s2) * math.expm1(s2), 1e-10), "log route")
+    check(close(ns["log_var"], s2) and close(ns["z_mean"], 6) and close(ns["z_var"], 36 * math.expm1(s2), 1e-10),
+          "log route: lognormal inputs with means 2 and 3")
 
     # Events, duplicates, complements and odds.
     check(close(ns["all_succeed"]([0.8, 0.6]), 0.48), "all succeed")
@@ -178,6 +179,8 @@ def validate(ns, plots):
             check(close(lost, H_given, 1e-9), "lost entropy equals H(parts | outcome)")
             check(close(H_parts, binary_entropy(P) + lost, 1e-9) and lost >= -1e-12, "entropy balance")
     check(close(brute_force(DEFAULTS["NETWORK"])[0], 0.836722), "default network probability")
+    steps = []
+    check(close(ns["reduce_network"](0.9, steps), 0.9) and steps == [], "a single part needs no merge")
     expect_value_error(lambda: ns["reduce_network"](("series", [0.5, 1.0]), []), "probability 1 accepted")
     expect_value_error(lambda: ns["reduce_network"](("both", [0.5, 0.5]), []), "unknown block accepted")
     # Random walks: voltages by an explicit inverse, and the escape / Green's function identities.
@@ -253,11 +256,24 @@ def validate(ns, plots):
             path = (s[0] and s[3]) or (s[1] and s[4]) or (s[0] and s[2] and s[4]) or (s[1] and s[2] and s[3])
             total += path * math.prod(q if b else 1 - q for q, b in zip(pb, s))
         check(close(ns["bridge_reliability"](pb), total, 1e-10), "bridge by conditioning")
+    # Sparse chains: zero transitions and deterministic starts give surprisal ∞, never NaN.
+    for init, T, steps in [([1, 0], [[0, 1], [1, 0]], 3), ([1, 0, 0], [[0, 1, 0], [0, 0, 1], [1, 0, 0]], 2),
+                           ([0.5, 0.5, 0], [[1, 0, 0], [0.3, 0.7, 0], [0.2, 0.2, 0.6]], 4)]:
+        exact = np.asarray(init, float) @ np.linalg.matrix_power(np.asarray(T, float), steps)
+        for best in (False, True):
+            r = ns["forward_surprisal"](init, T, steps, best=best)
+            check(not np.any(np.isnan(r)), "forward algorithm produced NaN on a sparse chain")
+            check(np.array_equal(np.isinf(r), exact == 0), "impossible states must have surprisal ∞")
+        r = ns["forward_surprisal"](init, T, steps)
+        check(np.allclose(np.exp(-r), exact, atol=1e-12), "sparse forward = matrix power")
+    check(math.isinf(ns["soft_min"]([math.inf, math.inf])) and math.isinf(ns["soft_min"]([])), "soft-min of no routes")
+    expect_value_error(lambda: ns["forward_surprisal"]([0.5, 0.4], [[1, 0], [0, 1]], 1), "INIT adding to 0.9 accepted")
+    expect_value_error(lambda: ns["forward_surprisal"]([0.5, 0.5], [[1, 0, 0], [0, 1, 0]], 1), "non-square TRANSITION accepted")
     expect_value_error(lambda: ns["hitting_probabilities"]({"x": {"a": 0.5, "b": 0.4}}), "rows adding to 0.9 accepted")
 
     # Simulations: every comparison present, seeded, and within the stated tolerance.
     log = ns["MC_LOG"]
-    check(len(log) == 19, f"expected 19 simulation comparisons, got {len(log)}")
+    check(len(log) == 20, f"expected 20 simulation comparisons, got {len(log)}")
     for record in log.values():
         check(record["se"] > 0 and abs(record["z"]) < ns["Z_LIMIT"], "simulation disagrees: " + record["label"])
         check(record["n"] in (20000, 200000), "unexpected simulation size: " + record["label"])
