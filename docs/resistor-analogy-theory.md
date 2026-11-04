@@ -247,9 +247,9 @@ $16/17 \approx 0.941$. If both posteriors came from the *same* evidence, conditi
 fails: given $E_1$, the copy $E_2$ has likelihood ratio 1, and the answer stays 0.8. This is an
 evidence model, not a licence to multiply arbitrary model scores.
 
-## 6. Three more circuits
+## 6. More circuits
 
-Sections 2–4 use one dictionary: variance as resistance. Three others are exact under their own
+Sections 2–4 use one dictionary: variance as resistance. Four others are exact under their own
 assumptions, and they answer a natural question: if variance is the resistance, what is the
 voltage?
 
@@ -374,6 +374,50 @@ Conditioning on $X_a = 1$ gives $\mathbb E[X \mid X_a = 1] = G e_a / G_{aa}$, ag
 with $a$ at 1 V and $b$ at 0 V [5]. On the bridge, $\operatorname{Var}(X_a) = 5/7$ and
 $\mathbb E[X_c \mid X_a = 1] = 2/5$. One linear system thus gives hitting probabilities,
 conditional means, and variances.
+
+### Probability trees
+
+A probability tree asks questions in order. Each node is a question, and each branch leaving it
+carries the conditional probability $q$ of that answer *given that the node was reached*. Exactly
+one answer happens at a node, so its branches add to 1. Exactly one leaf happens overall, and its
+probability is the product of the $q$'s on its path. Taking logs,
+
+$$
+-\ln P(\text{leaf}) = \sum_{\text{path}} (-\ln q),
+$$
+
+so surprisals add along a path, as resistances $r = -\ln q$ add in series. The entropy of the leaf
+is its expected surprisal, $H = \sum_{\text{leaves}} P(\ell)\,(-\ln P(\ell))$: the expected
+resistance of the path taken. Expanding each leaf's surprisal into its branches and collecting the
+terms that pass through the same node $x$ gives the chain rule (Shannon's grouping property):
+
+$$
+H(\text{leaf}) = \sum_{\text{nodes } x} P(\text{reach } x)\, H(\text{branches at } x),
+$$
+
+where $H(\text{branches at } x) = -\sum_{\text{branches}} q \ln q$ is the information gained by
+answering the question at $x$. In the workbook's weather tree (sunny 0.5; rain 0.3, split 0.6 /
+0.4 into light and heavy; snow 0.2), the leaves have probabilities 0.5, 0.18, 0.12 and 0.2, and
+$H = H(0.5, 0.3, 0.2) + 0.3\,H(0.6, 0.4) \approx 1.23$ nats, about 1.78 bits.
+
+**How this differs from a reliability network.** In a reliability network all the parts exist at
+once; the full outcome is the vector of every part's state, and series or parallel says how the
+parts' states combine into the system's (all must work; any will do). In a probability tree the
+leaves are mutually exclusive alternatives and the tree records an order of questions. The
+reliability rules multiply probabilities of independent events that all happen together; the
+tree multiplies conditional probabilities of successive answers on one path.
+
+**Where they meet.** Diagnosing a reliability network is a probability tree. The first question
+is "does the system work?" (entropy $h(P_{\text{system}})$); the second, "which combination of
+part states?", asked separately under each answer. The leaves are the $2^n$ joint states, so the
+tree's entropy is $\sum_i h(p_i)$, and the chain rule reproduces the bookkeeping above: the second
+level's weighted entropy is $H(\text{parts} \mid \text{system outcome})$, the total forgotten by
+the reduction. How much the second question tells you depends on the first answer. For a plain
+series system that works, every part worked, so the second question has one answer and tells you
+nothing. The workbook's network has parallel blocks, so a working system still leaves 15 possible
+states (2.99 bits) and a failed one 49 (4.03 bits). The first question is worth 0.64 bits and the
+second 3.16 on average, 3.80 bits in all. Opening the reduction's blocks one at a time instead builds a
+deeper tree whose node terms are the per-merge losses; the total is the same.
 
 ## 7. Application: calibration, ranking and stacking
 

@@ -42,6 +42,24 @@ SERIES_PARALLEL_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30
 </g>
 </svg>"""
 
+PROBABILITY_TREE_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 250" role="img" aria-label="Probability tree" style="display:block;width:100%;max-width:380px;height:auto;margin:1rem 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+<title>Probability tree</title>
+<desc>A root with three branches: sunny 0.5, rain 0.3 and snow 0.2. Rain splits into light rain 0.6 and heavy rain 0.4. The path to heavy rain is highlighted: its probability is 0.3 times 0.4, 0.12, and its surprisal is the sum of the branch surprisals.</desc>
+<path d="M25 110 L120 40 M25 110 L120 170"/>
+<path d="M120 110 L215 140" />
+<path d="M25 110 L120 110 L215 80" stroke-width="2"/>
+<path d="M25 110 L120 110 L215 140" stroke-width="5" opacity="0.55"/>
+<g fill="currentColor" stroke="none"><circle cx="25" cy="110" r="5"/><circle cx="120" cy="110" r="5"/></g>
+<g fill="currentColor" stroke="none" font-family="sans-serif" font-size="13">
+<text x="58" y="66">0.5</text><text x="66" y="104">0.3</text><text x="58" y="158">0.2</text>
+<text x="160" y="88">0.6</text><text x="160" y="140">0.4</text>
+<text x="126" y="44">sunny: 0.5</text><text x="126" y="174">snow: 0.2</text>
+<text x="221" y="84">light: 0.18</text><text x="221" y="144" font-weight="bold">heavy: 0.12</text>
+<text x="170" y="212" text-anchor="middle">−ln 0.12 = (−ln 0.3) + (−ln 0.4)</text>
+<text x="170" y="236" text-anchor="middle">a path is a series circuit</text>
+</g>
+</svg>"""
+
 # ---------------------------------------------------------------- introduction
 md("intro", rf"""
 # Resistor Analogy: When Uncertainties Add in Series or Parallel
@@ -690,9 +708,9 @@ print(f"With prior {PRIOR}: combined posterior {combine_posteriors(0.8, 0.8, PRI
 
 # ------------------------------------------------------- 6. more circuits
 md("more-circuits", rf"""
-## Investigation 6 — three more circuits
+## Investigation 6 — more circuits
 
-Investigations 2–4 used variance as resistance, and Investigation 5 found that raw event probabilities follow neither rule. Here are three other exact dictionaries between circuits and probability, each with its own assumptions.
+Investigations 2–4 used variance as resistance, and Investigation 5 found that raw event probabilities follow neither rule. Here are four other exact dictionaries between circuits and probability, each with its own assumptions: A–C below, and probability trees (D) after the random-walk cell.
 
 **A. A noisy estimate is a voltage source with internal resistance.** Model estimate i as a source at potential $x_i$ behind a resistance $v_i$, and join all the sources at one node. Kirchhoff's current law, $\sum_i (x_i-V)/v_i=0$, puts the node at
 
@@ -732,7 +750,7 @@ The reduction gives the entropy of the system's outcome exactly; it is not an ap
 
 **Predict.** Two parts in series, p = 0.8 and 0.6, work together with probability 0.48. Is the entropy of "the system works or not" larger or smaller than the entropy of both parts' states?
 
-[Theory: three more circuits]({THEORY}#6-three-more-circuits)
+[Theory: more circuits]({THEORY}#6-more-circuits)
 """)
 
 py("circuit_parameters", r"""
@@ -743,6 +761,8 @@ NETWORK = ("series", [("parallel", [0.9, 0.7]), 0.95, ("parallel", [0.8, ("serie
 # Random-walk network: (node, node, conductance). Node "a" is held at 1 V and node "b" at 0 V.
 EDGES = [("a", "c", 1.0), ("a", "d", 2.0), ("c", "d", 1.0), ("c", "b", 2.0), ("d", "b", 1.0)]
 START = "c"     # where the hitting-probability walks start
+# Probability tree: a node is a list of (conditional probability, child); a leaf is a name.
+TREE = [(0.5, "sunny"), (0.3, [(0.6, "light rain"), (0.4, "heavy rain")]), (0.2, "snow")]
 SEED = 2026
 N_SIM = 20000
 """)
@@ -973,6 +993,120 @@ field = np.linalg.solve(np.linalg.cholesky(precision).T, rng.standard_normal((le
 mc_compare("Gaussian field: Var(X_a) = R_eff", field[keep.index(a)], 1 / C_eff)
 """)
 
+md("probability-trees", rf"""
+**D. Probability trees: a path is a series circuit.** In a probability tree each node is a question and each branch an answer. A branch carries the *conditional* probability of its answer given that you reached the node, so the branches leaving a node add to 1. Exactly one leaf happens.
+
+{PROBABILITY_TREE_SVG}
+
+A leaf's probability is the product of the branch probabilities along its path, so its surprisal is a sum:
+
+$$
+-\ln P(\text{{leaf}})=\sum_{{\text{{path}}}}\left(-\ln q\right).
+$$
+
+So a path is a series circuit of resistances $r=-\ln q$, and the entropy of the leaf is the expected resistance of the path taken. Grouping that average by node gives the chain rule:
+
+$$
+H(\text{{leaf}})=\sum_{{x}} P(\text{{reach }}x)\,H_x ,
+$$
+
+summing over the nodes x, where $H_x=-\sum q\ln q$ is the entropy of the branches at x: the information gained by answering the question at x, weighted by how often you get to ask it.
+
+**How it differs from a reliability network.**
+
+- In a reliability network (B), every part exists at once. The full outcome is the state of *every* part, and series or parallel says how the parts combine: all must work, or any will do.
+- In a probability tree, the leaves are *alternatives*: exactly one happens. The tree records the order in which questions are asked.
+
+**Where they meet.** Diagnosing a reliability network is a probability tree. Ask first "does the system work?", then "which parts failed?". The leaves are all the combinations of part states. The chain rule splits their entropy into the entropy of the system's outcome plus the entropy forgotten during the reduction in B. Opening one block at a time instead gives a deeper tree with the same total.
+
+**Predict.** In the tree above, which leaf is most surprising, and is the entropy of the weather more or less than 2 bits?
+
+[Theory: probability trees]({THEORY}#probability-trees)
+""")
+
+py("probability_tree", r"""
+def tree_leaves(node, q=1.0, path=()):
+    # Yields (leaf name, its probability, the conditional probabilities on its path).
+    if isinstance(node, str):
+        yield node, q, path
+        return
+    branches = [c for c, _ in node]
+    if not node or any(not 0 < c <= 1 for c in branches) or abs(sum(branches) - 1) > 1e-9:
+        raise ValueError("The branches leaving each node need probabilities in (0, 1] that add to 1.")
+    for c, child in node:
+        yield from tree_leaves(child, q * c, path + (c,))
+
+
+def branch_entropy(probabilities):
+    q = np.asarray(probabilities, dtype=float)
+    return float(-np.sum(q * np.log(q)))
+
+
+def chain_rule_entropy(node, reach=1.0):
+    # Sum over nodes of P(reach node) × entropy of its branches.
+    if isinstance(node, str):
+        return 0.0
+    return reach * branch_entropy([c for c, _ in node]) + \
+        sum(chain_rule_entropy(child, reach * c) for c, child in node)
+
+
+def diagnosis_tree(block):
+    # Two questions: does the system work?  Then: which combination of part states?
+    p = np.array(leaves(block))
+    states = (np.arange(2 ** p.size)[:, None] >> np.arange(p.size)) & 1 == 1
+    weight = np.prod(np.where(states, p, 1 - p), axis=1)
+    up = works(block, iter(states.T))
+    name = lambda s: "".join("W" if x else "F" for x in s)   # W works, F fails, one letter per part
+    tree = []
+    for outcome in (up, ~up):
+        total = float(weight[outcome].sum())
+        tree.append((total, [(float(w / total), name(s)) for w, s in zip(weight[outcome], states[outcome])]))
+    return tree
+
+
+# Fixed checks on the weather tree.
+WEATHER = [(0.5, "sunny"), (0.3, [(0.6, "light rain"), (0.4, "heavy rain")]), (0.2, "snow")]
+found = {name: (q, path) for name, q, path in tree_leaves(WEATHER)}
+check_exact("P(heavy rain) = 0.3 × 0.4", found["heavy rain"][0], 0.12)
+check_exact("surprisals add along the path", -np.log(0.3) - np.log(0.4), -np.log(0.12))
+direct = branch_entropy([q for q, _ in found.values()])
+check_exact("entropy by the chain rule = entropy of the leaves", chain_rule_entropy(WEATHER), direct)
+check_exact("entropy = expected path resistance",
+            sum(q * sum(-np.log(c) for c in path) for q, path in found.values()), direct)
+pair = diagnosis_tree(("series", [0.8, 0.6]))
+check_exact("diagnosis tree of the series pair: entropy = h(0.8) + h(0.6)",
+            chain_rule_entropy(pair), entropy(0.8) + entropy(0.6), tol=1e-10)
+try:
+    list(tree_leaves([(0.5, "x"), (0.4, "y")]))
+    raise AssertionError("branches adding to 0.9 were accepted")
+except ValueError as error:
+    print("PASS  branches must add to 1:", error)
+
+# Your tree.
+rows = list(tree_leaves(TREE))
+H = chain_rule_entropy(TREE)
+print(f"\nYour tree: {len(rows)} leaves, entropy {H:.4f} nats = {H / np.log(2):.4f} bits")
+for name, q, path in rows:
+    r = sum(-np.log(c) for c in path)
+    print(f"  {name:<14} P = {q:.4f}  path " + " × ".join(f"{c:g}" for c in path)
+          + f"  resistance {r:.4f} nats = {r / np.log(2):.3f} bits")
+
+# Your reliability network, diagnosed: the same chain rule.
+diag = diagnosis_tree(NETWORK)
+print(f"\nDiagnosing your network: first question {entropy(P_sys) / np.log(2):.4f} bits, "
+      f"then on average {(chain_rule_entropy(diag) - entropy(P_sys)) / np.log(2):.4f} bits more; "
+      f"total {chain_rule_entropy(diag) / np.log(2):.4f} bits = all {len(leaves(NETWORK))} parts' entropy.")
+for (q, children), label in zip(diag, ("works", "fails")):
+    print(f"  if the system {label} (P = {q:.4f}): {len(children)} possible states, "
+          f"{branch_entropy([c for c, _ in children]) / np.log(2):.4f} bits to learn which")
+
+# Simulation: walk down the tree; the average surprisal of the leaf reached is the entropy.
+rng = np.random.default_rng(SEED)
+probabilities = np.array([q for _, q, _ in rows])
+picked = rng.choice(len(rows), size=N_SIM, p=probabilities / probabilities.sum())
+mc_compare("average surprisal of sampled leaves = entropy", -np.log(probabilities[picked]), H, what="mean")
+""")
+
 # ------------------------------------------------------- 7. application
 md("application-intro", rf"""
 ## Investigation 7 — back to the application (synthetic data)
@@ -1138,6 +1272,11 @@ Relative variance divides by μ², so it explodes, and the small-error expansion
 
 Yes, by exactly what it forgets. Each merge keeps the probability, and so the entropy, of the merged outcome, but forgets which parts failed: the conditional entropy of the parts given that outcome. The parts' total entropy equals the system outcome's entropy plus all those losses, so the reduction is exact for the system's outcome, not an estimate of the whole network's entropy.
 </details>
+
+<details><summary>7. In a probability tree, why do the branches leaving a node add to 1, and what plays the role of resistance?</summary>
+
+Each branch is a conditional probability given that you reached the node, and exactly one answer happens there, so they add to 1. A leaf's probability is the product along its path, so its surprisal, −ln P, is the sum of the branch surprisals −ln q: the path is a series circuit. The entropy is the expected resistance of the path taken.
+</details>
 """)
 
 py("validation_summary", r"""
@@ -1168,6 +1307,10 @@ fixtures = [
                                                    ("parallel", [0.8, ("series", [0.6, 0.9])])]), []), 0.836722),
     ("bridge V(c)", bridge_V[bridge_index["c"]], 2 / 5),
     ("bridge escape probability", bridge_C / bridge_L[bridge_index["a"], bridge_index["a"]], 7 / 15),
+    ("weather tree: chain rule", chain_rule_entropy(WEATHER),
+     -sum(q * np.log(q) for q in (0.5, 0.18, 0.12, 0.2))),
+    ("diagnosis tree of the series pair", chain_rule_entropy(diagnosis_tree(("series", [0.8, 0.6]))),
+     entropy(0.8) + entropy(0.6)),
 ]
 for label, got, want in fixtures:
     check_exact(label, got, want)

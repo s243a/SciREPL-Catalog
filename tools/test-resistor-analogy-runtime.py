@@ -102,6 +102,7 @@ def main():
         ("larger walk network", "circuit_parameters", '("d", "b", 1.0)]',
          '("d", "b", 1.0), ("d", "e", 0.5), ("e", "b", 3.0), ("c", "e", 1.5)]', 'START = "c"', 'START = "e"'),
         ("walk starts at a", "circuit_parameters", 'START = "c"', 'START = "a"', None, None),
+        ("deeper tree", "circuit_parameters", '(0.2, "snow")]', '(0.2, [(0.9, "snow"), (0.1, "hail")])]', None, None),
     ]
     for label, cell_name, old, new, old2, new2 in scenarios:
         book_cells = edited(cells, cell_name, old, new)

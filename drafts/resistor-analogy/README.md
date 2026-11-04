@@ -5,12 +5,12 @@ combines like resistors. Independent estimates of one target combine in parallel
 add). Independent inputs to a sum combine in series (variances add). Probabilities of events
 follow neither rule, but their logarithms do. Seven short investigations each ask for a prediction,
 state the rule with its assumptions, units and exact or approximate status, and let you change
-parameters and rerun. Investigation 6 adds three more circuit dictionaries: estimates as voltage
+parameters and rerun. Investigation 6 adds four more circuit dictionaries: estimates as voltage
 sources (Millman's theorem), log-probability resistance and conductance for reliability networks,
-with the entropy lost when a network is reduced, and random walks whose hitting probabilities are
-voltages.
+with the entropy lost when a network is reduced, random walks whose hitting probabilities are
+voltages, and probability trees, where a path is a series circuit of surprisals.
 
-- Workbook: [`en/resistor-analogy.srwb`](en/resistor-analogy.srwb), 33 cells, Python with NumPy
+- Workbook: [`en/resistor-analogy.srwb`](en/resistor-analogy.srwb), 35 cells, Python with NumPy
   and the app's built-in `mplot` only. Nothing is downloaded or installed while it runs.
 - Theory: [`docs/resistor-analogy-theory.md`](../../docs/resistor-analogy-theory.md) has the full
   derivations; each investigation links to its section.

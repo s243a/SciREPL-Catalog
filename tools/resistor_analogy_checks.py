@@ -26,6 +26,7 @@ DEFAULTS = {
     "NETWORK": ("series", [("parallel", [0.9, 0.7]), 0.95, ("parallel", [0.8, ("series", [0.6, 0.9])])]),
     "EDGES": [("a", "c", 1.0), ("a", "d", 2.0), ("c", "d", 1.0), ("c", "b", 2.0), ("d", "b", 1.0)],
     "START": "c",
+    "TREE": [(0.5, "sunny"), (0.3, [(0.6, "light rain"), (0.4, "heavy rain")]), (0.2, "snow")],
 }
 
 
@@ -197,9 +198,29 @@ def validate(ns, plots):
     expect_value_error(lambda: ns["voltages"]([("a", "c", 1.0)]), "network without b accepted")
     expect_value_error(lambda: ns["voltages"]([("a", "b", -1.0)]), "negative conductance accepted")
 
+    # Probability trees: chain rule against the leaf distribution, on random trees.
+    def random_tree(depth):
+        if depth == 0 or rng.random() < 0.3:
+            return "leaf"
+        q = rng.dirichlet(np.ones(int(rng.integers(2, 5))))
+        return [(float(c), random_tree(depth - 1)) for c in q]
+    for tree in [DEFAULTS["TREE"]] + [random_tree(4) for _ in range(12)]:
+        if isinstance(tree, str):
+            continue
+        rows = list(ns["tree_leaves"](tree))
+        P = np.array([q for _, q, _ in rows])
+        check(close(P.sum(), 1.0, 1e-12), "leaf probabilities add to 1")
+        check(all(close(q, math.prod(path), 1e-12) for _, q, path in rows), "leaf = product along the path")
+        check(close(ns["chain_rule_entropy"](tree), -np.sum(P * np.log(P)), 1e-10), "chain rule")
+    for network in [DEFAULTS["NETWORK"], ("parallel", [0.3, ("series", [0.7, 0.2])])]:
+        _, _, H_parts = brute_force(network)
+        tree = ns["diagnosis_tree"](network)
+        check(close(ns["chain_rule_entropy"](tree), H_parts, 1e-10), "diagnosis tree entropy = parts' entropy")
+    expect_value_error(lambda: list(ns["tree_leaves"]([(0.5, "x"), (0.4, "y")])), "branches adding to 0.9 accepted")
+
     # Simulations: every comparison present, seeded, and within the stated tolerance.
     log = ns["MC_LOG"]
-    check(len(log) == 15, f"expected 15 simulation comparisons, got {len(log)}")
+    check(len(log) == 16, f"expected 16 simulation comparisons, got {len(log)}")
     for record in log.values():
         check(record["se"] > 0 and abs(record["z"]) < ns["Z_LIMIT"], "simulation disagrees: " + record["label"])
         check(record["n"] in (20000, 200000), "unexpected simulation size: " + record["label"])

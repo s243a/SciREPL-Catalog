@@ -13,11 +13,12 @@ and work deliberately deferred.
   approximately), and both from event probabilities. They cover correlated errors,
   a shared error floor and fixed bias, the delta method against the exact product
   variance, and why two scores for one event are not two independent events.
-  Investigation 6 adds three more exact circuit dictionaries: estimates as voltage
+  Investigation 6 adds four more exact circuit dictionaries: estimates as voltage
   sources (Millman/Thévenin), log-probability resistance and conductance for
   reliability networks (with entropy bookkeeping for the bottom-up reduction), and
   random walks and Gaussian fields on a network (voltage as hitting probability,
-  variance as effective resistance). The
+  variance as effective resistance), and probability trees (a path is a series
+  circuit of surprisals; the chain rule, and diagnosis of a network as a tree). The
   last investigation compares naive multiplication, averaging, calibration and
   stacking on explicitly synthetic CONT/jev-style predictors.
 - Python with NumPy and `mplot` only. Every simulation is seeded and reports its

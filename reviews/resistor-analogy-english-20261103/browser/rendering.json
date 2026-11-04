@@ -1,7 +1,7 @@
 {
   "allPassed": true,
   "scope": "English draft: real-app Run All, independent checks in Pyodide, 320px dark/light rendering; not a translation or native review",
-  "candidateSha256": "a95f328e8e78bdc434271b2ff4eb6445eafd14ee89b0f35dc37ed44e628c4e37",
+  "candidateSha256": "170b8942a6b3e72c4b14517686fe11c287ea826cb5b68db5a371cd7776ca143e",
   "appCommit": "f0c273e69790e7e332295644bbcce9bbe04dab70",
   "appFiles": {
     "www/js/prelude.py": "2c3af1b161bd2133595778d5ae0ff7e2a393888a975303752e4782215ec80823",
@@ -21,20 +21,21 @@
         "mode": "replace",
         "notebookId": "default",
         "name": "Resistor Analogy: When Uncertainties Add in Series or Parallel",
-        "cells": 33,
-        "size": 61651,
-        "sha256": "a95f328e8e78bdc434271b2ff4eb6445eafd14ee89b0f35dc37ed44e628c4e37"
+        "cells": 35,
+        "size": 70576,
+        "sha256": "170b8942a6b3e72c4b14517686fe11c287ea826cb5b68db5a371cd7776ca143e"
       },
-      "seconds": 6.702,
+      "seconds": 6.753,
       "markdown": {
-        "katex": 53,
+        "katex": 57,
         "katexErrors": 0,
         "rawDisplayMath": false,
         "svgs": 1,
+        "treeSvgs": 1,
         "overflow": [],
-        "details": 6
+        "details": 7
       },
-      "independentChecks": 280,
+      "independentChecks": 309,
       "plots": [
         {
           "index": 0,
@@ -125,20 +126,21 @@
         "mode": "replace",
         "notebookId": "default",
         "name": "Resistor Analogy: When Uncertainties Add in Series or Parallel",
-        "cells": 33,
-        "size": 61651,
-        "sha256": "a95f328e8e78bdc434271b2ff4eb6445eafd14ee89b0f35dc37ed44e628c4e37"
+        "cells": 35,
+        "size": 70576,
+        "sha256": "170b8942a6b3e72c4b14517686fe11c287ea826cb5b68db5a371cd7776ca143e"
       },
-      "seconds": 5.86,
+      "seconds": 5.883,
       "markdown": {
-        "katex": 53,
+        "katex": 57,
         "katexErrors": 0,
         "rawDisplayMath": false,
         "svgs": 1,
+        "treeSvgs": 1,
         "overflow": [],
-        "details": 6
+        "details": 7
       },
-      "independentChecks": 280,
+      "independentChecks": 309,
       "plots": [
         {
           "index": 0,
