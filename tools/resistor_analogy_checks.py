@@ -15,6 +15,7 @@ PLOT_TITLES = [
     "A shared error<br>cannot be averaged away",
     "Product variance<br>as relative errors grow",
     "Near zero, relative<br>uncertainty is meaningless",
+    "Two series–parallel<br>dualities",
     "Held-out reliability<br>(synthetic; bins of ≥ 20 cases)",
 ]
 DEFAULTS = {
@@ -22,6 +23,9 @@ DEFAULTS = {
     "JEV_OVERCONFIDENCE": 1.8, "P": [0.8, 0.6], "PRIOR": 0.5, "MU": [2.0, 3.0],
     "SD": [0.1, 0.2], "LOG_SD": [0.3, 0.4], "V_EQ": 4.0, "RHO": 0.5, "SHARED_S2": 1.0,
     "T_EACH": 4.0, "BIAS": 0.5, "X_EST": [10.0, 14.0], "V_EST": [4.0, 9.0], "THETA": 12.0,
+    "NETWORK": ("series", [("parallel", [0.9, 0.7]), 0.95, ("parallel", [0.8, ("series", [0.6, 0.9])])]),
+    "EDGES": [("a", "c", 1.0), ("a", "d", 2.0), ("c", "d", 1.0), ("c", "b", 2.0), ("d", "b", 1.0)],
+    "START": "c",
 }
 
 
@@ -35,6 +39,49 @@ def expect_value_error(action, message):
     except ValueError:
         return
     raise AssertionError(message)
+
+
+def binary_entropy(p):
+    return -(p * math.log(p) + (1 - p) * math.log(1 - p))
+
+
+def brute_force(network):
+    """P(system works) and H(parts | outcome) by listing every state, written independently."""
+    parts = []
+
+    def collect(block):
+        if isinstance(block, tuple):
+            for child in block[1]:
+                collect(child)
+        else:
+            parts.append(block)
+
+    collect(network)
+    up_weights, down_weights = [], []
+    for code in range(2 ** len(parts)):
+        state = [(code >> i) & 1 == 1 for i in range(len(parts))]
+        position = iter(state)
+
+        def ok(block):
+            if not isinstance(block, tuple):
+                return next(position)
+            values = [ok(child) for child in block[1]]  # consume every part in order
+            return all(values) if block[0] == "series" else any(values)
+
+        weight = math.prod(p if s else 1 - p for p, s in zip(parts, state))
+        (up_weights if ok(network) else down_weights).append(weight)
+    conditional = 0.0
+    for weights in (up_weights, down_weights):
+        total = sum(weights)
+        conditional -= sum(w * math.log(w / total) for w in weights if w > 0)
+    return sum(up_weights), conditional, sum(binary_entropy(p) for p in parts)
+
+
+def random_network(rng, depth):
+    if depth == 0 or rng.random() < 0.3:
+        return float(rng.uniform(0.05, 0.95))
+    kind = "series" if rng.random() < 0.5 else "parallel"
+    return (kind, [random_network(rng, depth - 1) for _ in range(int(rng.integers(2, 4)))])
 
 
 def validate(ns, plots):
@@ -104,9 +151,55 @@ def validate(ns, plots):
     check(close(ns["combine_posteriors"](0.8, 0.8, 0.5), 16 / 17), "posterior odds")
     check(close(ns["combine_posteriors"](0.8, 0.5, 0.5), 0.8), "uninformative second posterior")
 
+    # More circuits: Millman / Thévenin equals inverse-variance fusion.
+    for _ in range(10):
+        x, v = rng.normal(size=3), rng.uniform(0.1, 10, size=3)
+        V, R = ns["millman"](x, v)
+        _, est, var = ns["fuse_independent"](x, v)
+        check(close(V, est, 1e-10) and close(R, var, 1e-10), "Millman equals fusion")
+    # Log reliability: the duality, and reduction against brute-force enumeration.
+    for x in rng.uniform(0.01, 6, size=10):
+        check(close(ns["dual"](ns["dual"](x)), x, 1e-9), "dual is an involution")
+        check(close(math.exp(-x) + math.exp(-ns["dual"](x)), 1.0, 1e-12), "exp(-r) + exp(-g) = 1")
+    for p in rng.uniform(0.01, 0.99, size=10):
+        check(close(ns["entropy"](p), binary_entropy(p), 1e-12), "entropy = p r + (1 - p) g")
+    for network in [ns["NETWORK"]] + [random_network(rng, 3) for _ in range(12)]:
+        steps = []
+        P = ns["reduce_network"](network, steps)
+        P_bf, H_given, H_parts = brute_force(network)
+        check(close(P, P_bf, 1e-10), "reduction equals enumeration")
+        if steps:
+            lost = sum(s["lost"] for s in steps)
+            check(close(lost, H_given, 1e-9), "lost entropy equals H(parts | outcome)")
+            check(close(H_parts, binary_entropy(P) + lost, 1e-9) and lost >= -1e-12, "entropy balance")
+    check(close(brute_force(DEFAULTS["NETWORK"])[0], 0.836722), "default network probability")
+    expect_value_error(lambda: ns["reduce_network"](("series", [0.5, 1.0]), []), "probability 1 accepted")
+    expect_value_error(lambda: ns["reduce_network"](("both", [0.5, 0.5]), []), "unknown block accepted")
+    # Random walks: voltages by an explicit inverse, and the escape / Green's function identities.
+    nodes, index, L, V, C_eff = ns["voltages"](DEFAULTS["EDGES"])
+    check([round(V[index[n]], 12) for n in "abcd"] == [1.0, 0.0, 0.4, 0.6], "bridge voltages")
+    check(close(C_eff, 1.4) and close(C_eff / L[index["a"], index["a"]], 7 / 15), "bridge escape")
+    for _ in range(5):
+        names = ["a", "b", "c", "d", "e"]
+        edges = [(names[i], names[j], float(rng.uniform(0.2, 3))) for i in range(5) for j in range(i + 1, 5)
+                 if rng.random() < 0.8 or (i, j) == (0, 1)]
+        nodes, index, L, V, C_eff = ns["voltages"](edges)
+        a, b = index["a"], index["b"]
+        inner = [i for i in range(len(nodes)) if i not in (a, b)]
+        if inner:
+            explicit = -np.linalg.inv(L[np.ix_(inner, inner)]) @ L[inner, a]
+            check(np.allclose(V[inner], explicit, atol=1e-10), "harmonic voltages")
+        keep = [i for i in range(len(nodes)) if i != b]
+        G = np.linalg.inv(L[np.ix_(keep, keep)])
+        check(close(G[keep.index(a), keep.index(a)], 1 / C_eff, 1e-10), "Var(X_a) = R_eff")
+        check(np.allclose(G[:, keep.index(a)] / G[keep.index(a), keep.index(a)], V[keep], atol=1e-10),
+              "conditional mean = voltages")
+    expect_value_error(lambda: ns["voltages"]([("a", "c", 1.0)]), "network without b accepted")
+    expect_value_error(lambda: ns["voltages"]([("a", "b", -1.0)]), "negative conductance accepted")
+
     # Simulations: every comparison present, seeded, and within the stated tolerance.
     log = ns["MC_LOG"]
-    check(len(log) == 11, f"expected 11 simulation comparisons, got {len(log)}")
+    check(len(log) == 15, f"expected 15 simulation comparisons, got {len(log)}")
     for record in log.values():
         check(record["se"] > 0 and abs(record["z"]) < ns["Z_LIMIT"], "simulation disagrees: " + record["label"])
         check(record["n"] in (20000, 200000), "unexpected simulation size: " + record["label"])

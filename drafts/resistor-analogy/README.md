@@ -3,17 +3,21 @@
 *Resistor Analogy: When Uncertainties Add in Series or Parallel* tests the idea that uncertainty
 combines like resistors. Independent estimates of one target combine in parallel (precisions
 add). Independent inputs to a sum combine in series (variances add). Probabilities of events
-follow neither rule. Six short investigations each ask for a prediction, state the rule with its
-assumptions, units and exact or approximate status, and let you change parameters and rerun.
+follow neither rule, but their logarithms do. Seven short investigations each ask for a prediction,
+state the rule with its assumptions, units and exact or approximate status, and let you change
+parameters and rerun. Investigation 6 adds three more circuit dictionaries: estimates as voltage
+sources (Millman's theorem), log-probability resistance and conductance for reliability networks,
+with the entropy lost when a network is reduced, and random walks whose hitting probabilities are
+voltages.
 
-- Workbook: [`en/resistor-analogy.srwb`](en/resistor-analogy.srwb), 27 cells, Python with NumPy
+- Workbook: [`en/resistor-analogy.srwb`](en/resistor-analogy.srwb), 33 cells, Python with NumPy
   and the app's built-in `mplot` only. Nothing is downloaded or installed while it runs.
 - Theory: [`docs/resistor-analogy-theory.md`](../../docs/resistor-analogy-theory.md) has the full
   derivations; each investigation links to its section.
 - Status: English draft, not yet in the catalog index. Registration needs the reviewed
   translations and receipts that `tools/register-example-workbooks.mjs` requires.
 
-All data are synthetic. Investigation 6 uses made-up predictors in the style of two containment
+All data are synthetic. Investigation 7 uses made-up predictors in the style of two containment
 models (CONT and jev); nothing in it is an observation of the real models.
 
 ## Open and run it

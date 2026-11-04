@@ -28,7 +28,7 @@ if (evidence) {
   assert(!existsSync(path.join(evidence, 'rendering.json')), 'Never overwrite recorded evidence');
   mkdirSync(evidence, { recursive: true });
 }
-const PLOTS = 6;
+const PLOTS = 7;
 const browser = await chromium.launch({ headless: true, args: ['--no-sandbox'] });
 const runs = [];
 try {
@@ -74,7 +74,7 @@ try {
       for (const cell of cells) {
         assert(!/Traceback|Error:|FAIL|DISAGREES|\bnan\b/.test(cell.output), `Execution problem in ${cell.name}: ${cell.output.slice(0, 400)}`);
       }
-      assert(cells.find(c => c.name === 'validation_summary').output.includes('17 deterministic checks passed.'));
+      assert(cells.find(c => c.name === 'validation_summary').output.includes('24 deterministic checks passed.'));
       await page.waitForFunction(n => document.querySelectorAll('.js-plotly-plot').length === n &&
         Array.from(document.querySelectorAll('.js-plotly-plot')).every(plot => plot._fullLayout), PLOTS);
 
@@ -93,14 +93,14 @@ try {
             .map(el => el.textContent.replace(/\s+/g, ' ').slice(0, 80));
         }),
         details: Array.from(document.querySelectorAll('details > summary'))
-          .filter(summary => /^[1-5]\. /.test(summary.textContent)).length,
+          .filter(summary => /^[1-6]\. /.test(summary.textContent)).length,
       }));
       assert(markdown.katex >= 20, 'Expected rendered formulas: ' + JSON.stringify(markdown));
       assert.equal(markdown.katexErrors, 0, 'KaTeX errors');
       assert.equal(markdown.rawDisplayMath, false, 'Unrendered $$ math');
       assert.deepEqual(markdown.overflow, [], 'Too wide for a 320px screen');
       assert.equal(markdown.svgs, 1, 'Resistor diagram missing');
-      assert.equal(markdown.details, 5, 'Check-your-understanding answers missing');
+      assert.equal(markdown.details, 6, 'Check-your-understanding answers missing');
 
       // The same independent checks as the offline test, inside the app's Python.
       const payloads = await page.evaluate(() => window.__RESISTOR_PLOTS);

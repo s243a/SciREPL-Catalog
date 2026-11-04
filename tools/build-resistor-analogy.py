@@ -177,7 +177,7 @@ KEY = {
     "B": ("propagation", "a sum of different inputs; variances add (series)"),
     "C": ("propagation", "a product; relative variances add, approximately, when errors are small"),
     "D": ("events", "both distinct events must occur: multiply only under independence"),
-    "E": ("fusion", "two predictions of ONE event, not two events; see Investigations 5 and 6"),
+    "E": ("fusion", "two predictions of ONE event, not two events; see Investigations 5 and 7"),
     "F": ("events", "at least one success: 1 minus the product of the failure probabilities"),
 }
 
@@ -688,9 +688,294 @@ print(f"With prior {PRIOR}: combined posterior {combine_posteriors(0.8, 0.8, PRI
       "if the evidence were independent; 0.8 if it is the same evidence.")
 """)
 
-# ------------------------------------------------------- 6. application
+# ------------------------------------------------------- 6. more circuits
+md("more-circuits", rf"""
+## Investigation 6 — three more circuits
+
+Investigations 2–4 used variance as resistance, and Investigation 5 found that raw event probabilities follow neither rule. Here are three other exact dictionaries between circuits and probability, each with its own assumptions.
+
+**A. A noisy estimate is a voltage source with internal resistance.** Model estimate i as a source at potential $x_i$ behind a resistance $v_i$, and join all the sources at one node. Kirchhoff's current law, $\sum_i (x_i-V)/v_i=0$, puts the node at
+
+$$
+V=\frac{{\sum_i x_i/v_i}}{{\sum_i 1/v_i}},
+$$
+
+the inverse-variance estimate (Millman's theorem). The resistance seen from the node is $1/\sum_i(1/v_i)$, the fused variance. Together they are the Thévenin equivalent of the sources. So what sits *across* an element is the value of the random variable, and its uncertainty is the resistance. Assumptions: those of Investigation 2.
+
+**B. Log probabilities make the event rules additive.** For independent parts that each work with probability p, define
+
+$$
+r=-\ln p,\qquad g=-\ln(1-p).
+$$
+
+A **series** system (every part must work) multiplies the $p_i$, so the r's add like resistances. A **parallel** system (any part will do) multiplies the failure probabilities, so the g's add like conductances. They are not reciprocals; instead they satisfy
+
+$$
+e^{{-r}}+e^{{-g}}=1,
+$$
+
+which is symmetric in r and g, just as $rg=1$ is for resistors. So the map from r to g, applied twice, returns r. Near p = 1, $r\approx 1-p$: adding failure probabilities in series is the union bound. A series–parallel network of independent parts therefore reduces bottom-up like resistors. A part that appears twice, or a bridge that is not series–parallel, needs enumeration or conditioning instead.
+
+**Entropy during the reduction.** A part's state has binary entropy $h(p)=p\,r+(1-p)\,g$ nats, its expected surprisal. Each merge keeps the probability of the merged outcome exactly, so its entropy too, but forgets *which* parts failed. The amount forgotten is a conditional entropy, never negative, so reducing does lose entropy. The bookkeeping is exact:
+
+$$
+\sum_{{\text{{parts}}}} h(p_i)=h(P_{{\text{{system}}}})+\sum_{{\text{{merges}}}}\text{{lost}}.
+$$
+
+The reduction gives the entropy of the system's outcome exactly; it is not an approximation to the entropy of the whole network.
+
+**C. Random walks: here the voltage is a probability.** On a network of conductances $g_{{ij}}$, let a walker step from node i to a neighbour j with probability $g_{{ij}}/C_i$, where $C_i$ is the total conductance at i. Hold node a at 1 V and node b at 0 V. Then:
+
+- the voltage at a node is the probability that a walk from there reaches a before b;
+- a walk leaving a reaches b before returning with probability $C_{{\text{{eff}}}}/C_a$;
+- a Gaussian field with energy $\tfrac12\sum g_{{ij}}(x_i-x_j)^2$ and $x_b=0$ has $\operatorname{{Var}}(X_a)=R_{{\text{{eff}}}}(a,b)$. Here variance is literally resistance.
+
+**Predict.** Two parts in series, p = 0.8 and 0.6, work together with probability 0.48. Is the entropy of "the system works or not" larger or smaller than the entropy of both parts' states?
+
+[Theory: three more circuits]({THEORY}#6-three-more-circuits)
+""")
+
+py("circuit_parameters", r"""
+# Parameters you can edit.
+# Reliability network: a number is one part's probability of working; ("series", [...]) needs
+# every branch, ("parallel", [...]) needs any branch. All parts are independent.
+NETWORK = ("series", [("parallel", [0.9, 0.7]), 0.95, ("parallel", [0.8, ("series", [0.6, 0.9])])])
+# Random-walk network: (node, node, conductance). Node "a" is held at 1 V and node "b" at 0 V.
+EDGES = [("a", "c", 1.0), ("a", "d", 2.0), ("c", "d", 1.0), ("c", "b", 2.0), ("d", "b", 1.0)]
+START = "c"     # where the hitting-probability walks start
+SEED = 2026
+N_SIM = 20000
+""")
+
+py("voltage_sources", r"""
+def millman(potentials, resistances):
+    # Node joined to sources at potentials x_i through internal resistances v_i.
+    x = np.asarray(potentials, dtype=float)
+    g = 1.0 / require_variances(resistances)
+    if x.shape != g.shape:
+        raise ValueError("Give exactly one resistance per source.")
+    V = float(g @ x / g.sum())
+    assert abs(g @ (x - V)) <= 1e-9 * max(1.0, float(np.abs(g * x).sum())), "Kirchhoff's current law"
+    return V, float(1.0 / g.sum())   # Thévenin potential and resistance
+
+
+V, R = millman([10, 14], [4, 9])
+check_exact("node potential = fused estimate 146/13", V, 146 / 13)
+check_exact("resistance seen = fused variance 36/13", R, 36 / 13)
+# Thévenin equivalents combine like sources, so fusing in stages gives the same answer.
+V12, R12 = millman([10, 14], [4, 9])
+V_staged, R_staged = millman([V12, 11], [R12, 1])
+V_once, R_once = millman([10, 14, 11], [4, 9, 1])
+check_exact("staged fusion: same potential", V_staged, V_once)
+check_exact("staged fusion: same resistance", R_staged, R_once)
+
+V, R = millman(X_EST, V_EST)
+_, est, var = fuse_independent(X_EST, V_EST)
+print(f"\nYour Investigation 2 inputs: node at {V:.6g} U, resistance seen {R:.6g} U² "
+      f"(fusion gave {est:.6g} U and {var:.6g} U²).")
+""")
+
+py("log_reliability", r"""
+def require_probability(p):
+    p = float(p)
+    if not 0.0 < p < 1.0:
+        raise ValueError("Each part's probability must lie strictly between 0 and 1.")
+    return p
+
+
+def resistance(p):        # r = -ln p: adds in series
+    return float(-np.log(require_probability(p)))
+
+
+def conductance(p):       # g = -ln(1 - p): adds in parallel
+    return float(-np.log1p(-require_probability(p)))
+
+
+def dual(x):              # r -> g and g -> r, because exp(-r) + exp(-g) = 1
+    return float(-np.log(-np.expm1(-x)))
+
+
+def entropy(p):           # binary entropy in nats
+    return p * resistance(p) + (1 - p) * conductance(p)
+
+
+def reduce_network(block, steps):
+    # Bottom-up reduction; records the entropy each merge forgets.
+    if not isinstance(block, tuple):
+        return require_probability(block)
+    kind, parts = block
+    ps = [reduce_network(part, steps) for part in parts]
+    if kind == "series":
+        total = sum(resistance(p) for p in ps)
+        p_out, rule = float(np.exp(-total)), f"r = {total:.4f}"
+    elif kind == "parallel":
+        total = sum(conductance(p) for p in ps)
+        p_out, rule = float(-np.expm1(-total)), f"g = {total:.4f}"
+    else:
+        raise ValueError('Each block must be ("series", [...]) or ("parallel", [...]).')
+    lost = sum(entropy(p) for p in ps) - entropy(p_out)
+    steps.append({"kind": kind, "inputs": ps, "rule": rule, "p": p_out, "lost": lost})
+    return p_out
+
+
+def leaves(block):
+    return [require_probability(block)] if not isinstance(block, tuple) else \
+        [p for part in block[1] for p in leaves(part)]
+
+
+def works(block, columns):
+    # Structure function: does the block work, given an iterator over part states?
+    if not isinstance(block, tuple):
+        return next(columns)
+    values = [works(part, columns) for part in block[1]]
+    return np.logical_and.reduce(values) if block[0] == "series" else np.logical_or.reduce(values)
+
+
+def enumerate_network(block):
+    # Brute force over every combination of part states: P(system), H(parts | system).
+    p = np.array(leaves(block))
+    states = (np.arange(2 ** p.size)[:, None] >> np.arange(p.size)) & 1 == 1
+    weight = np.prod(np.where(states, p, 1 - p), axis=1)
+    up = works(block, iter(states.T))
+    conditional = 0.0
+    for outcome in (up, ~up):
+        q = weight[outcome] / weight[outcome].sum()
+        conditional -= weight[outcome].sum() * np.sum(q * np.log(q))
+    return float(weight[up].sum()), float(conditional)
+
+
+check_exact("series by resistances, p = (0.8, 0.6)", np.exp(-(resistance(0.8) + resistance(0.6))), 0.48)
+check_exact("parallel by conductances, p = (0.8, 0.6)", -np.expm1(-(conductance(0.8) + conductance(0.6))), 0.92)
+for x in (0.1, 1.0, 3.0):
+    check_exact(f"dual(dual({x:g})) = {x:g}", dual(dual(x)), x, tol=1e-10)
+check_exact("dual(r) = g for p = 0.8", dual(resistance(0.8)), conductance(0.8), tol=1e-10)
+steps = []
+P_sys = reduce_network(("series", [0.8, 0.6]), steps)
+check_exact("two-part series: lost entropy = H(parts | outcome)", steps[0]["lost"],
+            enumerate_network(("series", [0.8, 0.6]))[1])
+
+# Your network, reduced bottom-up.
+steps = []
+P_sys = reduce_network(NETWORK, steps)
+print(f"\nYour network has {len(leaves(NETWORK))} parts. Bottom-up reduction:")
+for i, s in enumerate(steps, 1):
+    print(f"  {i}. {s['kind']:<8} of " + ", ".join(f"{p:.4g}" for p in s["inputs"])
+          + f": {s['rule']} → p = {s['p']:.6g}; entropy kept {entropy(s['p']):.4f}, lost {s['lost']:.4f}")
+P_enum, H_given = enumerate_network(NETWORK)
+total = sum(entropy(p) for p in leaves(NETWORK))
+check_exact("reduction matches brute-force enumeration", P_sys, P_enum)
+check_exact("total lost = H(parts | system outcome)", sum(s["lost"] for s in steps), H_given, tol=1e-10)
+print(f"Entropy (nats): parts {total:.4f} = system outcome {entropy(P_sys):.4f} "
+      f"+ forgotten {total - entropy(P_sys):.4f}")
+if steps[-1]["kind"] == "series":   # union bound over the top-level series branches
+    print(f"Failure probability {1 - P_sys:.4f} ≤ {sum(1 - p for p in steps[-1]['inputs']):.4f}, "
+          "the sum of the series branches' failure probabilities (the union bound).")
+
+rng = np.random.default_rng(SEED)
+p_parts = np.array(leaves(NETWORK))
+simulated = rng.random((N_SIM, p_parts.size)) < p_parts
+mc_compare("network works (simulated parts)", works(NETWORK, iter(simulated.T)), P_sys, what="mean")
+""")
+
+py("reliability_duality", r"""
+# Two dualities: resistors (g = 1/r) and log probabilities (exp(-r) + exp(-g) = 1).
+r = np.linspace(0.05, 4.0, 160)
+g_log = np.array([dual(x) for x in r])
+mplot([
+    {"x": r, "y": g_log, "mode": "lines", "name": "g = −ln(1 − e⁻ʳ)"},
+    {"x": r, "y": 1 / r, "mode": "lines", "name": "g = 1/r", "line": {"dash": "dash"}},
+    {"x": [0, 4], "y": [0, 4], "mode": "lines", "name": "g = r (mirror line)", "line": {"dash": "dot"}},
+], title="Two series–parallel<br>dualities",
+   xlabel="series quantity r", ylabel="parallel quantity g",
+   layout=phone_layout(yaxis={"range": [0, 4], "automargin": True}, xaxis={"range": [0, 4], "automargin": True}))
+print("Both curves are mirror images of themselves in the dotted line: applying the map twice returns r.")
+""")
+
+py("random_walks", r"""
+def network(edges):
+    nodes = sorted({n for edge in edges for n in edge[:2]})
+    if "a" not in nodes or "b" not in nodes:
+        raise ValueError('The network needs nodes "a" and "b".')
+    index = {n: i for i, n in enumerate(nodes)}
+    L = np.zeros((len(nodes), len(nodes)))   # weighted graph Laplacian
+    for u, v, c in edges:
+        if not c > 0 or u == v:
+            raise ValueError("Each edge joins two different nodes with a positive conductance.")
+        i, j = index[u], index[v]
+        L[i, i] += c; L[j, j] += c; L[i, j] -= c; L[j, i] -= c
+    return nodes, index, L
+
+
+def voltages(edges):
+    # Kirchhoff's current law at every node except a (1 V) and b (0 V).
+    nodes, index, L = network(edges)
+    a, b = index["a"], index["b"]
+    inner = [i for i in range(len(nodes)) if i not in (a, b)]
+    V = np.zeros(len(nodes))
+    V[a] = 1.0
+    if inner:
+        A = L[np.ix_(inner, inner)]
+        if np.linalg.matrix_rank(A) < len(inner):
+            raise ValueError("Every node must connect to a or b.")
+        V[inner] = np.linalg.solve(A, -L[inner, a])
+    C_eff = float(L[a] @ V)   # current out of a at 1 V
+    return nodes, index, L, V, C_eff
+
+
+def walk(L, start, absorbing, rng, n, first_step=False):
+    # Walkers step to neighbours with probability proportional to conductance.
+    P = np.where(np.eye(len(L)) == 1, 0.0, -L) / np.diag(L)[:, None]
+    cumulative = np.cumsum(P, axis=1)
+    pos = np.full(n, start)
+    def step(at):
+        u = rng.random(at.size)
+        return np.minimum((u[:, None] > cumulative[at]).sum(axis=1), len(L) - 1)
+    if first_step:
+        pos = step(pos)
+    active = ~np.isin(pos, absorbing)
+    while active.any():
+        pos[active] = step(pos[active])
+        active = ~np.isin(pos, absorbing)
+    return pos
+
+
+# Fixed checks on the default bridge network.
+BRIDGE = [("a", "c", 1.0), ("a", "d", 2.0), ("c", "d", 1.0), ("c", "b", 2.0), ("d", "b", 1.0)]
+nodes, index, L, V, C_eff = voltages(BRIDGE)
+check_exact("bridge: V(c) = 2/5", V[index["c"]], 2 / 5)
+check_exact("bridge: V(d) = 3/5", V[index["d"]], 3 / 5)
+check_exact("bridge: effective conductance 7/5", C_eff, 7 / 5)
+check_exact("bridge: escape probability C_eff / C_a = 7/15", C_eff / L[index["a"], index["a"]], 7 / 15)
+keep = [i for i in range(len(nodes)) if i != index["b"]]
+G = np.linalg.inv(L[np.ix_(keep, keep)])   # Gaussian field covariance with x_b = 0
+ka = keep.index(index["a"])
+check_exact("Gaussian field: Var(X_a) = R_eff = 5/7", G[ka, ka], 5 / 7)
+check_exact("Gaussian field: E[X_c | X_a = 1] = V(c)", G[keep.index(index["c"]), ka] / G[ka, ka], 2 / 5)
+
+# Your network.
+nodes, index, L, V, C_eff = voltages(EDGES)
+a, b = index["a"], index["b"]
+if START not in index:
+    raise ValueError(f"START must be one of the nodes {nodes}.")
+print("\nYour network: voltage = P(reach a before b)")
+for n in nodes:
+    print(f"  {n}: {V[index[n]]:.4f}")
+print(f"Effective conductance {C_eff:.4f}, so R_eff(a, b) = {1 / C_eff:.4f}")
+
+rng = np.random.default_rng(SEED)
+end = walk(L, index[START], [a, b], rng, N_SIM)
+mc_compare("hitting probability = voltage", end == a, V[index[START]], what="mean")
+end = walk(L, a, [a, b], rng, N_SIM, first_step=True)
+mc_compare("escape probability = C_eff / C_a", end == b, C_eff / L[a, a], what="mean")
+keep = [i for i in range(len(nodes)) if i != b]
+precision = L[np.ix_(keep, keep)]
+field = np.linalg.solve(np.linalg.cholesky(precision).T, rng.standard_normal((len(keep), N_SIM)))
+mc_compare("Gaussian field: Var(X_a) = R_eff", field[keep.index(a)], 1 / C_eff)
+""")
+
+# ------------------------------------------------------- 7. application
 md("application-intro", rf"""
-## Investigation 6 — back to the application (synthetic data)
+## Investigation 7 — back to the application (synthetic data)
 
 **Everything here is illustrative.** Two made-up predictors, in the style of the containment models CONT and jev, score the same yes/no outcome. They are generated below from a model you control; they are not outputs of the real models.
 
@@ -707,7 +992,7 @@ We compare five ways of using the two scores: each score alone, the **naive prod
 
 **Predict.** Will the naive product be well calibrated? Which method gives the lowest held-out Brier score?
 
-[Theory: calibration, ranking and stacking]({THEORY}#6-application-calibration-ranking-and-stacking)
+[Theory: calibration, ranking and stacking]({THEORY}#7-application-calibration-ranking-and-stacking)
 """)
 
 py("application_parameters", r"""
@@ -848,11 +1133,17 @@ They are two predictions of one event, built from the same information. Duplicat
 
 Relative variance divides by μ², so it explodes, and the small-error expansion behind the delta method no longer holds. Use the absolute or exact formula, or the full distribution.
 </details>
+
+<details><summary>6. Does reducing a reliability network lose entropy?</summary>
+
+Yes, by exactly what it forgets. Each merge keeps the probability, and so the entropy, of the merged outcome, but forgets which parts failed: the conditional entropy of the parts given that outcome. The parts' total entropy equals the system outcome's entropy plus all those losses, so the reduction is exact for the system's outcome, not an estimate of the whole network's entropy.
+</details>
 """)
 
 py("validation_summary", r"""
 # Rerun every fixed check from the handoff in one place, independent of your parameter edits.
 w, est, var = fuse_independent([10, 14], [4, 9])
+_, bridge_index, bridge_L, bridge_V, bridge_C = voltages(BRIDGE)
 fixtures = [
     ("fusion weights", w[0], 9 / 13), ("fusion weights", w[1], 4 / 13),
     ("fusion estimate", est, 146 / 13), ("fusion variance", var, 36 / 13),
@@ -869,6 +1160,14 @@ fixtures = [
     ("any fails", any_fail([0.8, 0.6]), 0.52),
     ("any succeeds", any_succeed([0.8, 0.6]), 0.92),
     ("duplicate 0.8", np.mean([0.8, 0.8]), 0.8),
+    ("Millman node potential", millman([10, 14], [4, 9])[0], 146 / 13),
+    ("Millman resistance seen", millman([10, 14], [4, 9])[1], 36 / 13),
+    ("series by resistances", np.exp(-(resistance(0.8) + resistance(0.6))), 0.48),
+    ("parallel by conductances", -np.expm1(-(conductance(0.8) + conductance(0.6))), 0.92),
+    ("default network", reduce_network(("series", [("parallel", [0.9, 0.7]), 0.95,
+                                                   ("parallel", [0.8, ("series", [0.6, 0.9])])]), []), 0.836722),
+    ("bridge V(c)", bridge_V[bridge_index["c"]], 2 / 5),
+    ("bridge escape probability", bridge_C / bridge_L[bridge_index["a"], bridge_index["a"]], 7 / 15),
 ]
 for label, got, want in fixtures:
     check_exact(label, got, want)

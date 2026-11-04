@@ -7,12 +7,17 @@ and work deliberately deferred.
 
 - Added an English draft workbook, *Resistor Analogy: When Uncertainties Add in
   Series or Parallel* (`drafts/resistor-analogy/`), with companion theory notes
-  (`docs/resistor-analogy-theory.md`). Six investigations separate estimate fusion
+  (`docs/resistor-analogy-theory.md`). Seven investigations separate estimate fusion
   (precisions add, like parallel conductances) from propagation through sums
   (variances add, like series resistors) and products (relative variances add,
   approximately), and both from event probabilities. They cover correlated errors,
   a shared error floor and fixed bias, the delta method against the exact product
-  variance, and why two scores for one event are not two independent events. The
+  variance, and why two scores for one event are not two independent events.
+  Investigation 6 adds three more exact circuit dictionaries: estimates as voltage
+  sources (Millman/Thévenin), log-probability resistance and conductance for
+  reliability networks (with entropy bookkeeping for the bottom-up reduction), and
+  random walks and Gaussian fields on a network (voltage as hitting probability,
+  variance as effective resistance). The
   last investigation compares naive multiplication, averaging, calibration and
   stacking on explicitly synthetic CONT/jev-style predictors.
 - Python with NumPy and `mplot` only. Every simulation is seeded and reports its

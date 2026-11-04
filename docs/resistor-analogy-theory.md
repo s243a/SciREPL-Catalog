@@ -247,7 +247,135 @@ $16/17 \approx 0.941$. If both posteriors came from the *same* evidence, conditi
 fails: given $E_1$, the copy $E_2$ has likelihood ratio 1, and the answer stays 0.8. This is an
 evidence model, not a licence to multiply arbitrary model scores.
 
-## 6. Application: calibration, ranking and stacking
+## 6. Three more circuits
+
+Sections 2–4 use one dictionary: variance as resistance. Three others are exact under their own
+assumptions, and they answer a natural question: if variance is the resistance, what is the
+voltage?
+
+### Estimates as voltage sources
+
+Model estimate $i$ as an ideal source at potential $x_i$ in series with an internal resistance
+$v_i$, and join the sources at one node. With no external load, Kirchhoff's current law gives
+$\sum_i (x_i - V)/v_i = 0$, so
+
+$$
+V = \frac{\sum_i x_i / v_i}{\sum_i 1/v_i}, \qquad R_{\text{seen}} = \frac{1}{\sum_i 1/v_i}.
+$$
+
+This is Millman's theorem, and $(V, R_{\text{seen}})$ is the Thévenin equivalent of the sources.
+It is term for term the inverse-variance estimate and its variance from §2. The potential is the
+value of the random variable; the resistance is its variance. Since a Thévenin equivalent is
+itself a source, fusing in stages (fuse two estimates, then fuse the result with a third) gives
+the same answer as fusing all three at once. That is the static form of the Kalman update. The
+dictionary needs the assumptions of §2: unbiased estimates, known variances, uncorrelated errors.
+Correlated errors correspond to coupled sources and need the matrix form of §3.
+
+### Log probabilities: an exact series–parallel duality
+
+For independent parts that work with probabilities $p_i$, define $r_i = -\ln p_i$ and
+$g_i = -\ln(1 - p_i)$, both in nats. A series system works only if every part works, so
+
+$$
+P_{\text{series}} = \prod_i p_i = e^{-\sum_i r_i},
+$$
+
+and the $r_i$ add like resistances. A parallel system fails only if every part fails, so
+
+$$
+1 - P_{\text{parallel}} = \prod_i (1 - p_i) = e^{-\sum_i g_i},
+$$
+
+and the $g_i$ add like conductances. For one part, $p + (1 - p) = 1$ becomes
+
+$$
+e^{-r} + e^{-g} = 1 .
+$$
+
+The relation is symmetric in $r$ and $g$, so the map $r \mapsto g = -\ln(1 - e^{-r})$ is its own
+inverse, as $r \mapsto 1/r$ is for resistors (where $rg = 1$). Both maps are decreasing and
+mirror-symmetric in the line $g = r$. They are different maps, so the two analogies cannot be
+mixed in one circuit: a reliability network reduces with the log rules, a variance network with
+the reciprocal rules.
+
+**Approximations.** For $p$ near 1, $r = -\ln p \approx 1 - p$, so in a series system the failure
+probabilities add approximately. The exact statement is the union bound,
+$1 - \prod_i p_i \le \sum_i (1 - p_i)$. Symmetrically, for small $p$, $g \approx p$: rare
+successes in parallel add approximately.
+
+**Limits.** The rules need independent parts, each appearing once. A series–parallel network
+then reduces bottom-up exactly. A part shared by two branches breaks independence between the
+branches. A bridge is not series–parallel at all; condition on one part $e$ (pivotal
+decomposition), $P = p_e P(\text{system} \mid e \text{ works}) + (1 - p_e) P(\text{system} \mid e
+\text{ fails})$, or enumerate the states. Kirchhoff's laws do not compute reliability.
+
+### Entropy during the reduction
+
+A part with probability $p$ has binary entropy
+
+$$
+h(p) = -p \ln p - (1 - p)\ln(1 - p) = p\,r + (1 - p)\,g ,
+$$
+
+its expected surprisal. Let blocks $A$ and $B$ have independent binary outcomes (they are
+functions of disjoint, independent sets of parts), and let $C = f(A, B)$ be the merged outcome:
+"both" for series, "either" for parallel. Because $C$ is a function of $(A, B)$,
+
+$$
+h(A) + h(B) = H(A, B) = H(C) + H(A, B \mid C) .
+$$
+
+So each merge keeps the entropy of the merged outcome exactly and discards
+$H(A, B \mid C) \ge 0$: the uncertainty about which block failed, given whether the merged block
+works. Summed over the whole reduction tree the terms telescope (each inner block is the output
+of one merge and an input to the next), giving
+
+$$
+\sum_{\text{parts}} h(p_i) = h(P_{\text{system}}) + \sum_{\text{merges}} H(\text{inputs} \mid \text{output})
+= h(P_{\text{system}}) + H(\text{parts} \mid \text{system outcome}) .
+$$
+
+Reducing a network is a deterministic coarse-graining, so it cannot increase entropy, and in
+general it lowers it: the intuition that simplifying loses entropy is right. But nothing is
+approximated. The bottom-up result is the exact entropy of the system's outcome, and the
+discarded terms add up exactly to what is no longer tracked. The entropy of all the parts
+together needs no network at all, because independent entropies simply add. The workbook checks
+the sum of the losses against a brute-force conditional entropy over every combination of part
+states.
+
+### Random walks and Gaussian fields
+
+Take a connected network with conductances $g_{ij}$, and let $C_i = \sum_j g_{ij}$. A random walk
+steps from $i$ to $j$ with probability $g_{ij}/C_i$. Hold node $a$ at 1 V and node $b$ at 0 V.
+
+**Voltage is a hitting probability.** Let $h(x)$ be the probability that the walk from $x$
+reaches $a$ before $b$. Conditioning on the first step gives $h(x) = \sum_y (g_{xy}/C_x)\,h(y)$
+at every other node, with $h(a) = 1$ and $h(b) = 0$. Multiplying by $C_x$ turns this into
+Kirchhoff's current law $\sum_y g_{xy}(h(y) - h(x)) = 0$. Voltages satisfy the same equations with
+the same boundary values, and the solution is unique, so $h = V$ [4].
+
+**Escape probability.** A walk leaving $a$ reaches $b$ before returning to $a$ with probability
+$\sum_y (g_{ay}/C_a)(1 - V_y) = I/C_a = C_{\text{eff}}/C_a$, where $I$ is the current out of $a$
+at 1 V. On the workbook's bridge (edges a–c 1, a–d 2, c–d 1, c–b 2, d–b 1),
+$V_c = 2/5$, $V_d = 3/5$, $C_{\text{eff}} = 7/5$, and the escape probability is
+$(7/5)/3 = 7/15$. The bridge is not series–parallel, but Kirchhoff's laws handle it directly.
+
+**Variance is resistance in a Gaussian field.** Give the network the Gaussian density
+$\propto \exp(-\tfrac12 \sum_{i<j} g_{ij}(x_i - x_j)^2)$ with $x_b = 0$. Its precision matrix
+is the graph Laplacian with $b$'s row and column removed, so its covariance $G$ is the inverse of
+that matrix: the network's Green's function. Injecting a unit current at $a$ with $b$ grounded
+produces voltages $G e_a$, so $G_{aa}$ is the voltage at $a$ per unit current:
+
+$$
+\operatorname{Var}(X_a) = G_{aa} = R_{\text{eff}}(a, b) .
+$$
+
+Conditioning on $X_a = 1$ gives $\mathbb E[X \mid X_a = 1] = G e_a / G_{aa}$, again the voltages
+with $a$ at 1 V and $b$ at 0 V [5]. On the bridge, $\operatorname{Var}(X_a) = 5/7$ and
+$\mathbb E[X_c \mid X_a = 1] = 2/5$. One linear system thus gives hitting probabilities,
+conditional means, and variances.
+
+## 7. Application: calibration, ranking and stacking
 
 **Two questions.** *Discrimination* asks whether higher scores go with the event. The AUC, the
 probability that a random event case outscores a random non-event case (ties counting half), is
@@ -293,3 +421,9 @@ rate, ideally 0) and the calibration slope (ideally 1; below 1 means overconfide
 3. scikit-learn user guide, *Probability calibration*: calibration versus ranking and the ties
    introduced by isotonic regression. Background only; the workbook does not use scikit-learn.
    <https://scikit-learn.org/stable/modules/calibration.html>
+4. P. G. Doyle and J. L. Snell, *Random Walks and Electric Networks*, Mathematical Association of
+   America, 1984: hitting probabilities as voltages and escape probabilities from effective
+   conductance. <https://arxiv.org/abs/math/0001057>
+5. R. Lyons and Y. Peres, *Probability on Trees and Networks*, Cambridge University Press, 2016,
+   chapter 2: electrical networks, Green's functions and effective resistance.
+   <https://rdlyons.pages.iu.edu/prbtree/>

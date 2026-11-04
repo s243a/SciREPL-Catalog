@@ -97,6 +97,11 @@ def main():
         ("mean near zero", "product_parameters", "MU = [2.0, 3.0]", "MU = [0.1, 3.0]", None, None),
         ("three events", "event_parameters", "P = [0.8, 0.6]", "P = [0.9, 0.7, 0.5]", None, None),
         ("no shared error", "application_parameters", "SHARED_NOISE = 0.8", "SHARED_NOISE = 0.0", None, None),
+        ("parallel top-level network", "circuit_parameters", 'NETWORK = ("series", [("parallel", [0.9, 0.7]), 0.95,',
+         'NETWORK = ("parallel", [("series", [0.9, 0.7]), 0.95,', None, None),
+        ("larger walk network", "circuit_parameters", '("d", "b", 1.0)]',
+         '("d", "b", 1.0), ("d", "e", 0.5), ("e", "b", 3.0), ("c", "e", 1.5)]', 'START = "c"', 'START = "e"'),
+        ("walk starts at a", "circuit_parameters", 'START = "c"', 'START = "a"', None, None),
     ]
     for label, cell_name, old, new, old2, new2 in scenarios:
         book_cells = edited(cells, cell_name, old, new)
@@ -107,6 +112,14 @@ def main():
         if label == "mean near zero":
             assert "Warning: input 1 has |mean| < 3 SD" in out, "near-zero warning missing"
         print(f"Edited run passed: {label}")
+
+    try:
+        run(edited(cells, "circuit_parameters", "0.95,", "1.0,"))
+    except ValueError as error:
+        assert "strictly between 0 and 1" in str(error)
+        print("Edited run rejected as intended: a part that never fails")
+    else:
+        raise AssertionError("a probability of 1 was accepted")
 
     try:
         run(edited(cells, "correlation_parameters", "RHO = 0.5 ", "RHO = 1.5 "))
