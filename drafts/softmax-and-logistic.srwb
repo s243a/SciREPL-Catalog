@@ -1,0 +1,100 @@
+{
+  "format": "srwb",
+  "version": "1.0",
+  "notebook": {
+    "name": "Softmax and Logistic: Tiny Bookmark Choices",
+    "cells": [
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "code": "# One bookmark, competing folders\n\n**Softmax first, logistic second.** Run the Python cells from top to bottom. These tiny, invented examples teach the difference between choosing among folders and predicting a yes/no label for each folder. They are not the real traversal study and cannot establish which model works better.\n\nNo downloads, packages, keys or real bookmarks are needed. The same two input features go into both models: bookmark-title/folder cosine and bookmark-title/parent-folder cosine. Their values are **synthetic stand-ins for precomputed similarities**, not embeddings calculated here. `home` is a recorded label, not a feature. `split` holds a whole bookmark out, rather than leaking its other folder rows into training."
+      },
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "code": "## What do the CSV scores mean?\n\nEach row pairs **one bookmark** with **one candidate folder**. The two cosine values are **invented for this lesson**. No embedding model ran to produce them. In a real dataset, you could use a text embedding model such as [MiniLM](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) to turn each title into a vector, then compare the vectors with cosine similarity.\n\n| Column | Meaning |\n|---|---|\n| `title_cos` | How similar the **bookmark title** is to the **candidate folder’s name**. |\n| `parent_cos` | How similar the **same bookmark title** is to the **name of the candidate folder’s immediate parent**. This adds context: “Tutorials” under “Programming” is different from “Tutorials” under “Gardening.” |\n| `bookmark`, `folder` | Identifiers for the bookmark and candidate folder. `bookmark` also tells softmax which rows compete with one another. Neither is a numeric input. |\n| `split` | `train` rows teach the weights; `test` rows belong to a whole bookmark kept out of training. |\n| `home` | The recorded answer: `1` means this folder is a home; `0` means it isn’t recorded as one. This is the label, not an input. |\n\nSo `0.90` in `title_cos` means **strong title similarity**, not a 90% chance of a match. The model learns how much to weight each cosine, adds the weighted values to get a score, and only then turns that score into a logistic probability or a softmax share."
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "load_tiny_csv",
+        "code": "import csv, io, math\n\ncsv_text = \"\"\"bookmark,split,folder,title_cos,parent_cos,home\npython_intro,train,Programming,0.90,0.80,1\npython_intro,train,Gardening,0.10,0.20,0\npython_intro,train,Statistics,0.35,0.40,0\nseedlings,train,Programming,0.10,0.15,0\nseedlings,train,Gardening,0.85,0.90,1\nseedlings,train,Statistics,0.30,0.20,0\nprobability,train,Programming,0.40,0.30,0\nprobability,train,Gardening,0.10,0.10,0\nprobability,train,Statistics,0.90,0.85,1\npython_statistics,test,Programming,0.86,0.80,1\npython_statistics,test,Gardening,0.15,0.10,0\npython_statistics,test,Statistics,0.84,0.82,1\n\"\"\"\nrows = list(csv.DictReader(io.StringIO(csv_text)))\nfor r in rows:\n    r['x'] = [float(r['title_cos']), float(r['parent_cos'])]\n    r['y'] = int(r['home'])\ntrain = [r for r in rows if r['split'] == 'train']\ntest = [r for r in rows if r['split'] == 'test']\ngroups = [[r for r in train if r['bookmark'] == b]\n          for b in sorted({r['bookmark'] for r in train})]\nprint(len(train), 'training rows;', len(test), 'held-out rows')\nprint('Held out:', test[0]['bookmark'])"
+      },
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "code": "## 1. A shared score, then softmax\n\nBoth models learn a score `w[0] * title_cos + w[1] * parent_cos`. Softmax turns the scores for **one bookmark's candidates** into shares summing to one. A common score offset cancels. Training increases the share of recorded homes, using a uniform target if a training bookmark has more than one.\n\nThe small L2 penalty discourages extreme weights. The steps below are simple gradient descent for teaching, not a production optimizer. No held-out labels are used to fit weights."
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "shared_score",
+        "code": "def score(x, w):\n    return sum(a * b for a, b in zip(x, w))\n\ndef softmax(z):\n    e = [math.exp(v - max(z)) for v in z]\n    return [v / sum(e) for v in e]\n\ndef sigmoid(z):\n    return 1 / (1 + math.exp(-z)) if z >= 0 else math.exp(z) / (1 + math.exp(z))\n\nsteps, rate, penalty = 2000, 0.2, 0.02\nprint('Equal scores ->', softmax([0, 0, 0]))"
+      },
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "code": "## Why subtract the largest score?\n\nSoftmax turns each score `v` into a share: take `exp(v)` and divide by the sum of all the exponentials. If the scores are large, though, `exp(v)` can overflow before we get to divide.\n\nSubtracting `max(z)` from **every** score leaves the shares unchanged. Every exponential gets multiplied by the same factor, `exp(-max(z))`, which cancels between numerator and denominator. In the code we subtract **before** taking the exponential, so we never have to compute that factor separately.\n\nFor example, scores `[1000, 999, 998]` give the same shares as `[0, -1, -2]`: about `[0.665, 0.245, 0.090]`. The shifted version is safe to compute because the largest exponential is exactly `exp(0) = 1`, and the others are at most 1. Very small terms can still round to zero, but the denominator can’t vanish: it always includes that 1."
+      },
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "code": "### Why add a penalty to the loss?\n\nThe L2 penalty discourages large weights without setting a hard cap. The workbook sets `penalty = 0.02` in `shared_score`. Calling that value λ, the extra loss and its derivative with respect to one weight are:\n\n- **Extra loss:** `R(w) = (λ / 2) * (w[0]**2 + w[1]**2)`\n- **Derivative for weight k:** `∂R/∂w[k] = λ * w[k]`\n\nThat’s why `grad = [penalty * w for w in soft_w]` supplies the penalty gradient before the loop adds the data gradient. Subtracting this part of the gradient moves weights toward zero. We add it once; only the data term is averaged across bookmarks."
+      },
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "code": "### Why differentiate the log loss?\n\nThe code differentiates **negative log-likelihood (cross-entropy) with respect to the weights**, not the raw product of probabilities. For one recorded home per bookmark, the likelihood multiplies the predicted home shares across bookmarks. With multiple recorded homes, the workbook uses a share-weighted average of log probabilities within that bookmark, not a joint probability that all those folders are homes.\n\nFor a positive likelihood `L`, the derivative of `log(L)` is `(∂L/∂w[k]) / L`. Taking logs turns a product into a sum and removes the overall likelihood factor from the gradient. For one bookmark, write `log(p[i]) = z[i] - log(Z)`, where `z[i] = w · x[i]` and `Z = sum(exp(z[j]))` over that bookmark’s candidates.\n\nDifferentiating `exp(z[i])` gives `exp(z[i]) * x[i][k]`: the multiplier from the chain rule is the **feature value**, not the current weight. In the log loss the exponential terms become softmax shares, and the derivative for weight `k` becomes `sum((p[i] - q[i]) * x[i][k])`. Here `q[i]` is the target share, `r['y'] / homes`. That’s the `error * r['x'][k]` in the loop, before averaging over bookmarks and adding the penalty."
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "fit_softmax",
+        "code": "soft_w = [0.0, 0.0]\nfor step in range(steps):\n    grad = [penalty * w for w in soft_w]\n    for group in groups:\n        p = softmax([score(r['x'], soft_w) for r in group])\n        homes = sum(r['y'] for r in group)\n        for r, share in zip(group, p):\n            error = share - r['y'] / homes\n            for k in range(2):\n                grad[k] += error * r['x'][k] / len(groups)  # One group per training bookmark.\n    soft_w = [w - rate * g for w, g in zip(soft_w, grad)]\nsoft_p = softmax([score(r['x'], soft_w) for r in test])\nprint('Softmax weights:', [round(w, 3) for w in soft_w])\nfor r, p in zip(test, soft_p):\n    print(r['folder'], round(p, 3))\nprint('Sum:', round(sum(soft_p), 6))"
+      },
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "code": "## 2. See the competition\n\nAdd a hypothetical fourth candidate with exactly Programming's score, **without refitting**. Softmax shares change because the choice set changed. This duplicate is a mathematical demonstration, not a recommended duplicate-folder policy. The ranking of the original scores does not change.\n\nQuestion: can Programming and Statistics both receive a softmax share above 0.8? No: all shares must sum to one. That does not imply that either folder is an unsuitable home."
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "competition",
+        "code": "z = [score(r['x'], soft_w) for r in test]\nwith_duplicate = softmax(z + [z[0]])\nprint('Programming before:', round(soft_p[0], 3))\nprint('Programming with a duplicate:', round(with_duplicate[0], 3))\nprint('Shares with duplicate:', [round(p, 3) for p in with_duplicate])\nassert all(abs(a - b) < 1e-12 for a, b in zip(softmax(z), softmax([v + 10 for v in z])))"
+      },
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "code": "## 3. Now fit independent logistic probabilities\n\nLogistic applies a sigmoid to each row's score plus a learned intercept. It asks \"is this folder a recorded home?\" rather than requiring the folders to divide one unit of choice mass. Its outputs need not sum to one. Adding another candidate without refitting does not change the existing outputs.\n\nThis fit minimizes average row-wise binary cross-entropy plus the same weight penalty. Softmax averaged over bookmarks; logistic averages over rows. The identical numerical penalty is not a claim of equivalent regularization or a fair tuned benchmark."
+      },
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "code": "### What does the logistic intercept do?\n\nThe intercept `b` is a learned **baseline log-odds**, not a normalizing constant. In `z = w · x + b`, setting both features to zero gives odds `exp(b)` and probability `sigmoid(b)`. Changing `b` shifts every row’s log-odds by the same amount; it does not force the probabilities for a bookmark to add to one. The workbook leaves `b` unpenalized. Its gradient is the average of `p - y` because `∂z/∂b = 1`.\n\nSoftmax does have a normalizer, `Z = sum(exp(z[j]))`, shared by that bookmark’s candidates. Adding the same intercept to every candidate would multiply the numerator and denominator by the same factor, so it would cancel. That’s why there’s no shared intercept in the softmax fit."
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "fit_logistic",
+        "code": "log_w, intercept = [0.0, 0.0], 0.0\nfor step in range(steps):\n    grad = [penalty * w for w in log_w]\n    bias_grad = 0.0\n    for r in train:\n        error = sigmoid(score(r['x'], log_w) + intercept) - r['y']\n        bias_grad += error / len(train)\n        for k in range(2):\n            grad[k] += error * r['x'][k] / len(train)\n    log_w = [w - rate * g for w, g in zip(log_w, grad)]\n    intercept -= rate * bias_grad\nlog_p = [sigmoid(score(r['x'], log_w) + intercept) for r in test]\nprint('Logistic weights:', [round(w, 3) for w in log_w])\nprint('Intercept:', round(intercept, 3))\nfor r, p in zip(test, log_p):\n    print(r['folder'], round(p, 3))\nprint('Sum (not constrained):', round(sum(log_p), 3))"
+      },
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "code": "## 4. Reveal the held-out labels\n\nThe held-out bookmark is about Python statistics, so its invented labels mark both Programming and Statistics as homes. The two models answer different probability questions. Logistic *can* give both large probabilities, but this does not guarantee that it recognizes real multi-home bookmarks or that its probabilities are calibrated.\n\nSoftmax's roughly even split is not itself overconfidence. For a uniformly drawn one of two homes, either home has target probability 1/2; \"either home counts as correct\" is a different event. One invented held-out bookmark cannot measure generalization or calibration."
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "name": "compare_held_out",
+        "code": "print('Folder         home  softmax  logistic')\nfor r, s, p in zip(test, soft_p, log_p):\n    print(f\"{r['folder']:<14} {r['y']:>4}  {s:>7.3f}  {p:>8.3f}\")\nassert {r['bookmark'] for r in train}.isdisjoint({r['bookmark'] for r in test})\nassert abs(sum(soft_p) - 1) < 1e-12\nassert all(0 < p < 1 for p in soft_p + log_p)\nprint('Checks passed: whole-bookmark holdout and valid probabilities.')"
+      },
+      {
+        "type": "markdown",
+        "language": "markdown",
+        "code": "## Try one change at a time\n\n1. Change only the held-out Statistics similarities, rerun from the first Python cell, and compare both outputs. The fitted weights should stay the same.\n2. Lower `penalty` and rerun from `shared_score` onward. Do the probabilities become more extreme? This is a toy observation, not evidence about the real study.\n3. Change a training label, rerun all Python cells, and see how learning differs from changing only the candidate set.\n\n### Optional CSV import\n\nThe separate `tiny-bookmark-folders.csv` is identical to the embedded table. This workbook works without importing it. To try file import, use **Menu → Import File** and select that CSV, then replace the `rows = ...` line in the first Python cell with:\n\n```python\nwith open('/shared/data/tiny-bookmark-folders.csv', newline='') as f:\n    rows = list(csv.DictReader(f))\n```\n\nKeep the type-conversion lines below it. Use the actual imported filename if SciREPL renamed the file. Importing a CSV is separate from opening this `.srwb`; the inline copy deliberately keeps the lesson self-contained."
+      }
+    ]
+  }
+}
